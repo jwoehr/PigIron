@@ -31,6 +31,7 @@
  */
 package com.softwoehr.pigiron.access;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Enumeration;
@@ -74,7 +75,7 @@ public class ParameterArray extends Vector<VSMParm> {
     /**
      * 
      * @param index
-     * @param out
+     * @param in
      * @throws java.io.IOException
      */
     public void writeParameterAt(int index, DataOutputStream out) throws IOException {
@@ -90,8 +91,8 @@ public class ParameterArray extends Vector<VSMParm> {
         long total = 0;
         for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {
             VSMParm p = e.nextElement();
-            if (p instanceof VSMString) {
-                total += SIZEOF_INT4; // the count for a string type
+            if (p instanceof VSMString | p instanceof VSMStruct | p instanceof VSMArray) {
+                total += SIZEOF_INT4; // the count for a string, struct or array type
             }
             total += p.paramLength();
         }
@@ -102,6 +103,8 @@ public class ParameterArray extends Vector<VSMParm> {
      *
      * @param out
      * @throws java.io.IOException
+     * @see #readAll
+     * @see <a href="http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm" target="top">z/VM V5R3.0 Systems Management Application Programming SC24-6122-03</a>
      */
     public void writeAll(DataOutputStream out) throws IOException {
         /* Write the overall message count-after-this int4 */
@@ -113,6 +116,22 @@ public class ParameterArray extends Vector<VSMParm> {
         /* Write all the params */
         for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {
             e.nextElement().write(out);
+        }
+    }
+
+    /**
+     * Read in the overall message that is modeled by
+     * the compose() method of query/call classes.
+     * @param in
+     * @throws java.io.IOException
+     * @throws VSMException
+     * @see #writeAll
+     * @see <a href="http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm" target="top">z/VM V5R3.0 Systems Management Application Programming SC24-6122-03</a>
+     */
+    public void readAll(DataInputStream in) throws IOException, VSMException {
+        /* Write all the params */
+        for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {
+            e.nextElement().read(in, -1);
         }
     }
 }
