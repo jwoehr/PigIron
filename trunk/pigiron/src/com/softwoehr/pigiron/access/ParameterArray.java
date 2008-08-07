@@ -105,7 +105,10 @@ public class ParameterArray extends Vector<VSMParm> {
      */
     public void writeAll(DataOutputStream out) throws IOException {
         /* Write the overall message count-after-this int4 */
-        /* ... is the count always of type int4 ? */
+        /* ... is the count always of type int4 ?     */
+        /* Apparently so, see "Data Types" in         */
+        /* z/VM V5R3.0 Systems Management Application */
+        /* Programming SC24-6122-03                   */
         new VSMInt4(new Long(totalParameterLength()).intValue()).write(out);
         /* Write all the params */
         for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {

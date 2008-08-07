@@ -51,7 +51,7 @@ public interface VSMParm {
      *
      * @return
      */
-    public String formalName();
+    public String getFormalName();
 
     /**
      * 
