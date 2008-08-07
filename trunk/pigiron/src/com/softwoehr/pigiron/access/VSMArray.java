@@ -32,7 +32,6 @@
 package com.softwoehr.pigiron.access;
 
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
@@ -66,16 +65,6 @@ public class VSMArray extends VSMStruct implements VSMParm {
     }
 
     /**
-     *
-     * @param out
-     * @throws java.io.IOException
-     */
-    @Override
-    public void write(DataOutputStream out) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
      * The vector of the Array contains at runtime the model of
      * ONE INSTANCE of the contained type. VMSArray re-iterates
      * through this instance until the count is exhausted and
@@ -84,7 +73,6 @@ public class VSMArray extends VSMStruct implements VSMParm {
      * @param in
      * @param length
      * @throws java.io.IOException
-     * @throws VSMStructStringReadException
      */
     @Override
     public void read(DataInputStream in, int length) throws IOException, VSMException {
