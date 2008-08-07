@@ -31,6 +31,8 @@
  */
 package com.softwoehr.pigiron.access;
 
+import com.softwoehr.pigiron.access.paramstructs.CpuInfoArray;
+import com.softwoehr.pigiron.access.paramstructs.DeviceInfoArray;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -168,7 +170,9 @@ public class ImageActiveConfigurationQuery {
         outParams.add(new VSMInt4(-1, "share_value_length"));
         outParams.add(new VSMInt4(-1, "number_CPUs"));
         outParams.add(new VSMInt4(-1, "cpu_info_array_length"));
-        // outParams.add(new CpuInfoArray());
+        outParams.add(new CpuInfoArray());
+        outParams.add(new VSMInt4(-1, "device_info_array_length"));
+        outParams.add(new DeviceInfoArray());
         return outParams;
     }
 
