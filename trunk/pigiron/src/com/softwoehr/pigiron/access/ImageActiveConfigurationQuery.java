@@ -148,7 +148,10 @@ public class ImageActiveConfigurationQuery {
      * @see
      */
     protected void writeInput(DataOutputStream out) throws IOException {
-        composeInputArray().writeAll(out);
+        composeInputArray();
+        VSMInt4 overallLength = new VSMInt4(new Long(inParams.totalParameterLength()).intValue(), "output_length");
+        overallLength.write(out);
+        inParams.writeAll(out);
     }
 
     /**
