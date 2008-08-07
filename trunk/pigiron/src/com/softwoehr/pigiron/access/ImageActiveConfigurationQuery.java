@@ -31,6 +31,7 @@
  */
 package com.softwoehr.pigiron.access;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -49,6 +50,7 @@ public class ImageActiveConfigurationQuery {
     private String target_identifier;
     /* "inParams" as in "Into the Host" */
     private ParameterArray inParams;
+    private ParameterArray outParams;
     private Connection connection;
 
     /**
@@ -124,7 +126,9 @@ public class ImageActiveConfigurationQuery {
 
     /**
      *
+     * "Input" as in "input to SMAPI".
      * @return
+     * @see
      */
     protected ParameterArray composeInputArray() {
         inParams = new ParameterArray();
@@ -139,9 +143,43 @@ public class ImageActiveConfigurationQuery {
      *
      * @param out
      * @throws java.io.IOException
+     * @see
      */
     protected void writeInput(DataOutputStream out) throws IOException {
         composeInputArray().writeAll(out);
+    }
+
+    /**
+     *
+     * "Input" as in "input to SMAPI".
+     * @return
+     * @see
+     */
+    protected ParameterArray composeOutputArray() {
+        outParams = new ParameterArray();
+        outParams.add(new VSMInt4(-1, "request_id_immediate"));
+        outParams.add(new VSMInt4(-1, "output_length"));
+        outParams.add(new VSMInt4(-1, "request_id"));
+        outParams.add(new VSMInt4(-1, "return_code"));
+        outParams.add(new VSMInt4(-1, "reason_code"));
+        outParams.add(new VSMInt4(-1, "memory_size"));
+        outParams.add(new VSMInt1(-1, "memory_unit"));
+        outParams.add(new VSMInt1(-1, "share_type"));
+        outParams.add(new VSMInt4(-1, "share_value_length"));
+        outParams.add(new VSMInt4(-1, "number_CPUs"));
+        outParams.add(new VSMInt4(-1, "cpu_info_array_length"));
+        // outParams.add(new CpuInfoArray());
+        return outParams;
+    }
+
+    /**
+     *
+     * @param in
+     * @throws java.io.IOException
+     * @see
+     */
+    protected void readOutput(DataInputStream in) throws IOException {
+        // composeInputArray().readAll(in);
     }
 
     /**

@@ -39,7 +39,7 @@ import java.io.IOException;
  * 
  * @author jax
  */
-public class VSMInt1 implements VSMParm {
+public class VSMInt1 implements VSMParm, VSMInt {
 
     private int value;
     private String formalName;
@@ -50,17 +50,8 @@ public class VSMInt1 implements VSMParm {
     public VSMInt1() {
     }
 
-    /** 
-     * 
-     * @param value
-     */
-    public VSMInt1(byte value) {
-        this();
-        setValue(value);
-    }
-
-    /** 
-     * 
+    /**
+     *
      * @param value
      */
     public VSMInt1(int value) {
@@ -72,9 +63,37 @@ public class VSMInt1 implements VSMParm {
      * 
      * @param value
      */
+    public VSMInt1(byte value) {
+        this();
+        setValue(value);
+    }
+
+    /** 
+     * 
+     * @param value
+     * @param formalName
+     */
+    public VSMInt1(int value, String formalName) {
+        this(value);
+        setFormalName(formalName);
+    }
+
+    /**
+     *
+     * @param value
+     * @param formalName
+     */
+    public VSMInt1(byte value, String formalName) {
+        this(value);
+        setFormalName(formalName);
+    }
+
+    /**
+     * 
+     * @param value
+     */
     public void setValue(byte value) {
         this.value = value;
-
     }
 
     /**
@@ -83,7 +102,6 @@ public class VSMInt1 implements VSMParm {
      */
     public void setValue(int value) {
         this.value = value;
-
     }
 
     /**
@@ -133,10 +151,18 @@ public class VSMInt1 implements VSMParm {
     }
 
     /**
-     * 
+     *
      * @param formalName
      */
     public void setFormalName(String formalName) {
         this.formalName = formalName;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public VSMParm copyOf() {
+        return new VSMInt1(value, formalName);
     }
 }

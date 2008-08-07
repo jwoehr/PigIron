@@ -1,0 +1,132 @@
+/*
+ * Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+ * PO Box 51, Golden, Colorado 80402-0051 USA
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 
+ *     * Redistributions of source code must retain the above copyright
+ *         notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *         notice, this list of conditions and the following disclaimer
+ *         in the documentation and/or other materials provided with the
+ *         distribution.
+ *     * Neither the name of the PigIron Project nor the names of its
+ *         contributors may be used to endorse or promote products derived
+ *         from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+ * THE POSSIBILITY OF SUCH DAMAGE.
+ */
+package com.softwoehr.pigiron.access.paramstructs;
+
+import com.softwoehr.pigiron.access.VSMInt1;
+import com.softwoehr.pigiron.access.VSMInt4;
+import com.softwoehr.pigiron.access.VSMString;
+import com.softwoehr.pigiron.access.VSMStruct;
+import java.io.DataInputStream;
+import java.io.IOException;
+
+/**
+ * Info about a specific CPU
+ * Used in IMAGE_ACTIVE_CONFIGURATION_QUERY
+ * @author jax
+ */
+public class CpuInfoStruct extends VSMStruct {
+
+    /**
+     * null is legal value, means "just clear me and
+     * re-initialize me with a valid list of yet-unread
+     * parameters".
+     * @param value
+     * @param formalName
+     */
+    public CpuInfoStruct(VSMStruct value, String formalName) {
+        this(value);
+        setFormalName(formalName);
+    }
+
+    /**
+     * null is legal value, means "just clear me".
+     * @param value
+     */
+    public CpuInfoStruct(VSMStruct value) {
+        super(value);
+        if (value == null) {
+            modelFormalParameters();
+        }
+    }
+
+    /**
+     *
+     */
+    public CpuInfoStruct() {
+        super();
+        modelFormalParameters();
+    }
+
+    /**
+     *
+     */
+    public void modelFormalParameters() {
+        clear();        
+
+
+
+    }
+    /**
+     * Info about a specific CPU
+     *///       private int number;
+//       private string String id;
+//       private byte status;
+    /**
+     * Create yourself given the inbound data stream
+     */
+//    CpuInfoStruct(DataInputStream in) throws IOException {
+//        int structLength = in.readInt();
+//        number = in.readInt();
+//        id = readString(in.readInt(), in);
+//        status = in.readByte();
+//    }
+
+//    /**
+//     * Format contents into the provided StringBuffer
+//     */
+//    public void toString(StringBuffer sb) {
+//        sb.append("\tid     ").append(id).append("\n");
+//        sb.append("\tnumber ").append(number).append("\n");
+//        sb.append("\tstatus ").append(status).append("\n");
+//    }
+
+//    /**
+//     * How much did we consume off the wire?
+//     * Required because the returned plist specifies the entire
+//     * length of the arrays so each specific object could take diffrent
+//     * amounts of data off the wire.  This will be called after we've
+//     * been created to decrement the 'array length' do ensure we stop
+//     * ad the appropriate point in time.
+//     */
+//    int size() {
+//        return 4 // struct length
+//                + 4 // number
+//                + 4 // string length
+//                + id.length() // the string itself
+//                + 1;           // status byte
+//    }
+//}
+    /**
+     * An object that contains information about a device.
+     */
+}
+
