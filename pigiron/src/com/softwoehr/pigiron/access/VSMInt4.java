@@ -42,7 +42,9 @@ import java.io.IOException;
  */
 public class VSMInt4 implements VSMParm {
 
-    private int value;
+    private int value = -1;
+     // -1 indicates "Unspecified"
+    private String formalName;
 
     /**
      * 
@@ -105,7 +107,10 @@ public class VSMInt4 implements VSMParm {
         d.write(value);
     }
 
-    public String formalName() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public String getFormalName() {
+         return formalName;
+    }
+     public void setFormalName(String formalName) {
+        this.formalName = formalName;
     }
 }

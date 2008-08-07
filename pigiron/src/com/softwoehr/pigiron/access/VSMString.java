@@ -29,7 +29,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package com.softwoehr.pigiron.access;
 
 import java.io.DataInputStream;
@@ -43,6 +42,7 @@ import java.io.IOException;
 public class VSMString implements VSMParm {
 
     private String value;
+    private String formalName;
 
     /**
      * 
@@ -107,8 +107,20 @@ public class VSMString implements VSMParm {
         d.writeBytes(value);
     }
 
-    public String formalName() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    /**
+     *
+     * @return
+     */
+    public String getFormalName() {
+        return formalName;
+    }
+
+    /**
+     *
+     * @param formalName
+     */
+    public void setFormalName(String formalName) {
+        this.formalName = formalName;
     }
     /*     
     // indicates any non-null (x’00’) characters
