@@ -134,7 +134,8 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
      * The vector of the struct contains at runtime the model of
      * what it's going to need to read. VMSStruct iterates through
      * its vector as a strategy and creates a new vector of the
-     * items it reads one-at-a-time.
+     * items it reads one-at-a-time. It then instantiates the new
+     * vector in itself.
      * @param in
      * @param length
      * @throws java.io.IOException
@@ -144,7 +145,15 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
         VSMStruct v = new VSMStruct();
         for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {
             VSMParm model = e.nextElement();
-            if (model instanceof VSMString) {
+            if (model instanceof VSMStruct) {
+                VSMParm putativeStringLength = v.lastElement();
+                if (putativeStringLength instanceof VSMInt4) {
+                    VSMStruct newReceiver = new VSMStruct();
+                    newReceiver.read(in, (VSMInt4.class.cast(putativeStringLength)).getValue());
+                } else {
+                    throw new VSMStructStructReadException("Couldn't read struct because previous parameter read was not a count of type int4.");
+                }
+            } else if (model instanceof VSMString) {
                 VSMParm putativeStringLength = v.lastElement();
                 if (putativeStringLength instanceof VSMInt4) {
                     VSMString newReceiver = new VSMString(null, model.getFormalName());
@@ -173,6 +182,20 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
          * @param message
          */
         public VSMStructStringReadException(String message) {
+            super(message);
+        }
+    }
+
+    /**
+     *
+     */
+    public class VSMStructStructReadException extends VSMException {
+
+        /**
+         *
+         * @param message
+         */
+        public VSMStructStructReadException(String message) {
             super(message);
         }
     }
