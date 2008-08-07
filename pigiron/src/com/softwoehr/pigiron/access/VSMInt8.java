@@ -61,6 +61,16 @@ public class VSMInt8 implements VSMParm {
     }
 
     /**
+     *
+     * @param value
+     * @param formalName
+     */
+    public VSMInt8(long value, String formalName) {
+        this(value);
+        setFormalName(formalName);
+    }
+
+    /**
      * 
      * @param value
      */
@@ -120,5 +130,9 @@ public class VSMInt8 implements VSMParm {
      */
     public void setFormalName(String formalName) {
         this.formalName = formalName;
+    }
+
+    public VSMParm copyOf() {
+        return new VSMInt8(value, formalName);
     }
 }

@@ -54,6 +54,12 @@ public interface VSMParm {
     public String getFormalName();
 
     /**
+     *
+     * @return
+     */
+    public VSMParm copyOf();
+
+    /**
      * 
      * @param out
      * @throws java.io.IOException
@@ -65,6 +71,7 @@ public interface VSMParm {
      * @param in
      * @param length
      * @throws java.io.IOException
+     * @throws VSMException
      */
-    public void read(DataInputStream in, int length) throws java.io.IOException;
+    public void read(DataInputStream in, int length) throws java.io.IOException, VSMException;
 }

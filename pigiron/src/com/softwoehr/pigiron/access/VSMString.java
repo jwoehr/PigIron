@@ -60,6 +60,16 @@ public class VSMString implements VSMParm {
     }
 
     /**
+     *
+     * @param value
+     * @param formalName
+     */
+    public VSMString(String value, String formalName) {
+        this(value);
+        setFormalName(formalName);
+    }
+
+    /**
      * 
      * @return
      */
@@ -121,6 +131,14 @@ public class VSMString implements VSMParm {
      */
     public void setFormalName(String formalName) {
         this.formalName = formalName;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public VSMParm copyOf() {
+        return new VSMString(value, formalName);
     }
     /*     
     // indicates any non-null (x’00’) characters
