@@ -127,7 +127,10 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
      * @throws java.io.IOException
      */
     public void write(DataOutputStream out) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        new VSMInt4(paramLength()).write(out);
+       for (Enumeration<VSMParm> e = elements();e.hasMoreElements();) {
+           e.nextElement().write(out);
+       }
     }
 
     /**
@@ -146,10 +149,18 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
         for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {
             VSMParm model = e.nextElement();
             if (model instanceof VSMStruct) {
-                VSMParm putativeStringLength = v.lastElement();
-                if (putativeStringLength instanceof VSMInt4) {
+                VSMParm putativeLength = v.lastElement();
+                if (putativeLength instanceof VSMInt4) {
                     VSMStruct newReceiver = new VSMStruct();
-                    newReceiver.read(in, (VSMInt4.class.cast(putativeStringLength)).getValue());
+                    newReceiver.read(in, (VSMInt4.class.cast(putativeLength)).getValue());
+                } else {
+                    throw new VSMStructStructReadException("Couldn't read struct because previous parameter read was not a count of type int4.");
+                }
+            } else if (model instanceof VSMArray) {
+                VSMParm putativeLength = v.lastElement();
+                if (putativeLength instanceof VSMInt4) {
+                    VSMArray newReceiver = new VSMArray();
+                    newReceiver.read(in, (VSMInt4.class.cast(putativeLength)).getValue());
                 } else {
                     throw new VSMStructStructReadException("Couldn't read struct because previous parameter read was not a count of type int4.");
                 }
