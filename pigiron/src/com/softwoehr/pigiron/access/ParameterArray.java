@@ -35,6 +35,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.ListIterator;
 import java.util.Vector;
 
 /**
@@ -130,24 +131,45 @@ public class ParameterArray extends Vector<VSMParm> {
      */
     public void readAll(DataInputStream in) throws IOException, VSMException {
         /* Write all the params */
-        for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {
-            VSMParm previousElement = null;
-            VSMParm v = e.nextElement();
-            if (v instanceof VSMInt) {
-                /* Debug */ System.out.println("reading a VSMInt");
-                v.read(in, -1);
-                /* Debug */ System.out.println("Value of read VSMInt " + v.getFormalName() +" == " + VSMInt.class.cast(v).getLongValue());
-            } else if (v instanceof VSMString | v instanceof VSMArray | v instanceof VSMStruct) {
-                if (previousElement instanceof VSMInt4) {
-                    int stringLength = VSMInt4.class.cast(previousElement).getValue();
-                    v.read(in, stringLength);
+        ListIterator<VSMParm> list = listIterator();
+        VSMParm previous = null;
+        while (list.hasNext()) {
+            VSMParm current = list.next();
+            /* Debug */ System.err.println("next list item in ParameterArray.readAll is " + current);
+            if (current instanceof VSMInt) {
+                /* Debug */ System.err.println("reading a VSMInt ");
+                current.read(in, -1);
+                /* Debug */ System.err.println("Value of read VSMInt " + current.getFormalName() + " == " + VSMInt.class.cast(current).getLongValue());
+            } else if (current instanceof VSMString | current instanceof VSMArray | current instanceof VSMStruct) {
+                if (list.hasPrevious()) {
+                    previous = list.previous();
+                    list.next(); // reinstate cursor before we forget to do so!
+                    if (previous instanceof VSMInt4) {
+                        int countLength = VSMInt4.class.cast(previous).getValue();
+                        current.read(in, countLength);
+                    } else {
+                        // The previous parm isn't the required count for the current counted parmtype
+                        throw new ParameterArrayReadAllException("Previous parm was not a count for the current counted parmtype. " + current);
+                    }
+                } else {
+                    // There's no count for the counted parmtype
+                    throw new ParameterArrayReadAllException("There is no count for the current counted parmtype. " + current);
                 }
-            } /*else if (v instanceof VSMArray) {
+            }
+        }
+    }
 
-            } else if (v instanceof VSMStruct) {
+    /**
+     *
+     */
+    public class ParameterArrayReadAllException extends VSMException {
 
-            }*/
-            previousElement = v;
+        /**
+         *
+         * @param message
+         */
+        public ParameterArrayReadAllException(String message) {
+            super(message);
         }
     }
 }
