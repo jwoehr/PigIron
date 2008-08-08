@@ -131,7 +131,23 @@ public class ParameterArray extends Vector<VSMParm> {
     public void readAll(DataInputStream in) throws IOException, VSMException {
         /* Write all the params */
         for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {
-            e.nextElement().read(in, -1);
+            VSMParm previousElement = null;
+            VSMParm v = e.nextElement();
+            if (v instanceof VSMInt) {
+                /* Debug */ System.out.println("reading a VSMInt");
+                v.read(in, -1);
+                /* Debug */ System.out.println("Value of read VSMInt " + v.getFormalName() +" == " + VSMInt.class.cast(v).getLongValue());
+            } else if (v instanceof VSMString | v instanceof VSMArray | v instanceof VSMStruct) {
+                if (previousElement instanceof VSMInt4) {
+                    int stringLength = VSMInt4.class.cast(previousElement).getValue();
+                    v.read(in, stringLength);
+                }
+            } /*else if (v instanceof VSMArray) {
+
+            } else if (v instanceof VSMStruct) {
+
+            }*/
+            previousElement = v;
         }
     }
 }

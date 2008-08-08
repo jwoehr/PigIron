@@ -29,9 +29,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
-
-
 package com.softwoehr.pigiron;
+
+import com.softwoehr.pigiron.access.ImageActiveConfigurationQuery;
+import com.softwoehr.pigiron.access.VSMException;
+import java.io.IOException;
 
 /**
  *
@@ -39,7 +41,7 @@ package com.softwoehr.pigiron;
  */
 public class Main {
 
-    public static void main (String [] argv) {
-
+    public static void main(String[] argv) throws IOException, VSMException {
+        ImageActiveConfigurationQuery.main(argv);
     }
 }

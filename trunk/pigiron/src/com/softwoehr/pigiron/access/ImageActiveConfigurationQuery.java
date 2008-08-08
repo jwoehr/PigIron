@@ -135,29 +135,29 @@ public class ImageActiveConfigurationQuery {
      */
     protected ParameterArray composeInputArray() {
         inParams = new ParameterArray();
-        inParams.add(new VSMString(IMAGE_ACTIVE_CONFIGURATION_QUERY));
-        inParams.add(new VSMString(userid));
-        inParams.add(new VSMString(password));
-        inParams.add(new VSMString(target_identifier));
+        inParams.add(new VSMString(IMAGE_ACTIVE_CONFIGURATION_QUERY, "IMAGE_ACTIVE_CONFIGURATION_QUERY"));
+        inParams.add(new VSMString(userid, "userid"));
+        inParams.add(new VSMString(password, "password"));
+        inParams.add(new VSMString(target_identifier, "target_identifier"));
         VSMInt4 outputLength = new VSMInt4(new Long(inParams.totalParameterLength()).intValue(), "output_length");
         inParams.insertElementAt(outputLength, 0);
         return inParams;
     }
 
     /**
-     *
+     * "Input" as in "input to SMAPI".
+     * composeInputArray must have been called first
      * @param out
      * @throws java.io.IOException
      * @see
      */
     protected void writeInput(DataOutputStream out) throws IOException {
-        composeInputArray();
-        inParams.writeAll(out);
+         inParams.writeAll(out);
     }
 
     /**
      *
-     * "Input" as in "input to SMAPI".
+     * "output" as in "output from SMAPI"
      * @return
      * @see
      */
@@ -174,21 +174,22 @@ public class ImageActiveConfigurationQuery {
         outParams.add(new VSMInt4(-1, "share_value_length"));
         outParams.add(new VSMInt4(-1, "number_CPUs"));
         outParams.add(new VSMInt4(-1, "cpu_info_array_length"));
-        outParams.add(new CpuInfoArray());
+        outParams.add(new CpuInfoArray(null, "cpu_info_array"));
         outParams.add(new VSMInt4(-1, "device_info_array_length"));
-        outParams.add(new DeviceInfoArray());
+        outParams.add(new DeviceInfoArray(null, "device_info_array"));
         return outParams;
     }
 
     /**
-     *
+     * "output" as in "output from SMAPI"
+     * composeOutputArray must have been called first
      * @param in
      * @throws java.io.IOException
      * @throws VSMException
-     * @see
+     * @see #composeOutputArray
      */
     protected void readOutput(DataInputStream in) throws IOException, VSMException {
-        composeOutputArray().readAll(in);
+        outParams.readAll(in);
     }
 
     /**
@@ -231,7 +232,6 @@ public class ImageActiveConfigurationQuery {
      */
     public ParameterArray doIt() throws IOException, VSMException {
         /* This will hold return from SMAPI call */
-        ParameterArray outputParameters = new ParameterArray();
         /* debug */ System.err.println("doIt created outputParameters");
         composeInputArray();
         /* debug */ System.err.println("doIt composed input array");
@@ -245,7 +245,7 @@ public class ImageActiveConfigurationQuery {
         /* debug */ System.err.println("doIt read output");
         disconnect();
         /* debug */ System.err.println("doIt disconnected");
-        return outputParameters;
+        return outParams;
     }
 
     /**
@@ -255,13 +255,20 @@ public class ImageActiveConfigurationQuery {
      * @throws VSMException
      */
     public static void main(String[] argv) throws IOException, VSMException {
-        System.out.println("Args are: " + argv[0] +" " + argv[1] +" " + argv[2] +" " + argv[3] +" " + argv[4]);
+        if (argv.length == 5) {
+            System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4]);
+        }
         if (argv.length != 5) {
             System.out.println("usage: args are:\ninetaddr port user pw target");
             System.exit(1);
         }
         ImageActiveConfigurationQuery iq = new ImageActiveConfigurationQuery(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4]);
         ParameterArray result = iq.doIt();
+        /* Debug */
+        /*ParameterArray result = iq.composeInputArray();
+        System.out.println(result.toString());
+        result = iq.composeOutputArray();
+        System.out.println(result.toString());*/       /* Debug */
         System.out.println("Returns from call to ImageActiveConfigurationQuery:");
         for (Enumeration<VSMParm> e = result.elements(); e.hasMoreElements();) {
             System.out.println(e.nextElement().toString());
