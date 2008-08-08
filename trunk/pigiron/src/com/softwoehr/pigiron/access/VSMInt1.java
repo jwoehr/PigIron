@@ -129,7 +129,7 @@ public class VSMInt1 implements VSMParm, VSMInt {
      * @throws java.io.IOException
      */
     public void read(DataInputStream in, int length) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        setValue(in.readByte());
     }
 
     /**
@@ -164,5 +164,17 @@ public class VSMInt1 implements VSMParm, VSMInt {
      */
     public VSMParm copyOf() {
         return new VSMInt1(value, formalName);
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer(super.toString());
+        sb.append("FormalName == " + formalName + "\n");
+        sb.append("Value == " + value + "\n");
+        return sb.toString();
     }
 }

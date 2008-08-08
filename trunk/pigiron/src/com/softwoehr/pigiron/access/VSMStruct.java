@@ -218,4 +218,19 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     public VSMParm copyOf() {
         return new VSMStruct(this, formalName);
     }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer(super.toString());
+        sb.append("FormalName == " + formalName + "\n");
+        sb.append("Struct members follow:\n");
+        for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {
+            sb.append(e.nextElement().toString());
+        }
+        return sb.toString();
+    }
 }
