@@ -39,4 +39,14 @@ import com.softwoehr.pigiron.access.VSMArray;
  */
 public class CpuInfoArray extends VSMArray {
 
+    public CpuInfoArray(VSMArray value, String formalName) {
+        super(value, formalName);
+    }
+
+    public CpuInfoArray(VSMArray value) {
+        super(value);
+    }
+
+    public CpuInfoArray() {
+    }
 }

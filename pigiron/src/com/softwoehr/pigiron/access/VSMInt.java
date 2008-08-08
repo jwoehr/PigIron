@@ -38,4 +38,6 @@ package com.softwoehr.pigiron.access;
  */
 public interface VSMInt {
 
+    long getLongValue () ;
+
 }

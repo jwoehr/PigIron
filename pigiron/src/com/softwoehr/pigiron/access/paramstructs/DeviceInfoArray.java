@@ -44,6 +44,17 @@ import java.io.IOException;
  */
 public class DeviceInfoArray extends VSMArray {
 
+    public DeviceInfoArray(VSMArray value, String formalName) {
+        super(value, formalName);
+    }
+
+    public DeviceInfoArray(VSMArray value) {
+        super(value);
+    }
+
+    public DeviceInfoArray() {
+    }
+
     /**
      *
      * @return

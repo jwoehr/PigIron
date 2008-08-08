@@ -120,6 +120,14 @@ public class VSMInt8 implements VSMParm {
      *
      * @return
      */
+    public long getLongValue() {
+        return new Long(getValue()).longValue();
+    }
+
+    /**
+     *
+     * @return
+     */
     public String getFormalName() {
         return formalName;
     }
@@ -143,8 +151,8 @@ public class VSMInt8 implements VSMParm {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer(super.toString());
-        sb.append("FormalName == " + formalName + "\n");
-        sb.append("Value == " + value + "\n");
+        sb.append(" FormalName == " + formalName);
+        sb.append(" Value == " + value);
         return sb.toString();
     }
 }
