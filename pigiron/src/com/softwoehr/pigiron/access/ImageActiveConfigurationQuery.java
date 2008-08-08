@@ -37,6 +37,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 
 /**
  *
@@ -138,6 +139,8 @@ public class ImageActiveConfigurationQuery {
         inParams.add(new VSMString(userid));
         inParams.add(new VSMString(password));
         inParams.add(new VSMString(target_identifier));
+        VSMInt4 outputLength = new VSMInt4(new Long(inParams.totalParameterLength()).intValue(), "output_length");
+        inParams.insertElementAt(outputLength, 0);
         return inParams;
     }
 
@@ -149,8 +152,6 @@ public class ImageActiveConfigurationQuery {
      */
     protected void writeInput(DataOutputStream out) throws IOException {
         composeInputArray();
-        VSMInt4 overallLength = new VSMInt4(new Long(inParams.totalParameterLength()).intValue(), "output_length");
-        overallLength.write(out);
         inParams.writeAll(out);
     }
 
@@ -183,10 +184,11 @@ public class ImageActiveConfigurationQuery {
      *
      * @param in
      * @throws java.io.IOException
+     * @throws VSMException
      * @see
      */
-    protected void readOutput(DataInputStream in) throws IOException {
-        // composeInputArray().readAll(in);
+    protected void readOutput(DataInputStream in) throws IOException, VSMException {
+        composeOutputArray().readAll(in);
     }
 
     /**
@@ -225,68 +227,44 @@ public class ImageActiveConfigurationQuery {
      *
      * @return
      * @throws java.io.IOException
+     * @throws VSMException
      */
-    public ParameterArray doIt() throws IOException {
+    public ParameterArray doIt() throws IOException, VSMException {
         /* This will hold return from SMAPI call */
         ParameterArray outputParameters = new ParameterArray();
+        /* debug */ System.err.println("doIt created outputParameters");
         composeInputArray();
+        /* debug */ System.err.println("doIt composed input array");
+        composeOutputArray();
+        /* debug */ System.err.println("doIt composed output array");
         connect();
+        /* debug */ System.err.println("doIt connected");
         writeInput(connection.getOutputStream());
-        /* readOutput(outputParameters) */
+        /* debug */ System.err.println("doIt wrote input");
+        readOutput(connection.getInputStream());
+        /* debug */ System.err.println("doIt read output");
         disconnect();
+        /* debug */ System.err.println("doIt disconnected");
         return outputParameters;
     }
+
+    /**
+     *
+     * @param argv
+     * @throws IOException
+     * @throws VSMException
+     */
+    public static void main(String[] argv) throws IOException, VSMException {
+        System.out.println("Args are: " + argv[0] +" " + argv[1] +" " + argv[2] +" " + argv[3] +" " + argv[4]);
+        if (argv.length != 5) {
+            System.out.println("usage: args are:\ninetaddr port user pw target");
+            System.exit(1);
+        }
+        ImageActiveConfigurationQuery iq = new ImageActiveConfigurationQuery(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4]);
+        ParameterArray result = iq.doIt();
+        System.out.println("Returns from call to ImageActiveConfigurationQuery:");
+        for (Enumeration<VSMParm> e = result.elements(); e.hasMoreElements();) {
+            System.out.println(e.nextElement().toString());
+        }
+    }
 }
-
-/**
- * Input Parameters:
-
-        input_length
-        function_name_length
-        function_name
-        authenticated_userid_length
-        authenticated_userid
-        password_length
-        password
-        target_identifier_length
-        target_identifier
-
-Response 1 – Immediate Request Verification:
-
-        request_id
-
-Response 2 – Output Parameters:
-
-        output_length
-        request_id
-        return_code
-        reason_code
-        memory_size
-        memory_unit
-        share_type
-        share_value_length
-        share_value
-        number_CPUs
-        CPU_info_array_length
-        CPU_info_array (1)
-
-            CPU_info_structure_length
-            CPU_info_structure (2)
-
-                CPU_number
-                CPU_id_length
-                CPU_id
-                CPU_status
-
-        device_info_array_length
-        device_info_array (1)
-
-            device_info_structure_length
-            device_info_structure (2)
-
-                device_type
-                device_address_length
-                device_address
-
-
- */

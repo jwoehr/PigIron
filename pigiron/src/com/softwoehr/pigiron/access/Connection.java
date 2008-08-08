@@ -55,9 +55,11 @@ public class Connection {
     /**
      * 
      * @param hostname
-     * @param portnumber
+     * @param port
      */
-    public Connection(String hostname, int portnumber) {
+    public Connection(String hostname, int port) {
+        this.hostname = hostname;
+        this.port = port;
     }
 
     /**
@@ -160,6 +162,7 @@ public class Connection {
      * @throws IOException 
      */
     public void connect() throws UnknownHostException, IOException {
+        /* Debug */ System.out.println("Connection.connect ... host and port are " + hostname + port);
         socket = new Socket(hostname, port);
         outputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         inputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));

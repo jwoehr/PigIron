@@ -102,7 +102,9 @@ public class VSMString implements VSMParm {
      * @throws java.io.IOException
      */
     public void read(DataInputStream in, int length) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        byte[] bytes = new byte[length];
+        in.readFully(bytes);
+        setValue(new String(bytes));
     }
 
     /**
@@ -140,25 +142,16 @@ public class VSMString implements VSMParm {
     public VSMParm copyOf() {
         return new VSMString(value, formalName);
     }
-    /*     
-    // indicates any non-null (x’00’) characters
-    char 
-    char10 // indicates numeric digits 0-9
-    char16 // indicates hexadecimal digits 0-9 and A-F
-    char17 // indicates hexadecimal digits 0-9 and A-F,
-    // plus the hyphen (-) or minus sign.
-    char26 // indicates alphabetics A-Z
-    char36 // indicates alphanumerics A-Z plus 0-9
-    char37 // indicates alphanumerics A-Z, 0-9, and
-    // the hyphen (-) or minus sign
-    char42 // indicates A-Z plus 0-9 plus @#$+-:
-    char43 // indicates A-Z plus 0-9 plus @#$+-: plus
-    // underscore (_)
-    char44 // indicates A-Z plus 0-9 plus @#$+-: plus
-    // underscore (_) and the equal sign (=)
-    charNA // no known character set restrictions
-    charNB // indicates non-blank (x’20’), non-null
-    // (x’00’), non-delimiter (x’FF’), non-carriage
-    // return (x’0D’), and non-line-feed (x’0A’).
+
+    /**
+     *
+     * @return
      */
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer(super.toString());
+        sb.append("FormalName == " + formalName + "\n");
+        sb.append("Value == " + value + "\n");
+        return sb.toString();
+    }
 }

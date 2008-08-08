@@ -103,7 +103,7 @@ public class VSMInt8 implements VSMParm {
      * @throws java.io.IOException
      */
     public void read(DataInputStream in, int length) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        setValue(in.readLong());
     }
 
     /**
@@ -134,5 +134,17 @@ public class VSMInt8 implements VSMParm {
 
     public VSMParm copyOf() {
         return new VSMInt8(value, formalName);
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer(super.toString());
+        sb.append("FormalName == " + formalName + "\n");
+        sb.append("Value == " + value + "\n");
+        return sb.toString();
     }
 }

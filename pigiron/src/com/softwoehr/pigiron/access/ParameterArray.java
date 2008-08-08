@@ -55,27 +55,27 @@ public class ParameterArray extends Vector<VSMParm> {
         super();
     }
 
-//    /**
-//     *
-//     * @param index
-//     * @return
-//     */
-//    public int paramLengthAt(int index) {
-//        return elementAt(index).paramLength();
-//    }
-//
-//    /**
-//     *
-//     * @param index
-//     * @return
-//     */
-//    public Class paramClassAt(int index) {
-//        return elementAt(index).getClass();
-//    }
+    /**
+     *
+     * @param name
+     * @return
+     */
+    public VSMParm parameterNamed(String name) {
+        VSMParm result = null;
+        for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {
+            VSMParm v = e.nextElement();
+            if (v.getFormalName().equals(name)) {
+                result = v;
+                break;
+            }
+        }
+        return result;
+    }
+
     /**
      * 
      * @param index
-     * @param in
+     * @param out
      * @throws java.io.IOException
      */
     public void writeParameterAt(int index, DataOutputStream out) throws IOException {

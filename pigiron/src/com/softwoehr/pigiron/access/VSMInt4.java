@@ -107,7 +107,7 @@ public class VSMInt4 implements VSMParm {
      * @throws java.io.IOException
      */
     public void read(DataInputStream in, int length) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        setValue(in.readInt());
     }
 
     /**
@@ -126,5 +126,17 @@ public class VSMInt4 implements VSMParm {
 
     public void setFormalName(String formalName) {
         this.formalName = formalName;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer(super.toString());
+        sb.append("FormalName == " + formalName + "\n");
+        sb.append("Value == " + value + "\n");
+        return sb.toString();
     }
 }
