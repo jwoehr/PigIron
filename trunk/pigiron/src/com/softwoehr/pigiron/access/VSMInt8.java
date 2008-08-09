@@ -39,7 +39,7 @@ import java.io.IOException;
  * 
  * @author jax
  */
-public class VSMInt8 implements VSMParm {
+public class VSMInt8 implements VSMParm, VSMInt {
 
     private long value = -1;
     // -1 indicates "Unspecified"
