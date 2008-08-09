@@ -35,6 +35,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.Vector;
 
@@ -101,12 +102,9 @@ public class ParameterArray extends Vector<VSMParm> {
      */
     public long totalParameterLength() {
         long total = 0;
-        for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {
-            VSMParm p = e.nextElement();
-            if (p instanceof VSMString | p instanceof VSMStruct | p instanceof VSMArray) {
-                total += SIZEOF_INT4; // the count for a string, struct or array type
-            }
-            total += p.paramLength();
+        Iterator<VSMParm> thisIterator = iterator();
+        while (thisIterator.hasNext()) {
+            total += thisIterator.next().paramLength();
         }
         return total;
     }
@@ -118,19 +116,13 @@ public class ParameterArray extends Vector<VSMParm> {
      * @see #readAll
      * @see <a href="http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm" target="top">z/VM V5R3.0 Systems Management Application Programming SC24-6122-03</a>
      */
-    public void writeAll(DataOutputStream out) throws IOException {
-        /* Write the overall message count-after-this int4 */
-        /* ... is the count always of type int4 ?     */
-        /* Apparently so, see "Data Types" in         */
-        /* z/VM V5R3.0 Systems Management Application */
-        /* Programming SC24-6122-03                   */
-        new VSMInt4(new Long(totalParameterLength()).intValue()).write(out);
+    public void writeAll(DataOutputStream out) throws IOException {       
         /* Write all the params */
-        for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {
-            VSMParm v = e.nextElement();
-            v.write(out);
-        // System.err.println("in writeAll : " + v);
+        Iterator<VSMParm> myIterator = iterator();
+        while (myIterator.hasNext()) {
+            myIterator.next().write(out);
         }
+        out.flush();
     }
 
     /**
@@ -144,26 +136,26 @@ public class ParameterArray extends Vector<VSMParm> {
      */
     public void readAll(DataInputStream in) throws IOException, VSMException {
         /* Write all the params */
-        /* Debug */ int howmanytimes = 0;
+        // /* Debug */ int howmanytimes = 0;
         int output_length = -1; // -1 means we haven't instanced it yet.
         ListIterator<VSMParm> currentListIterator = listIterator();
         ParameterArray replacement = new ParameterArray();
         VSMParm previous = null;
         while (currentListIterator.hasNext()) {
             VSMParm copyOfCurrentParm = currentListIterator.next().copyOf();
-            /* Debug */ System.err.println("next list item in ParameterArray.readAll is " + copyOfCurrentParm);
+            // /* Debug */ System.err.println("next list item in ParameterArray.readAll is " + copyOfCurrentParm);
             if (copyOfCurrentParm instanceof VSMInt) {
-                /* Debug */ System.err.println("reading a VSMInt ");
+                // /* Debug */ System.err.println("reading a VSMInt ");
                 copyOfCurrentParm.read(in, -1);
                 if (replacement.size() == 1) { // If this is the second thing we read
                     // Then this should be the output length param
                     output_length = VSMInt4.class.cast(copyOfCurrentParm).getValue();
                 }
-                /* Debug */ System.err.println("Value of read VSMInt " + copyOfCurrentParm.getFormalName() + " == " + VSMInt.class.cast(copyOfCurrentParm).getLongValue());
+            //  /* Debug */ System.err.println("Value of read VSMInt " + copyOfCurrentParm.getFormalName() + " == " + VSMInt.class.cast(copyOfCurrentParm).getLongValue());
             } else if (copyOfCurrentParm instanceof VSMString | copyOfCurrentParm instanceof VSMArray | copyOfCurrentParm instanceof VSMStruct) {
                 if (!replacement.isEmpty()) {
                     previous = replacement.lastElement();
-                    /* Debug */ System.err.println("previous param is " + previous);
+                    //  /* Debug */ System.err.println("previous param is " + previous);
                     if (previous instanceof VSMInt4) {
                         int countLength = VSMInt4.class.cast(previous).getValue();
                         copyOfCurrentParm.read(in, countLength);
@@ -177,8 +169,8 @@ public class ParameterArray extends Vector<VSMParm> {
                 }
             }
             replacement.add(copyOfCurrentParm);
-            System.err.flush();
-            System.err.println("how many times? " + howmanytimes++);
+            // System.err.flush();
+            // System.err.println("how many times? " + howmanytimes++);
 
             /* Check that we don't read past end when we get error documents */
             /* "- 2 * SIZEOF_INT4" because output_length doesn't count the */

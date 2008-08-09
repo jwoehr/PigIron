@@ -118,7 +118,7 @@ public class VSMInt4 implements VSMParm, VSMInt {
      */
     public void write(DataOutputStream d)
             throws java.io.IOException {
-        d.write(value);
+        d.writeInt(value);
     }
 
     public String getFormalName() {

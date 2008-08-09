@@ -127,7 +127,6 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
      * @throws java.io.IOException
      */
     public void write(DataOutputStream out) throws IOException {
-        new VSMInt4(paramLength()).write(out);
         for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {
             e.nextElement().write(out);
         }
@@ -147,7 +146,7 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     public void read(DataInputStream in, int length) throws IOException, VSMStructStringReadException, VSMException {
         /* At the moment, doesn't make use of the "length" argument. */
         /* Should check that. */
-        VSMStruct v = new VSMStruct();
+        VSMStruct v = new VSMStruct(); /* TODO Change to iterator and debug */
         for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {
             VSMParm model = e.nextElement();
             if (model instanceof VSMStruct) {
