@@ -115,8 +115,7 @@ public class VSMString implements VSMParm {
      */
     public void write(DataOutputStream d)
             throws java.io.IOException {
-        new VSMInt4(paramLength()).write(d);
-        d.writeBytes(value);
+        d.write(value.getBytes());
     }
 
     /**

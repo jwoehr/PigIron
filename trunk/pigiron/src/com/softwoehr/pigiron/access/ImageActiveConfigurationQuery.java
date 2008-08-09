@@ -45,7 +45,10 @@ import java.util.Enumeration;
  */
 public class ImageActiveConfigurationQuery {
 
-    public static final String IMAGE_ACTIVE_CONFIGURATION_QUERY = "IMAGE_ACTIVE_CONFIGURATION_QUERY";
+    /**
+     * The transmitted name of the function
+     */
+    public static final String IMAGE_ACTIVE_CONFIGURATION_QUERY = "Image_Active_Configuration_Query";
     private String hostname;
     private int port;
     private String userid;
@@ -134,13 +137,23 @@ public class ImageActiveConfigurationQuery {
      * @see
      */
     protected ParameterArray composeInputArray() {
+        VSMString tempString = null;
         inParams = new ParameterArray();
-        inParams.add(new VSMString(IMAGE_ACTIVE_CONFIGURATION_QUERY, "IMAGE_ACTIVE_CONFIGURATION_QUERY"));
-        inParams.add(new VSMString(userid, "userid"));
-        inParams.add(new VSMString(password, "password"));
-        inParams.add(new VSMString(target_identifier, "target_identifier"));
+        tempString = new VSMString(IMAGE_ACTIVE_CONFIGURATION_QUERY, "Image_Active_Configuration_Query");
+        inParams.add(new VSMInt4(tempString.paramLength(),"function_name_length"));
+        inParams.add(tempString);
+        tempString = new VSMString(userid, "authenticated_userid");
+        inParams.add(new VSMInt4(tempString.paramLength(),"authenticated_userid_length"));
+        inParams.add(tempString);
+        tempString = new VSMString(password, "password");
+        inParams.add(new VSMInt4(tempString.paramLength(),"password_length"));
+        inParams.add(tempString);
+        tempString = new VSMString(target_identifier, "target_identifier");
+        inParams.add(new VSMInt4(tempString.paramLength(),"target_identifier_length"));
+        inParams.add(tempString);
         VSMInt4 outputLength = new VSMInt4(new Long(inParams.totalParameterLength()).intValue(), "output_length");
         inParams.insertElementAt(outputLength, 0);
+        /* Debug */ System.out.println("composed input array :" + inParams);
         return inParams;
     }
 
@@ -152,7 +165,7 @@ public class ImageActiveConfigurationQuery {
      * @see
      */
     protected void writeInput(DataOutputStream out) throws IOException {
-         inParams.writeAll(out);
+        inParams.writeAll(out);
     }
 
     /**
