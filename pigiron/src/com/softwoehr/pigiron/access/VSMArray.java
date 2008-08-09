@@ -78,6 +78,7 @@ public class VSMArray extends VSMStruct implements VSMParm {
     public void read(DataInputStream in, int length) throws IOException, VSMException {
         VSMArray v = new VSMArray();
         VSMParm model = elementAt(0);
+        /* Debug */ System.err.println("model Array parm is " + model);
         while (length > 0) {
             VSMParm target = model.copyOf();
             target.read(in, length);

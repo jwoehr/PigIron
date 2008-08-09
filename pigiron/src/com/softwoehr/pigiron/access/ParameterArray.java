@@ -8,9 +8,9 @@
  * are met:
  *
  *     * Redistributions of source code must retain the above copyright
- *         notice, this list of conditions and the following disclaimer.
+ *         notice, this currentListIterator of conditions and the following disclaimer.
  *     * Redistributions in binary form must reproduce the above copyright
- *         notice, this list of conditions and the following disclaimer
+ *         notice, this currentListIterator of conditions and the following disclaimer
  *         in the documentation and/or other materials provided with the
  *         distribution.
  *     * Neither the name of the PigIron Project nor the names of its
@@ -54,6 +54,17 @@ public class ParameterArray extends Vector<VSMParm> {
      */
     public ParameterArray() {
         super();
+    }
+
+    /**
+     * Replace the contents of this ParameterArray with the contents of another.
+     * @param value the container of the replacement data
+     */
+    public void setValue(ParameterArray value) {
+        clear();
+        if (value != null) { // null is legal value
+            addAll(value);   // means "just clear me"
+        }
     }
 
     /**
@@ -116,7 +127,9 @@ public class ParameterArray extends Vector<VSMParm> {
         new VSMInt4(new Long(totalParameterLength()).intValue()).write(out);
         /* Write all the params */
         for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {
-            e.nextElement().write(out);
+            VSMParm v = e.nextElement();
+            v.write(out);
+        // System.err.println("in writeAll : " + v);
         }
     }
 
@@ -131,32 +144,50 @@ public class ParameterArray extends Vector<VSMParm> {
      */
     public void readAll(DataInputStream in) throws IOException, VSMException {
         /* Write all the params */
-        ListIterator<VSMParm> list = listIterator();
+        /* Debug */ int howmanytimes = 0;
+        int output_length = -1; // -1 means we haven't instanced it yet.
+        ListIterator<VSMParm> currentListIterator = listIterator();
+        ParameterArray replacement = new ParameterArray();
         VSMParm previous = null;
-        while (list.hasNext()) {
-            VSMParm current = list.next();
-            /* Debug */ System.err.println("next list item in ParameterArray.readAll is " + current);
-            if (current instanceof VSMInt) {
+        while (currentListIterator.hasNext()) {
+            VSMParm copyOfCurrentParm = currentListIterator.next().copyOf();
+            /* Debug */ System.err.println("next list item in ParameterArray.readAll is " + copyOfCurrentParm);
+            if (copyOfCurrentParm instanceof VSMInt) {
                 /* Debug */ System.err.println("reading a VSMInt ");
-                current.read(in, -1);
-                /* Debug */ System.err.println("Value of read VSMInt " + current.getFormalName() + " == " + VSMInt.class.cast(current).getLongValue());
-            } else if (current instanceof VSMString | current instanceof VSMArray | current instanceof VSMStruct) {
-                if (list.hasPrevious()) {
-                    previous = list.previous();
-                    list.next(); // reinstate cursor before we forget to do so!
+                copyOfCurrentParm.read(in, -1);
+                if (replacement.size() == 1) { // If this is the second thing we read
+                    // Then this should be the output length param
+                    output_length = VSMInt4.class.cast(copyOfCurrentParm).getValue();
+                }
+                /* Debug */ System.err.println("Value of read VSMInt " + copyOfCurrentParm.getFormalName() + " == " + VSMInt.class.cast(copyOfCurrentParm).getLongValue());
+            } else if (copyOfCurrentParm instanceof VSMString | copyOfCurrentParm instanceof VSMArray | copyOfCurrentParm instanceof VSMStruct) {
+                if (!replacement.isEmpty()) {
+                    previous = replacement.lastElement();
+                    /* Debug */ System.err.println("previous param is " + previous);
                     if (previous instanceof VSMInt4) {
                         int countLength = VSMInt4.class.cast(previous).getValue();
-                        current.read(in, countLength);
+                        copyOfCurrentParm.read(in, countLength);
                     } else {
-                        // The previous parm isn't the required count for the current counted parmtype
-                        throw new ParameterArrayReadAllException("Previous parm was not a count for the current counted parmtype. " + current);
+                        // The previous parm isn't the required count for the copyOfCurrentParm counted parmtype
+                        throw new ParameterArrayReadAllException("Previous parm was not a count for the current counted parmtype. " + copyOfCurrentParm);
                     }
                 } else {
                     // There's no count for the counted parmtype
-                    throw new ParameterArrayReadAllException("There is no count for the current counted parmtype. " + current);
+                    throw new ParameterArrayReadAllException("There is no count for the current counted parmtype. " + copyOfCurrentParm);
                 }
             }
+            replacement.add(copyOfCurrentParm);
+            System.err.flush();
+            System.err.println("how many times? " + howmanytimes++);
+
+            /* Check that we don't read past end when we get error documents */
+            /* "- 2 * SIZEOF_INT4" because output_length doesn't count the */
+            /* immediate reply and the output_length itself */
+            if (output_length != -1 & output_length <= replacement.totalParameterLength() - 2 * SIZEOF_INT4) {
+                break;
+            }
         }
+        setValue(replacement);
     }
 
     /**
