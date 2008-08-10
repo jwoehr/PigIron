@@ -140,16 +140,16 @@ public class ImageActiveConfigurationQuery {
         VSMString tempString = null;
         inParams = new ParameterArray();
         tempString = new VSMString(IMAGE_ACTIVE_CONFIGURATION_QUERY, "Image_Active_Configuration_Query");
-        inParams.add(new VSMInt4(tempString.paramLength(),"function_name_length"));
+        inParams.add(new VSMInt4(tempString.paramLength(), "function_name_length"));
         inParams.add(tempString);
         tempString = new VSMString(userid, "authenticated_userid");
-        inParams.add(new VSMInt4(tempString.paramLength(),"authenticated_userid_length"));
+        inParams.add(new VSMInt4(tempString.paramLength(), "authenticated_userid_length"));
         inParams.add(tempString);
         tempString = new VSMString(password, "password");
-        inParams.add(new VSMInt4(tempString.paramLength(),"password_length"));
+        inParams.add(new VSMInt4(tempString.paramLength(), "password_length"));
         inParams.add(tempString);
         tempString = new VSMString(target_identifier, "target_identifier");
-        inParams.add(new VSMInt4(tempString.paramLength(),"target_identifier_length"));
+        inParams.add(new VSMInt4(tempString.paramLength(), "target_identifier_length"));
         inParams.add(tempString);
         VSMInt4 outputLength = new VSMInt4(new Long(inParams.totalParameterLength()).intValue(), "output_length");
         inParams.insertElementAt(outputLength, 0);
@@ -185,11 +185,12 @@ public class ImageActiveConfigurationQuery {
         outParams.add(new VSMInt1(-1, "memory_unit"));
         outParams.add(new VSMInt1(-1, "share_type"));
         outParams.add(new VSMInt4(-1, "share_value_length"));
+        outParams.add(new VSMString(null, "share_value"));
         outParams.add(new VSMInt4(-1, "number_CPUs"));
         outParams.add(new VSMInt4(-1, "cpu_info_array_length"));
-        outParams.add(new CpuInfoArray(null, "cpu_info_array"));
+        outParams.add(CpuInfoArray.modelArray("cpu_info_array"));
         outParams.add(new VSMInt4(-1, "device_info_array_length"));
-        outParams.add(new DeviceInfoArray(null, "device_info_array"));
+        outParams.add(DeviceInfoArray.modelArray("device_info_array"));
         return outParams;
     }
 

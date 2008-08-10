@@ -41,6 +41,15 @@ import java.io.IOException;
  */
 public class VSMString implements VSMParm {
 
+    /**
+     *
+     */
+     /**
+     * Type in terms of one of the formal parameter type discussed in
+     * the VSMAPI documentation: int1, int4, int8, string, struct, array.
+     */
+    public static final String FORMAL_TYPE = "string";
+
     private String value;
     private String formalName;
 
@@ -149,8 +158,12 @@ public class VSMString implements VSMParm {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer(super.toString());
-        sb.append(" FormalName == " + formalName);
+        sb.append(" Formal Name == " + getFormalName() + " Formal Type == " + getFormalType());
         sb.append(" Value == " + value);
         return sb.toString();
+    }
+
+    public String getFormalType() {
+        return FORMAL_TYPE;
     }
 }

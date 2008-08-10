@@ -34,7 +34,7 @@ package com.softwoehr.pigiron.access;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.Vector;
 
 /**
@@ -43,7 +43,19 @@ import java.util.Vector;
  */
 public class VSMStruct extends Vector<VSMParm> implements VSMParm {
 
-    // private ParameterArray value;
+    /**
+     * Type in terms of one of the formal parameter type discussed in
+     * the VSMAPI documentation: int1, int4, int8, string, struct, array.
+     */
+    public static final String FORMAL_TYPE = "struct";
+
+    /**
+     * Struct types like CPU_info_array
+     * This sort of thing probably belongs
+     * in the yet-to-be-retroactively-written
+     * superclass of all paramstructs.
+     */
+    // public static final String  STRUCTURE_TYPE = "";
     /**
      *
      * @return
@@ -106,8 +118,9 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
      */
     public int paramLength() {
         int total = 0;
-        for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {
-            total += e.nextElement().paramLength();
+        Iterator<VSMParm> i = iterator();
+        while (i.hasNext()) {
+            total += i.next().paramLength();
         }
         return total;
     }
@@ -127,8 +140,9 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
      * @throws java.io.IOException
      */
     public void write(DataOutputStream out) throws IOException {
-        for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {
-            e.nextElement().write(out);
+        Iterator<VSMParm> i = iterator();
+        while (i.hasNext()) {
+            i.next().write(out);
         }
     }
 
@@ -144,44 +158,43 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
      * @throws VSMStructStringReadException
      */
     public void read(DataInputStream in, int length) throws IOException, VSMStructStringReadException, VSMException {
-        /* At the moment, doesn't make use of the "length" argument. */
-        /* Should check that. */
-        VSMStruct v = new VSMStruct(); /* TODO Change to iterator and debug */
-        for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {
-            VSMParm model = e.nextElement();
+        VSMStruct myNewContents = new VSMStruct();
+        VSMParm member = null;
+        Iterator<VSMParm> i = iterator(); // Walk through our output model
+        while (i.hasNext() & length > 0) {
+            VSMParm model = i.next();
             if (model instanceof VSMStruct) {
-                VSMParm putativeLength = v.lastElement();
+                VSMParm putativeLength = myNewContents.lastElement(); /* What did we last read? */
                 if (putativeLength instanceof VSMInt4) {
-                    VSMStruct newReceiver = new VSMStruct();
-                    newReceiver.read(in, (VSMInt4.class.cast(putativeLength)).getValue());
+                    member = model.copyOf();
+                    member.read(in, (VSMInt4.class.cast(putativeLength)).getValue());
                 } else {
                     throw new VSMStructStructReadException("Couldn't read struct because previous parameter read was not a count of type int4.");
                 }
             } else if (model instanceof VSMArray) {
-                VSMParm putativeLength = v.lastElement();
+                VSMParm putativeLength = myNewContents.lastElement();
                 if (putativeLength instanceof VSMInt4) {
-                    VSMArray newReceiver = new VSMArray();
-                    newReceiver.read(in, (VSMInt4.class.cast(putativeLength)).getValue());
+                    member = new VSMArray();
+                    member.read(in, (VSMInt4.class.cast(putativeLength)).getValue());
                 } else {
                     throw new VSMStructStructReadException("Couldn't read struct because previous parameter read was not a count of type int4.");
                 }
             } else if (model instanceof VSMString) {
-                VSMParm putativeStringLength = v.lastElement();
+                VSMParm putativeStringLength = myNewContents.lastElement();
                 if (putativeStringLength instanceof VSMInt4) {
-                    VSMString newReceiver = new VSMString(null, model.getFormalName());
-                    newReceiver.read(in, (VSMInt4.class.cast(putativeStringLength)).getValue());
-                    v.add(newReceiver);
+                    member = new VSMString(null, model.getFormalName());
+                    member.read(in, (VSMInt4.class.cast(putativeStringLength)).getValue());
                 } else {
                     throw new VSMStructStringReadException("Couldn't read string because previous parameter read was not a count of type int4.");
                 }
             } else {
                 VSMParm intParam = model.copyOf();
                 intParam.read(in, -1);
-                v.add(intParam);
             }
+            myNewContents.add(member);
         }
-        // Make 'this' be the new read-in struct
-        setValue(v);
+        // Convert 'this' into the new struct we have read in.
+        setValue(myNewContents);
     }
 
     /**
@@ -226,12 +239,29 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
      */
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer(super.toString());
-        sb.append(" FormalName == " + formalName);
+        StringBuffer sb = new StringBuffer("VSMStruct " + super.toString());
+        sb.append(" Formal Name == " + getFormalName() + " Formal Type == " + getFormalType());
         sb.append(" Struct members follow:\n");
-        for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {
-            sb.append(e.nextElement().toString());
+        Iterator<VSMParm> i = iterator();
+        while (i.hasNext()) {
+            sb.append(i.next().toString());
         }
         return sb.toString();
     }
+
+    /**
+     *
+     * @return
+     */
+    public String getFormalType() {
+        return FORMAL_TYPE;
+    }
+
+    /**
+     *
+     * @return
+     */
+    /*public String getStructureType() {
+    return STRUCTURE_TYPE;
+    }*/
 }

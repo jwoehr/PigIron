@@ -33,12 +33,32 @@ package com.softwoehr.pigiron.access;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * 
  * @author jax
  */
 public class VSMArray extends VSMStruct implements VSMParm {
+
+    /**
+     * Type in terms of one of the formal parameter type discussed in
+     * the VSMAPI documentation: int1, int4, int8, string, struct, array.
+     */
+    public static final String FORMAL_TYPE = "array";
+
+    /**
+     *
+     * @param model
+     * @param formalName
+     * @return
+     */
+    static public VSMArray modelArray(VSMParm model, String formalName) {
+        VSMArray result = new VSMArray();
+        result.add(model);
+        result.setFormalName(formalName);
+        return result;
+    }
 
     /**
      *
@@ -84,6 +104,7 @@ public class VSMArray extends VSMStruct implements VSMParm {
             target.read(in, length);
             v.add(target);
             length -= target.paramLength();
+            /* Debug */ System.err.println(" Array read length remaining: " + length);
         }
         setValue(v);
     }
@@ -95,5 +116,30 @@ public class VSMArray extends VSMStruct implements VSMParm {
     @Override
     public VSMParm copyOf() {
         return new VSMArray(this, getFormalName());
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer("VSMArray " + super.toString());
+        sb.append(" Formal Name == " + getFormalName() + " Formal Type == " + getFormalType());
+        sb.append(" Array members follow:\n");
+        Iterator<VSMParm> i = iterator();
+        while (i.hasNext()) {
+            sb.append(i.next().toString());
+        }
+        return sb.toString();
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String getFormalType() {
+        return FORMAL_TYPE;
     }
 }

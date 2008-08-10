@@ -116,7 +116,7 @@ public class ParameterArray extends Vector<VSMParm> {
      * @see #readAll
      * @see <a href="http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm" target="top">z/VM V5R3.0 Systems Management Application Programming SC24-6122-03</a>
      */
-    public void writeAll(DataOutputStream out) throws IOException {       
+    public void writeAll(DataOutputStream out) throws IOException {
         /* Write all the params */
         Iterator<VSMParm> myIterator = iterator();
         while (myIterator.hasNext()) {
@@ -143,21 +143,23 @@ public class ParameterArray extends Vector<VSMParm> {
         VSMParm previous = null;
         while (currentListIterator.hasNext()) {
             VSMParm copyOfCurrentParm = currentListIterator.next().copyOf();
-            // /* Debug */ System.err.println("next list item in ParameterArray.readAll is " + copyOfCurrentParm);
+            /* Debug */ System.err.println("next list item in ParameterArray.readAll is " + copyOfCurrentParm);
             if (copyOfCurrentParm instanceof VSMInt) {
-                // /* Debug */ System.err.println("reading a VSMInt ");
+                /* Debug */ System.err.println("reading a VSMInt ");
                 copyOfCurrentParm.read(in, -1);
                 if (replacement.size() == 1) { // If this is the second thing we read
                     // Then this should be the output length param
                     output_length = VSMInt4.class.cast(copyOfCurrentParm).getValue();
                 }
-            //  /* Debug */ System.err.println("Value of read VSMInt " + copyOfCurrentParm.getFormalName() + " == " + VSMInt.class.cast(copyOfCurrentParm).getLongValue());
+                /* Debug */ System.err.println("Value of read VSMInt " + copyOfCurrentParm.getFormalName() + " == " + VSMInt.class.cast(copyOfCurrentParm).getLongValue());
             } else if (copyOfCurrentParm instanceof VSMString | copyOfCurrentParm instanceof VSMArray | copyOfCurrentParm instanceof VSMStruct) {
                 if (!replacement.isEmpty()) {
                     previous = replacement.lastElement();
                     //  /* Debug */ System.err.println("previous param is " + previous);
                     if (previous instanceof VSMInt4) {
                         int countLength = VSMInt4.class.cast(previous).getValue();
+                        /* Debug */ System.err.println("Getting ready to read " + copyOfCurrentParm + " with read length " + countLength);
+                        /* Debug */ System.err.flush();
                         copyOfCurrentParm.read(in, countLength);
                     } else {
                         // The previous parm isn't the required count for the copyOfCurrentParm counted parmtype

@@ -44,14 +44,38 @@ import java.io.IOException;
  */
 public class DeviceInfoArray extends VSMArray {
 
+    /**
+     *
+     * @param formalName
+     * @return
+     */
+    public static DeviceInfoArray modelArray(String formalName) {
+        DeviceInfoArray result = new DeviceInfoArray();
+        result.add(new DeviceInfoStructCounted());
+        result.setFormalName(formalName);
+        return result;
+    }
+
+    /**
+     *
+     * @param value
+     * @param formalName
+     */
     public DeviceInfoArray(VSMArray value, String formalName) {
         super(value, formalName);
     }
 
+    /**
+     *
+     * @param value
+     */
     public DeviceInfoArray(VSMArray value) {
         super(value);
     }
 
+    /**
+     *
+     */
     public DeviceInfoArray() {
     }
 

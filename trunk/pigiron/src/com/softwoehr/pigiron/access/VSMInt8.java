@@ -44,6 +44,11 @@ public class VSMInt8 implements VSMParm, VSMInt {
     private long value = -1;
     // -1 indicates "Unspecified"
     private String formalName;
+    /**
+     * Type in terms of one of the formal parameter type discussed in
+     * the VSMAPI documentation: int1, int4, int8, string, struct, array.
+     */
+    public static final String FORMAL_TYPE = "int8";
 
     /**
      * 
@@ -151,8 +156,16 @@ public class VSMInt8 implements VSMParm, VSMInt {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer(super.toString());
-        sb.append(" FormalName == " + formalName);
+        sb.append(" Formal Name == " + getFormalName() + " Formal Type == " + getFormalType());
         sb.append(" Value == " + value);
         return sb.toString();
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getFormalType() {
+       return FORMAL_TYPE;
     }
 }
