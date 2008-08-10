@@ -35,8 +35,6 @@ import com.softwoehr.pigiron.access.VSMInt1;
 import com.softwoehr.pigiron.access.VSMInt4;
 import com.softwoehr.pigiron.access.VSMString;
 import com.softwoehr.pigiron.access.VSMStruct;
-import java.io.DataInputStream;
-import java.io.IOException;
 
 /**
  * 
@@ -45,13 +43,34 @@ import java.io.IOException;
 public class DeviceInfoStruct extends VSMStruct {
 
     /**
+     * null is legal value, means "just clear me and
+     * re-initialize me with a valid list of yet-unread
+     * parameters".
+     * @param value
+     * @param formalName
+     */
+    public DeviceInfoStruct(VSMStruct value, String formalName) {
+        this(value);
+        setFormalName(formalName);
+    }
+
+    /**
+     * null is legal value, means "just clear me".
+     * @param value
+     */
+    public DeviceInfoStruct(VSMStruct value) {
+        super(value);
+        if (value == null) {
+            modelFormalParameters();
+        }
+    }
+
+    /**
      *
      */
     public DeviceInfoStruct() {
-        add(new VSMInt4(-1, "device_info_structure_length"));
-        add(new VSMInt1(-1, "device_type"));
-        add(new VSMInt4(-1, "device_address_length"));
-        add(new VSMString(null, "device_address"));
+        super();
+        modelFormalParameters();
     }
 
     /**
@@ -66,5 +85,12 @@ public class DeviceInfoStruct extends VSMStruct {
         add(device_type);
         add(device_address_length);
         add(device_address);
+    }
+
+    public void modelFormalParameters() {
+        add(new VSMInt4(-1, "device_info_structure_length"));
+        add(new VSMInt1(-1, "device_type"));
+        add(new VSMInt4(-1, "device_address_length"));
+        add(new VSMString(null, "device_address"));
     }
 }

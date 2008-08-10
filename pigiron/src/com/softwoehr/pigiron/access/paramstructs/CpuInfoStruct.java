@@ -35,8 +35,6 @@ import com.softwoehr.pigiron.access.VSMInt1;
 import com.softwoehr.pigiron.access.VSMInt4;
 import com.softwoehr.pigiron.access.VSMString;
 import com.softwoehr.pigiron.access.VSMStruct;
-import java.io.DataInputStream;
-import java.io.IOException;
 
 /**
  * Info about a specific CPU
@@ -80,53 +78,11 @@ public class CpuInfoStruct extends VSMStruct {
      *
      */
     public void modelFormalParameters() {
-        clear();        
-
-
-
+        clear();
+        add(new VSMInt4(-1, "CPU_number"));
+        add(new VSMInt4(-1, "CPU_id_length"));
+        add(new VSMString(null, "CPU_id"));
+        add(new VSMInt1(-1, "CPU_Status"));
     }
-    /**
-     * Info about a specific CPU
-     *///       private int number;
-//       private string String id;
-//       private byte status;
-    /**
-     * Create yourself given the inbound data stream
-     */
-//    CpuInfoStruct(DataInputStream in) throws IOException {
-//        int structLength = in.readInt();
-//        number = in.readInt();
-//        id = readString(in.readInt(), in);
-//        status = in.readByte();
-//    }
-
-//    /**
-//     * Format contents into the provided StringBuffer
-//     */
-//    public void toString(StringBuffer sb) {
-//        sb.append("\tid     ").append(id).append("\n");
-//        sb.append("\tnumber ").append(number).append("\n");
-//        sb.append("\tstatus ").append(status).append("\n");
-//    }
-
-//    /**
-//     * How much did we consume off the wire?
-//     * Required because the returned plist specifies the entire
-//     * length of the arrays so each specific object could take diffrent
-//     * amounts of data off the wire.  This will be called after we've
-//     * been created to decrement the 'array length' do ensure we stop
-//     * ad the appropriate point in time.
-//     */
-//    int size() {
-//        return 4 // struct length
-//                + 4 // number
-//                + 4 // string length
-//                + id.length() // the string itself
-//                + 1;           // status byte
-//    }
-//}
-    /**
-     * An object that contains information about a device.
-     */
 }
 

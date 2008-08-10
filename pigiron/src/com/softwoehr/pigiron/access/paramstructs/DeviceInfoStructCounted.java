@@ -31,47 +31,54 @@
  */
 package com.softwoehr.pigiron.access.paramstructs;
 
-import com.softwoehr.pigiron.access.VSMArray;
+import com.softwoehr.pigiron.access.VSMInt4;
+import com.softwoehr.pigiron.access.VSMStruct;
 
 /**
- * 
+ * Info about a specific CPU
+ * Used in IMAGE_ACTIVE_CONFIGURATION_QUERY
  * @author jax
  */
-public class CpuInfoArray extends VSMArray {
+public class DeviceInfoStructCounted extends VSMStruct {
 
     /**
-     *
-     * @param formalName
-     * @return
-     */
-    public static CpuInfoArray modelArray(String formalName) {
-        CpuInfoArray result = new CpuInfoArray();
-        result.add(new CpuInfoStructCounted());
-        result.setFormalName(formalName);
-        return result;
-
-    }
-
-    /**
-     *
+     * null is legal value, means "just clear me and
+     * re-initialize me with a valid list of yet-unread
+     * parameters".
      * @param value
      * @param formalName
      */
-    public CpuInfoArray(VSMArray value, String formalName) {
-        super(value, formalName);
+    public DeviceInfoStructCounted(DeviceInfoStructCounted value, String formalName) {
+        this(value);
+        setFormalName(formalName);
     }
 
     /**
-     *
+     * null is legal value, means "just clear me".
      * @param value
      */
-    public CpuInfoArray(VSMArray value) {
+    public DeviceInfoStructCounted(DeviceInfoStructCounted value) {
         super(value);
+        if (value == null) {
+            modelFormalParameters();
+        }
     }
 
     /**
      *
      */
-    public CpuInfoArray() {
+    public DeviceInfoStructCounted() {
+        super();
+        modelFormalParameters();
+    }
+
+    /**
+     *
+     */
+    public void modelFormalParameters() {
+        clear();
+        add(new VSMInt4(-1, "Device_info_structure_length"));
+        add(new DeviceInfoStruct(null, "Device_info_structure"));
     }
 }
+
