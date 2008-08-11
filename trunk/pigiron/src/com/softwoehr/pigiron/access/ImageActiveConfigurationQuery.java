@@ -153,7 +153,7 @@ public class ImageActiveConfigurationQuery {
         inParams.add(tempString);
         VSMInt4 outputLength = new VSMInt4(new Long(inParams.totalParameterLength()).intValue(), "output_length");
         inParams.insertElementAt(outputLength, 0);
-        /* Debug */ System.out.println("composed input array :" + inParams);
+        // /* Debug */ System.out.println("composed input array :" + inParams);
         return inParams;
     }
 
@@ -246,19 +246,12 @@ public class ImageActiveConfigurationQuery {
      */
     public ParameterArray doIt() throws IOException, VSMException {
         /* This will hold return from SMAPI call */
-        /* debug */ System.err.println("doIt created outputParameters");
         composeInputArray();
-        /* debug */ System.err.println("doIt composed input array");
         composeOutputArray();
-        /* debug */ System.err.println("doIt composed output array");
         connect();
-        /* debug */ System.err.println("doIt connected");
         writeInput(connection.getOutputStream());
-        /* debug */ System.err.println("doIt wrote input");
         readOutput(connection.getInputStream());
-        /* debug */ System.err.println("doIt read output");
         disconnect();
-        /* debug */ System.err.println("doIt disconnected");
         return outParams;
     }
 
@@ -278,11 +271,6 @@ public class ImageActiveConfigurationQuery {
         }
         ImageActiveConfigurationQuery iq = new ImageActiveConfigurationQuery(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4]);
         ParameterArray result = iq.doIt();
-        /* Debug */
-        /*ParameterArray result = iq.composeInputArray();
-        System.out.println(result.toString());
-        result = iq.composeOutputArray();
-        System.out.println(result.toString());*/       /* Debug */
         System.out.println("Returns from call to ImageActiveConfigurationQuery:");
         for (Enumeration<VSMParm> e = result.elements(); e.hasMoreElements();) {
             System.out.println(e.nextElement().toString());

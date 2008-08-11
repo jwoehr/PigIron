@@ -162,7 +162,7 @@ public class Connection {
      * @throws IOException 
      */
     public void connect() throws UnknownHostException, IOException {
-        /* Debug */ System.out.println("Connection.connect ... host and port are " + hostname + port);
+        // /* Debug */ System.out.println("Connection.connect ... host and port are " + hostname + port);
         socket = new Socket(hostname, port);
         outputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         inputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
