@@ -31,15 +31,15 @@
  */
 package com.softwoehr.pigiron.access.paramstructs;
 
+import com.softwoehr.pigiron.access.CountedStruct;
 import com.softwoehr.pigiron.access.VSMInt4;
-import com.softwoehr.pigiron.access.VSMStruct;
 
 /**
  * Info about a specific CPU
  * Used in IMAGE_ACTIVE_CONFIGURATION_QUERY
  * @author jax
  */
-public class DeviceInfoStructCounted extends VSMStruct {
+public class DeviceInfoStructCounted extends CountedStruct {
 
     /**
      * null is legal value, means "just clear me and

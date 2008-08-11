@@ -43,7 +43,6 @@ public class VSMInt1 implements VSMParm, VSMInt {
 
     private int value;
     private String formalName;
-
     /**
      * Type in terms of one of the formal parameter type discussed in
      * the VSMAPI documentation: int1, int4, int8, string, struct, array.
@@ -136,6 +135,7 @@ public class VSMInt1 implements VSMParm, VSMInt {
      */
     public void read(DataInputStream in, int length) throws IOException {
         setValue(in.readByte());
+        /* Debug */ System.err.println("Read an int1: " + value);
     }
 
     /**

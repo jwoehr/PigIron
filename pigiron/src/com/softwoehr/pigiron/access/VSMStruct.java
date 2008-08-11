@@ -181,15 +181,19 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
                 }
             } else if (model instanceof VSMString) {
                 VSMParm putativeStringLength = myNewContents.lastElement();
+                /* Debug */ System.err.println(" putativeStringLength == " + putativeStringLength);
+                /* Debug */ System.err.flush();
                 if (putativeStringLength instanceof VSMInt4) {
                     member = new VSMString(null, model.getFormalName());
                     member.read(in, (VSMInt4.class.cast(putativeStringLength)).getValue());
                 } else {
+                    /* Debug */ System.err.println(" About to throw VSMStructStringReadException -- myNewContents is: " + myNewContents);
+                    /* Debug */ System.err.flush();
                     throw new VSMStructStringReadException("Couldn't read string because previous parameter read was not a count of type int4.");
                 }
             } else {
-                VSMParm intParam = model.copyOf();
-                intParam.read(in, -1);
+                member = model.copyOf();
+                member.read(in, -1);
             }
             myNewContents.add(member);
         }
@@ -241,11 +245,11 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     public String toString() {
         StringBuffer sb = new StringBuffer("VSMStruct " + super.toString());
         sb.append(" Formal Name == " + getFormalName() + " Formal Type == " + getFormalType());
-        sb.append(" Struct members follow:\n");
+        /*sb.append(" Struct members follow:\n");
         Iterator<VSMParm> i = iterator();
         while (i.hasNext()) {
-            sb.append(i.next().toString());
-        }
+        sb.append(i.next().toString());
+        }*/
         return sb.toString();
     }
 
@@ -256,7 +260,6 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     public String getFormalType() {
         return FORMAL_TYPE;
     }
-
     /**
      *
      * @return

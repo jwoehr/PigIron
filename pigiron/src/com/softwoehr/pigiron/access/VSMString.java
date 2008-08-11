@@ -44,12 +44,11 @@ public class VSMString implements VSMParm {
     /**
      *
      */
-     /**
+    /**
      * Type in terms of one of the formal parameter type discussed in
      * the VSMAPI documentation: int1, int4, int8, string, struct, array.
      */
     public static final String FORMAL_TYPE = "string";
-
     private String value;
     private String formalName;
 
@@ -102,11 +101,15 @@ public class VSMString implements VSMParm {
      * @return
      */
     public int paramLength() {
-        return value.length();
+        int result = 0;
+        if (value != null) {
+            result = value.length();
+        }
+        return result;
     }
 
     /**
-     * 
+     *
      * @param in
      * @throws java.io.IOException
      */
@@ -114,6 +117,7 @@ public class VSMString implements VSMParm {
         byte[] bytes = new byte[length];
         in.readFully(bytes);
         setValue(new String(bytes));
+        /* Debug */ System.err.println("Read a string: " + value);
     }
 
     /**
