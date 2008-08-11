@@ -161,4 +161,14 @@ public class VSMInt4 implements VSMParm, VSMInt {
     public String getFormalType() {
         return FORMAL_TYPE;
     }
+
+    /**
+     *
+     * @return
+     */
+    public String prettyPrint() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(getFormalName() + "(" + getFormalType() +") " + getValue());
+        return sb.toString();
+    }
 }

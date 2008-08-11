@@ -80,4 +80,6 @@ public interface VSMParm {
      * @throws VSMException
      */
     public void read(DataInputStream in, int length) throws java.io.IOException, VSMException;
+
+    public String prettyPrint();
 }
