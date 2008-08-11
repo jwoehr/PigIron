@@ -83,10 +83,6 @@ public class VSMInt4 implements VSMParm, VSMInt {
         this.value = value;
     }
 
-    public VSMParm copyOf() {
-        return new VSMInt4(value, formalName);
-    }
-
     /**
      * 
      * @return 
@@ -113,7 +109,7 @@ public class VSMInt4 implements VSMParm, VSMInt {
      */
     public void read(DataInputStream in, int length) throws IOException {
         setValue(in.readInt());
-        // /* Debug */ System.err.println("Read an int4: " + value);
+    // /* Debug */ System.err.println("Read an int4: " + value);
     }
 
     /**
@@ -132,6 +128,29 @@ public class VSMInt4 implements VSMParm, VSMInt {
 
     public void setFormalName(String formalName) {
         this.formalName = formalName;
+    }
+
+    /**
+     *
+     * @return copy or null
+     */
+    public VSMParm copyOf() {
+        /* return new VSMInt4(value, formalName);*/
+        VSMParm bozo = null;
+        bozo = VSMParm.class.cast(clone());
+        return bozo;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public Object clone() {
+        VSMInt4 proto = new VSMInt4();
+        proto.setFormalName(formalName);
+        proto.setValue(getValue());
+        return proto;
     }
 
     /**
@@ -168,7 +187,34 @@ public class VSMInt4 implements VSMParm, VSMInt {
      */
     public String prettyPrint() {
         StringBuffer sb = new StringBuffer();
-        sb.append(getFormalName() + "(" + getFormalType() +") " + getValue());
+        sb.append(getFormalName() + "(" + getFormalType() + ") " + getValue());
         return sb.toString();
+    }
+
+    /**
+     *
+     * @param toCopy
+     * @return
+     */
+    public static boolean testCopyOf(VSMInt4 toCopy) {
+        boolean result = false;
+        VSMInt4 theCopy = VSMInt4.class.cast(toCopy.copyOf());
+        System.out.println("theCopy: " + theCopy);
+        System.out.println("theCopy: " + theCopy.prettyPrint());
+        System.out.println("toCopy: " + toCopy);
+        System.out.println("toCopy: " + toCopy.prettyPrint());
+        System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
+        System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
+        return result;
+    }
+
+    /**
+     *
+     * @param argv
+     */
+    public static void main(String[] argv) {
+        VSMInt4 toCopy = new VSMInt4(787, "test_int4");
+        System.out.println("Testing VSMInt4.testCopyOf()");
+        testCopyOf(toCopy);
     }
 }

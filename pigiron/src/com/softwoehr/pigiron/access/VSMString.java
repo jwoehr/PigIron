@@ -117,7 +117,7 @@ public class VSMString implements VSMParm {
         byte[] bytes = new byte[length];
         in.readFully(bytes);
         setValue(new String(bytes));
-        // /* Debug */ System.err.println("Read a string: " + value);
+    // /* Debug */ System.err.println("Read a string: " + value);
     }
 
     /**
@@ -147,14 +147,28 @@ public class VSMString implements VSMParm {
         this.formalName = formalName;
     }
 
+   /**
+     *
+     * @return copy or null
+     */
+    public VSMParm copyOf() {
+        /* return new VSMInt8(value, formalName);*/
+        VSMParm bozo = null;
+        bozo = VSMParm.class.cast(clone());
+        return bozo;
+    }
+
     /**
      *
      * @return
      */
-    public VSMParm copyOf() {
-        return new VSMString(value, formalName);
+    @Override
+    public Object clone() {
+        VSMString proto = new VSMString();
+        proto.setFormalName(formalName);
+        proto.setValue(getValue());
+        return proto;
     }
-
     /**
      *
      * @return
@@ -177,7 +191,35 @@ public class VSMString implements VSMParm {
      */
     public String prettyPrint() {
         StringBuffer sb = new StringBuffer();
-        sb.append(getFormalName() + "(" + getFormalType() +") " + getValue());
+        sb.append(getFormalName() + "(" + getFormalType() + ") " + getValue());
         return sb.toString();
+    }
+
+    /**
+     *
+     * @param toCopy
+     * @return
+     */
+    public static boolean testCopyOf(VSMString toCopy) {
+        boolean result = false;
+        VSMString theCopy = VSMString.class.cast(toCopy.copyOf());
+        System.out.println("theCopy: " + theCopy);
+        System.out.println("theCopy: " + theCopy.prettyPrint());
+        System.out.println("toCopy: " + toCopy);
+        System.out.println("toCopy: " + toCopy.prettyPrint());
+        System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
+        System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
+        return result;
+    }
+
+    /**
+     *
+     * @param argv
+     */
+    public static void main(String[] argv) {
+        VSMString toCopy = new VSMString("Elephants march at night without rest!", "test_string");
+        System.out.println("Testing VSMString.testCopyOf()");
+        testCopyOf(toCopy);
+
     }
 }
