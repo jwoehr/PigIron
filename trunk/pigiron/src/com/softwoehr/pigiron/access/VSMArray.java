@@ -90,7 +90,7 @@ public class VSMArray extends VSMStruct implements VSMParm {
      * through this instance until the count is exhausted and
      * creates a new vector of the items it reads one-at-a-time
      * which it then instantiates in itself.
-     * @param in
+     * @param in the byte count remaining
      * @param length
      * @throws java.io.IOException
      */
@@ -103,7 +103,7 @@ public class VSMArray extends VSMStruct implements VSMParm {
         /* Debug */ System.err.println(" model Array parm is " + model);
         /* Debug */ System.err.flush();
         while (length > 0) {
-            VSMParm target = model.copyOf();
+            CountedStruct target = CountedStruct.class.cast(model.copyOf());
             /* Debug */ System.out.println(" VSMArray.read about to read " + target);
             /* Debug */ System.out.flush();
             target.read(in, length);
@@ -134,11 +134,11 @@ public class VSMArray extends VSMStruct implements VSMParm {
     public String toString() {
         StringBuffer sb = new StringBuffer("VSMArray " + super.toString());
         sb.append(" Formal Name == " + getFormalName() + " Formal Type == " + getFormalType());
-        sb.append(" Array members follow:\n");
+        /*sb.append(" Array members follow:\n");
         Iterator<VSMParm> i = iterator();
         while (i.hasNext()) {
-            sb.append(i.next().toString());
-        }
+        sb.append(i.next().toString());
+        }*/
         return sb.toString();
     }
 

@@ -119,8 +119,11 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     public int paramLength() {
         int total = 0;
         Iterator<VSMParm> i = iterator();
+         /* Debug */ System.err.println("((( In VSMSTruct.paramLength() we're examining " + this);
         while (i.hasNext()) {
-            total += i.next().paramLength();
+            VSMParm entity = i.next();
+            total += entity.paramLength();
+              /* Debug */ System.err.println("((( In VSMSTruct.paramLength() " + entity + " added " + entity.paramLength() + " for total == " + total);
         }
         return total;
     }

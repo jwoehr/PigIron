@@ -143,43 +143,58 @@ public class ParameterArray extends Vector<VSMParm> {
         VSMParm previous = null;
         while (currentListIterator.hasNext()) {
             VSMParm copyOfCurrentParm = currentListIterator.next().copyOf();
-            /* Debug */ System.err.println("next list item in ParameterArray.readAll is " + copyOfCurrentParm);
+            /* Debug */ System.err.println(" next list item in ParameterArray.readAll is:\n  " + copyOfCurrentParm);
             if (copyOfCurrentParm instanceof VSMInt) {
-                /* Debug */ System.err.println("reading a VSMInt ");
+                /* Debug */ System.err.println(" reading a VSMInt ");
                 copyOfCurrentParm.read(in, -1);
-                if (replacement.size() == 1) { // If this is the second thing we read
-                    // Then this should be the output length param
+                if (replacement.size() == 0) { // If this is the first thing we read
+                    replacement.add(copyOfCurrentParm); // ... it's the request_id_immediate
+                // ... and of course don't decrement output length
+                // ... since we haven't readoutput length yet.
+                } else if (replacement.size() == 1) { // If this is the second thing we read
+                    // ... then this should be the remaining output length param.
                     output_length = VSMInt4.class.cast(copyOfCurrentParm).getValue();
+                    replacement.add(copyOfCurrentParm); // There's output_length!
+                } else { // We're beyond the first two int4's and now into the output body
+                    replacement.add(copyOfCurrentParm);
+                    output_length -= copyOfCurrentParm.paramLength();
                 }
-                /* Debug */ System.err.println("Value of read VSMInt " + copyOfCurrentParm.getFormalName() + " == " + VSMInt.class.cast(copyOfCurrentParm).getLongValue());
+                /* Debug */ System.err.println(" Value of read VSMInt " + copyOfCurrentParm.getFormalName() + " == " + VSMInt.class.cast(copyOfCurrentParm).getLongValue());
             } else if (copyOfCurrentParm instanceof VSMString | copyOfCurrentParm instanceof VSMArray | copyOfCurrentParm instanceof VSMStruct) {
                 if (!replacement.isEmpty()) {
                     previous = replacement.lastElement();
                     //  /* Debug */ System.err.println("previous param is " + previous);
                     if (previous instanceof VSMInt4) {
                         int countLength = VSMInt4.class.cast(previous).getValue();
-                        /* Debug */ System.err.println("Getting ready to read " + copyOfCurrentParm + " with read length " + countLength);
+                        /* Debug */ System.err.println(" Getting ready to read " + copyOfCurrentParm + " with read length " + countLength);
                         /* Debug */ System.err.flush();
                         copyOfCurrentParm.read(in, countLength);
+                        output_length -= copyOfCurrentParm.paramLength();
+                        replacement.add(copyOfCurrentParm);
                     } else {
                         // The previous parm isn't the required count for the copyOfCurrentParm counted parmtype
-                        throw new ParameterArrayReadAllException("Previous parm was not a count for the current counted parmtype. " + copyOfCurrentParm);
+                        throw new ParameterArrayReadAllException(" Previous parm was not a count for the current counted parmtype. " + copyOfCurrentParm);
                     }
                 } else {
                     // There's no count for the counted parmtype
-                    throw new ParameterArrayReadAllException("There is no count for the current counted parmtype. " + copyOfCurrentParm);
+                    throw new ParameterArrayReadAllException(" There is no count for the current counted parmtype. " + copyOfCurrentParm);
                 }
+            } else {
+                throw new ParameterArrayReadAllException(" Unknown parameter type.");
             }
-            replacement.add(copyOfCurrentParm);
             // System.err.flush();
             // System.err.println("how many times? " + howmanytimes++);
 
             /* Check that we don't read past end when we get error documents */
             /* "- 2 * SIZEOF_INT4" because output_length doesn't count the */
             /* immediate reply and the output_length itself */
-            if (output_length != -1 & output_length <= replacement.totalParameterLength() - 2 * SIZEOF_INT4) {
+            // if (output_length != -1 & output_length <= replacement.totalParameterLength() - 2 * SIZEOF_INT4) {
+            if (output_length != -1 & output_length <= 0) {
                 break;
             }
+            /* Debug */ System.err.println(" ---");
+            /* Debug */ System.err.println("  output_length being decremented in ParameterArray.readAll() is now " + output_length);
+            /* Debug */ System.err.println(" ---");
         }
         setValue(replacement);
     }

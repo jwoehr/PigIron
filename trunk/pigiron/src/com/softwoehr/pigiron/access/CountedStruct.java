@@ -33,6 +33,7 @@ package com.softwoehr.pigiron.access;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * Used to read in those Arrays that consist of a
@@ -74,6 +75,23 @@ public class CountedStruct extends VSMStruct {
      * @return
      */
     @Override
+    public int paramLength() {
+        /* Debug */ System.err.println("\n^^^^^\nEntering CountedStruct.paramLength(): ");
+        int total = 0;
+        Iterator<VSMParm> i = iterator();
+        while (i.hasNext()) {
+            total += i.next().paramLength();
+            /* Debug */ System.err.println("total == " + total);
+        }
+        /* Debug */ System.err.println("Leaving CountedStruct.paramLength()\n^^^^^\n ");
+        return total;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
     public VSMParm copyOf() {
         CountedStruct cs = new CountedStruct();
         cs.setValue(this);
@@ -92,6 +110,11 @@ public class CountedStruct extends VSMStruct {
 
     /**
      * Assumes the CountedStruct is modelled correctly.
+     * Unlike some of the struct reads which read into copies
+     * of the model and then replace, CountedStruct reads
+     * into its model parms because itself it is always
+     * already a copy spawned from the VSMArray that
+     * contained the model.
      * @param in
      * @param length
      * @throws java.io.IOException
@@ -113,7 +136,12 @@ public class CountedStruct extends VSMStruct {
                     throw new CountedStructStructReadException("First element in counted struct named " + getFormalName() + " of type " + getFormalType() +
                             " is not of type VMSInt4 so cannot be a count.");
                 }
-                VSMStruct myStruct = VSMStruct.class.cast(elementAt(1).copyOf()); // If it ain't  the right class it will throw here on its own!
+                int structLength = purportedCountParm.paramLength();
+                if (structLength > length) {
+                    throw new CountedStructStructReadException("CountedStruct named " + getFormalName() + " of type " + getFormalType() +
+                            "had a count greater than the remaining read length.");
+                }
+                VSMStruct myStruct = VSMStruct.class.cast(elementAt(1)); // If it ain't  the right class it will throw here on its own!
                 myStruct.read(in, length); // read the struct
             } else {
                 throw new CountedStructStructReadException("CountedStruct named " + getFormalName() + " of type " + getFormalType() +
