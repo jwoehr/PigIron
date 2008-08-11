@@ -77,8 +77,8 @@ public class DeviceInfoStructCounted extends CountedStruct {
      */
     public void modelFormalParameters() {
         clear();
-        add(new VSMInt4(-1, "Device_info_structure_length"));
-        add(new DeviceInfoStruct(null, "Device_info_structure"));
+        add(new VSMInt4(-1, "device_info_structure_length"));
+        add(new DeviceInfoStruct(null, "device_info_structure"));
     }
 }
 
