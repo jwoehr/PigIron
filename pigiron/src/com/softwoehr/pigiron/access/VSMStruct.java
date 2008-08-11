@@ -91,6 +91,7 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
      *
      */
     public VSMStruct() {
+        super();
     }
 
     /**
@@ -99,7 +100,11 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
      */
     public VSMStruct(VSMStruct value) {
         this();
-        setValue(value);
+        // setValue(value);
+        Iterator<VSMParm> it = iterator();
+        while (it.hasNext()) {
+            add(it.next().copyOf());
+        }
     }
 
     /**
@@ -237,7 +242,13 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
      * @return
      */
     public VSMParm copyOf() {
-        return new VSMStruct(this, formalName);
+        VSMStruct result = new VSMStruct();
+        result.setFormalName(getFormalName());
+        Iterator<VSMParm> it = iterator();
+        while (it.hasNext()) {
+            result.add(it.next().copyOf());
+        }
+        return result;
     }
 
     /**
