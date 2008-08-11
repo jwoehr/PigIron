@@ -103,7 +103,7 @@ public class VSMArray extends VSMStruct implements VSMParm {
         // /* Debug */ System.err.println(" model Array parm is " + model);
         // /* Debug */ System.err.flush();
         while (length > 0) {
-            CountedStruct target = CountedStruct.class.cast(model.copyOf());
+            VSMParm target = model.copyOf();
             // /* Debug */ System.out.println(" VSMArray.read about to read " + target);
             // /* Debug */ System.out.flush();
             target.read(in, length);
@@ -123,7 +123,13 @@ public class VSMArray extends VSMStruct implements VSMParm {
      */
     @Override
     public VSMParm copyOf() {
-        return new VSMArray(this, getFormalName());
+        VSMArray result = new VSMArray();
+        result.setFormalName(getFormalName());
+        Iterator<VSMParm> it = iterator();
+        while (it.hasNext()) {
+            result.add(it.next().copyOf());
+        }
+        return result;
     }
 
     /**
