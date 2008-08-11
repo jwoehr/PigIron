@@ -34,7 +34,8 @@ package com.softwoehr.pigiron.access;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-
+// import java.util.logging.Level;
+// import java.util.logging.Logger;
 /**
  * 
  * @author jax
@@ -135,7 +136,7 @@ public class VSMInt1 implements VSMParm, VSMInt {
      */
     public void read(DataInputStream in, int length) throws IOException {
         setValue(in.readByte());
-        // /* Debug */ System.err.println("Read an int1: " + value);
+    // /* Debug */ System.err.println("Read an int1: " + value);
     }
 
     /**
@@ -166,10 +167,25 @@ public class VSMInt1 implements VSMParm, VSMInt {
 
     /**
      *
-     * @return
+     * @return copy or null
      */
     public VSMParm copyOf() {
-        return new VSMInt1(value, formalName);
+        /* return new VSMInt1(value, formalName);*/
+        VSMParm bozo = null;
+        bozo = VSMParm.class.cast(clone());
+        return bozo;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public Object clone() {
+        VSMInt1 proto = new VSMInt1();
+        proto.setFormalName(formalName);
+        proto.setValue(getValue());
+        return proto;
     }
 
     /**
@@ -206,7 +222,35 @@ public class VSMInt1 implements VSMParm, VSMInt {
      */
     public String prettyPrint() {
         StringBuffer sb = new StringBuffer();
-        sb.append(getFormalName() + "(" + getFormalType() +") " + getValue());
+        sb.append(getFormalName() + "(" + getFormalType() + ") " + getValue());
         return sb.toString();
+    }
+
+    /**
+     *
+     * @param toCopy
+     * @return
+     */
+    public static boolean testCopyOf(VSMInt1 toCopy) {
+        boolean result = false;
+        VSMInt1 theCopy = VSMInt1.class.cast(toCopy.copyOf());
+        System.out.println("theCopy: " + theCopy);
+        System.out.println("theCopy: " + theCopy.prettyPrint());
+        System.out.println("toCopy: " + toCopy);
+        System.out.println("toCopy: " + toCopy.prettyPrint());
+        System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
+        System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
+        return result;
+    }
+
+    /**
+     *
+     * @param argv
+     */
+    public static void main(String[] argv) {
+        VSMInt1 toCopy = new VSMInt1(997, "test_int1");
+        System.out.println("Testing VSMInt1.testCopyOf()");
+        testCopyOf(toCopy);
+
     }
 }

@@ -145,8 +145,27 @@ public class VSMInt8 implements VSMParm, VSMInt {
         this.formalName = formalName;
     }
 
+    /**
+     *
+     * @return copy or null
+     */
     public VSMParm copyOf() {
-        return new VSMInt8(value, formalName);
+        /* return new VSMInt8(value, formalName);*/
+        VSMParm bozo = null;
+        bozo = VSMParm.class.cast(clone());
+        return bozo;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public Object clone() {
+        VSMInt8 proto = new VSMInt8();
+        proto.setFormalName(formalName);
+        proto.setValue(getValue());
+        return proto;
     }
 
     /**
@@ -166,7 +185,7 @@ public class VSMInt8 implements VSMParm, VSMInt {
      * @return
      */
     public String getFormalType() {
-       return FORMAL_TYPE;
+        return FORMAL_TYPE;
     }
 
     /**
@@ -175,7 +194,35 @@ public class VSMInt8 implements VSMParm, VSMInt {
      */
     public String prettyPrint() {
         StringBuffer sb = new StringBuffer();
-        sb.append(getFormalName() + "(" + getFormalType() +") " + getValue());
+        sb.append(getFormalName() + "(" + getFormalType() + ") " + getValue());
         return sb.toString();
+    }
+
+    /**
+     * 
+     * @param toCopy
+     * @return
+     */
+    public static boolean testCopyOf(VSMInt8 toCopy) {
+        boolean result = false;
+        VSMInt8 theCopy = VSMInt8.class.cast(toCopy.copyOf());
+        System.out.println("theCopy: " + theCopy);
+        System.out.println("theCopy: " + theCopy.prettyPrint());
+        System.out.println("toCopy: " + toCopy);
+        System.out.println("toCopy: " + toCopy.prettyPrint());
+        System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
+        System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
+        return result;
+    }
+
+    /**
+     *
+     * @param argv
+     */
+    public static void main(String[] argv) {
+        VSMInt8 toCopy = new VSMInt8(62345678, "test_int8");
+        System.out.println("Testing VSMInt8.testCopyOf()");
+        testCopyOf(toCopy);
+
     }
 }
