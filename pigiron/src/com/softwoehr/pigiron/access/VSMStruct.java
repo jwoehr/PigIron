@@ -119,11 +119,11 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     public int paramLength() {
         int total = 0;
         Iterator<VSMParm> i = iterator();
-         /* Debug */ System.err.println("((( In VSMSTruct.paramLength() we're examining " + this);
+         // /* Debug */ System.err.println("((( In VSMSTruct.paramLength() we're examining " + this);
         while (i.hasNext()) {
-            VSMParm entity = i.next();
-            total += entity.paramLength();
-              /* Debug */ System.err.println("((( In VSMSTruct.paramLength() " + entity + " added " + entity.paramLength() + " for total == " + total);
+            VSMParm parm = i.next();
+            total += parm.paramLength();
+              // /* Debug */ System.err.println("((( In VSMSTruct.paramLength() " + parm + " added " + parm.paramLength() + " for total == " + total);
         }
         return total;
     }
@@ -184,14 +184,14 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
                 }
             } else if (model instanceof VSMString) {
                 VSMParm putativeStringLength = myNewContents.lastElement();
-                /* Debug */ System.err.println(" putativeStringLength == " + putativeStringLength);
-                /* Debug */ System.err.flush();
+                // /* Debug */ System.err.println(" putativeStringLength == " + putativeStringLength);
+                // /* Debug */ System.err.flush();
                 if (putativeStringLength instanceof VSMInt4) {
                     member = new VSMString(null, model.getFormalName());
                     member.read(in, (VSMInt4.class.cast(putativeStringLength)).getValue());
                 } else {
-                    /* Debug */ System.err.println(" About to throw VSMStructStringReadException -- myNewContents is: " + myNewContents);
-                    /* Debug */ System.err.flush();
+                    // /* Debug */ System.err.println(" About to throw VSMStructStringReadException -- myNewContents is: " + myNewContents);
+                    // /* Debug */ System.err.flush();
                     throw new VSMStructStringReadException("Couldn't read string because previous parameter read was not a count of type int4.");
                 }
             } else {

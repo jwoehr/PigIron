@@ -113,7 +113,7 @@ public class VSMInt4 implements VSMParm, VSMInt {
      */
     public void read(DataInputStream in, int length) throws IOException {
         setValue(in.readInt());
-        /* Debug */ System.err.println("Read an int4: " + value);
+        // /* Debug */ System.err.println("Read an int4: " + value);
     }
 
     /**

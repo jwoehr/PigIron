@@ -75,23 +75,6 @@ public class CountedStruct extends VSMStruct {
      * @return
      */
     @Override
-    public int paramLength() {
-        /* Debug */ System.err.println("\n^^^^^\nEntering CountedStruct.paramLength(): ");
-        int total = 0;
-        Iterator<VSMParm> i = iterator();
-        while (i.hasNext()) {
-            total += i.next().paramLength();
-            /* Debug */ System.err.println("total == " + total);
-        }
-        /* Debug */ System.err.println("Leaving CountedStruct.paramLength()\n^^^^^\n ");
-        return total;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
     public VSMParm copyOf() {
         CountedStruct cs = new CountedStruct();
         cs.setValue(this);
@@ -124,9 +107,9 @@ public class CountedStruct extends VSMStruct {
     @Override
     public void read(DataInputStream in, int length) throws IOException, VSMStructStringReadException, VSMException {
         if (length >= ParameterArray.SIZEOF_INT4) {
-            /* Debug */ System.out.println(" **** About to read in  CountedStruct.read() ");
-            /* Debug */ System.out.println(" **** " + this);
-            /* Debug */ System.out.println(" Counted struct size is " + size());
+            // /* Debug */ System.out.println(" **** About to read in  CountedStruct.read() ");
+            // /* Debug */ System.out.println(" **** " + this);
+            // /* Debug */ System.out.println(" Counted struct size is " + size());
             if (size() == 2) { // Must be modelled before a read, ergo, then has two (2) elements: a count and a struct
                 VSMParm purportedCountParm = elementAt(0);
                 if (purportedCountParm instanceof VSMInt4) {

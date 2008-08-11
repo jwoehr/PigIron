@@ -143,9 +143,9 @@ public class ParameterArray extends Vector<VSMParm> {
         VSMParm previous = null;
         while (currentListIterator.hasNext()) {
             VSMParm copyOfCurrentParm = currentListIterator.next().copyOf();
-            /* Debug */ System.err.println(" next list item in ParameterArray.readAll is:\n  " + copyOfCurrentParm);
+            // /* Debug */ System.err.println(" next list item in ParameterArray.readAll is:\n  " + copyOfCurrentParm);
             if (copyOfCurrentParm instanceof VSMInt) {
-                /* Debug */ System.err.println(" reading a VSMInt ");
+                // /* Debug */ System.err.println(" reading a VSMInt ");
                 copyOfCurrentParm.read(in, -1);
                 if (replacement.size() == 0) { // If this is the first thing we read
                     replacement.add(copyOfCurrentParm); // ... it's the request_id_immediate
@@ -159,15 +159,15 @@ public class ParameterArray extends Vector<VSMParm> {
                     replacement.add(copyOfCurrentParm);
                     output_length -= copyOfCurrentParm.paramLength();
                 }
-                /* Debug */ System.err.println(" Value of read VSMInt " + copyOfCurrentParm.getFormalName() + " == " + VSMInt.class.cast(copyOfCurrentParm).getLongValue());
+                // /* Debug */ System.err.println(" Value of read VSMInt " + copyOfCurrentParm.getFormalName() + " == " + VSMInt.class.cast(copyOfCurrentParm).getLongValue());
             } else if (copyOfCurrentParm instanceof VSMString | copyOfCurrentParm instanceof VSMArray | copyOfCurrentParm instanceof VSMStruct) {
                 if (!replacement.isEmpty()) {
                     previous = replacement.lastElement();
                     //  /* Debug */ System.err.println("previous param is " + previous);
                     if (previous instanceof VSMInt4) {
                         int countLength = VSMInt4.class.cast(previous).getValue();
-                        /* Debug */ System.err.println(" Getting ready to read " + copyOfCurrentParm + " with read length " + countLength);
-                        /* Debug */ System.err.flush();
+                        // /* Debug */ System.err.println(" Getting ready to read " + copyOfCurrentParm + " with read length " + countLength);
+                        // /* Debug */ System.err.flush();
                         copyOfCurrentParm.read(in, countLength);
                         output_length -= copyOfCurrentParm.paramLength();
                         replacement.add(copyOfCurrentParm);
@@ -192,9 +192,9 @@ public class ParameterArray extends Vector<VSMParm> {
             if (output_length != -1 & output_length <= 0) {
                 break;
             }
-            /* Debug */ System.err.println(" ---");
-            /* Debug */ System.err.println("  output_length being decremented in ParameterArray.readAll() is now " + output_length);
-            /* Debug */ System.err.println(" ---");
+            // /* Debug */ System.err.println(" ---");
+            // /* Debug */ System.err.println("  output_length being decremented in ParameterArray.readAll() is now " + output_length);
+            // /* Debug */ System.err.println(" ---");
         }
         setValue(replacement);
     }

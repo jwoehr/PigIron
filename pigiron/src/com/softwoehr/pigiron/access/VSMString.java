@@ -117,7 +117,7 @@ public class VSMString implements VSMParm {
         byte[] bytes = new byte[length];
         in.readFully(bytes);
         setValue(new String(bytes));
-        /* Debug */ System.err.println("Read a string: " + value);
+        // /* Debug */ System.err.println("Read a string: " + value);
     }
 
     /**
