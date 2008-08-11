@@ -111,8 +111,8 @@ public class VSMArray extends VSMStruct implements VSMParm {
             // /* Debug */ System.out.println(" VSMArray.read after read has target param length of   " + target.paramLength());
             // /* Debug */ System.out.flush();
             length -= target.paramLength();
-            // /* Debug */ System.err.println(" Array read length remaining: " + length);
-            // /* Debug */ System.out.flush();
+        // /* Debug */ System.err.println(" Array read length remaining: " + length);
+        // /* Debug */ System.out.flush();
         }
         setValue(v);
     }

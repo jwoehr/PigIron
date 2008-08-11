@@ -119,11 +119,11 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     public int paramLength() {
         int total = 0;
         Iterator<VSMParm> i = iterator();
-         // /* Debug */ System.err.println("((( In VSMSTruct.paramLength() we're examining " + this);
+        // /* Debug */ System.err.println("((( In VSMSTruct.paramLength() we're examining " + this);
         while (i.hasNext()) {
             VSMParm parm = i.next();
             total += parm.paramLength();
-              // /* Debug */ System.err.println("((( In VSMSTruct.paramLength() " + parm + " added " + parm.paramLength() + " for total == " + total);
+        // /* Debug */ System.err.println("((( In VSMSTruct.paramLength() " + parm + " added " + parm.paramLength() + " for total == " + total);
         }
         return total;
     }
@@ -263,11 +263,18 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     public String getFormalType() {
         return FORMAL_TYPE;
     }
+
     /**
      *
      * @return
      */
-    /*public String getStructureType() {
-    return STRUCTURE_TYPE;
-    }*/
+    public String prettyPrint() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(getFormalName() + "(" + getFormalType() + "):\n");
+        Iterator<VSMParm> it = iterator();
+        while (it.hasNext()) {
+            sb.append("  " + it.next().prettyPrint() + "\n");
+        }
+        return sb.toString();
+    }
 }

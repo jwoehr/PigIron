@@ -37,7 +37,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.UnknownHostException;
-import java.util.Enumeration;
+import java.util.Iterator;
 
 /**
  *
@@ -272,8 +272,9 @@ public class ImageActiveConfigurationQuery {
         ImageActiveConfigurationQuery iq = new ImageActiveConfigurationQuery(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4]);
         ParameterArray result = iq.doIt();
         System.out.println("Returns from call to ImageActiveConfigurationQuery:");
-        for (Enumeration<VSMParm> e = result.elements(); e.hasMoreElements();) {
-            System.out.println(e.nextElement().toString());
+        Iterator<VSMParm> i = result.iterator();
+        while (i.hasNext()) {
+            System.out.println(i.next().prettyPrint());
         }
     }
 }
