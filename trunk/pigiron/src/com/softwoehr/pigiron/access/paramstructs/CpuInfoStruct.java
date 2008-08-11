@@ -79,10 +79,10 @@ public class CpuInfoStruct extends VSMStruct {
      */
     public void modelFormalParameters() {
         clear();
-        add(new VSMInt4(-1, "CPU_number"));
-        add(new VSMInt4(-1, "CPU_id_length"));
-        add(new VSMString(null, "CPU_id"));
-        add(new VSMInt1(-1, "CPU_Status"));
+        add(new VSMInt4(-1, "cpu_number"));
+        add(new VSMInt4(-1, "cpu_id_length"));
+        add(new VSMString(null, "cpu_id"));
+        add(new VSMInt1(-1, "cpu_status"));
     }
 }
 
