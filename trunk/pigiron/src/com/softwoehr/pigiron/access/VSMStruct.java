@@ -50,13 +50,6 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     public static final String FORMAL_TYPE = "struct";
 
     /**
-     * Struct types like CPU_info_array
-     * This sort of thing probably belongs
-     * in the yet-to-be-retroactively-written
-     * superclass of all paramstructs.
-     */
-    // public static final String  STRUCTURE_TYPE = "";
-    /**
      *
      * @return
      */
@@ -166,7 +159,7 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
      * @throws VSMStructStringReadException
      */
     public void read(DataInputStream in, int length) throws IOException, VSMStructStringReadException, VSMException {
-        VSMStruct myNewContents = new VSMStruct();
+        VSMStruct myNewContents = new VSMStruct(null);
         VSMParm member = null;
         Iterator<VSMParm> i = iterator(); // Walk through our output model
         while (i.hasNext() & length > 0) {
@@ -242,13 +235,22 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
      * @return
      */
     public VSMParm copyOf() {
-        VSMStruct result = new VSMStruct();
-        result.setFormalName(getFormalName());
+        return VSMParm.class.cast(clone());
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public Object clone() {
+        VSMStruct proto = new VSMStruct();
+        proto.setFormalName(formalName);
         Iterator<VSMParm> it = iterator();
         while (it.hasNext()) {
-            result.add(it.next().copyOf());
+            proto.add(it.next().copyOf());
         }
-        return result;
+        return proto;
     }
 
     /**
@@ -287,5 +289,36 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
             sb.append("  " + it.next().prettyPrint() + "\n");
         }
         return sb.toString();
+    }
+
+    /**
+     *
+     * @param toCopy
+     * @return
+     */
+    public static boolean testCopyOf(VSMStruct toCopy) {
+        boolean result = false;
+        VSMStruct theCopy = VSMStruct.class.cast(toCopy.copyOf());
+        System.out.println("theCopy: " + theCopy);
+        System.out.println("theCopy: " + theCopy.prettyPrint());
+        System.out.println("toCopy: " + toCopy);
+        System.out.println("toCopy: " + toCopy.prettyPrint());
+        System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
+        System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
+        return result;
+    }
+
+    /**
+     *
+     * @param argv
+     */
+    public static void main(String[] argv) {
+        VSMStruct toCopy = new VSMStruct(null, "test_struct");
+        VSMString tempString = new VSMString("I am very silly ", "target_identifier");
+        toCopy.add(new VSMInt4(tempString.paramLength(), "target_identifier_length"));
+        toCopy.add(tempString);
+        toCopy.add(new VSMInt1(42, "life_the_universe_and_everything"));
+        System.out.println("Testing VSMStruct.testCopyOf()");
+        testCopyOf(toCopy);
     }
 }

@@ -31,6 +31,8 @@
  */
 package com.softwoehr.pigiron.access;
 
+import com.softwoehr.pigiron.access.paramstructs.DeviceInfoArray;
+import com.softwoehr.pigiron.access.paramstructs.DeviceInfoStructCounted;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.Iterator;
@@ -121,15 +123,38 @@ public class VSMArray extends VSMStruct implements VSMParm {
      *
      * @return
      */
+    /*@Override
+    public VSMParm copyOf() {
+    VSMArray result = new VSMArray();
+    result.setFormalName(getFormalName());
+    Iterator<VSMParm> it = iterator();
+    while (it.hasNext()) {
+    result.add(it.next().copyOf());
+    }
+    return result;
+    }*/
+    /**
+     *
+     * @return
+     */
     @Override
     public VSMParm copyOf() {
-        VSMArray result = new VSMArray();
-        result.setFormalName(getFormalName());
+        return VSMParm.class.cast(clone());
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public Object clone() {
+        VSMArray proto = new VSMArray();
+        proto.setFormalName(getFormalName());
         Iterator<VSMParm> it = iterator();
         while (it.hasNext()) {
-            result.add(it.next().copyOf());
+            proto.add(it.next().copyOf());
         }
-        return result;
+        return proto;
     }
 
     /**
@@ -155,5 +180,40 @@ public class VSMArray extends VSMStruct implements VSMParm {
     @Override
     public String getFormalType() {
         return FORMAL_TYPE;
+    }
+
+    /**
+     *
+     * @param toCopy
+     * @return
+     */
+    public static boolean testCopyOf(VSMArray toCopy) {
+        boolean result = false;
+        VSMArray theCopy = VSMArray.class.cast(toCopy.copyOf());
+        System.out.println("theCopy: " + theCopy);
+        System.out.println("theCopy: " + theCopy.prettyPrint());
+        System.out.println("toCopy: " + toCopy);
+        System.out.println("toCopy: " + toCopy.prettyPrint());
+        System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
+        System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
+        System.out.println("Changing stuff now in toCopy");
+        DeviceInfoStructCounted.class.cast(toCopy.lastElement()).setValue(new DeviceInfoStructCounted());
+        System.out.println("theCopy: " + theCopy);
+        System.out.println("theCopy: " + theCopy.prettyPrint());
+        System.out.println("toCopy: " + toCopy);
+        System.out.println("toCopy: " + toCopy.prettyPrint());
+        System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
+        System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
+        return result;
+    }
+
+    /**
+     *
+     * @param argv
+     */
+    public static void main(String[] argv) {
+        VSMArray toCopy = DeviceInfoArray.modelArray("Fred");
+        System.out.println("Testing VSMArray.testCopyOf()");
+        testCopyOf(toCopy);
     }
 }
