@@ -38,6 +38,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
+import java.util.Iterator;
 
 /**
  *
@@ -230,7 +231,7 @@ public class ImageQueryActivateTime {
         outParams.add(new VSMInt4(-1, "activation_date_length"));
         outParams.add(new VSMString(null, "activation_date"));
         outParams.add(new VSMInt4(-1, "activation_time_length"));
-        outParams.add(new VSMString(null,"activation_time"));
+        outParams.add(new VSMString(null, "activation_time"));
         return outParams;
     }
 
@@ -302,18 +303,26 @@ public class ImageQueryActivateTime {
      * @throws VSMException
      */
     public static void main(String[] argv) throws IOException, VSMException {
-        if (argv.length == 5) {
-            System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5]);
-        }
-        if (argv.length != 6) {
-            System.out.println("usage: args are:\ninetaddr port user pw target dateformat");
+        ImageQueryActivateTime iq = null;
+
+        if (argv.length > 6 | argv.length < 5) {
+            System.out.println("usage: args are:\ninetaddr port user pw target [ dateformat ]");
             System.exit(1);
         }
-        ImageQueryActivateTime iq = new ImageQueryActivateTime(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], Integer.valueOf(argv[5]).intValue());
+        if (argv.length == 5) {
+            System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4]);
+            iq = new ImageQueryActivateTime(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], 1);
+        } else { // argv.length is thus 6
+            System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5]);
+            iq = new ImageQueryActivateTime(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], Integer.valueOf(argv[5]).intValue());
+        }
+
         ParameterArray result = iq.doIt();
         System.out.println("Returns from call to ImageQueryActivateTime:");
-        for (Enumeration<VSMParm> e = result.elements(); e.hasMoreElements();) {
-            System.out.println(e.nextElement().toString());
+        Iterator<VSMParm> i = result.iterator();
+        while (i.hasNext()) {
+            System.out.println(i.next().prettyPrint());
         }
+
     }
 }
