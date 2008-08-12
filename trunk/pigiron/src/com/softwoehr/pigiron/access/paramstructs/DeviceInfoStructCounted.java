@@ -36,7 +36,7 @@ import com.softwoehr.pigiron.access.VSMInt4;
 
 /**
  * Info about a specific Device that is contained in a struct which
- * carries  * its own count field. This class is a wrapper for
+ * carries its own count field. This class is a wrapper for
  * <tt>com.softwoehr.pigiron.access.paramstructs.DeviceInfoStruct</tt> .
  * Used (for example) in IMAGE_QUERY_ACTIVATE_TIME.
  * @see com.softwoehr.pigiron.access.paramstructs.DeviceInfoStruct
