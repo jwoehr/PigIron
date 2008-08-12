@@ -39,7 +39,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * 
+ * A repeating array of <tt>DeviceInfoStructCounted</tt>
+ * instances.
+ * @see com.softwoehr.pigiron.access.paramstructs.DeviceInfoStructCounted
  * @author jax
  */
 public class DeviceInfoArray extends VSMArray {

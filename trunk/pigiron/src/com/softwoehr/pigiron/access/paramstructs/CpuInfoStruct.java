@@ -38,7 +38,9 @@ import com.softwoehr.pigiron.access.VSMStruct;
 
 /**
  * Info about a specific CPU
- * Used in IMAGE_ACTIVE_CONFIGURATION_QUERY
+ * used (for example) in IMAGE_ACTIVE_CONFIGURATION_QUERY.
+ * @see com.softwoehr.pigiron.access.paramstructs.CpuInfoStructCounted
+ * @see com.softwoehr.pigiron.access.functions.ImageActiveConfigurationQuery
  * @author jax
  */
 public class CpuInfoStruct extends VSMStruct {
