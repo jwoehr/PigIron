@@ -38,7 +38,7 @@ import com.softwoehr.pigiron.access.VSMInt4;
  * Info about a specific CPU contained in a struct which carries
  * its own count field. This class is a wrapper for
  * <tt>com.softwoehr.pigiron.access.paramstructs.CpuInfoStruct</tt> .
- * Used (for example) in IMAGE_ACTIVE_CONFIGURATION_QUERY.
+ * Used (for example) in a VSMAPI IMAGE_ACTIVE_CONFIGURATION_QUERY.
  * @see com.softwoehr.pigiron.access.paramstructs.CpuInfoStruct
  * @see com.softwoehr.pigiron.CountedStruct
  * @see com.softwoehr.pigiron.access.functions.ImageActiveConfigurationQuery

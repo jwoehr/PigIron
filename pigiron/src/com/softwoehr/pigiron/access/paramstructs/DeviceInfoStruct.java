@@ -37,8 +37,8 @@ import com.softwoehr.pigiron.access.VSMString;
 import com.softwoehr.pigiron.access.VSMStruct;
 
 /**
- * Info about a specific Device.
- * used (for example) in IMAGE_QUERY_ACTIVATE_TIME.
+ * Info about a specific Device
+ * used (for example) in a VSMAPI IMAGE_QUERY_ACTIVATE_TIME.
  * @see com.softwoehr.pigiron.access.paramstructs.DeviceInfoStructCounted
  * @see com.softwoehr.pigiron.access.functions.ImageQueryActivateTime
  * @author jax
