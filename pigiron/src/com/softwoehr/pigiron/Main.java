@@ -44,6 +44,6 @@ public class Main {
 
     public static void main(String[] argv) throws IOException, VSMException {
         ImageActiveConfigurationQuery.main(argv);
-    // ImageQueryActivateTime.main(argv);
+        ImageQueryActivateTime.main(argv);
     }
 }
