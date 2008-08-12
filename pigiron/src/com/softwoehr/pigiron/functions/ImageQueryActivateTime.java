@@ -39,7 +39,9 @@ import java.net.UnknownHostException;
 import java.util.Iterator;
 
 /**
- *
+ * Embodiment of a VSMAPI Image_Query_Activate_Time function call.
+ * Models and marshalls both input and output parameters, gets a connection,
+ * makes the call, returns a ParameterArray of the result from doIt().
  * @author jax
  */
 public class ImageQueryActivateTime {
