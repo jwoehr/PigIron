@@ -37,11 +37,21 @@ import com.softwoehr.pigiron.access.VSMException;
 import java.io.IOException;
 
 /**
- *
+ * Runs whatever tests are currently of interest. Harmless as all
+ * function calls currently used are queries.
  * @author jax
  */
 public class Main {
 
+    /**
+     * Currently runs ImageActiveConfigurationQuery.main and
+     * ImageQueryActivateTime.main
+     * @param argv five args: server_dns_name smapi_port userid_for_authentication password userid_to_query
+     * @throws java.io.IOException
+     * @throws com.softwoehr.pigiron.access.VSMException
+     * @see com.softwoehr.pigiron.functions.ImageActiveConfigurationQuery
+     * @see com.softwoehr.pigiron.functions.ImageQueryActivateTime
+     */
     public static void main(String[] argv) throws IOException, VSMException {
         ImageActiveConfigurationQuery.main(argv);
         ImageQueryActivateTime.main(argv);
