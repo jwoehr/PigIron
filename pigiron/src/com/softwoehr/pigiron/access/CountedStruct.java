@@ -70,16 +70,27 @@ public class CountedStruct extends VSMStruct {
     public CountedStruct() {
     }
 
+        /**
+     *
+     * @return
+     */
+    public VSMParm copyOf() {
+        return VSMParm.class.cast(clone());
+    }
+
     /**
      *
      * @return
      */
     @Override
-    public VSMParm copyOf() {
-        CountedStruct cs = new CountedStruct();
-        cs.setValue(this);
-        cs.setFormalName(this.getFormalName());
-        return cs;
+    public Object clone() {
+        CountedStruct proto = new CountedStruct();
+        proto.setFormalName(getFormalName());
+        Iterator<VSMParm> it = iterator();
+        while (it.hasNext()) {
+            proto.add(it.next().copyOf());
+        }
+        return proto;
     }
 
     /**
@@ -164,4 +175,33 @@ public class CountedStruct extends VSMStruct {
             super(message);
         }
     }
+        /**
+     *
+     * @param toCopy
+     * @return
+     */
+    /*public static boolean testCopyOf(CountedStruct toCopy) {
+    boolean result = false;
+    CountedStruct theCopy = CountedStruct.class.cast(toCopy.copyOf());
+    System.out.println("theCopy: " + theCopy);
+    System.out.println("theCopy: " + theCopy.prettyPrint());
+    System.out.println("toCopy: " + toCopy);
+    System.out.println("toCopy: " + toCopy.prettyPrint());
+    System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
+    System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
+    return result;
+    }*/
+    /**
+     *
+     * @param argv
+     */
+    /*public static void main(String[] argv) {
+    CountedStruct toCopy = new CountedStruct(null, "test_struct");
+    VSMString tempString = new VSMString("I am very silly ", "target_identifier");
+    toCopy.add(new VSMInt4(tempString.paramLength(), "target_identifier_length"));
+    toCopy.add(tempString);
+    toCopy.add(new VSMInt1(42, "life_the_universe_and_everything"));
+    System.out.println("Testing CountedStruct.testCopyOf()");
+    testCopyOf(toCopy);
+    }*/
 }
