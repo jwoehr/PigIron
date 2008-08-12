@@ -1,2 +1,12 @@
-PigIron is class wrappers for the IBM z/VM Virtual Machine Operating System Systems Management Application Programming Interface (sometimes called VM-SMAPI).
-(http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm)
+Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+PO Box 51, Golden, Colorado 80402-0051 USA
+All rights reserved.
+
+PigIron is a library of Java class wrappers for the IBM z/VM Virtual Machine
+Operating System Systems Management Application Programming Interface
+(sometimes called VSMAPI).
+
+See http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm
+for more information about VSMAPI.
+
+PigIron is not associated with the IBM corporation.
