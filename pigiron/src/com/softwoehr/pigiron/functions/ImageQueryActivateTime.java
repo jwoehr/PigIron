@@ -174,7 +174,7 @@ public class ImageQueryActivateTime {
 
     /**
      *
-     * "Input" as in "input to SMAPI".
+     * "Input" as in "input to VSMAPI".
      * @return
      * @see
      */
@@ -201,7 +201,7 @@ public class ImageQueryActivateTime {
     }
 
     /**
-     * "Input" as in "input to SMAPI".
+     * "Input" as in "input to VSMAPI".
      * composeInputArray must have been called first
      * @param out
      * @throws java.io.IOException
@@ -213,7 +213,7 @@ public class ImageQueryActivateTime {
 
     /**
      *
-     * "output" as in "output from SMAPI"
+     * "output" as in "output from VSMAPI"
      * @return
      * @see
      */
@@ -234,7 +234,7 @@ public class ImageQueryActivateTime {
     }
 
     /**
-     * "output" as in "output from SMAPI"
+     * "output" as in "output from VSMAPI"
      * composeOutputArray must have been called first
      * @param in
      * @throws java.io.IOException
@@ -284,7 +284,7 @@ public class ImageQueryActivateTime {
      * @throws VSMException
      */
     public ParameterArray doIt() throws IOException, VSMException {
-        /* This will hold return from SMAPI call */
+        /* This will hold return from VSMAPI call */
         composeInputArray();
         composeOutputArray();
         connect();
