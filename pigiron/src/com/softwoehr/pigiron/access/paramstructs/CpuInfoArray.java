@@ -34,7 +34,9 @@ package com.softwoehr.pigiron.access.paramstructs;
 import com.softwoehr.pigiron.access.VSMArray;
 
 /**
- * 
+ * A repeating array of <tt>CpuInfoStructCounted</tt>
+ * instances.
+ * @see com.softwoehr.pigiron.access.paramstructs.CpuInfoStructCounted
  * @author jax
  */
 public class CpuInfoArray extends VSMArray {

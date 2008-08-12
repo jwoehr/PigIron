@@ -31,8 +31,8 @@
  */
 package com.softwoehr.pigiron;
 
-import com.softwoehr.pigiron.access.ImageActiveConfigurationQuery;
-import com.softwoehr.pigiron.access.ImageQueryActivateTime;
+import com.softwoehr.pigiron.functions.ImageActiveConfigurationQuery;
+import com.softwoehr.pigiron.functions.ImageQueryActivateTime;
 import com.softwoehr.pigiron.access.VSMException;
 import java.io.IOException;
 

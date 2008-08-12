@@ -36,20 +36,35 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
 /**
- *
+ * Interface implemented by all parameter types.
+ * VSMAPI has a limited number of basic parameter
+ * types embodied here in the classes which implement
+ * VSMParm.
  * @author jax
  */
 public interface VSMParm {
 
     /**
-     * 
-     * @return
+     * Returns the data payload length in bytes
+     * contained in this parameter.
+     * @return the byte length of the data payload
+     * contained in this parameter.
      */
     public int paramLength();
 
     /**
+     * VSMAPI parameters are named when they are
+     * used in the call documentation. We try
+     * to mimic those documentation formal names
+     * Here is the interface spec to retrieve the
+     * formal name, e.g., cpu_info_structure.
      *
-     * @return
+     * This name has no computational impact
+     * on the call and is a convenience for
+     * documentation and output display.
+     *
+     * @return the formal name of the parameter
+     * at usage time as documented.
      */
     public String getFormalName();
 

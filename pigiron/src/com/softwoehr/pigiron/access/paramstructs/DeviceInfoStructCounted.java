@@ -35,8 +35,13 @@ import com.softwoehr.pigiron.access.CountedStruct;
 import com.softwoehr.pigiron.access.VSMInt4;
 
 /**
- * Info about a specific CPU
- * Used in IMAGE_ACTIVE_CONFIGURATION_QUERY
+ * Info about a specific Device that is contained in a struct which
+ * carries  * its own count field. This class is a wrapper for
+ * <tt>com.softwoehr.pigiron.access.paramstructs.DeviceInfoStruct</tt> .
+ * Used (for example) in IMAGE_QUERY_ACTIVATE_TIME.
+ * @see com.softwoehr.pigiron.access.paramstructs.DeviceInfoStruct
+ * @see com.softwoehr.pigiron.CountedStruct
+ * @see com.softwoehr.pigiron.access.functions.ImageQueryActivateTime
  * @author jax
  */
 public class DeviceInfoStructCounted extends CountedStruct {
@@ -54,7 +59,9 @@ public class DeviceInfoStructCounted extends CountedStruct {
     }
 
     /**
-     * null is legal value, means "just clear me".
+     * null is legal value, means "just clear me and
+     * re-initialize me with a valid list of yet-unread
+     * parameters".
      * @param value
      */
     public DeviceInfoStructCounted(DeviceInfoStructCounted value) {
