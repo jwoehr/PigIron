@@ -133,17 +133,13 @@ public class CheckAuthentication extends VSMCall {
     public static void main(String[] argv) throws IOException, VSMException {
         CheckAuthentication iq = null;
 
-        if (argv.length > 6 | argv.length < 5) {
+        if (argv.length < 4) {
             System.out.println("usage: args are:\ninetaddr port user pw target [ dateformat ]");
             System.exit(1);
         }
-        if (argv.length == 5) {
-            System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4]);
-            iq = new CheckAuthentication(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3]);
-        } else { // argv.length is thus 6
-            System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5]);
-            iq = new CheckAuthentication(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3]);
-        }
+
+        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3]);
+        iq = new CheckAuthentication(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3]);
 
         ParameterArray result = iq.doIt();
         System.out.println("Returns from call to " + iq.getFunctionName() + ":");

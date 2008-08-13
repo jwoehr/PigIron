@@ -35,6 +35,7 @@ import com.softwoehr.pigiron.functions.ImageActiveConfigurationQuery;
 import com.softwoehr.pigiron.functions.ImageQueryActivateTime;
 import com.softwoehr.pigiron.access.VSMException;
 import com.softwoehr.pigiron.functions.CheckAuthentication;
+import com.softwoehr.pigiron.functions.ImageStatusQuery;
 import java.io.IOException;
 
 /**
@@ -54,8 +55,17 @@ public class Main {
      * @see com.softwoehr.pigiron.functions.ImageQueryActivateTime
      */
     public static void main(String[] argv) throws IOException, VSMException {
+        System.out.println("==================");
         ImageActiveConfigurationQuery.main(argv);
+        System.out.println("==================");
         ImageQueryActivateTime.main(argv);
+        System.out.println("==================");
         CheckAuthentication.main(argv);
+        System.out.println("==================");
+        ImageStatusQuery.main(argv);
+        System.out.println("==================");
+        String[] modifiedArgs = {argv[0], argv[1], argv[2], argv[3], "*"};
+        ImageStatusQuery.main(modifiedArgs);
+        System.out.println("=======END========");
     }
 }

@@ -48,7 +48,7 @@ public class CpuInfoArray extends VSMArray {
      */
     public static CpuInfoArray modelArray(String formalName) {
         CpuInfoArray result = new CpuInfoArray();
-        result.add(new CpuInfoStructCounted());
+        result.add(new CpuInfoStructCounted(null, "CPU_info_struct_counted"));
         result.setFormalName(formalName);
         return result;
 
