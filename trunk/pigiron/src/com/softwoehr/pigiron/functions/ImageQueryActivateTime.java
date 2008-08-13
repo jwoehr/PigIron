@@ -32,10 +32,7 @@
 package com.softwoehr.pigiron.functions;
 
 import com.softwoehr.pigiron.access.*;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.Iterator;
 
 /**
@@ -77,7 +74,6 @@ public class ImageQueryActivateTime extends VSMCall {
     /* */
     private String target_identifier;
     private int date_format_indicator = DATE_FORMAT_INDICATOR_MMDDYY;
-    
 
     /**
      *
