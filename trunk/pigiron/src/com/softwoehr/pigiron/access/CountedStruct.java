@@ -70,16 +70,17 @@ public class CountedStruct extends VSMStruct {
     public CountedStruct() {
     }
 
-        /**
-     *
+    /**
+     * Return a correctly typed copy of the present instance.
      * @return
      */
+    @Override
     public VSMParm copyOf() {
         return VSMParm.class.cast(clone());
     }
 
     /**
-     *
+     * Return a deep copy of the present instances.
      * @return
      */
     @Override
@@ -175,7 +176,7 @@ public class CountedStruct extends VSMStruct {
             super(message);
         }
     }
-        /**
+    /**
      *
      * @param toCopy
      * @return

@@ -41,6 +41,7 @@ import java.util.Iterator;
  * Models and marshalls both input and output parameters, gets a connection,
  * makes the call, returns a ParameterArray of the result from doIt().
  * @author jax
+ * @see com.softwoehr.pigiron.access.ParameterArray
  */
 public class ImageStatusQuery extends VSMCall {
 

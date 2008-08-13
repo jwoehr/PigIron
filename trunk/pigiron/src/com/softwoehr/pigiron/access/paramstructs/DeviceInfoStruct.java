@@ -79,18 +79,19 @@ public class DeviceInfoStruct extends VSMStruct {
 
     /**
      *
-     * @param device_info_structure_length
      * @param device_type
      * @param device_address_length
      * @param device_address
      */
-    public DeviceInfoStruct(VSMInt4 device_info_structure_length, VSMInt1 device_type, VSMInt4 device_address_length, VSMString device_address) {
-        add(device_info_structure_length);
+    public DeviceInfoStruct(VSMInt1 device_type, VSMInt4 device_address_length, VSMString device_address) {
         add(device_type);
         add(device_address_length);
         add(device_address);
     }
 
+    /**
+     *
+     */
     public void modelFormalParameters() {
         clear();
         add(new VSMInt1(-1, "device_type"));
