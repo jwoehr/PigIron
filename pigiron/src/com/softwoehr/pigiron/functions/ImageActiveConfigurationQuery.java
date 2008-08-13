@@ -46,24 +46,7 @@ public class ImageActiveConfigurationQuery extends VSMCall {
     /**
      * The transmitted name of the function
      */
-    public static final String IMAGE_ACTIVE_CONFIGURATION_QUERY = "Image_Active_Configuration_Query";
-    private String target_identifier;
-
-    /**
-     *
-     * @return
-     */
-    public String getTarget_identifier() {
-        return target_identifier;
-    }
-
-    /**
-     *
-     * @param target_identifier
-     */
-    public void setTarget_identifier(String target_identifier) {
-        this.target_identifier = target_identifier;
-    }
+    public static final String FUNCTION_NAME = "Image_Active_Configuration_Query";
 
     /**
      *
@@ -97,7 +80,7 @@ public class ImageActiveConfigurationQuery extends VSMCall {
     protected ParameterArray composeInputArray() {
         VSMString tempString = null;
         ParameterArray parameterArray = new ParameterArray();
-        tempString = new VSMString(IMAGE_ACTIVE_CONFIGURATION_QUERY, "Image_Active_Configuration_Query");
+        tempString = new VSMString(getFunctionName(), getFunctionName());
         parameterArray.add(new VSMInt4(tempString.paramLength(), "function_name_length"));
         parameterArray.add(tempString);
         tempString = new VSMString(getUserid(), "authenticated_userid");
@@ -145,6 +128,15 @@ public class ImageActiveConfigurationQuery extends VSMCall {
 
     /**
      *
+     * @return
+     */
+    @Override
+    public String getFunctionName() {
+        return FUNCTION_NAME;
+    }
+
+    /**
+     *
      * @param argv
      * @throws IOException
      * @throws VSMException
@@ -159,7 +151,7 @@ public class ImageActiveConfigurationQuery extends VSMCall {
         }
         ImageActiveConfigurationQuery iq = new ImageActiveConfigurationQuery(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4]);
         ParameterArray result = iq.doIt();
-        System.out.println("Returns from call to ImageActiveConfigurationQuery:");
+        System.out.println("Returns from call to " + iq.getFunctionName() + ":");
         Iterator<VSMParm> i = result.iterator();
         while (i.hasNext()) {
             System.out.println(i.next().prettyPrint());
