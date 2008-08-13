@@ -55,6 +55,7 @@ public abstract class VSMCall {
     private ParameterArray inParams;
     private ParameterArray outParams;
     private Connection connection;
+    private String target_identifier;
 
     /**
      *
@@ -118,6 +119,12 @@ public abstract class VSMCall {
     }
 
     /**
+     * 
+     * @return
+     */
+    public abstract String getFunctionName();
+
+    /**
      *
      * @return
      */
@@ -155,6 +162,14 @@ public abstract class VSMCall {
      */
     public int getPort() {
         return port;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getTarget_identifier() {
+        return target_identifier;
     }
 
     /**
@@ -221,6 +236,14 @@ public abstract class VSMCall {
      */
     public void setPort(int port) {
         this.port = port;
+    }
+
+    /**
+     *
+     * @param target_identifier
+     */
+    public void setTarget_identifier(String target_identifier) {
+        this.target_identifier = target_identifier;
     }
 
     /**
