@@ -38,8 +38,11 @@ import java.io.IOException;
 import java.util.Iterator;
 
 /**
- *
+ * Embodiment of a VSMAPI Image_Active_Configuration_Query function call.
+ * Models and marshalls both input and output parameters, gets a connection,
+ * makes the call, returns a ParameterArray of the result from doIt().
  * @author jax
+ * @see com.softwoehr.pigiron.access.ParameterArray
  */
 public class ImageActiveConfigurationQuery extends VSMCall {
 

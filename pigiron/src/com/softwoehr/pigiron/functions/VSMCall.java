@@ -40,7 +40,7 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 
 /**
- * 
+ * Abstract base class of all the class embodiments of VSMAPI fuction calls.
  * @author jax
  */
 public abstract class VSMCall {

@@ -135,7 +135,6 @@ public class VSMInt4 implements VSMParm, VSMInt {
      * @return copy or null
      */
     public VSMParm copyOf() {
-        /* return new VSMInt4(value, formalName);*/
         VSMParm bozo = null;
         bozo = VSMParm.class.cast(clone());
         return bozo;

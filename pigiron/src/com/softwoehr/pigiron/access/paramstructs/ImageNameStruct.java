@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
  * PO Box 51, Golden, Colorado 80402-0051 USA
@@ -36,13 +37,13 @@ import com.softwoehr.pigiron.access.VSMString;
 import com.softwoehr.pigiron.access.VSMStruct;
 
 /**
- * Info about a specific Device
- * used (for example) in a VSMAPI IMAGE_QUERY_ACTIVATE_TIME.
- * @see com.softwoehr.pigiron.access.paramstructs.DeviceInfoStructCounted
- * @see com.softwoehr.pigiron.access.functions.ImageQueryActivateTime
+ * Name of an image
+ * used (for example) in a Image_Status_Query.
+ * @see com.softwoehr.pigiron.access.paramstructs.ImageNameStructCounted
+ * @see com.softwoehr.pigiron.access.functions.ImageStatusQuery
  * @author jax
  */
-public class ImageNameStructCounted extends VSMStruct {
+public class ImageNameStruct extends VSMStruct {
 
     /**
      * null is legal value, means "just clear me and
@@ -51,7 +52,7 @@ public class ImageNameStructCounted extends VSMStruct {
      * @param value
      * @param formalName
      */
-    public ImageNameStructCounted(VSMStruct value, String formalName) {
+    public ImageNameStruct(VSMStruct value, String formalName) {
         this(value);
         setFormalName(formalName);
     }
@@ -60,7 +61,7 @@ public class ImageNameStructCounted extends VSMStruct {
      * null is legal value, means "just clear me".
      * @param value
      */
-    public ImageNameStructCounted(VSMStruct value) {
+    public ImageNameStruct(VSMStruct value) {
         super(value);
         if (value == null) {
             modelFormalParameters();
@@ -70,19 +71,9 @@ public class ImageNameStructCounted extends VSMStruct {
     /**
      *
      */
-    public ImageNameStructCounted() {
+    public ImageNameStruct() {
         super();
         modelFormalParameters();
-    }
-
-    /**
-     *
-     * @param image_name_length
-     * @param image_name
-     */
-    public ImageNameStructCounted(VSMInt4 image_name_length, VSMString image_name) {
-        add(image_name_length);
-        add(image_name);
     }
 
     /**

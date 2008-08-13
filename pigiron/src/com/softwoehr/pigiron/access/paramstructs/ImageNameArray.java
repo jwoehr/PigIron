@@ -48,7 +48,7 @@ public class ImageNameArray extends VSMArray {
      */
     public static ImageNameArray modelArray(String formalName) {
         ImageNameArray result = new ImageNameArray();
-        result.add(new ImageNameStructCounted(null, "image_name_struct_counted"));
+        result.add(new ImageNameStruct(null, "image_name_struct"));
         result.setFormalName(formalName);
         return result;
 
