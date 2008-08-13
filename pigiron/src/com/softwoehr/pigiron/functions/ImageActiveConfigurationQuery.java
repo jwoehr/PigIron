@@ -142,13 +142,11 @@ public class ImageActiveConfigurationQuery extends VSMCall {
      * @throws VSMException
      */
     public static void main(String[] argv) throws IOException, VSMException {
-        if (argv.length == 5) {
-            System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4]);
-        }
-        if (argv.length != 5) {
+        if (argv.length < 5) {
             System.out.println("usage: args are:\ninetaddr port user pw target");
             System.exit(1);
         }
+        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4]);
         ImageActiveConfigurationQuery iq = new ImageActiveConfigurationQuery(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4]);
         ParameterArray result = iq.doIt();
         System.out.println("Returns from call to " + iq.getFunctionName() + ":");

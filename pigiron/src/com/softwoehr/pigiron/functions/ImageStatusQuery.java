@@ -32,68 +32,31 @@
 package com.softwoehr.pigiron.functions;
 
 import com.softwoehr.pigiron.access.*;
+import com.softwoehr.pigiron.access.paramstructs.ImageNameArray;
 import java.io.IOException;
 import java.util.Iterator;
 
 /**
- * Embodiment of a VSMAPI Image_Query_Activate_Time function call.
+ * Embodiment of a VSMAPI Check_Authentication function call.
  * Models and marshalls both input and output parameters, gets a connection,
  * makes the call, returns a ParameterArray of the result from doIt().
  * @author jax
  */
-public class ImageQueryActivateTime extends VSMCall {
+public class ImageStatusQuery extends VSMCall {
 
     /**
      * The transmitted name of the function
      */
-    public static final String FUNCTION_NAME = "Image_Query_Activate_Time";
-    /**
-     *
-     */
-    public static final int DATE_FORMAT_INDICATOR_MMDDYY = 1;
-    /**
-     *
-     */
-    public static final int DATE_FORMAT_INDICATOR_MMDDYYYY = 2;
-    /**
-     *
-     */
-    public static final int DATE_FORMAT_INDICATOR_YYMMDD = 3;
-    /**
-     *
-     */
-    public static final int DATE_FORMAT_INDICATOR_YYYYMMDD = 4;
-    /**
-     *
-     */
-    public static final int DATE_FORMAT_INDICATOR_DDMMYY = 5;
-    /**
-     * 
-     */
-    public static final int DATE_FORMAT_INDICATOR_DDMMYYYY = 6;
-    /* */
-    private int date_format_indicator = DATE_FORMAT_INDICATOR_MMDDYY;
+    public static final String FUNCTION_NAME = "Image_Status_Query";
 
     /**
      *
-     * @return
+     * "Because it does not include a target_identifier parameter, Check_Authentication
+     * is the only API that does not conform to the set of common input parameters."
+     * - z/VM V5R3.0 Systems Management Application Programming SC24-6122-03
      */
-    public int getDate_format_indicator() {
-        return date_format_indicator;
-    }
-
-    /**
-     *
-     * @param date_format_indicator
-     */
-    public void setDate_format_indicator(int date_format_indicator) {
-        this.date_format_indicator = date_format_indicator;
-    }
-
-    /**
-     *
-     */
-    public ImageQueryActivateTime() {
+    public ImageStatusQuery() {
+        setTarget_identifier(""); // Just for good luck!
     }
 
     /**
@@ -103,16 +66,14 @@ public class ImageQueryActivateTime extends VSMCall {
      * @param userid
      * @param password
      * @param target_identifier
-     * @param date_format_indicator
      */
-    public ImageQueryActivateTime(String hostname, int port, String userid, String password, String target_identifier, int date_format_indicator) {
+    public ImageStatusQuery(String hostname, int port, String userid, String password, String target_identifier) {
         this();
         setHostname(hostname);
         setPort(port);
         setUserid(userid);
         setPassword(password);
         setTarget_identifier(target_identifier);
-        setDate_format_indicator(date_format_indicator);
     }
 
     /**
@@ -136,7 +97,6 @@ public class ImageQueryActivateTime extends VSMCall {
         tempString = new VSMString(getTarget_identifier(), "target_identifier");
         parameterArray.add(new VSMInt4(tempString.paramLength(), "target_identifier_length"));
         parameterArray.add(tempString);
-        parameterArray.add(new VSMInt1(getDate_format_indicator(), "date_format_indicator"));
         VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
         parameterArray.insertElementAt(outputLength, 0);
         // /* Debug */ System.out.println("composed input array :" + parameterArray);
@@ -157,12 +117,8 @@ public class ImageQueryActivateTime extends VSMCall {
         parameterArray.add(new VSMInt4(-1, "request_id"));
         parameterArray.add(new VSMInt4(-1, "return_code"));
         parameterArray.add(new VSMInt4(-1, "reason_code"));
-        parameterArray.add(new VSMInt4(-1, "image_name_length"));
-        parameterArray.add(new VSMString(null, "image_name"));
-        parameterArray.add(new VSMInt4(-1, "activation_date_length"));
-        parameterArray.add(new VSMString(null, "activation_date"));
-        parameterArray.add(new VSMInt4(-1, "activation_time_length"));
-        parameterArray.add(new VSMString(null, "activation_time"));
+        parameterArray.add(new VSMInt4(-1, "image_name_array_length"));
+        parameterArray.add(ImageNameArray.modelArray("image_name_array"));
         setOutParams(parameterArray);
         return parameterArray;
     }
@@ -183,19 +139,15 @@ public class ImageQueryActivateTime extends VSMCall {
      * @throws VSMException
      */
     public static void main(String[] argv) throws IOException, VSMException {
-        ImageQueryActivateTime iq = null;
+        ImageStatusQuery iq = null;
 
         if (argv.length < 5) {
-            System.out.println("usage: args are:\ninetaddr port user pw target [ dateformat ]");
+            System.out.println("usage: args are:\ninetaddr port user pw target");
             System.exit(1);
         }
-        if (argv.length == 5) {
-            System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4]);
-            iq = new ImageQueryActivateTime(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], 1);
-        } else { // argv.length is thus 6
-            System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5]);
-            iq = new ImageQueryActivateTime(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], Integer.valueOf(argv[5]).intValue());
-        }
+
+        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4]);
+        iq = new ImageStatusQuery(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4]);
 
         ParameterArray result = iq.doIt();
         System.out.println("Returns from call to " + iq.getFunctionName() + ":");
@@ -203,6 +155,5 @@ public class ImageQueryActivateTime extends VSMCall {
         while (i.hasNext()) {
             System.out.println(i.next().prettyPrint());
         }
-
     }
 }

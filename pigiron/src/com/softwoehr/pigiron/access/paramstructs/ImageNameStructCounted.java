@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
  * PO Box 51, Golden, Colorado 80402-0051 USA
@@ -32,7 +31,6 @@
  */
 package com.softwoehr.pigiron.access.paramstructs;
 
-import com.softwoehr.pigiron.access.VSMInt1;
 import com.softwoehr.pigiron.access.VSMInt4;
 import com.softwoehr.pigiron.access.VSMString;
 import com.softwoehr.pigiron.access.VSMStruct;
@@ -44,7 +42,7 @@ import com.softwoehr.pigiron.access.VSMStruct;
  * @see com.softwoehr.pigiron.access.functions.ImageQueryActivateTime
  * @author jax
  */
-public class DeviceInfoStruct extends VSMStruct {
+public class ImageNameStructCounted extends VSMStruct {
 
     /**
      * null is legal value, means "just clear me and
@@ -53,7 +51,7 @@ public class DeviceInfoStruct extends VSMStruct {
      * @param value
      * @param formalName
      */
-    public DeviceInfoStruct(VSMStruct value, String formalName) {
+    public ImageNameStructCounted(VSMStruct value, String formalName) {
         this(value);
         setFormalName(formalName);
     }
@@ -62,7 +60,7 @@ public class DeviceInfoStruct extends VSMStruct {
      * null is legal value, means "just clear me".
      * @param value
      */
-    public DeviceInfoStruct(VSMStruct value) {
+    public ImageNameStructCounted(VSMStruct value) {
         super(value);
         if (value == null) {
             modelFormalParameters();
@@ -72,29 +70,27 @@ public class DeviceInfoStruct extends VSMStruct {
     /**
      *
      */
-    public DeviceInfoStruct() {
+    public ImageNameStructCounted() {
         super();
         modelFormalParameters();
     }
 
     /**
      *
-     * @param device_info_structure_length
-     * @param device_type
-     * @param device_address_length
-     * @param device_address
+     * @param image_name_length
+     * @param image_name
      */
-    public DeviceInfoStruct(VSMInt4 device_info_structure_length, VSMInt1 device_type, VSMInt4 device_address_length, VSMString device_address) {
-        add(device_info_structure_length);
-        add(device_type);
-        add(device_address_length);
-        add(device_address);
+    public ImageNameStructCounted(VSMInt4 image_name_length, VSMString image_name) {
+        add(image_name_length);
+        add(image_name);
     }
 
+    /**
+     *
+     */
     public void modelFormalParameters() {
         clear();
-        add(new VSMInt1(-1, "device_type"));
-        add(new VSMInt4(-1, "device_address_length"));
-        add(new VSMString(null, "device_address"));
+        add(new VSMInt4(-1, "image_name_length"));
+        add(new VSMString(null, "image_name"));
     }
 }

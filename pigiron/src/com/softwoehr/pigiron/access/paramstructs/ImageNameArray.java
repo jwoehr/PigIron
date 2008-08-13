@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
  * PO Box 51, Golden, Colorado 80402-0051 USA
@@ -32,69 +31,49 @@
  */
 package com.softwoehr.pigiron.access.paramstructs;
 
-import com.softwoehr.pigiron.access.VSMInt1;
-import com.softwoehr.pigiron.access.VSMInt4;
-import com.softwoehr.pigiron.access.VSMString;
-import com.softwoehr.pigiron.access.VSMStruct;
+import com.softwoehr.pigiron.access.VSMArray;
 
 /**
- * Info about a specific Device
- * used (for example) in a VSMAPI IMAGE_QUERY_ACTIVATE_TIME.
- * @see com.softwoehr.pigiron.access.paramstructs.DeviceInfoStructCounted
- * @see com.softwoehr.pigiron.access.functions.ImageQueryActivateTime
+ * A repeating array of <tt>ImageNameStructCounted</tt>
+ * instances.
+ * @see com.softwoehr.pigiron.access.paramstructs.CpuInfoStructCounted
  * @author jax
  */
-public class DeviceInfoStruct extends VSMStruct {
+public class ImageNameArray extends VSMArray {
 
     /**
-     * null is legal value, means "just clear me and
-     * re-initialize me with a valid list of yet-unread
-     * parameters".
+     *
+     * @param formalName
+     * @return
+     */
+    public static ImageNameArray modelArray(String formalName) {
+        ImageNameArray result = new ImageNameArray();
+        result.add(new ImageNameStructCounted(null, "image_name_struct_counted"));
+        result.setFormalName(formalName);
+        return result;
+
+    }
+
+    /**
+     *
      * @param value
      * @param formalName
      */
-    public DeviceInfoStruct(VSMStruct value, String formalName) {
-        this(value);
-        setFormalName(formalName);
+    public ImageNameArray(VSMArray value, String formalName) {
+        super(value, formalName);
     }
 
     /**
-     * null is legal value, means "just clear me".
+     *
      * @param value
      */
-    public DeviceInfoStruct(VSMStruct value) {
+    public ImageNameArray(VSMArray value) {
         super(value);
-        if (value == null) {
-            modelFormalParameters();
-        }
     }
 
     /**
      *
      */
-    public DeviceInfoStruct() {
-        super();
-        modelFormalParameters();
-    }
-
-    /**
-     *
-     * @param device_info_structure_length
-     * @param device_type
-     * @param device_address_length
-     * @param device_address
-     */
-    public DeviceInfoStruct(VSMInt4 device_info_structure_length, VSMInt1 device_type, VSMInt4 device_address_length, VSMString device_address) {
-        add(device_info_structure_length);
-        add(device_type);
-        add(device_address_length);
-        add(device_address);
-    }
-
-    public void modelFormalParameters() {
-        clear();
-        add(new VSMInt1(-1, "device_type"));
-        add(new VSMInt4(-1, "device_address_length"));
-        add(new VSMString(null, "device_address"));
+    public ImageNameArray() {
     }
 }

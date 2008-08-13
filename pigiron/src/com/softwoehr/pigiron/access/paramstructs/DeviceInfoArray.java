@@ -53,7 +53,7 @@ public class DeviceInfoArray extends VSMArray {
      */
     public static DeviceInfoArray modelArray(String formalName) {
         DeviceInfoArray result = new DeviceInfoArray();
-        result.add(new DeviceInfoStructCounted());
+        result.add(new DeviceInfoStructCounted(null, "device_info_struct_counted"));
         result.setFormalName(formalName);
         return result;
     }
