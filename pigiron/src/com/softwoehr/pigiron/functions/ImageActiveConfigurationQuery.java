@@ -34,10 +34,7 @@ package com.softwoehr.pigiron.functions;
 import com.softwoehr.pigiron.access.*;
 import com.softwoehr.pigiron.access.paramstructs.CpuInfoArray;
 import com.softwoehr.pigiron.access.paramstructs.DeviceInfoArray;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.Iterator;
 
 /**
@@ -51,7 +48,6 @@ public class ImageActiveConfigurationQuery extends VSMCall {
      */
     public static final String IMAGE_ACTIVE_CONFIGURATION_QUERY = "Image_Active_Configuration_Query";
     private String target_identifier;
-    /* "inParams" as in "Into the Host" */
 
     /**
      *
@@ -118,17 +114,6 @@ public class ImageActiveConfigurationQuery extends VSMCall {
         // /* Debug */ System.out.println("composed input array :" + parameterArray);
         setInParams(parameterArray);
         return parameterArray;
-    }
-
-    /**
-     * "Input" as in "input to VSMAPI".
-     * composeInputArray must have been called first
-     * @param out
-     * @throws java.io.IOException
-     * @see
-     */
-    protected void writeInput(DataOutputStream out) throws IOException {
-        getInParams().writeAll(out);
     }
 
     /**
