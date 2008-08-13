@@ -44,37 +44,14 @@ import java.util.Iterator;
  *
  * @author jax
  */
-public class ImageActiveConfigurationQuery {
+public class ImageActiveConfigurationQuery extends VSMCall {
 
     /**
      * The transmitted name of the function
      */
     public static final String IMAGE_ACTIVE_CONFIGURATION_QUERY = "Image_Active_Configuration_Query";
-    private String hostname;
-    private int port;
-    private String userid;
-    private String password;
     private String target_identifier;
     /* "inParams" as in "Into the Host" */
-    private ParameterArray inParams;
-    private ParameterArray outParams;
-    private Connection connection;
-
-    /**
-     *
-     * @return
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     *
-     * @param password
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     /**
      *
@@ -94,22 +71,6 @@ public class ImageActiveConfigurationQuery {
 
     /**
      *
-     * @return
-     */
-    public String getUserid() {
-        return userid;
-    }
-
-    /**
-     *
-     * @param userid
-     */
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
-
-    /**
-     *
      */
     public ImageActiveConfigurationQuery() {
     }
@@ -124,11 +85,11 @@ public class ImageActiveConfigurationQuery {
      */
     public ImageActiveConfigurationQuery(String hostname, int port, String userid, String password, String target_identifier) {
         this();
-        this.hostname = hostname;
-        this.port = port;
-        this.userid = userid;
-        this.password = password;
-        this.target_identifier = target_identifier;
+        setHostname(hostname);
+        setPort(port);
+        setUserid(userid);
+        setPassword(password);
+        setTarget_identifier(target_identifier);
     }
 
     /**
@@ -139,23 +100,24 @@ public class ImageActiveConfigurationQuery {
      */
     protected ParameterArray composeInputArray() {
         VSMString tempString = null;
-        inParams = new ParameterArray();
+        ParameterArray parameterArray = new ParameterArray();
         tempString = new VSMString(IMAGE_ACTIVE_CONFIGURATION_QUERY, "Image_Active_Configuration_Query");
-        inParams.add(new VSMInt4(tempString.paramLength(), "function_name_length"));
-        inParams.add(tempString);
-        tempString = new VSMString(userid, "authenticated_userid");
-        inParams.add(new VSMInt4(tempString.paramLength(), "authenticated_userid_length"));
-        inParams.add(tempString);
-        tempString = new VSMString(password, "password");
-        inParams.add(new VSMInt4(tempString.paramLength(), "password_length"));
-        inParams.add(tempString);
-        tempString = new VSMString(target_identifier, "target_identifier");
-        inParams.add(new VSMInt4(tempString.paramLength(), "target_identifier_length"));
-        inParams.add(tempString);
-        VSMInt4 outputLength = new VSMInt4(new Long(inParams.totalParameterLength()).intValue(), "output_length");
-        inParams.insertElementAt(outputLength, 0);
-        // /* Debug */ System.out.println("composed input array :" + inParams);
-        return inParams;
+        parameterArray.add(new VSMInt4(tempString.paramLength(), "function_name_length"));
+        parameterArray.add(tempString);
+        tempString = new VSMString(getUserid(), "authenticated_userid");
+        parameterArray.add(new VSMInt4(tempString.paramLength(), "authenticated_userid_length"));
+        parameterArray.add(tempString);
+        tempString = new VSMString(getPassword(), "password");
+        parameterArray.add(new VSMInt4(tempString.paramLength(), "password_length"));
+        parameterArray.add(tempString);
+        tempString = new VSMString(getTarget_identifier(), "target_identifier");
+        parameterArray.add(new VSMInt4(tempString.paramLength(), "target_identifier_length"));
+        parameterArray.add(tempString);
+        VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
+        parameterArray.insertElementAt(outputLength, 0);
+        // /* Debug */ System.out.println("composed input array :" + parameterArray);
+        setInParams(parameterArray);
+        return parameterArray;
     }
 
     /**
@@ -166,7 +128,7 @@ public class ImageActiveConfigurationQuery {
      * @see
      */
     protected void writeInput(DataOutputStream out) throws IOException {
-        inParams.writeAll(out);
+        getInParams().writeAll(out);
     }
 
     /**
@@ -176,84 +138,24 @@ public class ImageActiveConfigurationQuery {
      * @see
      */
     protected ParameterArray composeOutputArray() {
-        outParams = new ParameterArray();
-        outParams.add(new VSMInt4(-1, "request_id_immediate"));
-        outParams.add(new VSMInt4(-1, "output_length"));
-        outParams.add(new VSMInt4(-1, "request_id"));
-        outParams.add(new VSMInt4(-1, "return_code"));
-        outParams.add(new VSMInt4(-1, "reason_code"));
-        outParams.add(new VSMInt4(-1, "memory_size"));
-        outParams.add(new VSMInt1(-1, "memory_unit"));
-        outParams.add(new VSMInt1(-1, "share_type"));
-        outParams.add(new VSMInt4(-1, "share_value_length"));
-        outParams.add(new VSMString(null, "share_value"));
-        outParams.add(new VSMInt4(-1, "number_CPUs"));
-        outParams.add(new VSMInt4(-1, "cpu_info_array_length"));
-        outParams.add(CpuInfoArray.modelArray("cpu_info_array"));
-        outParams.add(new VSMInt4(-1, "device_info_array_length"));
-        outParams.add(DeviceInfoArray.modelArray("device_info_array"));
-        return outParams;
-    }
-
-    /**
-     * "output" as in "output from VSMAPI"
-     * composeOutputArray must have been called first
-     * @param in
-     * @throws java.io.IOException
-     * @throws VSMException
-     * @see #composeOutputArray
-     */
-    protected void readOutput(DataInputStream in) throws IOException, VSMException {
-        outParams.readAll(in);
-    }
-
-    /**
-     *
-     * @throws UnknownHostException
-     * @throws IOException
-     */
-    protected void connect() throws UnknownHostException, IOException {
-        connection = new Connection(hostname, port);
-        connection.connect();
-    }
-
-    /**
-     *
-     * @param hostname
-     * @param port
-     * @throws UnknownHostException
-     * @throws IOException
-     */
-    protected void connect(String hostname, int port) throws UnknownHostException, IOException {
-        this.hostname = hostname;
-        this.port = port;
-        connect();
-    }
-
-    /**
-     *
-     */
-    protected void disconnect() {
-        if (connection != null) {
-            connection.disconnect();
-        }
-    }
-
-    /**
-     *
-     * @return
-     * @throws java.io.IOException
-     * @throws VSMException
-     */
-    public ParameterArray doIt() throws IOException, VSMException {
-        /* This will hold return from VSMAPI call */
-        composeInputArray();
-        composeOutputArray();
-        connect();
-        writeInput(connection.getOutputStream());
-        readOutput(connection.getInputStream());
-        disconnect();
-        return outParams;
+        ParameterArray parameterArray = new ParameterArray();
+        parameterArray.add(new VSMInt4(-1, "request_id_immediate"));
+        parameterArray.add(new VSMInt4(-1, "output_length"));
+        parameterArray.add(new VSMInt4(-1, "request_id"));
+        parameterArray.add(new VSMInt4(-1, "return_code"));
+        parameterArray.add(new VSMInt4(-1, "reason_code"));
+        parameterArray.add(new VSMInt4(-1, "memory_size"));
+        parameterArray.add(new VSMInt1(-1, "memory_unit"));
+        parameterArray.add(new VSMInt1(-1, "share_type"));
+        parameterArray.add(new VSMInt4(-1, "share_value_length"));
+        parameterArray.add(new VSMString(null, "share_value"));
+        parameterArray.add(new VSMInt4(-1, "number_CPUs"));
+        parameterArray.add(new VSMInt4(-1, "cpu_info_array_length"));
+        parameterArray.add(CpuInfoArray.modelArray("cpu_info_array"));
+        parameterArray.add(new VSMInt4(-1, "device_info_array_length"));
+        parameterArray.add(DeviceInfoArray.modelArray("device_info_array"));
+        setOutParams(parameterArray);
+        return parameterArray;
     }
 
     /**

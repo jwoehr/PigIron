@@ -11,6 +11,6 @@
  * parameters.
  *
  * @see com.softwoehr.pigiron.access
- * @see com.softwoehr.pigiron.paramstructs
+ * @see com.softwoehr.pigiron.access.paramstructs
  */
 package com.softwoehr.pigiron.functions;

@@ -9,7 +9,7 @@
  * of aggregate structures and the
  * actual VSMAPI function calls themselves.
  * 
- * @see com.softwoehr.pigiron.paramstructs
+ * @see com.softwoehr.pigiron.access.paramstructs
  * @see com.softwoehr.pigiron.functions
  */
 package com.softwoehr.pigiron.access;

@@ -44,7 +44,7 @@ import java.util.Iterator;
  * makes the call, returns a ParameterArray of the result from doIt().
  * @author jax
  */
-public class ImageQueryActivateTime {
+public class ImageQueryActivateTime extends VSMCall {
 
     /**
      * The transmitted name of the function
@@ -74,16 +74,10 @@ public class ImageQueryActivateTime {
      * 
      */
     public static final int DATE_FORMAT_INDICATOR_DDMMYYYY = 6;
-    private String hostname;
-    private int port;
-    private String userid;
-    private String password;
+    /* */
     private String target_identifier;
     private int date_format_indicator = DATE_FORMAT_INDICATOR_MMDDYY;
-    /* "inParams" as in "Into the Host" */
-    private ParameterArray inParams;
-    private ParameterArray outParams;
-    private Connection connection;
+    
 
     /**
      *
@@ -105,22 +99,6 @@ public class ImageQueryActivateTime {
      *
      * @return
      */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     *
-     * @param password
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /**
-     *
-     * @return
-     */
     public String getTarget_identifier() {
         return target_identifier;
     }
@@ -131,22 +109,6 @@ public class ImageQueryActivateTime {
      */
     public void setTarget_identifier(String target_identifier) {
         this.target_identifier = target_identifier;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getUserid() {
-        return userid;
-    }
-
-    /**
-     *
-     * @param userid
-     */
-    public void setUserid(String userid) {
-        this.userid = userid;
     }
 
     /**
@@ -166,12 +128,12 @@ public class ImageQueryActivateTime {
      */
     public ImageQueryActivateTime(String hostname, int port, String userid, String password, String target_identifier, int date_format_indicator) {
         this();
-        this.hostname = hostname;
-        this.port = port;
-        this.userid = userid;
-        this.password = password;
-        this.target_identifier = target_identifier;
-        this.date_format_indicator = date_format_indicator;
+        setHostname(hostname);
+        setPort(port);
+        setUserid(userid);
+        setPassword(password);
+        setTarget_identifier(target_identifier);
+        setDate_format_indicator(date_format_indicator);
     }
 
     /**
@@ -182,35 +144,25 @@ public class ImageQueryActivateTime {
      */
     protected ParameterArray composeInputArray() {
         VSMString tempString = null;
-        inParams = new ParameterArray();
+        ParameterArray parameterArray = new ParameterArray();
         tempString = new VSMString(IMAGE_QUERY_ACTIVATE_TIME, "Image_Query_Activate_Time");
-        inParams.add(new VSMInt4(tempString.paramLength(), "function_name_length"));
-        inParams.add(tempString);
-        tempString = new VSMString(userid, "authenticated_userid");
-        inParams.add(new VSMInt4(tempString.paramLength(), "authenticated_userid_length"));
-        inParams.add(tempString);
-        tempString = new VSMString(password, "password");
-        inParams.add(new VSMInt4(tempString.paramLength(), "password_length"));
-        inParams.add(tempString);
-        tempString = new VSMString(target_identifier, "target_identifier");
-        inParams.add(new VSMInt4(tempString.paramLength(), "target_identifier_length"));
-        inParams.add(tempString);
-        inParams.add(new VSMInt1(date_format_indicator, "date_format_indicator"));
-        VSMInt4 outputLength = new VSMInt4(new Long(inParams.totalParameterLength()).intValue(), "output_length");
-        inParams.insertElementAt(outputLength, 0);
-        // /* Debug */ System.out.println("composed input array :" + inParams);
-        return inParams;
-    }
-
-    /**
-     * "Input" as in "input to VSMAPI".
-     * composeInputArray must have been called first
-     * @param out
-     * @throws java.io.IOException
-     * @see
-     */
-    protected void writeInput(DataOutputStream out) throws IOException {
-        inParams.writeAll(out);
+        parameterArray.add(new VSMInt4(tempString.paramLength(), "function_name_length"));
+        parameterArray.add(tempString);
+        tempString = new VSMString(getUserid(), "authenticated_userid");
+        parameterArray.add(new VSMInt4(tempString.paramLength(), "authenticated_userid_length"));
+        parameterArray.add(tempString);
+        tempString = new VSMString(getPassword(), "password");
+        parameterArray.add(new VSMInt4(tempString.paramLength(), "password_length"));
+        parameterArray.add(tempString);
+        tempString = new VSMString(getTarget_identifier(), "target_identifier");
+        parameterArray.add(new VSMInt4(tempString.paramLength(), "target_identifier_length"));
+        parameterArray.add(tempString);
+        parameterArray.add(new VSMInt1(getDate_format_indicator(), "date_format_indicator"));
+        VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
+        parameterArray.insertElementAt(outputLength, 0);
+        // /* Debug */ System.out.println("composed input array :" + parameterArray);
+        setInParams(parameterArray);
+        return parameterArray;
     }
 
     /**
@@ -220,80 +172,20 @@ public class ImageQueryActivateTime {
      * @see
      */
     protected ParameterArray composeOutputArray() {
-        outParams = new ParameterArray();
-        outParams.add(new VSMInt4(-1, "request_id_immediate"));
-        outParams.add(new VSMInt4(-1, "output_length"));
-        outParams.add(new VSMInt4(-1, "request_id"));
-        outParams.add(new VSMInt4(-1, "return_code"));
-        outParams.add(new VSMInt4(-1, "reason_code"));
-        outParams.add(new VSMInt4(-1, "image_name_length"));
-        outParams.add(new VSMString(null, "image_name"));
-        outParams.add(new VSMInt4(-1, "activation_date_length"));
-        outParams.add(new VSMString(null, "activation_date"));
-        outParams.add(new VSMInt4(-1, "activation_time_length"));
-        outParams.add(new VSMString(null, "activation_time"));
-        return outParams;
-    }
-
-    /**
-     * "output" as in "output from VSMAPI"
-     * composeOutputArray must have been called first
-     * @param in
-     * @throws java.io.IOException
-     * @throws VSMException
-     * @see #composeOutputArray
-     */
-    protected void readOutput(DataInputStream in) throws IOException, VSMException {
-        outParams.readAll(in);
-    }
-
-    /**
-     *
-     * @throws UnknownHostException
-     * @throws IOException
-     */
-    protected void connect() throws UnknownHostException, IOException {
-        connection = new Connection(hostname, port);
-        connection.connect();
-    }
-
-    /**
-     *
-     * @param hostname
-     * @param port
-     * @throws UnknownHostException
-     * @throws IOException
-     */
-    protected void connect(String hostname, int port) throws UnknownHostException, IOException {
-        this.hostname = hostname;
-        this.port = port;
-        connect();
-    }
-
-    /**
-     *
-     */
-    protected void disconnect() {
-        if (connection != null) {
-            connection.disconnect();
-        }
-    }
-
-    /**
-     *
-     * @return
-     * @throws java.io.IOException
-     * @throws VSMException
-     */
-    public ParameterArray doIt() throws IOException, VSMException {
-        /* This will hold return from VSMAPI call */
-        composeInputArray();
-        composeOutputArray();
-        connect();
-        writeInput(connection.getOutputStream());
-        readOutput(connection.getInputStream());
-        disconnect();
-        return outParams;
+        ParameterArray parameterArray = new ParameterArray();
+        parameterArray.add(new VSMInt4(-1, "request_id_immediate"));
+        parameterArray.add(new VSMInt4(-1, "output_length"));
+        parameterArray.add(new VSMInt4(-1, "request_id"));
+        parameterArray.add(new VSMInt4(-1, "return_code"));
+        parameterArray.add(new VSMInt4(-1, "reason_code"));
+        parameterArray.add(new VSMInt4(-1, "image_name_length"));
+        parameterArray.add(new VSMString(null, "image_name"));
+        parameterArray.add(new VSMInt4(-1, "activation_date_length"));
+        parameterArray.add(new VSMString(null, "activation_date"));
+        parameterArray.add(new VSMInt4(-1, "activation_time_length"));
+        parameterArray.add(new VSMString(null, "activation_time"));
+        setOutParams(parameterArray);
+        return parameterArray;
     }
 
     /**
