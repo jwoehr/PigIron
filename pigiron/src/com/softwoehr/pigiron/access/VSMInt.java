@@ -33,11 +33,18 @@
 package com.softwoehr.pigiron.access;
 
 /**
- *
+ * A convenience interface making it easier to deal with certain
+ * aspects of <tt>VSMInt</tt>* instances, in particular, differentiating
+ * any of the VSMInt types from VSMString, VSM(Counted)Struct and VSMArray,
  * @author jax
+ * @see com.softwoehr.pigiron.access.VSMParm
  */
 public interface VSMInt {
 
+    /**
+     * Return the value of any VSMInt implementor instance as a <tt>long</tt>.
+     * @return the value of the instance as a <tt>long</tt>
+     */
     long getLongValue () ;
 
 }

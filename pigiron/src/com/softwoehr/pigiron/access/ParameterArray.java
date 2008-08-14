@@ -40,7 +40,7 @@ import java.util.ListIterator;
 import java.util.Vector;
 
 /**
- *
+ * Parameter composition, marshalling and transmission nexus.
  * @author jax
  */
 public class ParameterArray extends Vector<VSMParm> {
@@ -159,7 +159,7 @@ public class ParameterArray extends Vector<VSMParm> {
                     replacement.add(copyOfCurrentParm);
                     output_length -= copyOfCurrentParm.paramLength();
                 }
-                // /* Debug */ System.err.println(" Value of read VSMInt " + copyOfCurrentParm.getFormalName() + " == " + VSMInt.class.cast(copyOfCurrentParm).getLongValue());
+            // /* Debug */ System.err.println(" Value of read VSMInt " + copyOfCurrentParm.getFormalName() + " == " + VSMInt.class.cast(copyOfCurrentParm).getLongValue());
             } else if (copyOfCurrentParm instanceof VSMString | copyOfCurrentParm instanceof VSMArray | copyOfCurrentParm instanceof VSMStruct) {
                 if (!replacement.isEmpty()) {
                     previous = replacement.lastElement();
@@ -192,9 +192,9 @@ public class ParameterArray extends Vector<VSMParm> {
             if (output_length != -1 & output_length <= 0) {
                 break;
             }
-            // /* Debug */ System.err.println(" ---");
-            // /* Debug */ System.err.println("  output_length being decremented in ParameterArray.readAll() is now " + output_length);
-            // /* Debug */ System.err.println(" ---");
+        // /* Debug */ System.err.println(" ---");
+        // /* Debug */ System.err.println("  output_length being decremented in ParameterArray.readAll() is now " + output_length);
+        // /* Debug */ System.err.println(" ---");
         }
         setValue(replacement);
     }

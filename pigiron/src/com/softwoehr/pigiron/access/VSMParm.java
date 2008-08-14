@@ -29,7 +29,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package com.softwoehr.pigiron.access;
 
 import java.io.DataInputStream;
@@ -40,6 +39,14 @@ import java.io.DataOutputStream;
  * VSMAPI has a limited number of basic parameter
  * types embodied here in the classes which implement
  * VSMParm.
+ *
+ * The formal parameter types discussed in the VSMAPI documentation are:
+ * <tt>int1</tt>, <tt>int4</tt>,
+ * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, and <tt>array</tt>.
+ *
+ * Pigiron also recognizes <tt>counted_struct</tt>
+ * as an extra type above and beyond the base types enumerated
+ * by the VSMAPI documentation.
  * @author jax
  */
 public interface VSMParm {
@@ -69,32 +76,44 @@ public interface VSMParm {
     public String getFormalName();
 
     /**
-     * 
-     * @return
+     * Get the formal type of the parmeter, one of the formal parameter types
+     * discussed in the VSMAPI documentation: <tt>int1</tt>, <tt>int4</tt>,
+     * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.
+     *
+     * Pigiron recognizes <tt>counted_struct</tt>
+     * as an extra type above and beyond the base types enumerated
+     * by the VSMAPI documentation.
+     *
+     * @return the fornal type in a string with the case set as in the docs
      */
     public String getFormalType();
 
     /**
-     *
-     * @return
+     * Return a functional copy of the instance.
+     * Convenience function to type-encapsulate <tt>clone()</tt>.
+     * @return copy or null
      */
     public VSMParm copyOf();
 
     /**
-     * 
-     * @param out
-     * @throws java.io.IOException
+     * Write a VSMParm implementor instance on a stream.
+     * @param out the output stream
+     * @throws java.io.IOException on comm error
      */
     public void write(DataOutputStream out) throws java.io.IOException;
 
     /**
-     * 
-     * @param in
-     * @param length
-     * @throws java.io.IOException
-     * @throws VSMException
+     * Read in a  VSMParm implementor instance from a stream.
+     * @param in the input stream
+     * @param length length to write
+     * @throws java.io.IOException on comm error
+     * @throws VSMException on internal Pigiron parameter marshalling error
      */
     public void read(DataInputStream in, int length) throws java.io.IOException, VSMException;
 
+    /**
+     * Prettyprint the instance for debugging or simple output display.
+     * @return Prettyprint of the instance for debugging or simple output display
+     */
     public String prettyPrint();
 }
