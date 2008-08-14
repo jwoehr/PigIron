@@ -29,7 +29,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package com.softwoehr.pigiron.access;
 
 import java.io.BufferedInputStream;
@@ -41,7 +40,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 /**
- *
+ * Represents the IP Socket connection to the SMAPI Host.
+ * @see com.softwoehr.pigiron.functions.VSMCall
  * @author jax
  */
 public class Connection {
@@ -53,9 +53,10 @@ public class Connection {
     private int port;
 
     /**
-     * 
-     * @param hostname
-     * @param port
+     * Create a <tt>Connection</tt> ready to <tt>connect</tt> to
+     * a hostname and port.
+     * @param hostname the DNS name of the Host
+     * @param port the port to which SMAPI is listening on the Host
      */
     public Connection(String hostname, int port) {
         this.hostname = hostname;
@@ -63,103 +64,89 @@ public class Connection {
     }
 
     /**
-     * 
-     * @param out
-     */
-    public void output(ParameterArray out) {
-    }
-
-    /**
-     * 
-     * @param in
-     */
-    public void input(ParameterArray in) {
-    }
-
-    /**
-     * 
-     * @return
+     * Get the input stream to the socket.
+     * @return the input stream to the socket
      */
     public DataInputStream getInputStream() {
         return inputStream;
     }
 
     /**
-     * 
-     * @return
+     * Get the output stream from the socket.
+     * @return the output stream from the socket
      */
     public DataOutputStream getOutputStream() {
         return outputStream;
     }
 
     /**
-     * 
-     * @param inputStream
+     * Instance the input stream.
+     * @param inputStream the input stream to assign to this Connection
      */
     public void setInputStream(DataInputStream inputStream) {
         this.inputStream = inputStream;
     }
 
     /**
-     * 
-     * @param outputStream
+     * Instance the output stream.
+     * @param outputStream the output stream to assign to this Connection
      */
     public void setOutputStream(DataOutputStream outputStream) {
         this.outputStream = outputStream;
     }
 
     /**
-     * 
-     * @return
+     * Get the name of the Host to which this Connection pertains.
+     * @return the name of the Host to which this Connection pertains
      */
     public String getHostname() {
         return hostname;
     }
 
     /**
-     * 
-     * @param hostname
+     * Set the name of the Host to which this Connection pertains.
+     * @param hostname the name of the Host to which this Connection pertains
      */
     public void setHostname(String hostname) {
         this.hostname = hostname;
     }
 
     /**
-     * 
-     * @return
+     * Get the number of the Host port to which this Connection pertains.
+     * @return the number of the Host port to which this Connection pertains
      */
     public int getPort() {
         return port;
     }
 
     /**
-     * 
-     * @param port
+     * Set the number of the Host port to which this Connection pertains.
+     * @param port the number of the Host port to which this Connection pertains
      */
     public void setPort(int port) {
         this.port = port;
     }
 
     /**
-     * 
-     * @return
+     * Get the socket to which this Connection pertains.
+     * @return the socket to which this Connection pertains
      */
     public Socket getSocket() {
         return socket;
     }
 
     /**
-     * 
-     * @param socket
+     * Set the socket to which this Connection pertains.
+     * @param socket the socket to which this Connection pertain
      */
     protected void setSocket(Socket socket) {
         this.socket = socket;
     }
 
     /**
-     * 
-     * @throws UnknownHostException
-     * @throws IOException 
+     * Establish the connection to the Host VSMAPI.
+     * @throws UnknownHostException if the hostname can't be found
+     * @throws IOException if there is an I/O error in connecting
      */
     public void connect() throws UnknownHostException, IOException {
         // /* Debug */ System.out.println("Connection.connect ... host and port are " + hostname + port);
@@ -169,7 +156,7 @@ public class Connection {
     }
 
     /**
-     * 
+     * Disestablish the connection to the Host VSMAPI.
      */
     public void disconnect() {
         try {
@@ -190,8 +177,8 @@ public class Connection {
     }
 
     /**
-     * 
-     * @return
+     * True if currently connected.
+     * @return true if currently connected, false otherwise.
      */
     public boolean isConnected() {
         return socket.isConnected();
