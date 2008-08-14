@@ -53,6 +53,9 @@ public class VSMString implements VSMParm {
      * (Pigiron also recognizes <tt>counted_struct</tt>
      * as an extra type above and beyond the base types enumerated
      * by the VSMAPI documentation.)
+     *
+     * @see com.softwoehr.pigiron.access.VSMParm
+     * @see com.softwoehr.pigiron.access.CountedStruct
      */
     public static final String FORMAL_TYPE = "string";
     private String value;
