@@ -39,12 +39,16 @@ import java.util.Iterator;
  *  Implements and encapsulates an "extra" base type <tt>counted_struct</tt>
  * which Pigiron recognizes alongside the VSMAPI documented base types.
  *
- * Used to read in Array elements which consist of a
+ * <p>Used to read in Array elements which consist of a
  * repeating count_of_struct_size + struct_itself pair, this class is actually
  * an "extra" base type <tt>counted_struct</tt>
  * which Pigiron recognizes alongside the VSMAPI documented base types:
  * <tt>int1</tt>, <tt>int4</tt>,
- * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.
+ * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.</p>
+ *
+ *      * <p>Pigiron differentiates between a struct
+     * </p>
+
  * @author jax
  * @see com.softwoehr.pigiron.access.VSMParm
  */
