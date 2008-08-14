@@ -45,13 +45,21 @@ import java.util.Vector;
  */
 public class ParameterArray extends Vector<VSMParm> {
 
+    /**
+     * Byte size of <tt>int1</tt> datatype
+     */
     public final static int SIZEOF_INT1 = 1;
+    /**
+     * Byte size of <tt>int4</tt> datatype
+     */
     public final static int SIZEOF_INT4 = 4;
+    /**
+     * Byte size of <tt>int8</tt> datatype
+     */
     public final static int SIZEOF_INT8 = 8;
 
-    // private Vector<VSMParm> params;
     /**
-     * 
+     * Create an instance with no parameters.
      */
     public ParameterArray() {
         super();
@@ -69,9 +77,9 @@ public class ParameterArray extends Vector<VSMParm> {
     }
 
     /**
-     *
-     * @param name
-     * @return
+     * Searches for a parameter with the specified formal name.
+     * @param name formal name of parameter
+     * @return parameter if found, else null.
      */
     public VSMParm parameterNamed(String name) {
         VSMParm result = null;
@@ -86,10 +94,10 @@ public class ParameterArray extends Vector<VSMParm> {
     }
 
     /**
-     * 
-     * @param index
-     * @param out
-     * @throws java.io.IOException
+     * Write the indexed parameter to the output stream.
+     * @param index index in this ParameterArray to find the sought parameter at
+     * @param out the output stream
+     * @throws java.io.IOException on comm error
      */
     public void writeParameterAt(int index, DataOutputStream out) throws IOException {
         VSMParm p = elementAt(index);
@@ -97,8 +105,22 @@ public class ParameterArray extends Vector<VSMParm> {
     }
 
     /**
-     *
-     * @return
+     * Return a sum arrived at by recursive examination of members of the
+     * byte length of all the parameters combined (including the byte length
+     * of their transmitted counts. Note that if you have already run the
+     * composeInput() function, that function typically calls totalParameterLength()
+     * at the very end and prepends the total to the head of this ParameterArray.
+     * So if you call totalParameterLength() after the array is composed, it will
+     * already contain the length <tt>int4</tt> sent at the head of every packet so the
+     * new count from totalParameterLength() at that time will be 4 greater
+     * (length of the length <tt>int4</tt> now included) than sent as a length at transmission
+     * time.
+     * <p>
+     * In other words, there's no reason to call this at a high level except to
+     * manufacture the subsequently prepended length <tt>int4</tt> at composeInput().
+     * @return the sum arrived at by recursive examination of members of the
+     * byte length of all the parameters found at the time of examination in this
+     * ParameterArray.</p>
      */
     public long totalParameterLength() {
         long total = 0;
@@ -110,7 +132,7 @@ public class ParameterArray extends Vector<VSMParm> {
     }
 
     /**
-     *
+     * Write all parameters in order to the output stream.
      * @param out
      * @throws java.io.IOException
      * @see #readAll
@@ -200,13 +222,13 @@ public class ParameterArray extends Vector<VSMParm> {
     }
 
     /**
-     *
+     * Exception to throw if there's a Pigiron internal marshalling error in the read.
      */
     public class ParameterArrayReadAllException extends VSMException {
 
         /**
-         *
-         * @param message
+         * Instance the exception with a specific message.
+         * @param message the message
          */
         public ParameterArrayReadAllException(String message) {
             super(message);
