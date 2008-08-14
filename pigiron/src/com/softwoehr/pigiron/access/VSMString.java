@@ -59,14 +59,14 @@ public class VSMString implements VSMParm {
     private String formalName;
 
     /**
-     * 
+     * Create an instance of undefined value.
      */
     public VSMString() {
     }
 
     /**
-     * 
-     * @param value
+     * Create an instance of specified value.
+     * @param value the value
      */
     public VSMString(String value) {
         this();
@@ -74,9 +74,9 @@ public class VSMString implements VSMParm {
     }
 
     /**
-     *
-     * @param value
-     * @param formalName
+     * Create an instance of specified value  and assign it a formal name.
+     * @param value the value
+     * @param formalName the formal name
      */
     public VSMString(String value, String formalName) {
         this(value);
@@ -84,27 +84,24 @@ public class VSMString implements VSMParm {
     }
 
     /**
-     * 
-     * @return
+     * Get the value.
+     * @return the value
      */
     public String getValue() {
         return value;
     }
 
     /**
-     * 
-     * @param value
+     * Set the value.
+     * @param value the value
      */
     public void setValue(String value) {
         this.value = value;
     }
 
-    /*
-     * Interface methods
-     */
     /**
-     * 
-     * @return
+     * Get the length in bytes of the parameter.
+     * @return the length in bytes of the parameter value.
      */
     public int paramLength() {
         int result = 0;
@@ -115,9 +112,10 @@ public class VSMString implements VSMParm {
     }
 
     /**
-     *
-     * @param in
-     * @throws java.io.IOException
+     * Read in a VSMString from a stream.
+     * @param in the input stream
+     * @param length the max length of the read
+     * @throws java.io.IOException on comm error
      */
     public void read(DataInputStream in, int length) throws IOException {
         byte[] bytes = new byte[length];
@@ -127,35 +125,46 @@ public class VSMString implements VSMParm {
     }
 
     /**
-     * Write the String parameter with a prepended count.
-     * Apparently this count is always int4.
-     * @param d
-     * @throws java.io.IOException
+     * Write the String parameter to the output stream.
+     * Its length <tt>int4</tt> must already have been written by the
+     * enclosing <tt>ParameterArray</tt> having had a
+     * VSMInt4 entry with the length indexed one (1) prior
+     * to this VSMString.
+     *
+     * @param out the output stream
+     * @throws java.io.IOException on comm error
+     * @see com.softwoehr.pigiron.access.ParameterArray
      */
-    public void write(DataOutputStream d)
+    public void write(DataOutputStream out)
             throws java.io.IOException {
-        d.write(value.getBytes());
+        out.write(value.getBytes());
     }
 
     /**
-     *
-     * @return
+     * Get the formal name of the parameter conforming to
+     * the VSMAPI docs for a given call.
+     * @return the formal name of the parameter
+     * @see com.softwoehr.pigiron.access.VSMParm
      */
     public String getFormalName() {
         return formalName;
     }
 
     /**
-     *
-     * @param formalName
+     * Set the formal name of the parameter conforming to
+     * the VSMAPI docs for a given call.
+     * @param formalName the formal name of the parameter
+     * @see com.softwoehr.pigiron.access.VSMParm
      */
     public void setFormalName(String formalName) {
         this.formalName = formalName;
     }
 
-   /**
-     *
+    /**
+     * Return a functional copy of the instance.
+     * Convenience function to type-encapsulate <tt>clone()</tt>.
      * @return copy or null
+     * @see #clone()
      */
     public VSMParm copyOf() {
         /* return new VSMInt8(value, formalName);*/
@@ -165,8 +174,9 @@ public class VSMString implements VSMParm {
     }
 
     /**
-     *
-     * @return
+     * Clone the instance.
+     * @return clone of the instance
+     * @see #copyOf()
      */
     @Override
     public Object clone() {
@@ -175,9 +185,10 @@ public class VSMString implements VSMParm {
         proto.setValue(getValue());
         return proto;
     }
+
     /**
-     *
-     * @return
+     * String representation of the instance for debugging.
+     * @return String representation of the instance for debugging
      */
     @Override
     public String toString() {
@@ -187,45 +198,54 @@ public class VSMString implements VSMParm {
         return sb.toString();
     }
 
+    /**
+     * Get the formal type of the parmeter, one of the formal parameter types
+     * discussed in the VSMAPI documentation: <tt>int1</tt>, <tt>int4</tt>,
+     * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.
+     *
+     * Pigiron recognizes <tt>counted_struct</tt>
+     * as an extra type above and beyond the base types enumerated
+     * by the VSMAPI documentation.
+     *
+     * @return the fornal type in a string with the case set as in the docs
+     */
     public String getFormalType() {
         return FORMAL_TYPE;
     }
 
     /**
-     *
-     * @return
+     * Prettyprint the instance for debugging or simple output display.
+     * @return Prettyprint of the instance for debugging or simple output display
      */
     public String prettyPrint() {
         StringBuffer sb = new StringBuffer();
         sb.append(getFormalName() + "(" + getFormalType() + ") " + getValue());
         return sb.toString();
     }
-
     /**
      *
      * @param toCopy
      * @return
      */
-    public static boolean testCopyOf(VSMString toCopy) {
-        boolean result = false;
-        VSMString theCopy = VSMString.class.cast(toCopy.copyOf());
-        System.out.println("theCopy: " + theCopy);
-        System.out.println("theCopy: " + theCopy.prettyPrint());
-        System.out.println("toCopy: " + toCopy);
-        System.out.println("toCopy: " + toCopy.prettyPrint());
-        System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
-        System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
-        return result;
-    }
-
+    /*public static boolean testCopyOf(VSMString toCopy) {
+    boolean result = false;
+    VSMString theCopy = VSMString.class.cast(toCopy.copyOf());
+    System.out.println("theCopy: " + theCopy);
+    System.out.println("theCopy: " + theCopy.prettyPrint());
+    System.out.println("toCopy: " + toCopy);
+    System.out.println("toCopy: " + toCopy.prettyPrint());
+    System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
+    System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
+    return result;
+    }*/
     /**
      *
      * @param argv
      */
-    public static void main(String[] argv) {
-        VSMString toCopy = new VSMString("Elephants march at night without rest!", "test_string");
-        System.out.println("Testing VSMString.testCopyOf()");
-        testCopyOf(toCopy);
+    /*public static void main(String[] argv) {
+    VSMString toCopy = new VSMString("Elephants march at night without rest!", "test_string");
+    System.out.println("Testing VSMString.testCopyOf()");
+    testCopyOf(toCopy);
 
-    }
+    }*/
 }

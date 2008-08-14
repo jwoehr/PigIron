@@ -71,7 +71,7 @@ public class VSMInt8 implements VSMParm, VSMInt {
     }
 
     /**
-     * Create an instance of specified value and assign it a formal name
+     * Create an instance of specified value and assign it a formal name.
      * @param value the value
      * @param formalName the formal name
      */
@@ -107,6 +107,7 @@ public class VSMInt8 implements VSMParm, VSMInt {
     /**
      * Read in a VSMInt8 from a stream.
      * @param in the input stream
+     * @param length the max length of the read
      * @throws java.io.IOException on comm error
      */
     public void read(DataInputStream in, int length) throws IOException {
@@ -208,7 +209,6 @@ public class VSMInt8 implements VSMParm, VSMInt {
         sb.append(getFormalName() + "(" + getFormalType() + ") " + getValue());
         return sb.toString();
     }
-
     /**
      * 
      * @param toCopy
@@ -225,7 +225,6 @@ public class VSMInt8 implements VSMParm, VSMInt {
     System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
     return result;
     }*/
-
     /**
      *
      * @param argv
