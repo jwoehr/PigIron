@@ -37,8 +37,8 @@ import com.softwoehr.pigiron.access.VSMString;
 import com.softwoehr.pigiron.access.VSMStruct;
 
 /**
- * Name of an image
- * used (for example) in a Image_Status_Query.
+ * Parameter representing the name of an image
+ * used (for example) in an Image_Status_Query.
  * @see com.softwoehr.pigiron.access.paramstructs.ImageNameStructCounted
  * @see com.softwoehr.pigiron.access.functions.ImageStatusQuery
  * @author jax
@@ -46,11 +46,14 @@ import com.softwoehr.pigiron.access.VSMStruct;
 public class ImageNameStruct extends VSMStruct {
 
     /**
+     * Create an instance with a value derived by copying from a like instance
+     * and instance its formal name at the same time.
      * null is legal value, means "just clear me and
      * re-initialize me with a valid list of yet-unread
      * parameters".
-     * @param value
-     * @param formalName
+     * @param value a like instance to copy from
+     * @param formalName the formal name
+     * @see com.softwoehr.pigiron.access.VSMParm
      */
     public ImageNameStruct(VSMStruct value, String formalName) {
         this(value);
@@ -58,8 +61,9 @@ public class ImageNameStruct extends VSMStruct {
     }
 
     /**
+     * Create an instance with a value derived by copying from a like instance.
      * null is legal value, means "just clear me".
-     * @param value
+     * @param value a like instance to copy from
      */
     public ImageNameStruct(VSMStruct value) {
         super(value);
@@ -69,7 +73,7 @@ public class ImageNameStruct extends VSMStruct {
     }
 
     /**
-     *
+     * Create a read-modelled instance.
      */
     public ImageNameStruct() {
         super();
@@ -77,7 +81,7 @@ public class ImageNameStruct extends VSMStruct {
     }
 
     /**
-     *
+     * Instance the members of this struct suitably for read of VSMAPI output.
      */
     public void modelFormalParameters() {
         clear();
