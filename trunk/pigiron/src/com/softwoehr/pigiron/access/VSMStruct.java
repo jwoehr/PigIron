@@ -52,50 +52,25 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
      * (Pigiron also recognizes <tt>counted_struct</tt>
      * as an extra type above and beyond the base types enumerated
      * by the VSMAPI documentation.)
+     * @see com.softwoehr.pigiron.access.VSMParm
+     * @see com.softwoehr.pigiron.access.CountedStruct
      */
     public static final String FORMAL_TYPE = "struct";
-
-    /**
-     *
-     * @return
-     */
-    public VSMStruct getValue() {
-        return this;
-    }
-
-    /**
-     * null is legal value, means "just clear me".
-     * @param value
-     */
-    public void setValue(VSMStruct value) {
-        clear();
-        if (value != null) { // null is legal value
-            addAll(value);   // means "just clear me"
-        }
-    }
     /**
      * let the un-init'ed be null!
      */
     private String formalName;
 
     /**
-     *
-     * @param formalName
-     */
-    public void setFormalName(String formalName) {
-        this.formalName = formalName;
-    }
-
-    /**
-     *
+     * Create an instance of undefined value.
      */
     public VSMStruct() {
         super();
     }
 
     /**
-     *
-     * @param value
+     * Create an instance of specified value
+     * @param value the value (another like instance to be copied from)
      */
     public VSMStruct(VSMStruct value) {
         this();
@@ -107,9 +82,9 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     }
 
     /**
-     *
-     * @param value
-     * @param formalName
+     * Create an instance of specified value  and assign it a formal name.
+     * @param value the value (another like instance to be copied from)
+     * @param formalName the formal name
      */
     public VSMStruct(VSMStruct value, String formalName) {
         this(value);
@@ -117,8 +92,50 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     }
 
     /**
-     *
-     * @return
+     * Get the value i.e., a Vector of struct members, i.e., <tt>this</tt>.
+     * @return the value
+     */
+    public VSMStruct getValue() {
+        return this;
+    }
+
+    /**
+     *     /**
+     * Create an instance of specified value.
+     * <tt>null</tt> is legal value, means "just clear me".
+     * @param value the value
+     */
+    public void setValue(VSMStruct value) {
+        clear();
+        if (value != null) { // null is legal value
+            addAll(value);   // means "just clear me"
+        }
+    }
+
+    /**
+     * Set the formal name of the parameter conforming to
+     * the VSMAPI docs for a given call.
+     * @param formalName the formal name of the parameter
+     * @see com.softwoehr.pigiron.access.VSMParm
+     */
+    public void setFormalName(String formalName) {
+        this.formalName = formalName;
+    }
+
+    /**
+     * Get the formal name of the parameter conforming to
+     * the VSMAPI docs for a given call.
+     * @return the formal name of the parameter
+     * @see com.softwoehr.pigiron.access.VSMParm
+     */
+    public String getFormalName() {
+        return formalName;
+    }
+
+    /**
+     * Get the length in bytes of the parameter arrived at by recursively
+     * calling interface method <tt>paramLength()</tt> on members.
+     * @return the length in bytes of the parameter value.
      */
     public int paramLength() {
         int total = 0;
@@ -132,19 +149,16 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
         return total;
     }
 
-    // Interface implementation
     /**
+     * Write the struct parameter to the output stream.
+     * Its length <tt>int4</tt> must already have been written by the
+     * enclosing <tt>ParameterArray</tt> having had a
+     * VSMInt4 entry with the length indexed one (1) prior
+     * to this VSMStruct.
      *
-     * @return
-     */
-    public String getFormalName() {
-        return formalName;
-    }
-
-    /**
-     *
-     * @param out
-     * @throws java.io.IOException
+     * @param out the output stream
+     * @throws java.io.IOException on comm error
+     * @see com.softwoehr.pigiron.access.ParameterArray
      */
     public void write(DataOutputStream out) throws IOException {
         Iterator<VSMParm> i = iterator();
@@ -209,13 +223,13 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     }
 
     /**
-     *
+     * A class to express internal Pigiron errors in VSMString read marshalling.
      */
     public class VSMStructStringReadException extends VSMException {
 
         /**
-         *
-         * @param message
+         * Create instance with a message.
+         * @param message the message
          */
         public VSMStructStringReadException(String message) {
             super(message);
@@ -223,13 +237,13 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     }
 
     /**
-     *
+     * A class to express internal Pigiron errors in VSMStruct read marshalling.
      */
     public class VSMStructStructReadException extends VSMException {
 
         /**
-         *
-         * @param message
+         *  Create instance with a message.
+         * @param message the message
          */
         public VSMStructStructReadException(String message) {
             super(message);
@@ -237,16 +251,19 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     }
 
     /**
-     *
-     * @return
+     * Return a functional copy of the instance.
+     * Convenience function to type-encapsulate <tt>clone()</tt>.
+     * @return copy or null
+     * @see #clone()
      */
     public VSMParm copyOf() {
         return VSMParm.class.cast(clone());
     }
 
     /**
-     *
-     * @return
+     * Clone the instance.
+     * @return clone of the instance
+     * @see #copyOf()
      */
     @Override
     public Object clone() {
@@ -260,8 +277,8 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     }
 
     /**
-     *
-     * @return
+     * String representation of the instance for debugging.
+     * @return String representation of the instance for debugging
      */
     @Override
     public String toString() {
@@ -276,16 +293,23 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     }
 
     /**
+     * Get the formal type of the parmeter, one of the formal parameter types
+     * discussed in the VSMAPI documentation: <tt>int1</tt>, <tt>int4</tt>,
+     * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.
      *
-     * @return
+     * Pigiron recognizes <tt>counted_struct</tt>
+     * as an extra type above and beyond the base types enumerated
+     * by the VSMAPI documentation.
+     *
+     * @return the fornal type in a string with the case set as in the docs
      */
     public String getFormalType() {
         return FORMAL_TYPE;
     }
 
     /**
-     *
-     * @return
+     * Prettyprint the instance for debugging or simple output display.
+     * @return Prettyprint of the instance for debugging or simple output display
      */
     public String prettyPrint() {
         StringBuffer sb = new StringBuffer();
@@ -296,35 +320,33 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
         }
         return sb.toString();
     }
-
     /**
      *
      * @param toCopy
      * @return
      */
-    public static boolean testCopyOf(VSMStruct toCopy) {
-        boolean result = false;
-        VSMStruct theCopy = VSMStruct.class.cast(toCopy.copyOf());
-        System.out.println("theCopy: " + theCopy);
-        System.out.println("theCopy: " + theCopy.prettyPrint());
-        System.out.println("toCopy: " + toCopy);
-        System.out.println("toCopy: " + toCopy.prettyPrint());
-        System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
-        System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
-        return result;
-    }
-
+    /*public static boolean testCopyOf(VSMStruct toCopy) {
+    boolean result = false;
+    VSMStruct theCopy = VSMStruct.class.cast(toCopy.copyOf());
+    System.out.println("theCopy: " + theCopy);
+    System.out.println("theCopy: " + theCopy.prettyPrint());
+    System.out.println("toCopy: " + toCopy);
+    System.out.println("toCopy: " + toCopy.prettyPrint());
+    System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
+    System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
+    return result;
+    }*/
     /**
      *
      * @param argv
      */
-    public static void main(String[] argv) {
-        VSMStruct toCopy = new VSMStruct(null, "test_struct");
-        VSMString tempString = new VSMString("I am very silly ", "target_identifier");
-        toCopy.add(new VSMInt4(tempString.paramLength(), "target_identifier_length"));
-        toCopy.add(tempString);
-        toCopy.add(new VSMInt1(42, "life_the_universe_and_everything"));
-        System.out.println("Testing VSMStruct.testCopyOf()");
-        testCopyOf(toCopy);
-    }
+    /*public static void main(String[] argv) {
+    VSMStruct toCopy = new VSMStruct(null, "test_struct");
+    VSMString tempString = new VSMString("I am very silly ", "target_identifier");
+    toCopy.add(new VSMInt4(tempString.paramLength(), "target_identifier_length"));
+    toCopy.add(tempString);
+    toCopy.add(new VSMInt1(42, "life_the_universe_and_everything"));
+    System.out.println("Testing VSMStruct.testCopyOf()");
+    testCopyOf(toCopy);
+    }*/
 }
