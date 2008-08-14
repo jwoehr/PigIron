@@ -52,14 +52,18 @@ public class VSMArray extends VSMStruct implements VSMParm {
      * (Pigiron also recognizes <tt>counted_struct</tt>
      * as an extra type above and beyond the base types enumerated
      * by the VSMAPI documentation.)
+     *
+     * @see com.softwoehr.pigiron.access.VSMParm
+     * @see com.softwoehr.pigiron.access.CountedStruct
      */
     public static final String FORMAL_TYPE = "array";
 
     /**
-     *
-     * @param model
-     * @param formalName
-     * @return
+     * Create a VSMArray that has as its one (1) member a model of the
+     * parameter it is intended to read iteratively.
+     * @param model The VSMParm (often CountedStruct) which will be  read iteratively
+     * @param formalName the formal name
+     * @return the new modelled VSMArray ready for a read.
      */
     static public VSMArray modelArray(VSMParm model, String formalName) {
         VSMArray result = new VSMArray();
@@ -69,24 +73,25 @@ public class VSMArray extends VSMStruct implements VSMParm {
     }
 
     /**
-     *
+     * Create an instance of undefined value.
      */
     public VSMArray() {
         super();
     }
 
     /**
-     *
-     * @param value
+     * Create an instance of specified value copied from a like instance.
+     * @param value a like instance to be copied from
      */
     public VSMArray(VSMArray value) {
         super(value);
     }
 
     /**
-     *
-     * @param value
-     * @param formalName
+     * Create an instance of specified value copied from a like instance, and
+     * specify the formal name at the same time.
+     * @param value a like instance to be copied from
+     * @param formalName the formal name
      */
     public VSMArray(VSMArray value, String formalName) {
         super(value, formalName);
@@ -126,22 +131,10 @@ public class VSMArray extends VSMStruct implements VSMParm {
     }
 
     /**
-     *
-     * @return
-     */
-    /*@Override
-    public VSMParm copyOf() {
-    VSMArray result = new VSMArray();
-    result.setFormalName(getFormalName());
-    Iterator<VSMParm> it = iterator();
-    while (it.hasNext()) {
-    result.add(it.next().copyOf());
-    }
-    return result;
-    }*/
-    /**
-     *
-     * @return
+     * Return a functional copy of the instance.
+     * Convenience function to type-encapsulate <tt>clone()</tt>.
+     * @return copy or null
+     * @see #clone()
      */
     @Override
     public VSMParm copyOf() {
@@ -149,8 +142,9 @@ public class VSMArray extends VSMStruct implements VSMParm {
     }
 
     /**
-     *
-     * @return
+     * Clone the instance.
+     * @return clone of the instance
+     * @see #copyOf()
      */
     @Override
     public Object clone() {
@@ -164,8 +158,8 @@ public class VSMArray extends VSMStruct implements VSMParm {
     }
 
     /**
-     *
-     * @return
+     * String representation of the instance for debugging.
+     * @return String representation of the instance for debugging
      */
     @Override
     public String toString() {
@@ -180,46 +174,51 @@ public class VSMArray extends VSMStruct implements VSMParm {
     }
 
     /**
+     * Get the formal type of the parmeter, one of the formal parameter types
+     * discussed in the VSMAPI documentation: <tt>int1</tt>, <tt>int4</tt>,
+     * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.
      *
-     * @return
+     * Pigiron recognizes <tt>counted_struct</tt>
+     * as an extra type above and beyond the base types enumerated
+     * by the VSMAPI documentation.
+     *
+     * @return the fornal type in a string with the case set as in the docs
      */
     @Override
     public String getFormalType() {
         return FORMAL_TYPE;
     }
-
     /**
      *
      * @param toCopy
      * @return
      */
-    public static boolean testCopyOf(VSMArray toCopy) {
-        boolean result = false;
-        VSMArray theCopy = VSMArray.class.cast(toCopy.copyOf());
-        System.out.println("theCopy: " + theCopy);
-        System.out.println("theCopy: " + theCopy.prettyPrint());
-        System.out.println("toCopy: " + toCopy);
-        System.out.println("toCopy: " + toCopy.prettyPrint());
-        System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
-        System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
-        System.out.println("Changing stuff now in toCopy");
-        DeviceInfoStructCounted.class.cast(toCopy.lastElement()).setValue(new DeviceInfoStructCounted());
-        System.out.println("theCopy: " + theCopy);
-        System.out.println("theCopy: " + theCopy.prettyPrint());
-        System.out.println("toCopy: " + toCopy);
-        System.out.println("toCopy: " + toCopy.prettyPrint());
-        System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
-        System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
-        return result;
-    }
-
+    /*public static boolean testCopyOf(VSMArray toCopy) {
+    boolean result = false;
+    VSMArray theCopy = VSMArray.class.cast(toCopy.copyOf());
+    System.out.println("theCopy: " + theCopy);
+    System.out.println("theCopy: " + theCopy.prettyPrint());
+    System.out.println("toCopy: " + toCopy);
+    System.out.println("toCopy: " + toCopy.prettyPrint());
+    System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
+    System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
+    System.out.println("Changing stuff now in toCopy");
+    DeviceInfoStructCounted.class.cast(toCopy.lastElement()).setValue(new DeviceInfoStructCounted());
+    System.out.println("theCopy: " + theCopy);
+    System.out.println("theCopy: " + theCopy.prettyPrint());
+    System.out.println("toCopy: " + toCopy);
+    System.out.println("toCopy: " + toCopy.prettyPrint());
+    System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
+    System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
+    return result;
+    }*/
     /**
      *
      * @param argv
      */
-    public static void main(String[] argv) {
-        VSMArray toCopy = DeviceInfoArray.modelArray("Fred");
-        System.out.println("Testing VSMArray.testCopyOf()");
-        testCopyOf(toCopy);
-    }
+    /*public static void main(String[] argv) {
+    VSMArray toCopy = DeviceInfoArray.modelArray("Fred");
+    System.out.println("Testing VSMArray.testCopyOf()");
+    testCopyOf(toCopy);
+    }*/
 }
