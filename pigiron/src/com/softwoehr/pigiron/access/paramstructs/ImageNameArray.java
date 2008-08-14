@@ -34,17 +34,17 @@ package com.softwoehr.pigiron.access.paramstructs;
 import com.softwoehr.pigiron.access.VSMArray;
 
 /**
- * A repeating array of <tt>ImageNameStructCounted</tt>
+ * A repeating array of <tt>ImageNameStruct</tt>
  * instances.
- * @see com.softwoehr.pigiron.access.paramstructs.CpuInfoStructCounted
+ * @see com.softwoehr.pigiron.access.paramstructs.ImageNameStruct
  * @author jax
  */
 public class ImageNameArray extends VSMArray {
 
     /**
-     *
-     * @param formalName
-     * @return
+     * Create a modelled-for-read instance with a specified formal name.
+     * @param formalName the formal name
+     * @return the modelled instance.
      */
     public static ImageNameArray modelArray(String formalName) {
         ImageNameArray result = new ImageNameArray();
@@ -55,24 +55,25 @@ public class ImageNameArray extends VSMArray {
     }
 
     /**
-     *
-     * @param value
-     * @param formalName
+     * Create an instance by copying the value from a like instance, and
+     * assign also the formal name.
+     * @param value a like instance to copy from
+     * @param formalName the formal name
      */
     public ImageNameArray(VSMArray value, String formalName) {
         super(value, formalName);
     }
 
     /**
-     *
-     * @param value
+     * Create an instance by copying the value from a like instance.
+     * @param value a like instance to copy from
      */
     public ImageNameArray(VSMArray value) {
         super(value);
     }
 
     /**
-     *
+     * Create an instance of undefined value.
      */
     public ImageNameArray() {
     }
