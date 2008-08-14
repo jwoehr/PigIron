@@ -46,8 +46,14 @@ import java.util.Iterator;
  * <tt>int1</tt>, <tt>int4</tt>,
  * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.</p>
  *
- *      * <p>Pigiron differentiates between a struct
-     * </p>
+ * <p>Pigiron differentiates between a <tt>VSMStruct</tt> consisting of:</p>
+ * <ol>
+ * <li>a <tt>VSMInt4</tt> count followed by a <tt>VSMStruct</tt></li>
+ * <li>an arbitrary collection of type entries</li>
+ * </ol>
+ * <p> Type (1), a <tt>VSMInt4</tt> count followed by a <tt>VSMStruct</tt></li>
+ * is the case represented by <tt>CountedStruct</tt>
+ * </p>
 
  * @author jax
  * @see com.softwoehr.pigiron.access.VSMParm
