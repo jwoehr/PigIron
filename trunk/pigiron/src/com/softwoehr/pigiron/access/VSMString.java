@@ -36,8 +36,10 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
+ * Implements and encapsulates the VSMAPI <tt>string</tt> basic type.
  *
  * @author jax
+ * @see com.softwoehr.pigiron.access.VSMParm
  */
 public class VSMString implements VSMParm {
 
@@ -46,7 +48,11 @@ public class VSMString implements VSMParm {
      */
     /**
      * Type in terms of one of the formal parameter type discussed in
-     * the VSMAPI documentation: int1, int4, int8, string, struct, array.
+     * the VSMAPI documentation: <tt>int1</tt>, <tt>int4</tt>,
+     * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.
+     * (Pigiron also recognizes <tt>counted_struct</tt>
+     * as an extra type above and beyond the base types enumerated
+     * by the VSMAPI documentation.)
      */
     public static final String FORMAL_TYPE = "string";
     private String value;

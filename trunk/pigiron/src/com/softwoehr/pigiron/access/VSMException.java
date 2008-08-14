@@ -33,7 +33,7 @@
 package com.softwoehr.pigiron.access;
 
 /**
- * 
+ * Base class for Pigiron's own Exceptions.
  * @author jax
  */
 public class VSMException extends Exception {

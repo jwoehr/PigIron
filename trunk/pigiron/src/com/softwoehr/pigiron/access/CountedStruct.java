@@ -36,36 +36,47 @@ import java.io.IOException;
 import java.util.Iterator;
 
 /**
- * Used to read in those Arrays that consist of a
- * repeating count_of_struct_size + struct_itself pair.
+ *  Implements and encapsulates an "extra" base type <tt>counted_struct</tt>
+ * which Pigiron recognizes alongside the VSMAPI documented base types.
+ *
+ * Used to read in Array elements which consist of a
+ * repeating count_of_struct_size + struct_itself pair, this class is actually
+ * an "extra" base type <tt>counted_struct</tt>
+ * which Pigiron recognizes alongside the VSMAPI documented base types:
+ * <tt>int1</tt>, <tt>int4</tt>,
+ * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.
  * @author jax
+ * @see com.softwoehr.pigiron.access.VSMParm
  */
 public class CountedStruct extends VSMStruct {
 
     /**
-     *
+     * The formal type name. Pigiron recognizes <tt>counted_struct</tt>
+     * as an extra type above and beyond the base types enumerated
+     * by the VSMAPI documentation.
      */
     public static final String FORMAL_TYPE = "counted_struct";
 
     /**
-     *
-     * @param value
-     * @param formalName
+     * Create an instance assigning its value from another instance.
+     * and assigning the new instance a formal name.
+     * @param value the instance to copy value from
+     * @param formalName the formal name giving significance to the instance as a parameter of a VSMAPI function
      */
-    public CountedStruct(VSMStruct value, String formalName) {
+    public CountedStruct(CountedStruct value, String formalName) {
         super(value, formalName);
     }
 
     /**
-     *
-     * @param value
+     * Create an instance assigning its value from another instance.
+     * @param value the instance to copy value from
      */
-    public CountedStruct(VSMStruct value) {
+    public CountedStruct(CountedStruct value) {
         super(value);
     }
 
     /**
-     *
+     * Create an instance with an empty value and no formal name.
      */
     public CountedStruct() {
     }
@@ -95,8 +106,10 @@ public class CountedStruct extends VSMStruct {
     }
 
     /**
-     *
-     * @return
+     * Get the formal type of the parameter conforming to
+     * the VSMAPI docs.
+     * @return the formal type of the parameter
+     * @see com.softwoehr.pigiron.access.VSMParm
      */
     @Override
     public String getFormalType() {
@@ -155,8 +168,8 @@ public class CountedStruct extends VSMStruct {
     }
 
     /**
-     *
-     * @return
+     * String representation of the instance for debugging.
+     * @return String representation of the instance for debugging
      */
     @Override
     public String toString() {
@@ -164,13 +177,14 @@ public class CountedStruct extends VSMStruct {
     }
 
     /**
-     *
+     * Exception thrown when read errors occur internally in Pigiron's
+     * parameter marshalling.
      */
     public class CountedStructStructReadException extends VSMException {
 
         /**
-         *
-         * @param message
+         * Instance assigned a message.
+         * @param message the message
          */
         public CountedStructStructReadException(String message) {
             super(message);
