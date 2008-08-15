@@ -36,6 +36,7 @@ import com.softwoehr.pigiron.functions.ImageQueryActivateTime;
 import com.softwoehr.pigiron.access.VSMException;
 import com.softwoehr.pigiron.functions.CheckAuthentication;
 import com.softwoehr.pigiron.functions.ImageStatusQuery;
+import com.softwoehr.pigiron.functions.NameListQuery;
 import java.io.IOException;
 
 /**
@@ -46,13 +47,22 @@ import java.io.IOException;
 public class Main {
 
     /**
-     * Currently runs ImageActiveConfigurationQuery.main and
-     * ImageQueryActivateTime.main
+     * Currently runs:
+     *  <ul>
+     * <li><tt>ImageActiveConfigurationQuery.main(argv)</tt></li>
+     * <li><tt>ImageQueryActivateTime.main(argv)</tt></li>
+     * <li><tt>CheckAuthentication.main(argv)</tt></li>
+     * <li><tt>ImageStatusQuery.main(argv)</tt></li>
+     * <li><tt>NameListQuery.main(argv)</tt></li>
+     * </ul>
      * @param argv five args: server_dns_name smapi_port userid_for_authentication password userid_to_query
      * @throws java.io.IOException
      * @throws com.softwoehr.pigiron.access.VSMException
      * @see com.softwoehr.pigiron.functions.ImageActiveConfigurationQuery
      * @see com.softwoehr.pigiron.functions.ImageQueryActivateTime
+     * @see com.softwoehr.pigiron.functions.CheckAuthentication
+     * @see com.softwoehr.pigiron.functions.ImageStatusQuery
+     * @see com.softwoehr.pigiron.functions.NameListQuery
      */
     public static void main(String[] argv) throws IOException, VSMException {
         System.out.println("==================");
@@ -66,6 +76,8 @@ public class Main {
         System.out.println("==================");
         String[] modifiedArgs = {argv[0], argv[1], argv[2], argv[3], "*"};
         ImageStatusQuery.main(modifiedArgs);
+        System.out.println("==================");
+        NameListQuery.main(argv);
         System.out.println("=======END========");
     }
 }
