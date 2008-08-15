@@ -73,7 +73,7 @@ public abstract class VSMCall {
      * to their needs.
      * "Input" as in "input to VSMAPI".
      * @return ParameterArray of input params to be transmitted in order to the VSMAPI Host
-     * @see
+     * @see #composeOutputArray()
      */
     protected abstract ParameterArray composeInputArray();
 
@@ -83,7 +83,7 @@ public abstract class VSMCall {
      * to their needs.
      * "output" as in "output from VSMAPI"
      * @return ParameterArray of input params to be read in order from the VSMAPI Host
-     * @see
+     * @see #composeInputArray()
      */
     protected abstract ParameterArray composeOutputArray();
 
@@ -227,6 +227,7 @@ public abstract class VSMCall {
      * @throws java.io.IOException on communication error
      * @throws com.softwoehr.pigiron.access.VSMException on parameter composition error
      * @see #composeOutputArray()
+     * @see #writeInput(java.io.DataOutputStream)
      */
     protected void readOutput(DataInputStream in) throws IOException, VSMException {
         outParams.readAll(in);
@@ -311,6 +312,7 @@ public abstract class VSMCall {
      * @param out the DataOutputStream to write
      * @throws java.io.IOException on communication error
      * @see #composeInputArray()
+     * @see #readOutput(java.io.DataInputStream)
      */
     protected void writeInput(DataOutputStream out) throws IOException {
         inParams.writeAll(out);

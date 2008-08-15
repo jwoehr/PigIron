@@ -47,9 +47,9 @@ import java.io.IOException;
 public class DeviceInfoArray extends VSMArray {
 
     /**
-     *
-     * @param formalName
-     * @return
+     * Create a modelled-for-read instance with a specified formal name.
+     * @param formalName the formal name
+     * @return the modelled instance.
      */
     public static DeviceInfoArray modelArray(String formalName) {
         DeviceInfoArray result = new DeviceInfoArray();
@@ -59,28 +59,28 @@ public class DeviceInfoArray extends VSMArray {
     }
 
     /**
-     *
-     * @param value
-     * @param formalName
+     * Create an instance by copying the value from a like instance, and
+     * assign also the formal name.
+     * @param value a like instance to copy from
+     * @param formalName the formal name
      */
     public DeviceInfoArray(VSMArray value, String formalName) {
         super(value, formalName);
     }
 
     /**
-     *
-     * @param value
+     * Create an instance by copying the value from a like instance.
+     * @param value a like instance to copy from
      */
     public DeviceInfoArray(VSMArray value) {
         super(value);
     }
 
     /**
-     *
+     * Create an instance of undefined value.
      */
     public DeviceInfoArray() {
     }
-
     /**
      *
      * @return
@@ -97,18 +97,17 @@ public class DeviceInfoArray extends VSMArray {
      * @throws com.softwoehr.pigiron.access.VSMStruct.VSMStructStringReadException
      * @throws com.softwoehr.pigiron.access.VSMException
      */
-    @Override
+    /*@Override
     public void read(DataInputStream in, int length) throws IOException, VSMStructStringReadException, VSMException {
-        super.read(in, length);
-    }
-
+    super.read(in, length);
+    }*/
     /**
      *
      * @param out
      * @throws java.io.IOException
      */
-    @Override
+    /*@Override
     public void write(DataOutputStream out) throws IOException {
-        super.write(out);
-    }
+    super.write(out);
+    }*/
 }

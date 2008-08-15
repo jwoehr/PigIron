@@ -39,8 +39,8 @@ import com.softwoehr.pigiron.access.VSMStruct;
 /**
  * Parameter representing the name of an image
  * used (for example) in an Image_Status_Query.
- * @see com.softwoehr.pigiron.access.paramstructs.ImageNameStructCounted
- * @see com.softwoehr.pigiron.access.functions.ImageStatusQuery
+ * @see com.softwoehr.pigiron.access.paramstructs.ImageNameStruct
+ * @see com.softwoehr.pigiron.functions.ImageStatusQuery
  * @author jax
  */
 public class ImageNameStruct extends VSMStruct {

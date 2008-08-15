@@ -93,7 +93,7 @@ public class CountedStruct extends VSMStruct {
 
     /**
      * Return a correctly typed copy of the present instance.
-     * @return
+     * @return correctly typed copy of the present instance
      */
     @Override
     public VSMParm copyOf() {
@@ -102,7 +102,7 @@ public class CountedStruct extends VSMStruct {
 
     /**
      * Return a deep copy of the present instances.
-     * @return
+     * @return deep copy of the present instances
      */
     @Override
     public Object clone() {
@@ -171,7 +171,7 @@ public class CountedStruct extends VSMStruct {
     /**
      * This returns element 0 of the array which is always
      * (if instanced) the count of the struct which follows it.
-     * @return
+     * @return the count of the struct which follows
      */
     public int getCountInt() {
         return VSMInt4.class.cast(elementAt(0)).getValue();

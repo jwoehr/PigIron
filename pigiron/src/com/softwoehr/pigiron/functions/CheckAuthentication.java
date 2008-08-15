@@ -50,6 +50,7 @@ public class CheckAuthentication extends VSMCall {
     public static final String FUNCTION_NAME = "Check_Authentication";
 
     /**
+     * Create an instance of the function call with important fields not instanced.
      *
      * "Because it does not include a target_identifier parameter, Check_Authentication
      * is the only API that does not conform to the set of common input parameters."
@@ -60,11 +61,11 @@ public class CheckAuthentication extends VSMCall {
     }
 
     /**
-     *
-     * @param hostname
-     * @param port
-     * @param userid
-     * @param password
+     * Create an instance with the variables filled in.
+     * @param hostname  VSMAPI Host DNS name
+     * @param port port VSMAPI Host is listening on
+     * @param userid userid executing the function
+     * @param password the userid's password
      */
     public CheckAuthentication(String hostname, int port, String userid, String password) {
         this();
@@ -75,10 +76,11 @@ public class CheckAuthentication extends VSMCall {
     }
 
     /**
-     *
+     * Marshall parameters for the VSMAPI function call.
      * "Input" as in "input to VSMAPI".
-     * @return
-     * @see
+     * @return the composed input ParameterArray
+     * @see #composeOutputArray()
+     * @see com.softwoehr.pigiron.access.ParameterArray
      */
     protected ParameterArray composeInputArray() {
         VSMString tempString = null;
@@ -100,10 +102,11 @@ public class CheckAuthentication extends VSMCall {
     }
 
     /**
-     *
+     * Marshall parameters for the return of the VSMAPI function call.
      * "output" as in "output from VSMAPI"
-     * @return
-     * @see
+     * @return the composed output ParameterArray
+     * @see #composeInputArray()
+     * @see com.softwoehr.pigiron.access.ParameterArray
      */
     protected ParameterArray composeOutputArray() {
         ParameterArray parameterArray = new ParameterArray();
@@ -117,8 +120,8 @@ public class CheckAuthentication extends VSMCall {
     }
 
     /**
-     *
-     * @return
+     * Get the formal name of the VSMAPI function.
+     * @return the formal name of the VSMAPI function.
      */
     @Override
     public String getFunctionName() {
@@ -126,10 +129,11 @@ public class CheckAuthentication extends VSMCall {
     }
 
     /**
-     *
-     * @param argv
-     * @throws IOException
-     * @throws VSMException
+     * You can execute the VSMAPI call from <tt>main()</tt>, try it
+     * with no args to see the usage message.
+     * @param argv array of command-line args
+     * @throws IOException on comm error
+     * @throws VSMException on internal Pigiron param marshalling error
      */
     public static void main(String[] argv) throws IOException, VSMException {
         CheckAuthentication iq = null;

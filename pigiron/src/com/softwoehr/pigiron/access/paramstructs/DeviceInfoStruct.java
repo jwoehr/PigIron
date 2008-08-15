@@ -41,12 +41,14 @@ import com.softwoehr.pigiron.access.VSMStruct;
  * Info about a specific Device
  * used (for example) in a VSMAPI IMAGE_QUERY_ACTIVATE_TIME.
  * @see com.softwoehr.pigiron.access.paramstructs.DeviceInfoStructCounted
- * @see com.softwoehr.pigiron.access.functions.ImageQueryActivateTime
+ * @see com.softwoehr.pigiron.functions.ImageQueryActivateTime
  * @author jax
  */
 public class DeviceInfoStruct extends VSMStruct {
 
     /**
+     * Create an instance with a value derived by copying from a like instance
+     * and instance its formal name at the same time.
      * null is legal value, means "just clear me and
      * re-initialize me with a valid list of yet-unread
      * parameters".
@@ -59,6 +61,7 @@ public class DeviceInfoStruct extends VSMStruct {
     }
 
     /**
+     * Create an instance with a value derived by copying from a like instance.
      * null is legal value, means "just clear me".
      * @param value
      */
@@ -70,7 +73,7 @@ public class DeviceInfoStruct extends VSMStruct {
     }
 
     /**
-     *
+     * Instance the members of this struct suitably for read of VSMAPI output.
      */
     public DeviceInfoStruct() {
         super();

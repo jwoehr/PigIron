@@ -51,22 +51,20 @@ public class ImageStatusQuery extends VSMCall {
     public static final String FUNCTION_NAME = "Image_Status_Query";
 
     /**
+     * Create an instance of the function call with important fields not instanced.
      *
-     * "Because it does not include a target_identifier parameter, Check_Authentication
-     * is the only API that does not conform to the set of common input parameters."
-     * - z/VM V5R3.0 Systems Management Application Programming SC24-6122-03
      */
     public ImageStatusQuery() {
         setTarget_identifier(""); // Just for good luck!
     }
 
     /**
-     *
-     * @param hostname
-     * @param port
-     * @param userid
-     * @param password
-     * @param target_identifier
+     * Create an instance with the variables filled in.
+     * @param hostname  VSMAPI Host DNS name
+     * @param port port VSMAPI Host is listening on
+     * @param userid userid executing the function
+     * @param password the userid's password
+     * @param target_identifier the target of the VSMAPI function
      */
     public ImageStatusQuery(String hostname, int port, String userid, String password, String target_identifier) {
         this();
@@ -78,10 +76,11 @@ public class ImageStatusQuery extends VSMCall {
     }
 
     /**
-     *
+     * Marshall parameters for the VSMAPI function call.
      * "Input" as in "input to VSMAPI".
-     * @return
-     * @see
+     * @return the composed input ParameterArray
+     * @see #composeOutputArray()
+     * @see com.softwoehr.pigiron.access.ParameterArray
      */
     protected ParameterArray composeInputArray() {
         VSMString tempString = null;
@@ -106,10 +105,11 @@ public class ImageStatusQuery extends VSMCall {
     }
 
     /**
-     *
+     * Marshall parameters for the return of the VSMAPI function call.
      * "output" as in "output from VSMAPI"
-     * @return
-     * @see
+     * @return the composed output ParameterArray
+     * @see #composeInputArray()
+     * @see com.softwoehr.pigiron.access.ParameterArray
      */
     protected ParameterArray composeOutputArray() {
         ParameterArray parameterArray = new ParameterArray();
@@ -125,8 +125,8 @@ public class ImageStatusQuery extends VSMCall {
     }
 
     /**
-     *
-     * @return
+     * Get the formal name of the VSMAPI function.
+     * @return the formal name of the VSMAPI function.
      */
     @Override
     public String getFunctionName() {
@@ -134,10 +134,11 @@ public class ImageStatusQuery extends VSMCall {
     }
 
     /**
-     *
-     * @param argv
-     * @throws IOException
-     * @throws VSMException
+     * You can execute the VSMAPI call from <tt>main()</tt>, try it
+     * with no args to see the usage message.
+     * @param argv array of command-line args
+     * @throws IOException on comm error
+     * @throws VSMException on internal Pigiron param marshalling error
      */
     public static void main(String[] argv) throws IOException, VSMException {
         ImageStatusQuery iq = null;

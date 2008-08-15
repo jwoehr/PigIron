@@ -49,62 +49,63 @@ public class ImageQueryActivateTime extends VSMCall {
      */
     public static final String FUNCTION_NAME = "Image_Query_Activate_Time";
     /**
-     *
+     * Signifies mm/dd/yy
      */
     public static final int DATE_FORMAT_INDICATOR_MMDDYY = 1;
     /**
-     *
+     * Signifies mm/dd/yyyy
      */
     public static final int DATE_FORMAT_INDICATOR_MMDDYYYY = 2;
     /**
-     *
+     * Signifies yy-mm-dd
      */
     public static final int DATE_FORMAT_INDICATOR_YYMMDD = 3;
     /**
-     *
+     * Signifies yyyy-mm-dd
      */
     public static final int DATE_FORMAT_INDICATOR_YYYYMMDD = 4;
     /**
-     *
+     * Signifies dd/mm/yy
      */
     public static final int DATE_FORMAT_INDICATOR_DDMMYY = 5;
     /**
-     * 
+     * Signifies dd/mm/yyyy
      */
     public static final int DATE_FORMAT_INDICATOR_DDMMYYYY = 6;
-    /* */
+
+    /* instance with default */
     private int date_format_indicator = DATE_FORMAT_INDICATOR_MMDDYY;
 
     /**
-     *
-     * @return
+     * Get the date format indicator.
+     * @return the date format indicator
      */
     public int getDate_format_indicator() {
         return date_format_indicator;
     }
 
     /**
-     *
-     * @param date_format_indicator
+     * Set the date format indicator.
+     * @param date_format_indicator the date format indicator
      */
     public void setDate_format_indicator(int date_format_indicator) {
         this.date_format_indicator = date_format_indicator;
     }
 
     /**
-     *
+     *  Create an instance of the function call with important fields not instanced.
      */
     public ImageQueryActivateTime() {
     }
 
     /**
-     *
-     * @param hostname
-     * @param port
-     * @param userid
-     * @param password
-     * @param target_identifier
-     * @param date_format_indicator
+     * Create an instance with the variables filled in.
+     * @param hostname  VSMAPI Host DNS name
+     * @param port port VSMAPI Host is listening on
+     * @param userid userid executing the function
+     * @param password the userid's password
+     * @param target_identifier the target of the VSMAPI function
+     * @param date_format_indicator the date format indicator
      */
     public ImageQueryActivateTime(String hostname, int port, String userid, String password, String target_identifier, int date_format_indicator) {
         this();
@@ -117,10 +118,11 @@ public class ImageQueryActivateTime extends VSMCall {
     }
 
     /**
-     *
+     * Marshall parameters for the VSMAPI function call.
      * "Input" as in "input to VSMAPI".
-     * @return
-     * @see
+     * @return the composed input ParameterArray
+     * @see #composeOutputArray()
+     * @see com.softwoehr.pigiron.access.ParameterArray
      */
     protected ParameterArray composeInputArray() {
         VSMString tempString = null;
@@ -146,10 +148,11 @@ public class ImageQueryActivateTime extends VSMCall {
     }
 
     /**
-     *
+     * Marshall parameters for the return of the VSMAPI function call.
      * "output" as in "output from VSMAPI"
-     * @return
-     * @see
+     * @return the composed output ParameterArray
+     * @see #composeInputArray()
+     * @see com.softwoehr.pigiron.access.ParameterArray
      */
     protected ParameterArray composeOutputArray() {
         ParameterArray parameterArray = new ParameterArray();
@@ -169,8 +172,8 @@ public class ImageQueryActivateTime extends VSMCall {
     }
 
     /**
-     *
-     * @return
+     * Get the formal name of the VSMAPI function.
+     * @return the formal name of the VSMAPI function.
      */
     @Override
     public String getFunctionName() {
@@ -178,10 +181,11 @@ public class ImageQueryActivateTime extends VSMCall {
     }
 
     /**
-     *
-     * @param argv
-     * @throws IOException
-     * @throws VSMException
+     * You can execute the VSMAPI call from <tt>main()</tt>, try it
+     * with no args to see the usage message.
+     * @param argv array of command-line args
+     * @throws IOException on comm error
+     * @throws VSMException on internal Pigiron param marshalling error
      */
     public static void main(String[] argv) throws IOException, VSMException {
         ImageQueryActivateTime iq = null;

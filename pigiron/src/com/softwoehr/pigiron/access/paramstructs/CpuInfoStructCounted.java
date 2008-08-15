@@ -40,18 +40,19 @@ import com.softwoehr.pigiron.access.VSMInt4;
  * <tt>com.softwoehr.pigiron.access.paramstructs.CpuInfoStruct</tt> .
  * Used (for example) in a VSMAPI IMAGE_ACTIVE_CONFIGURATION_QUERY.
  * @see com.softwoehr.pigiron.access.paramstructs.CpuInfoStruct
- * @see com.softwoehr.pigiron.CountedStruct
- * @see com.softwoehr.pigiron.access.functions.ImageActiveConfigurationQuery
+ * @see com.softwoehr.pigiron.access.CountedStruct
+ * @see com.softwoehr.pigiron.functions.ImageActiveConfigurationQuery
  * @author jax
  */
 public class CpuInfoStructCounted extends CountedStruct {
 
     /**
+     * Create an instance from a like instance to copy from and a formal name.
      * null is legal value, means "just clear me and
      * re-initialize me with a valid list of yet-unread
      * parameters".
-     * @param value
-     * @param formalName
+     * @param value a like instance to copy from
+     * @param formalName the formal name identifying this parameter in the VSMAPI docs
      */
     public CpuInfoStructCounted(CpuInfoStructCounted value, String formalName) {
         this(value);
@@ -59,8 +60,11 @@ public class CpuInfoStructCounted extends CountedStruct {
     }
 
     /**
-     * null is legal value, means "just clear me".
-     * @param value
+     * Create an instance from a like instance to copy from.
+     * null is legal value, means "just clear me and
+     * re-initialize me with a valid list of yet-unread
+     * parameters".
+     * @param value a like instance to copy from
      */
     public CpuInfoStructCounted(CpuInfoStructCounted value) {
         super(value);
@@ -70,7 +74,7 @@ public class CpuInfoStructCounted extends CountedStruct {
     }
 
     /**
-     *
+     * Create a read-modelled instance.
      */
     public CpuInfoStructCounted() {
         super();
@@ -78,7 +82,7 @@ public class CpuInfoStructCounted extends CountedStruct {
     }
 
     /**
-     *
+     * Instance the members of this struct suitably for read of VSMAPI output.
      */
     public void modelFormalParameters() {
         clear();

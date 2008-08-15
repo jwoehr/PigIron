@@ -40,17 +40,20 @@ import com.softwoehr.pigiron.access.VSMStruct;
  * Info about a specific CPU
  * used (for example) in a VSMAPI IMAGE_ACTIVE_CONFIGURATION_QUERY.
  * @see com.softwoehr.pigiron.access.paramstructs.CpuInfoStructCounted
- * @see com.softwoehr.pigiron.access.functions.ImageActiveConfigurationQuery
+ * @see com.softwoehr.pigiron.functions.ImageActiveConfigurationQuery
  * @author jax
  */
 public class CpuInfoStruct extends VSMStruct {
 
     /**
+     * Create an instance with a value derived by copying from a like instance
+     * and instance its formal name at the same time.
      * null is legal value, means "just clear me and
      * re-initialize me with a valid list of yet-unread
      * parameters".
-     * @param value
-     * @param formalName
+     * @param value a like instance to copy from
+     * @param formalName the formal name
+     * @see com.softwoehr.pigiron.access.VSMParm
      */
     public CpuInfoStruct(VSMStruct value, String formalName) {
         this(value);
@@ -58,6 +61,7 @@ public class CpuInfoStruct extends VSMStruct {
     }
 
     /**
+     * Create an instance with a value derived by copying from a like instance.
      * null is legal value, means "just clear me".
      * @param value
      */
@@ -69,7 +73,7 @@ public class CpuInfoStruct extends VSMStruct {
     }
 
     /**
-     *
+     * Create a read-modelled instance.
      */
     public CpuInfoStruct() {
         super();
@@ -77,7 +81,7 @@ public class CpuInfoStruct extends VSMStruct {
     }
 
     /**
-     *
+     * Create a read-modelled instance.
      */
     public void modelFormalParameters() {
         clear();
