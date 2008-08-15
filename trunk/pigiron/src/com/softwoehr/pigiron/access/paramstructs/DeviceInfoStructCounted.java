@@ -40,18 +40,19 @@ import com.softwoehr.pigiron.access.VSMInt4;
  * <tt>com.softwoehr.pigiron.access.paramstructs.DeviceInfoStruct</tt> .
  * Used (for example) in IMAGE_QUERY_ACTIVATE_TIME.
  * @see com.softwoehr.pigiron.access.paramstructs.DeviceInfoStruct
- * @see com.softwoehr.pigiron.CountedStruct
- * @see com.softwoehr.pigiron.access.functions.ImageQueryActivateTime
+ * @see com.softwoehr.pigiron.access.CountedStruct
+ * @see com.softwoehr.pigiron.functions.ImageQueryActivateTime
  * @author jax
  */
 public class DeviceInfoStructCounted extends CountedStruct {
 
     /**
+     * Create an instance from a like instance to copy from and a formal name.
      * null is legal value, means "just clear me and
      * re-initialize me with a valid list of yet-unread
      * parameters".
-     * @param value
-     * @param formalName
+     * @param value a like instance to copy from
+     * @param formalName the formal name identifying this parameter in the VSMAPI docs
      */
     public DeviceInfoStructCounted(DeviceInfoStructCounted value, String formalName) {
         this(value);
@@ -59,10 +60,11 @@ public class DeviceInfoStructCounted extends CountedStruct {
     }
 
     /**
+     * Create an instance from a like instance to copy from.
      * null is legal value, means "just clear me and
      * re-initialize me with a valid list of yet-unread
      * parameters".
-     * @param value
+     * @param value a like instance to copy from
      */
     public DeviceInfoStructCounted(DeviceInfoStructCounted value) {
         super(value);
@@ -72,7 +74,7 @@ public class DeviceInfoStructCounted extends CountedStruct {
     }
 
     /**
-     *
+     * Create a read-modelled instance.
      */
     public DeviceInfoStructCounted() {
         super();
@@ -80,7 +82,7 @@ public class DeviceInfoStructCounted extends CountedStruct {
     }
 
     /**
-     *
+     * Instance the members of this struct suitably for read of VSMAPI output.
      */
     public void modelFormalParameters() {
         clear();

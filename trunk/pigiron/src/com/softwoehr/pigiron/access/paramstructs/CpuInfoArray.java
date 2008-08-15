@@ -42,9 +42,9 @@ import com.softwoehr.pigiron.access.VSMArray;
 public class CpuInfoArray extends VSMArray {
 
     /**
-     *
-     * @param formalName
-     * @return
+     * Create a modelled-for-read instance with a specified formal name.
+     * @param formalName the formal name
+     * @return the modelled instance.
      */
     public static CpuInfoArray modelArray(String formalName) {
         CpuInfoArray result = new CpuInfoArray();
@@ -55,24 +55,25 @@ public class CpuInfoArray extends VSMArray {
     }
 
     /**
-     *
-     * @param value
-     * @param formalName
+     * Create an instance by copying the value from a like instance, and
+     * assign also the formal name.
+     * @param value a like instance to copy from
+     * @param formalName the formal name
      */
     public CpuInfoArray(VSMArray value, String formalName) {
         super(value, formalName);
     }
 
     /**
-     *
-     * @param value
+     * Create an instance by copying the value from a like instance.
+     * @param value a like instance to copy from
      */
     public CpuInfoArray(VSMArray value) {
         super(value);
     }
 
     /**
-     *
+     * Create an instance of undefined value.
      */
     public CpuInfoArray() {
     }
