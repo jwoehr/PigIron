@@ -12,7 +12,11 @@ PigIron open source project is coded, released and distributed.
 CHANGES
 -------
 
-2008-08-?? 0.1 -- release of proof of concept. Parameter composition, decomposition,
+2008-08-?? 0,2 -- release more functionality. Additional VSMAPI functions added
+include:
+    * Query_API_Functional_Level
+
+2008-08-17 0.1 -- release of proof of concept. Parameter composition, decomposition,
 marshalling and transmission work, along with a small set of VSMAPI function
 calls:
     * Image_Active_Configuration_Query
@@ -23,3 +27,5 @@ calls:
 
 It's easy enough to code the calls and their parameters. I'm only releasing this
 in its unfinished form so folks can see and comment.
+
+== End ==
