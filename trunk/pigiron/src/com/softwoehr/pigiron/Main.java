@@ -77,7 +77,7 @@ public class Main {
         String[] modifiedArgs = {argv[0], argv[1], argv[2], argv[3], "*"};
         ImageStatusQuery.main(modifiedArgs);
         System.out.println("==================");
-        NameListQuery.main(argv);
+        NameListQuery.main(modifiedArgs);
         System.out.println("=======END========");
     }
 }
