@@ -11,14 +11,18 @@ Note: PigIron is not associated with the IBM corporation.
 Please read the file license.txt which is the license under which the
 PigIron open source project is coded, released and distributed.
 
-The general layout for PigIron open source is:
+The general layout for PigIron open source  as installed from distribution
+archive(s) is:
 
     pigiron/ -+
               + doc/ -+                          ... documention and doc source
               |       + pigiron.sourceforge.net/ ... webbage for PigIron's sf site
+              + javadoc/                         ... the Javadocs for PigIron
               + nbproject/                       ... build scripts and properties NetBeans style
               + src/                             ... the Java source code
 
+You can start at the root of all documentation by opening doc/index.html in
+your browser.
 
 NOTE ON SECURITY (LACK THEREOF):
     * Currently NO secure sockets implementation. Sends your password in
