@@ -37,6 +37,7 @@ import com.softwoehr.pigiron.access.VSMException;
 import com.softwoehr.pigiron.functions.CheckAuthentication;
 import com.softwoehr.pigiron.functions.ImageStatusQuery;
 import com.softwoehr.pigiron.functions.NameListQuery;
+import com.softwoehr.pigiron.functions.QueryAPIFunctionalLevel;
 import java.io.IOException;
 
 /**
@@ -78,6 +79,8 @@ public class Main {
         ImageStatusQuery.main(modifiedArgs);
         System.out.println("==================");
         NameListQuery.main(modifiedArgs);
+        System.out.println("==================");
+        QueryAPIFunctionalLevel.main(argv);
         System.out.println("=======END========");
     }
 }

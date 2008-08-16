@@ -14,16 +14,18 @@ PigIron open source project is coded, released and distributed.
 The general layout for PigIron open source is:
 
     pigiron/ -+
-              + doc/ -+     ... documention source
+              + doc/ -+                          ... documention and doc source
               |       + pigiron.sourceforge.net/ ... webbage for PigIron's sf site
-              + nbproject/  ... build scripts and properties NetBeans style
-              + src/        ... the Java source code             
+              + nbproject/                       ... build scripts and properties NetBeans style
+              + src/                             ... the Java source code
 
 
 NOTE ON SECURITY (LACK THEREOF):
     * Currently NO secure sockets implementation. Sends your password in
       CLEAR TEXT. Use ONLY on a secure LAN behind a firewall.
 
+PigIron currently supports z/VM r5.3 SMAPI.
+
 Fairmount, Colorado
-2008-08-17
+2008-08-18
 
