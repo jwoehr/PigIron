@@ -52,6 +52,11 @@ THE POSSIBILITY OF SUCH DAMAGE.
           <li><a href="#View_License_for_PigIron">View License for PigIron</a></li>
         </ul>
       </li>
+      <li><a href="#Specification">Specification</a>
+        <ul>
+          <li><a href="#Planned_Development">Planned Development</a></li>
+        </ul>
+      </li>
     </ul>
 
     <h2><a name="Overview">Overview</a></h2>
@@ -61,6 +66,17 @@ THE POSSIBILITY OF SUCH DAMAGE.
       <a href="http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm">
       Systems Management Application Programming Interface</a>
     (sometimes called VSMAPI).</p>
+    <p>The classes and programming model are intended:
+      <ul>
+        <li>to be reliable</li>
+        <li>to be easy to use and program</li>
+        <li>to support both VSMAPI Functions and end-user custom functions
+        <ul><li>with of course support on the host side which allows insertion of custom functions in the VSMAPI server</li></ul>
+        <li>to support the development of higher-level libraries such as packaging PigIron functionality in GUI widgets</li>
+        <li>to support development of GUI applications in terms of such GUI widgets</li>
+      </ul>
+
+    </p>
 
     <p><i>Note: PigIron is not associated with the IBM corporation.</i></p>
 
@@ -85,5 +101,32 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
     <h3><a name="View_License_for_PigIron">View License for PigIron</a></h3>
     <p><a href="./license.txt">View the BSD-style license for the PigIron Class Library</a>.</p>
+    <hr>
+    <h2><a name="Specification">Specification</a></h2>
+    PigIron is a library of Java class wrappers for the IBM z/VM Virtual Machine
+    Operating System Systems Management Application Programming Interface
+    (sometimes called VSMAPI). See http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm
+    for more information about VSMAPI.
+    <h3><a name="Planned_Development">Planned Development</a></h3>
+    <ol>
+      <li>Implement the access class library. (DONE)
+        <ul>
+          <li>parameter creation</li>
+          <li>parameter marshalling</li>
+          <li>communication with VSMAPI host</li>
+        </ul>
+      </li>
+      <li>Implement VSMAPI Functions in terms of the access class library. (IN PROGRESS)
+        <ol>
+          <li>Support z/VM R5.3</li>
+          <li>Support z/VM R5.4</li>
+          <li>Support user-defined custom functions</li>
+        </ol>
+      </li>
+      <li>Create GUI widgets based on VSMAPI Functions (TODO)</li>
+      <li>Create GUI management app based on GUI VSMAPI Function widgets (TODO)</li>
+    </ol>
+
+<p>An important possibility is support for Secure Socket Layer communications with the VSMAPI Host.</p>
   </body>
 </html>
