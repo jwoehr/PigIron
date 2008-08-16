@@ -14,4 +14,12 @@ CHANGES
 
 2008-08-?? 0.1 -- release of proof of concept. Parameter composition, decomposition,
 marshalling and transmission work, along with a small set of VSMAPI function
-calls.
+calls:
+    * Image_Active_Configuration_Query
+    * Image_Query_Activate_Time
+    * Check_Authentication
+    * Image_Status_Query
+    * Name_List_Query
+
+It's easy enough to code the calls and their parameters. I'm only releasing this
+in its unfinished form so folks can see and comment.
