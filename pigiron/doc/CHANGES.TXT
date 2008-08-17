@@ -12,8 +12,10 @@ PigIron open source project is coded, released and distributed.
 CHANGES
 -------
 
-2008-08-?? 0,2 -- release more functionality. Additional VSMAPI functions added
-include:
+2008-08-?? 0,2 -- release more functionality and release autogenerator.
+The piggen autogenerator generates Java code for VSMAPI parms and funcs
+from m4 specs.
+
     * Query_API_Functional_Level
 
 2008-08-17 0.1 -- release of proof of concept. Parameter composition, decomposition,
