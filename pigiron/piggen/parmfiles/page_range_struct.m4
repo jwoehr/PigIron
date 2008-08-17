@@ -1,11 +1,11 @@
-include(`pigparm.m4')dnl \\ page_range_struct.m4
+include(`pigstruct.m4')dnl \\ page_range_struct.m4
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
-pigparm_class(`PageRangeStruct', `VSMStruct',`com.softwoehr.pigiron.access.paramstructs',`
+pigparm_class(`PageRangeStruct', `VSMStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl
+
 /**
- * SomeParamStruct extends com.softwoehr.pigiron.access.VSMStruct so that
- * we can implement a custom VSMAPI function on our host and access it from
- * PigIron class libs.
+ * PageRangeStruct implements the page_range_struct from Shared_Memory_Query
+ * @see com.softwoehr.pigiron.functions.SharedMemoryQuery
  */')dnl
 pigparm_constant(`public', `int', `PAGE_RANGE_STRUCT_SW', `1', `Shared read/write access')dnl
 pigparm_constant(`public', `int', `PAGE_RANGE_STRUCT_EW', `2', `Exclusive read/write access')dnl
