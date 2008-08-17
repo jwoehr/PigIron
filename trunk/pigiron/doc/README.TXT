@@ -17,6 +17,7 @@ archive(s) is:
     pigiron/ -+
               + doc/ -+                          ... documention and doc source
               |       + pigiron.sourceforge.net/ ... webbage for PigIron's sf site
+              + piggen                           ... autogenerates Java for VSMAPI parms and funcs
               + javadoc/                         ... the Javadocs for PigIron
               + nbproject/                       ... build scripts and properties NetBeans style
               + src/                             ... the Java source code
@@ -31,5 +32,5 @@ NOTE ON SECURITY (LACK THEREOF):
 PigIron currently supports z/VM r5.3 SMAPI.
 
 Fairmount, Colorado
-2008-08-18
+2008-08-??
 
