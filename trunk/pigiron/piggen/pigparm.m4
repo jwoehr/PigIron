@@ -23,19 +23,20 @@ popdef(`temp_diversion')dnl
 ')
 
 \\ Stream definitions
-define(`null_stream',         `-1')        \\ The bit bucket
-define(`normal_stream',        `0')        \\ Standard output
-define(`file_header_stream',  `92')        \\ Stream on which we define file header
-define(`imports_stream',      `94')        \\ Stream on which we call out imports
-define(`class_header_stream', `95')        \\ Stream on which we define class header
-define(`constant_stream',     `97')        \\ Stream on which we define static finals
-define(`attribute_stream',    `98')        \\ Stream on which we define attributes
-define(`accessor_stream',    `100')        \\ Stream on which we define accessors
-define(`ctor_stream',        `110')	   \\ Stream on which we define the ctors
-define(`function_stream',    `120')        \\ Stream on which we define functions
-define(`model_stream',       `130')	   \\ Stream on which we define modelFormalParameters
-define(`class_footer_stream',`140')        \\ Stream on which we define class footer
-define(`file_footer_stream', `150')        \\ Stream on which we define file footer
+define(`null_stream',         `-1')dnl        \\ The bit bucket
+define(`normal_stream',        `0')dnl        \\ Standard output
+define(`file_header_stream',  `92')dnl        \\ Stream on which we define file header
+define(`package_stream',      `93')dnl        \\ Stream on which we call out package
+define(`imports_stream',      `94')dnl        \\ Stream on which we call out imports
+define(`class_header_stream', `95')dnl        \\ Stream on which we define class header
+define(`constant_stream',     `97')dnl        \\ Stream on which we define static finals
+define(`attribute_stream',    `98')dnl        \\ Stream on which we define attributes
+define(`accessor_stream',    `100')dnl        \\ Stream on which we define accessors
+define(`ctor_stream',        `110')dnl	      \\ Stream on which we define the ctors
+define(`function_stream',    `120')dnl        \\ Stream on which we define functions
+define(`model_stream',       `130')dnl	      \\ Stream on which we define modelFormalParameters
+define(`class_footer_stream',`140')dnl        \\ Stream on which we define class footer
+define(`file_footer_stream', `150')dnl        \\ Stream on which we define file footer
 
 \\ Set up our basic diversion
 divert(0)dnl
@@ -55,11 +56,11 @@ pushdef(`x_name', $1)dnl
 pushdef(`x_extends', $2)dnl
 pushdef(`x_package', $3)dnl
 pushdef(`x_comment', $4)dnl
+push_divert(`package_stream')dnl
+package x_package();
+pop_divert()dnl
 define(`myClass',x_name())dnl
 define(`mySuperClass',x_extends())dnl
-
-package x_package();
-
     x_comment()
 public class x_name() extends x_extends() {
 
@@ -256,6 +257,7 @@ pop_divert()dnl
 define(`pigparm_end',`dnl
 push_divert(normal_stream)dnl
 undivert(file_header_stream)dnl
+undivert(package_stream)dnl
 undivert(imports_stream)dnl
 undivert(class_header_stream)dnl
 undivert(constant_stream)dnl
