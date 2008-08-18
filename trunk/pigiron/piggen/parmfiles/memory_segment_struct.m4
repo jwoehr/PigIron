@@ -4,7 +4,7 @@ pigparm_import(`com.softwoehr.pigiron.access.*')dnl
 pigparm_class(`MemorySegmentStruct', `VSMStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl
 
 /**
- * PageRangeStruct implements the page_range_struct from Shared_Memory_Query
+ * MemorySegmentStruct implements the memory_segment_structure from Shared_Memory_Query
  * @see com.softwoehr.pigiron.functions.SharedMemoryQuery
  */')dnl
 pigparm_constant(`public', `int', `MEMORY_SEGMENT_STATUS_SKELETON', `1', `Skeleton')dnl
