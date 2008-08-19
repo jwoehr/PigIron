@@ -70,14 +70,26 @@
  <!-- ======================= -->
  <!-- Pigiron Special Targets -->
  <!-- ======================= -->
-    <target depends="init" description="Autogenerate all PigIron-provided paramstructs that have m4 description files" name="parmgen-pigiron">
+    <target depends="init" description="Autogenerate all PigIron-provided paramstructs that have m4 description files" name="-pigiron-parmgen">
         <property value="${basedir}/${build.dir}/parmgen" name="build.parmgen.dir"/>
         <mkdir dir="${build.parmgen.dir}"/>
         <exec executable="/bin/sh" dir="${piggen.dir}">
-            <!-- arg value="-c"/-->
             <arg value="gen-all.sh"/>
             <arg value="parmfiles"/>
             <arg value="${build.parmgen.dir}"/>
         </exec>
     </target>
+    <target depends="init" description="Autogenerate all PigIron-provided functions that have m4 description files" name="-pigiron-funcgen">
+        <property value="${basedir}/${build.dir}/funcgen" name="build.funcgen.dir"/>
+        <mkdir dir="${build.funcgen.dir}"/>
+        <exec executable="/bin/sh" dir="${piggen.dir}">
+            <arg value="gen-all.sh"/>
+            <arg value="funcfiles"/>
+            <arg value="${build.funcgen.dir}"/>
+        </exec>
+    </target>
+    <target depends="-pigiron-parmgen,-pigiron-funcgen"
+            description="Autogenerates all PigIron-provided paramstructs and functions that have m4 description files"
+            name="pigiron-autogen"
+            />
 </project>
