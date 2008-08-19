@@ -5,22 +5,7 @@ changecom(`\\')
 \\   Copyright *C* 1999, 2001, 2008 Jack J. Woehr
 \\   Part of the PigIron Project http://pigiron.sourceforge.net
 \\   jwoehr@softwoehr.com
-
-\\ Diversion prepared for restoration
-\\ USAGE: push_divert(streamName)
-\\ DEFINES: `temp_diversion'
-define(`push_divert',`dnl
-pushdef(`temp_diversion', divnum)dnl
-divert($1)dnl
-')
-
-\\ Restore previous pushed diversion
-\\ USAGE: pop_divert()
-\\ DEPENDS: `temp_diversion'
-define(`pop_divert',`dnl
-divert(temp_diversion)dnl
-popdef(`temp_diversion')dnl
-')
+include(`pigsty.m4')
 
 \\ Stream definitions
 define(`null_stream',           `-1')dnl        \\ The bit bucket
@@ -36,6 +21,7 @@ define(`ctor_stream',          `110')dnl        \\ Stream on which we define cto
 define(`function_stream',      `120')dnl        \\ Stream on which we define functions
 define(`compose_in_stream',    `130')dnl        \\ Stream on which we define composeInput
 define(`compose_out_stream',   `135')dnl        \\ Stream on which we define composeInput
+define(`get_function_name_stream', `139')dnl	\\ Stream on which we define getFunctionName()
 define(`class_footer_stream',  `140')dnl        \\ Stream on which we define class footer
 define(`file_footer_stream',   `150')dnl        \\ Stream on which we define file footer
 
@@ -54,17 +40,20 @@ pop_divert()dnl
 define(`pigfunc_class',`dnl
 push_divert(class_header_stream)dnl
 pushdef(`x_name', $1)dnl
+define(`myClassName',x_name())dnl
 pushdef(`x_extends', $2)dnl
 pushdef(`x_package', $3)dnl
 pushdef(`x_function_name', $4)dnl
 pushdef(`x_comment', $5)dnl
-
+push_divert(`package_stream')dnl
 package x_package();
+
+pop_divert()dnl
 x_comment()
      public class x_name() extends x_extends() {
 
     /**
-     * The transmitted name of the function
+     * The transmitted name of the function.
      */
     public static final String FUNCTION_NAME = "x_function_name()";
 
@@ -73,6 +62,35 @@ popdef(`x_function_name')dnl
 popdef(`x_package')dnl
 popdef(`x_extends')dnl
 popdef(`x_name')dnl
+pop_divert()dnl
+')
+
+\\ pigfunc_ctors()
+define(`pigfunc_ctors',`dnl
+push_divert(ctor_stream)dnl
+    /**
+     *  Create an instance of the function call with important fields not instanced.
+     */
+    public myClassName()`(') {
+    }
+
+    /**
+     * Create an instance with the variables filled in.
+     * @param hostname  VSMAPI Host DNS name
+     * @param port port VSMAPI Host is listening on
+     * @param userid userid executing the function
+     * @param password the password
+     * @param target_identifier the target of the VSMAPI function
+     */
+    public  myClassName()`('String hostname, int port, String userid, String password, String target_identifier) {
+        this`(');
+        setHostname`('hostname);
+        setPort`('port);
+        setUserid`('userid);
+        setPassword`('password);
+        setTarget_identifier`('target_identifier);
+    }
+
 pop_divert()dnl
 ')
 
@@ -97,7 +115,6 @@ pushdef(`x_set_accessor', ifelse($6, `', `public', $6))dnl
 pushdef(`x_comment', $7)dnl
 pushdef(`x_qualified_name', x_accessor()x_scope()x_type() x_name())dnl
 pushdef(`x_get_accessor_name', ifelse(x_type, `boolean', `is_', `get_')`'x_name())dnl
-
     `/**' x_comment() `*/'
     x_qualified_name() `=' x_initial_value()`;'
 
@@ -133,6 +150,7 @@ pop_divert()dnl
 define(`javadoc_args',`dnl
 ifelse($#, 0, , $#, 1, `
     * @param `$1'', `javadoc_args(shift($@)')dnl
+')
 
 \\ pigfunc_function(`accessor', `scope', `return_type', `return_init_expression', `name', `arguments', `comment', `function_body')
 define(`pigfunc_function',`dnl
@@ -152,7 +170,7 @@ pushdef(`x_function_body', $8)dnl
     `  */'
     x_accessor() x_scope()`'x_return_type() x_name() `('x_arguments()`) {'
         ifelse(x_return_type(), `void', `', x_return_type() `result = ' x_return_init_expression()`;')
-        ifelse(x_function_body(), `',
+        ifelse(x_function_body(), `',dnl
         `/* ... TODO  */',
         x_function_body())
 
@@ -170,10 +188,25 @@ popdef(`x_accessor')dnl
 pop_divert()dnl
 ')
 
+\\ Create the override of getFunctionName()
+define(`pigfunc_get_function_name',`dnl
+push_divert(get_function_name_stream)dnl
+    /**
+     * Get the formal name of the VSMAPI function.
+     * @return the formal name of the VSMAPI function.
+     */
+    @Override
+    public String getFunctionName`(') {
+        return FUNCTION_NAME;
+    }
+
+pop_divert()dnl
+')
+
 \\ Close a class definition
 define(`pigfunc_endclass',`dnl
+pigfunc_get_function_name()dnl
 push_divert(class_footer_stream)dnl
-
 }
 pop_divert()dnl
 ')
@@ -195,21 +228,21 @@ push_divert(`compose_in_stream')dnl
      * Marshall parameters for the VSMAPI function call.
      * "Input" as in "input to VSMAPI".
      * @return the composed input ParameterArray
-     * @see #composeOutputArray()
+     * @see #composeOutputArray`(')
      * @see com.softwoehr.pigiron.access.ParameterArray
      */
-    protected ParameterArray composeInputArray() {
+    protected ParameterArray composeInputArray`(') {
     	VSMString tempString = null;    	
-        ParameterArray parameterArray = new ParameterArray();
-        tempString = new VSMString(getFunctionName(), getFunctionName());
-        parameterArray.add(new VSMInt4(tempString.paramLength(), "function_name_length"));
-        parameterArray.add(tempString);
-        tempString = new VSMString(getUserid(), "authenticated_userid");
-        parameterArray.add(new VSMInt4(tempString.paramLength(), "authenticated_userid_length"));
-        parameterArray.add(tempString);
-        tempString = new VSMString(getPassword(), "password");
-        parameterArray.add(new VSMInt4(tempString.paramLength(), "password_length"));
-        parameterArray.add(tempString);
+        ParameterArray parameterArray = new ParameterArray`(');
+        tempString = new VSMString`('getFunctionName`('), getFunctionName`('));
+        parameterArray.add`('new VSMInt4`('tempString.paramLength`('), "function_name_length"));
+        parameterArray.add`('tempString);
+        tempString = new VSMString`('getUserid`('), "authenticated_userid");
+        parameterArray.add`('new VSMInt4`('tempString.paramLength`('), "authenticated_userid_length"));
+        parameterArray.add`('tempString);
+        tempString = new VSMString`('getPassword`('), "password");
+        parameterArray.add`('new VSMInt4`('tempString.paramLength`('), "password_length"));
+        parameterArray.add`('tempString);
 pop_divert()dnl
 ')    
 
@@ -219,10 +252,12 @@ push_divert(`compose_in_stream')dnl
 pushdef(`x_type', $1)dnl
 pushdef(`x_value', $2)dnl
 pushdef(`x_formal_name', $3)dnl
-        ifelse(x_type(),`CountedString',`dnl
-	tempString = new VSMString(x_value, x_formal_name());
-        parameterArray.add(new VSMInt4(tempString.paramLength(), "x_formal_name()_length"));
-        parameterArray.add(tempString);
+ifelse(x_type(),`CountedString',`dnl
+	tempString = new VSMString`('x_value, "x_formal_name()");
+        parameterArray.add`('new VSMInt4`('tempString.paramLength`('), "x_formal_name()_length"));
+        parameterArray.add`('tempString);',`dnl
+        parameterArray.add`('new x_type()`('x_value(), "x_formal_name()"`)';)
+')
 popdef(`x_formal_name')dnl
 popdef(`x_value')dnl
 popdef(`x_type')dnl
@@ -237,6 +272,7 @@ push_divert(`compose_in_stream')dnl
         setInParams(parameterArray);
         return parameterArray;
     }
+
 pop_divert()dnl
 ')
 
@@ -281,6 +317,7 @@ push_divert(`compose_out_stream')dnl
         setOutParams(parameterArray);
         return parameterArray;
     }
+
 pop_divert()dnl
 ')
 
@@ -292,11 +329,13 @@ undivert(package_stream)dnl
 undivert(imports_stream)dnl
 undivert(class_header_stream)dnl
 undivert(constant_stream)dnl
+undivert(ctor_stream)dnl
 undivert(attribute_stream)dnl
 undivert(accessor_stream)dnl
 undivert(function_stream)dnl
 undivert(compose_in_stream)dnl
 undivert(compose_out_stream)dnl
+undivert(get_function_name_stream)dnl
 undivert(file_footer_stream)dnl
 undivert(class_footer_stream)dnl
 undivert(file_footer_stream)dnl
