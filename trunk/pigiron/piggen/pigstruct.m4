@@ -5,22 +5,7 @@ changecom(`\\')
 \\   Copyright *C* 1999, 2001, 2008 Jack J. Woehr
 \\   Part of the PigIron Project http://pigiron.sourceforge.net
 \\   jwoehr@softwoehr.com
-
-\\ Diversion prepared for restoration
-\\ USAGE: push_divert(streamName)
-\\ DEFINES: `temp_diversion'
-define(`push_divert',`dnl
-pushdef(`temp_diversion', divnum)dnl
-divert($1)dnl
-')
-
-\\ Restore previous pushed diversion
-\\ USAGE: pop_divert()
-\\ DEPENDS: `temp_diversion'
-define(`pop_divert',`dnl
-divert(temp_diversion)dnl
-popdef(`temp_diversion')dnl
-')
+include(`pigsty.m4')
 
 \\ Stream definitions
 define(`null_stream',         `-1')dnl        \\ The bit bucket
@@ -41,7 +26,6 @@ define(`file_footer_stream', `150')dnl        \\ Stream on which we define file 
 \\ Set up our basic diversion
 divert(0)dnl
 push_divert(null_stream)dnl
-define(`date_string',`esyscmd(/bin/date -u)')dnl
 
 \\ pigparm_import(`import_name')
 define(`pigparm_import',`dnl
