@@ -114,8 +114,8 @@ optional_ctor_param_args(x_optional_params())`)' {
         setUserid`('userid);
         setPassword`('password);
         setTarget_identifier`('target_identifier);
-optional_ctor_param_instantiations(x_optional_params())
-    }
+optional_ctor_param_instantiations(x_optional_params())    }
+
 popdef(`x_optional_params')dnl
 pop_divert()dnl
 ')
@@ -225,7 +225,6 @@ push_divert(get_function_name_stream)dnl
     public String getFunctionName`(') {
         return FUNCTION_NAME;
     }
-
 pop_divert()dnl
 ')
 
@@ -322,13 +321,21 @@ push_divert(`compose_out_stream')dnl
 pop_divert()dnl
 ')    
 
+\\ Recognize that a type ends in the string `Array' and treat
+\\ it as an Array type in output composition, use VSMArray.modelArray() .
+\\ Returns -1 if not a match.
+define(`is_type_named_array',`regexp(`$1',`Array$')')
+
 \\ pigfunc_compose_output_parm(type, value, formal_name)
 define(`pigfunc_compose_output_parm',`dnl
 push_divert(`compose_out_stream')dnl
 pushdef(`x_type', $1)dnl
 pushdef(`x_value', $2)dnl
 pushdef(`x_formal_name', $3)dnl
-	parameterArray.add(new x_type()(x_value(), "x_formal_name()"));
+ifelse(is_type_named_array(x_type),-1,`dnl
+	parameterArray.add(new x_type()(x_value(), "x_formal_name()"));',`dnl
+	parameterArray.add(x_type()`.modelArray'`('"x_formal_name()"));dnl
+')
 popdef(`x_formal_name')dnl
 popdef(`x_value')dnl
 popdef(`x_type')dnl
