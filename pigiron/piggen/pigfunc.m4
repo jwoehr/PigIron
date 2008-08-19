@@ -21,7 +21,7 @@ define(`ctor_stream',          `110')dnl        \\ Stream on which we define cto
 define(`function_stream',      `120')dnl        \\ Stream on which we define functions
 define(`compose_in_stream',    `130')dnl        \\ Stream on which we define composeInput
 define(`compose_out_stream',   `135')dnl        \\ Stream on which we define composeInput
-define(`get_function_name_stream', `139')dnl	\\ Stream on which we define getFunctionName()
+define(`get_function_name_stream', `139')dnl    \\ Stream on which we define getFunctionName()
 define(`class_footer_stream',  `140')dnl        \\ Stream on which we define class footer
 define(`file_footer_stream',   `150')dnl        \\ Stream on which we define file footer
 
@@ -50,7 +50,7 @@ package x_package();
 
 pop_divert()dnl
 x_comment()
-     public class x_name() extends x_extends() {
+public class x_name() extends x_extends() {
 
     /**
      * The transmitted name of the function.
@@ -146,16 +146,16 @@ pushdef(`x_get_accessor_name', ifelse(x_type, `boolean', `is_', `get_')`'x_name(
 
 push_divert(accessor_stream)dnl
     `/** Set the value of' x_qualified_name() `.'
-    `  * @param val The value to set' x_qualified_name() `.'
-    `  */'
-    x_set_accessor() void `set_'x_name() `('x_type() `val'`) {'
+    ` * @param val The value to set' x_qualified_name() `.'
+    ` */'
+    x_set_accessor() void `set_'x_name()`('x_type() `val'`) {'
         x_name() = `val;'
     `}'
 
     `/** Get the value of' x_qualified_name() `.'
-    `  * @return The value of' x_qualified_name() `.'
-    `  */'
-    public x_type() x_get_accessor_name() `() {'
+    ` * @return The value of' x_qualified_name() `.'
+    ` */'
+    public x_type() x_get_accessor_name()`() {'
         return x_name()`;'
     `}'
 
@@ -257,7 +257,7 @@ push_divert(`compose_in_stream')dnl
      * @see com.softwoehr.pigiron.access.ParameterArray
      */
     protected ParameterArray composeInputArray`(') {
-    	VSMString tempString = null;    	
+        VSMString tempString = null;
         ParameterArray parameterArray = new ParameterArray`(');
         tempString = new VSMString`('getFunctionName`('), getFunctionName`('));
         parameterArray.add`('new VSMInt4`('tempString.paramLength`('), "function_name_length"));
@@ -278,7 +278,7 @@ pushdef(`x_type', $1)dnl
 pushdef(`x_value', $2)dnl
 pushdef(`x_formal_name', $3)dnl
 ifelse(x_type(),`CountedString',`dnl
-	tempString = new VSMString`('x_value, "x_formal_name()");
+        tempString = new VSMString`('x_value, "x_formal_name()");
         parameterArray.add`('new VSMInt4`('tempString.paramLength`('), "x_formal_name()_length"));
         parameterArray.add`('tempString);',`dnl
         parameterArray.add`('new x_type()`('x_value(), "x_formal_name()"`)';)
@@ -333,8 +333,8 @@ pushdef(`x_type', $1)dnl
 pushdef(`x_value', $2)dnl
 pushdef(`x_formal_name', $3)dnl
 ifelse(is_type_named_array(x_type),-1,`dnl
-	parameterArray.add(new x_type()(x_value(), "x_formal_name()"));',`dnl
-	parameterArray.add(x_type()`.modelArray'`('"x_formal_name()"));dnl
+        parameterArray.add(new x_type()(x_value(), "x_formal_name()"));',`dnl
+        parameterArray.add(x_type()`.modelArray'`('"x_formal_name()"));dnl
 ')
 popdef(`x_formal_name')dnl
 popdef(`x_value')dnl
