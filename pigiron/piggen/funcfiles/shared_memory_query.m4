@@ -10,7 +10,7 @@ pigfunc_class(`SharedMemoryQuery',`VSMCall',`com.softwoehr.pigiron.functions',`s
  * @see com.softwoehr.pigiron.access.parmstructs.PageRangeArray
  */')dnl
 pigfunc_attribute(`private', `', `String', `memorySegmentName', `"*"', `', `The name of the memory segment to query')dnl
-pigfunc_ctors()dnl
+pigfunc_ctors(`String', `memory_segment_name', `memorySegmentName')dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
 pigfunc_compose_input_parm(`CountedString', `get_memorySegmentName()', `memory_segment_name')dnl
