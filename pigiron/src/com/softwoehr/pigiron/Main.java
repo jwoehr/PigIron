@@ -38,6 +38,7 @@ import com.softwoehr.pigiron.functions.CheckAuthentication;
 import com.softwoehr.pigiron.functions.ImageStatusQuery;
 import com.softwoehr.pigiron.functions.NameListQuery;
 import com.softwoehr.pigiron.functions.QueryAPIFunctionalLevel;
+import com.softwoehr.pigiron.functions.SharedMemoryQuery;
 import java.io.IOException;
 
 /**
@@ -64,23 +65,27 @@ public class Main {
      * @see com.softwoehr.pigiron.functions.CheckAuthentication
      * @see com.softwoehr.pigiron.functions.ImageStatusQuery
      * @see com.softwoehr.pigiron.functions.NameListQuery
+     * @see com.softwoehr.pigiron.functions.QueryAPIFunctionalLevel
+     * @see com.softwoehr.pigiron.functions.SharedMemoryQuery
      */
     public static void main(String[] argv) throws IOException, VSMException {
-        System.out.println("==================");
+        System.out.println("========= ImageActiveConfigurationQuery =========");
         ImageActiveConfigurationQuery.main(argv);
-        System.out.println("==================");
+        System.out.println("========= ImageQueryActivateTime =========");
         ImageQueryActivateTime.main(argv);
-        System.out.println("==================");
+        System.out.println("========= CheckAuthentication =========");
         CheckAuthentication.main(argv);
-        System.out.println("==================");
+        System.out.println("========= ImageStatusQuery =========");
         ImageStatusQuery.main(argv);
-        System.out.println("==================");
+        System.out.println("========= ImageStatusQuery =========");
         String[] modifiedArgs = {argv[0], argv[1], argv[2], argv[3], "*"};
         ImageStatusQuery.main(modifiedArgs);
-        System.out.println("==================");
+        System.out.println("========= NameListQuery =========");
         NameListQuery.main(modifiedArgs);
-        System.out.println("==================");
+        System.out.println("========= QueryAPIFunctionalLevel =========");
         QueryAPIFunctionalLevel.main(argv);
+        System.out.println("========= SharedMemoryQuery =========");
+        SharedMemoryQuery.main(argv);
         System.out.println("=======END========");
     }
 }
