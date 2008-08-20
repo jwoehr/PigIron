@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="pigiron-release" default="all" basedir="..">
+    <!-- tstamp>
+        <format pattern="EEEE yyyy-MM-dd HH:mm:ss.SS z Z" property="release.packaging.start"/>
+    </tstamp -->
+    <target name="init-release">
+        <property file="nbproject/project.properties"/>
+        <property file="nbproject/release.properties"/>
+        <property name="release.name" value="pigiron-${pigiron.release.version}"/>
+        <property name="jar.name" value="pigiron.jar"/>
+        <property name="jar.release.name" value="pigiron-${pigiron.release.version}.jar"/>
+        <property name="srczip.name" value="${release.name}-src.zip"/>
+        <property name="srczip.fullpathname" value="${dist.dir}/${srczip.name}"/>
+        <property name="doczip.name" value="${release.name}-doc.zip"/>
+        <property name="doczip.fullpathname" value="${dist.dir}/${doczip.name}"/>
+        <property name="allzip.name" value="${release.name}-all.zip"/>
+        <property name="allzip.fullpathname" value="${dist.dir}/${allzip.name}"/>
+    </target>
+    <target depends="init-release" description="Zip all the sources for PigIron" name="zip-source">
+        <zip compress="true" destfile="${srczip.fullpathname}" basedir="${basedir}" excludes="*/**">
+            <zipfileset dir="piggen" prefix="${release.name}/piggen"/>
+            <zipfileset dir="src" prefix="${release.name}/src"/>
+            <zipfileset dir="nbproject" excludes="private/**" prefix="${release.name}/nbproject"/>
+            <zipfileset dir="." includes="README.txt,build.xml,overview.html" prefix="${release.name}"/>
+        </zip>
+    </target>
+    <target depends="init-release" description="Zip all the docs for PigIron" name="zip-documentation">
+        <zip compress="true" destfile="${doczip.fullpathname}" basedir="${basedir}" excludes="*/**">
+            <zipfileset dir="doc" prefix="${release.name}/doc"/>
+            <zipfileset dir="${dist.javadoc.dir}" prefix="${release.name}/javadoc"/>
+        </zip>
+    </target>
+    <target depends="zip-source,zip-documentation" description="Zip sources, doc, and jar for PigIron in to one zip" name="zip-all">
+        <copy file="${dist.dir}/${jar.name}" tofile="${dist.dir}/${jar.release.name}"/>
+        <zip compress="false" destfile="${allzip.fullpathname}" basedir="${dist.dir}" includes="${srczip.name},${doczip.name},${jar.release.name}"/>
+    </target>
+    <target name="all" depends="zip-all">
+    </target>
+</project>

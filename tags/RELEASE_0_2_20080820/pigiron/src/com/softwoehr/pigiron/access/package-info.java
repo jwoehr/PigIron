@@ -1,0 +1,31 @@
+/**
+ * Provides the classes which embody
+ * the basic VSMAPI parameter types,
+ * recursive parameter composition and
+ * decomposition and parameter marshalling
+ * along with TCP/IP socket communications
+ * conforming to the VSMAPI protocol.
+ *
+ * Subpackages provide the definitions
+ * of aggregate structures and the
+ * actual VSMAPI function calls themselves.
+ *
+ * <h3>Basic VSMAPI Parameter Types</h3>
+ *
+ * Alongside the VSMAPI documented types:
+ * <ul>
+ * <li><tt>int1</tt></li>
+ * <li><tt>int4</tt>,
+ * <tt>int8</tt></li>
+ * <li><tt>string</tt></li>
+ * <li><tt>struct</tt></li>
+ * <li><tt>array</tt></li>
+ * </ul>
+ * Pigiron recognizes <tt>counted_struct</tt>
+ * as an extra type above and beyond the base types enumerated
+ * by the VSMAPI documentation.
+ * 
+ * @see com.softwoehr.pigiron.access.paramstructs
+ * @see com.softwoehr.pigiron.functions
+ */
+package com.softwoehr.pigiron.access;
