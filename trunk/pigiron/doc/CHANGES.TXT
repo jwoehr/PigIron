@@ -13,8 +13,14 @@ CHANGES
 -------
 
 2008-08-?? 0,2 -- release more functionality and release autogenerator.
+
 The piggen autogenerator generates Java code for VSMAPI parms and funcs
-from m4 specs.
+from m4 specs. It is good and sound though there are some limitations
+in the present implementation, e.g., the Java names of VSMAPI Array types
+must actually end in the string "Array" for them to be correctly handled
+by the function autogenerator.
+
+Functions additionally supported in this release:
 
     * Query_API_Functional_Level
     * Shared_Memory_Query
