@@ -26,3 +26,8 @@ popdef(`temp_diversion')dnl
 define(`date_string',`esyscmd(/bin/date -u)')dnl
 changecom()dnl
 undivert()dnl
+
+\\ Recognize that a type ends in the string `Array' and treat
+\\ it as an Array type in output composition, use VSMArray.modelArray() .
+\\ Returns -1 if not a match.
+define(`is_type_named_array',`regexp(`$1',`Array$')')
