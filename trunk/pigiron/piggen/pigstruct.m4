@@ -166,7 +166,10 @@ push_divert(model_stream)dnl
 pushdef(`x_type', $1)dnl
 pushdef(`x_value', $2)dnl
 pushdef(`x_formal_name', $3)dnl
-        add(new 'x_type()`('x_value()`, "'x_formal_name()`"));
+ifelse(is_type_named_array(x_type),-1,`dnl
+        add(new x_type()(x_value(), "x_formal_name()"));',`dnl
+        add(x_type()`.modelArray'`('"x_formal_name()"));dnl
+')
 popdef(`x_formal_name')dnl
 popdef(`x_value')dnl
 popdef(`x_type')dnl
