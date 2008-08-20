@@ -4,14 +4,16 @@ All rights reserved.
 
 This is the PigIron project. PigIron is a library of Java class wrappers for the
 IBM z/VM Virtual Machine Operating System Systems Management Application
-Programming Interface (sometimes called VSMAPI).
+Programming Interface (sometimes called VSMAPI). http://pigiron.sourceforge.net
+
+Please read the file license.txt which is the license under which the
+PigIron open source project is coded, released and distributed. license.txt is
+to be found in the same directory as this README.TXT file.
 
 Note: PigIron is not associated with the IBM corporation, which
 owns most or all of the trademarks mentioned in PigIron documentation.
 
-Please read the file license.txt which is the license under which the
-PigIron open source project is coded, released and distributed. The file license.txt
-is found in the same directory with this README.TXT file.
+The file license.txt is found in the same directory with this README.TXT file.
 
 The general layout for PigIron open source  as installed from distribution
 archive(s) is:
