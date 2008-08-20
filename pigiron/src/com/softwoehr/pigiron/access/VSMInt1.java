@@ -139,7 +139,7 @@ public class VSMInt1 implements VSMParm, VSMInt {
      */
     public void read(DataInputStream in, int length) throws IOException {
         setValue(in.readByte());
-    // /* Debug */ System.err.println("Read an int1: " + value);
+        // /* Debug */ System.err.println("Read an int1: " + value);
     }
 
     /**

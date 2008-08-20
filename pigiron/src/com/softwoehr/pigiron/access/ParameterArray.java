@@ -158,7 +158,6 @@ public class ParameterArray extends Vector<VSMParm> {
      */
     public void readAll(DataInputStream in) throws IOException, VSMException {
         /* Write all the params */
-        // /* Debug */ int howmanytimes = 0;
         int output_length = -1; // -1 means we haven't instanced it yet.
         ListIterator<VSMParm> currentListIterator = listIterator();
         ParameterArray replacement = new ParameterArray();
@@ -181,15 +180,15 @@ public class ParameterArray extends Vector<VSMParm> {
                     replacement.add(copyOfCurrentParm);
                     output_length -= copyOfCurrentParm.paramLength();
                 }
-            // /* Debug */ System.err.println(" Value of read VSMInt " + copyOfCurrentParm.getFormalName() + " == " + VSMInt.class.cast(copyOfCurrentParm).getLongValue());
+             // /* Debug */ System.err.println(" Value of read VSMInt " + copyOfCurrentParm.getFormalName() + " == " + VSMInt.class.cast(copyOfCurrentParm).getLongValue());
             } else if (copyOfCurrentParm instanceof VSMString | copyOfCurrentParm instanceof VSMArray | copyOfCurrentParm instanceof VSMStruct) {
                 if (!replacement.isEmpty()) {
                     previous = replacement.lastElement();
-                    //  /* Debug */ System.err.println("previous param is " + previous);
+                      // /* Debug */ System.err.println("previous param is " + previous);
                     if (previous instanceof VSMInt4) {
                         int countLength = VSMInt4.class.cast(previous).getValue();
-                        // /* Debug */ System.err.println(" Getting ready to read " + copyOfCurrentParm + " with read length " + countLength);
-                        // /* Debug */ System.err.flush();
+                         // /* Debug */ System.err.println(" Getting ready to read " + copyOfCurrentParm + " with read length " + countLength);
+                         // /* Debug */ System.err.flush();
                         copyOfCurrentParm.read(in, countLength);
                         output_length -= copyOfCurrentParm.paramLength();
                         replacement.add(copyOfCurrentParm);

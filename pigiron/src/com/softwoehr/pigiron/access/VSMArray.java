@@ -109,23 +109,24 @@ public class VSMArray extends VSMStruct implements VSMParm {
      */
     @Override
     public void read(DataInputStream in, int length) throws IOException, VSMException {
-        // /* Debug */ System.out.println(" VSMArray.read has read length of  " + length);
-        // /* Debug */ System.out.flush();
+        // /* Debug */ System.err.println(" VSMArray.read has read length of  " + length);
+        // /* Debug */ System.err.println("VSMArray about to read is: " + this);
+        // /* Debug */ System.err.flush();
         VSMArray v = new VSMArray();
         VSMParm model = elementAt(0);
         // /* Debug */ System.err.println(" model Array parm is " + model);
         // /* Debug */ System.err.flush();
         while (length > 0) {
             VSMParm target = model.copyOf();
-            // /* Debug */ System.out.println(" VSMArray.read about to read " + target);
-            // /* Debug */ System.out.flush();
+            // /* Debug */ System.err.println(" VSMArray.read about to read " + target);
+            // /* Debug */ System.err.flush();
             target.read(in, length);
             v.add(target);
-            // /* Debug */ System.out.println(" VSMArray.read after read has target param length of   " + target.paramLength());
-            // /* Debug */ System.out.flush();
+            // /* Debug */ System.err.println(" VSMArray.read after read has target param length of   " + target.paramLength());
+            // /* Debug */ System.err.flush();
             length -= target.paramLength();
-        // /* Debug */ System.err.println(" Array read length remaining: " + length);
-        // /* Debug */ System.out.flush();
+            // /* Debug */ System.err.println(" Array read length remaining: " + length);
+            // /* Debug */ System.err.flush();
         }
         setValue(v);
     }
