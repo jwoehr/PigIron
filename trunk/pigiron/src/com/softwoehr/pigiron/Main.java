@@ -56,8 +56,10 @@ public class Main {
      * <li><tt>CheckAuthentication.main(argv)</tt></li>
      * <li><tt>ImageStatusQuery.main(argv)</tt></li>
      * <li><tt>NameListQuery.main(argv)</tt></li>
+     * <li><tt>QueryAPIFunctionalLevel</tt></li>
+     * <li><tt>SharedMemoryQuery</tt></li>
      * </ul>
-     * @param argv five args: server_dns_name smapi_port userid_for_authentication password userid_to_query
+     * @param argv five args: server_dns_name smapi_port userid_for_authentication password target_specification_string
      * @throws java.io.IOException
      * @throws com.softwoehr.pigiron.access.VSMException
      * @see com.softwoehr.pigiron.functions.ImageActiveConfigurationQuery
