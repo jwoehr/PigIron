@@ -17,6 +17,7 @@ The piggen autogenerator generates Java code for VSMAPI parms and funcs
 from m4 specs.
 
     * Query_API_Functional_Level
+    * Shared_Memory_Query
 
 2008-08-17 0.1 -- release of proof of concept. Parameter composition, decomposition,
 marshalling and transmission work, along with a small set of VSMAPI function
