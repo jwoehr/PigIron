@@ -348,8 +348,6 @@ pop_divert()dnl
 \\ pigfunc_compose_output_end()
 define(`pigfunc_compose_output_end',`dnl
 push_divert(`compose_out_stream')dnl
-        VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
-        parameterArray.insertElementAt(outputLength, 0);
         setOutParams(parameterArray);
         return parameterArray;
     }
@@ -368,11 +366,10 @@ undivert(constant_stream)dnl
 undivert(ctor_stream)dnl
 undivert(attribute_stream)dnl
 undivert(accessor_stream)dnl
-undivert(function_stream)dnl
 undivert(compose_in_stream)dnl
 undivert(compose_out_stream)dnl
 undivert(get_function_name_stream)dnl
-undivert(file_footer_stream)dnl
+undivert(function_stream)dnl
 undivert(class_footer_stream)dnl
 undivert(file_footer_stream)dnl
 pop_divert()dnl
