@@ -144,7 +144,7 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
         while (i.hasNext()) {
             VSMParm parm = i.next();
             total += parm.paramLength();
-        // /* Debug */ System.err.println("((( In VSMSTruct.paramLength() " + parm + " added " + parm.paramLength() + " for total == " + total);
+            // /* Debug */ System.err.println("((( In VSMSTruct.paramLength() " + parm + " added " + parm.paramLength() + " for total == " + total);
         }
         return total;
     }
@@ -180,14 +180,13 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
      */
     public void read(DataInputStream in, int length) throws IOException, VSMStructStringReadException, VSMException {
         VSMStruct myNewContents = new VSMStruct(null);
-        VSMParm member = null;
         Iterator<VSMParm> i = iterator(); // Walk through our output model
         while (i.hasNext() & length > 0) {
             VSMParm model = i.next();
+            VSMParm member = model.copyOf();
             if (model instanceof VSMStruct) {
                 VSMParm putativeLength = myNewContents.lastElement(); /* What did we last read? */
                 if (putativeLength instanceof VSMInt4) {
-                    member = model.copyOf();
                     member.read(in, (VSMInt4.class.cast(putativeLength)).getValue());
                 } else {
                     throw new VSMStructStructReadException("Couldn't read struct because previous parameter read was not a count of type int4.");
@@ -195,7 +194,7 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
             } else if (model instanceof VSMArray) {
                 VSMParm putativeLength = myNewContents.lastElement();
                 if (putativeLength instanceof VSMInt4) {
-                    member = new VSMArray();
+                    // /* Debug */ System.err.println("putativeLength " + VSMInt4.class.cast(putativeLength).getValue());
                     member.read(in, (VSMInt4.class.cast(putativeLength)).getValue());
                 } else {
                     throw new VSMStructStructReadException("Couldn't read struct because previous parameter read was not a count of type int4.");
@@ -205,15 +204,13 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
                 // /* Debug */ System.err.println(" putativeStringLength == " + putativeStringLength);
                 // /* Debug */ System.err.flush();
                 if (putativeStringLength instanceof VSMInt4) {
-                    member = new VSMString(null, model.getFormalName());
                     member.read(in, (VSMInt4.class.cast(putativeStringLength)).getValue());
                 } else {
                     // /* Debug */ System.err.println(" About to throw VSMStructStringReadException -- myNewContents is: " + myNewContents);
                     // /* Debug */ System.err.flush();
                     throw new VSMStructStringReadException("Couldn't read string because previous parameter read was not a count of type int4.");
                 }
-            } else {
-                member = model.copyOf();
+            } else { // It's some kind of VSMInt
                 member.read(in, -1);
             }
             myNewContents.add(member);

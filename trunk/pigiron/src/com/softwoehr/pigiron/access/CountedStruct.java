@@ -142,13 +142,14 @@ public class CountedStruct extends VSMStruct {
     @Override
     public void read(DataInputStream in, int length) throws IOException, VSMStructStringReadException, VSMException {
         if (length >= ParameterArray.SIZEOF_INT4) {
-            // /* Debug */ System.out.println(" **** About to read in  CountedStruct.read() ");
-            // /* Debug */ System.out.println(" **** " + this);
-            // /* Debug */ System.out.println(" Counted struct size is " + size());
+            // /* Debug */ System.err.println(" **** About to read in  CountedStruct.read() ");
+            // /* Debug */ System.err.println(" **** " + this);
+            // /* Debug */ System.err.println(" Counted struct size is " + size());
             if (size() == 2) { // Must be modelled before a read, ergo, then has two (2) elements: a count and a struct
                 VSMParm purportedCountParm = elementAt(0);
                 if (purportedCountParm instanceof VSMInt4) {
                     purportedCountParm.read(in, 4); // read the count
+                    // /* Debug */ System.err.println("purportedCountParm value is " + VSMInt4.class.cast(purportedCountParm).getValue());
                     length -= 4;
                 } else {
                     throw new CountedStructStructReadException("First element in counted struct named " + getFormalName() + " of type " + getFormalType() +
@@ -160,6 +161,7 @@ public class CountedStruct extends VSMStruct {
                             "had a count greater than the remaining read length.");
                 }
                 VSMStruct myStruct = VSMStruct.class.cast(elementAt(1)); // If it ain't  the right class it will throw here on its own!
+                // /* Debug */ System.err.println("class-cast item is " + myStruct);
                 myStruct.read(in, length); // read the struct
             } else {
                 throw new CountedStructStructReadException("CountedStruct named " + getFormalName() + " of type " + getFormalType() +
