@@ -1,4 +1,4 @@
-include(`pigstruct.m4')dnl \\ memory_setgment_struct_counted.m4
+include(`pigstruct.m4')dnl \\ memory_segment_struct_counted.m4
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
 pigparm_class(`MemorySegmentStructCounted', `CountedStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl
