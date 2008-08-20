@@ -10,7 +10,7 @@ pigparm_class(`PageRangeArray', `VSMArray',`com.softwoehr.pigiron.access.paramst
  */')dnl
 pigparm_ctors()dnl
 pigparm_model_start()dnl
-pigparm_model_parm(`PageRangeStruct', `null', `page_range_structure')dnl
+pigparm_model_parm(`PageRangeStructCounted', `null', `page_range_struct_counted')dnl
 pigparm_model_end()dnl
 pigparm_endclass()dnl
 pigparm_end()dnl
