@@ -40,6 +40,17 @@ THE POSSIBILITY OF SUCH DAMAGE.
     <p><tt>Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
         PO Box 51, Golden, Colorado 80402-0051 USA
     All rights reserved.</tt></p>
+
+    This is code documentation. If you want navigation, here are some:
+    <h2>Quick External Links</h2>
+    <ul>
+      <li>Visit the Home Page of the <a href="http://pigiron.sourceforge.net/">PigIron Open Source Java Class Library for VSMAPI</a></li>
+      <li>Visit the Project Page of the <a href="http://sourceforge.net/projects/pigiron">PigIron Open Source Java Class Library for VSMAPI</a></li>
+      <li><a href="https://sourceforge.net/project/platformdownload.php?group_id=235734">Download PigIron</a></li>
+    </ul>
+
+    Now, on to code documentation:
+
     <h2>Contents</h2>
     <ul>
       <li><a href="#Overview">Overview</a>
@@ -57,17 +68,25 @@ THE POSSIBILITY OF SUCH DAMAGE.
           <li><a href="#Planned_Development">Planned Development</a></li>
         </ul>
       </li>
-      <li><a href="./piggen.html">PigGen Autogenerator</a> writes Java code for VSMAPI Functions and Parameters</li>
-      <li><a href="../javadoc/index.html">PigIron Javadocs</a></li>
+      <li>Other PigIron Local Documentation
+        <ul>
+          <li><a href="./piggen.html">PigGen Autogenerator</a> writes Java code for VSMAPI Functions and Parameters.
+            <ul>
+              <li>Enables you to extend your local PigIron installation to support custom-coded VSMAPI functions without knowing Java.</li>
+            </ul>
+          </li>
+          <li><a href="../javadoc/index.html">PigIron Javadocs</a></li>
+        </ul>
+      </li>
     </ul>
 
     <h2><a name="Overview">Overview</a></h2>
 
     <p>The goal of the project is to provide Java class wrappers for
-      the IBM z/VM Virtual Machine Operating System
+      the <a href="http://www.ibm.com">IBM</a> &trade; <a href="http://www.vm.ibm.com">z/VM &trade; Virtual Machine Operating System</a>'s
       <a href="http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm">
       Systems Management Application Programming Interface</a>
-    (sometimes called VSMAPI).</p>
+    (which we call for short VSMAPI).</p>
     <p>The classes and programming model are intended:
       <ul>
         <li>to be reliable</li>
@@ -107,26 +126,38 @@ THE POSSIBILITY OF SUCH DAMAGE.
     <h2><a name="Specification">Specification</a></h2>
     PigIron is a library of Java class wrappers for the IBM z/VM Virtual Machine
     Operating System Systems Management Application Programming Interface
-    (sometimes called VSMAPI). See http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm
-    for more information about VSMAPI.
+    (sometimes called VSMAPI).
+
+    <ul>
+      <li>See <a href="http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm">http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm</a>
+      for more information about VSMAPI version 5.3.</li>
+    </ul>
+
     <h3><a name="Planned_Development">Planned Development</a></h3>
     <ol>
-      <li>Implement the access class library. (DONE)
+      <li>Implement the Access and Functions class library. (DONE)
         <ul>
           <li>parameter creation</li>
           <li>parameter marshalling</li>
           <li>communication with VSMAPI host</li>
         </ul>
       </li>
-      <li>Implement VSMAPI Functions in terms of the access class library. (IN PROGRESS)
+      <li>Implement VSMAPI Functions in terms of the access class library. (IN PROGRESS | INCREMENTAL RELEASES TO 1.0)
         <ol>
-          <li>Support z/VM R5.3</li>
-          <li>Support z/VM R5.4</li>
-          <li>Support user-defined custom functions</li>
+          <li>Support z/VM R5.3 (NOW)</li>
+          <li>Support z/VM R5.4 (FUTURE)</li>
+          <li>Support for Secure Socket Layer communications (RELEASE &gt;= 1.1)</li>
+          <li>Support user-defined custom functions (IN PROGRESS)
+            <ul>
+              <li>Provide Rexxx examples of custom VSMAPI extensions on the VSMAPI host itself (TODO)</li>
+              <li>PigGen autogenerator allows user to extend PigIron to support such custom extensions without knowing Java (DONE) (pigiron-0.2)</li>
+            </ul>
+          </li>
         </ol>
       </li>
-      <li>Create GUI widgets based on VSMAPI Functions (TODO)</li>
-      <li>Create GUI management app based on GUI VSMAPI Function widgets (TODO)</li>
+      <li>Create Business Objects based on the Access and Functions class library (TODO)</li>
+      <li>Create GUI widgets or Web objects based on Business Objects (TODO)</li>
+      <li>Create GUI or Web management app based on Widgets and/or Web objects (TODO)</li>
     </ol>
 
     <p>An important possibility is support for Secure Socket Layer communications with the VSMAPI Host.</p>
