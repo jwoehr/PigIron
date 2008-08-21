@@ -38,13 +38,25 @@ package com.softwoehr.pigiron.access;
  */
 public class VSMException extends Exception {
 
+    /**
+     * Create empty exception.
+     */
     public VSMException() {
     }
 
+    /**
+     * Create exception with cause instanced.
+     * @param cause a previous Throwable case
+     */
     public VSMException(Throwable cause) {
         super(cause);
     }
 
+    /**
+     * Create exception with cause and message instanced.
+     * @param message a text message
+     * @param cause a previous Throwable case
+     */
     public VSMException(String message, Throwable cause) {
         super(message, cause);
     }
