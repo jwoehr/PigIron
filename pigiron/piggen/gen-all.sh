@@ -13,7 +13,9 @@ then
     for i in $SRCDIR/*.m4
     do
 	BASENAME=`basename $i`
+#	echo "Basename is $BASENAME"
 	TARGNAME=`echo javaname'('$BASENAME')' | m4 javaname.m4 -`
+#	echo "Targname is $TARGNAME"
         ./piggen.sh $i ${TARGDIR}/${TARGNAME}
     done
 else
