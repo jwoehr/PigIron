@@ -4,9 +4,9 @@ pigparm_import(`com.softwoehr.pigiron.access.*')dnl
 pigparm_class(`AdapterStructCounted', `CountedStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl
 
 /**
- * AdapterStructCounted wrappers the adapter_structure from Virtual_Adapter_Query
+ * AdapterStructCounted wrappers the adapter_structure from VirtualNetworkAdapterQuery
  * as a PigIron CountedStruct pseudotype
- * @see com.softwoehr.pigiron.functions.Virtual_Adapter_Query
+ * @see com.softwoehr.pigiron.functions.VirtualNetworkAdapterQuery
  */')dnl
 pigparm_ctors()dnl
 pigparm_model_start()dnl
