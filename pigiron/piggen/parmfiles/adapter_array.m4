@@ -3,8 +3,8 @@ pigparm_import(`com.softwoehr.pigiron.access.*')dnl
 pigparm_class(`AdapterArray', `VSMArray',`com.softwoehr.pigiron.access.paramstructs',`dnl
 
 /**
- * AdapterArray implements the page_range_array from Virtual_Adapter_Query
- * @see com.softwoehr.pigiron.functions.Virtual_Adapter_Query
+ * AdapterArray implements the page_range_array from VirtualNetworkAdapterQuery
+ * @see com.softwoehr.pigiron.functions.VirtualNetworkAdapterQuery
  * @see com.softwoehr.pigiron.access.paramstructs.AdapterStruct
  */')dnl
 pigparm_ctors()dnl
