@@ -4,7 +4,7 @@ pigparm_import(`com.softwoehr.pigiron.access.*')dnl
 pigparm_class(`PageRangeStructCounted', `CountedStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl
 
 /**
- * PageRangeArrayStructCounted wrappers the page_range_structure from Shared_Memory_Query
+ * PageRangeStructCounted wrappers the page_range_structure from Shared_Memory_Query
  * as a PigIron CountedStruct pseudotype.
  * @see com.softwoehr.pigiron.functions.SharedMemoryQuery
  */')dnl
