@@ -69,8 +69,8 @@ pop_divert()dnl
 \\ Because the big ctor has to be extendable and must instance vars
 define(`optional_ctor_param_comments',`dnl
 ifelse(eval($# >= 3), 0, , eval($# == 3), 1, `
-     * @param `$2' instances `$3'', `
-     * @param `$2' instances `$3'`'optional_ctor_param_comments(shift(shift(shift($@))))')dnl
+     * @param `$2' instances <tt>`$3'</tt>', `
+     * @param `$2' instances <tt>`$3'</tt>`'optional_ctor_param_comments(shift(shift(shift($@))))')dnl
 ')
 
 \\ optional_ctor_params_args(type, name, instance, t, n, i ...)
