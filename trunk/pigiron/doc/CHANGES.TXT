@@ -10,9 +10,19 @@ Please read the file license.txt which is the license under which the
 PigIron open source project is coded, released and distributed. license.txt is
 to be found in the same directory as this README.TXT file.
 
-
 CHANGES
 -------
+2008-08-?? 0.3 -- release more functionality and improved autogenerator.
+
+Functions additionally supported in this release:
+    * Image_Volume_Add
+    * Image_Volume_Delete
+    * Name_List_Add
+    * Name_List_Destroy
+    * Shared_Memory_Query
+    * Virtual_Network_Adapter_Query
+
+More documentation.
 
 2008-08-20 0.2 -- release more functionality and release autogenerator.
 Very incomplete docs, but good javadocs.
@@ -24,7 +34,6 @@ must actually end in the string "Array" for them to be correctly handled
 by the function autogenerator.
 
 Functions additionally supported in this release:
-
     * Query_API_Functional_Level
     * Shared_Memory_Query
 
