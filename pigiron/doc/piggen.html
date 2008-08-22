@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head>
-<!--
+  <head>
+    <!--
 Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
 PO Box 51, Golden, Colorado 80402-0051 USA
 All rights reserved.
@@ -32,85 +32,93 @@ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 THE POSSIBILITY OF SUCH DAMAGE.
 -->
-  <title>PigGen Autogenerator</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-</head>
-<body>
-<h1><a name="Image_of_noble_porcine"></a><img
- title="Image of noble porcine" alt="Image of noble porcine"
- src="pigiron.sourceforge.net/images/pig_15.gif"
- style="width: 157px; height: 116px;" align="middle">PigGen
-AutoGenerator for <a href="index.html">PigIron</a></h1>
-<p><tt>Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com PO Box
-51, Golden, Colorado 80402-0051 USA All rights reserved.</tt></p>
-<p>[ <a href="./index.html">Back to PigIron Index</a> ] [ <a href="http://pigiron.sourceforge.net">PigIron Home Page</a> ] [ <a href="http://sourceforge.net/projects/pigiron">Download PigIron</a> ]</p>
-<h2>Contents</h2>
-<ul>
-  <li><a href="#Overview">Overview</a></li>
-  <li><a href="#Disclaimers">Disclaimers</a>
+    <title>PigGen Autogenerator</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <h1><a name="Image_of_noble_porcine"></a><img
+        title="Image of noble porcine" alt="Image of noble porcine"
+        src="pigiron.sourceforge.net/images/pig_15.gif"
+        style="width: 157px; height: 116px;" align="middle">PigGen
+    AutoGenerator for <a href="index.html">PigIron</a></h1>
+    <p><tt>Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com PO Box
+    51, Golden, Colorado 80402-0051 USA All rights reserved.</tt></p>
+    <p>[ <a href="./index.html">Back to PigIron Index</a> ] [ <a href="http://pigiron.sourceforge.net">PigIron Home Page</a> ] [ <a href="http://sourceforge.net/projects/pigiron">Download PigIron</a> ]</p>
+    <h2>Contents</h2>
     <ul>
-      <li><a href="#Open_Source">Open Source</a></li>
-      <li><a href="#NOTE_ON_SECURITY">NOTE ON SECURITY (LACK THEREOF)</a></li>
-      <li><a href="#Lawyer-B-Gone">Non-Association with IBM</a></li>
+      <li><a href="#Overview">Overview</a></li>
+      <li><a href="#Disclaimers">Disclaimers</a>
+        <ul>
+          <li><a href="#Open_Source">Open Source</a></li>
+          <li><a href="#NOTE_ON_SECURITY">NOTE ON SECURITY (LACK THEREOF)</a></li>
+          <li><a href="#Lawyer-B-Gone">Non-Association with IBM</a></li>
+        </ul>
+      </li>
+      <li><a href="#Credits">Credits</a></li>
+      <li><a href="#Specification">Specification</a>
+        <ul>
+          <li><a href="#How_PigIron_Works">How PigIron Works</a></li>
+          <li><a href="#Macro_Reference">Macro_Reference</a></li>
+        </ul>
+      </li>
     </ul>
-  </li>
-  <li><a href="#Credits">Credits</a></li>
-  <li><a href="#Specification">Specification</a>
+    <h2><a name="Overview">Overview of PigIron's PigGen</a></h2>
+    <p>PigGen autogenerates Java source code to embody <a href="index.html">PigIron</a>-specific
+      VSMAPI parameter structures and arrays and VSMAPI function calls for
+      either native VSMAPI functions or for your own custom VSMAPI host-side
+    functions.</p>
+    <p>You have two uses for PigGen: </p>
+    <ol>
+      <li>You can extend PigIron as IBM adds new VSMAPI Functions (along
+        with their complement of parameter structures and arrays) without your
+      having to understand PigIron's Java source code intimately.</li>
+      <li>You can extend PigIron with calls to support your own
+        custom-coded host-side extensions to VSMAPI (since VSMAPI supports
+      custom extension coding). </li>
+    </ol>
+    <h3>Interesting Conversational Snippet on the Why of PigGen</h3>
+    <blockquote> (10:08:15) Dave Jones: looking at class VSMCall....this is
+      beginning to make sense..<br>
+      (10:09:46) Uncle Jax: Right, that's the base from which all funct calls
+      are extended. Class commonality. But DESIGN PATTERN COMMONALITY e.g.,
+      each VSMAPI FUnction class layout of composeInput() and composeOutput()
+      is not subject to inheritance factoring .. the commonality is more
+      easily expressed in m4 macros.<br>
+      (10:10:03) Dave Jones: OK<br>
+      (10:10:18) Uncle Jax: Makes up for Java not having templates like C++
+      does.<br>
+    </blockquote>
+    <h2><a name="Disclaimers">Disclaimers</a></h2>
     <ul>
-      <li><a href="#Planned_Development">Planned Development</a></li>
+      <li><a name="Open_Source">PigIron is open source software</a> and as
+        such comes with NO WARRANTY and NO GUARANTEE.
+        <ul>
+          <li>Please <a href="./license.txt">view the BSD-style license
+          for the PigIron Class Library</a>.</li>
+        </ul>
+      </li>
+      <li><a name="NOTE_ON_SECURITY">NOTE ON SECURITY (LACK THEREOF)</a>
+        <ul>
+          <li>Currently there is NO secure sockets implementation. PigIron
+          sends any password info in CLEAR TEXT.</li>
+          <li>Use ONLY on a secure LAN behind a firewall.</li>
+        </ul>
+      </li>
+      <li><a name="Lawyer-B-Gone">PigIron is not associated</a> with the
+        IBM corporation, which owns most or all of the trademarks mentioned in
+      PigIron documentation.</li>
     </ul>
-  </li>
-</ul>
-<h2><a name="Overview">Overview of PigIron's PigGen</a></h2>
-<p>PigGen autogenerates Java source code to embody <a href="index.html">PigIron</a>-specific
-VSMAPI parameter structures and arrays and VSMAPI function calls for
-either native VSMAPI functions or for your own custom VSMAPI host-side
-functions.</p>
-<p>You have two uses for PigGen: </p>
-<ol>
-  <li>You can extend PigIron as IBM adds new VSMAPI Functions (along
-with their complement of parameter structures and arrays) without your
-having to understand PigIron's Java source code intimately.</li>
-  <li>You can extend PigIron with calls to support your own
-custom-coded host-side extensions to VSMAPI (since VSMAPI supports
-custom extension coding). </li>
-</ol>
-<h3>Interesting Conversational Snippet on the Why of PigGen</h3>
-<blockquote> (10:08:15) Dave Jones: looking at class VSMCall....this is
-beginning to make sense..<br>
-(10:09:46) Uncle Jax: Right, that's the base from which all funct calls
-are extended. Class commonality. But DESIGN PATTERN COMMONALITY e.g.,
-each VSMAPI FUnction class layout of composeInput() and composeOutput()
-is not subject to inheritance factoring .. the commonality is more
-easily expressed in m4 macros.<br>
-(10:10:03) Dave Jones: OK<br>
-(10:10:18) Uncle Jax: Makes up for Java not having templates like C++
-does.<br>
-</blockquote>
-<h2><a name="Disclaimers">Disclaimers</a></h2>
-<ul>
-  <li><a name="Open_Source">PigIron is open source software</a> and as
-such comes with NO WARRANTY and NO GUARANTEE.
-    <ul>
-      <li>Please <a href="./license.txt">view the BSD-style license
-for the PigIron Class Library</a>.</li>
-    </ul>
-  </li>
-  <li><a name="NOTE_ON_SECURITY">NOTE ON SECURITY (LACK THEREOF)</a>
-    <ul>
-      <li>Currently there is NO secure sockets implementation. PigIron
-sends any password info in CLEAR TEXT.</li>
-      <li>Use ONLY on a secure LAN behind a firewall.</li>
-    </ul>
-  </li>
-  <li><a name="Lawyer-B-Gone">PigIron is not associated</a> with the
-IBM corporation, which owns most or all of the trademarks mentioned in
-PigIron documentation.</li>
-</ul>
-<h2><a name="#Credits">Credits</a></h2>
-Thanks to <a href="http://www.designedtoat.com">Free Original Clipart
-at Designed to a T</a> for the <a href="#Image_of_noble_porcine">pig
-image</a>!
-<hr> <a href="http://pigiron.sourceforge.net">The PigIron Project</a>
-</body>
+    <h2><a name="#Credits">Credits</a></h2>
+    Thanks to <a href="http://www.designedtoat.com">Free Original Clipart
+    at Designed to a T</a> for the <a href="#Image_of_noble_porcine">pig
+    image</a>!
+    <hr/>
+    <h2><a name="Specification">Specification</a></h2>
+    <h3><a name="How_PigIron_Works">How PigIron Works</a></h3>
+    <h3><a name="Macro_Reference">Macro Reference</a></h3>
+    <hr/>
+    <p><a href="http://pigiron.sourceforge.net">The PigIron Project</a></p>
+
+    <hr/>
+  </body>
 </html>
