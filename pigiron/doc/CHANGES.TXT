@@ -19,7 +19,6 @@ Functions additionally supported in this release:
     * Image_Volume_Delete
     * Name_List_Add
     * Name_List_Destroy
-    * Shared_Memory_Query
     * Virtual_Network_Adapter_Query
 
 More documentation.
