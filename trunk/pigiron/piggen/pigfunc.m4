@@ -68,23 +68,22 @@ pop_divert()dnl
 \\ optional_ctor_params_comments(type, name, instance, t, n, i ...)
 \\ Because the big ctor has to be extendable and must instance vars
 define(`optional_ctor_param_comments',`dnl
-ifelse(eval($# >= 3), 0, , eval($# >= 3), 1, `
-     * @param `$2' instances `$3'', `optional_ctor_param_comments(shift(shift(shift($@))))')dnl
+ifelse(eval($# >= 3), 0, , eval($# == 3), 1, `
+     * @param `$2' instances `$3'', `
+     * @param `$2' instances `$3'`'optional_ctor_param_comments(shift(shift(shift($@))))')dnl
 ')
 
 \\ optional_ctor_params_args(type, name, instance, t, n, i ...)
 \\ Because the big ctor has to be extendable and must instance vars
 define(`optional_ctor_param_args',`dnl
-ifelse(eval($# >= 3), 0, , eval($# >= 3), 1, `dnl
-, `$1' `$2'', `optional_ctor_param_args(shift(shift(shift($@))))')dnl
-')
+ifelse(eval($# >= 3), 0, , eval($# == 3), 1, ``$1' `$2'', ``$1' `$2'`,' optional_ctor_param_args(shift(shift(shift($@))))')')
 
 \\ optional_ctor_param_instantiations(type, name, instance, t, n, i ...)
 \\ Because the big ctor has to be extendable and must instance vars
 define(`optional_ctor_param_instantiations',`dnl
-ifelse(eval($# >= 3), 0, , eval($# >= 3), 1, `dnl
-        set_`$3'`('`$2');
-',`optional_ctor_param_instantiations(shift(shift(shift($@))))')dnl
+ifelse(eval($# >= 3), 0, , eval($# == 3), 1, `        set_`$3'`('`$2');
+',`        set_`$3'`('`$2');`'
+optional_ctor_param_instantiations(shift(shift(shift($@))))')dnl
 ')
 
 \\ pigfunc_ctors(OPTIONAL type, name, instance, t, n, i ..)
@@ -106,8 +105,7 @@ pushdef(`x_optional_params', `$@')dnl
      * @param target_identifier the target of the VSMAPI function`'dnl
 optional_ctor_param_comments(x_optional_params())
      */
-    public myClassName()`('String hostname, int port, String userid, String password, String target_identifier`'dnl
-optional_ctor_param_args(x_optional_params())`)' {
+    public myClassName()`('String hostname, int port, String userid, String password, String target_identifier, optional_ctor_param_args(x_optional_params)`)' {
         this`(');
         setHostname`('hostname);
         setPort`('port);
@@ -204,7 +202,7 @@ ifelse(x_function_body(), `',`dnl
 ifelse(x_return_type(), `void', `', `
         return result;')
     `}'
-
+dnl
 popdef(`x_function_body')dnl
 popdef(`x_comment')dnl
 popdef(`x_throws')dnl
@@ -228,6 +226,7 @@ push_divert(get_function_name_stream)dnl
     public String getFunctionName`(') {
         return FUNCTION_NAME;
     }
+
 pop_divert()dnl
 ')
 

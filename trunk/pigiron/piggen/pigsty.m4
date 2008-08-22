@@ -1,4 +1,3 @@
-divert(-1)
 changecom(`\\')
 \\ pigsty.m4
 \\   Macros commonly used to autogenerate Java code for PigIron
@@ -23,9 +22,7 @@ popdef(`temp_diversion')dnl
 ')
 
 \\ A date stamp
-define(`date_string',`esyscmd(/bin/date -u)')dnl
-changecom()dnl
-undivert()dnl
+define(`date_string',`esyscmd(/bin/date -u)')
 
 \\ Recognize that a type ends in the string `Array' and treat
 \\ it as an Array type in output composition, use VSMArray.modelArray() .
@@ -35,7 +32,7 @@ define(`is_type_named_array',`regexp(`$1',`Array$')')
 \\ Uppercase a character
 define(`upcase', `translit(`$*', `a-z', `A-Z')')
 
-\\ Convert an xcc_xcc.. (etc.) to xccXcc...
+\\ Convert an xcc_xcc.. (etc.) to XccXcc...
 define(`javaize2_regexp', `^\(\w\)\(\w*\)_\(\w\)\(\w*\)$')
 define(`javaize3_regexp', `^\(\w\)\(\w*\)_\(\w\)\(\w*\)_\(\w\)\(\w*\)$')
 define(`javaize4_regexp', `^\(\w\)\(\w*\)_\(\w\)\(\w*\)_\(\w\)\(\w*\)_\(\w\)\(\w*\)$')
@@ -43,3 +40,10 @@ define(`javaize2', `regexp(`$1', javaize2_regexp, `upcase(`\1')`\2'upcase(`\3')`
 define(`javaize3', `regexp(`$1', javaize3_regexp, `upcase(`\1')`\2'upcase(`\3')`\4'upcase(`\5')`\6'')')
 define(`javaize4', `regexp(`$1', javaize4_regexp, `upcase(`\1')`\2'upcase(`\3')`\4'upcase(`\5')`\6'upcase(`\7')`\8'')')
 define(`javaize',  `ifelse(regexp(`$1', javaize4_regexp),`-1',`ifelse(regexp(`$1', javaize3_regexp),`-1',`javaize2(`$1')',`javaize3(`$1')')',`javaize4(`$1')')')
+
+\\ Convert an xcc_xcc.. (etc.) to XccXcc...
+define(`javaize2lc', `regexp(`$1', javaize2_regexp, ``\1'`\2'upcase(`\3')`\4'')')
+define(`javaize3lc', `regexp(`$1', javaize3_regexp, ``\1'`\2'upcase(`\3')`\4'upcase(`\5')`\6'')')
+define(`javaize4lc', `regexp(`$1', javaize4_regexp, ``\1'`\2'upcase(`\3')`\4'upcase(`\5')`\6'upcase(`\7')`\8'')')
+define(`javaize_lc',  `ifelse(regexp(`$1', javaize4_regexp),`-1',`ifelse(regexp(`$1', javaize3_regexp),`-1',`javaize2lc(`$1')',`javaize3lc(`$1')')',`javaize4lc(`$1')')')
+changecom()
