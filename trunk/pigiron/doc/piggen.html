@@ -173,9 +173,9 @@ THE POSSIBILITY OF SUCH DAMAGE.
         <ol>
           <li>The description file must be complete and correct to generate correct Java code.</li>
           <li>Each line of the description file should usually end with the <tt>dnl</tt> macro.
-            <ul>
-              <li>The exception is when you are entering inline text such as your own custom-coded function or text comment.</li>
-            </ul>
+          <ul>
+            <li>The exception is when you are entering inline text such as your own custom-coded function or text comment.</li>
+          </ul>
           <li></li>
           <li></li>
           <li></li>
@@ -185,9 +185,16 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </li>
       <li>Structure Rules
         <ol>
-          <li></li>
-          <li></li>
-          <li></li>
+          <li>Names used should always be of one of the form:
+            <ul>
+              <li><tt>lcase_lcase</tt></li>
+              <li><tt>lcase_lcase_lcase</tt></li>
+              <li><tt>lcase_lcase_lcase_lcase</tt></li>
+            </ul>
+          </li>
+          <li>PigGen javaizes these forms into either member name format (<tt>lcaseUlcaseUlcase</tt> ... etc.)
+          or class name format (<tt>UlcaseUlcaseUlcase</tt> ... etc.) as appropriate.</li>
+          <li>When you name a structure type or array type in describing a new structure type, it's always in class name format.</li>
           <li></li>
           <li></li>
           <li></li>
