@@ -89,7 +89,10 @@
         </exec>
     </target>
     <target depends="-pigiron-parmgen,-pigiron-funcgen"
-            description="Autogenerates all PigIron-provided paramstructs and functions that have m4 description files"
+            description="Autogenerates all PigIron-provided paramstructs and functions that PigGen description files"
             name="pigiron-autogen"
             />
+    <target description="Build a release" name="release">
+        <ant antfile="nbproject/release.xml" target="all"/>
+    </target>
 </project>
