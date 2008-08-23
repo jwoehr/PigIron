@@ -29,7 +29,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package com.softwoehr.pigiron.access;
 
 /**
@@ -61,9 +60,11 @@ public class VSMException extends Exception {
         super(message, cause);
     }
 
+    /**
+     * Create exception with message instanced.
+     * @param message a text message
+     */
     public VSMException(String message) {
         super(message);
     }
-
-
 }
