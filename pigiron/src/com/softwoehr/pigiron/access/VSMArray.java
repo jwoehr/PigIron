@@ -31,8 +31,6 @@
  */
 package com.softwoehr.pigiron.access;
 
-import com.softwoehr.pigiron.access.paramstructs.DeviceInfoArray;
-import com.softwoehr.pigiron.access.paramstructs.DeviceInfoStructCounted;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.Iterator;
@@ -125,8 +123,8 @@ public class VSMArray extends VSMStruct implements VSMParm {
             // /* Debug */ System.err.println(" VSMArray.read after read has target param length of   " + target.paramLength());
             // /* Debug */ System.err.flush();
             length -= target.paramLength();
-            // /* Debug */ System.err.println(" Array read length remaining: " + length);
-            // /* Debug */ System.err.flush();
+        // /* Debug */ System.err.println(" Array read length remaining: " + length);
+        // /* Debug */ System.err.flush();
         }
         setValue(v);
     }
