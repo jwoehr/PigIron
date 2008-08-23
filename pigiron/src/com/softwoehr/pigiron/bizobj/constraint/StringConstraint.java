@@ -35,19 +35,17 @@ import com.softwoehr.pigiron.access.VSMInt;
 import com.softwoehr.pigiron.access.VSMString;
 
 /**
- * Implementation of the VSMParamConstraint interface for Strings.
+ * Abstract antecedent of all implementations of Constraints on Strings.
  * @author jax
  */
-public class StringConstraint implements VSMParamConstraint {
+public abstract class StringConstraint implements VSMParamConstraint {
 
     /**
      * Exercise a constraint by throwing if constraint is violated.
      * @param vsmString target of constraint
      * @throws com.softwoehr.pigiron.bizobj.constraint.VSMConstraintException if constraint is violated
      */
-    public void constrain(VSMString vsmString) throws VSMConstraintException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public abstract void constrain(VSMString vsmString) throws VSMConstraintException;
 
     /**
      * Exercise a constraint by throwing if constraint is violated

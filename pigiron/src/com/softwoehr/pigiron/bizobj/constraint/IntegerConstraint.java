@@ -35,10 +35,10 @@ import com.softwoehr.pigiron.access.VSMInt;
 import com.softwoehr.pigiron.access.VSMString;
 
 /**
- * Implementation of the VSMParamConstraint interface for Integers
+ * Abstract antecedent of all implementations of Constraints on Integers.
  * @author jax
  */
-public class IntegerConstraint implements VSMParamConstraint {
+public abstract class IntegerConstraint implements VSMParamConstraint {
 
     /**
      * Exercise a constraint by throwing if constraint is violated.
@@ -54,9 +54,7 @@ public class IntegerConstraint implements VSMParamConstraint {
      * @param vsmInt target of constraint
      * @throws com.softwoehr.pigiron.bizobj.constraint.VSMConstraintException if constraint is violated
      */
-    public void constrain(VSMInt vsmInt) throws VSMConstraintException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public abstract void constrain(VSMInt vsmInt) throws VSMConstraintException;
      /**
      * Class to represent inappropriate target of constraint
      */
