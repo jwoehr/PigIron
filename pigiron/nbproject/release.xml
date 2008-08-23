@@ -21,7 +21,7 @@
             <zipfileset dir="piggen" prefix="${release.name}/piggen"/>
             <zipfileset dir="src" prefix="${release.name}/src"/>
             <zipfileset dir="nbproject" excludes="private/**" prefix="${release.name}/nbproject"/>
-            <zipfileset dir="." includes="README.txt,build.xml,overview.html" prefix="${release.name}"/>
+            <zipfileset dir="." includes="README.txt,CHANGES.TXT,license.txt,build.xml,overview.html" prefix="${release.name}"/>
         </zip>
     </target>
     <target depends="init-release" description="Zip all the docs for PigIron" name="zip-documentation">

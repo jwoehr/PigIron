@@ -1,0 +1,51 @@
+Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+PO Box 51, Golden, Colorado 80402-0051 USA
+All rights reserved.
+
+This is the PigIron project. PigIron is a library of Java class wrappers for the
+IBM z/VM Virtual Machine Operating System Systems Management Application
+Programming Interface (sometimes called VSMAPI). http://pigiron.sourceforge.net
+
+Please read the file license.txt which is the license under which the
+PigIron open source project is coded, released and distributed. license.txt is
+to be found in the same directory as this README.TXT file.
+
+CHANGES
+-------
+2008-08-?? 0.3 -- release more functionality and improved autogenerator.
+
+Functions additionally supported in this release:
+    * Image_Volume_Add
+    * Image_Volume_Delete
+    * Name_List_Add
+    * Name_List_Destroy
+    * Virtual_Network_Adapter_Query
+
+More documentation.
+
+2008-08-20 0.2 -- release more functionality and release autogenerator.
+Very incomplete docs, but good javadocs.
+
+The piggen autogenerator generates Java code for VSMAPI parms and funcs
+from m4 specs. It is good and sound though there are some limitations
+in the present implementation, e.g., the Java names of VSMAPI Array types
+must actually end in the string "Array" for them to be correctly handled
+by the function autogenerator.
+
+Functions additionally supported in this release:
+    * Query_API_Functional_Level
+    * Shared_Memory_Query
+
+2008-08-17 0.1 -- release of proof of concept. Parameter composition, decomposition,
+marshalling and transmission work, along with a small set of VSMAPI function
+calls:
+    * Image_Active_Configuration_Query
+    * Image_Query_Activate_Time
+    * Check_Authentication
+    * Image_Status_Query
+    * Name_List_Query
+
+It's easy enough to code the calls and their parameters. I'm only releasing this
+in its unfinished form so folks can see and comment.
+
+== End ==
