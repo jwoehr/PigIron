@@ -1,7 +1,7 @@
 include(`pigfunc.m4')dnl \\ image_volume_delete.m4 ... not finished
 pigfunc_start()dnl
-dnl pigfunc_import(`java.io.IOException')dnl
-dnl pigfunc_import(`java.util.Iterator')dnl
+pigfunc_import(`java.io.IOException')dnl
+pigfunc_import(`java.util.Iterator')dnl
 pigfunc_import(`com.softwoehr.pigiron.access.*')dnl
 pigfunc_class(`javaize(`image_volume_delete')',`VSMCall',`com.softwoehr.pigiron.functions',`image_volume_delete',`dnl
 
@@ -51,5 +51,28 @@ pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`alt_parm_disk_pas
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl
+pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException`,' VSMException', `dnl
+     * You can execute the VSMAPI call from <tt>main()</tt>, try it
+     * with no args to see the usage message.
+     * @param argv array of command-line args
+     * @throws IOException on comm error
+     * @throws VSMException on internal Pigiron param marshalling error', `dnl
+
+        javaize(`image_volume_delete') instance = null;
+
+        if (argv.length < 17) {
+            System.out.println("usage: args are:\ninetaddr port user pw target");
+            System.exit(1);
+        }
+       
+        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5] + " " + argv[6] + " " + argv[7] + " " + argv[8] + " " + argv[9] + " " + argv[10] + " " + argv[11] + " " + argv[12] + " " + argv[0x0d] + " " + argv[14] + " " + argv[15] + " " + argv[16]);
+        instance = new javaize(`image_volume_delete')(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5], argv[6], argv[7], argv[8], argv[9], argv[10], argv[11], argv[12], argv[0x0d], argv[14], argv[15], argv[16]);
+       
+        ParameterArray pA = instance.doIt();
+        System.out.println("Returns from call to " + instance.getFunctionName() + ":");
+        Iterator<VSMParm> i = pA.iterator();
+        while (i.hasNext()) {
+            System.out.println(i.next().prettyPrint());
+        }')dnl
 pigfunc_endclass()dnl
 pigfunc_end()dnl
