@@ -176,7 +176,13 @@ THE POSSIBILITY OF SUCH DAMAGE.
           <ul>
             <li>The exception is when you are entering inline text such as your own custom-coded function or text comment.</li>
           </ul>
-          <li></li>
+          <li>On the first line in your description file <tt>include()</tt> the appropriate PigGen .m4 file.
+            <ul>
+              <li>To define a VSMAPI structure: <tt>include(`pigstruct.m4')</tt></li>
+              <li>To define an array of VSMAPI structures: <tt>include(`pigarray.m4')</tt></li>
+              <li>To define a VSMAPI function: <tt>include(`pigfunc.m4')</tt></li>
+            </ul>
+          </li>
           <li></li>
           <li></li>
           <li></li>
@@ -223,6 +229,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
     </ul>
 
     <h3><a name="Macro_Reference">Macro Reference</a></h3>
+
+    Macros are listed by include file, in order in which they normally appear in a description file.
     <!--
 pigarray.m4
 pigparm_import(`import_name')
@@ -254,6 +262,9 @@ pigparm_ctors
 pigparm_function(`accessor',
 pigparm_endclass
 -->
+
+    <h4>pigarray.m4</h4>
+
     <table border="1" cellpadding="4">
       <thead>
         <tr>
@@ -262,7 +273,7 @@ pigparm_endclass
           <th>arrays</th>
           <th>functions</th>
           <th>description</th>
-          <th>example<th>
+          <th>example</th>
         </tr>
       </thead>
       <tbody>
@@ -271,8 +282,176 @@ pigparm_endclass
           <td><center>x</center></td>
           <td><center>x</center></td>
           <td><center>&nbsp;</center></td>
-          <td>Conveys an imported class specification to Java</td>
+          <td>Conveys an imported class specification to Java.</td>
           <td><tt>pigparm_import(`com.softwoehr.pigiron.access.*')</tt></td>
+        </tr>
+        <!-- -->
+        <tr>
+          <td><tt>pigparm_class(`name',`extends',`package',`comment')</tt></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+        <!-- -->
+        <tr>
+          <td><tt>pigparm_constant(`accessor',</tt></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+        <!-- -->
+        <tr>
+          <td><tt>pigparm_attribute(`accessor',</tt></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+        <!-- -->
+        <tr>
+          <td><tt>pigparm_ctors</tt></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+        <!-- -->
+        <tr>
+          <td><tt>pigparm_function(`accessor',</tt></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+        <!-- -->
+        <tr>
+          <td><tt>pigparm_endclass</tt></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4>pigstruct.m4</h4>
+    <table border="1" cellpadding="4">
+      <thead>
+        <tr>
+          <th>macro</th>
+          <th>structs</th>
+          <th>arrays</th>
+          <th>functions</th>
+          <th>description</th>
+          <th>example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- -->
+        <tr>
+          <td><tt></tt></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+        <!-- -->
+        <tr>
+          <td><tt></tt></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+        <!-- -->
+        <tr>
+          <td><tt></tt></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+        <!-- -->
+        <tr>
+          <td><tt></tt></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+        <!-- -->
+        <tr>
+          <td><tt></tt></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+        <!-- -->
+      </tbody>
+    </table>
+
+    <h4>pigfunc.m4</h4>
+    <table border="1" cellpadding="4">
+      <thead>
+        <tr>
+          <th>macro</th>
+          <th>structs</th>
+          <th>arrays</th>
+          <th>functions</th>
+          <th>description</th>
+          <th>example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- -->
+        <tr>
+          <td><tt></tt></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+        <!-- -->
+        <tr>
+          <td><tt></tt></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+        <!-- -->
+        <tr>
+          <td><tt></tt></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+        <!-- -->
+        <tr>
+          <td><tt></tt></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td><center></center></td>
+          <td></td>
+          <td><tt></tt></td>
         </tr>
         <!-- -->
         <tr>
