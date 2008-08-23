@@ -41,6 +41,12 @@ import com.softwoehr.pigiron.access.VSMString;
 public abstract class IntegerConstraint implements VSMParamConstraint {
 
     /**
+     * Create an empty instance.
+     */
+    public IntegerConstraint() {
+    }
+
+    /**
      * Exercise a constraint by throwing if constraint is violated.
      * @param vsmString target of constraint
      * @throws com.softwoehr.pigiron.bizobj.constraint.VSMConstraintException if constraint is violated
