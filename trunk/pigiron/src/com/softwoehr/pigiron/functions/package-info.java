@@ -1,6 +1,6 @@
 /**
  * The <tt>com.softwoehr.pigiron.functions</tt> package
- * provides the hi-level VSMAPI function calls,
+ * provides the VSMAPI Function calls,
  * marshalling the input and output parameters
  * as well as decomposing and examining these
  * parameters.
