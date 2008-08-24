@@ -60,7 +60,7 @@ public class Main {
      * <li><tt>QueryAPIFunctionalLevel</tt></li>
      * <li><tt>SharedMemoryQuery</tt></li>
      * </ul>
-     * @param argv five args: server_dns_name smapi_port userid_for_authentication password target_specification_string
+     * @param argv five args: <tt>server_dns_name, smapi_port, userid_for_authentication, password, target_specification_string</tt>
      * @throws java.io.IOException
      * @throws com.softwoehr.pigiron.access.VSMException
      * @see com.softwoehr.pigiron.functions.ImageActiveConfigurationQuery
