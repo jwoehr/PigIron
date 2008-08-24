@@ -59,8 +59,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
         <ul>
           <li><a href="#How_PigGen_Works">How PigGen Works</a></li>
           <li><a href="#Invocation">Invocation</a></li>
-          <li><a name="Description_Files">Description Files</a></li>
-          <li><a href="#Macro_Reference">Macro_Reference</a></li>
+          <li><a href="#Description_Files">Description Files</a></li>
+          <li><a href="#Macro_Reference">Macro Reference</a></li>
         </ul>
       </li>
     </ul>
@@ -152,6 +152,19 @@ THE POSSIBILITY OF SUCH DAMAGE.
     <p><tt><b>TODO:</b></tt> describe Java compilation of resulting code</p>
 
     <h3><a name="Description_Files">Description Files</a></h3>
+
+    <p>PigGen description files describe VSMAPI structures, arrays and functions. From the description, PigGen writes Java class
+      source code. You then move the source code to the correct directory and compile it as part of a recompile of the PigIron project.
+      After this process is complete, PigIron is able to call your custom-coded VSMAPI functions. All PigIron representation of highlevel
+      VSMAPI structures, arrays and functions were authored using PigGen (except for a very few at the start of coding the project which
+    we have left in their original source form).</p>
+
+    <p><b>Note:</b> The full PigGen description source for the applicable components of the PigIron class library is included with
+      PigIron, along with a target in the master <tt>build.xml</tt> file for building them. However, generating the Java source from the PigGen description files is <u>not</u>
+      part of the typical PigIron. Instead, PigIron's own VSMAPI classes were regenerated after the latest modifications of the
+      description files and checked in themselves as Java source code in <tt>pigiron/src/com/softwoehr/pigiron/access/paramstructs/</tt>
+    (for structures and arrays) and <tt>pigiron/src/com/softwoehr/pigiron/functions/</tt> (for functions).</p>
+
     <p>PigGen description files are written in the  <a href="http://www.gnu.org/software/m4/">Gnu m4</a> macro language.
       To successfully write a PigGen description file you must follow both the rules of m4 and the rules of PigGen. m4 syntax
       is notoriously difficult, but you are only required to understand a small subset of the rules and mostly just follow
@@ -163,76 +176,47 @@ THE POSSIBILITY OF SUCH DAMAGE.
       <li>m4 macros take their arguments <tt>(`in', `parentheses', `like', `these')</tt> with comma separation.</li>
       <li>An argument in some circumstances may be unquoted, but if quoted, leading space before the backtick (<tt>`</tt>) in an argument is ignored while trailing space is included in the expansion.</li>
       <li>Everything in a macro file is expanded or passed on to the output stream, hence the ubiquitous use of m4's <tt>dnl</tt> macro which discards all subsequent text on a line <u>and the next newline also</u>.</li>
+      <li>Macros that have no arguments don't need their <tt>()</tt> to expand, but if there is any ambiguity when a macro abuts non-macro text, you use <tt>()</tt> to disambiguate.</li>
     </ul>
     <p>m4 is designed to let you process any text, but there are limitations in the use to which PigGen puts m4. This means that you do
-    not really need to know much more about m4 than we have stated above to use PigGen.</p>
+      not really need to know much more about m4 than we have stated above to use PigGen, given that there are over one hundred examples
+    of description file coding included with PigGen.</p>
 
-    <h4>Description File Rules</h4>
+    <h4>Description File Coding</h4>
     <ul>
-      <li>General Rules
-        <ol>
-          <li>The description file must be complete and correct to generate correct Java code.</li>
-          <li>Each line of the description file should usually end with the <tt>dnl</tt> macro.
-          <ul>
-            <li>The exception is when you are entering inline text such as your own custom-coded function or text comment.</li>
-          </ul>
-          <li>On the first line in your description file <tt>include()</tt> the appropriate PigGen .m4 file.
-            <ul>
-              <li>To define a VSMAPI structure: <tt>include(`pigstruct.m4')</tt></li>
-              <li>To define an array of VSMAPI structures: <tt>include(`pigarray.m4')</tt></li>
-              <li>To define a VSMAPI function: <tt>include(`pigfunc.m4')</tt></li>
-            </ul>
-          </li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ol>
+      <li>The description file must be complete and correct to generate correct Java code.</li>
+      <li>Each line of the description file should usually end with the <tt>dnl</tt> macro.
+      <ul>
+        <li>The exception is when you are entering inline text such as your own custom-coded function or text comment.</li>
+      </ul>
+      <li>On the first line in your description file <tt>include()</tt> the appropriate PigGen .m4 file.
+        <ul>
+          <li>To define a VSMAPI structure: <tt>include(`pigstruct.m4')</tt></li>
+          <li>To define an array of VSMAPI structures: <tt>include(`pigarray.m4')</tt></li>
+          <li>To define a VSMAPI function: <tt>include(`pigfunc.m4')</tt></li>
+        </ul>
       </li>
-      <li>Structure Rules
-        <ol>
-          <li>Names used should always be of one of the form:
-            <ul>
-              <li><tt>lcase_lcase</tt></li>
-              <li><tt>lcase_lcase_lcase</tt></li>
-              <li><tt>lcase_lcase_lcase_lcase</tt></li>
-            </ul>
-          </li>
-          <li>PigGen javaizes these forms into either member name format (<tt>lcaseUlcaseUlcase</tt> ... etc.)
-          or class name format (<tt>UlcaseUlcaseUlcase</tt> ... etc.) as appropriate.</li>
-          <li>When you name a structure type or array type in describing a new structure type, you always name it in class name format (initial capital).</li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ol>
+      <li>Names used for members and functions should always be of one of the form:
+        <ul>
+          <li><tt>lcase_lcase</tt></li>
+          <li><tt>lcase_lcase_lcase</tt></li>
+          <li><tt>lcase_lcase_lcase_lcase</tt></li>
+        </ul>
       </li>
-      <li>Array Rules
-        <ol>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ol>
-      </li>
-      <li>Function Rules
-        <ol>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ol>
-      </li>
+      <li>PigGen javaizes these forms into either member name format (<tt>lcaseUlcaseUlcase</tt> ... etc.)
+      or class name format (<tt>UlcaseUlcaseUlcase</tt> ... etc.) as appropriate.</li>
+      <li>When you name a structure type or array type in describing a new structure type, you always name it in class name format (initial capital).</li>
+      <!-- li></li>
+      <li></li>
+      <li></li>
+      <li></li -->
     </ul>
 
     <h3><a name="Macro_Reference">Macro Reference</a></h3>
 
-    Macros are listed by include file, in order in which they normally appear in a description file.
+    <p>Macros are listed here by <tt>include</tt> file, in order in which they normally appear in a description file.</p>
 
-    <h4>pigarray.m4</h4>
+    <h4><tt>pigarray.m4</tt></h4>
 
     <table border="1" cellpadding="4">
       <thead>
@@ -287,7 +271,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </tbody>
     </table>
 
-    <h4>pigstruct.m4</h4>
+    <h4><tt>pigstruct.m4</tt></h4>
 
     <table border="1" cellpadding="4">
       <thead>
@@ -344,7 +328,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </tbody>
     </table>
 
-    <h4>pigfunc.m4</h4>
+    <h4><tt>pigfunc.m4</tt></h4>
 
     <table border="1" cellpadding="4">
       <thead>
