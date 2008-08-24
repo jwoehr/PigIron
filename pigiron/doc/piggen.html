@@ -200,7 +200,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
           </li>
           <li>PigGen javaizes these forms into either member name format (<tt>lcaseUlcaseUlcase</tt> ... etc.)
           or class name format (<tt>UlcaseUlcaseUlcase</tt> ... etc.) as appropriate.</li>
-          <li>When you name a structure type or array type in describing a new structure type, it's always in class name format.</li>
+          <li>When you name a structure type or array type in describing a new structure type, you always name it in class name format (initial capital).</li>
           <li></li>
           <li></li>
           <li></li>
@@ -231,37 +231,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
     <h3><a name="Macro_Reference">Macro Reference</a></h3>
 
     Macros are listed by include file, in order in which they normally appear in a description file.
-    <!--
-pigarray.m4
-pigparm_import(`import_name')
-pigparm_class(`name',`extends',`package',`comment')
-pigparm_constant(`accessor',
-pigparm_attribute(`accessor',
-pigparm_ctors
-pigparm_function(`accessor',
-pigparm_endclass
-pigfunc.m4
-pigfunc_import(`import_name')
-pigfunc_class(`name',`extends',`package',`function_name',`comment')
-pigfunc_ctors(OPTIONAL
-pigfunc_constant(`accessor',
-pigfunc_attribute(`accessor',
-pigfunc_function(`accessor',
-pigfunc_compose_input_start()
-pigfunc_compose_input_parm(type,
-pigfunc_compose_input_end()
-pigfunc_compose_output_start()
-pigfunc_compose_output_parm(type,
-pigfunc_compose_output_end()
-pigstruct.m4
-pigparm_import(`import_name')
-pigparm_class(`name',`extends',`package',`comment')
-pigparm_constant(`accessor',
-pigparm_attribute(`accessor',
-pigparm_ctors
-pigparm_function(`accessor',
-pigparm_endclass
--->
 
     <h4>pigarray.m4</h4>
 
@@ -269,9 +238,6 @@ pigparm_endclass
       <thead>
         <tr>
           <th>macro</th>
-          <th>structs</th>
-          <th>arrays</th>
-          <th>functions</th>
           <th>description</th>
           <th>example</th>
         </tr>
@@ -279,63 +245,42 @@ pigparm_endclass
       <tbody>
         <tr>
           <td><tt>pigparm_import(`import_name')</tt></td>
-          <td><center>x</center></td>
-          <td><center>x</center></td>
-          <td><center>&nbsp;</center></td>
           <td>Conveys an imported class specification to Java.</td>
           <td><tt>pigparm_import(`com.softwoehr.pigiron.access.*')</tt></td>
         </tr>
-        <!-- -->
+
         <tr>
           <td><tt>pigparm_class(`name',`extends',`package',`comment')</tt></td>
-          <td><center></center></td>
-          <td><center></center></td>
-          <td><center></center></td>
           <td></td>
           <td><tt></tt></td>
         </tr>
-        <!-- -->
+
         <tr>
           <td><tt>pigparm_constant(`accessor',</tt></td>
-          <td><center></center></td>
-          <td><center></center></td>
-          <td><center></center></td>
           <td></td>
           <td><tt></tt></td>
         </tr>
-        <!-- -->
+
         <tr>
           <td><tt>pigparm_attribute(`accessor',</tt></td>
-          <td><center></center></td>
-          <td><center></center></td>
-          <td><center></center></td>
           <td></td>
           <td><tt></tt></td>
         </tr>
-        <!-- -->
+
         <tr>
-          <td><tt>pigparm_ctors</tt></td>
-          <td><center></center></td>
-          <td><center></center></td>
-          <td><center></center></td>
+          <td><tt>pigparm_ctors()</tt></td>
           <td></td>
           <td><tt></tt></td>
         </tr>
-        <!-- -->
+
         <tr>
           <td><tt>pigparm_function(`accessor',</tt></td>
-          <td><center></center></td>
-          <td><center></center></td>
-          <td><center></center></td>
           <td></td>
           <td><tt></tt></td>
         </tr>
-        <!-- -->
+
         <tr>
           <td><tt>pigparm_endclass</tt></td>
-          <td><center></center></td>
-          <td><center></center></td>
-          <td><center></center></td>
           <td></td>
           <td><tt></tt></td>
         </tr>
@@ -343,126 +288,152 @@ pigparm_endclass
     </table>
 
     <h4>pigstruct.m4</h4>
+
     <table border="1" cellpadding="4">
       <thead>
         <tr>
           <th>macro</th>
-          <th>structs</th>
-          <th>arrays</th>
-          <th>functions</th>
           <th>description</th>
           <th>example</th>
         </tr>
       </thead>
       <tbody>
-        <!-- -->
+
         <tr>
-          <td><tt></tt></td>
-          <td><center></center></td>
-          <td><center></center></td>
-          <td><center></center></td>
+          <td><tt>pigparm_import(`import_name')</tt></td>
           <td></td>
           <td><tt></tt></td>
         </tr>
-        <!-- -->
+
         <tr>
-          <td><tt></tt></td>
-          <td><center></center></td>
-          <td><center></center></td>
-          <td><center></center></td>
+          <td><tt>pigparm_class(`name',`extends',`package',`comment')</tt></td>
           <td></td>
           <td><tt></tt></td>
         </tr>
-        <!-- -->
+
         <tr>
-          <td><tt></tt></td>
-          <td><center></center></td>
-          <td><center></center></td>
-          <td><center></center></td>
+          <td><tt>pigparm_constant(`accessor',</tt></td>
           <td></td>
           <td><tt></tt></td>
         </tr>
-        <!-- -->
+
         <tr>
-          <td><tt></tt></td>
-          <td><center></center></td>
-          <td><center></center></td>
-          <td><center></center></td>
+          <td><tt>pigparm_attribute(`accessor',</tt></td>
           <td></td>
           <td><tt></tt></td>
         </tr>
-        <!-- -->
+
         <tr>
-          <td><tt></tt></td>
-          <td><center></center></td>
-          <td><center></center></td>
-          <td><center></center></td>
+          <td><tt>pigparm_ctors()</tt></td>
           <td></td>
           <td><tt></tt></td>
         </tr>
-        <!-- -->
+
+        <tr>
+          <td><tt>pigparm_function(`accessor',</tt></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+
+        <tr>
+          <td><tt>pigparm_endclass</tt></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+
       </tbody>
     </table>
 
     <h4>pigfunc.m4</h4>
+
     <table border="1" cellpadding="4">
       <thead>
         <tr>
           <th>macro</th>
-          <th>structs</th>
-          <th>arrays</th>
-          <th>functions</th>
           <th>description</th>
           <th>example</th>
         </tr>
       </thead>
       <tbody>
-        <!-- -->
+
         <tr>
-          <td><tt></tt></td>
-          <td><center></center></td>
-          <td><center></center></td>
-          <td><center></center></td>
+          <td><tt>pigfunc_import(`import_name')</tt></td>
           <td></td>
           <td><tt></tt></td>
         </tr>
-        <!-- -->
+
         <tr>
-          <td><tt></tt></td>
-          <td><center></center></td>
-          <td><center></center></td>
-          <td><center></center></td>
+          <td><tt>pigfunc_class(`name',`extends',`package',`function_name',`comment')</tt></td>
           <td></td>
           <td><tt></tt></td>
         </tr>
-        <!-- -->
+
         <tr>
-          <td><tt></tt></td>
-          <td><center></center></td>
-          <td><center></center></td>
-          <td><center></center></td>
+          <td><tt>pigfunc_ctors(OPTIONAL</tt></td>
           <td></td>
           <td><tt></tt></td>
         </tr>
-        <!-- -->
+
         <tr>
-          <td><tt></tt></td>
-          <td><center></center></td>
-          <td><center></center></td>
-          <td><center></center></td>
+          <td><tt>pigfunc_constant(`accessor',</tt></td>
           <td></td>
           <td><tt></tt></td>
         </tr>
-        <!-- -->
+
         <tr>
-          <td><tt></tt></td>
-          <td><center></center></td>
-          <td><center></center></td>
-          <td><center></center></td>
+          <td><tt>pigfunc_attribute(`accessor',</tt></td>
           <td></td>
           <td><tt></tt></td>
         </tr>
-        <!-- -->
+
+        <tr>
+          <td><tt>pigfunc_function(`accessor',</tt></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+
+        <tr>
+          <td><tt>pigfunc_compose_input_start()</tt></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+
+        <tr>
+          <td><tt>pigfunc_compose_input_parm(type,</tt></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+
+        <tr>
+          <td><tt>pigfunc_compose_input_end()</tt></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+
+        <tr>
+          <td><tt>pigfunc_compose_output_start()</tt></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+
+        <tr>
+          <td><tt>pigfunc_compose_output_parm(type,</tt></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+
+        <tr>
+          <td><tt>pigfunc_compose_output_end()</tt></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+
+        <tr>
+          <td><tt>pigfunc_endclass()</tt></td>
+          <td></td>
+          <td><tt></tt></td>
+        </tr>
+
       </tbody>
     </table>
 
