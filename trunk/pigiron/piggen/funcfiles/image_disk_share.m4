@@ -46,7 +46,7 @@ pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOExc
 
         function_classname instance = null;
 
-        if (argv.length != 7) {
+        if (argv.length != 10) {
             System.out.println("usage: args are:\ninetaddr port user pw target image_disk_number target_image_name target_image_disk_number read_write_mode optional_password");
             System.exit(1);
         }

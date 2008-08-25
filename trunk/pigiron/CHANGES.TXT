@@ -20,6 +20,7 @@ Functions additionally supported in this release:
     * Image_Disk_Create
     * Image_Disk_Delete
     * Image_Disk_Share
+    * Image_Disk_Unshare
     * Image_Volume_Add
     * Image_Volume_Delete
     * Name_List_Add

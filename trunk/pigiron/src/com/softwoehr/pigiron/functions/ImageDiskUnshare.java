@@ -41,34 +41,19 @@ import java.util.Iterator;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * Image_Disk_Share VSMAPI Function
- * <b>Note:</b> In this version of PigIron the <tt>optional_password</tt> must always be provided
+ * Image_Disk_Unshare VSMAPI Function
  */
-public class ImageDiskShare extends VSMCall {
+public class ImageDiskUnshare extends VSMCall {
 
     /**
      * The transmitted name of the function.
      */
-    public static final String FUNCTION_NAME = "Image_Disk_Share";
-    /** Read-only (R/O) access */
-    public static final String READ_WRITE_MODE_R = "R";
-    /** Read-only (R/O) access is desired even if the owner or another user has a link to the minidisk in write status */
-    public static final String READ_WRITE_MODE_RR = "RR";
-    /** Write access */
-    public static final String READ_WRITE_MODE_W = "W";
-    /** Write access is desired. Only R/O access allowed if the owner or any other user has a link to the minidisk in read or write status. */
-    public static final String READ_WRITE_MODE_WR = "WR";
-    /** Multiple access is desired' */
-    public static final String READ_WRITE_MODE_M = "M";
-    /** Write or any exclusive access is allowed to the minidisk unless another user already has write access to it. */
-    public static final String READ_WRITE_MODE_MR = "MR";
-    /** Write access is allowed to the disk unconditionally except for existing stable or exclusive links */
-    public static final String READ_WRITE_MODE_MW = "MW";
+    public static final String FUNCTION_NAME = "Image_Disk_Unshare";
 
     /**
      *  Create an instance of the function call with important fields not instanced.
      */
-    public ImageDiskShare() {
+    public ImageDiskUnshare() {
     }
 
     /**
@@ -79,12 +64,8 @@ public class ImageDiskShare extends VSMCall {
      * @param password the password
      * @param target_identifier the target of the VSMAPI function
      * @param image_disk_number instances <tt>imageDiskNumber</tt>
-     * @param target_image_name instances <tt>targetImageName</tt>
-     * @param target_image_disk_number instances <tt>targetImageDiskNumber</tt>
-     * @param read_write_mode instances <tt>readWriteMode</tt>
-     * @param optional_password instances <tt>optionalPassword</tt>
      */
-    public ImageDiskShare(String hostname, int port, String userid, String password, String target_identifier, String image_disk_number, String target_image_name, String target_image_disk_number, String read_write_mode, String optional_password) {
+    public ImageDiskUnshare(String hostname, int port, String userid, String password, String target_identifier, String image_disk_number) {
         this();
         setHostname(hostname);
         setPort(port);
@@ -92,21 +73,9 @@ public class ImageDiskShare extends VSMCall {
         setPassword(password);
         setTarget_identifier(target_identifier);
         set_imageDiskNumber(image_disk_number);
-        set_targetImageName(target_image_name);
-        set_targetImageDiskNumber(target_image_disk_number);
-        set_readWriteMode(read_write_mode);
-        set_optionalPassword(optional_password);
     }
     /** The target_image_names virtual device address of the disk to be shared' */
     private String imageDiskNumber = null;
-    /** The name of the virtual image that owns the image disk being shared */
-    private String targetImageName = null;
-    /** The virtual device number to assign to the shared disk for target_identifier */
-    private String targetImageDiskNumber = null;
-    /** The access mode requested for the disk as seen by the owner when the virtual image is logged on */
-    private String readWriteMode = READ_WRITE_MODE_RR;
-    /** The password that may be required to share the disk */
-    private String optionalPassword = null;
 
     /** Set the value of private String imageDiskNumber .
      * @param val The value to set private String imageDiskNumber .
@@ -120,62 +89,6 @@ public class ImageDiskShare extends VSMCall {
      */
     public String get_imageDiskNumber() {
         return imageDiskNumber;
-    }
-
-    /** Set the value of private String targetImageName .
-     * @param val The value to set private String targetImageName .
-     */
-    public void set_targetImageName(String val) {
-        targetImageName = val;
-    }
-
-    /** Get the value of private String targetImageName .
-     * @return The value of private String targetImageName .
-     */
-    public String get_targetImageName() {
-        return targetImageName;
-    }
-
-    /** Set the value of private String targetImageDiskNumber .
-     * @param val The value to set private String targetImageDiskNumber .
-     */
-    public void set_targetImageDiskNumber(String val) {
-        targetImageDiskNumber = val;
-    }
-
-    /** Get the value of private String targetImageDiskNumber .
-     * @return The value of private String targetImageDiskNumber .
-     */
-    public String get_targetImageDiskNumber() {
-        return targetImageDiskNumber;
-    }
-
-    /** Set the value of private String readWriteMode .
-     * @param val The value to set private String readWriteMode .
-     */
-    public void set_readWriteMode(String val) {
-        readWriteMode = val;
-    }
-
-    /** Get the value of private String readWriteMode .
-     * @return The value of private String readWriteMode .
-     */
-    public String get_readWriteMode() {
-        return readWriteMode;
-    }
-
-    /** Set the value of private String optionalPassword .
-     * @param val The value to set private String optionalPassword .
-     */
-    public void set_optionalPassword(String val) {
-        optionalPassword = val;
-    }
-
-    /** Get the value of private String optionalPassword .
-     * @return The value of private String optionalPassword .
-     */
-    public String get_optionalPassword() {
-        return optionalPassword;
     }
 
     /**
@@ -202,18 +115,6 @@ public class ImageDiskShare extends VSMCall {
         parameterArray.add(tempString);
         tempString = new VSMString(get_imageDiskNumber(), "image_disk_number");
         parameterArray.add(new VSMInt4(tempString.paramLength(), "image_disk_number_length"));
-        parameterArray.add(tempString);
-        tempString = new VSMString(get_targetImageName(), "target_image_name");
-        parameterArray.add(new VSMInt4(tempString.paramLength(), "target_image_name_length"));
-        parameterArray.add(tempString);
-        tempString = new VSMString(get_targetImageDiskNumber(), "target_image_disk_number");
-        parameterArray.add(new VSMInt4(tempString.paramLength(), "target_image_disk_number_length"));
-        parameterArray.add(tempString);
-        tempString = new VSMString(get_readWriteMode(), "read_write_mode");
-        parameterArray.add(new VSMInt4(tempString.paramLength(), "read_write_mode_length"));
-        parameterArray.add(tempString);
-        tempString = new VSMString(get_optionalPassword(), "optional_password");
-        parameterArray.add(new VSMInt4(tempString.paramLength(), "optional_password_length"));
         parameterArray.add(tempString);
         VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
         parameterArray.insertElementAt(outputLength, 0);
@@ -258,15 +159,15 @@ public class ImageDiskShare extends VSMCall {
      */
     public static void main(String[] argv) throws IOException, VSMException {
 
-        ImageDiskShare instance = null;
+        ImageDiskUnshare instance = null;
 
-        if (argv.length != 10) {
-            System.out.println("usage: args are:\ninetaddr port user pw target image_disk_number target_image_name target_image_disk_number read_write_mode optional_password");
+        if (argv.length != 7) {
+            System.out.println("usage: args are:\ninetaddr port user pw target image_disk_number");
             System.exit(1);
         }
 
-        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5] + " " + argv[6] + " " + argv[7] + " " + argv[8] + " " + argv[9]);
-        instance = new ImageDiskShare(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5], argv[6], argv[7], argv[8], argv[9]);
+        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5]);
+        instance = new ImageDiskUnshare(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5]);
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
