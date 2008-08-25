@@ -1,12 +1,13 @@
-include(`pigfunc.m4')dnl \\ image_volume_delete.m4 ... not finished
+include(`pigfunc.m4')dnl \\ image_volume_delete.m4
+function_namespace(`Image_Volume_Delete')dnl
 pigfunc_start()dnl
 pigfunc_import(`java.io.IOException')dnl
 pigfunc_import(`java.util.Iterator')dnl
 pigfunc_import(`com.softwoehr.pigiron.access.*')dnl
-pigfunc_class(`javaize(`image_volume_delete')',`VSMCall',`com.softwoehr.pigiron.functions',`image_volume_delete',`dnl
+pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',`function_formal_name',`dnl
 
 /**
- * ImageVolumeDelete VSMAPI Fuction
+ * function_classname VSMAPI Fuction
  */')dnl
 dnl
 pigfunc_attribute(`private', `', `String', `javaize_lc(`image_device_number')',   `"*"', `', `The name of the memory segment to query')dnl
@@ -58,7 +59,7 @@ pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOExc
      * @throws IOException on comm error
      * @throws VSMException on internal Pigiron param marshalling error', `dnl
 
-        javaize(`image_volume_delete') instance = null;
+        function_classname instance = null;
 
         if (argv.length < 17) {
             System.out.println("usage: args are:\ninetaddr port user pw target");
@@ -66,7 +67,7 @@ pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOExc
         }
        
         System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5] + " " + argv[6] + " " + argv[7] + " " + argv[8] + " " + argv[9] + " " + argv[10] + " " + argv[11] + " " + argv[12] + " " + argv[0x0d] + " " + argv[14] + " " + argv[15] + " " + argv[16]);
-        instance = new javaize(`image_volume_delete')(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5], argv[6], argv[7], argv[8], argv[9], argv[10], argv[11], argv[12], argv[0x0d], argv[14], argv[15], argv[16]);
+        instance = new function_classname()(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5], argv[6], argv[7], argv[8], argv[9], argv[10], argv[11], argv[12], argv[0x0d], argv[14], argv[15], argv[16]);
        
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
@@ -76,3 +77,4 @@ pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOExc
         }')dnl
 pigfunc_endclass()dnl
 pigfunc_end()dnl
+function_namespace_end()dnl

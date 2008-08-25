@@ -43,3 +43,4 @@ pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOExc
         }')dnl
 pigfunc_endclass()dnl
 pigfunc_end()dnl
+function_namespace_end()dnl
