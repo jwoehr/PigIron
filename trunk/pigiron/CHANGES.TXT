@@ -20,6 +20,12 @@ Functions additionally supported in this release:
     * Name_List_Add
     * Name_List_Destroy
     * Virtual_Network_Adapter_Query
+    * Image_Recycle
+
+Made a design change: VSMAPI Structure classnames etc are going to use the
+string (appropriately cased) "structure" not "struct". This is an inconsistency
+with the earlier code but the advantage in autogeneration of observing this
+convention is overwhelming.
 
 More documentation.
 
