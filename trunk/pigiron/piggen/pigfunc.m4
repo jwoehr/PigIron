@@ -76,7 +76,7 @@ ifelse(eval($# >= 3), 0, , eval($# == 3), 1, `
 \\ optional_ctor_params_args(type, name, instance, t, n, i ...)
 \\ Because the big ctor has to be extendable and must instance vars
 define(`optional_ctor_param_args',`dnl
-ifelse(eval($# >= 3), 0, , eval($# == 3), 1, ``$1' `$2'', ``$1' `$2'`,' optional_ctor_param_args(shift(shift(shift($@))))')')
+ifelse(eval($# >= 3), 0, , eval($# == 3), 1, `,' ``$1' `$2'', `,' ``$1' `$2'optional_ctor_param_args(shift(shift(shift($@))))')')
 
 \\ optional_ctor_param_instantiations(type, name, instance, t, n, i ...)
 \\ Because the big ctor has to be extendable and must instance vars
@@ -105,7 +105,7 @@ pushdef(`x_optional_params', `$@')dnl
      * @param target_identifier the target of the VSMAPI function`'dnl
 optional_ctor_param_comments(x_optional_params())
      */
-    public myClassName()`('String hostname, int port, String userid, String password, String target_identifier, optional_ctor_param_args(x_optional_params)`)' {
+    public myClassName()`('String hostname, int port, String userid, String password, String target_identifier`'optional_ctor_param_args(x_optional_params)`)' {
         this`(');
         setHostname`('hostname);
         setPort`('port);
