@@ -7,8 +7,13 @@
  * conforming to the VSMAPI protocol.
  *
  * Subpackages provide the definitions
- * of aggregate structures and the
- * actual VSMAPI function calls themselves.
+ * of aggregate structures.
+ * 
+ * The actual VSMAPI function calls themselves
+ * are defined in <tt>com.softwoehr.pigiron.functions</tt> .
+ *
+ * Constants referring to parameter contents are defined in the appropriate
+ * VSMStructure extender for that parameter.
  *
  * <h3>Basic VSMAPI Parameter Types</h3>
  *

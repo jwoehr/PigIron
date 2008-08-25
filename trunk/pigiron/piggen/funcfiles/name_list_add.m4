@@ -7,7 +7,7 @@ pigfunc_import(`com.softwoehr.pigiron.access.*')dnl
 pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',function_formal_name,`dnl
 
 /**
- * function_classname VSMAPI Fuction
+ * function_formal_name VSMAPI Function
  */')dnl
 dnl
 pigfunc_attribute(`private', `', `String', `name',   `"*"', `', `The name to be added to the list specified in target_identifier.')dnl
