@@ -47,3 +47,25 @@ define(`javaize3lc', `regexp(`$1', javaize3_regexp, ``\1'`\2'upcase(`\3')`\4'upc
 define(`javaize4lc', `regexp(`$1', javaize4_regexp, ``\1'`\2'upcase(`\3')`\4'upcase(`\5')`\6'upcase(`\7')`\8'')')
 define(`javaize_lc',  `ifelse(regexp(`$1', javaize4_regexp),`-1',`ifelse(regexp(`$1', javaize3_regexp),`-1',`javaize2lc(`$1')',`javaize3lc(`$1')')',`javaize4lc(`$1')')')
 changecom()
+
+\\ param_namespace(`entity')
+define(`param_namespace',`dnl
+pushdef(`param_entity_name',`$1')dnl
+pushdef(`associated_function',`$2')dnl
+pushdef(`structure_formal_name', param_entity_name`_structure')dnl
+pushdef(`counted_structure_formal_name', structure_formal_name`_counted')dnl
+pushdef(`array_formal_name', param_entity_name`_array')dnl
+pushdef(`structure_classname', javaize(structure_formal_name))dnl
+pushdef(`counted_structure_classname', javaize(counted_structure_formal_name))dnl
+pushdef(`array_classname', javaize(array_formal_name))dnl
+')
+
+\\ param_namespace_end()
+define(`param_namespace_end',`dnl
+popdef(`array_classname')dnl
+popdef(`counted_structure_classname')dnl
+popdef(`structure_classname')dnl
+popdef(`structure_formal_name')dnl
+popdef(`associated_function')dnl
+popdef(`param_entity_name')dnl
+')
