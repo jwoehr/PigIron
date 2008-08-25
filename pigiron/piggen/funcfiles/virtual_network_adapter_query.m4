@@ -8,7 +8,7 @@ pigfunc_import(`com.softwoehr.pigiron.access.paramstructs.significant_parameter_
 pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',function_formal_name,`dnl
 
 /**
- * function_classname VSMAPI Fuction
+ * function_formal_name VSMAPI Function
  * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
  */')dnl
 pigfunc_attribute(`private', `', `String', `imageDeviceNumber', `"*"', `', `The virtual device address of the adapter')dnl
