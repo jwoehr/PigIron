@@ -48,7 +48,7 @@ define(`javaize4lc', `regexp(`$1', javaize4_regexp, ``\1'`\2'upcase(`\3')`\4'upc
 define(`javaize_lc',  `ifelse(regexp(`$1', javaize4_regexp),`-1',`ifelse(regexp(`$1', javaize3_regexp),`-1',`javaize2lc(`$1')',`javaize3lc(`$1')')',`javaize4lc(`$1')')')
 changecom()
 
-\\ param_namespace(`entity')
+\\ param_namespace(`entity', `associated_function')
 define(`param_namespace',`dnl
 pushdef(`param_entity_name',`$1')dnl
 pushdef(`associated_function',`$2')dnl
@@ -68,4 +68,20 @@ popdef(`structure_classname')dnl
 popdef(`structure_formal_name')dnl
 popdef(`associated_function')dnl
 popdef(`param_entity_name')dnl
+')
+
+\\ function_namespace(`function_formal_name', `significant_parameter_formal_name')
+define(`function_namespace',`dnl
+pushdef(`function_formal_name',`$1')dnl
+pushdef(`significant_parameter_formal_name',`$2')dnl
+pushdef(`function_classname', javaize(function_formal_name))dnl
+pushdef(`significant_parameter_classname', javaize(significant_parameter_formal_name))dnl
+')
+
+\\ function_namespace_end()
+define(`function_namespace_end',`dnl
+popdef(`function_classname')dnl
+popdef(`significant_parameter_formal_name')dnl
+popdef(`significant_parameter_classname')dnl
+popdef(`function_formal_name')dnl
 ')
