@@ -4,16 +4,12 @@ pigfunc_start()dnl
 pigfunc_import(`java.io.IOException')dnl
 pigfunc_import(`java.util.Iterator')dnl
 pigfunc_import(`com.softwoehr.pigiron.access.*')dnl
-pigfunc_import(`com.softwoehr.pigiron.access.paramstructs.MemorySegmentArray')dnl
 pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',function_formal_name,`dnl
 
 /**
  * function_formal_name VSMAPI Function
- * @see com.softwoehr.pigiron.access.paramstructs.MemorySegmentArray
- * @see com.softwoehr.pigiron.access.paramstructs.PageRangeArray
  */')dnl
 
-dnl \\ pigfunc_constant(`accessor', `type', `name', `initial_value', `comment')
 pigfunc_constant(`public', `String',  `IMAGE_DISK_MODE_R',  `"R"', `Read-only (R/O) access')dnl
 pigfunc_constant(`public', `String', `IMAGE_DISK_MODE_RR', `"RR"', `Read-only (R/O) access is desired even if the owner or another user has a link to the minidisk in write status')dnl
 pigfunc_constant(`public', `String',  `IMAGE_DISK_MODE_W',  `"W"', `Write access')dnl
@@ -30,8 +26,6 @@ pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`image_disk_number
 pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`image_disk_mode')`()'', `image_disk_mode')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
-pigfunc_compose_output_parm(`VSMInt4', `-1', `memory_segment_array_length')dnl
-pigfunc_compose_output_parm(`MemorySegmentArray', `null', `memory_segment_array')dnl
 pigfunc_compose_output_end()dnl
 pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException`,' VSMException', `dnl
      * You can execute the VSMAPI call from <tt>main()</tt>, try it

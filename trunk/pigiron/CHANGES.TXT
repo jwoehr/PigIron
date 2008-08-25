@@ -22,6 +22,7 @@ Functions additionally supported in this release:
     * Virtual_Network_Adapter_Query
     * Image_Recycle
     * Image_Disk_Create
+    * Image_Disk_Copy
 
 Made a design change: VSMAPI Structure classnames etc are going to use the
 string (appropriately cased) "structure" not "struct". This is an inconsistency

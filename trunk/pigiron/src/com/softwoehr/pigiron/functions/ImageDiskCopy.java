@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
  * PO Box 51, Golden, Colorado 80402-0051 USA
@@ -42,33 +41,19 @@ import java.util.Iterator;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * Image_Disk_Create VSMAPI Function
+ * Image_Disk_Copy VSMAPI Function
  */
-public class ImageDiskCreate extends VSMCall {
+public class ImageDiskCopy extends VSMCall {
 
     /**
      * The transmitted name of the function.
      */
-    public static final String FUNCTION_NAME = "Image_Disk_Create";
-    /** Read-only (R/O) access */
-    public static final String IMAGE_DISK_MODE_R = "R";
-    /** Read-only (R/O) access is desired even if the owner or another user has a link to the minidisk in write status */
-    public static final String IMAGE_DISK_MODE_RR = "RR";
-    /** Write access */
-    public static final String IMAGE_DISK_MODE_W = "W";
-    /** Write access is desired. Only R/O access allowed if the owner or any other user has a link to the minidisk in read or write status. */
-    public static final String IMAGE_DISK_MODE_WR = "WR";
-    /** Multiple access is desired' */
-    public static final String IMAGE_DISK_MODE_M = "M";
-    /** Write or any exclusive access is allowed to the minidisk unless another user already has write access to it. */
-    public static final String IMAGE_DISK_MODE_MR = "MR";
-    /** Write access is allowed to the disk unconditionally except for existing stable or exclusive links */
-    public static final String IMAGE_DISK_MODE_MW = "MW";
+    public static final String FUNCTION_NAME = "Image_Disk_Copy";
 
     /**
      *  Create an instance of the function call with important fields not instanced.
      */
-    public ImageDiskCreate() {
+    public ImageDiskCopy() {
     }
 
     /**
@@ -79,9 +64,8 @@ public class ImageDiskCreate extends VSMCall {
      * @param password the password
      * @param target_identifier the target of the VSMAPI function
      * @param image_disk_number instances <tt>imageDiskNumber</tt>
-     * @param image_disk_mode instances <tt>imageDiskMode</tt>
      */
-    public ImageDiskCreate(String hostname, int port, String userid, String password, String target_identifier, String image_disk_number, String image_disk_mode) {
+    public ImageDiskCopy(String hostname, int port, String userid, String password, String target_identifier, String image_disk_number) {
         this();
         setHostname(hostname);
         setPort(port);
@@ -89,12 +73,9 @@ public class ImageDiskCreate extends VSMCall {
         setPassword(password);
         setTarget_identifier(target_identifier);
         set_imageDiskNumber(image_disk_number);
-        set_imageDiskMode(image_disk_mode);
     }
-    /** The virtual device address of the disk to be added */
+    /** The virtual device address of the disk to be copied */
     private String imageDiskNumber = null;
-    /** The access mode requested for the disk as seen by the owner when the virtual image is logged on */
-    private String imageDiskMode = IMAGE_DISK_MODE_RR;
 
     /** Set the value of private String imageDiskNumber .
      * @param val The value to set private String imageDiskNumber .
@@ -108,20 +89,6 @@ public class ImageDiskCreate extends VSMCall {
      */
     public String get_imageDiskNumber() {
         return imageDiskNumber;
-    }
-
-    /** Set the value of private String imageDiskMode .
-     * @param val The value to set private String imageDiskMode .
-     */
-    public void set_imageDiskMode(String val) {
-        imageDiskMode = val;
-    }
-
-    /** Get the value of private String imageDiskMode .
-     * @return The value of private String imageDiskMode .
-     */
-    public String get_imageDiskMode() {
-        return imageDiskMode;
     }
 
     /**
@@ -148,9 +115,6 @@ public class ImageDiskCreate extends VSMCall {
         parameterArray.add(tempString);
         tempString = new VSMString(get_imageDiskNumber(), "image_disk_number");
         parameterArray.add(new VSMInt4(tempString.paramLength(), "image_disk_number_length"));
-        parameterArray.add(tempString);
-        tempString = new VSMString(get_imageDiskMode(), "image_disk_mode");
-        parameterArray.add(new VSMInt4(tempString.paramLength(), "image_disk_mode_length"));
         parameterArray.add(tempString);
         VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
         parameterArray.insertElementAt(outputLength, 0);
@@ -195,15 +159,15 @@ public class ImageDiskCreate extends VSMCall {
      */
     public static void main(String[] argv) throws IOException, VSMException {
 
-        ImageDiskCreate instance = null;
+        ImageDiskCopy instance = null;
 
-        if (argv.length != 7) {
-            System.out.println("usage: args are:\ninetaddr port user pw target image_disk_number image_disk_mode");
+        if (argv.length != 6) {
+            System.out.println("usage: args are:\ninetaddr port user pw target image_disk_number");
             System.exit(1);
         }
 
-        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5] + " " + argv[6]);
-        instance = new ImageDiskCreate(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5], argv[6]);
+        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5]);
+        instance = new ImageDiskCopy(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5]);
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");

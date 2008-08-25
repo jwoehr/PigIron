@@ -122,7 +122,7 @@ pop_divert()dnl
 define(`pigfunc_constant',`dnl
 push_divert(constant_stream)dnl
     `/**' $5 `*/'
-     $1 `static final' $2 $3 `=' $4`;'
+    $1 `static final' $2 $3 `=' $4`;'
 
 pop_divert()dnl
 ')
