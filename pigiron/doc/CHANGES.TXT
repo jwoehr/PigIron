@@ -15,14 +15,16 @@ CHANGES
 2008-08-?? 0.3 -- release more functionality and improved autogenerator.
 
 Functions additionally supported in this release:
+
+    * Image_Disk_Copy
+    * Image_Disk_Create
+    * Image_Disk_Delete
+    * Image_Disk_Share
     * Image_Volume_Add
     * Image_Volume_Delete
     * Name_List_Add
     * Name_List_Destroy
     * Virtual_Network_Adapter_Query
-    * Image_Disk_Create
-    * Image_Disk_Copy
-    * Image_Disk_Delete
 
 Made a design change: VSMAPI Structure classnames etc are going to use the
 string (appropriately cased) "structure" not "struct". This is an inconsistency
