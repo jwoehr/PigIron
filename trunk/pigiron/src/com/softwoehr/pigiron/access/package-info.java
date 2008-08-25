@@ -13,7 +13,8 @@
  * are defined in <tt>com.softwoehr.pigiron.functions</tt> .
  *
  * Constants referring to parameter contents are defined in the appropriate
- * VSMStructure extender for that parameter.
+ * VSMStructure extender for that parameter, or to the<tt>com.softwoehr.pigiron.functions.VSMCall</tt>
+ * in the cases where such parameters are non-structure types.
  *
  * <h3>Basic VSMAPI Parameter Types</h3>
  *
@@ -31,6 +32,6 @@
  * by the VSMAPI documentation.
  * 
  * @see com.softwoehr.pigiron.access.paramstructs
- * @see com.softwoehr.pigiron.functions
+ * @see com.softwoehr.pigiron.functions.VSMCall
  */
 package com.softwoehr.pigiron.access;
