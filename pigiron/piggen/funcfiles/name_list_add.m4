@@ -1,12 +1,13 @@
-include(`pigfunc.m4')dnl \\ name_list_add.m4 ... not finished
+include(`pigfunc.m4')dnl \\ name_list_add.m4
+function_namespace(`Name_List_Add')dnl
 pigfunc_start()dnl
 pigfunc_import(`java.io.IOException')dnl
 pigfunc_import(`java.util.Iterator')dnl
 pigfunc_import(`com.softwoehr.pigiron.access.*')dnl
-pigfunc_class(`javaize(`name_list_add')',`VSMCall',`com.softwoehr.pigiron.functions',`name_list_add',`dnl
+pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',function_formal_name,`dnl
 
 /**
- * javaize(`name_list_add') VSMAPI Fuction
+ * function_classname VSMAPI Fuction
  */')dnl
 dnl
 pigfunc_attribute(`private', `', `String', `name',   `"*"', `', `The name to be added to the list specified in target_identifier.')dnl
@@ -20,11 +21,11 @@ pigfunc_compose_output_end()dnl
 pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException`,' VSMException', `dnl
      * You can execute the VSMAPI call from <tt>main()</tt>, try it
      * with no args to see the usage message.
-     * @param argv array of command-line args
+     * @param argv array of commandline args
      * @throws IOException on comm error
      * @throws VSMException on internal Pigiron param marshalling error', `dnl
 
-        javaize(`name_list_add') instance = null;
+        function_classname instance = null;
 
         if (argv.length != 6) {
             System.out.println("usage: args are:\ninetaddr port user pw target_namelist name_to_add");
@@ -32,7 +33,7 @@ pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOExc
         }
 
         System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5]);
-        instance = new javaize(`name_list_add')(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5]);
+        instance = new function_classname()(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5]);
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
