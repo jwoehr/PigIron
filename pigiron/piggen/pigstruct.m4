@@ -129,7 +129,7 @@ push_divert(ctor_stream)dnl
     /**
      * Create an instance with a value derived by copying from a like instance.
      * null is legal value, means "just clear me".
-     * @param value
+     * @param value a like instance to copy from
      */
     public myClass()`('mySuperClass() value) {
         super(value);
