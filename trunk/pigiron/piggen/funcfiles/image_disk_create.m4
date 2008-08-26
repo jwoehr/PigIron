@@ -7,7 +7,7 @@ pigfunc_import(`com.softwoehr.pigiron.access.*')dnl
 pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',function_formal_name,`dnl
 
 /**
- * function_formal_name VSMAPI Function
+ * <tt>function_formal_name</tt> VSMAPI Function
  */')dnl
 pigfunc_constant(`public', `String',  `IMAGE_DISK_MODE_R',  `"R"', `Read-only (R/O) access')dnl
 pigfunc_constant(`public', `String', `IMAGE_DISK_MODE_RR', `"RR"', `Read-only (R/O) access is desired even if the owner or another user has a link to the minidisk in write status')dnl

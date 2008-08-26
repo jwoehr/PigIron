@@ -1,19 +1,23 @@
-include(`pigfunc.m4')dnl \\ image_disk_unshare.m4
-function_namespace(`Image_Disk_Unshare')dnl
+include(`pigfunc.m4')dnl \\ authorization_list_add.m4
+function_namespace(`Authorization_List_Add')dnl
 pigfunc_start()dnl
 pigfunc_import(`java.io.IOException')dnl
 pigfunc_import(`java.util.Iterator')dnl
 pigfunc_import(`com.softwoehr.pigiron.access.*')dnl
-pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',function_formal_name,`dnl
+pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',`function_formal_name',`dnl
 
 /**
  * <tt>function_formal_name</tt> VSMAPI Function
+ *
  */')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`image_disk_number')', `null', `', `The target_image_name's virtual device address of the disk to be shared')dnl
-pigfunc_ctors(`String', `image_disk_number', javaize_lc(`image_disk_number'))dnl
+dnl
+pigfunc_attribute(`private', `', `String', `for_id', `null', `', `Virtual image or list of virtual images for which target_identifier will be authorized to perform the designated function')dnl
+pigfunc_attribute(`private', `', `String', `function_id', `null', `', `specifies the name of the function(s) in the "Function(s)" field of the authorization file record(s) being queried')dnl
+pigfunc_ctors(`String', `for_id', `for_id', String, `function_id', `function_id')dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`image_disk_number')`()'', `image_disk_number')dnl
+pigfunc_compose_input_parm(`CountedString', `get_for_id()', `for_id')dnl
+pigfunc_compose_input_parm(`CountedString', `get_function_id()', `function_id')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl
@@ -27,12 +31,12 @@ pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOExc
         function_classname instance = null;
 
         if (argv.length != 7) {
-            System.out.println("usage: args are:\ninetaddr port user pw target image_disk_number");
+            System.out.println("usage: args are:\ninetaddr port user pw target_namelist for_id function_id");
             System.exit(1);
         }
 
-        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5]);
-        instance = new function_classname()(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5]);
+        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5] + " " + argv[6]);
+        instance = new function_classname()(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5], argv[6]);
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
