@@ -1,8 +1,8 @@
 /**
- * Provides the classes interface between
+ * Provides the classes which interface between
  * the basic VSMAPI parameter types and basic
  * VSMAPI function calls on the one hand and
- * presentation layers on the other.
+ * prospective presentation layers on the other.
  * 
  * Subpackages provide the definitions
  * of constraints and a shadow mechanism
