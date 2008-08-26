@@ -208,7 +208,7 @@ popdef(`x_comment')dnl
 popdef(`x_throws')dnl
 popdef(`x_arguments')dnl
 popdef(`x_name')dnl
-popdef(`x_return_init_expression', $4)dnl
+popdef(`x_return_init_expression')dnl
 popdef(`x_return_type')dnl
 popdef(`x_scope')dnl
 popdef(`x_accessor')dnl
