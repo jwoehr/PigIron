@@ -143,15 +143,15 @@ pushdef(`x_get_accessor_name', ifelse(x_type, `boolean', `is_', `get_')`'x_name(
     x_qualified_name() `=' x_initial_value()`;'
 
 push_divert(accessor_stream)dnl
-    `/** Set the value of' x_qualified_name() `.'
-    ` * @param val The value to set' x_qualified_name() `.'
+    `/** Set the value of <tt>' x_name() `</tt>.'
+    ` * @param val The value to set <tt>' x_name() `</tt>.'
     ` */'
     x_set_accessor() void `set_'x_name()`('x_type() `val'`) {'
         x_name() = `val;'
     `}'
 
-    `/** Get the value of' x_qualified_name() `.'
-    ` * @return The value of' x_qualified_name() `.'
+    `/** Get the value of <tt>' x_name() `</tt>.'
+    ` * @return The value of <tt>' x_name() `</tt>.'
     ` */'
     public x_type() x_get_accessor_name()`() {'
         return x_name()`;'
@@ -189,7 +189,6 @@ pushdef(`x_throws', `$7')dnl
 pushdef(`x_comment', `$8')dnl
 pushdef(`x_function_body', `$9')dnl
     `/**'
-    ` *' x_accessor() x_scope() x_return_type() x_name`('x_arguments()`)'
 x_comment()`'ifelse(x_return_type(), `void', `', `
      * @return ')
     ` */'

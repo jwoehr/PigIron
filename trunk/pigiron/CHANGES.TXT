@@ -16,6 +16,9 @@ CHANGES
 
 Functions additionally supported in this release:
 
+    * Authorization_List_Add
+    * Authorization_List_Query
+    * Authorization_List_Remove
     * Image_Disk_Copy
     * Image_Disk_Create
     * Image_Disk_Delete
