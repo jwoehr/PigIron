@@ -7,8 +7,7 @@ pigfunc_import(`com.softwoehr.pigiron.access.*')dnl
 pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',function_formal_name,`dnl
 
 /**
- * function_formal_name VSMAPI Function
- * <b>Note:</b> In this version of PigIron the <tt>optional_password</tt> must always be provided
+ * <tt>function_formal_name</tt> VSMAPI Function
  */')dnl
 pigfunc_constant(`public', `String',  `READ_WRITE_MODE_R',  `"R"', `Read-only (R/O) access')dnl
 pigfunc_constant(`public', `String', `READ_WRITE_MODE_RR', `"RR"', `Read-only (R/O) access is desired even if the owner or another user has a link to the minidisk in write status')dnl
@@ -33,7 +32,7 @@ pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`image_disk_number
 pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`target_image_name')`()'', `target_image_name')dnl
 pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`target_image_disk_number')`()'', `target_image_disk_number')dnl
 pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`read_write_mode')`()'', `read_write_mode')dnl
-pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`optional_password')`()'', `optional_password')dnl
+pigfunc_compose_optional_input_parm(`CountedString', `get_`'javaize_lc(`optional_password')`()'', `optional_password')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl
