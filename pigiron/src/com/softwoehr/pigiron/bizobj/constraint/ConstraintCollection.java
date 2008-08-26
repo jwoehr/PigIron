@@ -31,11 +31,41 @@
  */
 package com.softwoehr.pigiron.bizobj.constraint;
 
+import com.softwoehr.pigiron.access.VSMInt;
+import com.softwoehr.pigiron.access.VSMString;
+import java.util.Iterator;
 import java.util.Vector;
 
 /**
- * Ordered set of constraints all applying to one VSMAPI Parameter
+ * Ordered set of constraints all applying to one VSMAPI Parameter.
+ * Behaves as a VSMParamConstraint itself.
  * @author jax
  */
-public class ConstraintCollection extends Vector<VSMParamConstraint> {
+public class ConstraintCollection extends Vector<VSMParamConstraint> implements VSMParamConstraint {
+
+    /**
+     * Exercise a collection of constraints one by one.
+     * Any shall throw if its individual constraint is violated.
+     * @param vsmString target of constraint
+     * @throws VSMConstraintException if constraint is violated
+     */
+    public void constrain(VSMString vsmString) throws VSMConstraintException {
+        Iterator<VSMParamConstraint> it = iterator();
+        while (it.hasNext()) {
+            it.next().constrain(vsmString);
+        }
+    }
+
+    /**
+     * Exercise a collection of constraints one by one.
+     * Any shall throw if its individual constraint is violated.
+     * @param vsmInt target of constraint
+     * @throws VSMConstraintException if constraint is violated
+     */
+    public void constrain(VSMInt vsmInt) throws VSMConstraintException {
+        Iterator<VSMParamConstraint> it = iterator();
+        while (it.hasNext()) {
+            it.next().constrain(vsmInt);
+        }
+    }
 }
