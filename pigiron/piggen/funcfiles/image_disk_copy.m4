@@ -7,7 +7,7 @@ pigfunc_import(`com.softwoehr.pigiron.access.*')dnl
 pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',function_formal_name,`dnl
 
 /**
- * function_formal_name VSMAPI Function
+ * <tt>function_formal_name</tt> VSMAPI Function
  */')dnl
 pigfunc_attribute(`private', `', `String', `javaize_lc(`image_disk_number')', `null', `', `The virtual device address of the disk to be copied')dnl
 pigfunc_ctors(`String', `image_disk_number', javaize_lc(`image_disk_number'))dnl
