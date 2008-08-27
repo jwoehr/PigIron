@@ -42,20 +42,20 @@ import com.softwoehr.pigiron.access.*;
 import com.softwoehr.pigiron.access.paramstructs.FailingArray;
 
 /**
- * <tt>Image_Activate</tt> VSMAPI Function
+ * <tt>Image_Deactivate</tt> VSMAPI Function
  * @see com.softwoehr.pigiron.access.paramstructs.FailingArray
  */
-public class ImageActivate extends VSMCall {
+public class ImageDeactivate extends VSMCall {
 
     /**
      * The transmitted name of the function.
      */
-    public static final String FUNCTION_NAME = "Image_Activate";
+    public static final String FUNCTION_NAME = "Image_Deactivate";
 
     /**
      *  Create an instance of the function call with important fields not instanced.
      */
-    public ImageActivate() {
+    public ImageDeactivate() {
     }
 
     /**
@@ -66,13 +66,30 @@ public class ImageActivate extends VSMCall {
      * @param password the password
      * @param target_identifier the target of the VSMAPI function
      */
-    public ImageActivate(String hostname, int port, String userid, String password, String target_identifier) {
+    public ImageDeactivate(String hostname, int port, String userid, String password, String target_identifier) {
         this();
         setHostname(hostname);
         setPort(port);
         setUserid(userid);
         setPassword(password);
         setTarget_identifier(target_identifier);
+    }
+
+    /** Specifies when the Image_Deactivate function is to take place */
+    private String forceTime = null;
+
+    /** Set the value of <tt> forceTime </tt>.
+     * @param val The value to set <tt> forceTime </tt>.
+     */
+    public void set_forceTime(String val) {
+        forceTime = val;
+    }
+
+    /** Get the value of <tt> forceTime </tt>.
+     * @return The value of <tt> forceTime </tt>.
+     */
+    public String get_forceTime() {
+        return forceTime;
     }
 
     /**
@@ -96,6 +113,9 @@ public class ImageActivate extends VSMCall {
         parameterArray.add(tempString);
         tempString = new VSMString(getTarget_identifier(), "target_identifier");
         parameterArray.add(new VSMInt4(tempString.paramLength(), "target_identifier_length"));
+        parameterArray.add(tempString);
+        tempString = new VSMString(get_forceTime(), "force_time");
+        parameterArray.add(new VSMInt4(tempString.paramLength(), "force_time_length"));
         parameterArray.add(tempString);
         VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
         parameterArray.insertElementAt(outputLength, 0);
@@ -141,7 +161,7 @@ public class ImageActivate extends VSMCall {
      */
     public static void main(String[] argv) throws IOException, VSMException {
 
-        ImageActivate instance = null;
+        ImageDeactivate instance = null;
 
         if (argv.length != 5) {
             System.out.println("usage: args are:\ninetaddr port user pw target_image");
@@ -149,7 +169,7 @@ public class ImageActivate extends VSMCall {
         }
 
         System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4]);
-        instance = new ImageActivate(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4]);
+        instance = new ImageDeactivate(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4]);
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
