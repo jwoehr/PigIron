@@ -1,11 +1,12 @@
-include(`pigstruct.m4')dnl \\  memory_segment_struct.m4
+include(`pigstruct.m4')dnl \\  memory_segment_structure.m4
+param_namespace(`memory_segment',`Shared_Memory_Query')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
-pigparm_class(`MemorySegmentStruct', `VSMStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl
+pigparm_class(structure_classname, `VSMStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl
 
 /**
- * MemorySegmentStruct implements the memory_segment_structure from Shared_Memory_Query
- * @see com.softwoehr.pigiron.functions.SharedMemoryQuery
+ * structure_classname implements the structure_formal_name from associated_function
+ * @see com.softwoehr.pigiron.functions.`'associated_function
  */')dnl
 pigparm_constant(`public', `int', `MEMORY_SEGMENT_STATUS_SKELETON', `1', `Skeleton')dnl
 pigparm_constant(`public', `int', `MEMORY_SEGMENT_STATUS_AVAILABLE_NONRESTRICTED', `2', `Available and nonrestricted')dnl
@@ -21,3 +22,4 @@ pigparm_model_parm(`PageRangeArray', `null', `page_range_array')dnl
 pigparm_model_end()dnl
 pigparm_endclass()dnl
 pigparm_end()dnl
+param_namespace_end()dnl

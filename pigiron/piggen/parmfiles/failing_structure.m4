@@ -1,12 +1,12 @@
 include(`pigstruct.m4')dnl \\  failing_structure.m4
-param_namespace(`failing',`ImageRecycle')dnl
+param_namespace(`failing',`Image_Recycle')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
 pigparm_class(structure_classname, `VSMStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl
 
 /**
  * structure_classname implements the structure_formal_name from associated_function
- * @see com.softwoehr.pigiron.functions.`'associated_function
+ * @see com.softwoehr.pigiron.functions.associated_function
  */')dnl
 pigparm_ctors()dnl
 pigparm_model_start()dnl
