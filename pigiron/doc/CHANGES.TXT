@@ -12,7 +12,7 @@ to be found in the same directory as this README.TXT file.
 
 CHANGES
 -------
-2008-08-?? 0.3 -- release more functionality and improved autogenerator.
+2008-08-27 0.3 -- release more functionality and improved autogenerator.
 
 Functions additionally supported in this release:
 
