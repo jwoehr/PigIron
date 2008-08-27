@@ -12,6 +12,13 @@ to be found in the same directory as this README.TXT file.
 
 CHANGES
 -------
+2008-0?-?? 0.4 -- release more functionality and beginning of business objects
+and web objects
+
+Functions additionally supported in this release:
+
+    * Image_Activate
+    * Image_Deactivate
 2008-08-27 0.3 -- release more functionality and improved autogenerator.
 
 Functions additionally supported in this release:
