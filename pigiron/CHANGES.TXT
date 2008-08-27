@@ -35,7 +35,9 @@ string (appropriately cased) "structure" not "struct". This is an inconsistency
 with the earlier code but the advantage in autogeneration of observing this
 convention is overwhelming.
 
-More documentation.
+More documentation. More on the plan of development.
+
+A start on a framework for business objects.
 
 2008-08-20 0.2 -- release more functionality and release autogenerator.
 Very incomplete docs, but good javadocs.
