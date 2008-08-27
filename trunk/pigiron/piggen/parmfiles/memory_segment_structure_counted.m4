@@ -1,5 +1,5 @@
-include(`pigstruct.m4')dnl \\ failing_structure_counted.m4
-param_namespace(`failing',`Image_Recycle')dnl
+include(`pigstruct.m4')dnl \\ memory_segment_structure_counted.m4
+param_namespace(`memory_segment',`Shared_Memory_Query')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
 pigparm_class(counted_structure_classname, `CountedStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl

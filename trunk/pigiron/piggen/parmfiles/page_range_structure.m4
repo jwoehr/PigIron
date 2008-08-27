@@ -1,11 +1,12 @@
-include(`pigstruct.m4')dnl \\ page_range_struct.m4
+include(`pigstruct.m4')dnl \\ page_range_structure.m4
+param_namespace(`page_range',`Shared_Memory_Query')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
-pigparm_class(`PageRangeStruct', `VSMStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl
+pigparm_class(structure_classname, `VSMStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl
 
 /**
- * PageRangeStruct implements the page_range_struct from Shared_Memory_Query
- * @see com.softwoehr.pigiron.functions.SharedMemoryQuery
+ * structure_classname implements the structure_formal_name from associated_function
+ * @see com.softwoehr.pigiron.functions.associated_function
  */')dnl
 pigparm_constant(`public', `int', `PAGE_ACCESS_SW', `1', `Shared read/write access')dnl
 pigparm_constant(`public', `int', `PAGE_ACCESS_EW', `2', `Exclusive read/write access')dnl
@@ -22,3 +23,4 @@ pigparm_model_parm(`VSMInt1', `-1', `page_access_descriptor')dnl
 pigparm_model_end()dnl
 pigparm_endclass()dnl
 pigparm_end()dnl
+param_namespace_end()dnl
