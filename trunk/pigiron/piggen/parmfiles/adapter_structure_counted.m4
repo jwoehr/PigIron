@@ -1,18 +1,18 @@
-include(`pigstruct.m4')dnl \\ failing_structure_counted.m4
-param_namespace(`failing',`ImageRecycle')dnl
+include(`pigstruct.m4')dnl \\ adapter_structure_counted.m4
+param_namespace(`adapter',`VirtualNetworkAdapterQuery')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
 pigparm_class(counted_structure_classname, `CountedStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl
 
 /**
  * counted_structure_classname wrappers the structure_classname from associated_function
- * as a PigIron CountedStruct pseudotype.
+ * as a PigIron CountedStruct pseudotype
  * @see com.softwoehr.pigiron.functions.`'associated_function
  */')dnl
 pigparm_ctors()dnl
 pigparm_model_start()dnl
 pigparm_model_parm(`VSMInt4', `-1', structure_formal_name`_length')dnl
-pigparm_model_parm(structure_classname, `null', structure_formal_name)dnl
+pigparm_model_parm(`structure_classname', `null', structure_formal_name)dnl
 pigparm_model_end()dnl
 pigparm_endclass()dnl
 pigparm_end()dnl

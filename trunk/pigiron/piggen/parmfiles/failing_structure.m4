@@ -1,4 +1,4 @@
-include(`pigstruct.m4')dnl \\  failing_struct.m4
+include(`pigstruct.m4')dnl \\  failing_structure.m4
 param_namespace(`failing',`ImageRecycle')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl

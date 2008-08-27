@@ -1,11 +1,12 @@
-include(`pigstruct.m4')dnl \\ adapter_struct.m4
+include(`pigstruct.m4')dnl \\ adapter_structure.m4
+param_namespace(`adapter',`VirtualNetworkAdapterQuery')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
-pigparm_class(`AdapterStruct', `VSMStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl
+pigparm_class(structure_classname, `VSMStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl
 
 /**
- * AdapterStruct implements the adapter_struct from VirtualNetworkAdapterQuery
- * @see com.softwoehr.pigiron.functions.VirtualNetworkAdapterQuery
+ * structure_classname implements the structure_formal_name from associated_function
+ * @see com.softwoehr.pigiron.functions.`'associated_function
  */')dnl
 pigparm_constant(`public', `int', `ADAPTER_TYPE_HIPERSOCKETS', `1', `Shared read/write access')dnl
 pigparm_constant(`public', `int', `ADAPTER_TYPE_QDIO', `2', `Exclusive read/write access')dnl
@@ -26,3 +27,4 @@ pigparm_model_parm(`VSMString', `null', `lan_name')dnl
 pigparm_model_end()dnl
 pigparm_endclass()dnl
 pigparm_end()dnl
+param_namespace_end()dnl
