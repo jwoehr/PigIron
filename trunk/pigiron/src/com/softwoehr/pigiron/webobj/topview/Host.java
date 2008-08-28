@@ -41,7 +41,7 @@ import java.net.URISyntaxException;
  */
 public class Host extends MarshallableObject {
 
-    public String host = null;
+    public String name = null;
     public URI href = null;
 
     /**
@@ -66,18 +66,18 @@ public class Host extends MarshallableObject {
      * sort of thing will be found deeper, follow the URI trail.
      * @return hostName name
      */
-    public String getHost() {
-        return host;
+    public String getName() {
+        return name;
     }
 
     /**
      * Host name as represented to a Web application.
      * May or may not be related to DNS name .. that latter
      * sort of thing will be found deeper, follow the URI trail.
-     * @param host the name of the host
+     * @param name the name of the name
      */
-    public void setHost(String host) {
-        this.host = host;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -89,12 +89,12 @@ public class Host extends MarshallableObject {
 
     /**
      * Instance with hostName name and URI
-     * @param host
+     * @param name
      * @param href
      */
-    public Host(String host, URI href) {
+    public Host(String name, URI href) {
         this();
-        setHost(host);
+        setName(name);
         setHref(href);
     }
 
@@ -106,14 +106,14 @@ public class Host extends MarshallableObject {
     public static void main(String[] argv) throws URISyntaxException {
         String hostName = argv[0];
         String hrefString = argv[1];
-        String representation = "{" + "host:" + "\"" + hostName + "\"" + "," + "href:" + "\"" + hrefString + "\"" + "}";
+        String representation = "{" + "\"name\":" + "\"" + hostName + "\"" + "," + "\"href\":" + "\"" + hrefString + "\"" + "}";
         Host host = new Host("MYZSYS", new URI("http://192.168.0.99/topview/MYZSYS"));
         Marshaller marshaller = new JSONMarshaller();
         System.out.println("Here is the string representation of Host at present: " + host.toRepresentation(marshaller));
         System.out.println("Here is the string representation you submitted: " + representation);
         host.fromRepresentation(representation, marshaller);
         System.out.println("Here is the Host after marshalling in your values: ");
-        System.out.println("host.hostName == " + host.getHost());
-        System.out.println("host.hostURI == " + host.getHref().toString());
+        System.out.println("host.name == " + host.getName());
+        System.out.println("host.href == " + host.getHref().toString());
     }
 }
