@@ -15,6 +15,9 @@ CHANGES
 2008-0?-?? 0.4 -- release more functionality and beginning of business objects
 and web objects
 
+Added JSON source to the tree. It's small and freely licensed and easier
+for a preliminary implementation of web objects.
+
 Functions additionally supported in this release:
 
     * Image_Activate
