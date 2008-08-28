@@ -282,7 +282,7 @@ ifelse(x_type(),`CountedString',`dnl
         tempString = new VSMString`('x_value, "x_formal_name()");
         parameterArray.add`('new VSMInt4`('tempString.paramLength`('), "x_formal_name()_length"));
         parameterArray.add`('tempString);',`dnl
-        parameterArray.add`('new x_type()`('x_value(), "x_formal_name()"`)';)
+        parameterArray.add`('new x_type()`('x_value(), "x_formal_name()"`)'`)';dnl
 ')
 popdef(`x_formal_name')dnl
 popdef(`x_value')dnl
