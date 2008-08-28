@@ -41,19 +41,19 @@ import java.util.Iterator;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * <tt>Image_Device_Dedicate</tt> VSMAPI Function
+ * <tt>Image_Device_Reset</tt> VSMAPI Function
  */
-public class ImageDeviceDedicate extends VSMCall {
+public class ImageDeviceReset extends VSMCall {
 
     /**
      * The transmitted name of the function.
      */
-    public static final String FUNCTION_NAME = "Image_Device_Dedicate";
+    public static final String FUNCTION_NAME = "Image_Device_Reset";
 
     /**
      *  Create an instance of the function call with important fields not instanced.
      */
-    public ImageDeviceDedicate() {
+    public ImageDeviceReset() {
     }
 
     /**
@@ -64,10 +64,8 @@ public class ImageDeviceDedicate extends VSMCall {
      * @param password the password
      * @param target_identifier the target of the VSMAPI function
      * @param image_device_number instances <tt>imageDeviceNumber</tt>
-     * @param real_device_number instances <tt>realDeviceNumber</tt>
-     * @param readonly instances <tt>readonly</tt>
      */
-    public ImageDeviceDedicate(String hostname, int port, String userid, String password, String target_identifier, String image_device_number, String real_device_number, int readonly) {
+    public ImageDeviceReset(String hostname, int port, String userid, String password, String target_identifier, String image_device_number) {
         this();
         setHostname(hostname);
         setPort(port);
@@ -75,18 +73,10 @@ public class ImageDeviceDedicate extends VSMCall {
         setPassword(password);
         setTarget_identifier(target_identifier);
         set_imageDeviceNumber(image_device_number);
-        set_realDeviceNumber(real_device_number);
-        set_readonly(readonly);
     }
 
     /** The virtual device number of the device */
     private String imageDeviceNumber = null;
-
-    /** A real device number to be dedicated or attached to the specified virtual image */
-    private String realDeviceNumber = null;
-
-    /** 1 if the virtual device is to be in read-only mode otherwise 0 */
-    private int readonly = 1;
 
     /** Set the value of <tt> imageDeviceNumber </tt>.
      * @param val The value to set <tt> imageDeviceNumber </tt>.
@@ -100,34 +90,6 @@ public class ImageDeviceDedicate extends VSMCall {
      */
     public String get_imageDeviceNumber() {
         return imageDeviceNumber;
-    }
-
-    /** Set the value of <tt> realDeviceNumber </tt>.
-     * @param val The value to set <tt> realDeviceNumber </tt>.
-     */
-    public void set_realDeviceNumber(String val) {
-        realDeviceNumber = val;
-    }
-
-    /** Get the value of <tt> realDeviceNumber </tt>.
-     * @return The value of <tt> realDeviceNumber </tt>.
-     */
-    public String get_realDeviceNumber() {
-        return realDeviceNumber;
-    }
-
-    /** Set the value of <tt> readonly </tt>.
-     * @param val The value to set <tt> readonly </tt>.
-     */
-    public void set_readonly(int val) {
-        readonly = val;
-    }
-
-    /** Get the value of <tt> readonly </tt>.
-     * @return The value of <tt> readonly </tt>.
-     */
-    public int get_readonly() {
-        return readonly;
     }
 
     /**
@@ -155,10 +117,6 @@ public class ImageDeviceDedicate extends VSMCall {
         tempString = new VSMString(get_imageDeviceNumber(), "image_device_number");
         parameterArray.add(new VSMInt4(tempString.paramLength(), "image_device_number_length"));
         parameterArray.add(tempString);
-        tempString = new VSMString(get_realDeviceNumber(), "real_device_number");
-        parameterArray.add(new VSMInt4(tempString.paramLength(), "real_device_number_length"));
-        parameterArray.add(tempString);
-        parameterArray.add(new VSMInt1(get_readonly(), "readonly"));
         VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
         parameterArray.insertElementAt(outputLength, 0);
         setInParams(parameterArray);
@@ -201,15 +159,15 @@ public class ImageDeviceDedicate extends VSMCall {
      */
     public static void main(String[] argv) throws IOException, VSMException {
 
-        ImageDeviceDedicate instance = null;
+        ImageDeviceReset instance = null;
 
-        if (argv.length != 8) {
-            System.out.println("usage: args are:\ninetaddr port user pw target image_device_number real_device_number readonly");
+        if (argv.length != 6) {
+            System.out.println("usage: args are:\ninetaddr port user pw target image_device_number");
             System.exit(1);
         }
 
-        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5] + " " + argv[6] + " " + argv[7]);
-        instance = new ImageDeviceDedicate(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4],  argv[5], argv[6], Integer.valueOf(argv[7]).intValue());
+        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5]);
+        instance = new ImageDeviceReset(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4],  argv[5]);
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
