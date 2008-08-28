@@ -19,6 +19,10 @@ Functions additionally supported in this release:
 
     * Image_Activate
     * Image_Deactivate
+    * Image_Device_Dedicate
+    * Image_Device_Reset
+    * Image_Device_Undedicate
+
 2008-08-27 0.3 -- release more functionality and improved autogenerator.
 
 Functions additionally supported in this release:
