@@ -28,6 +28,7 @@ Functions additionally supported in this release:
     * Shared_Memory_Create
     * Shared_Memory_Delete
     * Virtual_Channel_Connection_Create
+    * Virtual_Channel_Connection_Delete
 
 2008-08-27 0.3 -- release more functionality and improved autogenerator.
 
