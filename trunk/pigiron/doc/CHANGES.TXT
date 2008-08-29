@@ -27,6 +27,7 @@ Functions additionally supported in this release:
     * Image_Device_Undedicate
     * Shared_Memory_Create
     * Shared_Memory_Delete
+    * Virtual_Channel_Connection_Create
 
 2008-08-27 0.3 -- release more functionality and improved autogenerator.
 
