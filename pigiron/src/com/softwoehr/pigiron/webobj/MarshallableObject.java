@@ -34,7 +34,9 @@ package com.softwoehr.pigiron.webobj;
 import com.softwoehr.pigiron.webobj.Marshaller.MarshallingTraits;
 
 /**
- * 
+ * Parent class of all the web objects which can be marshalled
+ * into string representation.
+ * @see com.softwoehr.pigiron.webobj.Marshaller
  * @author jax
  */
 public class MarshallableObject implements Marshallable {
