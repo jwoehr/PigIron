@@ -150,9 +150,9 @@ public class Connection {
      */
     public void connect() throws UnknownHostException, IOException {
         // /* Debug */ System.out.println("Connection.connect ... host and port are " + hostname + port);
-        socket = new Socket(hostname, port);
-        outputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-        inputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+        setSocket(new Socket(hostname, port));
+        setOutputStream(new DataOutputStream(new BufferedOutputStream(socket.getOutputStream())));
+        setInputStream(new DataInputStream(new BufferedInputStream(socket.getInputStream())));
     }
 
     /**
@@ -160,17 +160,17 @@ public class Connection {
      */
     public void disconnect() {
         try {
-            outputStream.close();
+            getOutputStream().close();
         } catch (Exception e) {
             e.printStackTrace(System.err);
         }
         try {
-            inputStream.close();
+            getInputStream().close();
         } catch (Exception e) {
             e.printStackTrace(System.err);
         }
         try {
-            socket.close();
+            getSocket().close();
         } catch (Exception e) {
             e.printStackTrace(System.err);
         }
@@ -181,6 +181,6 @@ public class Connection {
      * @return true if currently connected, false otherwise.
      */
     public boolean isConnected() {
-        return socket.isConnected();
+        return getSocket().isConnected();
     }
 }
