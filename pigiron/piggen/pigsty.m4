@@ -31,21 +31,26 @@ define(`is_type_named_array',`regexp(`$1',`Array$')')
 
 \\ Uppercase a character
 define(`upcase', `translit(`$*', `a-z', `A-Z')')
+\\ lowercase a character
+define(`lowcase', `translit(`$*', `A-Z', `a-z')')
 
 \\ Convert an xcc_xcc.. (etc.) to XccXcc...
 define(`javaize2_regexp', `^\(\w\)\(\w*\)_\(\w\)\(\w*\)$')
 define(`javaize3_regexp', `^\(\w\)\(\w*\)_\(\w\)\(\w*\)_\(\w\)\(\w*\)$')
 define(`javaize4_regexp', `^\(\w\)\(\w*\)_\(\w\)\(\w*\)_\(\w\)\(\w*\)_\(\w\)\(\w*\)$')
+define(`javaize5_regexp', `^\(\w\)\(\w*\)_\(\w\)\(\w*\)_\(\w\)\(\w*\)_\(\w\)\(\w*\)_\(\w\)\(\w*\)$')
 define(`javaize2', `regexp(`$1', javaize2_regexp, `upcase(`\1')`\2'upcase(`\3')`\4'')')
 define(`javaize3', `regexp(`$1', javaize3_regexp, `upcase(`\1')`\2'upcase(`\3')`\4'upcase(`\5')`\6'')')
 define(`javaize4', `regexp(`$1', javaize4_regexp, `upcase(`\1')`\2'upcase(`\3')`\4'upcase(`\5')`\6'upcase(`\7')`\8'')')
-define(`javaize',  `ifelse(regexp(`$1', javaize4_regexp),`-1',`ifelse(regexp(`$1', javaize3_regexp),`-1',`javaize2(`$1')',`javaize3(`$1')')',`javaize4(`$1')')')
+define(`javaize5', `regexp(`$1', javaize5_regexp, `upcase(`\1')`\2'upcase(`\3')`\4'upcase(`\5')`\6'upcase(`\7')`\8'upcase(`\9')`\10'')')
+define(`javaize',  `ifelse(regexp(`$1', javaize5_regexp),`-1',`ifelse(regexp(`$1', javaize4_regexp),`-1',`ifelse(regexp(`$1', javaize3_regexp),`-1',`javaize2(`$1')',`javaize3(`$1')')',`javaize4(`'$1)')',`javaize5(`$1')')')
 
-\\ Convert an xcc_xcc.. (etc.) to XccXcc...
-define(`javaize2lc', `regexp(`$1', javaize2_regexp, ``\1'`\2'upcase(`\3')`\4'')')
-define(`javaize3lc', `regexp(`$1', javaize3_regexp, ``\1'`\2'upcase(`\3')`\4'upcase(`\5')`\6'')')
-define(`javaize4lc', `regexp(`$1', javaize4_regexp, ``\1'`\2'upcase(`\3')`\4'upcase(`\5')`\6'upcase(`\7')`\8'')')
-define(`javaize_lc',  `ifelse(regexp(`$1', javaize4_regexp),`-1',`ifelse(regexp(`$1', javaize3_regexp),`-1',`javaize2lc(`$1')',`javaize3lc(`$1')')',`javaize4lc(`$1')')')
+\\ Convert an xcc_xcc.. (etc.) to xccXcc...
+define(`javaize2lc', `regexp(`$1', javaize2_regexp, `lowcase(`\1')`\2'upcase(`\3')`\4'')')
+define(`javaize3lc', `regexp(`$1', javaize3_regexp, `lowcase(`\1')`\2'upcase(`\3')`\4'upcase(`\5')`\6'')')
+define(`javaize4lc', `regexp(`$1', javaize4_regexp, `lowcase(`\1')`\2'upcase(`\3')`\4'upcase(`\5')`\6'upcase(`\7')`\8'')')
+define(`javaize5lc', `regexp(`$1', javaize5_regexp, `lowcase(`\1')`\2'upcase(`\3')`\4'upcase(`\5')`\6'upcase(`\7')`\8'upcase(`\9')`\10'')')
+define(`javaize_lc',  `ifelse(regexp(`$1', javaize5_regexp),`-1',`ifelse(regexp(`$1', javaize4_regexp),`-1',`ifelse(regexp(`$1', javaize3_regexp),`-1',`javaize2lc(`$1')',`javaize3lc(`$1')')',`javaize4lc(`$1')')',`javaize5lc(`$1')')')
 changecom()
 
 \\ param_namespace(`entity', `associated_function')
