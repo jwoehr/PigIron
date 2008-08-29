@@ -1,4 +1,8 @@
-from http://www.json.org/license.html:
+---
+This is the JSON License from http://www.json.org/license.html under terms
+of which JSON reference source code (in the classpath org.json) is incorporated
+directly into the PigIron Project:
+---
 
 Copyright (c) 2002 JSON.org
 
