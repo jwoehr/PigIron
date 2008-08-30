@@ -33,6 +33,7 @@ Functions additionally supported in this release:
     * Virtual_Network_Adapter_Connect_Vswitch
     * Virtual_Network_Adapter_Create
     * Virtual_Network_Adapter_Delete
+    * Virtual_Network_Adapter_Disconnect
 
 2008-08-27 0.3 -- release more functionality and improved autogenerator.
 
