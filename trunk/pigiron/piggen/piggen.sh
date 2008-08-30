@@ -15,16 +15,27 @@
 # Run the autogen assuming description file include()'s the autogenator m4
 # e.g., pigstruct.m4 pigarray.m4 or pigfunc.m4
 
-# Check args
-if [ $# -lt 1 -o $# -gt 2 ]
-then
-    echo "usage: $0 description_file output_file_name"
-    exit 1
-fi
-
+USAGE="usage: $0 description_file [output_file_name]"
 DESCFILE=$1
 OUTFILE=$2
 TWOARGS=`expr $# '>' 1`
+
+if [ "$1" = "-h" -o "$1" = "--help" ]
+then echo $USAGE
+exit
+fi
+
+# Check args
+if [ $# -lt 1 -o $# -gt 2 ]
+then
+    echo "usage: $0 description_file [output_file_name]"
+    exit 1
+fi
+
+if [ ! -f $DESCFILE ]
+then echo "$DESCFILE is not a file."
+exit 2
+fi
 
 # Find Gnu m4 
 GM4="m4"
@@ -44,9 +55,15 @@ fi
 
 # Run PigGen
 if [ $TWOARGS -eq 0 ]
-    then
-    $GM4 $DESCFILE
+    then $GM4 $DESCFILE
     else
-    echo "Generating $OUTFILE from $DESCFILE"
-    $GM4 $DESCFILE > $OUTFILE
-fi
+        touch $OUTFILE >/dev/null 2>&1
+        if [ $? -eq 0 ]
+        then
+            echo "Generating $OUTFILE from $DESCFILE"
+            $GM4 $DESCFILE > $OUTFILE
+        else
+            echo "$OUTFILE is not a valid filename"
+            exit 3
+        fi
+    fi
