@@ -41,9 +41,9 @@ then
     TARGDIR=$2
     for i in $SRCDIR/*.m4
     do
-	BASENAME=`basename $i`
+	BASENAME=`basename $i .m4`
 #	echo "Basename is $BASENAME"
-	TARGNAME=`echo javaname'('$BASENAME')' | $GM4 javaname.m4 -`
+	TARGNAME=`echo javaize'('$BASENAME')' | $GM4 javaname.m4 -`.java
 #	echo "Targname is $TARGNAME"
         ./piggen.sh $i ${TARGDIR}/${TARGNAME}
     done
