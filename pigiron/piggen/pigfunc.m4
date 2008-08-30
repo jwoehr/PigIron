@@ -1,5 +1,5 @@
 divert(-1)
-changecom(`\\')
+changecom(`\\\\')
 \\ pigfunc.m4
 \\   Macros to autogenerate Java code for PigIron parameters
 \\   Copyright *C* 1999, 2001, 2008 Jack J. Woehr
