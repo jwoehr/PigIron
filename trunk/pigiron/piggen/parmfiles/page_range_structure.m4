@@ -19,7 +19,7 @@ pigparm_ctors()dnl
 pigparm_model_start()dnl
 pigparm_model_parm(`VSMInt8', `-1', `begin_page')dnl
 pigparm_model_parm(`VSMInt8', `-1', `end_page')dnl
-pigparm_model_parm(`VSMInt1', `-1', `page_access_descriptor')dnl
+pigparm_model_parm(`VSMInt1', `0', `page_access_descriptor')dnl
 pigparm_model_end()dnl
 pigparm_endclass()dnl
 pigparm_end()dnl

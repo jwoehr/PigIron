@@ -10,8 +10,7 @@ pigparm_class(structure_classname, `VSMStruct',`com.softwoehr.pigiron.access.par
  */')dnl
 pigparm_ctors()dnl
 pigparm_model_start()dnl
-pigparm_model_parm(`VSMInt4', `-1', `image_name_length')dnl
-pigparm_model_parm(`VSMString', `null', `image_name')dnl
+pigparm_model_parm(`CountedString', `""', `image_name')dnl
 pigparm_model_parm(`VSMInt4', `-1', `return_code')dnl
 pigparm_model_parm(`VSMInt4', `-1', `reason_code')dnl
 pigparm_model_end()dnl

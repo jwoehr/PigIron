@@ -12,9 +12,9 @@ pigparm_constant(`public', `int', `LAN_TYPE_HIPERSOCKETS', `1', `Simulated Hiper
 pigparm_constant(`public', `int', `LAN_TYPE_QDIO', `1', `Simulated QDIO NIC')dnl
 pigparm_ctors()dnl
 pigparm_model_start()dnl
-pigparm_model_parm(`CountedString', `null', `lan_name')dnl
-pigparm_model_parm(`CountedString', `null', `lan_owner')dnl
-pigparm_model_parm(`VSMInt1', `-1', `lan_type')dnl
+pigparm_model_parm(`CountedString', `""', `lan_name')dnl
+pigparm_model_parm(`CountedString', `""', `lan_owner')dnl
+pigparm_model_parm(`VSMInt1', `-0', `lan_type')dnl
 pigparm_model_parm(`VSMInt4', `-1', `connected_adapter_array_length')dnl
 pigparm_model_parm(`ConnectedAdapterArray', `null', `connected_adapter_array')dnl
 pigparm_model_end()dnl
