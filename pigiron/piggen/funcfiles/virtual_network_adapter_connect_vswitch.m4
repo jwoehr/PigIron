@@ -10,8 +10,8 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
  * {@code function_formal_name } VSMAPI Function
  * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
  */')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`image_device_number'), `null', `', `The virtual device address of the new adapter')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`switch_name'), `null', `', `The name of the virtual switch segment to connect to the virtual image')dnl
+pigfunc_attribute(`private', `', `String', javaize_lc(`image_device_number'), `""', `', `The virtual device address of the new adapter')dnl
+pigfunc_attribute(`private', `', `String', javaize_lc(`switch_name'), `""', `', `The name of the virtual switch segment to connect to the virtual image')dnl
 pigfunc_ctors(`String', `image_device_number', javaize_lc(`image_device_number'),
 `String', `switch_name_length', javaize_lc(`switch_name'))dnl
 pigfunc_compose_input_start()dnl

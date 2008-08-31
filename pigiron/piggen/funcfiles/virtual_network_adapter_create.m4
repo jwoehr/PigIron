@@ -12,7 +12,7 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
  */')dnl
 pigfunc_constant(`public', `int', `ADAPTER_TYPE_HIPERSOCKETS', `1', `Simulated HiperSockets NIC')dnl
 pigfunc_constant(`public', `int', `ADAPTER_TYPE_QDIO', `2', `Simulated QDIO NIC')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`image_device_number'), `null', `', `The virtual device address of the new adapter')dnl
+pigfunc_attribute(`private', `', `String', javaize_lc(`image_device_number'), `""', `', `The virtual device address of the new adapter')dnl
 pigfunc_attribute(`private', `', `int', javaize_lc(`adapter_type'), `-1', `', `The adapter type')dnl
 pigfunc_attribute(`private', `', `int', javaize_lc(`network_adapter_devices'), `-1', `', `The number of virtual devices associated with this adapter')dnl
 pigfunc_attribute(`private', `', `String', javaize_lc(`channel_path_id'), `""', `', `For use only when configuring a second-level z/OS system where it is used to specify the hex CHPID numbers for the first- and second-level systems')dnl

@@ -36,6 +36,7 @@ Functions additionally supported in this release:
     * Virtual_Network_Adapter_Delete
     * Virtual_Network_Adapter_Delete_DM
     * Virtual_Network_Adapter_Disconnect
+    * Virtual_Network_LAN_Create
     * Virtual_Network_LAN_Query
 
 2008-08-27 0.3 -- release more functionality and improved autogenerator.

@@ -11,7 +11,7 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
  * <tt>function_formal_name</tt> VSMAPI Function
  * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
  */')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`force_time')', `null', `', `Specifies when the Image_Deactivate function is to take place')dnl
+pigfunc_attribute(`private', `', `String', `javaize_lc(`force_time')', `""', `', `Specifies when the Image_Deactivate function is to take place')dnl
 pigfunc_ctors()dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl

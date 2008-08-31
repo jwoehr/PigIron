@@ -9,7 +9,7 @@ pigparm_class(structure_classname, `VSMStruct',`com.softwoehr.pigiron.access.par
  * @see com.softwoehr.pigiron.functions.associated_function_javaname
  */')dnl
 pigparm_constant(`public', `int', `LAN_TYPE_HIPERSOCKETS', `1', `Simulated HiperSockets NIC')dnl
-pigparm_constant(`public', `int', `LAN_TYPE_QDIO', `1', `Simulated QDIO NIC')dnl
+pigparm_constant(`public', `int', `LAN_TYPE_QDIO', `2', `Simulated QDIO NIC')dnl
 pigparm_ctors()dnl
 pigparm_model_start()dnl
 pigparm_model_parm(`CountedString', `""', `lan_name')dnl
