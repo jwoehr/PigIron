@@ -14,9 +14,8 @@ pigparm_constant(`public', `int', `MEMORY_SEGMENT_STATUS_AVAILABLE_RESTRICTED', 
 pigparm_constant(`public', `int', `MEMORY_SEGMENT_STATUS_PENDING_PURGE', `4', `Pending purge')dnl
 pigparm_ctors()dnl
 pigparm_model_start()dnl
-pigparm_model_parm(`VSMInt4', `-1', `memory_segment_name_length')dnl
-pigparm_model_parm(`VSMString', `null', `memory_segment_name')dnl
-pigparm_model_parm(`VSMInt1', `-1', `memory_segment_status')dnl
+pigparm_model_parm(`CountedString', `""', `memory_segment_name')dnl
+pigparm_model_parm(`VSMInt1', `0', `memory_segment_status')dnl
 pigparm_model_parm(`VSMInt4', `-1', `page_range_array_length')dnl
 pigparm_model_parm(`PageRangeArray', `null', `page_range_array')dnl
 pigparm_model_end()dnl
