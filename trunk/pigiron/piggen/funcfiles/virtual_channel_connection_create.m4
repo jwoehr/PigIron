@@ -9,8 +9,8 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 /**
  * <tt>function_formal_name</tt> VSMAPI Function
  */')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`coupled_image_name')', `null', `', `The virtual image name of the target virtual image that is to be connected')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`coupled_image_device_number')', `null', `', `The virtual device number of the network device in another virtual image')dnl
+pigfunc_attribute(`private', `', `String', `javaize_lc(`coupled_image_name')', `""', `', `The virtual image name of the target virtual image that is to be connected')dnl
+pigfunc_attribute(`private', `', `String', `javaize_lc(`coupled_image_device_number')', `""', `', `The virtual device number of the network device in another virtual image')dnl
 pigfunc_ctors(`String', `coupled_image_name', javaize_lc(`coupled_image_name'),
 `String', `coupled_image_device_number', javaize_lc(`coupled_image_device_number'))dnl
 pigfunc_compose_input_start()dnl

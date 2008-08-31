@@ -16,7 +16,7 @@ pigfunc_constant(`public', `int', `PAGE_ACCESS_ER', `4', `Exclusive read-only ac
 pigfunc_constant(`public', `int', `PAGE_ACCESS_SN', `5', `Shared read/write access, no data saved')dnl
 pigfunc_constant(`public', `int', `PAGE_ACCESS_EN', `6', `Exclusive read/write access, no data saved')dnl
 pigfunc_constant(`public', `int', `PAGE_ACCESS_SC', `7', `Shared read/write access, no data saved, CP writeable pages')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`memory_segment_name'), `null', `', `The name of the memory segment to create')dnl
+pigfunc_attribute(`private', `', `String', javaize_lc(`memory_segment_name'), `""', `', `The name of the memory segment to create')dnl
 pigfunc_attribute(`private', `', `long', javaize_lc(`begin_page'), `-1', `', `The beginning page to be saved')dnl
 pigfunc_attribute(`private', `', `long', javaize_lc(`end_page'), `-1', `', `The ending page to be saved')dnl
 pigfunc_attribute(`private', `', `int', javaize_lc(`page_access_descriptor'), `-1', `', `The type of page access')dnl

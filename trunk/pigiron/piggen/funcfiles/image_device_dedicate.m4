@@ -9,8 +9,8 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 /**
  * <tt>function_formal_name</tt> VSMAPI Function
  */')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`image_device_number')', `null', `', `The virtual device number of the device')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`real_device_number')', `null', `', `A real device number to be dedicated or attached to the specified virtual image')dnl
+pigfunc_attribute(`private', `', `String', `javaize_lc(`image_device_number')', `""', `', `The virtual device number of the device')dnl
+pigfunc_attribute(`private', `', `String', `javaize_lc(`real_device_number')', `""', `', `A real device number to be dedicated or attached to the specified virtual image')dnl
 pigfunc_attribute(`private', `', `int', `readonly', `1', `', `1 if the virtual device is to be in read-only mode otherwise 0')dnl
 pigfunc_ctors(`String', `image_device_number', javaize_lc(`image_device_number'),
 `String', `real_device_number', javaize_lc(`real_device_number'),

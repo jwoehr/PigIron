@@ -41,19 +41,34 @@ import java.util.Iterator;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * <tt>Image_Disk_Unshare</tt> VSMAPI Function
+ * {@code Virtual_Network_LAN_Create} VSMAPI Function
  */
-public class ImageDiskUnshare extends VSMCall {
+public class VirtualNetworkLANCreate extends VSMCall {
 
     /**
      * The transmitted name of the function.
      */
-    public static final String FUNCTION_NAME = "Image_Disk_Unshare";
+    public static final String FUNCTION_NAME = "Virtual_Network_LAN_Create";
+
+    /** Simulated HiperSockets NIC */
+    public static final int LAN_TYPE_HIPERSOCKETS = 1;
+
+    /** Simulated QDIO NIC */
+    public static final int LAN_TYPE_QDIO = 2;
+
+    /** Unspecified */
+    public static final int TRANSPORT_TYPE_UNSPECIFIED = 0;
+
+    /** IP */
+    public static final int TRANSPORT_TYPE_IP = 1;
+
+    /** Ethernet */
+    public static final int TRANSPORT_TYPE_ETHERNET = 2;
 
     /**
      *  Create an instance of the function call with important fields not instanced.
      */
-    public ImageDiskUnshare() {
+    public VirtualNetworkLANCreate() {
     }
 
     /**
@@ -63,33 +78,90 @@ public class ImageDiskUnshare extends VSMCall {
      * @param userid userid executing the function
      * @param password the password
      * @param target_identifier the target of the VSMAPI function
-     * @param image_disk_number instances {@code imageDiskNumber}
+     * @param lan_name instances {@code lanName}
+     * @param lan_owner instances {@code lanOwner}
+     * @param lan_type instances {@code lanType}
+     * @param transport_type instances {@code transportType}
      */
-    public ImageDiskUnshare(String hostname, int port, String userid, String password, String target_identifier, String image_disk_number) {
+    public VirtualNetworkLANCreate(String hostname, int port, String userid, String password, String target_identifier, String lan_name, String lan_owner, int lan_type, int transport_type) {
         this();
         setHostname(hostname);
         setPort(port);
         setUserid(userid);
         setPassword(password);
         setTarget_identifier(target_identifier);
-        set_imageDiskNumber(image_disk_number);
+        set_lanName(lan_name);
+        set_lanOwner(lan_owner);
+        set_lanType(lan_type);
+        set_transportType(transport_type);
     }
 
-    /** The target_image_names virtual device address of the disk to be shared' */
-    private String imageDiskNumber = "";
+    /** The name of the guest LAN segment to connect the virtual image */
+    private String lanName = "";
 
-    /** Set the value of {@code  imageDiskNumber }.
-     * @param val The value to set {@code  imageDiskNumber }.
+    /** The virtual image owning the guest LAN segment to be created */
+    private String lanOwner = "";
+
+    /** The type of guest LAN segment */
+    private int lanType = 0;
+
+    /** Specifies the transport mechanism to be used for guest LANs and virtual switches */
+    private int transportType = TRANSPORT_TYPE_UNSPECIFIED;
+
+    /** Set the value of {@code  lanName }.
+     * @param val The value to set {@code  lanName }.
      */
-    public void set_imageDiskNumber(String val) {
-        imageDiskNumber = val;
+    public void set_lanName(String val) {
+        lanName = val;
     }
 
-    /** Get the value of {@code  imageDiskNumber }.
-     * @return The value of {@code  imageDiskNumber }.
+    /** Get the value of {@code  lanName }.
+     * @return The value of {@code  lanName }.
      */
-    public String get_imageDiskNumber() {
-        return imageDiskNumber;
+    public String get_lanName() {
+        return lanName;
+    }
+
+    /** Set the value of {@code  lanOwner }.
+     * @param val The value to set {@code  lanOwner }.
+     */
+    public void set_lanOwner(String val) {
+        lanOwner = val;
+    }
+
+    /** Get the value of {@code  lanOwner }.
+     * @return The value of {@code  lanOwner }.
+     */
+    public String get_lanOwner() {
+        return lanOwner;
+    }
+
+    /** Set the value of {@code  lanType }.
+     * @param val The value to set {@code  lanType }.
+     */
+    public void set_lanType(int val) {
+        lanType = val;
+    }
+
+    /** Get the value of {@code  lanType }.
+     * @return The value of {@code  lanType }.
+     */
+    public int get_lanType() {
+        return lanType;
+    }
+
+    /** Set the value of {@code  transportType }.
+     * @param val The value to set {@code  transportType }.
+     */
+    public void set_transportType(int val) {
+        transportType = val;
+    }
+
+    /** Get the value of {@code  transportType }.
+     * @return The value of {@code  transportType }.
+     */
+    public int get_transportType() {
+        return transportType;
     }
 
     /**
@@ -114,9 +186,14 @@ public class ImageDiskUnshare extends VSMCall {
         tempString = new VSMString(getTarget_identifier(), "target_identifier");
         parameterArray.add(new VSMInt4(tempString.paramLength(), "target_identifier_length"));
         parameterArray.add(tempString);
-        tempString = new VSMString(get_imageDiskNumber(), "image_disk_number");
-        parameterArray.add(new VSMInt4(tempString.paramLength(), "image_disk_number_length"));
+        tempString = new VSMString(get_lanName(), "lan_name");
+        parameterArray.add(new VSMInt4(tempString.paramLength(), "lan_name_length"));
         parameterArray.add(tempString);
+        tempString = new VSMString(get_lanOwner(), "lan_owner");
+        parameterArray.add(new VSMInt4(tempString.paramLength(), "lan_owner_length"));
+        parameterArray.add(tempString);
+        parameterArray.add(new VSMInt1(get_lanType(), "lan_type"));
+        parameterArray.add(new VSMInt1(get_transportType(), "transport_type"));
         VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
         parameterArray.insertElementAt(outputLength, 0);
         setInParams(parameterArray);
@@ -159,15 +236,15 @@ public class ImageDiskUnshare extends VSMCall {
      */
     public static void main(String[] argv) throws IOException, VSMException {
 
-        ImageDiskUnshare instance = null;
+        VirtualNetworkLANCreate instance = null;
 
-        if (argv.length != 7) {
-            System.out.println("usage: args are:\ninetaddr port user pw target image_disk_number");
+        if (argv.length != 9) {
+            System.out.println("usage: args are:\ninetaddr port user pw target lan_name lan_owner");
             System.exit(1);
         }
 
-        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5]);
-        instance = new ImageDiskUnshare(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5]);
+        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5] + " " + argv[6] + " " + argv[7] + " " + argv[8]);
+        instance = new VirtualNetworkLANCreate(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4],  argv[5], argv[6],  Integer.valueOf(argv[7]).intValue(),  Integer.valueOf(argv[8]).intValue());
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
