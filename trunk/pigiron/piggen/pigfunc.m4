@@ -69,8 +69,8 @@ pop_divert()dnl
 \\ Because the big ctor has to be extendable and must instance vars
 define(`optional_ctor_param_comments',`dnl
 ifelse(eval($# >= 3), 0, , eval($# == 3), 1, `
-     * @param `$2' instances <tt>`$3'</tt>', `
-     * @param `$2' instances <tt>`$3'</tt>`'optional_ctor_param_comments(shift(shift(shift($@))))')dnl
+     * @param `$2' instances {@code `$3'}', `
+     * @param `$2' instances {@code `$3'}`'optional_ctor_param_comments(shift(shift(shift($@))))')dnl
 ')
 
 \\ optional_ctor_params_args(type, name, instance, t, n, i ...)
@@ -143,15 +143,15 @@ pushdef(`x_get_accessor_name', ifelse(x_type, `boolean', `is_', `get_')`'x_name(
     x_qualified_name() `=' x_initial_value()`;'
 
 push_divert(accessor_stream)dnl
-    `/** Set the value of <tt>' x_name() `</tt>.'
-    ` * @param val The value to set <tt>' x_name() `</tt>.'
+    `/** Set the value of {@code ' x_name() `}.'
+    ` * @param val The value to set {@code ' x_name() `}.'
     ` */'
     x_set_accessor() void `set_'x_name()`('x_type() `val'`) {'
         x_name() = `val;'
     `}'
 
-    `/** Get the value of <tt>' x_name() `</tt>.'
-    ` * @return The value of <tt>' x_name() `</tt>.'
+    `/** Get the value of {@code ' x_name() `}.'
+    ` * @return The value of {@code ' x_name() `}.'
     ` */'
     public x_type() x_get_accessor_name()`() {'
         return x_name()`;'
