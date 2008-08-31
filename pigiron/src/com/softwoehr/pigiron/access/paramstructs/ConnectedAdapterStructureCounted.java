@@ -39,25 +39,12 @@ package com.softwoehr.pigiron.access.paramstructs;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * PageRangeStructure implements the {@code page_range_structure} from {@code Shared_Memory_Query}
- * @see com.softwoehr.pigiron.functions.SharedMemoryQuery
+ * ConnectedAdapterStructureCounted wrappers the {@code connected_adapter_structure} from {@code Virtual_Network_LAN_Query }
+ * as a PigIron CountedStruct pseudotype
+ * @see com.softwoehr.pigiron.functions.VirtualNetworkLANQuery
  */
-public class PageRangeStructure extends VSMStruct {
+public class ConnectedAdapterStructureCounted extends CountedStruct {
 
-    /** Shared read/write access */
-    public static final int PAGE_ACCESS_SW = 1;
-    /** Exclusive read/write access */
-    public static final int PAGE_ACCESS_EW = 2;
-    /** Shared read/write access */
-    public static final int PAGE_ACCESS_SR = 3;
-    /** Exclusive read-only access */
-    public static final int PAGE_ACCESS_ER = 4;
-    /** Shared read/write access, no data saved */
-    public static final int PAGE_ACCESS_SN = 5;
-    /** Exclusive read/write access, no data saved */
-    public static final int PAGE_ACCESS_EN = 6;
-    /** Shared read/write access, no data saved, CP writeable pages */
-    public static final int PAGE_ACCESS_SC = 7;
     /**
      * Create an instance with a value derived by copying from a like instance
      * and instance its formal name at the same time.
@@ -66,9 +53,9 @@ public class PageRangeStructure extends VSMStruct {
      * parameters".
      * @param value a like instance to copy from
      * @param formalName the formal name
-     * @see com.softwoehr.pigiron.access.VSMStruct
+     * @see com.softwoehr.pigiron.access.CountedStruct
      */
-    public PageRangeStructure(VSMStruct value, String formalName) {
+    public ConnectedAdapterStructureCounted(CountedStruct value, String formalName) {
         this(value);
         setFormalName(formalName);
     }
@@ -78,7 +65,7 @@ public class PageRangeStructure extends VSMStruct {
      * null is legal value, means "just clear me".
      * @param value a like instance to copy from
      */
-    public PageRangeStructure(VSMStruct value) {
+    public ConnectedAdapterStructureCounted(CountedStruct value) {
         super(value);
         if (value == null) {
             modelFormalParameters();
@@ -88,7 +75,7 @@ public class PageRangeStructure extends VSMStruct {
     /**
      * Create a read-modelled instance.
      */
-    public PageRangeStructure() {
+    public ConnectedAdapterStructureCounted() {
         super();
         modelFormalParameters();
     }
@@ -98,9 +85,8 @@ public class PageRangeStructure extends VSMStruct {
      */
     public void modelFormalParameters() {
         clear();
-        add(new VSMInt8(-1, "begin_page"));
-        add(new VSMInt8(-1, "end_page"));
-        add(new VSMInt1(-1, "page_access_descriptor"));
+        add(new VSMInt4(-1, "connected_adapter_structure_length"));
+        add(new ConnectedAdapterStructure(null, "connected_adapter_structure"));
     }
 }
 

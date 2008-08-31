@@ -39,68 +39,45 @@ package com.softwoehr.pigiron.access.paramstructs;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * PageRangeStructure implements the {@code page_range_structure} from {@code Shared_Memory_Query}
- * @see com.softwoehr.pigiron.functions.SharedMemoryQuery
+ * ConnectedAdapterArray implements the {@code connected_adapter_array} from {@code Virtual_Network_LAN_Query }
+ * @see com.softwoehr.pigiron.functions.VirtualNetworkLANQuery
  */
-public class PageRangeStructure extends VSMStruct {
+public class ConnectedAdapterArray extends VSMArray {
 
-    /** Shared read/write access */
-    public static final int PAGE_ACCESS_SW = 1;
-    /** Exclusive read/write access */
-    public static final int PAGE_ACCESS_EW = 2;
-    /** Shared read/write access */
-    public static final int PAGE_ACCESS_SR = 3;
-    /** Exclusive read-only access */
-    public static final int PAGE_ACCESS_ER = 4;
-    /** Shared read/write access, no data saved */
-    public static final int PAGE_ACCESS_SN = 5;
-    /** Exclusive read/write access, no data saved */
-    public static final int PAGE_ACCESS_EN = 6;
-    /** Shared read/write access, no data saved, CP writeable pages */
-    public static final int PAGE_ACCESS_SC = 7;
     /**
-     * Create an instance with a value derived by copying from a like instance
-     * and instance its formal name at the same time.
-     * null is legal value, means "just clear me and
-     * re-initialize me with a valid list of yet-unread
-     * parameters".
+     * Create a modelled-for-read instance with a specified formal name.
+     * @param formalName the formal name
+     * @return the modelled instance.
+     */
+    public static ConnectedAdapterArray modelArray(String formalName) {
+        ConnectedAdapterArray result = new ConnectedAdapterArray();
+        result.add(new ConnectedAdapterStructureCounted(null, "connected_adapter_structure_counted"));
+        result.setFormalName(formalName);
+        return result;
+    }
+
+    /**
+     * Create an instance by copying the value from a like instance, and
+     * assign also the formal name.
      * @param value a like instance to copy from
      * @param formalName the formal name
-     * @see com.softwoehr.pigiron.access.VSMStruct
      */
-    public PageRangeStructure(VSMStruct value, String formalName) {
-        this(value);
-        setFormalName(formalName);
+    public ConnectedAdapterArray(VSMArray value, String formalName) {
+        super(value, formalName);
     }
 
     /**
-     * Create an instance with a value derived by copying from a like instance.
-     * null is legal value, means "just clear me".
+     * Create an instance by copying the value from a like instance.
      * @param value a like instance to copy from
      */
-    public PageRangeStructure(VSMStruct value) {
+    public ConnectedAdapterArray(VSMArray value) {
         super(value);
-        if (value == null) {
-            modelFormalParameters();
-        }
     }
 
     /**
-     * Create a read-modelled instance.
+     * Create an instance of undefined value.
      */
-    public PageRangeStructure() {
-        super();
-        modelFormalParameters();
-    }
-
-    /**
-     * Create a read-modelled instance.
-     */
-    public void modelFormalParameters() {
-        clear();
-        add(new VSMInt8(-1, "begin_page"));
-        add(new VSMInt8(-1, "end_page"));
-        add(new VSMInt1(-1, "page_access_descriptor"));
+    public ConnectedAdapterArray() {
     }
 }
 

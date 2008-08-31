@@ -5,9 +5,9 @@ pigparm_import(`com.softwoehr.pigiron.access.*')dnl
 pigparm_class(counted_structure_classname, `CountedStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl
 
 /**
- * counted_structure_classname wrappers the structure_classname from associated_function
+ * counted_structure_classname wrappers the {@code structure_classname} from {@code associated_function}
  * as a PigIron CountedStruct pseudotype.
- * @see com.softwoehr.pigiron.functions.associated_function
+ * @see com.softwoehr.pigiron.functions.associated_function_javaname
  */
 ')dnl
 pigparm_ctors()dnl

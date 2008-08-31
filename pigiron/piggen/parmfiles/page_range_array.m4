@@ -2,11 +2,11 @@ include(`pigarray.m4')dnl \\ page_range_array.m4
 param_namespace(`page_range',`Shared_Memory_Query')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
-pigparm_class(`PageRangeArray', `VSMArray',`com.softwoehr.pigiron.access.paramstructs',`dnl
+pigparm_class(array_classname, `VSMArray',`com.softwoehr.pigiron.access.paramstructs',`dnl
 
 /**
- * PageRangeArray implements the page_range_array from Shared_Memory_Query
- * @see com.softwoehr.pigiron.functions.SharedMemoryQuery
+ * PageRangeArray implements the {@code page_range_array} from {@code associated_function}
+ * @see com.softwoehr.pigiron.functions.associated_function_javaname
  * @see com.softwoehr.pigiron.access.paramstructs.PageRangeStruct
  */')dnl
 pigparm_ctors()dnl

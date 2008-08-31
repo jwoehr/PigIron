@@ -5,8 +5,8 @@ pigparm_import(`com.softwoehr.pigiron.access.*')dnl
 pigparm_class(structure_classname, `VSMStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl
 
 /**
- * structure_classname implements the structure_formal_name from associated_function
- * @see com.softwoehr.pigiron.functions.associated_function
+ * structure_classname implements the {@code structure_formal_name} from {@code associated_function}
+ * @see com.softwoehr.pigiron.functions.associated_function_javaname
  */')dnl
 pigparm_ctors()dnl
 pigparm_model_start()dnl

@@ -74,11 +74,11 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
      */
     public VSMStruct(VSMStruct value) {
         this();
-        // setValue(value);
-        Iterator<VSMParm> it = iterator();
+        setValue(value);
+        /*Iterator<VSMParm> it = iterator();
         while (it.hasNext()) {
-            add(it.next().copyOf());
-        }
+        add(it.next().copyOf());
+        }*/
     }
 
     /**
@@ -100,9 +100,9 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     }
 
     /**
-     *     /**
-     * Create an instance of specified value.
-     * <tt>null</tt> is legal value, means "just clear me".
+     *
+     * Set instance to specified value.
+     * {@code null} is legal value which means "just clear me".
      * @param value the value
      */
     public void setValue(VSMStruct value) {
@@ -144,7 +144,7 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
         while (i.hasNext()) {
             VSMParm parm = i.next();
             total += parm.paramLength();
-            // /* Debug */ System.err.println("((( In VSMSTruct.paramLength() " + parm + " added " + parm.paramLength() + " for total == " + total);
+        // /* Debug */ System.err.println("((( In VSMSTruct.paramLength() " + parm + " added " + parm.paramLength() + " for total == " + total);
         }
         return total;
     }
