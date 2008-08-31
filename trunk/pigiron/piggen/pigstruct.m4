@@ -110,7 +110,6 @@ pop_divert()dnl
 \\ pigparm_ctors
 define(`pigparm_ctors',`dnl
 push_divert(ctor_stream)dnl
-
     /**
      * Create an instance with a value derived by copying from a like instance
      * and instance its formal name at the same time.
@@ -168,8 +167,8 @@ pushdef(`x_value', $2)dnl
 pushdef(`x_formal_name', $3)dnl
 ifelse(is_type_named_array(x_type),-1,`dnl
 ifelse(x_type(),`CountedString',`dnl
-        add`('new VSMInt4`('`-1', "x_formal_name()`_length'"`)';
-        add`('new x_type()`('x_value(), "x_formal_name()"));)',`dnl
+        add`('new VSMInt4`('`-1', "x_formal_name()`_length'"`)'`)';
+        add`('new VSMString`('x_value(), "x_formal_name()"));',`dnl
         add`('new x_type()(x_value(), "x_formal_name()"));')',`dnl
         add`('x_type()`.modelArray'`('"x_formal_name()"));
 ')

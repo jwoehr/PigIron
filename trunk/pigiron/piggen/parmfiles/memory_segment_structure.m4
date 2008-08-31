@@ -5,8 +5,8 @@ pigparm_import(`com.softwoehr.pigiron.access.*')dnl
 pigparm_class(structure_classname, `VSMStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl
 
 /**
- * structure_classname implements the structure_formal_name from associated_function
- * @see com.softwoehr.pigiron.functions.`'associated_function
+ * structure_classname implements the {@code structure_formal_name} from {@code associated_function}
+ * @see com.softwoehr.pigiron.functions.associated_function_javaname
  */')dnl
 pigparm_constant(`public', `int', `MEMORY_SEGMENT_STATUS_SKELETON', `1', `Skeleton')dnl
 pigparm_constant(`public', `int', `MEMORY_SEGMENT_STATUS_AVAILABLE_NONRESTRICTED', `2', `Available and nonrestricted')dnl

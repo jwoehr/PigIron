@@ -48,6 +48,7 @@ define(`javaize_lc',`lowcase_initial(javaize(`$1'))')
 define(`param_namespace',`dnl
 pushdef(`param_entity_name',`$1')dnl
 pushdef(`associated_function',`$2')dnl
+pushdef(`associated_function_javaname',javaize(`associated_function'))dnl
 pushdef(`structure_formal_name', param_entity_name`_structure')dnl
 pushdef(`counted_structure_formal_name', structure_formal_name`_counted')dnl
 pushdef(`array_formal_name', param_entity_name`_array')dnl
@@ -61,7 +62,10 @@ define(`param_namespace_end',`dnl
 popdef(`array_classname')dnl
 popdef(`counted_structure_classname')dnl
 popdef(`structure_classname')dnl
+popdef(`array_formal_name')dnl
+popdef(`counted_structure_formal_name')dnl
 popdef(`structure_formal_name')dnl
+popdef(`associated_function_javaname')dnl
 popdef(`associated_function')dnl
 popdef(`param_entity_name')dnl
 ')
