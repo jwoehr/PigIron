@@ -8,14 +8,14 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 
 /**
  * {@code function_formal_name } VSMAPI Function
- * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
+ * To non-specify the  {@code channel_path_id} just leave it at its default value of {@code ""}.
  */')dnl
 pigfunc_constant(`public', `int', `ADAPTER_TYPE_HIPERSOCKETS', `1', `Simulated HiperSockets NIC')dnl
 pigfunc_constant(`public', `int', `ADAPTER_TYPE_QDIO', `2', `Simulated QDIO NIC')dnl
 pigfunc_attribute(`private', `', `String', javaize_lc(`image_device_number'), `null', `', `The virtual device address of the new adapter')dnl
 pigfunc_attribute(`private', `', `int', javaize_lc(`adapter_type'), `-1', `', `The adapter type')dnl
 pigfunc_attribute(`private', `', `int', javaize_lc(`network_adapter_devices'), `-1', `', `The number of virtual devices associated with this adapter')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`channel_path_id'), `null', `', `For use only when configuring a second-level z/OS system where it is used to specify the hex CHPID numbers for the first- and second-level systems')dnl
+pigfunc_attribute(`private', `', `String', javaize_lc(`channel_path_id'), `""', `', `For use only when configuring a second-level z/OS system where it is used to specify the hex CHPID numbers for the first- and second-level systems')dnl
 pigfunc_ctors(`String', `image_device_number', javaize_lc(`image_device_number'),
 `int', `adapter_type', javaize_lc(`adapter_type'),
 `int', `network_adapter_devices', javaize_lc(`network_adapter_devices'),
@@ -25,7 +25,7 @@ pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_id
 pigfunc_compose_input_parm(`CountedString', `get_imageDeviceNumber()', `image_device_number')dnl
 pigfunc_compose_input_parm(`VSMInt1', `get_'javaize_lc(`adapter_type')`()', `adapter_type')dnl
 pigfunc_compose_input_parm(`VSMInt4', `get_'javaize_lc(`network_adapter_devices')`()', `network_adapter_devices')dnl
-pigfunc_compose_optional_input_parm(`CountedString', `get_'javaize_lc(`channel_path_id')`()', `channel_path_id')dnl
+pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`channel_path_id')`()', `channel_path_id')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl
@@ -43,11 +43,10 @@ pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOExc
             System.exit(1);
         }
 
-        if (argv.length == 8) {
+        if (argv.length == 8) { // channel_path_id not specified
             System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5] + " " + argv[6] + " " + argv[7]);
-            instance = new function_classname()(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5], Integer.valueOf(argv[6]).intValue(), Integer.valueOf(argv[7]).intValue(), `null');
-            instance.set_optional_channel_path_id`('`false'`)';
-        } else { // argv.length == 9
+            instance = new function_classname()(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5], Integer.valueOf(argv[6]).intValue(), Integer.valueOf(argv[7]).intValue(), `""');
+        } else { // argv.length == 9 // channel_path_id yea specified
             System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5] + " " + argv[6] + " " + argv[7] + " " + argv[8]);
             instance = new function_classname()(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5], Integer.valueOf(argv[6]).intValue(), Integer.valueOf(argv[7]).intValue(), argv[8]);
         }
