@@ -41,34 +41,19 @@ import java.util.Iterator;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * {@code Virtual_Network_LAN_Create} VSMAPI Function
+ * {@code Virtual_Network_LAN_Delete} VSMAPI Function
  */
-public class VirtualNetworkLANCreate extends VSMCall {
+public class VirtualNetworkLANDelete extends VSMCall {
 
     /**
      * The transmitted name of the function.
      */
-    public static final String FUNCTION_NAME = "Virtual_Network_LAN_Create";
-
-    /** Simulated HiperSockets NIC */
-    public static final int LAN_TYPE_HIPERSOCKETS = 1;
-
-    /** Simulated QDIO NIC */
-    public static final int LAN_TYPE_QDIO = 2;
-
-    /** Unspecified */
-    public static final int TRANSPORT_TYPE_UNSPECIFIED = 0;
-
-    /** IP */
-    public static final int TRANSPORT_TYPE_IP = 1;
-
-    /** Ethernet */
-    public static final int TRANSPORT_TYPE_ETHERNET = 2;
+    public static final String FUNCTION_NAME = "Virtual_Network_LAN_Delete";
 
     /**
      *  Create an instance of the function call with important fields not instanced.
      */
-    public VirtualNetworkLANCreate() {
+    public VirtualNetworkLANDelete() {
     }
 
     /**
@@ -80,10 +65,8 @@ public class VirtualNetworkLANCreate extends VSMCall {
      * @param target_identifier the target of the VSMAPI function
      * @param lan_name instances {@code lanName}
      * @param lan_owner instances {@code lanOwner}
-     * @param lan_type instances {@code lanType}
-     * @param transport_type instances {@code transportType}
      */
-    public VirtualNetworkLANCreate(String hostname, int port, String userid, String password, String target_identifier, String lan_name, String lan_owner, int lan_type, int transport_type) {
+    public VirtualNetworkLANDelete(String hostname, int port, String userid, String password, String target_identifier, String lan_name, String lan_owner) {
         this();
         setHostname(hostname);
         setPort(port);
@@ -92,8 +75,6 @@ public class VirtualNetworkLANCreate extends VSMCall {
         setTarget_identifier(target_identifier);
         set_lanName(lan_name);
         set_lanOwner(lan_owner);
-        set_lanType(lan_type);
-        set_transportType(transport_type);
     }
 
     /** The name of the guest LAN segment to connect the virtual image */
@@ -101,12 +82,6 @@ public class VirtualNetworkLANCreate extends VSMCall {
 
     /** The virtual image owning the guest LAN segment to be created */
     private String lanOwner = "";
-
-    /** The type of guest LAN segment */
-    private int lanType = 0;
-
-    /** Specifies the transport mechanism to be used for guest LANs and virtual switches */
-    private int transportType = TRANSPORT_TYPE_UNSPECIFIED;
 
     /** Set the value of {@code  lanName }.
      * @param val The value to set {@code  lanName }.
@@ -134,34 +109,6 @@ public class VirtualNetworkLANCreate extends VSMCall {
      */
     public String get_lanOwner() {
         return lanOwner;
-    }
-
-    /** Set the value of {@code  lanType }.
-     * @param val The value to set {@code  lanType }.
-     */
-    public void set_lanType(int val) {
-        lanType = val;
-    }
-
-    /** Get the value of {@code  lanType }.
-     * @return The value of {@code  lanType }.
-     */
-    public int get_lanType() {
-        return lanType;
-    }
-
-    /** Set the value of {@code  transportType }.
-     * @param val The value to set {@code  transportType }.
-     */
-    public void set_transportType(int val) {
-        transportType = val;
-    }
-
-    /** Get the value of {@code  transportType }.
-     * @return The value of {@code  transportType }.
-     */
-    public int get_transportType() {
-        return transportType;
     }
 
     /**
@@ -192,8 +139,6 @@ public class VirtualNetworkLANCreate extends VSMCall {
         tempString = new VSMString(get_lanOwner(), "lan_owner");
         parameterArray.add(new VSMInt4(tempString.paramLength(), "lan_owner_length"));
         parameterArray.add(tempString);
-        parameterArray.add(new VSMInt1(get_lanType(), "lan_type"));
-        parameterArray.add(new VSMInt1(get_transportType(), "transport_type"));
         VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
         parameterArray.insertElementAt(outputLength, 0);
         setInParams(parameterArray);
@@ -236,15 +181,15 @@ public class VirtualNetworkLANCreate extends VSMCall {
      */
     public static void main(String[] argv) throws IOException, VSMException {
 
-        VirtualNetworkLANCreate instance = null;
+        VirtualNetworkLANDelete instance = null;
 
-        if (argv.length != 9) {
-            System.out.println("usage: args are:\ninetaddr port user pw target lan_name lan_owner lan_type transport_type");
+        if (argv.length != 7) {
+            System.out.println("usage: args are:\ninetaddr port user pw target lan_name lan_owner");
             System.exit(1);
         }
 
-        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5] + " " + argv[6] + " " + argv[7] + " " + argv[8]);
-        instance = new VirtualNetworkLANCreate(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4],  argv[5], argv[6],  Integer.valueOf(argv[7]).intValue(),  Integer.valueOf(argv[8]).intValue());
+        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5] + " " + argv[6]);
+        instance = new VirtualNetworkLANDelete(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4],  argv[5], argv[6]);
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
