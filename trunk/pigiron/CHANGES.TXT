@@ -32,6 +32,7 @@ Functions additionally supported in this release:
     * Virtual_Network_Adapter_Connect_LAN
     * Virtual_Network_Adapter_Connect_Vswitch
     * Virtual_Network_Adapter_Create
+    * Virtual_Network_Adapter_Create_DM
     * Virtual_Network_Adapter_Delete
     * Virtual_Network_Adapter_Delete_DM
     * Virtual_Network_Adapter_Disconnect
