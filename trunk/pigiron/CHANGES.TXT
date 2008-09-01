@@ -39,6 +39,7 @@ Functions additionally supported in this release:
     * Virtual_Network_LAN_Create
     * Virtual_Network_LAN_Delete
     * Virtual_Network_LAN_Query
+    * Virtual_Network_Vswitch_Query
 
 2008-08-27 0.3 -- release more functionality and improved autogenerator.
 

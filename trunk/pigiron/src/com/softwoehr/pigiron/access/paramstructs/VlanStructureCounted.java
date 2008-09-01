@@ -39,46 +39,55 @@ package com.softwoehr.pigiron.access.paramstructs;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * PageRangeArray implements the {@code page_range_array} from {@code Shared_Memory_Query}
- * @see com.softwoehr.pigiron.functions.SharedMemoryQuery
- * @see com.softwoehr.pigiron.access.paramstructs.PageRangeStructureCounted
+ * VlanStructureCounted wrappers the {@code VlanStructure} from {@code Virtual_Network_Vswitch_Query}
+ * as a PigIron CountedStruct pseudotype.
+ * @see com.softwoehr.pigiron.functions.VirtualNetworkVswitchQuery
  */
-public class PageRangeArray extends VSMArray {
+
+public class VlanStructureCounted extends CountedStruct {
 
     /**
-     * Create a modelled-for-read instance with a specified formal name.
+     * Create an instance with a value derived by copying from a like instance
+     * and instance its formal name at the same time.
+     * null is legal value, means "just clear me and
+     * re-initialize me with a valid list of yet-unread
+     * parameters".
+     * @param value a like instance to copy from
      * @param formalName the formal name
-     * @return the modelled instance.
+     * @see com.softwoehr.pigiron.access.CountedStruct
      */
-    public static PageRangeArray modelArray(String formalName) {
-        PageRangeArray result = new PageRangeArray();
-        result.add(new PageRangeStructureCounted(null, "page_range_structure_counted"));
-        result.setFormalName(formalName);
-        return result;
+    public VlanStructureCounted(CountedStruct value, String formalName) {
+        this(value);
+        setFormalName(formalName);
     }
 
     /**
-     * Create an instance by copying the value from a like instance, and
-     * assign also the formal name.
-     * @param value a like instance to copy from
-     * @param formalName the formal name
-     */
-    public PageRangeArray(VSMArray value, String formalName) {
-        super(value, formalName);
-    }
-
-    /**
-     * Create an instance by copying the value from a like instance.
+     * Create an instance with a value derived by copying from a like instance.
+     * null is legal value, means "just clear me".
      * @param value a like instance to copy from
      */
-    public PageRangeArray(VSMArray value) {
+    public VlanStructureCounted(CountedStruct value) {
         super(value);
+        if (value == null) {
+            modelFormalParameters();
+        }
     }
 
     /**
-     * Create an instance of undefined value.
+     * Create a read-modelled instance.
      */
-    public PageRangeArray() {
+    public VlanStructureCounted() {
+        super();
+        modelFormalParameters();
+    }
+
+    /**
+     * Create a read-modelled instance.
+     */
+    public void modelFormalParameters() {
+        clear();
+        add(new VSMInt4(-1, "vlan_structure_length"));
+        add(new VlanStructure(null, "vlan_structure"));
     }
 }
 
