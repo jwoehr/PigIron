@@ -39,6 +39,7 @@ import com.softwoehr.pigiron.functions.ImageStatusQuery;
 import com.softwoehr.pigiron.functions.NameListQuery;
 import com.softwoehr.pigiron.functions.QueryAPIFunctionalLevel;
 import com.softwoehr.pigiron.functions.SharedMemoryQuery;
+import com.softwoehr.pigiron.functions.VMRMMeasurementQuery;
 import com.softwoehr.pigiron.functions.VirtualNetworkAdapterQuery;
 import java.io.IOException;
 
@@ -89,6 +90,8 @@ public class Main {
         QueryAPIFunctionalLevel.main(argv);
         System.out.println("========= SharedMemoryQuery =========");
         SharedMemoryQuery.main(argv);
+        System.out.println("========= VMRMMeasurementQuery =========");
+        VMRMMeasurementQuery.main(argv);
         System.out.println("========= VirtualNetworkAdapterQuery =========");
         VirtualNetworkAdapterQuery.main(argv);
         System.out.println("=======END========");

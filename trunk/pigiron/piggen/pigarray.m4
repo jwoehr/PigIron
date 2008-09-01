@@ -156,7 +156,13 @@ push_divert(model_stream)dnl
 pushdef(`x_type', $1)dnl
 pushdef(`x_value', $2)dnl
 pushdef(`x_formal_name', $3)dnl
-        result.add(new 'x_type()`('x_value()`, "'x_formal_name()`"));
+ifelse(is_type_named_array(x_type),-1,`dnl
+ifelse(x_type(),`CountedString',`dnl
+        result.add`('new VSMInt4`('`-1', "x_formal_name()`_length'"`)'`)';
+        result.add`('new VSMString`('x_value(), "x_formal_name()"));',`dnl
+        result.add`('new x_type()(x_value(), "x_formal_name()"));')',`dnl
+        result.add`('x_type()`.modelArray'`('"x_formal_name()"));
+')
 popdef(`x_formal_name')dnl
 popdef(`x_value')dnl
 popdef(`x_type')dnl
