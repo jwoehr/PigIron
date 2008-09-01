@@ -39,15 +39,49 @@ package com.softwoehr.pigiron.access.paramstructs;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * LanStructure implements the {@code lan_structure} from {@code Virtual_Network_LAN_Query}
- * @see com.softwoehr.pigiron.functions.VirtualNetworkLANQuery
+ * RealDeviceStructure implements the {@code real_device_structure} from {@code VirtualNetworkVswitchQuery}
+ * @see com.softwoehr.pigiron.functions.
  */
-public class LanStructure extends VSMStruct {
+public class RealDeviceStructure extends VSMStruct {
 
-    /** Simulated HiperSockets NIC */
-    public static final int LAN_TYPE_HIPERSOCKETS = 1;
-    /** Simulated QDIO NIC */
-    public static final int LAN_TYPE_QDIO = 2;
+    /** Device is not active */
+    public static final int DEVICE_STATUS_NOT_ACTIVE = 0;
+    /** Device is active */
+    public static final int DEVICE_STATUS_ACTIVE = 1;
+    /** Device is a backup device */
+    public static final int DEVICE_STATUS_BACKUP_DEVICE = 2;
+    /** No error */
+    public static final int DEVICE_ERROR_STATUS_NO_ERROR = 0;
+    /** Port name conflict */
+    public static final int DEVICE_ERROR_STATUS_PORT_NAME_CONFLICT = 1;
+    /** No layer 2 support */
+    public static final int DEVICE_ERROR_STATUS_NO_LAYER_2_SUPPORT = 2;
+    /** Real device does not exist */
+    public static final int DEVICE_ERROR_STATUS_REAL_DEVICE_DOES_NOT_EXIST = 3;
+    /** Real device is attached elsewhere */
+    public static final int DEVICE_ERROR_STATUS_REAL_DEVICE_ATTACHED_ELSEWHERE = 4;
+    /** Real device is not QDIO OSA-E */
+    public static final int DEVICE_ERROR_STATUS_REAL_DEVICE_NOT_QDIO_OSA_E = 5;
+    /** Initialization error */
+    public static final int DEVICE_ERROR_STATUS_INITIALIZATION_ERROR = 6;
+    /** Stalled OSA */
+    public static final int DEVICE_ERROR_STATUS_STALLED_OSA = 7;
+    /** Stalled controller */
+    public static final int DEVICE_ERROR_STATUS_STALLED_CONTROLLER = 8;
+    /** Controller connection severed */
+    public static final int DEVICE_ERROR_STATUS_CONTROLLER_CONNECTION_SEVERED = 9;
+    /** Primary or secondary routing conflict */
+    public static final int DEVICE_ERROR_STATUS_PRIMARY_SECONDARY_ROUTING_CONFLICT = 10;
+    /** Device is offline */
+    public static final int DEVICE_ERROR_STATUS_DEVICE_OFFLINE = 11;
+    /** Device was detached */
+    public static final int DEVICE_ERROR_STATUS_DEVICE_DETACHED = 12;
+    /** IP/Ethernet type mismatch */
+    public static final int DEVICE_ERROR_STATUS_IP_ETHERNET_TYPE_MISMATCH = 13;
+    /** Insufficient memory in controller virtual machine */
+    public static final int DEVICE_ERROR_STATUS_INSUFFICIENT_MEMORY_CONTROLLER_VIRTUAL_MACHINE = 14;
+    /** TCP/IP configuration conflict */
+    public static final int DEVICE_ERROR_STATUS_TCP_IP_CONFIGURATION_CONFLICT = 15;
     /**
      * Create an instance with a value derived by copying from a like instance
      * and instance its formal name at the same time.
@@ -58,7 +92,7 @@ public class LanStructure extends VSMStruct {
      * @param formalName the formal name
      * @see com.softwoehr.pigiron.access.VSMStruct
      */
-    public LanStructure(VSMStruct value, String formalName) {
+    public RealDeviceStructure(VSMStruct value, String formalName) {
         this(value);
         setFormalName(formalName);
     }
@@ -68,7 +102,7 @@ public class LanStructure extends VSMStruct {
      * null is legal value, means "just clear me".
      * @param value a like instance to copy from
      */
-    public LanStructure(VSMStruct value) {
+    public RealDeviceStructure(VSMStruct value) {
         super(value);
         if (value == null) {
             modelFormalParameters();
@@ -78,7 +112,7 @@ public class LanStructure extends VSMStruct {
     /**
      * Create a read-modelled instance.
      */
-    public LanStructure() {
+    public RealDeviceStructure() {
         super();
         modelFormalParameters();
     }
@@ -88,11 +122,16 @@ public class LanStructure extends VSMStruct {
      */
     public void modelFormalParameters() {
         clear();
-        add(new VSMInt4(-1, "lan_name_length"));
-        add(new VSMString("", "lan_name"));
-        add(new VSMInt4(-1, "lan_owner_length"));
-        add(new VSMString("", "lan_owner"));
-        add(new VSMInt1(-0, "lan_type"));
+        add(new VSMInt4(-1, "real_device_address"));
+        add(new VSMInt4(-1, "controller_name_length"));
+        add(new VSMString("", "controller_name"));
+        add(new VSMInt4(-1, "port_name_length"));
+        add(new VSMString("", "port_name"));
+        add(new VSMInt1(0, "device_status"));
+        add(new VSMInt1(0, "device_error_status"));
+        add(new VSMInt4(-1, "authorized_user_array_length"));
+        add(AuthorizedUserArray.modelArray("authorized_user_array"));
+
         add(new VSMInt4(-1, "connected_adapter_array_length"));
         add(ConnectedAdapterArray.modelArray("connected_adapter_array"));
 

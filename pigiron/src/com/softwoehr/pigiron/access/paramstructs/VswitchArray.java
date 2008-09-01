@@ -39,20 +39,20 @@ package com.softwoehr.pigiron.access.paramstructs;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * PageRangeArray implements the {@code page_range_array} from {@code Shared_Memory_Query}
- * @see com.softwoehr.pigiron.functions.SharedMemoryQuery
- * @see com.softwoehr.pigiron.access.paramstructs.PageRangeStructureCounted
+ * VswitchArray implements the {@code vswitch_array} from {@code Virtual_Network_Vswitch_Query}
+ * @see com.softwoehr.pigiron.functions.VirtualNetworkVswitchQuery
+ * @see com.softwoehr.pigiron.access.paramstructs.VswitchStructureCounted
  */
-public class PageRangeArray extends VSMArray {
+public class VswitchArray extends VSMArray {
 
     /**
      * Create a modelled-for-read instance with a specified formal name.
      * @param formalName the formal name
      * @return the modelled instance.
      */
-    public static PageRangeArray modelArray(String formalName) {
-        PageRangeArray result = new PageRangeArray();
-        result.add(new PageRangeStructureCounted(null, "page_range_structure_counted"));
+    public static VswitchArray modelArray(String formalName) {
+        VswitchArray result = new VswitchArray();
+        result.add(new VswitchStructureCounted(null, "vswitch_structure_counted"));
         result.setFormalName(formalName);
         return result;
     }
@@ -63,7 +63,7 @@ public class PageRangeArray extends VSMArray {
      * @param value a like instance to copy from
      * @param formalName the formal name
      */
-    public PageRangeArray(VSMArray value, String formalName) {
+    public VswitchArray(VSMArray value, String formalName) {
         super(value, formalName);
     }
 
@@ -71,14 +71,14 @@ public class PageRangeArray extends VSMArray {
      * Create an instance by copying the value from a like instance.
      * @param value a like instance to copy from
      */
-    public PageRangeArray(VSMArray value) {
+    public VswitchArray(VSMArray value) {
         super(value);
     }
 
     /**
      * Create an instance of undefined value.
      */
-    public PageRangeArray() {
+    public VswitchArray() {
     }
 }
 

@@ -18,7 +18,7 @@ pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_id
 pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`switch_name')(), `switch_name')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
-pigfunc_compose_output_parm(`VSMInt4', `null', `vswitch_array_length')dnl
+pigfunc_compose_output_parm(`VSMInt4', `-1', `vswitch_array_length')dnl
 pigfunc_compose_output_parm(`VswitchArray', `null', `vswitch_array')dnl
 pigfunc_compose_output_end()dnl
 pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException`,' VSMException', `dnl
@@ -37,7 +37,6 @@ pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOExc
 
         System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5]);
         instance = new function_classname()(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5]);
-        }
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
