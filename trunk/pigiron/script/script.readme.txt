@@ -1,0 +1,11 @@
+pigiron/script
+
+Here is where we will put any useful and interesting scripting for PigIron
+that we come up with. I've started with the ./fiji subdir which is scripting
+for PigIron in FIJI the ForthIsh Java Interpreter http://fiji.sourceforge.net
+
+
+All files are of course covered by the license.txt file found in the main or doc
+directory of the PigIron Project.
+
+2008-09-01
