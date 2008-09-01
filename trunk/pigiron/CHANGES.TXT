@@ -27,6 +27,7 @@ Functions additionally supported in this release:
     * Image_Device_Undedicate
     * Shared_Memory_Create
     * Shared_Memory_Delete
+    * Shared_Memory_Replace
     * Virtual_Channel_Connection_Create
     * Virtual_Channel_Connection_Delete
     * Virtual_Network_Adapter_Connect_LAN
@@ -42,6 +43,7 @@ Functions additionally supported in this release:
     * Virtual_Network_Vswitch_Create
     * Virtual_Network_Vswitch_Delete
     * Virtual_Network_Vswitch_Query
+    * Virtual_Network_Vswitch_Set
     * VMRM_Measurement_Query
 
 Many fixes and small changes to PigGen and the style of description files.
