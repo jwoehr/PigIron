@@ -1,15 +1,13 @@
-include(`pigfunc.m4')dnl \\ virtual_network_vswitch_create.m4
-function_namespace(`Virtual_Network_Vswitch_Create',`vswitch_array')dnl
+include(`pigfunc.m4')dnl \\ virtual_network_vswitch_set.m4
+function_namespace(`Virtual_Network_Vswitch_Set')dnl
 pigfunc_start()dnl
 pigfunc_import(`java.io.IOException')dnl
 pigfunc_import(`java.util.Iterator')dnl
 pigfunc_import(`com.softwoehr.pigiron.access.*')dnl
-pigfunc_import(`com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname')dnl
 pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',function_formal_name,`dnl
 
 /**
  * {@code function_formal_name} VSMAPI Function
- * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
  */')dnl
 pigfunc_constant(`public', `int', `CONNECTION_VALUE_UNSPECIFIED', `0', `Unspecified')dnl
 pigfunc_constant(`public', `int', `CONNECTION_VALUE_ACTIVATE', `1', `Activate connection')dnl
@@ -31,14 +29,15 @@ pigfunc_constant(`public', `int', `GVRP_VALUE_UNSPECIFIED', `0', `GVRP unspecifi
 pigfunc_constant(`public', `int', `GVRP_VALUE_GVRP', `1', `GVRP')dnl
 pigfunc_constant(`public', `int', `GVRP_VALUE_NOGVRP', `2', `non-GVRP')dnl
 pigfunc_attribute(`private', `', `String', javaize_lc(`switch_name'), `""', `', `The name of the virtual switch')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`real_device_address'), `""', `', `The real device address of a real OSA-Express QDIO device used to create the switch')dnl
+pigfunc_attribute(`private', `', `String', javaize_lc(`grant_userid'), `""', `', `A userid to be added to the access list for the specified virtual switch')dnl
+pigfunc_attribute(`private', `', `String', javaize_lc(`user_vlan_id'), `""', `', `The user VLAN ID')dnl
+pigfunc_attribute(`private', `', `String', javaize_lc(`revoke_userid'), `""', `', `A userid to be removed from the access list for the specified virtual switch')dnl
+pigfunc_attribute(`private', `', `String', javaize_lc(`real_device_address'), `""', `', `The real device address of a real OSA-Express QDIO device')dnl
 pigfunc_attribute(`private', `', `String', javaize_lc(`port_name'), `""', `', `The name used to identify the OSA Expanded adapter')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`controller_name'), `"*"', `', `The userid controlling the real device or * for any available device')dnl
+pigfunc_attribute(`private', `', `String', javaize_lc(`controller_name'), `"*"', `', `The userid controlling the real device or * for any available')dnl
 pigfunc_attribute(`private', `', `int', javaize_lc(`connection_value'), `0', `', `Activate/do not')dnl
 pigfunc_attribute(`private', `', `int', javaize_lc(`queue_memory_limit'), `0', `', `Specifies the QDIO buffer size in megabytes.')dnl
 pigfunc_attribute(`private', `', `int', javaize_lc(`routing_value'), `0', `', `Specifies whether the OSA-Express QDIO device will act as a router to the virtual switch')dnl
-pigfunc_attribute(`private', `', `int', javaize_lc(`transport_type'), `0', `', `Specifies the transport mechanism to be used for the virtual switch')dnl
-pigfunc_attribute(`private', `', `int', javaize_lc(`vlan_id'), `-1', `', `The VLAN ID')dnl
 pigfunc_attribute(`private', `', `int', javaize_lc(`port_type'), `-1', `', `Specifies the port type')dnl
 pigfunc_attribute(`private', `', `int', javaize_lc(`update_system_config_indicator'), `-1', `', `Configuration options')dnl
 pigfunc_attribute(`private', `', `String', javaize_lc(`system_config_name'), `""', `', `File name of the system configuration file')dnl
@@ -56,14 +55,15 @@ pigfunc_ctors(`String', `switch_name', javaize_lc(`switch_name'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
 pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`switch_name')(), `switch_name')dnl
+pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`grant_userid'()), `grant_userid')dnl
+pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`user_vlan_id'()), `user_vlan_id')dnl
+pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`revoke_userid')(),`revoke_userid')dnl
 pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`real_device_address')(), `real_device_address')dnl
 pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`port_name'()), `port_name')dnl
 pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`controller_name')(),`controller_name')dnl
 pigfunc_compose_input_parm(VSMInt1, `get_'javaize_lc(`connection_value')(),`connection_value')dnl
 pigfunc_compose_input_parm(VSMInt4, `get_'javaize_lc(`queue_memory_limit')(),`queue_memory_limit')dnl
 pigfunc_compose_input_parm(VSMInt1, `get_'javaize_lc(`routing_value')(),`routing_value')dnl
-pigfunc_compose_input_parm(VSMInt1, `get_'javaize_lc(`transport_type')(),`transport_type')dnl
-pigfunc_compose_input_parm(VSMInt4, `get_'javaize_lc(`vlan_id')(),`vlan_id')dnl
 pigfunc_compose_input_parm(VSMInt1, `get_'javaize_lc(`port_type')(),`port_type')dnl
 pigfunc_compose_input_parm(VSMInt1, `get_'javaize_lc(`update_system_config_indicator')(),`update_system_config_indicator')dnl
 pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`system_config_name')(),`system_config_name')dnl

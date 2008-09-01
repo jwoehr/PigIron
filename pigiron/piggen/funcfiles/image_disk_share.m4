@@ -32,7 +32,7 @@ pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`image_disk_number
 pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`target_image_name')`()'', `target_image_name')dnl
 pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`target_image_disk_number')`()'', `target_image_disk_number')dnl
 pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`read_write_mode')`()'', `read_write_mode')dnl
-pigfunc_compose_optional_input_parm(`CountedString', `get_`'javaize_lc(`optional_password')`()'', `optional_password')dnl
+pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`optional_password')`()'', `optional_password')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl

@@ -361,7 +361,7 @@ ifelse(x_type(),`CountedString',`dnl
         parameterArray.add`('new VSMInt4`('`-1', "x_formal_name()`_length'"`)'`)';
         parameterArray.add`('new VSMString`('x_value(), "x_formal_name()"));',`dnl
         parameterArray.add`('new x_type()(x_value(), "x_formal_name()"));')',`dnl
-        parameterArray.add`('x_type()`.modelArray'`('"x_formal_name()"));
+        parameterArray.add`('x_type()`.modelArray'`('"x_formal_name()"));dnl
 ')
 popdef(`x_formal_name')dnl
 popdef(`x_value')dnl
