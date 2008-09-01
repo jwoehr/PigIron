@@ -1,4 +1,4 @@
-include(`pigfunc.m4')dnl \\ shared_memory_query.m4
+include(`pigfunc.m4')dnl \\ shared_memory_create.m4
 function_namespace(`Shared_Memory_Create')dnl
 pigfunc_start()dnl
 pigfunc_import(`java.io.IOException')dnl
