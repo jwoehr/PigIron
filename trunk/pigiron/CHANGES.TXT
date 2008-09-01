@@ -44,6 +44,8 @@ Functions additionally supported in this release:
     * Virtual_Network_Vswitch_Query
     * VMRM_Measurement_Query
 
+Many fixes and small changes to PigGen and the style of description files.
+
 2008-08-27 0.3 -- release more functionality and improved autogenerator.
 
 Functions additionally supported in this release:
