@@ -42,6 +42,7 @@ Functions additionally supported in this release:
     * Virtual_Network_Vswitch_Create
     * Virtual_Network_Vswitch_Delete
     * Virtual_Network_Vswitch_Query
+    * VMRM_Measurement_Query
 
 2008-08-27 0.3 -- release more functionality and improved autogenerator.
 
