@@ -12,6 +12,12 @@ to be found in the same directory as this README.TXT file.
 
 CHANGES
 -------
+2008-09-?? 0.5 -- more VSMAPI functions
+
+Functions additionally supported in this release:
+
+    * Image_Create_DM
+
 2008-09-01 0.4 -- release more functionality and beginning of business objects
 and web objects
 
