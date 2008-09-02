@@ -45,6 +45,7 @@ Functions additionally supported in this release:
     * Virtual_Network_Vswitch_Query
     * Virtual_Network_Vswitch_Set
     * VMRM_Measurement_Query
+    * VMRM_Configuration_Update
 
 Many fixes and small changes to PigGen and the style of description files.
 
