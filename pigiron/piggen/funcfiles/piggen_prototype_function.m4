@@ -7,7 +7,7 @@ pigfunc_import(`com.softwoehr.pigiron.access.*')dnl \\ function_classname and fu
 pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',function_formal_name,`dnl
 
 /**
- * <tt>function_formal_name</tt> VSMAPI Function
+ * {@code function_formal_name} VSMAPI Function
  * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
  */')dnl \\ significant_parameter_formal_name bound in namespace
 dnl
@@ -29,7 +29,7 @@ pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl
 pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException`,' VSMException', `dnl
-     * You can execute the VSMAPI call from <tt>main()</tt>, try it
+     * You can execute the VSMAPI call from {@code main()}, try it
      * with no args to see the usage message.
      * @param argv array of commandline args
      * @throws IOException on comm error
@@ -37,13 +37,14 @@ pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOExc
 
         function_classname instance = null;
 
-        if (argv.length != 9) {
-            System.out.println("usage: args are:\ninetaddr port user pw target_id name buried_int some_array");
+        if (argv.length != 8) {
+            System.out.println("usage: args are:\ninetaddr port user pw target_id name buried_int");
             System.exit(1);
         }
 
         System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5] + " " + argv[6] + " " + argv[7]);
-        instance = new function_classname()(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5], Integer.valueOf(argv[6]).intValue(), Integer.valueOf(argv[7]).intValue(), java.lang.Class.getClass().classForName([argv[8]));
+ 	significant_parameter_classname spc = new significant_parameter_classname`(someval, notherval, astring, etc)';
+        instance = new function_classname()(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5], Integer.valueOf(argv[6]).intValue(), Integer.valueOf(argv[7]).intValue(), spc);
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
