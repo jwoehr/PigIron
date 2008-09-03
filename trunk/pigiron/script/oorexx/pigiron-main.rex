@@ -36,6 +36,5 @@ calls Pigiron's Main.main()
 */
 
 parse arg hostname port userid password targetid
-result=callmain('com.softwoehr.pigiron.Main' hostname port userid password targetid)
-
-
+call 'callmain' 'com.softwoehr.pigiron.Main' hostname port userid password targetid
+exit 0
