@@ -51,6 +51,14 @@ import java.io.IOException;
 public class Main {
 
     /**
+     * Just testing
+     * @return a meaningless string for now
+     */
+    public static String servletString() {
+        return "Hello from PigIron Main";
+    }
+
+    /**
      * Currently runs:
      *  <ul>
      * <li><tt>ImageActiveConfigurationQuery.main(argv)</tt></li>
