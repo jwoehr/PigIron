@@ -10,7 +10,9 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
  * {@code function_formal_name} VSMAPI Function
  * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
  */')dnl \\ significant_parameter_formal_name bound in namespace
-dnl
+pigfunc_constant(`public', `int', `SOME_ASPECT_UNSPECIFIED', `0', `Unspecified')dnl
+pigfunc_constant(`public', `int', `SOME_ASPECT_YEA', `1', `Do not')dnl
+pigfunc_constant(`public', `int', `SOME_ASPECT_NAY', `2', `Do')dnl
 pigfunc_attribute(`private', `', `String',  member_name(`name'), `"*"', `', `The name to be added to the list specified in target_identifier.')dnl
 pigfunc_attribute(`private', `', `int', member_name(`some_buried_int'), `0', `', `Someone buried this int.')dnl
 pigfunc_attribute(`private', `', `int', member_name(`some_buried_int4'), `0', `', `Someone buried this int4.')dnl

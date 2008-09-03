@@ -17,6 +17,9 @@ CHANGES
 Functions additionally supported in this release:
 
     * Image_Create_DM
+    * Image_Delete_DM
+    * Image_Device_Dedicate_DM
+    * Image_Device_Undedicate_DM
 
 2008-09-01 0.4 -- release more functionality and beginning of business objects
 and web objects
