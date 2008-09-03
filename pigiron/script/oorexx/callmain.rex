@@ -35,12 +35,11 @@ Calls the static void main() method of a class
 */
 
 parse arg myclassname myargs
-say "args are" myargs
 myclass=bsf.loadClass(myclassname)
 myargarray=bsf.createArray("String.class", myargs~words)
 do i = 1 to myargs~words
 myargarray[i]= myargs~word(i)
 end
-result=myclass~main(myargarray)
+myclass~main(myargarray)
 
 ::requires BSF.CLS
