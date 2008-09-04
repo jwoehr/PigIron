@@ -20,6 +20,7 @@ Functions additionally supported in this release:
     * Image_Delete_DM
     * Image_Device_Dedicate_DM
     * Image_Device_Undedicate_DM
+    * Virtual_Network_Adapter_Connect_Vswitch_DM
     * Virtual_Network_Adapter_Disconnect_DM
 
 2008-09-01 0.4 -- release more functionality and beginning of business objects
