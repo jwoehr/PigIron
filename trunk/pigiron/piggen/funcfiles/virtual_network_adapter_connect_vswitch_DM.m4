@@ -1,5 +1,5 @@
-include(`pigfunc.m4')dnl \\ virtual_network_adapter_connect_vswitch.m4
-function_namespace(`Virtual_Network_Adapter_Connect_Vswitch')dnl
+include(`pigfunc.m4')dnl \\ virtual_network_adapter_connect_vswitch_DM.m4
+function_namespace(`Virtual_Network_Adapter_Connect_Vswitch_DM')dnl
 pigfunc_start()dnl
 pigfunc_import(`java.io.IOException')dnl
 pigfunc_import(`java.util.Iterator')dnl

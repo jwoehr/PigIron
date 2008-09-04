@@ -41,19 +41,19 @@ import java.util.Iterator;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * {@code Virtual_Network_Adapter_Connect_Vswitch } VSMAPI Function
+ * {@code Virtual_Network_Adapter_Connect_Vswitch_DM } VSMAPI Function
  */
-public class VirtualNetworkAdapterConnectVswitch extends VSMCall {
+public class VirtualNetworkAdapterConnectVswitchDM extends VSMCall {
 
     /**
      * The transmitted name of the function.
      */
-    public static final String FUNCTION_NAME = "Virtual_Network_Adapter_Connect_Vswitch";
+    public static final String FUNCTION_NAME = "Virtual_Network_Adapter_Connect_Vswitch_DM";
 
     /**
      *  Create an instance of the function call with important fields not instanced.
      */
-    public VirtualNetworkAdapterConnectVswitch() {
+    public VirtualNetworkAdapterConnectVswitchDM() {
     }
 
     /**
@@ -66,7 +66,7 @@ public class VirtualNetworkAdapterConnectVswitch extends VSMCall {
      * @param image_device_number instances {@code imageDeviceNumber}
      * @param switch_name_length instances {@code switchName}
      */
-    public VirtualNetworkAdapterConnectVswitch(String hostname, int port, String userid, String password, String target_identifier, String image_device_number, String switch_name_length) {
+    public VirtualNetworkAdapterConnectVswitchDM(String hostname, int port, String userid, String password, String target_identifier, String image_device_number, String switch_name_length) {
         this();
         setHostname(hostname);
         setPort(port);
@@ -181,7 +181,7 @@ public class VirtualNetworkAdapterConnectVswitch extends VSMCall {
      */
     public static void main(String[] argv) throws IOException, VSMException {
 
-        VirtualNetworkAdapterConnectVswitch instance = null;
+        VirtualNetworkAdapterConnectVswitchDM instance = null;
 
         if (argv.length != 7) {
             System.out.println("usage: args are:\ninetaddr port user pw target image_device_number switch_name");
@@ -189,7 +189,7 @@ public class VirtualNetworkAdapterConnectVswitch extends VSMCall {
         }
 
         System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5] + " " + argv[6]);
-        instance = new VirtualNetworkAdapterConnectVswitch(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5], argv[6]);
+        instance = new VirtualNetworkAdapterConnectVswitchDM(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5], argv[6]);
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
