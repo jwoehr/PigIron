@@ -1,5 +1,5 @@
 include(`pigfunc.m4')dnl \\ virtual_network_adapter_disconnect.m4
-function_namespace(`Virtual_Network_Adapter_Disconnect')dnl
+function_namespace(`Virtual_Network_Adapter_Disconnect_DM')dnl
 pigfunc_start()dnl
 pigfunc_import(`java.io.IOException')dnl
 pigfunc_import(`java.util.Iterator')dnl
@@ -9,11 +9,11 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 /**
  * {@code function_formal_name } VSMAPI Function
  */')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`image_device_number'), `""', `', `The virtual device address of the connected adapter')dnl
-pigfunc_ctors(`String', `image_device_number', javaize_lc(`image_device_number'))dnl
+pigfunc_attribute(`private', `', `String', member_name(`image_device_number'), `""', `', `The virtual device address of the connected adapter')dnl
+pigfunc_ctors(`String', `image_device_number', member_name(`image_device_number'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`image_device_number')`()', `image_device_number')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`image_device_number')`()', `image_device_number')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl

@@ -42,9 +42,9 @@ then
     for i in $SRCDIR/*.m4
     do
 	BASENAME=`basename $i .m4`
-#	echo "Basename is $BASENAME"
+	echo "Basename is $BASENAME"
 	TARGNAME=`echo javaize'('$BASENAME')' | $GM4 javaname.m4 -`.java
-#	echo "Targname is $TARGNAME"
+	echo "Targname is $TARGNAME"
         ./piggen.sh $i ${TARGDIR}/${TARGNAME}
     done
 else
