@@ -20,6 +20,7 @@ Functions additionally supported in this release:
     * Image_Delete_DM
     * Image_Device_Dedicate_DM
     * Image_Device_Undedicate_DM
+    * Virtual_Channel_Connection_Create_DM
     * Virtual_Channel_Connection_Delete_DM
     * Virtual_Network_Adapter_Connect_LAN_DM
     * Virtual_Network_Adapter_Connect_Vswitch_DM
