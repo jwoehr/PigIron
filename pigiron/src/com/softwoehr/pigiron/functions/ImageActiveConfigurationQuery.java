@@ -156,6 +156,7 @@ public class ImageActiveConfigurationQuery extends VSMCall {
         ImageActiveConfigurationQuery iq = new ImageActiveConfigurationQuery(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4]);
         ParameterArray result = iq.doIt();
         System.out.println("Returns from call to " + iq.getFunctionName() + ":");
+        System.out.println(result.prettyPrintRCAndReason());
         Iterator<VSMParm> i = result.iterator();
         while (i.hasNext()) {
             System.out.println(i.next().prettyPrint());

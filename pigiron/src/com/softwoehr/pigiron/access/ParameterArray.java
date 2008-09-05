@@ -31,6 +31,7 @@
  */
 package com.softwoehr.pigiron.access;
 
+import com.softwoehr.pigiron.bizobj.VsmapiRC;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -180,15 +181,15 @@ public class ParameterArray extends Vector<VSMParm> {
                     replacement.add(copyOfCurrentParm);
                     output_length -= copyOfCurrentParm.paramLength();
                 }
-             // /* Debug */ System.err.println(" Value of read VSMInt " + copyOfCurrentParm.getFormalName() + " == " + VSMInt.class.cast(copyOfCurrentParm).getLongValue());
+            // /* Debug */ System.err.println(" Value of read VSMInt " + copyOfCurrentParm.getFormalName() + " == " + VSMInt.class.cast(copyOfCurrentParm).getLongValue());
             } else if (copyOfCurrentParm instanceof VSMString | copyOfCurrentParm instanceof VSMArray | copyOfCurrentParm instanceof VSMStruct) {
                 if (!replacement.isEmpty()) {
                     previous = replacement.lastElement();
-                      // /* Debug */ System.err.println("previous param is " + previous);
+                    // /* Debug */ System.err.println("previous param is " + previous);
                     if (previous instanceof VSMInt4) {
                         int countLength = VSMInt4.class.cast(previous).getValue();
-                         // /* Debug */ System.err.println(" Getting ready to read " + copyOfCurrentParm + " with read length " + countLength);
-                         // /* Debug */ System.err.flush();
+                        // /* Debug */ System.err.println(" Getting ready to read " + copyOfCurrentParm + " with read length " + countLength);
+                        // /* Debug */ System.err.flush();
                         copyOfCurrentParm.read(in, countLength);
                         output_length -= copyOfCurrentParm.paramLength();
                         replacement.add(copyOfCurrentParm);
@@ -218,6 +219,26 @@ public class ParameterArray extends Vector<VSMParm> {
         // /* Debug */ System.err.println(" ---");
         }
         setValue(replacement);
+    }
+
+    /**
+     * Examine the array for ret code and reason code and return an interpretive string.
+     * @return an interpretive string for ret code and reason code
+     */
+    public String prettyPrintRCAndReason() {
+        String result = null;
+        VSMParm rc = parameterNamed("return_code");
+        VSMParm reason = parameterNamed("reason_code");
+        if (rc == null) {
+            result = "No parameter named return_code found in " + this;
+        } else if (reason == null) {
+            result = "No parameter named reason_code found in " + this;
+        } else {
+            VSMInt4 rc_int4 = VSMInt4.class.cast(rc);
+            VSMInt4 reason_int4 = VSMInt4.class.cast(reason);
+            result = VsmapiRC.prettyPrint(rc_int4.getValue(), reason_int4.getValue());
+        }
+        return result;
     }
 
     /**
