@@ -76,6 +76,8 @@ public class VsmapiRC {
         sb.append(" ");
         sb.append(returnCode.getName());
         sb.append("\nReason code is: ");
+        sb.append(reasonCode.getValue());
+        sb.append(" ");
         sb.append(reasonCode.getName());
         sb.append(" ");
         sb.append(reasonCode.getMessage());

@@ -45,11 +45,7 @@ pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOExc
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
-        System.out.println(pA.prettyPrintRCAndReason());
-        Iterator<VSMParm> i = pA.iterator();
-        while (i.hasNext()) {
-            System.out.println(i.next().prettyPrint());
-        }')dnl
+        System.out.println(pA.prettyPrintAll());')dnl
 pigfunc_endclass()dnl
 pigfunc_end()dnl
 function_namespace_end()dnl

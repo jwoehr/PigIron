@@ -222,6 +222,31 @@ public class ParameterArray extends Vector<VSMParm> {
     }
 
     /**
+     * Gen an interpretive string of params and fuc ret and reason codes.
+     * @return an interpretive string of params and fuc ret and reason codes.
+     */
+    public String prettyPrintAll() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(prettyPrintRCAndReason());
+        sb.append(prettyPrintParams());
+        return sb.toString();
+    }
+
+    /**
+     * Prettyprint to a string each param in the array.
+     * @return an interpretive string containing the prettyprint of each param in the array
+     */
+    public String prettyPrintParams() {
+        StringBuffer sb = new StringBuffer();
+        Iterator<VSMParm> i = iterator();
+        while (i.hasNext()) {
+            sb.append(i.next().prettyPrint());
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    /**
      * Examine the array for ret code and reason code and return an interpretive string.
      * @return an interpretive string for ret code and reason code
      */
