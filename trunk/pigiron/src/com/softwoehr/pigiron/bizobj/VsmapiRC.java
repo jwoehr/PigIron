@@ -61,6 +61,29 @@ public class VsmapiRC {
     }
 
     /**
+     * Return a multiline string interpreting return code and reason code.
+     * @param rc return code from VSMAPI func
+     * @param reason reason code from VSMAPI func
+     * @return a multiline string interpreting return code and reason code
+     */
+    public static String prettyPrint(int rc, int reason) {
+        String result = null;
+        StringBuffer sb = new StringBuffer();
+        ReturnCode returnCode = VsmapiRC.returnCode(rc);
+        ReasonCode reasonCode = returnCode.getReasonCode(reason);
+        sb.append("Return code is: ");
+        sb.append(returnCode.getValue());
+        sb.append(" ");
+        sb.append(returnCode.getName());
+        sb.append("\nReason code is: ");
+        sb.append(reasonCode.getName());
+        sb.append(" ");
+        sb.append(reasonCode.getMessage());
+        result = sb.toString();
+        return result;
+    }
+
+    /**
      * Singelton ctor populates the table of {@code ReturnCode} objects.
      */
     protected VsmapiRC() {
