@@ -34,14 +34,36 @@ package com.softwoehr.pigiron.bizobj;
 import java.util.HashMap;
 
 /**
- * 
+ * Singleton class with one public static method to interpret a VSMAPI Function
+ * return code and reason code. {@code VsmapiRC} returns a {@code ReturnCode}
+ * which then can be queried about the {@code ReasonCode}.
  * @author jax
  */
 public class VsmapiRC {
 
+    private static VsmapiRC vsmapiRC = null;
     private HashMap<Integer, ReturnCode> rcMap = new HashMap<Integer, ReturnCode>(50);
 
-    public VsmapiRC() {
+    /**
+     * Singleton yields {@code ReturnCode} object for given return code.
+     * Reason code can then be deref'ed using the {@code ReturnCode} object.
+     * @param rc - a VSMAPI Function's return code
+     * @return a {@code ReturnCode} object with text and {@code ReasonCode}
+     * capability.
+     */
+    public static ReturnCode returnCode(int rc) {
+        ReturnCode result = null;
+        if (vsmapiRC == null) {
+            vsmapiRC = new VsmapiRC();
+        }
+        result = vsmapiRC.getReturnCode(rc);
+        return result;
+    }
+
+    /**
+     * Singelton ctor populates the table of {@code ReturnCode} objects.
+     */
+    protected VsmapiRC() {
         ReturnCode rc = new ReturnCode("RC_OK", 0);
         rc.addReasonCode(new ReasonCode("RS_NONE", "successful", 0));
         rc.addReasonCode(new ReasonCode("Segment was created or replaced, but specified userid in memory_access_identifier could not be found to give RSTD access", "RS_NOT_FOUND", 4));
@@ -70,6 +92,7 @@ public class VsmapiRC {
         rc =
                 new ReturnCode("RCERR_SYNTAX", 24) {
 
+                    @Override
                     public ReasonCode getReasonCode(int reason) {
                         ReasonCode result = null;
                         if (reasonCodes.containsKey(reason)) {
@@ -85,15 +108,26 @@ public class VsmapiRC {
         rcMap.put(24, rc);
     }
 
+    /**
+     *
+     * @param returnCode
+     * @return
+     */
     public ReturnCode getReturnCode(int returnCode) {
-        return rcMap.get(returnCode);
+        ReturnCode result = rcMap.get(returnCode);
+        if (result == null) {
+            result = new VsmapiRC.ReturnCode("RC_UNKNOWN_TO_PIGIRON", returnCode);
+        }
+        return result;
     }
 
-   
+    /**
+     *
+     */
     public class ReturnCode {
 
-        private String name = "";
-        private int value = -1;
+        private final String name;
+        private final int value;
         protected HashMap<Integer, ReasonCode> reasonCodes = new HashMap<Integer, ReasonCode>(10);
 
         /**
@@ -102,18 +136,23 @@ public class VsmapiRC {
          * @param value
          */
         public ReturnCode(String name, int value) {
-            setName(name);
-            setValue(value);
+            this.name = name;
+            this.value = value;
         }
 
+        /**
+         *
+         * @param reason
+         */
         public void addReasonCode(ReasonCode reason) {
             reasonCodes.put(reason.getValue(), reason);
         }
 
-        public Integer toInteger() {
-            return new Integer(value);
-        }
-
+        /**
+         *
+         * @param reason
+         * @return
+         */
         public ReasonCode getReasonCode(int reason) {
             ReasonCode result = null;
             if (reasonCodes.containsKey(reason)) {
@@ -134,26 +173,10 @@ public class VsmapiRC {
 
         /**
          *
-         * @param name
-         */
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        /**
-         *
          * @return
          */
         public int getValue() {
             return value;
-        }
-
-        /**
-         *
-         * @param value
-         */
-        public void setValue(int value) {
-            this.value = value;
         }
     }
 
@@ -162,38 +185,39 @@ public class VsmapiRC {
      */
     public class ReasonCode {
 
-        private String name = "";
-        private String message = "";
-        private int value = -1;
+        private final String name;
+        private final String message;
+        private final int value;
 
         public ReasonCode(String name, String message, int value) {
-            setName(name);
-            setMessage(message);
-            setValue(value);
+            this.name = name;
+            this.message = message;
+            this.value = value;
         }
 
         public String getMessage() {
             return message;
         }
 
-        public void setMessage(String message) {
-            this.message = message;
-        }
-
         public String getName() {
             return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
         }
 
         public int getValue() {
             return value;
         }
+    }
 
-        public void setValue(int value) {
-            this.value = value;
-        }
+    /**
+     * Demonstrate Return Code and Reason Code explanation
+     * @param argv return_code reason_code
+     */
+    public static void main(String[] argv) {
+        int rc = Integer.parseInt(argv[0]);
+        int reason = Integer.parseInt(argv[1]);
+        ReturnCode returnCode = VsmapiRC.returnCode(rc);
+        ReasonCode reasonCode = returnCode.getReasonCode(reason);
+        System.out.println("Return code is: " + returnCode.getValue() + " " + returnCode.getName());
+        System.out.println("Reason code is: " + reasonCode.getName() + " " + reasonCode.getMessage());
     }
 }
