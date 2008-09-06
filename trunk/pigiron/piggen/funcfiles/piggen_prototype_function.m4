@@ -1,4 +1,4 @@
-include(`pigfunc.m4')dnl \\ piggen_prototype_function.m44
+include(`pigfunc.m4')dnl \\ piggen_prototype_function.m4
 function_namespace(`Piggen_Prototype_Function', `some_kinda_array' )dnl
 pigfunc_start()dnl \\ function_namespace(`function_formal_name', `significant_parameter_formal_name')
 pigfunc_import(`java.io.IOException')dnl
