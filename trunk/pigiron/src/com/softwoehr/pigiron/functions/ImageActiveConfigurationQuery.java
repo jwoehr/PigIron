@@ -40,7 +40,7 @@ import java.util.Iterator;
 /**
  * Embodiment of a VSMAPI Image_Active_Configuration_Query function call.
  * Models and marshalls both input and output parameters, gets a connection,
- * makes the call, returns a ParameterArray of the result from doIt().
+ * makes the call, returns a ParameterArray of the pA from doIt().
  * @author jax
  * @see com.softwoehr.pigiron.access.ParameterArray
  */
@@ -154,9 +154,8 @@ public class ImageActiveConfigurationQuery extends VSMCall {
         }
         System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4]);
         ImageActiveConfigurationQuery iq = new ImageActiveConfigurationQuery(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4]);
-        ParameterArray result = iq.doIt();
+        ParameterArray pA = iq.doIt();
         System.out.println("Returns from call to " + iq.getFunctionName() + ":");
-        System.out.println(result.prettyPrintRCAndReason());
-        System.out.println(result.prettyPrintParams());
+        System.out.println(pA.prettyPrintAll());
     }
 }

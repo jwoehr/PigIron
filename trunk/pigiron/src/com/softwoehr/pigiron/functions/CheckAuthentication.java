@@ -38,7 +38,7 @@ import java.util.Iterator;
 /**
  * Embodiment of a VSMAPI Check_Authentication function call.
  * Models and marshalls both input and output parameters, gets a connection,
- * makes the call, returns a ParameterArray of the result from doIt().
+ * makes the call, returns a ParameterArray of the pA from doIt().
  * @author jax
  * @see com.softwoehr.pigiron.access.ParameterArray
  */
@@ -146,11 +146,8 @@ public class CheckAuthentication extends VSMCall {
         System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3]);
         iq = new CheckAuthentication(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3]);
 
-        ParameterArray result = iq.doIt();
+        ParameterArray pA = iq.doIt();
         System.out.println("Returns from call to " + iq.getFunctionName() + ":");
-        Iterator<VSMParm> i = result.iterator();
-        while (i.hasNext()) {
-            System.out.println(i.next().prettyPrint());
-        }
+        System.out.println(pA.prettyPrintAll());
     }
 }

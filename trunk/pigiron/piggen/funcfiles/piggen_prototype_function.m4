@@ -2,7 +2,6 @@ include(`pigfunc.m4')dnl \\ piggen_prototype_function.m44
 function_namespace(`Piggen_Prototype_Function', `some_kinda_array' )dnl
 pigfunc_start()dnl \\ function_namespace(`function_formal_name', `significant_parameter_formal_name')
 pigfunc_import(`java.io.IOException')dnl
-pigfunc_import(`java.util.Iterator')dnl
 pigfunc_import(`com.softwoehr.pigiron.access.*')dnl \\ function_classname and function_formal_name bound in namespace
 pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',function_formal_name,`dnl
 
@@ -50,10 +49,7 @@ pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOExc
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
-        Iterator<VSMParm> i = pA.iterator();
-        while (i.hasNext()) {
-            System.out.println(i.next().prettyPrint());
-        }')dnl
+        System.out.println(pA.prettyPrintAll());')dnl
 pigfunc_endclass()dnl
 pigfunc_end()dnl
 function_namespace_end()dnl
