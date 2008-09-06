@@ -43,6 +43,7 @@ public class VsmapiRC {
 
     private static VsmapiRC vsmapiRC = null;
     private HashMap<Integer, ReturnCode> rcMap = new HashMap<Integer, ReturnCode>(50);
+    private HashMap syntaxErrors = new HashMap<Integer, String>(25);
 
     /**
      * Singleton yields {@code ReturnCode} object for given return code.
@@ -73,13 +74,17 @@ public class VsmapiRC {
         ReasonCode reasonCode = returnCode.getReasonCode(reason);
         sb.append("Return code is: ");
         sb.append(returnCode.getValue());
-        sb.append(" ");
+        sb.append(" : ");
         sb.append(returnCode.getName());
         sb.append("\nReason code is: ");
         sb.append(reasonCode.getValue());
-        sb.append(" ");
+        sb.append(" : ");
         sb.append(reasonCode.getName());
-        sb.append(" ");
+        sb.append(" : ");
+        if (reasonCode instanceof ReasonCodeRC24) {
+            sb.append("Parameter number " + ReasonCodeRC24.class.cast(reasonCode).getParamNumber());
+            sb.append(" : ");
+        }
         sb.append(reasonCode.getMessage());
         result = sb.toString();
         return result;
@@ -121,11 +126,10 @@ public class VsmapiRC {
                 ReasonCode result = null;
                 int pp = reason / 100; // parameter number
                 int rr = reason % 100; // reason code
-                if (reasonCodes.containsKey(rr)) {
-                    result = reasonCodes.get(rr);
+                if (syntaxErrors.containsKey(rr)) {
+                    result = new ReasonCodeRC24(syntaxErrors.get(rr).toString(), "RCERR_SYNTAX", rr, pp);
                 } else {
-                    result = new ReasonCode("Syntax error in function parameter", "RCERR_SYNTAX", reason);
-                // sub codes go here // 24  RCERR_SYNTAX    pprr1   pprr1   Syntax error in function parameter
+                    result = new ReasonCodeRC24("Unknown syntax error in function parameter", "RCERR_SYNTAX", rr, pp);
                 }
                 return result;
             }
@@ -407,6 +411,28 @@ public class VsmapiRC {
         rc.addReasonCode(new ReasonCode("Specified length was not valid, out of valid server data range", "RS_LENGTH_NOT_VALID", 36));
         rc.addReasonCode(new ReasonCode("Internal server socket error", "RS_SOCKET", 40));
         rcMap.put(900, rc);
+
+        syntaxErrors.put(1, "First character of listname is a colon \":\"");
+        syntaxErrors.put(10, "Characters not \"0123456789\"");
+        syntaxErrors.put(11, "Unsupported function");
+        syntaxErrors.put(13, "Length is greater than maximum or exceeds total length");
+        syntaxErrors.put(14, "Length is less than minimum");
+        syntaxErrors.put(15, "Numeric value less than minimum or null value encountered");
+        syntaxErrors.put(16, "Characters not \"0123456789ABCDEF\"");
+        syntaxErrors.put(17, "Characters not \"0123456789ABCDEF-\"");
+        syntaxErrors.put(18, "Numeric value greater than maximum");
+        syntaxErrors.put(19, "Unrecognized value");
+        syntaxErrors.put(23, "Conflicting parameter specified");
+        syntaxErrors.put(24, "Unspecified required parameter");
+        syntaxErrors.put(25, "Extraneous parameter specified");
+        syntaxErrors.put(26, "Characters not \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\"");
+        syntaxErrors.put(36, "Characters not \"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\"");
+        syntaxErrors.put(37, "Characters not \"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-\"");
+        syntaxErrors.put(42, "Characters not \"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$+-:\"");
+        syntaxErrors.put(43, "Characters not \"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$+-:_\"");
+        syntaxErrors.put(44, "Characters not \"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$+-:_=\"");
+        syntaxErrors.put(88, "Unexpected end of data");
+        syntaxErrors.put(99, "Non-breaking characters: non-blank, non-null, non-delete, non-line-end, non-carriage return, non-line-feed");
     }
 
     /**
@@ -527,16 +553,34 @@ public class VsmapiRC {
         }
     }
 
+    public class ReasonCodeRC24 extends ReasonCode {
+
+        private int paramNumber = -1;
+
+        public ReasonCodeRC24(String message, String name, int value, int paramNumber) {
+            super(message, name, value);
+            this.paramNumber = paramNumber;
+        }
+
+        public int getParamNumber() {
+            return paramNumber;
+        }
+    }
+
+    public class ReturnCode24 {
+    }
+
     /**
      * Demonstrate Return Code and Reason Code explanation
      * @param argv return_code reason_code
      */
     public static void main(String[] argv) {
+        if (argv.length != 2) {
+            System.err.println("Usage: VsmapiRC.main return_code reason_code");
+            System.exit(1);
+        }
         int rc = Integer.parseInt(argv[0]);
         int reason = Integer.parseInt(argv[1]);
-        ReturnCode returnCode = VsmapiRC.returnCode(rc);
-        ReasonCode reasonCode = returnCode.getReasonCode(reason);
-        System.out.println("Return code is: " + returnCode.getValue() + " " + returnCode.getName());
-        System.out.println("Reason code is: " + reasonCode.getName() + " " + reasonCode.getMessage());
+        System.out.println(VsmapiRC.prettyPrint(rc, reason));
     }
 }
