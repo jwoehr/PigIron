@@ -2,7 +2,6 @@ include(`pigfunc.m4')dnl \\ VMRM_measurement_query.m4
 function_namespace(`VMRM_Measurement_Query',`workload_array')dnl
 pigfunc_start()dnl
 pigfunc_import(`java.io.IOException')dnl
-pigfunc_import(`java.util.Iterator')dnl
 pigfunc_import(`com.softwoehr.pigiron.access.*')dnl
 pigfunc_import(`com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname')dnl
 pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',function_formal_name,`dnl

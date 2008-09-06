@@ -2,7 +2,6 @@ include(`pigfunc.m4')dnl \\ image_create_DM.m4
 function_namespace(`Image_Create_DM', `image_record_array')dnl
 pigfunc_start()dnl \\ function_namespace(`function_formal_name', `significant_parameter_formal_name')
 dnl pigfunc_import(`java.io.IOException')dnl
-dnl pigfunc_import(`java.util.Iterator')dnl
 pigfunc_import(`com.softwoehr.pigiron.access.*')dnl \\ function_classname function_formal_name etc. bound in namespace
 pigfunc_import(`com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname')dnl \\ significant_parameter_classname bound
 pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',function_formal_name,`dnl

@@ -261,7 +261,7 @@ public class ParameterArray extends Vector<VSMParm> {
         } else {
             VSMInt4 rc_int4 = VSMInt4.class.cast(rc);
             VSMInt4 reason_int4 = VSMInt4.class.cast(reason);
-            result = VsmapiRC.prettyPrint(rc_int4.getValue(), reason_int4.getValue());
+            result = VsmapiRC.prettyPrint(rc_int4.getValue(), reason_int4.getValue()) + "\n";
         }
         return result;
     }

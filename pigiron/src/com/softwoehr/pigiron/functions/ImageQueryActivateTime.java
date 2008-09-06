@@ -202,12 +202,9 @@ public class ImageQueryActivateTime extends VSMCall {
             iq = new ImageQueryActivateTime(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], Integer.valueOf(argv[5]).intValue());
         }
 
-        ParameterArray result = iq.doIt();
+        ParameterArray pA = iq.doIt();
         System.out.println("Returns from call to " + iq.getFunctionName() + ":");
-        Iterator<VSMParm> i = result.iterator();
-        while (i.hasNext()) {
-            System.out.println(i.next().prettyPrint());
-        }
+        System.out.println(pA.prettyPrintAll());
 
     }
 }

@@ -2,7 +2,6 @@ include(`pigfunc.m4')dnl \\ virtual_network_adapter_connect_vswitch.m4
 function_namespace(`Virtual_Network_Adapter_Connect_Vswitch')dnl
 pigfunc_start()dnl
 pigfunc_import(`java.io.IOException')dnl
-pigfunc_import(`java.util.Iterator')dnl
 pigfunc_import(`com.softwoehr.pigiron.access.*')dnl
 pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',function_formal_name,`dnl
 
@@ -39,10 +38,7 @@ pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOExc
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
-        Iterator<VSMParm> i = pA.iterator();
-        while (i.hasNext()) {
-            System.out.println(i.next().prettyPrint());
-        }')dnl
+        System.out.println(pA.prettyPrintAll());')dnl
 pigfunc_endclass()dnl
 pigfunc_end()dnl
 function_namespace_end()dnl

@@ -2,7 +2,6 @@ include(`pigfunc.m4')dnl \\ virtual_network_vswitch_set.m4
 function_namespace(`Virtual_Network_Vswitch_Set')dnl
 pigfunc_start()dnl
 pigfunc_import(`java.io.IOException')dnl
-pigfunc_import(`java.util.Iterator')dnl
 pigfunc_import(`com.softwoehr.pigiron.access.*')dnl
 pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',function_formal_name,`dnl
 
