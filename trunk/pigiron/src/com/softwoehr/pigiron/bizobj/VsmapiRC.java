@@ -263,13 +263,11 @@ public class VsmapiRC {
                 if (reason == 0) {
                     result = new ReasonCode("Internal System Error", "RS_NONE", reason);
                 } else {
-                    result = new ReasonCode("Internal system error - product-specific return code", "RS_OPID", reason);
+                    result = new ReasonCode("Internal system error - error occurs in a function exec - product-specific return code", "RS_OPID", reason);
                 }
                 return result;
             }
         };
-        rc.addReasonCode(new ReasonCode("Internal system error", "RS_NONE", 0));
-        // If an error occurs in a function exec while processing a function request for which no other specified return code is applicable, the reason code will be set to the return code of the failing routine and the return code will be 396.   // rc.addReasonCode(new ReasonCode("Internal system error - product-specific return code (See Internal Return Codes (RC = 396, 592, or 596))", "psrc2", nnnn));
         rcMap.put(396, rc);
         rc = new ReturnCode("RCERR_IMAGEDEF", 400);
         rc.addReasonCode(new ReasonCode("Image definition error", "RS_NONE", 0));
@@ -473,9 +471,9 @@ public class VsmapiRC {
     }
 
     /**
-     *
-     * @param returnCode
-     * @return
+     * Interpret the VSMAPI Return Code
+     * @param returnCode the VSMAPI Return Code
+     * @return Object interpreting the VSMAPI Return Code
      */
     public ReturnCode getReturnCode(int returnCode) {
         ReturnCode result = rcMap.get(returnCode);
@@ -486,7 +484,9 @@ public class VsmapiRC {
     }
 
     /**
-     *
+     * Object interpreting the VSMAPI Return Code. Contains a string
+     * name and a value. The full textual interpretation comes from the associated
+     * ResultCode.
      */
     public class ReturnCode {
 
@@ -495,9 +495,9 @@ public class VsmapiRC {
         protected HashMap<Integer, ReasonCode> reasonCodes = new HashMap<Integer, ReasonCode>(10);
 
         /**
-         *
-         * @param name
-         * @param value
+         * Instance with the {@code final} name and value.
+         * @param name Error name, e.g., {@code RS_NONE}
+         * @param value numerical return code.
          */
         public ReturnCode(String name, int value) {
             this.name = name;
@@ -505,17 +505,19 @@ public class VsmapiRC {
         }
 
         /**
-         *
-         * @param reason
+         * Add a {@code ReasonCode} to the hash of {@code ReasonCode}s associated
+         * witha given {@code ReturnCode}.
+         * @param reason the numerical reason code
          */
         public void addReasonCode(ReasonCode reason) {
             reasonCodes.put(reason.getValue(), reason);
         }
 
         /**
-         *
-         * @param reason
-         * @return
+         * Return a {@code ReasonCode} associated with {@code ReturnCode}.
+         * If not found, return a special reason from PigIron
+         * @param reason numerical VSMAPI Reason Code
+         * @return the interpretive object representing the Reason Code
          */
         public ReasonCode getReasonCode(int reason) {
             ReasonCode result = null;
@@ -528,16 +530,16 @@ public class VsmapiRC {
         }
 
         /**
-         *
-         * @return
+         * Get the name of the Return Code, e.g, {@code RS_NONE}
+         * @return the name of the Return Code, e.g, {@code RS_NONE}
          */
         public String getName() {
             return name;
         }
 
         /**
-         *
-         * @return
+         * Get the numerical value of the Return Code
+         * @return the numerical value of the Return Code
          */
         public int getValue() {
             return value;
@@ -545,7 +547,8 @@ public class VsmapiRC {
     }
 
     /**
-     *
+     * Object interpreting a VSMAPI Reason Code associated with a particular
+     * Return Code.
      */
     public class ReasonCode {
 
@@ -554,10 +557,10 @@ public class VsmapiRC {
         private final int value;
 
         /**
-         *
-         * @param message
-         * @param name
-         * @param value
+         * Instance providing message name and value
+         * @param message interpretive message
+         * @param name VSMAPI name of the reason code
+         * @param value numeric value of the reason code
          */
         public ReasonCode(String message, String name, int value) {
             this.message = message;
@@ -566,24 +569,24 @@ public class VsmapiRC {
         }
 
         /**
-         *
-         * @return
+         * Return interpretive message of the reason code
+         * @return interpretive message
          */
         public String getMessage() {
             return message;
         }
 
         /**
-         *
-         * @return
+         * Return VSMAPI name of the reason code
+         * @return VSMAPI name of the reason code
          */
         public String getName() {
             return name;
         }
 
         /**
-         *
-         * @return
+         * Return numeric value of the reason code
+         * @return numeric value of the reason code
          */
         public int getValue() {
             return value;
@@ -591,18 +594,20 @@ public class VsmapiRC {
     }
 
     /**
-     *
+     * Extends {@code ReasonCode} with one more field, the parameter number,
+     * since VSMAPI Return Code 24 is for syntax errors and points to the
+     * offending parameter.
      */
     public class ReasonCodeRC24 extends ReasonCode {
 
         private int paramNumber = -1;
 
         /**
-         *
-         * @param message
-         * @param name
-         * @param value
-         * @param paramNumber
+         * Instance a Reason Code for VSMAPI Return Code 24
+         * @param message interpretive message
+         * @param name VSMAPI name of the reason code
+         * @param value numeric value of the reason code
+         * @param paramNumber the index of the parameter that caused RC24
          */
         public ReasonCodeRC24(String message, String name, int value, int paramNumber) {
             super(message, name, value);
@@ -610,8 +615,8 @@ public class VsmapiRC {
         }
 
         /**
-         *
-         * @return
+         * Get the index of the parameter that caused RC24
+         * @return the index of the parameter that caused RC24
          */
         public int getParamNumber() {
             return paramNumber;

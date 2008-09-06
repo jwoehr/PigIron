@@ -1,3 +1,4 @@
+#!/opt/ooRexx/bin/rexx
 /*
  * Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
  * PO Box 51, Golden, Colorado 80402-0051 USA
