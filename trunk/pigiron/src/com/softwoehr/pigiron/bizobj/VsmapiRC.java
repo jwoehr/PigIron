@@ -253,9 +253,23 @@ public class VsmapiRC {
         rc.addReasonCode(new ReasonCode("Error in release of CPRELEASE parm disk (1 or 2)", "RS_CP_RELEASE_ERROR", 50));
         rc.addReasonCode(new ReasonCode("Error in access of CPACCESS parm disk (1 or 2)", "RS_CP_ACCESS_ERROR", 52));
         rcMap.put(300, rc);
-        rc = new ReturnCode("RCERR_INTERNAL", 396); // SPECIAL
+        rc = new ReturnCode("RCERR_INTERNAL", 396) // SPECIAL
+        {
+
+            @Override
+            public ReasonCode getReasonCode(int reason) {
+                ReasonCode result = null;
+
+                if (reason == 0) {
+                    result = new ReasonCode("Internal System Error", "RS_NONE", reason);
+                } else {
+                    result = new ReasonCode("Internal system error - product-specific return code", "RS_OPID", reason);
+                }
+                return result;
+            }
+        };
         rc.addReasonCode(new ReasonCode("Internal system error", "RS_NONE", 0));
-        // rc.addReasonCode(new ReasonCode("Internal system error - product-specific return code (See Internal Return Codes (RC = 396, 592, or 596))", "psrc2", nnnn));
+        // If an error occurs in a function exec while processing a function request for which no other specified return code is applicable, the reason code will be set to the return code of the failing routine and the return code will be 396.   // rc.addReasonCode(new ReasonCode("Internal system error - product-specific return code (See Internal Return Codes (RC = 396, 592, or 596))", "psrc2", nnnn));
         rcMap.put(396, rc);
         rc = new ReturnCode("RCERR_IMAGEDEF", 400);
         rc.addReasonCode(new ReasonCode("Image definition error", "RS_NONE", 0));
@@ -349,16 +363,39 @@ public class VsmapiRC {
         rc.addReasonCode(new ReasonCode("Directory manager was interrupted", "RS_INTERRUPTED", 16));
         rc.addReasonCode(new ReasonCode("Password format not supported", "RS_PW_FORMAT_NOT_SUPPORTED", 20));
         rcMap.put(500, rc);
-        rc = new ReturnCode("RCERR_LIST_DM", 504); // SPECIAL
-        // rc.addReasonCode(new ReasonCode("Target ID not added", "psrc2", nnnn));
+        rc = new ReturnCode("RCERR_LIST_DM", 504) // SPECIAL
+        {
+
+            @Override
+            public ReasonCode getReasonCode(int reason) {
+                return new ReasonCode("Target ID not added - Reason is product-specific return code", "RS_PSRC", reason);
+            }
+        };
         rcMap.put(504, rc);
-        rc = new ReturnCode("RCERR_ASYNC_DM", 592); // SPECIAL
-        rc.addReasonCode(new ReasonCode("Asynchronous operation started", "RS_NONE", 0));
-        // rc.addReasonCode(new ReasonCode("Asynchronous operation started - product-specific asynchronous operation ID (See Internal Return Codes (RC = 396, 592, or 596))", "opid3", nnnn));
+        rc = new ReturnCode("RCERR_ASYNC_DM", 592) // SPECIAL
+        {
+
+            @Override
+            public ReasonCode getReasonCode(int reason) {
+                ReasonCode result = null;
+
+                if (reason == 0) {
+                    result = new ReasonCode("Asynchronous operation started - product-specific asynchronous operation ID is found in output_id parameter", "RS_NONE", reason);
+                } else {
+                    result = new ReasonCode("Asynchronous operation started - product-specific asynchronous operation ID", "RS_OPID", reason);
+                }
+                return result;
+            }
+        };
         rcMap.put(592, rc);
-        rc = new ReturnCode("RCERR_INTERNAL_DM", 596); // SPECIAL
-        rc.addReasonCode(new ReasonCode("Internal directory manager error", "RS_NONE", 0));
-        // rc.addReasonCode(new ReasonCode("Internal directory manager error - product-specific return code (See Internal Return Codes (RC = 396, 592, or 596))", "psrc2", nnnn));
+        rc = new ReturnCode("RCERR_INTERNAL_DM", 596) // SPECIAL
+        {
+
+            @Override
+            public ReasonCode getReasonCode(int reason) {
+                return new ReasonCode("Internal directory manager error - Product-specific return code", "RS_PSRC", reason);
+            }
+        };
         rcMap.put(596, rc);
         rc = new ReturnCode("RCERR_INTERNAL_DM", 600);
         rc.addReasonCode(new ReasonCode("Bad page range", "RS_BAD_RANGE", 8));
@@ -553,21 +590,32 @@ public class VsmapiRC {
         }
     }
 
+    /**
+     *
+     */
     public class ReasonCodeRC24 extends ReasonCode {
 
         private int paramNumber = -1;
 
+        /**
+         *
+         * @param message
+         * @param name
+         * @param value
+         * @param paramNumber
+         */
         public ReasonCodeRC24(String message, String name, int value, int paramNumber) {
             super(message, name, value);
             this.paramNumber = paramNumber;
         }
 
+        /**
+         *
+         * @return
+         */
         public int getParamNumber() {
             return paramNumber;
         }
-    }
-
-    public class ReturnCode24 {
     }
 
     /**
