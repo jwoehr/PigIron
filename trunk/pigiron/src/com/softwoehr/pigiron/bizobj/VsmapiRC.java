@@ -90,7 +90,7 @@ public class VsmapiRC {
      */
     protected VsmapiRC() {
         ReturnCode rc = new ReturnCode("RC_OK", 0);
-        rc.addReasonCode(new ReasonCode("RS_NONE", "successful", 0));
+        rc.addReasonCode(new ReasonCode("Successful", "RS_NONE", 0));
         rc.addReasonCode(new ReasonCode("Segment was created or replaced, but specified userid in memory_access_identifier could not be found to give RSTD access", "RS_NOT_FOUND", 4));
         rc.addReasonCode(new ReasonCode("Request successful; object directory offline", "RS_OFFLINE", 8));
         rc.addReasonCode(new ReasonCode("Request successful; NAMESAVE statement already exists in directory", "RS_NAMESAVE_EXISTS", 12));
@@ -122,7 +122,7 @@ public class VsmapiRC {
                 if (reasonCodes.containsKey(reason)) {
                     result = reasonCodes.get(reason);
                 } else {
-                    result = new ReasonCode("RCERR_SYNTAX", "Syntax error in function parameter", reason);
+                    result = new ReasonCode("Syntax error in function parameter", "RCERR_SYNTAX", reason);
                 // sub codes go here // 24  RCERR_SYNTAX    pprr1   pprr1   Syntax error in function parameter
                 }
                 return result;
@@ -457,7 +457,7 @@ public class VsmapiRC {
             if (reasonCodes.containsKey(reason)) {
                 result = reasonCodes.get(reason);
             } else {
-                result = new ReasonCode("RS_UNKNOWN_TO_PIGIRON", "PigIron does not know this reason code", reason);
+                result = new ReasonCode("PigIron does not know this reason code", "RS_UNKNOWN_TO_PIGIRON", reason);
             }
             return result;
         }
@@ -484,24 +484,42 @@ public class VsmapiRC {
      */
     public class ReasonCode {
 
-        private final String name;
         private final String message;
+        private final String name;
         private final int value;
 
-        public ReasonCode(String name, String message, int value) {
-            this.name = name;
+        /**
+         *
+         * @param message
+         * @param name
+         * @param value
+         */
+        public ReasonCode(String message, String name, int value) {
             this.message = message;
+            this.name = name;
             this.value = value;
         }
 
+        /**
+         *
+         * @return
+         */
         public String getMessage() {
             return message;
         }
 
+        /**
+         *
+         * @return
+         */
         public String getName() {
             return name;
         }
 
+        /**
+         *
+         * @return
+         */
         public int getValue() {
             return value;
         }
