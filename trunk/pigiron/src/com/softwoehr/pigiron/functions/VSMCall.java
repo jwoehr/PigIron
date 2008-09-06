@@ -33,6 +33,7 @@ package com.softwoehr.pigiron.functions;
 
 import com.softwoehr.pigiron.access.Connection;
 import com.softwoehr.pigiron.access.ParameterArray;
+import com.softwoehr.pigiron.access.SocketConnection;
 import com.softwoehr.pigiron.access.VSMException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -94,7 +95,7 @@ public abstract class VSMCall {
      * @see com.softwoehr.pigiron.access.Connection
      */
     protected void connect() throws UnknownHostException, IOException {
-        connection = new Connection(hostname, port);
+        connection = new SocketConnection(hostname, port);
         connection.connect();
     }
 
