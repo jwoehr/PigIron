@@ -119,8 +119,10 @@ public class VsmapiRC {
             @Override
             public ReasonCode getReasonCode(int reason) {
                 ReasonCode result = null;
-                if (reasonCodes.containsKey(reason)) {
-                    result = reasonCodes.get(reason);
+                int pp = reason / 100; // parameter number
+                int rr = reason % 100; // reason code
+                if (reasonCodes.containsKey(rr)) {
+                    result = reasonCodes.get(rr);
                 } else {
                     result = new ReasonCode("Syntax error in function parameter", "RCERR_SYNTAX", reason);
                 // sub codes go here // 24  RCERR_SYNTAX    pprr1   pprr1   Syntax error in function parameter
