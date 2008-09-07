@@ -47,6 +47,8 @@ define(`javaize_lc',`lowcase_initial(javaize(`$1'))')
 define(`member_name', `javaize_lc(`$1')')
 # member_getter(`member_formal_name')
 define(`member_getter', ``get_'member_name(`$1')')
+# member_setter(`member_formal_name')
+define(`member_setter', ``set_'member_name(`$1')')
 
 # param_namespace(`entity', `associated_function')
 define(`param_namespace',`dnl
