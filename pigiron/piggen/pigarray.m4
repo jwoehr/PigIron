@@ -128,7 +128,7 @@ push_divert(ctor_stream)dnl
         super(value);
     }
 
-     /**
+    /**
      * Create an instance where only the formal name
      * is instanced.
      * @param formalName the formal name
@@ -137,7 +137,6 @@ push_divert(ctor_stream)dnl
         super();
         setFormalName`('formalName);
     }
-
 
     /**
      * Create an instance of undefined value.
