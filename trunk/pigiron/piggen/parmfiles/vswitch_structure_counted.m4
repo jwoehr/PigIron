@@ -13,7 +13,7 @@ pigparm_class(counted_structure_classname, `CountedStruct',`com.softwoehr.pigiro
 pigparm_ctors()dnl
 pigparm_model_start()dnl
 pigparm_model_parm(`VSMInt4', `-1', structure_formal_name`_length')dnl
-pigparm_model_parm(structure_classname, `null', structure_formal_name)dnl
+pigparm_model_parm(structure_classname,`',structure_formal_name)dnl
 pigparm_model_end()dnl
 pigparm_endclass()dnl
 pigparm_end()dnl
