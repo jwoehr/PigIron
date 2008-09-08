@@ -121,6 +121,22 @@ push_divert(ctor_stream)dnl
     }
 
     /**
+     * Create an instance by absorbing a CountedStruct type only if
+     * that instance is the associated counted struct for this array
+     * type. Assign also the formal name.
+     * @param value a CountedStruct to absorb
+     * @param formalName the formal name
+     */
+    public myClass()`('CountedStruct value, String formalName) throws VSMArrayCountedStructCTORException {
+        super();
+	if (!value.getClass`()'.getSimpleName`()'.equals`('"counted_structure_classname()")) {
+	    throw new VSMArrayCountedStructCTORException`('value + " is not an instance of counted_structure_classname");
+            }
+	setValue(value);
+	setFormalName(formalName);
+    }
+
+    /**
      * Create an instance by copying the value from a like instance.
      * @param value a like instance to copy from
      */
