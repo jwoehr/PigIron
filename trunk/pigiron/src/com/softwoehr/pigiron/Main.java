@@ -69,7 +69,11 @@ public class Main {
      * <li><tt>ImageStatusQuery.main(argv)</tt></li>
      * <li><tt>NameListQuery.main(argv)</tt></li>
      * <li><tt>QueryAPIFunctionalLevel</tt></li>
+     * <li><tt>QueryDirectoryManagerLevelDM</tt></li>
+     * <li><tt>SharedMemoryAccessQueryDM</tt></li>
      * <li><tt>SharedMemoryQuery</tt></li>
+     * <li><tt>VMRMMeasurementQuery</tt></li>
+     * <li><tt>VirtualNetworkAdapterQuery</tt></li>
      * </ul>
      * @param argv five args: <tt>server_dns_name, smapi_port, userid_for_authentication, password, target_specification_string</tt>
      * @throws java.io.IOException
@@ -81,6 +85,7 @@ public class Main {
      * @see com.softwoehr.pigiron.functions.NameListQuery
      * @see com.softwoehr.pigiron.functions.QueryAPIFunctionalLevel
      * @see com.softwoehr.pigiron.functions.QueryDirectoryManagerLevelDM
+     * @see com.softwoehr.pigiron.functions.SharedMemoryAccessQueryDM
      * @see com.softwoehr.pigiron.functions.SharedMemoryQuery
      * @see com.softwoehr.pigiron.functions.VMRMMeasurementQuery
      * @see com.softwoehr.pigiron.functions.VirtualNetworkAdapterQuery
