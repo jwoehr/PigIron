@@ -28,6 +28,7 @@ pigfunc_compose_input_parm(`VSMInt4', member_getter(`some_buried_int4')`()', `so
 pigfunc_compose_input_parm(significant_parameter_classname, significant_parameter_member_getter`()', significant_parameter_formal_name)dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
+pigfunc_compose_output_parm(`VSMInt4', `-1', `operation_id')dnl
 pigfunc_compose_output_end()dnl
 pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException`,' VSMException', `dnl
      * You can execute the VSMAPI call from {@code main()}, try it

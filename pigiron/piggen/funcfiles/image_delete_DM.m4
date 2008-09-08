@@ -14,6 +14,7 @@ pigfunc_constant(`public', `int', `DATA_SECURITY_ERASE', `2', `Erase')dnl
 pigfunc_attribute(`private', `', `int', member_name(`data_security_erase'), `0', `', `Indicates whether to erase data from the disk(s) being released')dnl
 pigfunc_ctors(`int', `data_security_erase', member_name(`data_security_erase'))dnl
 pigfunc_compose_input_start()dnl
+pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
 pigfunc_compose_input_parm(`VSMInt1', member_getter(`data_security_erase')`()', `data_security_erase')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
