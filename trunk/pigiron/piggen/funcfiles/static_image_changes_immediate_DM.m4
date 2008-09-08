@@ -10,6 +10,7 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
  */')dnl \\ significant_parameter_formal_name bound in namespace
 pigfunc_ctors()dnl
 pigfunc_compose_input_start()dnl
+pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl

@@ -40,19 +40,19 @@ import java.io.IOException;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * {@code Static_Image_Changes_Activate_DM} VSMAPI Function
+ * {@code Shared_Memory_Access_Add_DM} VSMAPI Function
  */
-public class StaticImageChangesActivateDM extends VSMCall {
+public class SharedMemoryAccessAddDM extends VSMCall {
 
     /**
      * The transmitted name of the function.
      */
-    public static final String FUNCTION_NAME = "Static_Image_Changes_Activate_DM";
+    public static final String FUNCTION_NAME = "Shared_Memory_Access_Add_DM";
 
     /**
      *  Create an instance of the function call with important fields not instanced.
      */
-    public StaticImageChangesActivateDM() {
+    public SharedMemoryAccessAddDM() {
     }
 
     /**
@@ -62,14 +62,33 @@ public class StaticImageChangesActivateDM extends VSMCall {
      * @param userid userid executing the function
      * @param password the password
      * @param target_identifier the target of the VSMAPI function
+     * @param memory_segment_name instances {@code memorySegmentName}
      */
-    public StaticImageChangesActivateDM(String hostname, int port, String userid, String password, String target_identifier) {
+    public SharedMemoryAccessAddDM(String hostname, int port, String userid, String password, String target_identifier, String memory_segment_name) {
         this();
         setHostname(hostname);
         setPort(port);
         setUserid(userid);
         setPassword(password);
         setTarget_identifier(target_identifier);
+        set_memorySegmentName(memory_segment_name);
+    }
+
+    /** The name of the memory segment to which access is being granted. */
+    private String memorySegmentName = "";
+
+    /** Set the value of {@code  memorySegmentName }.
+     * @param val The value to set {@code  memorySegmentName }.
+     */
+    public void set_memorySegmentName(String val) {
+        memorySegmentName = val;
+    }
+
+    /** Get the value of {@code  memorySegmentName }.
+     * @return The value of {@code  memorySegmentName }.
+     */
+    public String get_memorySegmentName() {
+        return memorySegmentName;
     }
 
     /**
@@ -94,6 +113,9 @@ public class StaticImageChangesActivateDM extends VSMCall {
         tempString = new VSMString(getTarget_identifier(), "target_identifier");
         parameterArray.add(new VSMInt4(tempString.paramLength(), "target_identifier_length"));
         parameterArray.add(tempString);
+        tempString = new VSMString(get_memorySegmentName(), "memory_segment_name");
+        parameterArray.add(new VSMInt4(tempString.paramLength(), "memory_segment_name_length"));
+        parameterArray.add(tempString);
         VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
         parameterArray.insertElementAt(outputLength, 0);
         setInParams(parameterArray);
@@ -114,6 +136,7 @@ public class StaticImageChangesActivateDM extends VSMCall {
         parameterArray.add(new VSMInt4(-1, "request_id"));
         parameterArray.add(new VSMInt4(-1, "return_code"));
         parameterArray.add(new VSMInt4(-1, "reason_code"));
+        parameterArray.add(new VSMInt4(-1, "operation_id"));
         setOutParams(parameterArray);
         return parameterArray;
     }
@@ -136,15 +159,15 @@ public class StaticImageChangesActivateDM extends VSMCall {
      */
     public static void main(String[] argv) throws IOException, VSMException {
 
-        StaticImageChangesActivateDM instance = null;
+        SharedMemoryAccessAddDM instance = null;
 
         if (argv.length != 5) {
-            System.out.println("usage: args are:\ninetaddr port user pw target_id");
+            System.out.println("usage: args are:\ninetaddr port user pw target_id memory_segment_name");
             System.exit(1);
         }
 
-        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4]);
-        instance = new StaticImageChangesActivateDM(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4]);
+        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4]+ " " + argv[5]);
+        instance = new SharedMemoryAccessAddDM(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5]);
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
