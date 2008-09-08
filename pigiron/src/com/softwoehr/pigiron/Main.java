@@ -39,6 +39,7 @@ import com.softwoehr.pigiron.functions.ImageStatusQuery;
 import com.softwoehr.pigiron.functions.NameListQuery;
 import com.softwoehr.pigiron.functions.QueryAPIFunctionalLevel;
 import com.softwoehr.pigiron.functions.QueryDirectoryManagerLevelDM;
+import com.softwoehr.pigiron.functions.SharedMemoryAccessQueryDM;
 import com.softwoehr.pigiron.functions.SharedMemoryQuery;
 import com.softwoehr.pigiron.functions.VMRMMeasurementQuery;
 import com.softwoehr.pigiron.functions.VirtualNetworkAdapterQuery;
@@ -85,6 +86,7 @@ public class Main {
      * @see com.softwoehr.pigiron.functions.VirtualNetworkAdapterQuery
      */
     public static void main(String[] argv) throws IOException, VSMException {
+        String[] modifiedArgs = null;
         System.out.println("========= ImageActiveConfigurationQuery =========");
         ImageActiveConfigurationQuery.main(argv);
         System.out.println("========= ImageQueryActivateTime =========");
@@ -94,7 +96,7 @@ public class Main {
         System.out.println("========= ImageStatusQuery =========");
         ImageStatusQuery.main(argv);
         System.out.println("========= ImageStatusQuery =========");
-        String[] modifiedArgs = {argv[0], argv[1], argv[2], argv[3], "*"};
+        modifiedArgs = new String[]{argv[0], argv[1], argv[2], argv[3], "*"};
         ImageStatusQuery.main(modifiedArgs);
         System.out.println("========= NameListQuery =========");
         NameListQuery.main(modifiedArgs);
@@ -102,6 +104,9 @@ public class Main {
         QueryAPIFunctionalLevel.main(argv);
         System.out.println("========= QueryDirectoryManagerLevelDM =========");
         QueryDirectoryManagerLevelDM.main(argv);
+        System.out.println("========= SharedMemoryAccessQueryDM =========");
+        modifiedArgs = new String[]{argv[0], argv[1], argv[2], argv[3], argv[4], "NLSUCENG"};
+        SharedMemoryAccessQueryDM.main(modifiedArgs);
         System.out.println("========= SharedMemoryQuery =========");
         SharedMemoryQuery.main(argv);
         System.out.println("========= VMRMMeasurementQuery =========");

@@ -28,7 +28,7 @@ pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOExc
 
         function_classname instance = null;
 
-        if (argv.length != 5) {
+        if (argv.length != 6) {
             System.out.println("usage: args are:\ninetaddr port user pw target_id memory_segment_name");
             System.exit(1);
         }
