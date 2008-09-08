@@ -47,7 +47,7 @@ public class JSONMarshaller extends Marshaller {
 
     @Override
     public String represent(Marshallable marshallable, MarshallingTraits marshallingTraits) {
-        String result = new JSONObject(marshallable, false).toString();
+        String result = new JSONObject(marshallable, marshallable.names()).toString();
         return result;
     }
 

@@ -115,5 +115,11 @@ public class Host extends MarshallableObject {
         System.out.println("Here is the Host after marshalling in your values: ");
         System.out.println("host.name == " + host.getName());
         System.out.println("host.href == " + host.getHref().toString());
+        System.out.println("Here is the string representation of Host at present: " + host.toRepresentation(marshaller));
+    }
+
+    @Override
+    public String[] names() {
+        return new String[]{"name", "href"};
     }
 }
