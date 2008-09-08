@@ -24,6 +24,7 @@ Functions additionally supported in this release:
     * Name_List_Remove
     * Static_Image_Changes_Activate_DM
     * Static_Image_Changes_Deactivate_DM
+    * Static_Image_Changes_Immediate_DM
     * Virtual_Channel_Connection_Create_DM
     * Virtual_Channel_Connection_Delete_DM
     * Virtual_Network_Adapter_Connect_LAN_DM
