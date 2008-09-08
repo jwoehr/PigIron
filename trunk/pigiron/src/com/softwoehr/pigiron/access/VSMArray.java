@@ -187,6 +187,21 @@ public class VSMArray extends VSMStruct implements VSMParm {
     public String getFormalType() {
         return FORMAL_TYPE;
     }
+
+    /**
+     * A class to express internal Pigiron errors in assimilating a
+     * wrong type of CountedStruct in the constructor.
+     */
+    public class VSMArrayCountedStructCTORException extends VSMException {
+
+        /**
+         * Create instance with a message.
+         * @param message the message
+         */
+        public VSMArrayCountedStructCTORException(String message) {
+            super(message);
+        }
+    }
     /**
      *
      * @param toCopy

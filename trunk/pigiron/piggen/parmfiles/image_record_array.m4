@@ -4,7 +4,7 @@ pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
 pigparm_class(array_classname, `VSMArray',`com.softwoehr.pigiron.access.paramstructs',`dnl
 
- /**
+/**
  * array_classname implements the {@code array_formal_name} from {@code associated_function}
  * @see com.softwoehr.pigiron.functions.associated_function_javaname
  */')dnl
