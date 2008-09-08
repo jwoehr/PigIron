@@ -38,6 +38,7 @@ import com.softwoehr.pigiron.functions.CheckAuthentication;
 import com.softwoehr.pigiron.functions.ImageStatusQuery;
 import com.softwoehr.pigiron.functions.NameListQuery;
 import com.softwoehr.pigiron.functions.QueryAPIFunctionalLevel;
+import com.softwoehr.pigiron.functions.QueryDirectoryManagerLevelDM;
 import com.softwoehr.pigiron.functions.SharedMemoryQuery;
 import com.softwoehr.pigiron.functions.VMRMMeasurementQuery;
 import com.softwoehr.pigiron.functions.VirtualNetworkAdapterQuery;
@@ -78,7 +79,10 @@ public class Main {
      * @see com.softwoehr.pigiron.functions.ImageStatusQuery
      * @see com.softwoehr.pigiron.functions.NameListQuery
      * @see com.softwoehr.pigiron.functions.QueryAPIFunctionalLevel
+     * @see com.softwoehr.pigiron.functions.QueryDirectoryManagerLevelDM
      * @see com.softwoehr.pigiron.functions.SharedMemoryQuery
+     * @see com.softwoehr.pigiron.functions.VMRMMeasurementQuery
+     * @see com.softwoehr.pigiron.functions.VirtualNetworkAdapterQuery
      */
     public static void main(String[] argv) throws IOException, VSMException {
         System.out.println("========= ImageActiveConfigurationQuery =========");
@@ -96,6 +100,8 @@ public class Main {
         NameListQuery.main(modifiedArgs);
         System.out.println("========= QueryAPIFunctionalLevel =========");
         QueryAPIFunctionalLevel.main(argv);
+        System.out.println("========= QueryDirectoryManagerLevelDM =========");
+        QueryDirectoryManagerLevelDM.main(argv);
         System.out.println("========= SharedMemoryQuery =========");
         SharedMemoryQuery.main(argv);
         System.out.println("========= VMRMMeasurementQuery =========");
