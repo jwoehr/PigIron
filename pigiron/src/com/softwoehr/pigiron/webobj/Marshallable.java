@@ -39,6 +39,12 @@ package com.softwoehr.pigiron.webobj;
 public interface Marshallable {
 
     /**
+     * Identify marshallable fields to the marshaller
+     * @return a string array naming the fields to be marshalled.
+     */
+    public String[] names();
+
+    /**
      * Reinstance members of the Marshallable from a string representation
      * using the Marshaller specified.
      * @param representation string representation of the Marshallable

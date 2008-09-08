@@ -39,7 +39,7 @@ import com.softwoehr.pigiron.webobj.Marshaller.MarshallingTraits;
  * @see com.softwoehr.pigiron.webobj.Marshaller
  * @author jax
  */
-public class MarshallableObject implements Marshallable {
+public abstract class MarshallableObject implements Marshallable {
 
     public MarshallableObject() {
     }
@@ -74,4 +74,10 @@ public class MarshallableObject implements Marshallable {
     public void fromRepresentation(String representation, Marshaller marshaller, MarshallingTraits marshallingTraits) {
         marshaller.fromRepresentation(representation, this, marshallingTraits);
     }
+
+    /**
+     * Identify marshallable fields to the marshaller
+     * @return a string array naming the fields to be marshalled.
+     */
+    public abstract String [] names ();
 }
