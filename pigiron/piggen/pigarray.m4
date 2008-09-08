@@ -129,11 +129,11 @@ push_divert(ctor_stream)dnl
      */
     public myClass()`('CountedStruct value, String formalName) throws VSMArrayCountedStructCTORException {
         super();
-	if (!value.getClass`()'.getSimpleName`()'.equals`('"counted_structure_classname()")) {
-	    throw new VSMArrayCountedStructCTORException`('value + " is not an instance of counted_structure_classname");
-            }
-	setValue(value);
-	setFormalName(formalName);
+        if (!value.getClass`()'.getSimpleName`()'.equals`('"counted_structure_classname()")) {
+            throw new VSMArrayCountedStructCTORException`('value + " is not an instance of counted_structure_classname");
+        }
+        setValue(value);
+        setFormalName(formalName);
     }
 
     /**
@@ -243,6 +243,22 @@ pop_divert()dnl
 \\ pigparm_endclass ... Close a class definition
 define(`pigparm_endclass',`dnl
 push_divert(class_footer_stream)dnl
+    /** Tests whether the Array can assimilate its proper
+     * CountedStruct type and still not assimilate other CountedStruct types.
+     * @param argv not used
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws VSMArrayCountedStructCTORException
+     */
+    public static void main(String argv[]) throws ClassNotFoundException, InstantiationException, IllegalAccessException, VSMArrayCountedStructCTORException {
+        CountedStruct cS = (CountedStruct) Class.forName`('"com.softwoehr.pigiron.access.paramstructs.counted_structure_classname").newInstance`(');
+        array_classname aC = new array_classname`('cS, FORMAL_TYPE);
+        System.out.println("Here is the array_classname instance having assimilated an counted_structure_classname instance: " + aC.prettyPrint`('));
+        cS = new PageRangeStructureCounted`(');
+        aC = new array_classname`('cS, FORMAL_TYPE);
+        System.out.println`('"You should never see this message due to a VSMArrayCountedStructCTORException thrown before: Here is the array_classname instance having assimilated an PageRangeStructureCounted instance: " + aC.prettyPrint`('));
+    }
 }
 push_divert(file_footer_stream)dnl
 
