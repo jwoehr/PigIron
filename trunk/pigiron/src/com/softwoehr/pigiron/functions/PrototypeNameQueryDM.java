@@ -37,23 +37,23 @@
 package com.softwoehr.pigiron.functions;
 
 import com.softwoehr.pigiron.access.*;
-import com.softwoehr.pigiron.access.paramstructs.PrototypeRecordArray;
+import com.softwoehr.pigiron.access.paramstructs.PrototypeNameArray;
 
 /**
- * {@code Prototype_Create_DM} VSMAPI Function
- * @see com.softwoehr.pigiron.access.paramstructs.PrototypeRecordArray
+ * {@code Prototype_Name_Query_DM} VSMAPI Function
+ * @see com.softwoehr.pigiron.access.paramstructs.PrototypeNameArray
  */
-public class PrototypeCreateDM extends VSMCall {
+public class PrototypeNameQueryDM extends VSMCall {
 
     /**
      * The transmitted name of the function.
      */
-    public static final String FUNCTION_NAME = "Prototype_Create_DM";
+    public static final String FUNCTION_NAME = "Prototype_Name_Query_DM";
 
     /**
      *  Create an instance of the function call with important fields not instanced.
      */
-    public PrototypeCreateDM() {
+    public PrototypeNameQueryDM() {
     }
 
     /**
@@ -63,52 +63,31 @@ public class PrototypeCreateDM extends VSMCall {
      * @param userid userid executing the function
      * @param password the password
      * @param target_identifier the target of the VSMAPI function
-     * @param prototype_record_array_length instances {@code prototypeRecordArrayLength}
-     * @param prototype_record_array instances {@code prototypeRecordArray}
      */
-    public PrototypeCreateDM(String hostname, int port, String userid, String password, String target_identifier, int prototype_record_array_length, PrototypeRecordArray prototype_record_array) {
+    public PrototypeNameQueryDM(String hostname, int port, String userid, String password, String target_identifier) {
         this();
         setHostname(hostname);
         setPort(port);
         setUserid(userid);
         setPassword(password);
         setTarget_identifier(target_identifier);
-        set_prototypeRecordArrayLength(prototype_record_array_length);
-        set_prototypeRecordArray(prototype_record_array);
     }
 
-    /** Length of prototype_record_array */
-    private int prototypeRecordArrayLength = 0;
+    /** Length of prototype_name_array */
+    private int prototypeNameArrayLength = 0;
 
-    /** An array instanced in the ctor. */
-    private PrototypeRecordArray prototypeRecordArray = null;
-
-    /** Set the value of {@code  prototypeRecordArrayLength }.
-     * @param val The value to set {@code  prototypeRecordArrayLength }.
+    /** Set the value of {@code  prototypeNameArrayLength }.
+     * @param val The value to set {@code  prototypeNameArrayLength }.
      */
-    public void set_prototypeRecordArrayLength(int val) {
-        prototypeRecordArrayLength = val;
+    public void set_prototypeNameArrayLength(int val) {
+        prototypeNameArrayLength = val;
     }
 
-    /** Get the value of {@code  prototypeRecordArrayLength }.
-     * @return The value of {@code  prototypeRecordArrayLength }.
+    /** Get the value of {@code  prototypeNameArrayLength }.
+     * @return The value of {@code  prototypeNameArrayLength }.
      */
-    public int get_prototypeRecordArrayLength() {
-        return prototypeRecordArrayLength;
-    }
-
-    /** Set the value of {@code  prototypeRecordArray }.
-     * @param val The value to set {@code  prototypeRecordArray }.
-     */
-    public void set_prototypeRecordArray(PrototypeRecordArray val) {
-        prototypeRecordArray = val;
-    }
-
-    /** Get the value of {@code  prototypeRecordArray }.
-     * @return The value of {@code  prototypeRecordArray }.
-     */
-    public PrototypeRecordArray get_prototypeRecordArray() {
-        return prototypeRecordArray;
+    public int get_prototypeNameArrayLength() {
+        return prototypeNameArrayLength;
     }
 
     /**
@@ -133,8 +112,6 @@ public class PrototypeCreateDM extends VSMCall {
         tempString = new VSMString(getTarget_identifier(), "target_identifier");
         parameterArray.add(new VSMInt4(tempString.paramLength(), "target_identifier_length"));
         parameterArray.add(tempString);
-        parameterArray.add(new VSMInt4(get_prototypeRecordArrayLength(), "prototype_record_array_length"));
-        parameterArray.add(new PrototypeRecordArray(get_prototypeRecordArray(), "prototype_record_array"));
         VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
         parameterArray.insertElementAt(outputLength, 0);
         setInParams(parameterArray);
@@ -155,6 +132,8 @@ public class PrototypeCreateDM extends VSMCall {
         parameterArray.add(new VSMInt4(-1, "request_id"));
         parameterArray.add(new VSMInt4(-1, "return_code"));
         parameterArray.add(new VSMInt4(-1, "reason_code"));
+        parameterArray.add(new VSMInt4(-1, "prototype_name_array_length"));
+        parameterArray.add(PrototypeNameArray.modelArray("prototype_name_array"));
         setOutParams(parameterArray);
         return parameterArray;
     }

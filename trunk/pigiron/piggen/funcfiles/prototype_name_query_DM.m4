@@ -1,5 +1,5 @@
 include(`pigfunc.m4')dnl \\ prototype_create_DM.m4
-function_namespace(`Prototype_Create_DM', `prototype_record_array')dnl
+function_namespace(`Prototype_Name_Query_DM', `prototype_name_array')dnl
 pigfunc_start()dnl \\ function_namespace(`function_formal_name', `significant_parameter_formal_name')
 dnl pigfunc_import(`java.io.IOException')dnl
 pigfunc_import(`com.softwoehr.pigiron.access.*')dnl \\ function_classname function_formal_name etc. bound in namespace
@@ -12,15 +12,13 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
  */')dnl \\ significant_parameter_formal_name bound in namespace
 dnl
 pigfunc_attribute(`private', `', `int', member_name(significant_parameter_formal_name`_length'), `0', `', `Length of' significant_parameter_formal_name)dnl
-pigfunc_attribute(`private', `', significant_parameter_classname, significant_parameter_membername, `null', `', `An array instanced in the ctor.')dnl
-pigfunc_ctors(`int', significant_parameter_formal_name`_length', member_name(significant_parameter_formal_name`_length'),
-significant_parameter_classname, significant_parameter_formal_name, significant_parameter_membername)dnl
+pigfunc_ctors()dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`VSMInt4', member_getter(significant_parameter_formal_name`_length')`()', significant_parameter_formal_name`_length')dnl
-pigfunc_compose_input_parm(significant_parameter_classname, significant_parameter_member_getter`()', significant_parameter_formal_name)dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
+pigfunc_compose_output_parm(`VSMInt4', `-1', significant_parameter_formal_name`_length')dnl
+pigfunc_compose_output_parm(significant_parameter_classname, `null', significant_parameter_formal_name)dnl
 pigfunc_compose_output_end()dnl
 dnl pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException`,' VSMException', `dnl
 dnl  * You can execute the VSMAPI call from {@code main()}, try it
