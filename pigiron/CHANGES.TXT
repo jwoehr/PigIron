@@ -21,6 +21,7 @@ Functions additionally supported in this release:
     * Image_Delete_DM
     * Image_Device_Dedicate_DM
     * Image_Device_Undedicate_DM
+    * Image_Volume_Space_Define_DM
     * Name_List_Remove
     * Prototype_Create_DM
     * Prototype_Delete_DM
