@@ -26,6 +26,7 @@ Functions additionally supported in this release:
     * Prototype_Delete_DM
     * Prototype_Name_Query_DM
     * Prototype_Query_DM
+    * Prototype_Replace_DM
     * Query_Asynchronous_Operation_DM
     * Query_Directory_Manager_Level_DM
     * Shared_Memory_Access_Add_DM
