@@ -16,6 +16,7 @@ CHANGES
 
 Functions additionally supported in this release:
 
+    * Asynchronous_Notification_Disable_DM
     * Asynchronous_Notification_Enable_DM
     * Asynchronous_Notification_Query_DM
     * Image_Create_DM
