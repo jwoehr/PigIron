@@ -23,6 +23,7 @@ Functions additionally supported in this release:
     * Image_Device_Undedicate_DM
     * Name_List_Remove
     * Prototype_Create_DM
+    * Prototype_Delete_DM
     * Query_Asynchronous_Operation_DM
     * Query_Directory_Manager_Level_DM
     * Shared_Memory_Access_Add_DM
