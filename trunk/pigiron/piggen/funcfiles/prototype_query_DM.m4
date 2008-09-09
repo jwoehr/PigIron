@@ -1,5 +1,5 @@
-include(`pigfunc.m4')dnl \\ prototype_name_query_DM.m4
-function_namespace(`Prototype_Name_Query_DM', `prototype_name_array')dnl
+include(`pigfunc.m4')dnl \\ prototype_query_DM.m4
+function_namespace(`Prototype_Query_DM', `prototype_record_array')dnl
 pigfunc_start()dnl \\ function_namespace(`function_formal_name', `significant_parameter_formal_name')
 dnl pigfunc_import(`java.io.IOException')dnl
 pigfunc_import(`com.softwoehr.pigiron.access.*')dnl \\ function_classname function_formal_name etc. bound in namespace
