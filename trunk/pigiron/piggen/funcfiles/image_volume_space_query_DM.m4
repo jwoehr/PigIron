@@ -16,7 +16,7 @@ pigfunc_constant(`public', `int', `ENTRY_TYPE_REGION', `2', `Query specified reg
 pigfunc_constant(`public', `int', `ENTRY_TYPE_GROUP', `3', `Query specified group')dnl
 pigfunc_attribute(`private', `', `int', member_name(`query_type'), `0', `', `query_type')dnl
 pigfunc_attribute(`private', `', `int', member_name(`entry_type'), `0', `', `entry_type')dnl
-pigfunc_attribute(`private', `', `String',  member_name(`entry_names'), `""', `', `Names of groups, regions or volumes to be queried')dnl
+pigfunc_attribute(`private', `', `String', member_name(`entry_names'), `""', `', `Names of groups`,' regions or volumes to be queried')dnl
 pigfunc_ctors(`int', `query_type', member_name(`query_type'),
 `int', `entry_type', member_name(`entry_type'),
 `String', `entry_names', member_name(`entry_names'))dnl

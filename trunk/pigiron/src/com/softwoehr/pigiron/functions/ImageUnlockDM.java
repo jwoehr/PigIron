@@ -40,37 +40,19 @@ import java.io.IOException;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * {@code Image_Volume_Space_Query_DM} VSMAPI Function
+ * {@code Image_Unlock_DM} VSMAPI Function
  */
-public class ImageVolumeSpaceQueryDM extends VSMCall {
+public class ImageUnlockDM extends VSMCall {
 
     /**
      * The transmitted name of the function.
      */
-    public static final String FUNCTION_NAME = "Image_Volume_Space_Query_DM";
-
-    /** Query volume definition for the specified image device */
-    public static final int QUERY_TYPE_DEFINITION = 1;
-
-    /** Query amount of free space available on the specified image device */
-    public static final int QUERY_TYPE_FREE = 2;
-
-    /** Query amount of space used on the specified image device */
-    public static final int QUERY_TYPE_USED = 3;
-
-    /** Query specified volume */
-    public static final int ENTRY_TYPE_VOLUME = 1;
-
-    /** Query specified region */
-    public static final int ENTRY_TYPE_REGION = 2;
-
-    /** Query specified group */
-    public static final int ENTRY_TYPE_GROUP = 3;
+    public static final String FUNCTION_NAME = "Image_Unlock_DM";
 
     /**
      *  Create an instance of the function call with important fields not instanced.
      */
-    public ImageVolumeSpaceQueryDM() {
+    public ImageUnlockDM() {
     }
 
     /**
@@ -80,71 +62,33 @@ public class ImageVolumeSpaceQueryDM extends VSMCall {
      * @param userid userid executing the function
      * @param password the password
      * @param target_identifier the target of the VSMAPI function
-     * @param query_type instances {@code queryType}
-     * @param entry_type instances {@code entryType}
-     * @param entry_names instances {@code entryNames}
+     * @param device_address instances {@code deviceAddress}
      */
-    public ImageVolumeSpaceQueryDM(String hostname, int port, String userid, String password, String target_identifier, int query_type, int entry_type, String entry_names) {
+    public ImageUnlockDM(String hostname, int port, String userid, String password, String target_identifier, String device_address) {
         this();
         setHostname(hostname);
         setPort(port);
         setUserid(userid);
         setPassword(password);
         setTarget_identifier(target_identifier);
-        set_queryType(query_type);
-        set_entryType(entry_type);
-        set_entryNames(entry_names);
+        set_deviceAddress(device_address);
     }
 
-    /** query_type */
-    private int queryType = 0;
+    /** The virtual address of the device being unlocked */
+    private String deviceAddress = "*";
 
-    /** entry_type */
-    private int entryType = 0;
-
-    /** Names of groups, regions or volumes to be queried */
-    private String entryNames = "";
-
-    /** Set the value of {@code  queryType }.
-     * @param val The value to set {@code  queryType }.
+    /** Set the value of {@code  deviceAddress }.
+     * @param val The value to set {@code  deviceAddress }.
      */
-    public void set_queryType(int val) {
-        queryType = val;
+    public void set_deviceAddress(String val) {
+        deviceAddress = val;
     }
 
-    /** Get the value of {@code  queryType }.
-     * @return The value of {@code  queryType }.
+    /** Get the value of {@code  deviceAddress }.
+     * @return The value of {@code  deviceAddress }.
      */
-    public int get_queryType() {
-        return queryType;
-    }
-
-    /** Set the value of {@code  entryType }.
-     * @param val The value to set {@code  entryType }.
-     */
-    public void set_entryType(int val) {
-        entryType = val;
-    }
-
-    /** Get the value of {@code  entryType }.
-     * @return The value of {@code  entryType }.
-     */
-    public int get_entryType() {
-        return entryType;
-    }
-
-    /** Set the value of {@code  entryNames }.
-     * @param val The value to set {@code  entryNames }.
-     */
-    public void set_entryNames(String val) {
-        entryNames = val;
-    }
-
-    /** Get the value of {@code  entryNames }.
-     * @return The value of {@code  entryNames }.
-     */
-    public String get_entryNames() {
-        return entryNames;
+    public String get_deviceAddress() {
+        return deviceAddress;
     }
 
     /**
@@ -169,10 +113,8 @@ public class ImageVolumeSpaceQueryDM extends VSMCall {
         tempString = new VSMString(getTarget_identifier(), "target_identifier");
         parameterArray.add(new VSMInt4(tempString.paramLength(), "target_identifier_length"));
         parameterArray.add(tempString);
-        parameterArray.add(new VSMInt1(get_queryType(), "query_type"));
-        parameterArray.add(new VSMInt1(get_entryType(), "entry_type"));
-        tempString = new VSMString(get_entryNames(), "entry_names");
-        parameterArray.add(new VSMInt4(tempString.paramLength(), "entry_names_length"));
+        tempString = new VSMString(get_deviceAddress(), "device_address");
+        parameterArray.add(new VSMInt4(tempString.paramLength(), "device_address_length"));
         parameterArray.add(tempString);
         VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
         parameterArray.insertElementAt(outputLength, 0);
@@ -216,15 +158,15 @@ public class ImageVolumeSpaceQueryDM extends VSMCall {
      */
     public static void main(String[] argv) throws IOException, VSMException {
 
-        ImageVolumeSpaceQueryDM instance = null;
+        ImageUnlockDM instance = null;
 
-        if (argv.length != 8) {
-            System.out.println("usage: args are:\ninetaddr port user pw target_id function_type region_name image_vol_id start_cylinder size group_name device_type");
+        if (argv.length != 6) {
+            System.out.println("usage: args are:\ninetaddr port user pw target_namelist name_to_add");
             System.exit(1);
         }
 
-        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5] + " " + argv[6] + " " + argv[7]);
-        instance = new ImageVolumeSpaceQueryDM(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4],  Integer.valueOf(argv[5]).intValue(), Integer.valueOf(argv[6]).intValue(), argv[7]);
+        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5]);
+        instance = new ImageUnlockDM(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5]);
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
