@@ -40,19 +40,19 @@ import java.io.IOException;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * {@code Shared_Memory_Access_Add_DM} VSMAPI Function
+ * {@code Query_Asynchronous_Operation_DM} VSMAPI Function
  */
-public class SharedMemoryAccessAddDM extends VSMCall {
+public class QueryAsynchronousOperationDM extends VSMCall {
 
     /**
      * The transmitted name of the function.
      */
-    public static final String FUNCTION_NAME = "Shared_Memory_Access_Add_DM";
+    public static final String FUNCTION_NAME = "Query_Asynchronous_Operation_DM";
 
     /**
      *  Create an instance of the function call with important fields not instanced.
      */
-    public SharedMemoryAccessAddDM() {
+    public QueryAsynchronousOperationDM() {
     }
 
     /**
@@ -62,33 +62,33 @@ public class SharedMemoryAccessAddDM extends VSMCall {
      * @param userid userid executing the function
      * @param password the password
      * @param target_identifier the target of the VSMAPI function
-     * @param memory_segment_name instances {@code memorySegmentName}
+     * @param operation_id instances {@code operationId}
      */
-    public SharedMemoryAccessAddDM(String hostname, int port, String userid, String password, String target_identifier, String memory_segment_name) {
+    public QueryAsynchronousOperationDM(String hostname, int port, String userid, String password, String target_identifier, int operation_id) {
         this();
         setHostname(hostname);
         setPort(port);
         setUserid(userid);
         setPassword(password);
         setTarget_identifier(target_identifier);
-        set_memorySegmentName(memory_segment_name);
+        set_operationId(operation_id);
     }
 
-    /** The name of the memory segment to which access is being granted. */
-    private String memorySegmentName = "";
+    /** The identifier of the operation to be queried */
+    private int operationId = -1;
 
-    /** Set the value of {@code  memorySegmentName }.
-     * @param val The value to set {@code  memorySegmentName }.
+    /** Set the value of {@code  operationId }.
+     * @param val The value to set {@code  operationId }.
      */
-    public void set_memorySegmentName(String val) {
-        memorySegmentName = val;
+    public void set_operationId(int val) {
+        operationId = val;
     }
 
-    /** Get the value of {@code  memorySegmentName }.
-     * @return The value of {@code  memorySegmentName }.
+    /** Get the value of {@code  operationId }.
+     * @return The value of {@code  operationId }.
      */
-    public String get_memorySegmentName() {
-        return memorySegmentName;
+    public int get_operationId() {
+        return operationId;
     }
 
     /**
@@ -113,9 +113,7 @@ public class SharedMemoryAccessAddDM extends VSMCall {
         tempString = new VSMString(getTarget_identifier(), "target_identifier");
         parameterArray.add(new VSMInt4(tempString.paramLength(), "target_identifier_length"));
         parameterArray.add(tempString);
-        tempString = new VSMString(get_memorySegmentName(), "memory_segment_name");
-        parameterArray.add(new VSMInt4(tempString.paramLength(), "memory_segment_name_length"));
-        parameterArray.add(tempString);
+        parameterArray.add(new VSMInt4(get_operationId(), "operation_id"));
         VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
         parameterArray.insertElementAt(outputLength, 0);
         setInParams(parameterArray);
@@ -136,7 +134,6 @@ public class SharedMemoryAccessAddDM extends VSMCall {
         parameterArray.add(new VSMInt4(-1, "request_id"));
         parameterArray.add(new VSMInt4(-1, "return_code"));
         parameterArray.add(new VSMInt4(-1, "reason_code"));
-        parameterArray.add(new VSMInt4(-1, "operation_id"));
         setOutParams(parameterArray);
         return parameterArray;
     }
@@ -159,7 +156,7 @@ public class SharedMemoryAccessAddDM extends VSMCall {
      */
     public static void main(String[] argv) throws IOException, VSMException {
 
-        SharedMemoryAccessAddDM instance = null;
+        QueryAsynchronousOperationDM instance = null;
 
         if (argv.length != 6) {
             System.out.println("usage: args are:\ninetaddr port user pw target_id memory_segment_name");
@@ -167,7 +164,7 @@ public class SharedMemoryAccessAddDM extends VSMCall {
         }
 
         System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4]+ " " + argv[5]);
-        instance = new SharedMemoryAccessAddDM(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5]);
+        instance = new QueryAsynchronousOperationDM(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], Integer.valueOf(argv[5]).intValue());
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
