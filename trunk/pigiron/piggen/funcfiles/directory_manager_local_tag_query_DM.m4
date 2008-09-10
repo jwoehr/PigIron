@@ -11,6 +11,7 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 pigfunc_attribute(`private', `', `String', member_name(`tag_name'), `""', `', `The name of the local tag or named comment to be defined')dnl
 pigfunc_ctors(`String', `tag_name', member_name(`tag_name'))dnl
 pigfunc_compose_input_start()dnl
+pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
 pigfunc_compose_input_parm(CountedString, member_getter(`tag_name')`()', `tag_name')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl

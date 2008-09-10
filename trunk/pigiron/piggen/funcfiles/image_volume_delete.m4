@@ -35,7 +35,6 @@ pigfunc_ctors(`String', `image_device_number', javaize_lc(`image_device_number')
 `String', `alt_parm_disk_password', javaize_lc(`alt_parm_disk_password'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `image_device_number')dnl
 pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`image_device_number')()', `image_device_number')dnl
 pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`image_vol_id')()', `image_vol_id')dnl
 pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`system_config_name')()', `system_config_name')dnl
