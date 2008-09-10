@@ -39,19 +39,19 @@ package com.softwoehr.pigiron.access.paramstructs;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * WorkloadArray implements the {@code workload_array} from {@code VMRM_Measurement_Query}
- * @see com.softwoehr.pigiron.functions.VMRMMeasurementQuery
+ * StatementArray implements the {@code statement_array} from {@code DirectoryManagerSearchDM}
+ * @see com.softwoehr.pigiron.functions.
  */
-public class WorkloadArray extends VSMArray {
+public class StatementArray extends VSMArray {
 
     /**
      * Create a modelled-for-read instance with a specified formal name.
      * @param formalName the formal name
      * @return the modelled instance.
      */
-    public static WorkloadArray modelArray(String formalName) {
-        WorkloadArray result = new WorkloadArray();
-        result.add(new WorkloadStructure("workload_structure"));
+    public static StatementArray modelArray(String formalName) {
+        StatementArray result = new StatementArray();
+        result.add(new StatementStructure(null, "statement_structure"));
         result.setFormalName(formalName);
         return result;
     }
@@ -62,7 +62,7 @@ public class WorkloadArray extends VSMArray {
      * @param value a like instance to copy from
      * @param formalName the formal name
      */
-    public WorkloadArray(VSMArray value, String formalName) {
+    public StatementArray(VSMArray value, String formalName) {
         super(value, formalName);
     }
 
@@ -73,10 +73,10 @@ public class WorkloadArray extends VSMArray {
      * @param value a CountedStruct to absorb
      * @param formalName the formal name
      */
-    public WorkloadArray(CountedStruct value, String formalName) throws VSMArrayCountedStructCTORException {
+    public StatementArray(CountedStruct value, String formalName) throws VSMArrayCountedStructCTORException {
         super();
-        if (!value.getClass().getSimpleName().equals("WorkloadStructureCounted")) {
-            throw new VSMArrayCountedStructCTORException(value + " is not an instance of WorkloadStructureCounted");
+        if (!value.getClass().getSimpleName().equals("StatementStructureCounted")) {
+            throw new VSMArrayCountedStructCTORException(value + " is not an instance of StatementStructureCounted");
         }
         setValue(value);
         setFormalName(formalName);
@@ -86,7 +86,7 @@ public class WorkloadArray extends VSMArray {
      * Create an instance by copying the value from a like instance.
      * @param value a like instance to copy from
      */
-    public WorkloadArray(VSMArray value) {
+    public StatementArray(VSMArray value) {
         super(value);
     }
 
@@ -95,7 +95,7 @@ public class WorkloadArray extends VSMArray {
      * is instanced.
      * @param formalName the formal name
      */
-    public WorkloadArray(String formalName) {
+    public StatementArray(String formalName) {
         super();
         setFormalName(formalName);
     }
@@ -103,7 +103,7 @@ public class WorkloadArray extends VSMArray {
     /**
      * Create an instance of undefined value.
      */
-    public WorkloadArray() {
+    public StatementArray() {
     }
     /** Tests whether the Array can assimilate its proper
      * CountedStruct type and still not assimilate other CountedStruct types.
@@ -114,12 +114,12 @@ public class WorkloadArray extends VSMArray {
      * @throws VSMArrayCountedStructCTORException
      */
     public static void main(String argv[]) throws ClassNotFoundException, InstantiationException, IllegalAccessException, VSMArrayCountedStructCTORException {
-        CountedStruct cS = (CountedStruct) Class.forName("com.softwoehr.pigiron.access.paramstructs.WorkloadStructureCounted").newInstance();
-        WorkloadArray aC = new WorkloadArray(cS, FORMAL_TYPE);
-        System.out.println("Here is the WorkloadArray instance having assimilated an WorkloadStructureCounted instance: " + aC.prettyPrint());
+        CountedStruct cS = (CountedStruct) Class.forName("com.softwoehr.pigiron.access.paramstructs.StatementStructureCounted").newInstance();
+        StatementArray aC = new StatementArray(cS, FORMAL_TYPE);
+        System.out.println("Here is the StatementArray instance having assimilated an StatementStructureCounted instance: " + aC.prettyPrint());
         cS = new PageRangeStructureCounted();
-        aC = new WorkloadArray(cS, FORMAL_TYPE);
-        System.out.println("You should never see this message due to a VSMArrayCountedStructCTORException thrown before: Here is the WorkloadArray instance having assimilated an PageRangeStructureCounted instance: " + aC.prettyPrint());
+        aC = new StatementArray(cS, FORMAL_TYPE);
+        System.out.println("You should never see this message due to a VSMArrayCountedStructCTORException thrown before: Here is the StatementArray instance having assimilated an PageRangeStructureCounted instance: " + aC.prettyPrint());
     }
 }
 

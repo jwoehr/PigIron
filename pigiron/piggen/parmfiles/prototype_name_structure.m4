@@ -1,16 +1,16 @@
-include(`pigarray.m4')dnl \\ prototype_name_array.m4.m4
+include(`pigstruct.m4')dnl \\ prototype_name.m4
 param_namespace(`prototype_name',`Prototype_Name_Query_DM')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
-pigparm_class(array_classname, `VSMArray',`com.softwoehr.pigiron.access.paramstructs',`dnl
+pigparm_class(structure_classname, `VSMStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl
 
 /**
- * array_classname implements the {@code array_formal_name} from {@code associated_function}
+ * structure_classname implements the {@code structure_formal_name} from {@code associated_function}
  * @see com.softwoehr.pigiron.functions.associated_function_javaname
  */')dnl
 pigparm_ctors()dnl
 pigparm_model_start()dnl
-pigparm_model_parm(structure_classname, `', structure_formal_name)dnl
+pigparm_model_parm(CountedString, `""', param_entity_name)dnl
 pigparm_model_end()dnl
 pigparm_endclass()dnl
 pigparm_end()dnl
