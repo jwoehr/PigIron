@@ -20,28 +20,28 @@ pigfunc_compose_output_parm(`VSMInt4', `-1', significant_parameter_formal_name`_
 pigfunc_compose_output_parm(`significant_parameter_classname', `null', `significant_parameter_formal_name')dnl
 pigfunc_compose_output_end()dnl
 pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException`,' VSMException', `dnl
-   * You can execute the VSMAPI call from {@code main()}, try it
-   * with no args to see the usage message.
-   * @param argv array of commandline args
-   * @throws IOException on comm error
-   * @throws VSMException on internal Pigiron param marshalling error', `dnl
+     * You can execute the VSMAPI call from {@code main()}, try it
+     * with no args to see the usage message.
+     * @param argv array of commandline args
+     * @throws IOException on comm error
+     * @throws VSMException on internal Pigiron param marshalling error', `dnl
 
-      function_classname instance = null;
+        function_classname instance = null;
 
-      if (argv.length != 5) {
-          System.out.println("usage: args are:\ninetaddr port user pw target_id prototype_name initial_password initial_account_number ");
-          System.exit(1);
-      }
- 
-      System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4]);
-      instance = new function_classname()(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4]);
+        if (argv.length != 5) {
+            System.out.println("usage: args are:\ninetaddr port user pw target_id");
+            System.exit(1);
+        }
 
-     ParameterArray pA = instance.doIt();
-     System.out.println("Returns from call to " + instance.getFunctionName() + ":");
-     Iterator<VSMParm> i = pA.iterator();
-     while (i.hasNext()) {
-         System.out.println(i.next().prettyPrint());
-     }')dnl
+        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4]);
+        instance = new function_classname()(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4]);
+
+        ParameterArray pA = instance.doIt();
+        System.out.println("Returns from call to " + instance.getFunctionName() + ":");
+        Iterator<VSMParm> i = pA.iterator();
+        while (i.hasNext()) {
+            System.out.println(i.next().prettyPrint());
+        }')dnl
 pigfunc_endclass()dnl
 pigfunc_end()dnl
 function_namespace_end()dnl
