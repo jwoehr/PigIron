@@ -23,6 +23,7 @@ Functions additionally supported in this release:
     * Directory_Manager_Local_Tag_Delete_DM
     * Directory_Manager_Local_Tag_Query_DM
     * Directory_Manager_Local_Tag_Set_DM
+    * Directory_Manager_Task_Cancel_DM
     * Image_Create_DM
     * Image_Delete_DM
     * Image_Device_Dedicate_DM
