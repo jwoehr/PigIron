@@ -39,12 +39,10 @@ package com.softwoehr.pigiron.access.paramstructs;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * RealDeviceStructureCounted wrappers the {@code RealDeviceStructure} from {@code Virtual_Network_Vswitch_Query}
- * as a PigIron CountedStruct pseudotype.
- * @see com.softwoehr.pigiron.functions.VirtualNetworkVswitchQuery
- * @see com.softwoehr.pigiron.access.paramstructs.RealDeviceStructure
+ * PrototypeNameStructure implements the {@code prototype_name_structure} from {@code Prototype_Name_Query_DM}
+ * @see com.softwoehr.pigiron.functions.PrototypeNameQueryDM
  */
-public class RealDeviceStructureCounted extends CountedStruct {
+public class PrototypeNameStructure extends VSMStruct {
 
     /**
      * Create an instance with a value derived by copying from a like instance
@@ -54,9 +52,9 @@ public class RealDeviceStructureCounted extends CountedStruct {
      * parameters".
      * @param value a like instance to copy from
      * @param formalName the formal name
-     * @see com.softwoehr.pigiron.access.CountedStruct
+     * @see com.softwoehr.pigiron.access.VSMStruct
      */
-    public RealDeviceStructureCounted(CountedStruct value, String formalName) {
+    public PrototypeNameStructure(VSMStruct value, String formalName) {
         this(value);
         setFormalName(formalName);
     }
@@ -66,7 +64,7 @@ public class RealDeviceStructureCounted extends CountedStruct {
      * null is legal value, means "just clear me".
      * @param value a like instance to copy from
      */
-    public RealDeviceStructureCounted(CountedStruct value) {
+    public PrototypeNameStructure(VSMStruct value) {
         super(value);
         if (value == null) {
             modelFormalParameters();
@@ -78,7 +76,7 @@ public class RealDeviceStructureCounted extends CountedStruct {
      * and the parameters modelled for reading.
      * @param formal_name the formal name of the instance
      */
-    public RealDeviceStructureCounted(String formal_name) {
+    public PrototypeNameStructure(String formal_name) {
     	   super();
 	   setFormalName(formal_name);
 	   modelFormalParameters();
@@ -87,7 +85,7 @@ public class RealDeviceStructureCounted extends CountedStruct {
     /**
      * Create a read-modelled instance.
      */
-    public RealDeviceStructureCounted() {
+    public PrototypeNameStructure() {
         super();
         modelFormalParameters();
     }
@@ -98,10 +96,10 @@ public class RealDeviceStructureCounted extends CountedStruct {
      * This makes it easy to set up a VSMAPI input instance
      * of this structure.
      */
-    public RealDeviceStructureCounted(VSMInt4 real_device_structure_length, RealDeviceStructure real_device_structure, String formalName) {
+    public PrototypeNameStructure(VSMString prototype_name, String formalName) {
         super();
-        add(real_device_structure_length);
-        add(real_device_structure);
+        add(new VSMInt4(prototype_name.paramLength(), "prototype_name_length"));
+        add(prototype_name);
         setFormalName(formalName);
     }
 
@@ -110,8 +108,8 @@ public class RealDeviceStructureCounted extends CountedStruct {
      */
     public void modelFormalParameters() {
         clear();
-        add(new VSMInt4(-1, "real_device_structure_length"));
-        add(new RealDeviceStructure("real_device_structure"));
+        add(new VSMInt4(-1, "prototype_name_length"));
+        add(new VSMString("", "prototype_name"));
     }
 }
 

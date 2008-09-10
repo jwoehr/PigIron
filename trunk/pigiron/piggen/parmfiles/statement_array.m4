@@ -1,5 +1,5 @@
-include(`pigarray.m4')dnl \\ prototype_name_array.m4.m4
-param_namespace(`prototype_name',`Prototype_Name_Query_DM')dnl
+include(`pigarray.m4')dnl \\ statement_array.m4
+param_namespace(`statement',`DirectoryManagerSearchDM')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
 pigparm_class(array_classname, `VSMArray',`com.softwoehr.pigiron.access.paramstructs',`dnl
@@ -10,7 +10,7 @@ pigparm_class(array_classname, `VSMArray',`com.softwoehr.pigiron.access.paramstr
  */')dnl
 pigparm_ctors()dnl
 pigparm_model_start()dnl
-pigparm_model_parm(structure_classname, `', structure_formal_name)dnl
+pigparm_model_parm(structure_classname, `null', structure_formal_name)dnl
 pigparm_model_end()dnl
 pigparm_endclass()dnl
 pigparm_end()dnl
