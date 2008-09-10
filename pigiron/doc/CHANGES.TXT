@@ -21,6 +21,7 @@ Functions additionally supported in this release:
     * Asynchronous_Notification_Query_DM
     * Directory_Manager_Local_Tag_Define_DM
     * Directory_Manager_Local_Tag_Delete_DM
+    * Directory_Manager_Local_Tag_Query_DM
     * Image_Create_DM
     * Image_Delete_DM
     * Image_Device_Dedicate_DM
