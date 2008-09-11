@@ -10,18 +10,18 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
  *
  */')dnl
 dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`image_device_number')',   `"*"', `', `The name of the memory segment to query')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`image_vol_id')',          `"*"', `', `The name of the memory segment to query')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`system_config_name')',    `"*"', `', `The name of the memory segment to query')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`system_config_type')',    `"*"', `', `The name of the memory segment to query')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`parm_disk_owner')',       `"*"', `', `The name of the memory segment to query')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`parm_disk_number')',      `"*"', `', `The name of the memory segment to query')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`parm_disk_password')',    `"*"', `', `The name of the memory segment to query')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`alt_system_config_name')',`"*"', `', `The name of the memory segment to query')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`alt_system_config_type')',`"*"', `', `The name of the memory segment to query')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`alt_parm_disk_owner')',   `"*"', `', `The name of the memory segment to query')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`alt_parm_disk_number')',  `"*"', `', `The name of the memory segment to query')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`alt_parm_disk_password')',`"*"', `', `The name of the memory segment to query')dnl
+pigfunc_attribute(`private', `', `String', `javaize_lc(`image_device_number')',   `"*"', `', `The virtual device number of the device')dnl
+pigfunc_attribute(`private', `', `String', `javaize_lc(`image_vol_id')',          `"*"', `', `The DASD volume label')dnl
+pigfunc_attribute(`private', `', `String', `javaize_lc(`system_config_name')',    `"*"', `', `File name of system configuration file - default is "SYSTEM"')dnl
+pigfunc_attribute(`private', `', `String', `javaize_lc(`system_config_type')',    `"*"', `', `File type of system configuration file - default is "CONFIG"')dnl
+pigfunc_attribute(`private', `', `String', `javaize_lc(`parm_disk_owner')',       `"*"', `', `Owner of the parm disk - default is "MAINT"')dnl
+pigfunc_attribute(`private', `', `String', `javaize_lc(`parm_disk_number')',      `"*"', `', `Number of the parm disk as defined in the VSMWORK1 directory')dnl
+pigfunc_attribute(`private', `', `String', `javaize_lc(`parm_disk_password')',    `"*"', `', `Multiwrite password for the parm disk - default is "`,'"')dnl
+pigfunc_attribute(`private', `', `String', `javaize_lc(`alt_system_config_name')',`"*"', `', `File name of the  alternative system configuration file')dnl
+pigfunc_attribute(`private', `', `String', `javaize_lc(`alt_system_config_type')',`"*"', `', `File type of the alternative system configuration file')dnl
+pigfunc_attribute(`private', `', `String', `javaize_lc(`alt_parm_disk_owner')',   `"*"', `', `Owner of the alternative parm disk')dnl
+pigfunc_attribute(`private', `', `String', `javaize_lc(`alt_parm_disk_number')',  `"*"', `', `Number of the alternative parm disk.')dnl
+pigfunc_attribute(`private', `', `String', `javaize_lc(`alt_parm_disk_password')',`"*"', `', `Multiwrite password for the alternate parm disk')dnl
 pigfunc_ctors(`String', `image_device_number', javaize_lc(`image_device_number'),
 `String', `image_vol_id', javaize_lc(`image_vol_id'),
 `String', `system_config_name', javaize_lc(`system_config_name'),
