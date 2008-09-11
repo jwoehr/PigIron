@@ -40,19 +40,19 @@ import java.io.IOException;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * <tt>Image_Disk_Unshare</tt> VSMAPI Function
+ * @{code Image_Disk_Unshare_DM} VSMAPI Function
  */
-public class ImageDiskUnshare extends VSMCall {
+public class ImageDiskUnshareDM extends VSMCall {
 
     /**
      * The transmitted name of the function.
      */
-    public static final String FUNCTION_NAME = "Image_Disk_Unshare";
+    public static final String FUNCTION_NAME = "Image_Disk_Unshare_DM";
 
     /**
      *  Create an instance of the function call with important fields not instanced.
      */
-    public ImageDiskUnshare() {
+    public ImageDiskUnshareDM() {
     }
 
     /**
@@ -63,8 +63,10 @@ public class ImageDiskUnshare extends VSMCall {
      * @param password the password
      * @param target_identifier the target of the VSMAPI function
      * @param image_disk_number instances {@code imageDiskNumber}
+     * @param target_image_name instances {@code targetImageName}
+     * @param target_image_disk_number instances {@code targetImageDiskNumber}
      */
-    public ImageDiskUnshare(String hostname, int port, String userid, String password, String target_identifier, String image_disk_number) {
+    public ImageDiskUnshareDM(String hostname, int port, String userid, String password, String target_identifier, String image_disk_number, String target_image_name, String target_image_disk_number) {
         this();
         setHostname(hostname);
         setPort(port);
@@ -72,10 +74,18 @@ public class ImageDiskUnshare extends VSMCall {
         setPassword(password);
         setTarget_identifier(target_identifier);
         set_imageDiskNumber(image_disk_number);
+        set_targetImageName(target_image_name);
+        set_targetImageDiskNumber(target_image_disk_number);
     }
 
-    /** The target_image_names virtual device address of the disk to be shared' */
+    /** The target_image_names virtual device address of the disk to be unshared' */
     private String imageDiskNumber = "";
+
+    /** The virtual device address of the previously-shared disk to be removed from the configuration */
+    private String targetImageName = "";
+
+    /** The virtual device number previously assigned to the shared disk for target_identifier */
+    private String targetImageDiskNumber = "";
 
     /** Set the value of {@code  imageDiskNumber }.
      * @param val The value to set {@code  imageDiskNumber }.
@@ -89,6 +99,34 @@ public class ImageDiskUnshare extends VSMCall {
      */
     public String get_imageDiskNumber() {
         return imageDiskNumber;
+    }
+
+    /** Set the value of {@code  targetImageName }.
+     * @param val The value to set {@code  targetImageName }.
+     */
+    public void set_targetImageName(String val) {
+        targetImageName = val;
+    }
+
+    /** Get the value of {@code  targetImageName }.
+     * @return The value of {@code  targetImageName }.
+     */
+    public String get_targetImageName() {
+        return targetImageName;
+    }
+
+    /** Set the value of {@code  targetImageDiskNumber }.
+     * @param val The value to set {@code  targetImageDiskNumber }.
+     */
+    public void set_targetImageDiskNumber(String val) {
+        targetImageDiskNumber = val;
+    }
+
+    /** Get the value of {@code  targetImageDiskNumber }.
+     * @return The value of {@code  targetImageDiskNumber }.
+     */
+    public String get_targetImageDiskNumber() {
+        return targetImageDiskNumber;
     }
 
     /**
@@ -115,6 +153,12 @@ public class ImageDiskUnshare extends VSMCall {
         parameterArray.add(tempString);
         tempString = new VSMString(get_imageDiskNumber(), "image_disk_number");
         parameterArray.add(new VSMInt4(tempString.paramLength(), "image_disk_number_length"));
+        parameterArray.add(tempString);
+        tempString = new VSMString(get_targetImageName(), "target_image_name");
+        parameterArray.add(new VSMInt4(tempString.paramLength(), "target_image_name_length"));
+        parameterArray.add(tempString);
+        tempString = new VSMString(get_targetImageDiskNumber(), "target_image_disk_number");
+        parameterArray.add(new VSMInt4(tempString.paramLength(), "target_image_disk_number_length"));
         parameterArray.add(tempString);
         VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
         parameterArray.insertElementAt(outputLength, 0);
@@ -158,15 +202,15 @@ public class ImageDiskUnshare extends VSMCall {
      */
     public static void main(String[] argv) throws IOException, VSMException {
 
-        ImageDiskUnshare instance = null;
+        ImageDiskUnshareDM instance = null;
 
-        if (argv.length != 6) {
-            System.out.println("usage: args are:\ninetaddr port user pw target image_disk_number");
+        if (argv.length != 8) {
+            System.out.println("usage: args are:\ninetaddr port user pw target image_disk_number target_image_name target_image_disk_number");
             System.exit(1);
         }
 
-        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5]);
-        instance = new ImageDiskUnshare(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5]);
+        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5] + " " + argv[6] + " " + argv[7]);
+        instance = new ImageDiskUnshareDM(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5], argv[6], argv[7]);
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
