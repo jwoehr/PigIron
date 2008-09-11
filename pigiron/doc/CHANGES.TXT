@@ -33,6 +33,7 @@ Functions additionally supported in this release:
     * Image_Disk_Copy_DM
     * Image_Disk_Delete_DM
     * Image_Disk_Share_DM
+    * Image_Disk_Unshare_DM
     * Image_Query_DM
     * Image_Replace_DM
     * Image_SCSI_Characteristics_Define_DM
