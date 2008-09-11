@@ -7,6 +7,7 @@ We've started with two subrirs:
     * ./fiji subdir which is scripting for PigIron in FIJI the ForthIsh Java
       Interpreter http://fiji.sourceforge.net
     * oorexx which is scripting for PigIron in Open ObjectRexx
+      http://sourceforge.net/projects/oorexx
 
 
 All files are of course covered by the license.txt file found in the main or doc
