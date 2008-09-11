@@ -52,12 +52,21 @@ do i = 1 to my.args~words
 my.argarray[i]= my.args~word(i)
 end
 if my.args~words < 6 then signal usage
-my.DirectoryManagerSearchDM=my.class~new(my.argarray[1],my.argarray[2],my.argarray[3],my.argarray[4],my.argarray[5],my.argarray[6])
-my.DirectoryManagerSearchDM.composeInput
+say "Invoking" my.classname"("my.argarray[1]', 'my.argarray[2]', 'my.argarray[3]', 'my.argarray[4]', 'my.argarray[5]', 'my.argarray[6]")"
+.bsf~bsf.import("java.lang.Integer", "jdkInteger")
+say .jdkInteger
+say .jdkInteger~valueOf(my.argarray[2])
+-- say .jdkInteger~valueOf(my.argarray[2])~getClass
+say .jdkInteger~valueOf(my.argarray[2])~intValue
+-- exit
+my.instance=my.class~new(my.argarray[1], .jdkInteger~valueOf(my.argarray[2])~intValue, my.argarray[3], my.argarray[4], my.argarray[5], my.argarray[6])
+my.output_parameter_array=my.instance~doIt
+say "Returns from call to " my.instance~getFormalName
+say my.output_parameter_array~prettyPrintAll
+exit 0
 
-/* Test code goes here */
 usage:
 say "Usage: function arg0 arg1 .. .. arg5"
-exit
+exit 1
 
 ::requires BSF.CLS
