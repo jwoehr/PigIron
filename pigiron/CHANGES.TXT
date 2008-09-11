@@ -14,7 +14,8 @@ CHANGES
 -------
 2008-09-?? 0.5 -- more VSMAPI functions
 
-Functions additionally supported in this release:
+Functions additionally supported in this release complete
+the 100 functions provided with VSMAPI 5.3:
 
     * Asynchronous_Notification_Disable_DM
     * Asynchronous_Notification_Enable_DM
