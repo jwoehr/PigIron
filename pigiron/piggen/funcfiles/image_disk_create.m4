@@ -15,13 +15,13 @@ pigfunc_constant(`public', `String', `IMAGE_DISK_MODE_WR', `"WR"', `Write access
 pigfunc_constant(`public', `String',  `IMAGE_DISK_MODE_M',  `"M"',  Multiple access is desired')dnl
 pigfunc_constant(`public', `String', `IMAGE_DISK_MODE_MR', `"MR"', `Write or any exclusive access is allowed to the minidisk unless another user already has write access to it.')dnl
 pigfunc_constant(`public', `String', `IMAGE_DISK_MODE_MW', `"MW"', `Write access is allowed to the disk unconditionally except for existing stable or exclusive links')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`image_disk_number')', `""', `', `The virtual device address of the disk to be added')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`image_disk_mode')', `IMAGE_DISK_MODE_RR', `', `The access mode requested for the disk as seen by the owner when the virtual image is logged on')dnl
-pigfunc_ctors(`String', `image_disk_number', javaize_lc(`image_disk_number'), `String', `image_disk_mode', javaize_lc(`image_disk_mode'))dnl
+pigfunc_attribute(`private', `', `String', `member_name(`image_disk_number')', `""', `', `The virtual device address of the disk to be added')dnl
+pigfunc_attribute(`private', `', `String', `member_name(`image_disk_mode')', `IMAGE_DISK_MODE_RR', `', `The access mode requested for the disk as seen by the owner when the virtual image is logged on')dnl
+pigfunc_ctors(`String', `image_disk_number', member_name(`image_disk_number'), `String', `image_disk_mode', member_name(`image_disk_mode'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`image_disk_number')`()'', `image_disk_number')dnl
-pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`image_disk_mode')`()'', `image_disk_mode')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`image_disk_number')`()', `image_disk_number')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`image_disk_mode')`()', `image_disk_mode')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl

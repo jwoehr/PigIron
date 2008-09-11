@@ -8,14 +8,14 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 /**
  * {@code function_formal_name } VSMAPI Function
  */')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`image_device_number'), `""', `', `The virtual device address of the new adapter')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`switch_name'), `""', `', `The name of the virtual switch segment to connect to the virtual image')dnl
-pigfunc_ctors(`String', `image_device_number', javaize_lc(`image_device_number'),
-`String', `switch_name_length', javaize_lc(`switch_name'))dnl
+pigfunc_attribute(`private', `', `String', member_name(`image_device_number'), `""', `', `The virtual device address of the new adapter')dnl
+pigfunc_attribute(`private', `', `String', member_name(`switch_name'), `""', `', `The name of the virtual switch segment to connect to the virtual image')dnl
+pigfunc_ctors(`String', `image_device_number', member_name(`image_device_number'),
+`String', `switch_name_length', member_name(`switch_name'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`image_device_number')`()', `image_device_number')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`switch_name')`()', `switch_name')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`image_device_number')`()', `image_device_number')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`switch_name')`()', `switch_name')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl

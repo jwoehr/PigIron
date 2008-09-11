@@ -8,14 +8,14 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 /**
  * <tt>function_formal_name</tt> VSMAPI Function
  */')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`lan_name')', `""', `', `The name of the guest LAN segment to connect the virtual image')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`lan_owner')', `""', `', `The virtual image owning the guest LAN segment to be connected')dnl
-pigfunc_ctors(`String', `lan_name', javaize_lc(`lan_name'),
-`String', `lan_owner', javaize_lc(`lan_owner'))dnl
+pigfunc_attribute(`private', `', `String', member_name(`lan_name'), `""', `', `The name of the guest LAN segment to connect the virtual image')dnl
+pigfunc_attribute(`private', `', `String', member_name(`lan_owner'), `""', `', `The virtual image owning the guest LAN segment to be connected')dnl
+pigfunc_ctors(`String', `lan_name', member_name(`lan_name'),
+`String', `lan_owner', member_name(`lan_owner'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`lan_name')`()'', `lan_name')dnl
-pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`lan_owner')`()'', `lan_owner')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`lan_name')`()', `lan_name')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`lan_owner')`()', `lan_owner')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl

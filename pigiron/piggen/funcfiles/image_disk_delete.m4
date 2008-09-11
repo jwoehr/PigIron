@@ -8,11 +8,11 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 /**
  * <tt>function_formal_name</tt> VSMAPI Function
  */')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`image_disk_number')', `""', `', `The virtual device address of the disk to be deleted')dnl
-pigfunc_ctors(`String', `image_disk_number', javaize_lc(`image_disk_number'))dnl
+pigfunc_attribute(`private', `', `String', `member_name(`image_disk_number')', `""', `', `The virtual device address of the disk to be deleted')dnl
+pigfunc_ctors(`String', `image_disk_number', member_name(`image_disk_number'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`image_disk_number')`()'', `image_disk_number')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`image_disk_number')`()', `image_disk_number')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl

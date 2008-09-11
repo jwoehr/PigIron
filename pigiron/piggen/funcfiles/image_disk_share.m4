@@ -15,23 +15,23 @@ pigfunc_constant(`public', `String', `READ_WRITE_MODE_WR', `"WR"', `Write access
 pigfunc_constant(`public', `String',  `READ_WRITE_MODE_M',  `"M"',  Multiple access is desired')dnl
 pigfunc_constant(`public', `String', `READ_WRITE_MODE_MR', `"MR"', `Write or any exclusive access is allowed to the minidisk unless another user already has write access to it.')dnl
 pigfunc_constant(`public', `String', `READ_WRITE_MODE_MW', `"MW"', `Write access is allowed to the disk unconditionally except for existing stable or exclusive links')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`image_disk_number')', `""', `', `The target_image_name's virtual device address of the disk to be shared')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`target_image_name')', `""', `', `The name of the virtual image that owns the image disk being shared')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`target_image_disk_number')', `""', `', `The virtual device number to assign to the shared disk for target_identifier')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`read_write_mode')', `READ_WRITE_MODE_RR', `', `The access mode requested for the disk as seen by the owner when the virtual image is logged on')dnl
-pigfunc_attribute(`private', `', `String', `javaize_lc(`optional_password')', `""', `', `The password that may be required to share the disk')dnl
-pigfunc_ctors(`String', `image_disk_number', javaize_lc(`image_disk_number'),
-`String',`target_image_name', javaize_lc(`target_image_name'),
-`String',`target_image_disk_number',javaize_lc(`target_image_disk_number'),
-`String',`read_write_mode',javaize_lc(`read_write_mode'),
-`String',`optional_password', javaize_lc(`optional_password'))dnl
+pigfunc_attribute(`private', `', `String', `member_name(`image_disk_number')', `""', `', `The target_image_name's virtual device address of the disk to be shared')dnl
+pigfunc_attribute(`private', `', `String', `member_name(`target_image_name')', `""', `', `The name of the virtual image that owns the image disk being shared')dnl
+pigfunc_attribute(`private', `', `String', `member_name(`target_image_disk_number')', `""', `', `The virtual device number to assign to the shared disk for target_identifier')dnl
+pigfunc_attribute(`private', `', `String', `member_name(`read_write_mode')', `READ_WRITE_MODE_RR', `', `The access mode requested for the disk as seen by the owner when the virtual image is logged on')dnl
+pigfunc_attribute(`private', `', `String', `member_name(`optional_password')', `""', `', `The password that may be required to share the disk')dnl
+pigfunc_ctors(`String', `image_disk_number', member_name(`image_disk_number'),
+`String',`target_image_name', member_name(`target_image_name'),
+`String',`target_image_disk_number',member_name(`target_image_disk_number'),
+`String',`read_write_mode',member_name(`read_write_mode'),
+`String',`optional_password', member_name(`optional_password'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`image_disk_number')`()'', `image_disk_number')dnl
-pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`target_image_name')`()'', `target_image_name')dnl
-pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`target_image_disk_number')`()'', `target_image_disk_number')dnl
-pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`read_write_mode')`()'', `read_write_mode')dnl
-pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`optional_password')`()'', `optional_password')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`image_disk_number')`()', `image_disk_number')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`target_image_name')`()', `target_image_name')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`target_image_disk_number')`()', `target_image_disk_number')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`read_write_mode')`()', `read_write_mode')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`optional_password')`()', `optional_password')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl
