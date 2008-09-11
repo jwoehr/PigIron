@@ -29,6 +29,7 @@ Functions additionally supported in this release:
     * Image_Delete_DM
     * Image_Device_Dedicate_DM
     * Image_Device_Undedicate_DM
+    * Image_Disk_Create_DM
     * Image_Disk_Copy_DM
     * Image_Query_DM
     * Image_Replace_DM
