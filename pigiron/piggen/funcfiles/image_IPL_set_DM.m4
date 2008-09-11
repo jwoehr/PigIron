@@ -1,4 +1,4 @@
-include(`pigfunc.m4')dnl \\ image_ipl_set_DM.m4
+include(`pigfunc.m4')dnl \\ image_IPL_set_DM.m4
 function_namespace(`Image_IPL_Set_DM' )dnl
 pigfunc_start()dnl \\ function_namespace(`function_formal_name', `significant_parameter_formal_name')
 pigfunc_import(`java.io.IOException')dnl
