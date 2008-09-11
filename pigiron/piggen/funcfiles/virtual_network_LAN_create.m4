@@ -23,10 +23,10 @@ pigfunc_ctors(`String', `lan_name', member_name(`lan_name'),
 `int', `transport_type', member_name(`transport_type'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`CountedString', `member_getter(`lan_name')`()', `lan_name')dnl
-pigfunc_compose_input_parm(`CountedString', `member_getter(`lan_owner')`()', `lan_owner')dnl
-pigfunc_compose_input_parm(`VSMInt1', `member_getter(`lan_type')`()', `lan_type')dnl
-pigfunc_compose_input_parm(`VSMInt1', `member_getter(`transport_type')`()', `transport_type')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`lan_name')`()', `lan_name')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`lan_owner')`()', `lan_owner')dnl
+pigfunc_compose_input_parm(`VSMInt1', member_getter(`lan_type')`()', `lan_type')dnl
+pigfunc_compose_input_parm(`VSMInt1', member_getter(`transport_type')`()', `transport_type')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl
