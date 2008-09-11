@@ -40,19 +40,28 @@ import java.io.IOException;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * <tt>Image_Disk_Delete</tt> VSMAPI Function
+ * <tt>Image_Disk_Delete_DM</tt> VSMAPI Function
  */
-public class ImageDiskDelete extends VSMCall {
+public class ImageDiskDeleteDM extends VSMCall {
 
     /**
      * The transmitted name of the function.
      */
-    public static final String FUNCTION_NAME = "Image_Disk_Delete";
+    public static final String FUNCTION_NAME = "Image_Disk_Delete_DM";
+
+    /** Unspecified (use installation default) */
+    public static final int DATA_SECURITY_ERASE_UNSPECIFIED = 0;
+
+    /** Do not erase (override installation default) */
+    public static final int DATA_SECURITY_ERASE_DO_NOT_ERASE = 1;
+
+    /** Erase (override installation default) */
+    public static final int DATA_SECURITY_ERASE_ERASE = 2;
 
     /**
      *  Create an instance of the function call with important fields not instanced.
      */
-    public ImageDiskDelete() {
+    public ImageDiskDeleteDM() {
     }
 
     /**
@@ -63,8 +72,9 @@ public class ImageDiskDelete extends VSMCall {
      * @param password the password
      * @param target_identifier the target of the VSMAPI function
      * @param image_disk_number instances {@code imageDiskNumber}
+     * @param data_security_erase instances {@code dataSecurityErase}
      */
-    public ImageDiskDelete(String hostname, int port, String userid, String password, String target_identifier, String image_disk_number) {
+    public ImageDiskDeleteDM(String hostname, int port, String userid, String password, String target_identifier, String image_disk_number, int data_security_erase) {
         this();
         setHostname(hostname);
         setPort(port);
@@ -72,10 +82,14 @@ public class ImageDiskDelete extends VSMCall {
         setPassword(password);
         setTarget_identifier(target_identifier);
         set_imageDiskNumber(image_disk_number);
+        set_dataSecurityErase(data_security_erase);
     }
 
     /** The virtual device address of the disk to be deleted */
     private String imageDiskNumber = "";
+
+    /** Indicates whether to erase data from the disk(s) being released */
+    private int dataSecurityErase = 0;
 
     /** Set the value of {@code  imageDiskNumber }.
      * @param val The value to set {@code  imageDiskNumber }.
@@ -89,6 +103,20 @@ public class ImageDiskDelete extends VSMCall {
      */
     public String get_imageDiskNumber() {
         return imageDiskNumber;
+    }
+
+    /** Set the value of {@code  dataSecurityErase }.
+     * @param val The value to set {@code  dataSecurityErase }.
+     */
+    public void set_dataSecurityErase(int val) {
+        dataSecurityErase = val;
+    }
+
+    /** Get the value of {@code  dataSecurityErase }.
+     * @return The value of {@code  dataSecurityErase }.
+     */
+    public int get_dataSecurityErase() {
+        return dataSecurityErase;
     }
 
     /**
@@ -116,6 +144,7 @@ public class ImageDiskDelete extends VSMCall {
         tempString = new VSMString(get_imageDiskNumber(), "image_disk_number");
         parameterArray.add(new VSMInt4(tempString.paramLength(), "image_disk_number_length"));
         parameterArray.add(tempString);
+        parameterArray.add(new VSMInt1(get_dataSecurityErase(), "data_security_erase"));
         VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
         parameterArray.insertElementAt(outputLength, 0);
         setInParams(parameterArray);
@@ -158,15 +187,15 @@ public class ImageDiskDelete extends VSMCall {
      */
     public static void main(String[] argv) throws IOException, VSMException {
 
-        ImageDiskDelete instance = null;
+        ImageDiskDeleteDM instance = null;
 
-        if (argv.length != 6) {
-            System.out.println("usage: args are:\ninetaddr port user pw target image_disk_number");
+        if (argv.length != 7) {
+            System.out.println("usage: args are:\ninetaddr port user pw target image_disk_number data_security_erase");
             System.exit(1);
         }
 
-        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5]);
-        instance = new ImageDiskDelete(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5]);
+        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5] + " " + argv[6]);
+        instance = new ImageDiskDeleteDM(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5], Integer.valueOf(argv[6]).intValue());
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
