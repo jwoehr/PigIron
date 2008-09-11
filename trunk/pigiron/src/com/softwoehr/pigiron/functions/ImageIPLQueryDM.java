@@ -40,20 +40,20 @@ import java.io.IOException;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * {@code Image_IPL_Set_DM } VSMAPI Function
+ * {@code Image_IPL_Query_DM } VSMAPI Function
  * @see com.softwoehr.pigiron.access.paramstructs.
  */
-public class ImageIPLSetDM  extends VSMCall {
+public class ImageIPLQueryDM  extends VSMCall {
 
     /**
      * The transmitted name of the function.
      */
-    public static final String FUNCTION_NAME = "Image_IPL_Set_DM ";
+    public static final String FUNCTION_NAME = "Image_IPL_Query_DM ";
 
     /**
      *  Create an instance of the function call with important fields not instanced.
      */
-    public ImageIPLSetDM () {
+    public ImageIPLQueryDM () {
     }
 
     /**
@@ -63,71 +63,14 @@ public class ImageIPLSetDM  extends VSMCall {
      * @param userid userid executing the function
      * @param password the password
      * @param target_identifier the target of the VSMAPI function
-     * @param saved_system instances {@code savedSystem}
-     * @param load_parameter instances {@code loadParameter}
-     * @param parameter_string instances {@code parameterString}
      */
-    public ImageIPLSetDM (String hostname, int port, String userid, String password, String target_identifier, String saved_system, String load_parameter, String parameter_string) {
+    public ImageIPLQueryDM (String hostname, int port, String userid, String password, String target_identifier) {
         this();
         setHostname(hostname);
         setPort(port);
         setUserid(userid);
         setPassword(password);
         setTarget_identifier(target_identifier);
-        set_savedSystem(saved_system);
-        set_loadParameter(load_parameter);
-        set_parameterString(parameter_string);
-    }
-
-    /** The name of the saved system or virtual device address of the device containing the system to be loaded */
-    private String savedSystem = "";
-
-    /** Load parameter (up to 8 characters) that is used by the IPLd system */
-    private String loadParameter = "";
-
-    /** The parameters to be passed to the IPLd operating system */
-    private String parameterString = "";
-
-    /** Set the value of {@code  savedSystem }.
-     * @param val The value to set {@code  savedSystem }.
-     */
-    public void set_savedSystem(String val) {
-        savedSystem = val;
-    }
-
-    /** Get the value of {@code  savedSystem }.
-     * @return The value of {@code  savedSystem }.
-     */
-    public String get_savedSystem() {
-        return savedSystem;
-    }
-
-    /** Set the value of {@code  loadParameter }.
-     * @param val The value to set {@code  loadParameter }.
-     */
-    public void set_loadParameter(String val) {
-        loadParameter = val;
-    }
-
-    /** Get the value of {@code  loadParameter }.
-     * @return The value of {@code  loadParameter }.
-     */
-    public String get_loadParameter() {
-        return loadParameter;
-    }
-
-    /** Set the value of {@code  parameterString }.
-     * @param val The value to set {@code  parameterString }.
-     */
-    public void set_parameterString(String val) {
-        parameterString = val;
-    }
-
-    /** Get the value of {@code  parameterString }.
-     * @return The value of {@code  parameterString }.
-     */
-    public String get_parameterString() {
-        return parameterString;
     }
 
     /**
@@ -152,15 +95,6 @@ public class ImageIPLSetDM  extends VSMCall {
         tempString = new VSMString(getTarget_identifier(), "target_identifier");
         parameterArray.add(new VSMInt4(tempString.paramLength(), "target_identifier_length"));
         parameterArray.add(tempString);
-        tempString = new VSMString(get_savedSystem(), "saved_system");
-        parameterArray.add(new VSMInt4(tempString.paramLength(), "saved_system_length"));
-        parameterArray.add(tempString);
-        tempString = new VSMString(get_loadParameter(), "load_parameter");
-        parameterArray.add(new VSMInt4(tempString.paramLength(), "load_parameter_length"));
-        parameterArray.add(tempString);
-        tempString = new VSMString(get_parameterString(), "parameter_string");
-        parameterArray.add(new VSMInt4(tempString.paramLength(), "parameter_string_length"));
-        parameterArray.add(tempString);
         VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
         parameterArray.insertElementAt(outputLength, 0);
         setInParams(parameterArray);
@@ -181,6 +115,12 @@ public class ImageIPLSetDM  extends VSMCall {
         parameterArray.add(new VSMInt4(-1, "request_id"));
         parameterArray.add(new VSMInt4(-1, "return_code"));
         parameterArray.add(new VSMInt4(-1, "reason_code"));
+        parameterArray.add(new VSMInt4(-1, "saved_system_length"));
+        parameterArray.add(new VSMString("", "saved_system"));
+        parameterArray.add(new VSMInt4(-1, "load_parameter_length"));
+        parameterArray.add(new VSMString("", "load_parameter"));
+        parameterArray.add(new VSMInt4(-1, "parameter_string_length"));
+        parameterArray.add(new VSMString("", "parameter_string"));
         setOutParams(parameterArray);
         return parameterArray;
     }
@@ -203,15 +143,15 @@ public class ImageIPLSetDM  extends VSMCall {
      */
     public static void main(String[] argv) throws IOException, VSMException {
 
-        ImageIPLSetDM  instance = null;
+        ImageIPLQueryDM  instance = null;
 
-        if (argv.length != 8) {
-            System.out.println("usage: args are:\ninetaddr port user pw target_id saved_system load_parameter parameter_string");
+        if (argv.length != 5) {
+            System.out.println("usage: args are:\ninetaddr port user pw target_id");
             System.exit(1);
         }
 
-        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5] + " " + argv[6] + " " + argv[7]);
-        instance = new ImageIPLSetDM (argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5], argv[6], argv[7]);
+        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4]);
+        instance = new ImageIPLQueryDM (argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4]);
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
