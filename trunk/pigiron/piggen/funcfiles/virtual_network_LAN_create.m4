@@ -13,20 +13,20 @@ pigfunc_constant(`public', `int', `LAN_TYPE_QDIO', `2', `Simulated QDIO NIC')dnl
 pigfunc_constant(`public', `int', `TRANSPORT_TYPE_UNSPECIFIED', `0', `Unspecified')dnl
 pigfunc_constant(`public', `int', `TRANSPORT_TYPE_IP', `1', `IP')dnl
 pigfunc_constant(`public', `int', `TRANSPORT_TYPE_ETHERNET', `2', `Ethernet')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`lan_name'), `""', `', `The name of the guest LAN segment to connect the virtual image')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`lan_owner'), `""', `', `The virtual image owning the guest LAN segment to be created')dnl
-pigfunc_attribute(`private', `', `int', javaize_lc(`lan_type'), `0', `', `The type of guest LAN segment')dnl
-pigfunc_attribute(`private', `', `int', javaize_lc(`transport_type'), `TRANSPORT_TYPE_UNSPECIFIED', `', `Specifies the transport mechanism to be used for guest LANs and virtual switches')dnl
-pigfunc_ctors(`String', `lan_name', javaize_lc(`lan_name'),
-`String', `lan_owner', javaize_lc(`lan_owner'),
-`int', `lan_type', javaize_lc(`lan_type'),
-`int', `transport_type', javaize_lc(`transport_type'))dnl
+pigfunc_attribute(`private', `', `String', member_name(`lan_name'), `""', `', `The name of the guest LAN segment to connect the virtual image')dnl
+pigfunc_attribute(`private', `', `String', member_name(`lan_owner'), `""', `', `The virtual image owning the guest LAN segment to be created')dnl
+pigfunc_attribute(`private', `', `int', member_name(`lan_type'), `0', `', `The type of guest LAN segment')dnl
+pigfunc_attribute(`private', `', `int', member_name(`transport_type'), `TRANSPORT_TYPE_UNSPECIFIED', `', `Specifies the transport mechanism to be used for guest LANs and virtual switches')dnl
+pigfunc_ctors(`String', `lan_name', member_name(`lan_name'),
+`String', `lan_owner', member_name(`lan_owner'),
+`int', `lan_type', member_name(`lan_type'),
+`int', `transport_type', member_name(`transport_type'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`lan_name')`()'', `lan_name')dnl
-pigfunc_compose_input_parm(`CountedString', `get_`'javaize_lc(`lan_owner')`()'', `lan_owner')dnl
-pigfunc_compose_input_parm(`VSMInt1', `get_`'javaize_lc(`lan_type')`()'', `lan_type')dnl
-pigfunc_compose_input_parm(`VSMInt1', `get_`'javaize_lc(`transport_type')`()'', `transport_type')dnl
+pigfunc_compose_input_parm(`CountedString', `member_getter(`lan_name')`()', `lan_name')dnl
+pigfunc_compose_input_parm(`CountedString', `member_getter(`lan_owner')`()', `lan_owner')dnl
+pigfunc_compose_input_parm(`VSMInt1', `member_getter(`lan_type')`()', `lan_type')dnl
+pigfunc_compose_input_parm(`VSMInt1', `member_getter(`transport_type')`()', `transport_type')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl

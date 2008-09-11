@@ -10,11 +10,11 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
  * {@code function_formal_name} VSMAPI Function
  * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
  */')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`switch_name'), `"*"', `', `The name of the virtual switch')dnl
-pigfunc_ctors(`String', `switch_name', javaize_lc(`switch_name'))dnl
+pigfunc_attribute(`private', `', `String', member_name(`switch_name'), `"*"', `', `The name of the virtual switch')dnl
+pigfunc_ctors(`String', `switch_name', member_name(`switch_name'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`switch_name')(), `switch_name')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`switch_name')(), `switch_name')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_parm(`VSMInt4', `-1', `vswitch_array_length')dnl

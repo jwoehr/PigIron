@@ -18,26 +18,26 @@ pigfunc_constant(`public', `int', `PAGE_ACCESS_SC', `7', `Shared read/write acce
 pigfunc_constant(`public', `int', `MEMORY_ATTRIBUTES_UNSPECIFIED', `0', `Unspecified')dnl
 pigfunc_constant(`public', `int', `MEMORY_ATTRIBUTES_RSTD', `0', `Restricted saved memory')dnl
 pigfunc_constant(`public', `int', `MEMORY_ATTRIBUTES_UNRSTD', `0', `Unrestricted saved memory')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`memory_segment_name'), `""', `', `The name of the memory segment to create')dnl
-pigfunc_attribute(`private', `', `long', javaize_lc(`begin_page'), `-1', `', `The beginning page to be saved')dnl
-pigfunc_attribute(`private', `', `long', javaize_lc(`end_page'), `-1', `', `The ending page to be saved')dnl
-pigfunc_attribute(`private', `', `int', javaize_lc(`page_access_descriptor'), `0', `', `The type of page access')dnl
-pigfunc_attribute(`private', `', `int', javaize_lc(`memory_attributes'), `MEMORY_ATTRIBUTES_UNRSTD', `', `The memory attributes')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`memory_access_identifier'), `""', `', `The name of the image or list of images authorized to access the RSTD segment')dnl
-pigfunc_ctors(`String', `memory_segment_name', javaize_lc(`memory_segment_name'),
-`long', `begin_page', javaize_lc(`begin_page'),
-`long', `end_page', javaize_lc(`end_page'),
-`int', `page_access_descriptor', javaize_lc(`page_access_descriptor'),
-`int', `memory_attributes', javaize_lc(`memory_attributes'),
-`String', `memory_access_identifier', javaize_lc(`memory_access_identifier'))dnl
+pigfunc_attribute(`private', `', `String', member_name(`memory_segment_name'), `""', `', `The name of the memory segment to create')dnl
+pigfunc_attribute(`private', `', `long', member_name(`begin_page'), `-1', `', `The beginning page to be saved')dnl
+pigfunc_attribute(`private', `', `long', member_name(`end_page'), `-1', `', `The ending page to be saved')dnl
+pigfunc_attribute(`private', `', `int', member_name(`page_access_descriptor'), `0', `', `The type of page access')dnl
+pigfunc_attribute(`private', `', `int', member_name(`memory_attributes'), `MEMORY_ATTRIBUTES_UNRSTD', `', `The memory attributes')dnl
+pigfunc_attribute(`private', `', `String', member_name(`memory_access_identifier'), `""', `', `The name of the image or list of images authorized to access the RSTD segment')dnl
+pigfunc_ctors(`String', `memory_segment_name', member_name(`memory_segment_name'),
+`long', `begin_page', member_name(`begin_page'),
+`long', `end_page', member_name(`end_page'),
+`int', `page_access_descriptor', member_name(`page_access_descriptor'),
+`int', `memory_attributes', member_name(`memory_attributes'),
+`String', `memory_access_identifier', member_name(`memory_access_identifier'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`memory_segment_name')`()', `memory_segment_name')dnl
-pigfunc_compose_input_parm(`VSMInt8', `get_'javaize_lc(`begin_page')`()', `begin_page')dnl
-pigfunc_compose_input_parm(`VSMInt8', `get_'javaize_lc(`end_page')`()', `end_page')dnl
-pigfunc_compose_input_parm(`VSMInt1', `get_'javaize_lc(`page_access_descriptor')`()', `page_access_descriptor')dnl
-pigfunc_compose_input_parm(`VSMInt1', `get_'javaize_lc(`memory_attributes')(), `memory_attributes')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`memory_access_identifier')(), `memory_access_identifier')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`memory_segment_name')`()', `memory_segment_name')dnl
+pigfunc_compose_input_parm(`VSMInt8', member_getter(`begin_page')`()', `begin_page')dnl
+pigfunc_compose_input_parm(`VSMInt8', member_getter(`end_page')`()', `end_page')dnl
+pigfunc_compose_input_parm(`VSMInt1', member_getter(`page_access_descriptor')`()', `page_access_descriptor')dnl
+pigfunc_compose_input_parm(`VSMInt1', member_getter(`memory_attributes')(), `memory_attributes')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`memory_access_identifier')(), `memory_access_identifier')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl

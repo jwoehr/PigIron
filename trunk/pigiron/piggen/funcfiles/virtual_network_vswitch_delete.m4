@@ -18,43 +18,43 @@ pigfunc_constant(`public', `int', `UPDATE_SYSTEM_CONFIG_INDICATOR_ADD', `3', `Ad
 pigfunc_constant(`public', `int', `GVRP_VALUE_UNSPECIFIED', `0', `GVRP unspecified')dnl
 pigfunc_constant(`public', `int', `GVRP_VALUE_GVRP', `1', `GVRP')dnl
 pigfunc_constant(`public', `int', `GVRP_VALUE_NOGVRP', `2', `non-GVRP')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`switch_name'), `""', `', `The name of the virtual switch')dnl
-pigfunc_attribute(`private', `', `int', javaize_lc(`update_system_config_indicator'), `-1', `', `Configuration options')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`system_config_name'), `""', `', `File name of the system configuration file')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`system_config_type'), `""', `', `File type of the system configuration file')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`parm_disk_owner'), `""', `', `Owner of the parm disk')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`parm_disk_number'), `""', `', `Number of the parm disk as defined in the server directory')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`parm_disk_password'), `"`,'"', `', `Multiwrite password for the parm disk')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`alt_system_config_name'), `"`,'"', `', `File name of the second (alternative) system configuration file')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`alt_system_config_type'), `"`,'"', `', `File type of the second (alternative) system configuration file')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`alt_parm_disk_owner'), `"`,'"', `', `Owner of the second (alternative) parm disk')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`alt_parm_disk_number'), `"`,'"', `', `Number of the second (alternative) parm disk')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`alt_parm_disk_password'), `"`,'"', `', `Multiwrite password for the second (alternative) parm disk')dnl
-pigfunc_ctors(`String', `switch_name', javaize_lc(`switch_name'),
-`int', `update_system_config_indicator', javaize_lc(`update_system_config_indicator'),
-`String',`system_config_name', javaize_lc(`system_config_name'),
-`String',`system_config_type', javaize_lc(`system_config_type'),
-`String',`parm_disk_number', javaize_lc(`parm_disk_number'),
-`String',`parm_disk_owner', javaize_lc(`parm_disk_owner'),
-`String',`parm_disk_password', javaize_lc(`parm_disk_password'),
-`String',`alt_system_config_type', javaize_lc(`alt_system_config_type'),
-`String',`alt_parm_disk_owner', javaize_lc(`alt_parm_disk_owner'),
-`String',`alt_parm_disk_number', javaize_lc(`alt_parm_disk_number'),
-`String',`alt_parm_disk_password' javaize_lc(`alt_parm_disk_password'))dnl
+pigfunc_attribute(`private', `', `String', member_name(`switch_name'), `""', `', `The name of the virtual switch')dnl
+pigfunc_attribute(`private', `', `int', member_name(`update_system_config_indicator'), `-1', `', `Configuration options')dnl
+pigfunc_attribute(`private', `', `String', member_name(`system_config_name'), `""', `', `File name of the system configuration file')dnl
+pigfunc_attribute(`private', `', `String', member_name(`system_config_type'), `""', `', `File type of the system configuration file')dnl
+pigfunc_attribute(`private', `', `String', member_name(`parm_disk_owner'), `""', `', `Owner of the parm disk')dnl
+pigfunc_attribute(`private', `', `String', member_name(`parm_disk_number'), `""', `', `Number of the parm disk as defined in the server directory')dnl
+pigfunc_attribute(`private', `', `String', member_name(`parm_disk_password'), `"`,'"', `', `Multiwrite password for the parm disk')dnl
+pigfunc_attribute(`private', `', `String', member_name(`alt_system_config_name'), `"`,'"', `', `File name of the second (alternative) system configuration file')dnl
+pigfunc_attribute(`private', `', `String', member_name(`alt_system_config_type'), `"`,'"', `', `File type of the second (alternative) system configuration file')dnl
+pigfunc_attribute(`private', `', `String', member_name(`alt_parm_disk_owner'), `"`,'"', `', `Owner of the second (alternative) parm disk')dnl
+pigfunc_attribute(`private', `', `String', member_name(`alt_parm_disk_number'), `"`,'"', `', `Number of the second (alternative) parm disk')dnl
+pigfunc_attribute(`private', `', `String', member_name(`alt_parm_disk_password'), `"`,'"', `', `Multiwrite password for the second (alternative) parm disk')dnl
+pigfunc_ctors(`String', `switch_name', member_name(`switch_name'),
+`int', `update_system_config_indicator', member_name(`update_system_config_indicator'),
+`String',`system_config_name', member_name(`system_config_name'),
+`String',`system_config_type', member_name(`system_config_type'),
+`String',`parm_disk_number', member_name(`parm_disk_number'),
+`String',`parm_disk_owner', member_name(`parm_disk_owner'),
+`String',`parm_disk_password', member_name(`parm_disk_password'),
+`String',`alt_system_config_type', member_name(`alt_system_config_type'),
+`String',`alt_parm_disk_owner', member_name(`alt_parm_disk_owner'),
+`String',`alt_parm_disk_number', member_name(`alt_parm_disk_number'),
+`String',`alt_parm_disk_password' member_name(`alt_parm_disk_password'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`switch_name')(), `switch_name')dnl
-pigfunc_compose_input_parm(VSMInt1, `get_'javaize_lc(`update_system_config_indicator')(),`update_system_config_indicator')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`system_config_name')(),`system_config_name')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`system_config_type')(),`system_config_type')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`parm_disk_owner')(),`parm_disk_owner')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`parm_disk_number')(),`parm_disk_number')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`parm_disk_password')(),`parm_disk_password')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`alt_system_config_name')(),`alt_system_config_name')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`alt_system_config_type')(),`alt_system_config_type')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`alt_parm_disk_owner')(),`alt_parm_disk_owner')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`alt_parm_disk_number')(),`alt_parm_disk_number')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`alt_parm_disk_password')(),`alt_parm_disk_password')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`switch_name')(), `switch_name')dnl
+pigfunc_compose_input_parm(VSMInt1, member_getter(`update_system_config_indicator')(),`update_system_config_indicator')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`system_config_name')(),`system_config_name')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`system_config_type')(),`system_config_type')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`parm_disk_owner')(),`parm_disk_owner')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`parm_disk_number')(),`parm_disk_number')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`parm_disk_password')(),`parm_disk_password')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`alt_system_config_name')(),`alt_system_config_name')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`alt_system_config_type')(),`alt_system_config_type')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`alt_parm_disk_owner')(),`alt_parm_disk_owner')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`alt_parm_disk_number')(),`alt_parm_disk_number')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`alt_parm_disk_password')(),`alt_parm_disk_password')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl

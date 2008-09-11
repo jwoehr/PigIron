@@ -11,17 +11,17 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 dnl
 pigfunc_constant(`public', `int', `SYNCHECK_AND_UPDATE', `0', `both  a syntax check and configuration update')dnl
 pigfunc_constant(`public', `int', `SYNCHECK_SYNTAX_ONLY', `1', `only a syntax check of the configuration is done')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`configuration_file_name'),   `""', `', `The name of the configuration file.')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`configuration_file_type'),   `""', `', `The name of the configuration file.')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`configuration_dir_name'),   `""', `', `The fully-qualified Shared File System (SFS) directory name where the configuration file is located.')dnl
-pigfunc_ctors(`String', `configuration_file_name', javaize_lc(`configuration_file_name'),
-`String', `configuration_file_type', javaize_lc(`configuration_file_type'),
-`String', `configuration_dir_name', javaize_lc(`configuration_dir_name'))dnl
+pigfunc_attribute(`private', `', `String', member_name(`configuration_file_name'),   `""', `', `The name of the configuration file.')dnl
+pigfunc_attribute(`private', `', `String', member_name(`configuration_file_type'),   `""', `', `The name of the configuration file.')dnl
+pigfunc_attribute(`private', `', `String', member_name(`configuration_dir_name'),   `""', `', `The fully-qualified Shared File System (SFS) directory name where the configuration file is located.')dnl
+pigfunc_ctors(`String', `configuration_file_name', member_name(`configuration_file_name'),
+`String', `configuration_file_type', member_name(`configuration_file_type'),
+`String', `configuration_dir_name', member_name(`configuration_dir_name'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`configuration_file_name')(), `configuration_file_name')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`configuration_file_type')(), `configuration_file_type')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`configuration_dir_name')(), `configuration_dir_name')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`configuration_file_name')(), `configuration_file_name')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`configuration_file_type')(), `configuration_file_type')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`configuration_dir_name')(), `configuration_dir_name')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl

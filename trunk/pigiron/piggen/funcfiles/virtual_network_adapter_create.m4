@@ -11,20 +11,20 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
  */')dnl
 pigfunc_constant(`public', `int', `ADAPTER_TYPE_HIPERSOCKETS', `1', `Simulated HiperSockets NIC')dnl
 pigfunc_constant(`public', `int', `ADAPTER_TYPE_QDIO', `2', `Simulated QDIO NIC')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`image_device_number'), `""', `', `The virtual device address of the new adapter')dnl
-pigfunc_attribute(`private', `', `int', javaize_lc(`adapter_type'), `-1', `', `The adapter type')dnl
-pigfunc_attribute(`private', `', `int', javaize_lc(`network_adapter_devices'), `-1', `', `The number of virtual devices associated with this adapter')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`channel_path_id'), `""', `', `For use only when configuring a second-level z/OS system where it is used to specify the hex CHPID numbers for the first- and second-level systems')dnl
-pigfunc_ctors(`String', `image_device_number', javaize_lc(`image_device_number'),
-`int', `adapter_type', javaize_lc(`adapter_type'),
-`int', `network_adapter_devices', javaize_lc(`network_adapter_devices'),
-`String', `channel_path_id', javaize_lc(`channel_path_id'))dnl
+pigfunc_attribute(`private', `', `String', member_name(`image_device_number'), `""', `', `The virtual device address of the new adapter')dnl
+pigfunc_attribute(`private', `', `int', member_name(`adapter_type'), `-1', `', `The adapter type')dnl
+pigfunc_attribute(`private', `', `int', member_name(`network_adapter_devices'), `-1', `', `The number of virtual devices associated with this adapter')dnl
+pigfunc_attribute(`private', `', `String', member_name(`channel_path_id'), `""', `', `For use only when configuring a second-level z/OS system where it is used to specify the hex CHPID numbers for the first- and second-level systems')dnl
+pigfunc_ctors(`String', `image_device_number', member_name(`image_device_number'),
+`int', `adapter_type', member_name(`adapter_type'),
+`int', `network_adapter_devices', member_name(`network_adapter_devices'),
+`String', `channel_path_id', member_name(`channel_path_id'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
 pigfunc_compose_input_parm(`CountedString', `get_imageDeviceNumber()', `image_device_number')dnl
-pigfunc_compose_input_parm(`VSMInt1', `get_'javaize_lc(`adapter_type')`()', `adapter_type')dnl
-pigfunc_compose_input_parm(`VSMInt4', `get_'javaize_lc(`network_adapter_devices')`()', `network_adapter_devices')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`channel_path_id')`()', `channel_path_id')dnl
+pigfunc_compose_input_parm(`VSMInt1', member_getter(`adapter_type')`()', `adapter_type')dnl
+pigfunc_compose_input_parm(`VSMInt4', member_getter(`network_adapter_devices')`()', `network_adapter_devices')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`channel_path_id')`()', `channel_path_id')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl

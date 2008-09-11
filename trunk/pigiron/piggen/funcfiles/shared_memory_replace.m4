@@ -8,14 +8,14 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 /**
  * <tt>function_formal_name</tt> VSMAPI Function
  */')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`memory_segment_name'), `""', `', `The name of the memory segment to create')dnl
-pigfunc_attribute(`private', `', `String', javaize_lc(`memory_access_identifier'), `""', `', `The name of the image or list of images authorized to access the RSTD segment')dnl
-pigfunc_ctors(`String', `memory_segment_name', javaize_lc(`memory_segment_name'),
-`String', `memory_access_identifier', javaize_lc(`memory_access_identifier'))dnl
+pigfunc_attribute(`private', `', `String', member_name(`memory_segment_name'), `""', `', `The name of the memory segment to create')dnl
+pigfunc_attribute(`private', `', `String', member_name(`memory_access_identifier'), `""', `', `The name of the image or list of images authorized to access the RSTD segment')dnl
+pigfunc_ctors(`String', `memory_segment_name', member_name(`memory_segment_name'),
+`String', `memory_access_identifier', member_name(`memory_access_identifier'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`memory_segment_name')`()', `memory_segment_name')dnl
-pigfunc_compose_input_parm(`CountedString', `get_'javaize_lc(`memory_access_identifier')(), `memory_access_identifier')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`memory_segment_name')`()', `memory_segment_name')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`memory_access_identifier')(), `memory_access_identifier')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl
