@@ -35,6 +35,7 @@ Functions additionally supported in this release:
     * Image_Disk_Share_DM
     * Image_Disk_Unshare_DM
     * Image_IPL_Delete_DM
+    * Image_Name_Query_DM
     * Image_Password_Set_DM
     * Image_Query_DM
     * Image_Replace_DM
