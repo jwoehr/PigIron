@@ -1,4 +1,4 @@
-include(`pigfunc.m4')dnl \\ image_disk_create.m4
+include(`pigfunc.m4')dnl \\ image_disk_copy.m4
 function_namespace(`Image_Disk_Copy')dnl
 pigfunc_start()dnl
 pigfunc_import(`java.io.IOException')dnl
