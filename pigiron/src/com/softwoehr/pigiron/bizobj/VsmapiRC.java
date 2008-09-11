@@ -43,7 +43,7 @@ public class VsmapiRC {
 
     private static VsmapiRC vsmapiRC = null;
     private HashMap<Integer, ReturnCode> rcMap = new HashMap<Integer, ReturnCode>(50);
-    private HashMap syntaxErrors = new HashMap<Integer, String>(25);
+    private HashMap<Integer, String> syntaxErrors = new HashMap<Integer, String>(25);
 
     /**
      * Singleton yields {@code ReturnCode} object for given return code.
