@@ -12,7 +12,14 @@ to be found in the same directory as this README.TXT file.
 
 CHANGES
 -------
-2008-09-?? 0.5 -- more VSMAPI functions
+2008-09-12 0.5 -- About "alpha" but NOT FULLY TESTED!!!
+
+    * More VSMAPI functions
+    * Added VSMAPI error code interpretation
+    * More work on Web objects
+    * More testing
+    * Started using ObjectRexx (http://sourforge.net/projects/oorexx)
+      scripting for testing.
 
 Functions additionally supported in this release complete
 the 100 functions provided with VSMAPI 5.3:
