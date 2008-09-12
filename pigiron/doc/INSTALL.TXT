@@ -12,8 +12,8 @@ to be found in the same directory as this README.TXT file.
 
 PIGIRON INSTALLATION
 --------------------
-As PigIron is only in proof of concept release, please simply unpack your distribution archive and add pigiron-<releasenum>.jar
-to your classpath.
+As PigIron is only at about Alpha release level, please simply unpack your
+distribution archive and add pigiron-<releasenum>.jar to your classpath.
 
 You can, until 1.0 release, execute:
     java -jar pigiron-<releasenum>.jar HOSTNAME PORT USERID PASSWORD TARGET
