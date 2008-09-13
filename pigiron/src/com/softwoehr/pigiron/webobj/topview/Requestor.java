@@ -37,7 +37,7 @@ import com.softwoehr.pigiron.webobj.MarshallableObject;
  * 
  * @author jax
  */
-public class Request extends MarshallableObject {
+public class Requestor extends MarshallableObject {
 
     public User user = new User();
     public Host host = new Host();
