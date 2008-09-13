@@ -45,24 +45,19 @@
 parse arg my.args
 pigiron_classpath='com.softwoehr.pigiron'
 pigiron_function_classpath=pigiron_classpath'.functions'
+.bsf~bsf.import("java.lang.Integer", "jdkInteger")
 my.classname="DirectoryManagerSearchDM"
-my.class=bsf.loadClass(pigiron_function_classpath'.'my.classname)
+.bsf~bsf.import(pigiron_function_classpath'.'my.classname, "DMSDMClass")
 my.argarray=bsf.createArray("String.class", my.args~words)
 do i = 1 to my.args~words
-my.argarray[i]= my.args~word(i)
+my.argarray[i]=my.args~word(i)
 end
 if my.args~words < 6 then signal usage
 say "Invoking" my.classname"("my.argarray[1]', 'my.argarray[2]', 'my.argarray[3]', 'my.argarray[4]', 'my.argarray[5]', 'my.argarray[6]")"
-.bsf~bsf.import("java.lang.Integer", "jdkInteger")
-say .jdkInteger
-say .jdkInteger~valueOf(my.argarray[2])
--- say .jdkInteger~valueOf(my.argarray[2])~getClass
-say .jdkInteger~valueOf(my.argarray[2])~intValue
--- exit
-my.instance=my.class~new(my.argarray[1], .jdkInteger~valueOf(my.argarray[2])~intValue, my.argarray[3], my.argarray[4], my.argarray[5], my.argarray[6])
-my.output_parameter_array=my.instance~doIt
-say "Returns from call to " my.instance~getFormalName
-say my.output_parameter_array~prettyPrintAll
+my.instance=.DMSDMClass~newStrict("ST", my.argarray[1], "I", my.argarray[2], "ST", my.argarray[3], "ST", my.argarray[4], "ST", my.argarray[5], "ST", my.argarray[6])
+my.output_parameter_array=my.instance~doIt()
+say "Returns from call to " result ":"
+say my.output_parameter_array~prettyPrintAll()
 exit 0
 
 usage:
