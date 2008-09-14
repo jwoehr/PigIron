@@ -47,13 +47,24 @@ import org.json.JSONException;
 public class ArgumentArray extends MarshallableObject {
 
     private Vector<Argument> argumentVector = new Vector<Argument>();
+    /**
+     *
+     */
     public JSONArray arguments = new JSONArray();
 
+    /**
+     *
+     * @return
+     */
     public ArgumentArray prepareArguments() {
         arguments = new JSONArray(argumentVector);
         return this;
     }
 
+    /**
+     *
+     * @param marshaller
+     */
     public void unpackArguments(Marshaller marshaller) {
         argumentVector = new Vector<Argument>();
         Argument tempArgument = null;
@@ -68,6 +79,11 @@ public class ArgumentArray extends MarshallableObject {
         }
     }
 
+    /**
+     *
+     * @param marshaller
+     * @param marshallingTraits
+     */
     public void unpackArguments(Marshaller marshaller, MarshallingTraits marshallingTraits) {
         argumentVector = new Vector<Argument>();
         Argument tempArgument = null;

@@ -492,6 +492,9 @@ public class VsmapiRC {
 
         private final String name;
         private final int value;
+        /**
+         *
+         */
         protected HashMap<Integer, ReasonCode> reasonCodes = new HashMap<Integer, ReasonCode>(10);
 
         /**

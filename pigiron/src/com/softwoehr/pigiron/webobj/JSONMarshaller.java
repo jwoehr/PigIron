@@ -47,7 +47,7 @@ public class JSONMarshaller extends Marshaller {
 
     @Override
     public String represent(Marshallable marshallable, MarshallingTraits marshallingTraits) {
-        String result = new JSONObject(marshallable, marshallable.names()).toString();
+        String result = new JSONObject(marshallable).toString();
         return result;
     }
 
@@ -61,30 +61,16 @@ public class JSONMarshaller extends Marshaller {
             Logger.getLogger(JSONMarshaller.class.getName()).log(Level.SEVERE, null, ex);
         }
         for (int i = 0; i < fields.length; i++) {
-            Object obj = null;
-            Field field = fields[i];
             try {
+                Object obj = null;
+                Field field = fields[i];
                 obj = j.get(field.getName());
                 Class type = field.getType();
-                if (type.equals(URI.class)) {
-                    try {
-                        field.set(marshallable, new URI(String.class.cast(obj)));
-                    } catch (IllegalArgumentException ex) {
-                        Logger.getLogger(JSONMarshaller.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IllegalAccessException ex) {
-                        Logger.getLogger(JSONMarshaller.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (URISyntaxException ex) {
-                        Logger.getLogger(JSONMarshaller.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else if (type.equals(String.class)) {
-                    try {
-                        field.set(marshallable, String.class.cast(obj));
-                    } catch (IllegalArgumentException ex) {
-                        Logger.getLogger(JSONMarshaller.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IllegalAccessException ex) {
-                        Logger.getLogger(JSONMarshaller.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
+                field.set(marshallable, type.cast(obj));
+            } catch (IllegalArgumentException ex) {
+                Logger.getLogger(JSONMarshaller.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(JSONMarshaller.class.getName()).log(Level.SEVERE, null, ex);
             } catch (JSONException ex) {
                 Logger.getLogger(JSONMarshaller.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -41,23 +41,69 @@ import java.net.URISyntaxException;
  */
 public class Host extends MarshallableObject {
 
-    public String name = null;
-    public URI uri = null;
+    /**
+     *
+     */
+    public String name = "";
+    /**
+     *
+     */
+    public String dnsName = "";
+    /**
+     *
+     */
+    public String ipAddr = "";
+    /**
+     *
+     */
+    public Integer portNumber = new Integer(-1);
 
     /**
-     * Get URI for deeper examination of this hostName.
-     * @return the URI for deeper examination of this hostName.
+     *
+     * @return
      */
-    public URI getUri() {
-        return uri;
+    public String getDnsName() {
+        return dnsName;
     }
 
     /**
-     * Set URI for deeper examination of this hostName.
-     * @param uri the URI for deeper examination of this hostName
+     *
+     * @param dnsName
      */
-    public void setUri(URI href) {
-        this.uri = href;
+    public void setDnsName(String dnsName) {
+        this.dnsName = dnsName;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getIpAddr() {
+        return ipAddr;
+    }
+
+    /**
+     *
+     * @param ipAddr
+     */
+    public void setIpAddr(String ipAddr) {
+        this.ipAddr = ipAddr;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getPortNumber() {
+        return portNumber;
+    }
+
+    /**
+     *
+     * @param portNumber
+     */
+    public void setPortNumber(int portNumber) {
+        this.portNumber = portNumber;
     }
 
     /**
@@ -90,12 +136,16 @@ public class Host extends MarshallableObject {
     /**
      * Instance with hostName name and URI
      * @param name
-     * @param uri
+     * @param dnsName
+     * @param ipAddr
+     * @param portNumber
      */
-    public Host(String name, URI href) {
+    public Host(String name, String dnsName, String ipAddr, int portNumber) {
         this();
         setName(name);
-        setUri(href);
+        setDnsName(dnsName);
+        setIpAddr(ipAddr);
+        setPortNumber(portNumber);
     }
 
     /**
@@ -104,17 +154,21 @@ public class Host extends MarshallableObject {
      * @throws java.net.URISyntaxException
      */
     public static void main(String[] argv) throws URISyntaxException {
-        String hostName = argv[0];
-        String hrefString = argv[1];
-        String representation = "{" + "\"name\":" + "\"" + hostName + "\"" + "," + "\"href\":" + "\"" + hrefString + "\"" + "}";
-        Host host = new Host("MYZSYS", new URI("http://192.168.0.99/topview/MYZSYS"));
+        String name = argv[0];
+        String dnsName = argv[1];
+        String ipAddr = argv[2];
+        String portNumber = argv[3];
+        String representation = "{" + "\"name\":" + "\"" + name + "\"" + "," + "\"dnsName\":" + "\"" + dnsName + "\"" + "," + "\"ipAddr\":" + "\"" + ipAddr + "\""  + "," + "\"portNumber\":" + portNumber +"}";
+        Host host = new Host("MYZSYS", "myzsys.foobar.com", "192.168.0.199", 12345);
         Marshaller marshaller = new JSONMarshaller();
         System.out.println("Here is the string representation of Host at present: " + host.toRepresentation(marshaller));
         System.out.println("Here is the string representation you submitted: " + representation);
         host.fromRepresentation(representation, marshaller);
         System.out.println("Here is the Host after marshalling in your values: ");
-        System.out.println("host.name == " + host.getName());
-        System.out.println("host.href == " + host.getUri().toString());
+        System.out.println("host.name       == " + host.getName());
+        System.out.println("host.dnsName    == " + host.getDnsName().toString());
+        System.out.println("host.ipAddr     == " + host.getIpAddr().toString());
+        System.out.println("host.portNumber == " + host.getPortNumber());
         System.out.println("Here is the string representation of Host at present: " + host.toRepresentation(marshaller));
     }
 

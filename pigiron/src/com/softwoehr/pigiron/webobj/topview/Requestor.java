@@ -46,8 +46,17 @@ import org.json.JSONObject;
  */
 public class Requestor extends MarshallableObject {
 
+    /**
+     *
+     */
     public User pig_user = new User();
+    /**
+     *
+     */
     public Host pig_host = new Host();
+    /**
+     *
+     */
     public Function pig_function = new Function();
     /**
      *
@@ -103,6 +112,10 @@ public class Requestor extends MarshallableObject {
         return new String[]{"user", "host", "function"};
     }
 
+    /**
+     *
+     * @param argv
+     */
     public static void main(String[] argv) {
         String aRepresentation = argv[0];
         Requestor requestor = new Requestor();
