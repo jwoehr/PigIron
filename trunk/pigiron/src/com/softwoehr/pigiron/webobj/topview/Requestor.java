@@ -103,14 +103,15 @@ public class Requestor extends MarshallableObject {
         return new String[]{"user", "host", "function"};
     }
 
-    public static void main (String [] argv) {
+    public static void main(String[] argv) {
         String aRepresentation = argv[0];
         Requestor requestor = new Requestor();
-        requestor.fromRepresentation(aRepresentation, new JSONMarshaller());
+        JSONMarshaller marshaller = new JSONMarshaller();
+        requestor.fromRepresentation(aRepresentation, marshaller);
         System.out.println("The new Requestor: " + requestor);
         System.out.println("   pig_function: " + requestor.pig_function);
         System.out.println("   pig_user: " + requestor.pig_user);
         System.out.println("   pig_host: " + requestor.pig_host);
-
+        System.out.println("Here's a fresh representation: " + requestor.toRepresentation(marshaller));
     }
 }
