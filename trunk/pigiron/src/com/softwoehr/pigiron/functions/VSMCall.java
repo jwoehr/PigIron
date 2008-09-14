@@ -56,6 +56,9 @@ import java.net.UnknownHostException;
  */
 public abstract class VSMCall {
 
+    /**
+     *
+     */
     public VSMCall() {
     }
     private String hostname;

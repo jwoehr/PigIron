@@ -41,6 +41,9 @@ import com.softwoehr.pigiron.webobj.Marshaller.MarshallingTraits;
  */
 public abstract class MarshallableObject implements Marshallable {
 
+    /**
+     *
+     */
     public MarshallableObject() {
     }
 

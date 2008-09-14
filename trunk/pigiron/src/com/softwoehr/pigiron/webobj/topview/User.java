@@ -39,8 +39,14 @@ import com.softwoehr.pigiron.webobj.*;
  */
 public class User extends MarshallableObject {
 
-    public String uid = null;
-    public String password = null;
+    /**
+     *
+     */
+    public String uid = "";
+    /**
+     *
+     */
+    public String password = "";
 
     /**
      * Get password to use for the Host.
