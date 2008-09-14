@@ -34,7 +34,6 @@ package com.softwoehr.pigiron.webobj.topview;
 import com.softwoehr.pigiron.webobj.MarshallableObject;
 import com.softwoehr.pigiron.webobj.Marshaller;
 import com.softwoehr.pigiron.webobj.Marshaller.MarshallingTraits;
-import java.util.Iterator;
 import org.json.JSONArray;
 
 /**
@@ -43,12 +42,25 @@ import org.json.JSONArray;
  */
 public class Function extends MarshallableObject {
 
+    /**
+     *
+     */
     public String function_name = "";
     private ArgumentArray input_array = new ArgumentArray();
     private ArgumentArray output_array = new ArgumentArray();
+    /**
+     *
+     */
     public JSONArray input_arguments = new JSONArray();
+    /**
+     *
+     */
     public JSONArray output_arguments = new JSONArray();
 
+    /**
+     *
+     * @return
+     */
     public Function prepare_members() {
         input_arguments = input_array.prepareArguments().arguments;
         output_arguments = output_array.prepareArguments().arguments;

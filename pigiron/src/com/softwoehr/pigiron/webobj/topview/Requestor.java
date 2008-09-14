@@ -31,6 +31,7 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
+import com.softwoehr.pigiron.webobj.JSONMarshaller;
 import com.softwoehr.pigiron.webobj.MarshallableObject;
 import com.softwoehr.pigiron.webobj.Marshaller;
 import com.softwoehr.pigiron.webobj.Marshaller.MarshallingTraits;
@@ -45,11 +46,20 @@ import org.json.JSONObject;
  */
 public class Requestor extends MarshallableObject {
 
-    private User pig_user = new User();
-    private Host pig_host = new Host();
-    private Function pig_function = new Function();
+    public User pig_user = new User();
+    public Host pig_host = new Host();
+    public Function pig_function = new Function();
+    /**
+     *
+     */
     public JSONObject user = new JSONObject();
+    /**
+     *
+     */
     public JSONObject host = new JSONObject();
+    /**
+     *
+     */
     public JSONObject function = new JSONObject();
 
     private void prepare_members(Marshaller marshaller) {
@@ -91,5 +101,16 @@ public class Requestor extends MarshallableObject {
     @Override
     public String[] names() {
         return new String[]{"user", "host", "function"};
+    }
+
+    public static void main (String [] argv) {
+        String aRepresentation = argv[0];
+        Requestor requestor = new Requestor();
+        requestor.fromRepresentation(aRepresentation, new JSONMarshaller());
+        System.out.println("The new Requestor: " + requestor);
+        System.out.println("   pig_function: " + requestor.pig_function);
+        System.out.println("   pig_user: " + requestor.pig_user);
+        System.out.println("   pig_host: " + requestor.pig_host);
+
     }
 }
