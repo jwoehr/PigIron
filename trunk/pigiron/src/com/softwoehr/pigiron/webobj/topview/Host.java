@@ -42,22 +42,22 @@ import java.net.URISyntaxException;
 public class Host extends MarshallableObject {
 
     public String name = null;
-    public URI href = null;
+    public URI uri = null;
 
     /**
      * Get URI for deeper examination of this hostName.
      * @return the URI for deeper examination of this hostName.
      */
-    public URI getHref() {
-        return href;
+    public URI getUri() {
+        return uri;
     }
 
     /**
      * Set URI for deeper examination of this hostName.
-     * @param href the URI for deeper examination of this hostName
+     * @param uri the URI for deeper examination of this hostName
      */
-    public void setHref(URI href) {
-        this.href = href;
+    public void setUri(URI href) {
+        this.uri = href;
     }
 
     /**
@@ -90,12 +90,12 @@ public class Host extends MarshallableObject {
     /**
      * Instance with hostName name and URI
      * @param name
-     * @param href
+     * @param uri
      */
     public Host(String name, URI href) {
         this();
         setName(name);
-        setHref(href);
+        setUri(href);
     }
 
     /**
@@ -114,7 +114,7 @@ public class Host extends MarshallableObject {
         host.fromRepresentation(representation, marshaller);
         System.out.println("Here is the Host after marshalling in your values: ");
         System.out.println("host.name == " + host.getName());
-        System.out.println("host.href == " + host.getHref().toString());
+        System.out.println("host.href == " + host.getUri().toString());
         System.out.println("Here is the string representation of Host at present: " + host.toRepresentation(marshaller));
     }
 

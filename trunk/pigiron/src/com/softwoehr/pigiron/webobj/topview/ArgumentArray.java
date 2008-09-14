@@ -37,7 +37,6 @@ import com.softwoehr.pigiron.webobj.Marshaller.MarshallingTraits;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.text.html.HTMLDocument.Iterator;
 import org.json.JSONArray;
 import org.json.JSONException;
 

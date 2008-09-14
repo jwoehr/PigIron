@@ -32,7 +32,6 @@
 package com.softwoehr.pigiron.webobj.topview;
 
 import com.softwoehr.pigiron.webobj.MarshallableObject;
-import java.util.Vector;
 
 /**
  * 
@@ -40,11 +39,28 @@ import java.util.Vector;
  */
 public class Argument extends MarshallableObject {
 
-    public String value = "";
+    private String value = "";
+
+    /**
+     *
+     * @return
+     */
+    public String getValue() {
+        return value;
+    }
+
+    /**
+     *
+     * @param value
+     */
+    public void setValue(String value) {
+        this.value = value;
+    }
+
 
     @Override
     public String[] names() {
-        return new String[]{"value", "arguments"};
+        return new String[]{"value"};
     }
 }
 /* End */
