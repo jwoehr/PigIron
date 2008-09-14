@@ -100,7 +100,7 @@ public class User extends MarshallableObject {
         String uid = argv[0];
         String password = argv[1];
         String representation = "{" + "\"uid\":" + "\"" + uid + "\"" + "," + "\"password\":" + "\"" + password + "\"" + "}";
-        User user = new User("jONJONZZ", "MmAnHuNt");
+        User user = new User("Fringle", "MmBoo");
         System.out.println("Here is the User created with some silly values (not yours):");
         System.out.println("user.uid == " + user.getuid());
         System.out.println("user.password == " + user.getpassword());

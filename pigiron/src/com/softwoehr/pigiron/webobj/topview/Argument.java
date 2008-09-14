@@ -41,7 +41,6 @@ import java.util.Vector;
 public class Argument extends MarshallableObject {
 
     public String value = "";
-    public ArgumentArray arguments = new ArgumentArray();
 
     @Override
     public String[] names() {
