@@ -32,6 +32,12 @@
 package com.softwoehr.pigiron.webobj.topview;
 
 import com.softwoehr.pigiron.webobj.MarshallableObject;
+import com.softwoehr.pigiron.webobj.Marshaller;
+import com.softwoehr.pigiron.webobj.Marshaller.MarshallingTraits;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * 
@@ -39,9 +45,48 @@ import com.softwoehr.pigiron.webobj.MarshallableObject;
  */
 public class Requestor extends MarshallableObject {
 
-    public User user = new User();
-    public Host host = new Host();
-    public Function function = new Function();
+    private User pig_user = new User();
+    private Host pig_host = new Host();
+    private Function pig_function = new Function();
+    public JSONObject user = new JSONObject();
+    public JSONObject host = new JSONObject();
+    public JSONObject function = new JSONObject();
+
+    private void prepare_members(Marshaller marshaller) {
+        try {
+            user = new JSONObject(pig_user.toRepresentation(marshaller));
+            host = new JSONObject(pig_host.toRepresentation(marshaller));
+            function = new JSONObject(pig_function.toRepresentation(marshaller));
+        } catch (JSONException ex) {
+            Logger.getLogger(Requestor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void prepare_members(Marshaller marshaller, MarshallingTraits marshallingTraits) {
+        try {
+            user = new JSONObject(pig_user.toRepresentation(marshaller));
+            host = new JSONObject(pig_host.toRepresentation(marshaller));
+            function = new JSONObject(pig_function.toRepresentation(marshaller));
+        } catch (JSONException ex) {
+            Logger.getLogger(Requestor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void fromRepresentation(String representation, Marshaller marshaller) {
+        super.fromRepresentation(representation, marshaller);
+    }
+
+    @Override
+    public void fromRepresentation(String representation, Marshaller marshaller, MarshallingTraits marshallingTraits) {
+        super.fromRepresentation(representation, marshaller, marshallingTraits);
+    }
+
+    @Override
+    public String toRepresentation(Marshaller marshaller) {
+        prepare_members(marshaller);
+        return super.toRepresentation(marshaller);
+    }
 
     @Override
     public String[] names() {
