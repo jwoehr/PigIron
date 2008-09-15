@@ -33,6 +33,7 @@ package com.softwoehr.pigiron.webobj.topview;
 
 import com.softwoehr.pigiron.webobj.JSONMarshaller;
 import com.softwoehr.pigiron.webobj.MarshallableObject;
+import com.softwoehr.pigiron.webobj.Marshaller;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Iterator;
@@ -44,8 +45,9 @@ import java.util.Vector;
  */
 public class Directory extends MarshallableObject {
 
-    public Vector<DirectoryEntry> entries = new Vector<DirectoryEntry>();
-    // String[] entries;
+    public Vector<DirectoryEntry> entriesVector = new Vector<DirectoryEntry>();
+    public String[] entries;
+
     @Override
     public String[] names() {
         return new String[]{"entries"};
@@ -58,11 +60,16 @@ public class Directory extends MarshallableObject {
     }
     return this;
     }*/
+    public Directory prepare_members(Marshaller marshaller) {
+        Iterator<DirectoryEntry> it = entriesVector.iterator();
+        entries = new String[entriesVector.size()];
+        int i = 0;
+        while (it.hasNext()) {
+            entries[i++] = it.next().toRepresentation(marshaller);
+        }
+        return this;
+    }
 
-    /*public Directory prepare_members() {
-
-    return this;
-    }*/
     /*@Override
     public void fromRepresentation(String representation, Marshaller marshaller) {
     super.fromRepresentation(representation, marshaller);
@@ -73,11 +80,12 @@ public class Directory extends MarshallableObject {
     public void fromRepresentation(String representation, Marshaller marshaller, MarshallingTraits marshallingTraits) {
     super.fromRepresentation(representation, marshaller, marshallingTraits);
     }*/
-    /*@Override
+    @Override
     public String toRepresentation(Marshaller marshaller) {
-    prepare_members();
-    return super.toRepresentation(marshaller);
-    }*/
+        prepare_members(marshaller);
+        return super.toRepresentation(marshaller);
+    }
+
     /**
      *
      * @param argv
@@ -88,11 +96,11 @@ public class Directory extends MarshallableObject {
         String uri = argv[1];
         String rerepresentation = argv[2];*/
         Directory dir = new Directory();
-        dir.entries.add(new DirectoryEntry("Fred", new URI("/one/two/three")));
-        dir.entries.add(new DirectoryEntry("Fred", new URI("/four/five/siz")));
+        dir.entriesVector.add(new DirectoryEntry("Fred", new URI("/one/two/three")));
+        dir.entriesVector.add(new DirectoryEntry("Argle", new URI("/four/five/siz")));
 
         System.out.println("The starting Directory: ");
-        Iterator<DirectoryEntry> it = dir.entries.iterator();
+        Iterator<DirectoryEntry> it = dir.entriesVector.iterator();
         while (it.hasNext()) {
             System.out.println(it.next());
         }
