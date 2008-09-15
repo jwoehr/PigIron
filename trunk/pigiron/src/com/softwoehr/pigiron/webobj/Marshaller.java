@@ -119,6 +119,7 @@ public abstract class Marshaller {
     /**
      * Key-value map that expressing marshaling traits.
      * Each Marshaller extender may or may not have its own MarshallingTraits extender.
+     * Currently unused!
      */
     public class MarshallingTraits extends Hashtable<String, String> {
     }

@@ -32,8 +32,6 @@
 package com.softwoehr.pigiron.webobj;
 
 import java.lang.reflect.Field;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
@@ -47,7 +45,7 @@ public class JSONMarshaller extends Marshaller {
 
     @Override
     public String represent(Marshallable marshallable, MarshallingTraits marshallingTraits) {
-        String result = new JSONObject(marshallable).toString();
+        String result = new JSONObject(marshallable, marshallable.names()).toString();
         return result;
     }
 
@@ -57,6 +55,8 @@ public class JSONMarshaller extends Marshaller {
         Field[] fields = marshallable.getClass().getFields();
         try {
             j = new JSONObject(representation);
+            /* debug */
+            // System.out.println("the new JSON object in Requestor made from the representation looks like this: " + j.toString());
         } catch (JSONException ex) {
             Logger.getLogger(JSONMarshaller.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -64,9 +64,14 @@ public class JSONMarshaller extends Marshaller {
             try {
                 Object obj = null;
                 Field field = fields[i];
-                obj = j.get(field.getName());
-                Class type = field.getType();
-                field.set(marshallable, type.cast(obj));
+                if (j.has(field.getName())) {
+                    obj = j.get(field.getName());
+                    /* debug */
+                    // System.out.println("The name of the field we're working on is " + field.getName());
+                    // System.out.println("The obj create by j.get(field.getName()) is" + obj);
+                    Class type = field.getType();
+                    field.set(marshallable, type.cast(obj));
+                }
             } catch (IllegalArgumentException ex) {
                 Logger.getLogger(JSONMarshaller.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IllegalAccessException ex) {

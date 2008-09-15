@@ -71,6 +71,12 @@ public class Requestor extends MarshallableObject {
      */
     public JSONObject function = new JSONObject();
 
+    private void unpack_members(Marshaller marshaller) {
+        pig_user.fromRepresentation(user.toString(), marshaller);
+        pig_host.fromRepresentation(host.toString(), marshaller);
+        pig_function.fromRepresentation(host.toString(), marshaller);
+    }
+
     private void prepare_members(Marshaller marshaller) {
         try {
             user = new JSONObject(pig_user.toRepresentation(marshaller));
@@ -81,24 +87,25 @@ public class Requestor extends MarshallableObject {
         }
     }
 
-    private void prepare_members(Marshaller marshaller, MarshallingTraits marshallingTraits) {
-        try {
-            user = new JSONObject(pig_user.toRepresentation(marshaller));
-            host = new JSONObject(pig_host.toRepresentation(marshaller));
-            function = new JSONObject(pig_function.toRepresentation(marshaller));
-        } catch (JSONException ex) {
-            Logger.getLogger(Requestor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    /*private void prepare_members(Marshaller marshaller, MarshallingTraits marshallingTraits) {
+    try {
+    user = new JSONObject(pig_user.toRepresentation(marshaller));
+    host = new JSONObject(pig_host.toRepresentation(marshaller));
+    function = new JSONObject(pig_function.toRepresentation(marshaller));
+    } catch (JSONException ex) {
+    Logger.getLogger(Requestor.class.getName()).log(Level.SEVERE, null, ex);
     }
-
+    }*/
     @Override
     public void fromRepresentation(String representation, Marshaller marshaller) {
         super.fromRepresentation(representation, marshaller);
+        unpack_members(marshaller);
     }
 
     @Override
     public void fromRepresentation(String representation, Marshaller marshaller, MarshallingTraits marshallingTraits) {
         super.fromRepresentation(representation, marshaller, marshallingTraits);
+        unpack_members(marshaller);
     }
 
     @Override

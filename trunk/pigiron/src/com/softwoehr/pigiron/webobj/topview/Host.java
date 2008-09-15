@@ -32,7 +32,6 @@
 package com.softwoehr.pigiron.webobj.topview;
 
 import com.softwoehr.pigiron.webobj.*;
-import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
@@ -174,6 +173,6 @@ public class Host extends MarshallableObject {
 
     @Override
     public String[] names() {
-        return new String[]{"name", "href"};
+        return new String[]{"name", "dnsName", "ipAddr", "portNumber"};
     }
 }
