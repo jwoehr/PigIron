@@ -33,7 +33,6 @@ package com.softwoehr.pigiron.webobj.topview;
 
 import com.softwoehr.pigiron.webobj.MarshallableObject;
 import com.softwoehr.pigiron.webobj.Marshaller;
-import com.softwoehr.pigiron.webobj.Marshaller.MarshallingTraits;
 import org.json.JSONArray;
 
 /**
@@ -70,11 +69,6 @@ public class Function extends MarshallableObject {
     @Override
     public void fromRepresentation(String representation, Marshaller marshaller) {
         super.fromRepresentation(representation, marshaller);
-    }
-
-    @Override
-    public void fromRepresentation(String representation, Marshaller marshaller, MarshallingTraits marshallingTraits) {
-        super.fromRepresentation(representation, marshaller, marshallingTraits);
     }
 
     @Override

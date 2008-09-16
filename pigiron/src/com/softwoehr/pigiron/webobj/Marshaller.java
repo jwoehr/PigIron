@@ -31,8 +31,6 @@
  */
 package com.softwoehr.pigiron.webobj;
 
-import java.util.Hashtable;
-
 /**
  * Parent class of all Marshallers, e.g., JSONMarshaller, etc.
  * if there ever are more implemented.
@@ -41,38 +39,10 @@ import java.util.Hashtable;
  */
 public abstract class Marshaller {
 
-    /** The present MarshallingTraits for this instance */
-    private MarshallingTraits marshallingTraits = null;
-
-    /**
-     * Get the present MarshallingTraits for this instance.
-     * @return the present MarshallingTraits for this instance.
-     */
-    public MarshallingTraits getMarshallingTraits() {
-        return marshallingTraits;
-    }
-
-    /**
-     * Set the present MarshallingTraits for this instance.
-     * @param marshallingTraits MarshallingTraits for this instance.
-     */
-    public void setMarshallingTraits(MarshallingTraits marshallingTraits) {
-        this.marshallingTraits = marshallingTraits;
-    }
-
     /**
      * Create an empty instance.
      */
     public Marshaller() {
-    }
-
-    /**
-     * Create an instance with marshalling traits specified.
-     * @param marshallingTraits
-     */
-    public Marshaller(MarshallingTraits marshallingTraits) {
-        this();
-        setMarshallingTraits(marshallingTraits);
     }
 
     /**
@@ -81,30 +51,7 @@ public abstract class Marshaller {
      * @param marshallable the Marshallable to be represented
      * @return string representation of the Marshallable
      */
-    public String represent(Marshallable marshallable) {
-        return represent(marshallable, getMarshallingTraits());
-    }
-
-    /**
-     * Return a string representation of the Marshallable per the
-     * supplied MarshallingTraits object describing marshalling options or characteristics.
-     * @param marshallable the Marshallable to be represented
-     * @param marshallingTraits MarshallingTraits object describing marshalling options or characteristi
-     * @return
-     */
-    public abstract String represent(Marshallable marshallable, MarshallingTraits marshallingTraits);
-
-    /**
-     * Marshall the content of a string representation into a Marshallable
-     * using the member instance of MarshallingTraits describing marshalling options
-     * and characteristics.
-     * @param representation
-     * @param marshallable
-     * @return
-     */
-    public Marshallable fromRepresentation(String representation, Marshallable marshallable) {
-        return fromRepresentation(representation, marshallable, getMarshallingTraits());
-    }
+    public abstract String represent(Marshallable marshallable);
 
     /**
      * Marshall the content of a string representation into a Marshallable per
@@ -114,13 +61,5 @@ public abstract class Marshaller {
      * @param marshallingTraits MarshallingTraits object describing marshalling options or characteristics
      * @return
      */
-    public abstract Marshallable fromRepresentation(String representation, Marshallable marshallable, MarshallingTraits marshallingTraits);
-
-    /**
-     * Key-value map that expressing marshaling traits.
-     * Each Marshaller extender may or may not have its own MarshallingTraits extender.
-     * Currently unused!
-     */
-    public class MarshallingTraits extends Hashtable<String, String> {
-    }
+    public abstract Marshallable fromRepresentation(String representation, Marshallable marshallable);
 }

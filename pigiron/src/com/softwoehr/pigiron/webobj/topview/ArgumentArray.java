@@ -33,7 +33,6 @@ package com.softwoehr.pigiron.webobj.topview;
 
 import com.softwoehr.pigiron.webobj.MarshallableObject;
 import com.softwoehr.pigiron.webobj.Marshaller;
-import com.softwoehr.pigiron.webobj.Marshaller.MarshallingTraits;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -79,25 +78,6 @@ public class ArgumentArray extends MarshallableObject {
         }
     }
 
-    /**
-     *
-     * @param marshaller
-     * @param marshallingTraits
-     */
-    public void unpackArguments(Marshaller marshaller, MarshallingTraits marshallingTraits) {
-        argumentVector = new Vector<Argument>();
-        Argument tempArgument = null;
-        for (int i = 0; i < arguments.length(); i++) {
-            tempArgument = new Argument();
-            try {
-                tempArgument.fromRepresentation(arguments.get(i).toString(), marshaller, marshallingTraits);
-            } catch (JSONException ex) {
-                Logger.getLogger(ArgumentArray.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            argumentVector.add(tempArgument);
-        }
-    }
-
     @Override
     public void fromRepresentation(String representation, Marshaller marshaller) {
         super.fromRepresentation(representation, marshaller);
@@ -105,14 +85,9 @@ public class ArgumentArray extends MarshallableObject {
     }
 
     @Override
-    public void fromRepresentation(String representation, Marshaller marshaller, MarshallingTraits marshallingTraits) {
-        super.fromRepresentation(representation, marshaller, marshallingTraits);
-    }
-
-    @Override
     public String toRepresentation(Marshaller marshaller) {
         prepareArguments();
-        return super.toRepresentation(marshaller);
+        return arguments.toString();
     }
 
     public String[] names() {

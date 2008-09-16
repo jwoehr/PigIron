@@ -2,11 +2,11 @@
  * Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
  * PO Box 51, Golden, Colorado 80402-0051 USA
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *     * Redistributions of source code must retain the above copyright
  *         notice, this list of conditions and the following disclaimer.
  *     * Redistributions in binary form must reproduce the above copyright
@@ -16,7 +16,7 @@
  *     * Neither the name of the PigIron Project nor the names of its
  *         contributors may be used to endorse or promote products derived
  *         from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -38,15 +38,16 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.Vector;
+import org.json.JSONArray;
 
 /**
- * 
+ *
  * @author jax
  */
 public class Directory extends MarshallableObject {
 
     public Vector<DirectoryEntry> entriesVector = new Vector<DirectoryEntry>();
-    public String[] entries;
+    public JSONArray entries;
 
     @Override
     public String[] names() {
@@ -62,11 +63,7 @@ public class Directory extends MarshallableObject {
     }*/
     public Directory prepare_members(Marshaller marshaller) {
         Iterator<DirectoryEntry> it = entriesVector.iterator();
-        entries = new String[entriesVector.size()];
-        int i = 0;
-        while (it.hasNext()) {
-            entries[i++] = it.next().toRepresentation(marshaller);
-        }
+        entries = new JSONArray(entriesVector);
         return this;
     }
 
@@ -83,7 +80,7 @@ public class Directory extends MarshallableObject {
     @Override
     public String toRepresentation(Marshaller marshaller) {
         prepare_members(marshaller);
-        return super.toRepresentation(marshaller);
+        return entries.toString();
     }
 
     /**
