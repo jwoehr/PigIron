@@ -31,79 +31,35 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
-import com.softwoehr.pigiron.webobj.JSONMarshaller;
-import com.softwoehr.pigiron.webobj.MarshallableObject;
-import com.softwoehr.pigiron.webobj.Marshaller;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Iterator;
-import java.util.Vector;
 import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  *
  * @author jax
  */
-public class Directory extends MarshallableObject {
+public class Directory extends JSONArray {
 
-    public Vector<DirectoryEntry> entriesVector = new Vector<DirectoryEntry>();
-    public JSONArray entries;
-
-    @Override
-    public String[] names() {
-        return new String[]{"entries"};
-    }
-
-    /*public Directory unpack_members(Marshaller marshaller) {
-    entryVector = new Vector<DirectoryEntry>(entries.length);
-    for (int i = 0; i < entries.length ; i++) {
-    // entryVector.add
-    }
-    return this;
-    }*/
-    public Directory prepare_members(Marshaller marshaller) {
-        Iterator<DirectoryEntry> it = entriesVector.iterator();
-        entries = new JSONArray(entriesVector);
+    public Directory put(DirectoryEntry direntry) {
+        super.put(direntry);
         return this;
-    }
-
-    /*@Override
-    public void fromRepresentation(String representation, Marshaller marshaller) {
-    super.fromRepresentation(representation, marshaller);
-    unpack_members(marshaller);
-    }*/
-
-    /*@Override
-    public void fromRepresentation(String representation, Marshaller marshaller, MarshallingTraits marshallingTraits) {
-    super.fromRepresentation(representation, marshaller, marshallingTraits);
-    }*/
-    @Override
-    public String toRepresentation(Marshaller marshaller) {
-        prepare_members(marshaller);
-        return entries.toString();
     }
 
     /**
      *
      * @param argv
      * @throws URISyntaxException
+     * @throws JSONException
      */
-    public static void main(String[] argv) throws URISyntaxException {
+    public static void main(String[] argv) throws URISyntaxException, JSONException {
         /*String name = argv[0];
         String uri = argv[1];
         String rerepresentation = argv[2];*/
         Directory dir = new Directory();
-        dir.entriesVector.add(new DirectoryEntry("Fred", new URI("/one/two/three")));
-        dir.entriesVector.add(new DirectoryEntry("Argle", new URI("/four/five/siz")));
-
-        System.out.println("The starting Directory: ");
-        Iterator<DirectoryEntry> it = dir.entriesVector.iterator();
-        while (it.hasNext()) {
-            System.out.println(it.next());
-        }
-
-        JSONMarshaller marshaller = new JSONMarshaller();
-        String representation = dir.toRepresentation(marshaller);
-        System.out.println("Here's the representation: " + representation);
+        dir.put(new DirectoryEntry("Fred", new URI("/one/two/three")));
+        dir.put(new DirectoryEntry("Argle", new URI("/four/five/siz")));
+        System.out.println("The starting Directory: " + dir);
     }
 }
