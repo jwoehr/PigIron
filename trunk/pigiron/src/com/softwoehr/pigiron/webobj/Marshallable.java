@@ -53,15 +53,6 @@ public interface Marshallable {
     public void fromRepresentation(String representation, Marshaller marshaller);
 
     /**
-     * Reinstance members of the Marshallable from a string representation
-     * using the Marshaller specified with the specified MarshallingTraits.
-     * @param representation string representation of the Marshallable
-     * @param marshaller the Marshaller specified to do the marshalling
-     * @param marshallingTraits the traits applicable to the marshaller for this operation
-     */
-    public void fromRepresentation(String representation, Marshaller marshaller, Marshaller.MarshallingTraits marshallingTraits);
-
-    /**
      * Create marshalled representation in string of the marshallable object
      * using the marshaller provided.
      * @param marshaller the marshaller to do the work

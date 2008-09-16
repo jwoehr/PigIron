@@ -31,8 +31,6 @@
  */
 package com.softwoehr.pigiron.webobj;
 
-import com.softwoehr.pigiron.webobj.Marshaller.MarshallingTraits;
-
 /**
  * Parent class of all the web objects which can be marshalled
  * into string representation.
@@ -68,19 +66,8 @@ public abstract class MarshallableObject implements Marshallable {
     }
 
     /**
-     * Reinstance members of the Marshallable from a string representation
-     * using the Marshaller specified with the specified MarshallingTraits.
-     * @param representation string representation of the Marshallable
-     * @param marshaller the Marshaller specified to do the marshalling
-     * @param marshallingTraits the traits applicable to the marshaller for this operation
-     */
-    public void fromRepresentation(String representation, Marshaller marshaller, MarshallingTraits marshallingTraits) {
-        marshaller.fromRepresentation(representation, this, marshallingTraits);
-    }
-
-    /**
      * Identify marshallable fields to the marshaller
      * @return a string array naming the fields to be marshalled.
      */
-    public abstract String [] names ();
+    public abstract String[] names();
 }

@@ -44,19 +44,19 @@ import org.json.JSONObject;
 public class JSONMarshaller extends Marshaller {
 
     @Override
-    public String represent(Marshallable marshallable, MarshallingTraits marshallingTraits) {
+    public String represent(Marshallable marshallable) {
         String result = new JSONObject(marshallable, marshallable.names()).toString();
         return result;
     }
 
     @Override
-    public Marshallable fromRepresentation(String representation, Marshallable marshallable, MarshallingTraits marshallingTraits) {
+    public Marshallable fromRepresentation(String representation, Marshallable marshallable) {
         JSONObject j = null;
         Field[] fields = marshallable.getClass().getFields();
         try {
             j = new JSONObject(representation);
-            /* debug */
-            // System.out.println("the new JSON object in Requestor made from the representation looks like this: " + j.toString());
+        /* debug */
+        // System.out.println("the new JSON object in Requestor made from the representation looks like this: " + j.toString());
         } catch (JSONException ex) {
             Logger.getLogger(JSONMarshaller.class.getName()).log(Level.SEVERE, null, ex);
         }
