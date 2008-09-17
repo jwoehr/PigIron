@@ -45,16 +45,15 @@
 parse arg my.args
 pigiron_classpath='com.softwoehr.pigiron'
 pigiron_function_classpath=pigiron_classpath'.functions'
-my.classname="DirectoryManagerSearchDM"
-.bsf~bsf.import(pigiron_function_classpath'.'my.classname, "DMSDMClass")
+my.classname="ImageCreateDM"
+.bsf~bsf.import(pigiron_function_classpath'.'my.classname, "ImageCreateDMClass")
 my.argarray=bsf.createArray("String.class", my.args~words)
 do i = 1 to my.args~words
 my.argarray[i]=my.args~word(i)
 end
 if my.args~words < 6 then signal usage
 say "Invoking" my.classname"("my.argarray[1]', 'my.argarray[2]', 'my.argarray[3]', 'my.argarray[4]', 'my.argarray[5]', 'my.argarray[6]")"
--- my.instance=.DMSDMClass~newStrict("ST", my.argarray[1], "I", my.argarray[2], "ST", my.argarray[3], "ST", my.argarray[4], "ST", my.argarray[5], "ST", my.argarray[6])
-my.instance=.DMSDMClass~new(my.argarray[1], my.argarray[2], my.argarray[3], my.argarray[4], my.argarray[5], my.argarray[6])
+-my.instance=.my.classname~new(my.argarray[1], my.argarray[2], my.argarray[3], my.argarray[4], my.argarray[5], my.argarray[6])
 my.output_parameter_array=my.instance~doIt()
 say "Returns from call to " result ":"
 say my.output_parameter_array~prettyPrintAll()
