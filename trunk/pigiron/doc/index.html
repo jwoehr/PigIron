@@ -97,8 +97,15 @@ THE POSSIBILITY OF SUCH DAMAGE.
       <a href="#Specification">Specification</a>
 
       <ul>
-        <li><a href="#Current_Level_of_Support">Current Level of
-        Support</a></li>
+        <li>
+          <a href="#Current_Level_of_Support">Current Level of
+          Support</a>
+
+          <ul>
+            <li><small><a href="#Testing_Coverage">Testing
+            Coverage</a></small></li>
+          </ul>
+        </li>
 
         <li><a href="#Planned_Development">Planned
         Development</a></li>
@@ -163,7 +170,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
   System</a>'s <a href=
   "http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm">
   Systems Management Application Programming Interface</a> (which
-  we call for short VSMAPI).<br></p>
+  we call for short <span style=
+  "font-weight: bold;">VSMAPI</span>).<br></p>
 
   <p>The classes and programming model are intended:</p>
 
@@ -198,11 +206,12 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <h3><a name="NOTE_ON_SECURITY" id="NOTE_ON_SECURITY">NOTE ON
   SECURITY (LACK THEREOF)</a></h3>
 
-  <p><b>Currently there is NO secure sockets implementation. Sends
-  your password in CLEAR TEXT. Use ONLY on a secure LAN behind a
-  firewall.<br></b></p>We're working on this. It's tempting to use
-  only Java 1.6 because SSL is easier, but that's probably too
-  restrictive.<br>
+  <p><b>Currently there is NO secure sockets implementation.
+  PigIron currently sends your password in CLEAR TEXT. Use PigIron
+  ONLY on a secure LAN behind a firewall.</b></p>
+
+  <p>We're working on this. It's tempting to use only Java 1.6
+  because SSL is easier, but that's probably too restrictive.</p>
 
   <h3><a name="Getting_PigIron" id="Getting_PigIron">Getting
   PigIron</a></h3>
@@ -305,7 +314,42 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <h3><a name="Current_Level_of_Support" id=
   "Current_Level_of_Support">Current Level of Support</a></h3>
 
-  <p>PigIron currently supports the z/VM R5.3 level of VSMAPI.</p>
+  <ul>
+    <li>PigIron currently supports the z/VM R5.3 level of VSMAPI
+    and will support the z/VM R5.4 level of VSMAPI in the near
+    future.</li>
+
+    <li>PigIron does <span style=
+    "text-decoration: underline;">not</span> support the older z/VM
+    R5.2 and earlier levels of VSMAPI which used RPC instead of TCP
+    sockets as its communication mechanism.</li>
+  </ul>
+
+  <h4><a name="Testing_Coverage" id="Testing_Coverage"></a>Testing
+  Coverage<br></h4>
+
+  <p><span style="text-decoration: underline;">PigIron is at the
+  present time insufficiently tested.</span> If you understand the
+  problem domain, the provisioning of z/VM environments, you will
+  understand how complicated it is to set up a testing environment!
+  We are working on this steadily.<br></p>
+
+  <ul>
+    <li>Many com.softwoehr.pigiron.functions classes have a main()
+    that can be used for testing.</li>
+
+    <li>The scripts contained in <span style=
+    "font-family: monospace;">scripts/oorexx</span> use <a href=
+    "http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>
+    on top of <a href="http://sourceforge.net/projects/oorexx">Open
+    ObjectRexx</a> to run the PigIron Java classes.
+
+      <ul>
+        <li>This is the main direction for testing and validation
+        of PigIron.<br></li>
+      </ul>
+    </li>
+  </ul>
 
   <h3><a name="Planned_Development" id=
   "Planned_Development">Planned Development</a></h3>
@@ -498,8 +542,10 @@ THE POSSIBILITY OF SUCH DAMAGE.
     <li><span style=
     "font-family: monospace;">com.softwoehr.pigiron.webojb</span>
     are classes which represent PigIron constructs in <a href=
-    "http://json.org/">JSON</a> data interchange
-    format.<span style="font-family: monospace;"><br></span></li>
+    "http://json.org/">JSON</a> data interchange format.</li>
+
+    <li>PigIron structures and functions contain the definition of
+    constants relevant to their parameters.</li>
   </ul>PigIron's class library represention of VSMAPI functions in
   <span style=
   "font-family: monospace;">com.softwoehr.pigiron.functions</span>
@@ -512,12 +558,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
   which will offer phat wrappers around the <span style=
   "font-family: monospace;">com.softwoehr.pigiron.functions</span>
   .<br>
-  <br>
-  PigIron structures and functions contain the definition of
-  constants relevant to their parameters. There is some duplication
-  of code as currently a centralizing metaphor is lacking for
-  grouping constants.<br>
-  <br>
   <hr style="width: 100%; height: 2px;">
 
   <h2><a name="Architecture" id=
@@ -525,9 +565,12 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
   <h3><a name="Project_Setup" id="Project_Setup"></a>Project
   Setup</h3>PigIron is created as a <a href=
-  "http://netbeans.org">NetBeans</a> project. The <a href=
-  "http://ant.apache.org">Ant</a> files used to build the project
-  can be executed from the command line.<br>
+  "http://netbeans.org">NetBeans</a> project (NetBeans 6.1). The
+  <a href="http://ant.apache.org">Ant</a> files used to build the
+  project can be executed from the command line. Easiest is to
+  <a href="http://sourceforge.net/cvs/?group_id=235734">check out
+  PigIron source code</a> and then Open the root directory of the
+  checkout as a Project in NetBeans. It's like magic!<br>
 
   <h3><a name="External_libraries" id=
   "External_libraries"></a>External libraries</h3>In trying to keep
@@ -539,7 +582,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
   tree (<a href="../src/org/json/"><span style=
   "font-family: monospace;">pigiron/src/org/json</span></a>) and
   built along with PigIron since it is small and may need
-  enhancement and maintenance for PigIron.<br>
+  enhancement and maintenance for PigIron. Doing it this way made
+  the build simpler and avoids external dependencies.<br>
   <br>
   JSON is used under <a href="http://www.json.org/license.html">the
   JSON license</a>:
@@ -571,11 +615,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
   OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
   OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-  SOFTWARE.</span><br></p>
+  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</span></p>
   <hr style="width: 100%; height: 2px;">
-  <br>
-
-  <p><i>Fairmount, Colorado, late summer 2008</i></p>
+  <i>Fairmount, Colorado, late summer 2008</i>
 </body>
 </html>
