@@ -45,18 +45,17 @@
 parse arg my.args
 pigiron_classpath='com.softwoehr.pigiron'
 pigiron_function_classpath=pigiron_classpath'.functions'
-my.classname="DirectoryManagerSearchDM"
+my.classname="ImageActiveConfigurationQuery"
 .bsf~bsf.import(pigiron_function_classpath'.'my.classname, "FunctionClass")
 my.argarray=bsf.createArray("String.class", my.args~words)
 do i = 1 to my.args~words
 my.argarray[i]=my.args~word(i)
 end
-if my.args~words < 6 then signal usage
-say "Invoking" my.classname"("my.argarray[1]', 'my.argarray[2]', 'my.argarray[3]', 'my.argarray[4]', 'my.argarray[5]', 'my.argarray[6]")"
-my.instance=.FunctionClass~new(my.argarray[1], my.argarray[2], my.argarray[3], my.argarray[4], my.argarray[5], my.argarray[6])
+if my.args~words < 5 then signal usage
+say "Invoking" my.classname"("my.argarray[1]', 'my.argarray[2]', 'my.argarray[3]', 'my.argarray[4]', 'my.argarray[5]")"
+my.instance=.FunctionClass~new(my.argarray[1], my.argarray[2], my.argarray[3], my.argarray[4], my.argarray[5])
 my.output_parameter_array=my.instance~doIt()
 say "Returns from call:"
-say "(Total parameter length is" my.output_parameter_array~totalParameterLength()")"
 say my.output_parameter_array~prettyPrintAll()
 exit 0
 
