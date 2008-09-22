@@ -13,10 +13,11 @@ pigfunc_attribute(`private', `', `String', member_name(`search_pattern'), `""', 
 pigfunc_ctors(`String', `tag_name', member_name(`search_pattern'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(CountedString, member_getter(`search_pattern')`()', `search_pattern')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`search_pattern')`()', `search_pattern')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
-pigfunc_compose_output_parm(`significant_parameter_classname', `null', `significant_parameter_formal_name')dnl
+pigfunc_compose_output_parm(`VSMInt4', `-1', significant_parameter_formal_name`_length')dnl
+pigfunc_compose_output_parm(significant_parameter_classname, `null', significant_parameter_formal_name)dnl
 pigfunc_compose_output_end()dnl
 pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException`,' VSMException', `dnl
      * You can execute the VSMAPI call from {@code main()}, try it
