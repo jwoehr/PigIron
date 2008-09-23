@@ -12,7 +12,11 @@ to be found in the same directory as this README.TXT file.
 
 CHANGES
 -------
-2008-??-?? 0.6 -- More Testing!!
+2008-??-?? 0.6 -- Genuinely "alpha" now due to more testing!
+
+    * More script/oorexx/functest testing scripts
+    * Bug Fixes
+        * directory_manager_search_DM.m4 was missing a parm
 
 2008-09-12 0.5 -- About "alpha" but NOT FULLY TESTED!!!
 
