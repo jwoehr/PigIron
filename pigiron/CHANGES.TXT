@@ -14,9 +14,26 @@ CHANGES
 -------
 2008-??-?? 0.6 -- Genuinely "alpha" now due to more testing!
 
-    * More script/oorexx/functest testing scripts
+    * Testing
+        * More script/oorexx/functest testing scripts
     * Bug Fixes
         * directory_manager_search_DM.m4 was missing a parm
+    * General Maintenance
+        * Autogenerate the previously hand-coded classes:
+            * CheckAuthentication.java
+            * ImageActiveConfigurationQuery.java
+            * ImageQueryActivateTime.java
+            * ImageStatusQuery.java
+            * NameListQuery.java
+            * QueryAPIFunctionalLevel.java
+            * CpuInfoArray.java
+            * CpuInfoStruct.java
+            * CpuInfoStructCounted.java
+            * DeviceInfoArray.java
+            * DeviceInfoStruct.java
+            * DeviceInfoStructCounted.java
+            * NameArray.java
+            * NameStruct.java
 
 2008-09-12 0.5 -- About "alpha" but NOT FULLY TESTED!!!
 
