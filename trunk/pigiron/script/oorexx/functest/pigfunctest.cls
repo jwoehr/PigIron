@@ -31,31 +31,29 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * File:   ${name}.${extension}
- * Author: ${user}
- * Created on ${date} ${time}
- *
- * Tests PigIron VSMAPI Function ${name}
- * Requires ObjectRexx http://sourceforge.net/projects/oorexx
- *          BSF4REXX   http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/
- * Usage: ${name}.${extension} [arg ...]
- */
+/* Utility for creating PigIron function tests */
 
-/* Invoke DirectoryManagerSearchDM */
+::REQUIRES BSF.CLS
 
-PARSE ARG my.args
-if my.args~words < 6 then signal usage
-my.test = .PigFuncTest~new("DirectoryManagerSearchDM", my.args)
-say "Invoking" my.test~classname"("my.test~argument_array[1]', 'my.test~argument_array[2]', 'my.test~argument_array[3]', 'my.test~argument_array[4]', 'my.test~argument_array[5]', 'my.test~argument_array[6]")"
-my.test~object_instance=my.test~class_instance~new(my.test~argument_array[1], my.test~argument_array[2], my.test~argument_array[3], my.test~argument_array[4], my.test~argument_array[5], my.test~argument_array[6])
-my.output_parameter_array=my.test~object_instance~doIt()
-say "Returns from call:"
-say "(Total parameter length is" my.output_parameter_array~totalParameterLength()")"
-say my.output_parameter_array~prettyPrintAll()
-exit 0
+::CLASS PigFuncTest PUBLIC
 
-usage:
-say "Usage: function arg0 arg1 .. .. arg5"
-exit 1
-::REQUIRES 'pigfunctest.cls'
+   ::METHOD classname ATTRIBUTE
+   ::METHOD class_instance ATTRIBUTE
+   ::METHOD class_import_name ATTRIBUTE
+   ::METHOD class_stem CLASS ATTRIBUTE
+   ::METHOD object_instance ATTRIBUTE
+   ::METHOD argument_array ATTRIBUTE
+   
+   ::METHOD INIT CLASS
+   	self~class_stem='com.softwoehr.pigiron.functions'
+	
+   ::METHOD INIT
+	USE ARG aClassName, arguments
+	self~classname=aClassName
+	self~class_import_name="pigfunc_"self~classname
+	self~class_instance=.bsf~bsf.import(self~class~class_stem'.'self~classname, self~class_import_name)
+	self~argument_array=bsf.createArray("String.class", arguments~words)
+	DO i = 1 TO arguments~words
+	      self~argument_array[i]= arguments~word(i)
+	      END
+/* End of file */
