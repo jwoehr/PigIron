@@ -95,7 +95,8 @@ public class Main {
         System.out.println("========= ImageActiveConfigurationQuery =========");
         ImageActiveConfigurationQuery.main(argv);
         System.out.println("========= ImageQueryActivateTime =========");
-        ImageQueryActivateTime.main(argv);
+        modifiedArgs = new String[]{argv[0], argv[1], argv[2], argv[3], argv[4], "4"};
+        ImageQueryActivateTime.main(modifiedArgs);
         System.out.println("========= CheckAuthentication =========");
         CheckAuthentication.main(argv);
         System.out.println("========= ImageStatusQuery =========");
