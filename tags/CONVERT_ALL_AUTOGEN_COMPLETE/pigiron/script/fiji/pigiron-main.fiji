@@ -1,0 +1,18 @@
+` \ Call the  com.softwoehr.pigiron.Main.main() with HOST PORT USERID PASSWORD TARGETID` drop
+
+: set-array ` \ array(array) index(long) object(any class but must be object) -- ` drop
+  rot java.lang.Object ()
+  ( swap , rot Long>intparam , swap java.lang.Object () ,
+  java.lang.reflect.Array class set rot ) drop
+;
+
+: compose-pig-args ` \ String String String String String -- String[] ` drop
+  5 java.lang.String array
+  5 0 do
+      dup rot 4 0 index - swap set-array
+      loop
+;
+
+: pigiron-main  ` \ String String String String String -- ret ` drop
+  compose-pig-args com.softwoehr.pigiron.Main class main rot ( swap , ) ;
+
