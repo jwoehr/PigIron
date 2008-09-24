@@ -7,6 +7,7 @@ Operating System Systems Management Application Programming Interface
 (sometimes called VSMAPI).
 
 See http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm
+and http://publib.boulder.ibm.com/infocenter/zvm/v5r4/topic/com.ibm.zvm.v54.dmse6/hcsl8b30.htm
 for more information about VSMAPI.
 
 PigIron is not associated with the IBM corporation.

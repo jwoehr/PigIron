@@ -33,7 +33,8 @@ NOTE ON SECURITY (LACK THEREOF):
     * Currently NO secure sockets implementation. Sends your password in
       CLEAR TEXT. Use ONLY on a secure LAN behind a firewall.
 
-PigIron currently supports z/VM r5.3 SMAPI.
+PigIron currently supports z/VM R5.3 / R5.4  SMAPI.
+See http://publib.boulder.ibm.com/infocenter/zvm/v5r4/topic/com.ibm.zvm.v54.dmse6/hcsl8b30.htm
 
 Fairmount, Colorado
 2008-08-20

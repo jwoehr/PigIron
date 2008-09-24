@@ -1,4 +1,4 @@
-include(`pigfunc.m4')dnl \\ piggen_prototype_function.m4
+include(`pigfunc.m4')dnl \\ piggen_prototype_function_54.m4
 function_namespace(`Piggen_Prototype_Function', `some_kinda_array')dnl
 pigfunc_start()dnl \\ function_namespace(`function_formal_name', `significant_parameter_formal_name')
 pigfunc_import(`java.io.IOException')dnl
@@ -7,8 +7,9 @@ pigfunc_import(`com.softwoehr.pigiron.access.paramstructs.'significant_parameter
 pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',function_formal_name,`dnl
 
 /**
- * {@code function_formal_name} VSMAPI Function
+ * {@code function_formal_name} VSMAPI 5.4 Function
  * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
+ * @since `<a href="http://publib.boulder.ibm.com/infocenter/zvm/v5r4/`index'.jsp">VSMAPI 5.4</a>'
  */')dnl \\ significant_parameter_formal_name bound in namespace
 pigfunc_constant(`public', `int', `SOME_ASPECT_UNSPECIFIED', `0', `Unspecified')dnl
 pigfunc_constant(`public', `int', `SOME_ASPECT_YEA', `1', `Do not')dnl
