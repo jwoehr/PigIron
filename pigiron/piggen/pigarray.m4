@@ -119,7 +119,7 @@ push_divert(ctor_stream)dnl
     public myClass()`('mySuperClass() value, String formalName) {
         super(value, formalName);
     }
-
+ifelse(mySuperClass(),`VSMAsciiZArray',`',`
     /**
      * Create an instance by absorbing a CountedStruct type only if
      * that instance is the associated counted struct for this array
@@ -135,6 +135,7 @@ push_divert(ctor_stream)dnl
         setValue(value);
         setFormalName(formalName);
     }
+')dnl
 
     /**
      * Create an instance by copying the value from a like instance.
@@ -240,6 +241,7 @@ pop_divert()dnl
 \\ pigparm_endclass ... Close a class definition
 define(`pigparm_endclass',`dnl
 push_divert(class_footer_stream)dnl
+ifelse(mySuperClass(),`VSMAsciiZArray',`',`dnl
     /** Tests whether the Array can assimilate its proper
      * CountedStruct type and still not assimilate other CountedStruct types.
      * @param argv not used
@@ -256,6 +258,7 @@ push_divert(class_footer_stream)dnl
         aC = new array_classname`('cS, FORMAL_TYPE);
         System.out.println`('"You should never see this message due to a VSMArrayCountedStructCTORException thrown before: Here is the array_classname instance having assimilated an PageRangeStructureCounted instance: " + aC.prettyPrint`('));
     }
+')dnl
 }
 push_divert(file_footer_stream)dnl
 
