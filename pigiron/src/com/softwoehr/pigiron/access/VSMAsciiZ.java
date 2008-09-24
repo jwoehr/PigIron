@@ -41,37 +41,36 @@ import java.io.IOException;
  * @author jax
  * @see com.softwoehr.pigiron.access.VSMParm
  */
-public class VSMString implements VSMParm {
+public class VSMAsciiZ implements VSMParm {
 
     /**
      *
      */
     /**
-     * Type in terms of one of the formal parameter type discussed in
-     * the VSMAPI documentation: <tt>int1</tt>, <tt>int4</tt>,
-     * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.
-     * (Pigiron also recognizes <tt>counted_struct</tt>
-     * as an extra type above and beyond the base types enumerated
-     * by the VSMAPI documentation.)
+     * The new type of String introduced in VSMAPI 5.4, a String
+     * which is null-terminated (ASCIIZ) so does not need a count.
+     * It is both an input and output parameter employed in calls
+     * such as Virtual_Network_LAN_Access_Query (5.4).
      *
      * @see com.softwoehr.pigiron.access.VSMParm
      * @see com.softwoehr.pigiron.access.CountedStruct
+     * @since <a href="http://publib.boulder.ibm.com/infocenter/zvm/v5r4/index.jsp">VSMAPI 5.4</a>
      */
-    public static final String FORMAL_TYPE = "string";
+    public static final String FORMAL_TYPE = "asciiz";
     private String value;
     private String formalName;
 
     /**
      * Create an instance of undefined value.
      */
-    public VSMString() {
+    public VSMAsciiZ() {
     }
 
     /**
      * Create an instance of specified value.
      * @param value the value
      */
-    public VSMString(String value) {
+    public VSMAsciiZ(String value) {
         this();
         setValue(value);
     }
@@ -81,30 +80,46 @@ public class VSMString implements VSMParm {
      * @param value the value
      * @param formalName the formal name
      */
-    public VSMString(String value, String formalName) {
+    public VSMAsciiZ(String value, String formalName) {
         this(value);
         setFormalName(formalName);
     }
 
     /**
-     * Get the value.
-     * @return the value
+     * Strips a string of any null terminators and anything following such.
+     * @param string a string possibly terminated with a null
+     * @return the string minus the null terminator (and minus any characters
+     * accidentally supplied after the null terminator)
+     */
+    public static String stripTerminated(String string) {
+        return string.substring(0, string.indexOf('\0'));
+    }
+
+    public static String terminate(String string) {
+        return string + '\0';
+    }
+
+    /**
+     * Get the value minus the z-terminator.
+     * @return the value minus the z-terminator
      */
     public String getValue() {
-        return value;
+        return stripTerminated(value);
     }
 
     /**
-     * Set the value.
-     * @param value the value
+     * Strip any accidentally-supplied null terminator from the input argument
+     * and any characters following that null terminator, append a null terminator,
+     * and set the value.
+     * @param value a string to be null-terminated by {@code setValue} and set as the value
      */
     public void setValue(String value) {
-        this.value = value;
+        this.value = terminate(stripTerminated(value));
     }
 
     /**
-     * Get the length in bytes of the parameter.
-     * @return the length in bytes of the parameter value.
+     * Get the length in bytes of the parameter (including the null terminator).
+     * @return the length in bytes of the parameter value (including the null terminator)
      */
     public int paramLength() {
         int result = 0;
@@ -115,24 +130,27 @@ public class VSMString implements VSMParm {
     }
 
     /**
-     * Read in a VSMString from a stream.
+     * Read in a VSMAsciiZ from a stream.
      * @param in the input stream
      * @param length the max length of the read
      * @throws java.io.IOException on comm error
      */
     public void read(DataInputStream in, int length) throws IOException {
-        byte[] bytes = new byte[length];
-        in.readFully(bytes);
-        setValue(new String(bytes));
-        // /* Debug */ System.err.println("Read a string: " + value);
+        StringBuffer result = new StringBuffer();
+        char c;
+        for (int i = 0; i < length; i++) {
+            c = in.readChar();
+            if (c == '\0') {
+                break;
+            }
+            result.append(c);
+        }
+        setValue(result.toString());
+    // /* Debug */ System.err.println("Read a string: " + value);
     }
 
     /**
-     * Write the String parameter to the output stream.
-     * Its length <tt>int4</tt> must already have been written by the
-     * enclosing <tt>ParameterArray</tt> having had a
-     * VSMInt4 entry with the length indexed one (1) prior
-     * to this VSMString.
+     * Write the String parameter to the output stream including the null terminator.
      *
      * @param out the output stream
      * @throws java.io.IOException on comm error
@@ -170,7 +188,6 @@ public class VSMString implements VSMParm {
      * @see #clone()
      */
     public VSMParm copyOf() {
-        /* return new VSMInt8(value, formalName);*/
         VSMParm bozo = null;
         bozo = VSMParm.class.cast(clone());
         return bozo;
@@ -183,7 +200,7 @@ public class VSMString implements VSMParm {
      */
     @Override
     public Object clone() {
-        VSMString proto = new VSMString();
+        VSMAsciiZ proto = new VSMAsciiZ();
         proto.setFormalName(formalName);
         proto.setValue(getValue());
         return proto;
@@ -204,7 +221,9 @@ public class VSMString implements VSMParm {
     /**
      * Get the formal type of the parmeter, one of the formal parameter types
      * discussed in the VSMAPI documentation: <tt>int1</tt>, <tt>int4</tt>,
-     * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.
+     * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt> ..
+     * and this new type we're calling AsciiZ that is in VSMAPI 5.4 but
+     * not at this writing fully documented.
      *
      * Pigiron recognizes <tt>counted_struct</tt>
      * as an extra type above and beyond the base types enumerated
@@ -225,30 +244,4 @@ public class VSMString implements VSMParm {
         sb.append(getFormalName() + "(" + getFormalType() + ") " + getValue());
         return sb.toString();
     }
-    /**
-     *
-     * @param toCopy
-     * @return
-     */
-    /*public static boolean testCopyOf(VSMString toCopy) {
-    boolean result = false;
-    VSMString theCopy = VSMString.class.cast(toCopy.copyOf());
-    System.out.println("theCopy: " + theCopy);
-    System.out.println("theCopy: " + theCopy.prettyPrint());
-    System.out.println("toCopy: " + toCopy);
-    System.out.println("toCopy: " + toCopy.prettyPrint());
-    System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
-    System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
-    return result;
-    }*/
-    /**
-     *
-     * @param argv
-     */
-    /*public static void main(String[] argv) {
-    VSMString toCopy = new VSMString("Elephants march at night without rest!", "test_string");
-    System.out.println("Testing VSMString.testCopyOf()");
-    testCopyOf(toCopy);
-
-    }*/
 }
