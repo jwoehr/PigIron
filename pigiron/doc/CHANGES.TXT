@@ -18,6 +18,10 @@ CHANGES
         * More script/oorexx/functest testing scripts
     * Bug Fixes
         * directory_manager_search_DM.m4 was missing a parm
+    * Support for z/VM V5R4.0 Systems Management Application Programming
+        - See http://publib.boulder.ibm.com/infocenter/zvm/v5r4/topic/com.ibm.zvm.v54.dmse6/hcsl8b30.htm
+        * Added 5.4 Error Codes
+        * Additional Functions for 5.4
     * General Maintenance
         * Autogenerate the previously hand-coded classes:
             * CheckAuthentication.java
