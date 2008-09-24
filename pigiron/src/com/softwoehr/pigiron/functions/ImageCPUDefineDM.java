@@ -40,36 +40,42 @@ import java.io.IOException;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * {@code Image_CPU_Define} VSMAPI 5.4 Function
+ * {@code Image_CPU_Define_DM} VSMAPI 5.4 Function
  * @see com.softwoehr.pigiron.access.paramstructs.
  * @since <a href="http://publib.boulder.ibm.com/infocenter/zvm/v5r4/index.jsp">VSMAPI 5.4</a>
  */
-public class ImageCPUDefine extends VSMCall {
+public class ImageCPUDefineDM extends VSMCall {
 
     /**
      * The transmitted name of the function.
      */
-    public static final String FUNCTION_NAME = "Image_CPU_Define";
+    public static final String FUNCTION_NAME = "Image_CPU_Define_DM";
 
     /** Unspecified */
-    public static final int CPU_TYPE_UNSPECIFIED = 0;
+    public static final int BASE_CPU_UNSPECIFIED = 0;
 
-    /** CP */
-    public static final int CPU_TYPE_CP = 1;
+    /** BASE */
+    public static final int BASE_CPU_BASE = 1;
 
-    /** IFL */
-    public static final int CPU_TYPE_IFL = 2;
+    /** Unspecified */
+    public static final int DEDICATE_CPU_UNSPECIFIED = 0;
+
+    /** NODEDICATE */
+    public static final int DEDICATE_CPU_NODEDICATE = 1;
+
+    /** DEDICATE */
+    public static final int DEDICATE_CPU_DEDICATE = 2;
+
+    /** Unspecified - no CRYPTO */
+    public static final int CRYPTO_UNSPECIFIED = 0;
 
     /** ZAAP */
-    public static final int CPU_TYPE_ZAAP = 3;
-
-    /** ZIIP */
-    public static final int CPU_TYPE_ZIIP = 4;
+    public static final int CRYPTO_CRYPTO = 1;
 
     /**
      *  Create an instance of the function call with important fields not instanced.
      */
-    public ImageCPUDefine() {
+    public ImageCPUDefineDM() {
     }
 
     /**
@@ -80,9 +86,12 @@ public class ImageCPUDefine extends VSMCall {
      * @param password the password
      * @param target_identifier the target of the VSMAPI function
      * @param cpu_address instances {@code cpuAddress}
-     * @param cpu_type instances {@code cpuType}
+     * @param base_cpu instances {@code baseCpu}
+     * @param cpu_id instances {@code cpuId}
+     * @param dedicate_cpu instances {@code dedicateCpu}
+     * @param crypto instances {@code crypto}
      */
-    public ImageCPUDefine(String hostname, int port, String userid, String password, String target_identifier, String cpu_address, int cpu_type) {
+    public ImageCPUDefineDM(String hostname, int port, String userid, String password, String target_identifier, String cpu_address, int base_cpu, String cpu_id, int dedicate_cpu, int crypto) {
         this();
         setHostname(hostname);
         setPort(port);
@@ -90,14 +99,26 @@ public class ImageCPUDefine extends VSMCall {
         setPassword(password);
         setTarget_identifier(target_identifier);
         set_cpuAddress(cpu_address);
-        set_cpuType(cpu_type);
+        set_baseCpu(base_cpu);
+        set_cpuId(cpu_id);
+        set_dedicateCpu(dedicate_cpu);
+        set_crypto(crypto);
     }
 
-    /** The virtual CPU address to add to the virtual image in the hexadecimal range of 0-3F. */
+    /** The virtual CPU address to add to the static definition of the virtual image in the hexadecimal range of 0-3F. */
     private String cpuAddress = "";
 
-    /** The type of processor to add. */
-    private int cpuType = 0;
+    /** Whether this CPU defines the base virtual processor. */
+    private int baseCpu = 0;
+
+    /** The processor identification number to be stored in bits 8 through 31 of the CPU ID. */
+    private String cpuId = "";
+
+    /** Whether the virtual processor is to be dedicated at LOGON time to a real processor. */
+    private int dedicateCpu = 0;
+
+    /** Whether the virtual Cryptographic Coprocessor Facility (CCF) should be defined automatically for the virtual CPU at LOGON time. */
+    private int crypto = 0;
 
     /** Set the value of {@code  cpuAddress }.
      * @param val The value to set {@code  cpuAddress }.
@@ -113,18 +134,60 @@ public class ImageCPUDefine extends VSMCall {
         return cpuAddress;
     }
 
-    /** Set the value of {@code  cpuType }.
-     * @param val The value to set {@code  cpuType }.
+    /** Set the value of {@code  baseCpu }.
+     * @param val The value to set {@code  baseCpu }.
      */
-    public void set_cpuType(int val) {
-        cpuType = val;
+    public void set_baseCpu(int val) {
+        baseCpu = val;
     }
 
-    /** Get the value of {@code  cpuType }.
-     * @return The value of {@code  cpuType }.
+    /** Get the value of {@code  baseCpu }.
+     * @return The value of {@code  baseCpu }.
      */
-    public int get_cpuType() {
-        return cpuType;
+    public int get_baseCpu() {
+        return baseCpu;
+    }
+
+    /** Set the value of {@code  cpuId }.
+     * @param val The value to set {@code  cpuId }.
+     */
+    public void set_cpuId(String val) {
+        cpuId = val;
+    }
+
+    /** Get the value of {@code  cpuId }.
+     * @return The value of {@code  cpuId }.
+     */
+    public String get_cpuId() {
+        return cpuId;
+    }
+
+    /** Set the value of {@code  dedicateCpu }.
+     * @param val The value to set {@code  dedicateCpu }.
+     */
+    public void set_dedicateCpu(int val) {
+        dedicateCpu = val;
+    }
+
+    /** Get the value of {@code  dedicateCpu }.
+     * @return The value of {@code  dedicateCpu }.
+     */
+    public int get_dedicateCpu() {
+        return dedicateCpu;
+    }
+
+    /** Set the value of {@code  crypto }.
+     * @param val The value to set {@code  crypto }.
+     */
+    public void set_crypto(int val) {
+        crypto = val;
+    }
+
+    /** Get the value of {@code  crypto }.
+     * @return The value of {@code  crypto }.
+     */
+    public int get_crypto() {
+        return crypto;
     }
 
     /**
@@ -152,7 +215,12 @@ public class ImageCPUDefine extends VSMCall {
         tempString = new VSMString(get_cpuAddress(), "cpu_address");
         parameterArray.add(new VSMInt4(tempString.paramLength(), "cpu_address_length"));
         parameterArray.add(tempString);
-        parameterArray.add(new VSMInt1(get_cpuType(), "cpu_type"));
+        parameterArray.add(new VSMInt1(get_baseCpu(), "base_cpu"));
+        tempString = new VSMString(get_cpuId(), "cpu_id");
+        parameterArray.add(new VSMInt4(tempString.paramLength(), "cpu_id_length"));
+        parameterArray.add(tempString);
+        parameterArray.add(new VSMInt1(get_dedicateCpu(), "dedicate_cpu"));
+        parameterArray.add(new VSMInt1(get_crypto(), "crypto"));
         VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
         parameterArray.insertElementAt(outputLength, 0);
         setInParams(parameterArray);
@@ -195,15 +263,15 @@ public class ImageCPUDefine extends VSMCall {
      */
     public static void main(String[] argv) throws IOException, VSMException {
 
-        ImageCPUDefine instance = null;
+        ImageCPUDefineDM instance = null;
 
-        if (argv.length != 7) {
-            System.out.println("usage: args are:\ninetaddr port user pw target_id cpu_address cpu_type");
+        if (argv.length != 10) {
+            System.out.println("usage: args are:\ninetaddr port user pw target_id cpu_address base_cpu cpu_id dedicate_cpu crypto");
             System.exit(1);
         }
 
-        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5] + " " + argv[6]);
-        instance = new ImageCPUDefine(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5], Integer.valueOf(argv[6]).intValue());
+        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5] + " " + argv[6] + " " + argv[7] + " " + argv[8] + " " + argv[9]);
+        instance = new ImageCPUDefineDM(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5], Integer.valueOf(argv[6]).intValue(), argv[7],Integer.valueOf(argv[8]).intValue(), Integer.valueOf(argv[9]).intValue());
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
