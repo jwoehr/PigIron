@@ -69,6 +69,25 @@ THE POSSIBILITY OF SUCH DAMAGE.
     <li><a href=
     "https://sourceforge.net/project/platformdownload.php?group_id=235734">
     Download PigIron</a></li>
+
+    <li>
+      <a name="IBM_VSMAPI_Documentation" id=
+      "IBM_VSMAPI_Documentation"></a><a href=
+      "http://www.ibm.com">IBM</a> VSMAPI Documentation
+      <span style="font-style: italic;">(Note: The PigIron
+      Project</span> <i>is not associated</i> <span style=
+      "font-style: italic;">with the IBM Corporation.)</span>
+
+      <ul>
+        <li><a href=
+        "http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm">
+        z/VM V5R3</a><br></li>
+
+        <li><a href=
+        "http://publib.boulder.ibm.com/infocenter/zvm/v5r4/index.jsp?topic=/com.ibm.zvm.v54.dmse6/hcsl8b30.htm">
+        z/VM V5R4</a><br></li>
+      </ul>
+    </li>
   </ul>Now, on to code documentation for PigIron:
 
   <h2>Contents</h2>
@@ -98,8 +117,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
       <ul>
         <li>
-          <a href="#Current_Level_of_Support">Current Level of
-          Support</a>
+          <a href="#Current_Level_of_Support">Level of Support</a>
 
           <ul>
             <li><small><a href="#Testing_Coverage">Testing
@@ -190,17 +208,19 @@ THE POSSIBILITY OF SUCH DAMAGE.
     </li>
 
     <li>to support the development of higher-level libraries such
-    as packaging PigIron functionality in GUI widgets</li>
+    as packaging PigIron functionality in GUI widgets and Web
+    objects<br></li>
 
     <li>to support development of GUI applications in terms of such
-    GUI widgets</li>
+    GUI widgets and Web objects</li>
   </ul>
 
   <p><i>Note: PigIron is not associated with the IBM corporation,
   which owns most or all of the trademarks mentioned in PigIron
   documentation.<br></i><span style="font-style: italic;">Note: The
-  present document assumes understanding of VSMAPI and exerts
-  itself</span> not <span style="font-style: italic;">to explain
+  present document assumes understanding of <a href=
+  "#IBM_VSMAPI_Documentation">VSMAPI</a> and exerts itself</span>
+  not <span style="font-style: italic;">to explain
   VSMAPI.</span></p>
 
   <h3><a name="NOTE_ON_SECURITY" id="NOTE_ON_SECURITY">NOTE ON
@@ -305,42 +325,40 @@ THE POSSIBILITY OF SUCH DAMAGE.
   (sometimes called VSMAPI).
 
   <ul>
-    <li>See <a href=
-    "http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm">
-    http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm</a>
-    for more information about VSMAPI version 5.4.</li>
+    <li><a href="#IBM_VSMAPI_Documentation">More information about
+    VSMAPI</a></li>
   </ul>
 
   <h3><a name="Current_Level_of_Support" id=
   "Current_Level_of_Support">Level of Support</a></h3>
 
   <ul>
-    <li>PigIron currently supports the z/VM R5.3 / R5.4 level of
-    VSMAPI.
+    <li>PigIron currently supports the z/VM V5R3 / V5R4 level of
+    VSMAPI which uses TCP sockets as its communication mechanism.
 
       <ul>
-        <li>R5.4 is an almost perfect superset of R5.3
+        <li>V5R4 is an almost perfect superset of V5R3
 
           <ul>
-            <li>Added functions</li>
+            <li>Added functions in V5R4</li>
 
-            <li>Added return codes and reason codes</li>
+            <li>Added return codes and reason codes in V5R4</li>
           </ul>
         </li>
       </ul>
 
-      <div style="margin-left: 4em">
+      <div style="margin-left: 4em;">
         <ul>
-          <li>One set of return codes and reason codes code has
-          enhanced technical error messages in 5.4 but it its
-          harmless to the 5.3 user<br></li>
+          <li>One set of return codes and reason codes code present
+          in 5.3 has enhanced technical error messages in V5R4 but
+          it its harmless to the V5R3 user.<br></li>
         </ul>
       </div>
     </li>
 
     <li>PigIron does <span style=
     "text-decoration: underline;">not</span> support the older z/VM
-    R5.2 and earlier levels of VSMAPI which used RPC instead of TCP
+    V5R2 and earlier levels of VSMAPI which used RPC instead of TCP
     sockets as its communication mechanism.</li>
   </ul>
 
@@ -392,7 +410,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
     library. (IN PROGRESS | INCREMENTAL RELEASES)
 
       <ol>
-        <li>Support z/VM R5.3 and R5.4 (DONE)</li>
+        <li>Support z/VM V5R3 and V5R4 (DONE)</li>
 
         <li>Support for Secure Socket Layer communications (RELEASE
         &gt;= 1.1)</li>
