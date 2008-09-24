@@ -22,6 +22,21 @@ CHANGES
         - See http://publib.boulder.ibm.com/infocenter/zvm/v5r4/topic/com.ibm.zvm.v54.dmse6/hcsl8b30.htm
         * Added 5.4 Error Codes
         * Additional Functions for 5.4
+            * Image_CPU_Define
+            * Image_CPU_Define_DM
+            * Image_CPU_Delete
+            * Image_CPU_Delete_DM
+            * Image_CPU_Query
+            * Image_CPU_Query_DM
+            * Image_CPU_Set_Maximum_DM
+            * Profile_Create_DM
+            * Profile_Delete_DM
+            * Profile_Lock_DM
+            * Profile_Query_DM
+            * Profile_Replace_DM
+            * Profile_Unlock_DM
+            * Virtual_Network_LAN_Access
+            * Virtual_Network_LAN_Access_Query
     * General Maintenance
         * Autogenerate the previously hand-coded classes:
             * CheckAuthentication.java
