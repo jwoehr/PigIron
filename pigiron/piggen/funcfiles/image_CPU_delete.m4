@@ -7,7 +7,6 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 
 /**
  * {@code function_formal_name} VSMAPI 5.4 Function
- * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
  * @since `<a href="http://publib.boulder.ibm.com/infocenter/zvm/v5r4/`index'.jsp">VSMAPI 5.4</a>'
  */')dnl \\ significant_parameter_formal_name bound in namespace
 pigfunc_attribute(`private', `', `String',  member_name(`cpu_address'), `""', `', `The virtual CPU address to delete from the virtual image in the hexadecimal range of 0-3F.')dnl
