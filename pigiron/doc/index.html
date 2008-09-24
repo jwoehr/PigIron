@@ -40,7 +40,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii">
   <meta http-equiv="Last-Modified" content=
-  "Sat, 6 Sep 2008 23:04:53 UTC">
+  "Wed, 24 Sep 2008 04:43:58 UTC">
 </head>
 
 <body>
@@ -308,16 +308,35 @@ THE POSSIBILITY OF SUCH DAMAGE.
     <li>See <a href=
     "http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm">
     http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm</a>
-    for more information about VSMAPI version 5.3.</li>
+    for more information about VSMAPI version 5.4.</li>
   </ul>
 
   <h3><a name="Current_Level_of_Support" id=
-  "Current_Level_of_Support">Current Level of Support</a></h3>
+  "Current_Level_of_Support">Level of Support</a></h3>
 
   <ul>
-    <li>PigIron currently supports the z/VM R5.3 level of VSMAPI
-    and will support the z/VM R5.4 level of VSMAPI in the near
-    future.</li>
+    <li>PigIron currently supports the z/VM R5.3 / R5.4 level of
+    VSMAPI.
+
+      <ul>
+        <li>R5.4 is an almost perfect superset of R5.3
+
+          <ul>
+            <li>Added functions</li>
+
+            <li>Added return codes and reason codes</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div style="margin-left: 4em">
+        <ul>
+          <li>One set of return codes and reason codes code has
+          enhanced technical error messages in 5.4 but it its
+          harmless to the 5.3 user<br></li>
+        </ul>
+      </div>
+    </li>
 
     <li>PigIron does <span style=
     "text-decoration: underline;">not</span> support the older z/VM
@@ -373,9 +392,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
     library. (IN PROGRESS | INCREMENTAL RELEASES)
 
       <ol>
-        <li>Support z/VM R5.3 (NOW)</li>
-
-        <li>Support z/VM R5.4 (FUTURE)</li>
+        <li>Support z/VM R5.3 and R5.4 (DONE)</li>
 
         <li>Support for Secure Socket Layer communications (RELEASE
         &gt;= 1.1)</li>
@@ -383,7 +400,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
         <li>Support user-defined custom functions (IN PROGRESS)
 
           <ul>
-            <li>Provide Rexxx examples of custom VSMAPI extensions
+            <li>Provide Rexx examples of custom VSMAPI extensions
             on the VSMAPI host itself (TODO)</li>
 
             <li>PigGen autogenerator allows user to extend PigIron
