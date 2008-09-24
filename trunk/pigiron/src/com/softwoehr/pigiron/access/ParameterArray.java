@@ -201,6 +201,10 @@ public class ParameterArray extends Vector<VSMParm> {
                     // There's no count for the counted parmtype
                     throw new ParameterArrayReadAllException(" There is no count for the current counted parmtype. " + copyOfCurrentParm);
                 }
+            } else if (copyOfCurrentParm instanceof VSMAsciiZ) {
+                copyOfCurrentParm.read(in, output_length);
+                output_length -= copyOfCurrentParm.paramLength();
+                replacement.add(copyOfCurrentParm);
             } else {
                 throw new ParameterArrayReadAllException(" Unknown parameter type.");
             }
