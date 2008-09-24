@@ -15,7 +15,7 @@ pigfunc_constant(`public', `int', `CPU_TYPE_CP', `1', `CP')dnl
 pigfunc_constant(`public', `int', `CPU_TYPE_IFL', `2', `IFL')dnl
 pigfunc_constant(`public', `int', `CPU_TYPE_ZAAP', `3', `ZAAP')dnl
 pigfunc_constant(`public', `int', `CPU_TYPE_ZIIP', `4', ZIIP`')dnl
-pigfunc_attribute(`private', `', `String',  member_name(`cpu_address'), `"*"', `', `The virtual CPU address to add to the virtual image in the hexadecimal range of 0-3F.')dnl
+pigfunc_attribute(`private', `', `String',  member_name(`cpu_address'), `""', `', `The virtual CPU address to add to the virtual image in the hexadecimal range of 0-3F.')dnl
 pigfunc_attribute(`private', `', `int', member_name(`cpu_type'), `0', `', `The type of processor to add.')dnl
 pigfunc_ctors(`String', `cpu_address', member_name(`cpu_address'),
 `int', `cpu_type', member_name(`cpu_type'))dnl
