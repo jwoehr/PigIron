@@ -40,14 +40,14 @@
 /* Invoke CheckAuthentication */
 
 PARSE ARG args
-if args~words < 4 then signal usage
+if args~words < 5 then signal usage
 it=.Test_CheckAuthentication~new(args)
 it~construct_instance()
 it~do_it
 exit
 
 usage:
-say "Usage: function arg0 arg1 .. .. arg5"
+say "Usage: function arg0 arg1 .. .. arg4"
 exit 1
 
 ::REQUIRES 'pigfunctest.cls'
