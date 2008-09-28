@@ -32,14 +32,8 @@
  */
 
 /*
- * File:   ${name}.${extension}
- * Author: ${user}
- * Created on ${date} ${time}
- *
- * Tests PigIron VSMAPI Function ${name}
  * Requires ObjectRexx http://sourceforge.net/projects/oorexx
  *          BSF4REXX   http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/
- * Usage: ${name}.${extension} [arg ...]
  */
 
 /* Invoke ImagePasswordSetDM */
@@ -64,7 +58,7 @@ exit 1
     ::METHOD INIT
     	USE ARG args
 	self~my.test=.PigFuncTest~new("ImagePasswordSetDM", args)
-	
+
     ::METHOD construct_instance
     	EXPOSE my.test
         my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5], "ST", my.test~argument_array[6])
