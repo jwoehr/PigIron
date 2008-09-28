@@ -40,8 +40,9 @@
 
    ::METHOD assimilate_arguments
    	USE ARG arguments
+        self~argument_array_length=arguments~words
 	self~argument_array=bsf.createArray("String.class", arguments~words)
-	DO i = 1 TO arguments~words
+	DO i = 1 TO self~argument_array_length
 	      self~argument_array[i]=arguments~word(i)
 	      END
 	RETURN self~argument_array
@@ -50,6 +51,7 @@
    ::METHOD class_instance ATTRIBUTE
    ::METHOD function_instance ATTRIBUTE
    ::METHOD argument_array ATTRIBUTE
+   ::METHOD argument_array_length ATTRIBUTE
    ::METHOD output_array ATTRIBUTE
    
    ::METHOD INIT
@@ -69,7 +71,16 @@
 	 
    ::METHOD pretty_print
    	return self~output_array~prettyPrintAll()
-	
+
+   ::METHOD invocation_message
+        invoke_msg = "Invoking" self~pigfunc_name"("
+        do i = 1 to self~argument_array_length
+            invoke_msg = invoke_msg || self~argument_array[i]
+            if i < self~argument_array_length then invoke_msg = invoke_msg', '
+            end
+        invoke_msg = invoke_msg')'
+        return invoke_msg
+
    ::METHOD INIT CLASS
    	super~init
 	self~init_dictionary
