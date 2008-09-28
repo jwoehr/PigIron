@@ -32,14 +32,8 @@
  */
 
 /*
- * File:   ${name}.${extension}
- * Author: ${user}
- * Created on ${date} ${time}
- *
- * Tests PigIron VSMAPI Function ${name}
  * Requires ObjectRexx http://sourceforge.net/projects/oorexx
  *          BSF4REXX   http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/
- * Usage: ${name}.${extension} [arg ...]
  */
 
 /* Invoke ImageReplaceDM */
@@ -52,7 +46,7 @@ it~do_it
 exit
 
 usage:
-say "Usage: function arg0 arg1 .. .. arg5"
+say "Usage: ImageReplaceDM host port userid password targetid dir_record [dir_record ...]"
 exit 1
 
 ::REQUIRES 'pigfunctest.cls'
@@ -67,11 +61,21 @@ exit 1
 	
     ::METHOD construct_instance
     	EXPOSE my.test
-        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5], "ST", my.test~argument_array[6])
+        my.image_record_array = .ImageRecordArray~new("image_record_array")
+        do i = 6 to my.test~argument_array~length
+            my.image_record_array~add(.ImageRecord~new(my.test~argument_array[i]))
+            end
+        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5], "I", my.image_record_array~totalParameterLength(), "O", my.image_record_array)
 
     ::METHOD do_it
         EXPOSE my.test
-	say "Invoking" my.test~pigfunc_name"("my.test~argument_array[1]', 'my.test~argument_array[2]', 'my.test~argument_array[3]', 'my.test~argument_array[4]', 'my.test~argument_array[5]', 'my.test~argument_array[6]")"
+        invoke_msg = "Invoking" my.test~pigfunc_name"("
+        do i = 1 to my.test~argument_array~length
+            invoke_msg = invoke_msg my.test~argument_array[i]
+            if i < my.test~argument_array~length then invoke_msg = invoke_msg', '
+            end
+        invoke_msg = invoke_msg')'
+	say invoke_msg
 	my.test~do_it
 	say "Returns from call:"
 	say "(Total parameter length is" my.test~output_array~totalParameterLength()")"
