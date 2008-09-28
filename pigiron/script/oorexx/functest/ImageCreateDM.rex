@@ -45,14 +45,15 @@
 /* Invoke ImageCreateDM */
 
 PARSE ARG args
-if args~words < 6 then signal usage
+PARSE SOURCE my.platform my.invocation my.command
+if args~words < 9 then signal usage
 it=.Test_ImageCreateDM~new(args)
 it~construct_instance()
 it~do_it
 exit
 
 usage:
-say "Usage: function arg0 arg1 .. .. arg5"
+say "Usage:" my.command "host port userid password targetid prototype_name initial_password initial_account_number image_record [image_record ...]"
 exit 1
 
 ::REQUIRES 'pigfunctest.cls'
@@ -67,7 +68,11 @@ exit 1
 	
     ::METHOD construct_instance
     	EXPOSE my.test
-        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5], "ST", my.test~argument_array[6])
+        my.image_record_array = .ImageRecordArray~new("image_record_array")
+        do i = 9 to my.test~argument_array~length
+            my.image_record_array~add(.ImageRecord~new(my.test~argument_array[i]))
+            end
+        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5], "ST", my.test~argument_array[6], "ST", my.test~argument_array[7], "ST", my.test~argument_array[8], "I", my.image_record_array~totalParameterLength(), "O", my.image_record_array)
 
     ::METHOD do_it
         EXPOSE my.test

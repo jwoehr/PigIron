@@ -39,6 +39,7 @@
 /* Invoke ImageReplaceDM */
 
 PARSE ARG args
+PARSE SOURCE my.platform my.invocation my.command
 if args~words < 6 then signal usage
 it=.Test_ImageReplaceDM~new(args)
 it~construct_instance()
@@ -46,7 +47,7 @@ it~do_it
 exit
 
 usage:
-say "Usage: ImageReplaceDM host port userid password targetid dir_record [dir_record ...]"
+say "Usage:" my.command "host port userid password targetid image_record [image_record ...]"
 exit 1
 
 ::REQUIRES 'pigfunctest.cls'
