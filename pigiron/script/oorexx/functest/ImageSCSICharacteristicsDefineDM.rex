@@ -65,7 +65,7 @@ exit 1
         "ST", my.test~argument_array[6], "ST", my.test~argument_array[7], "ST", my.test~argument_array[8], "ST", my.test~argument_array[9], "ST", my.test~argument_array[10], "I", my.test~argument_array[11])
 
     ::METHOD do_it
-        EXPOSE my.test args
+        EXPOSE my.test
         say my.test~invocation_message
 	my.test~do_it
 	say "Returns from call:"

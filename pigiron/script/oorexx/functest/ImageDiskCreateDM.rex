@@ -68,7 +68,7 @@ exit 1
 
     ::METHOD do_it
         EXPOSE my.test
-	say "Invoking" my.test~pigfunc_name"("my.test~argument_array[1]', 'my.test~argument_array[2]', 'my.test~argument_array[3]', 'my.test~argument_array[4]', 'my.test~argument_array[5]', 'my.test~argument_array[6], 'my.test~argument_array[7], 'my.test~argument_array[8], 'my.test~argument_array[9], 'my.test~argument_array[10], 'my.test~argument_array[11], 'my.test~argument_array[12], 'my.test~argument_array[13], 'my.test~argument_array[14], 'my.test~argument_array[15], 'my.test~argument_array[16], 'my.test~argument_array[17]")"
+        say my.test~invocation_message
 	my.test~do_it
 	say "Returns from call:"
 	say "(Total parameter length is" my.test~output_array~totalParameterLength()")"

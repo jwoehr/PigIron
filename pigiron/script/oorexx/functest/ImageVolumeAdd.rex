@@ -32,11 +32,6 @@
  */
 
 /*
- * File:   ${name}.${extension}
- * Author: ${user}
- * Created on ${date} ${time}
- *
- * Tests PigIron VSMAPI Function ${name}
  * Requires ObjectRexx http://sourceforge.net/projects/oorexx
  *          BSF4REXX   http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/
  * Usage: ${name}.${extension} [arg ...]
@@ -45,14 +40,14 @@
 /* Invoke ImageVolumeAdd */
 
 PARSE ARG args
-if args~words < 6 then signal usage
+if args~words < 17 then signal usage
 it=.Test_ImageVolumeAdd~new(args)
 it~construct_instance()
 it~do_it
 exit
 
 usage:
-say "Usage: function arg0 arg1 .. .. arg5"
+say "Usage: function arg0 arg1 .. .. arg16"
 exit 1
 
 ::REQUIRES 'pigfunctest.cls'
@@ -67,11 +62,14 @@ exit 1
 	
     ::METHOD construct_instance
     	EXPOSE my.test
-        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5], "ST", my.test~argument_array[6])
+        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5],,
+        "ST", my.test~argument_array[6], "ST", my.test~argument_array[7], "ST", my.test~argument_array[8], "ST", my.test~argument_array[9], "ST", my.test~argument_array[10],,
+        "ST", my.test~argument_array[11], "ST", my.test~argument_array[12], "ST", my.test~argument_array[13], "ST", my.test~argument_array[14], "ST", my.test~argument_array[15],,
+        "ST", my.test~argument_array[16], "ST", my.test~argument_array[17])
 
     ::METHOD do_it
         EXPOSE my.test
-	say "Invoking" my.test~pigfunc_name"("my.test~argument_array[1]', 'my.test~argument_array[2]', 'my.test~argument_array[3]', 'my.test~argument_array[4]', 'my.test~argument_array[5]', 'my.test~argument_array[6]")"
+        say my.test~invocation_message
 	my.test~do_it
 	say "Returns from call:"
 	say "(Total parameter length is" my.test~output_array~totalParameterLength()")"
