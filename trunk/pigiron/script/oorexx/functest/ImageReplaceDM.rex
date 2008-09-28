@@ -69,13 +69,7 @@ exit 1
 
     ::METHOD do_it
         EXPOSE my.test
-        invoke_msg = "Invoking" my.test~pigfunc_name"("
-        do i = 1 to my.test~argument_array~length
-            invoke_msg = invoke_msg my.test~argument_array[i]
-            if i < my.test~argument_array~length then invoke_msg = invoke_msg', '
-            end
-        invoke_msg = invoke_msg')'
-	say invoke_msg
+        say my.test~invocation_message
 	my.test~do_it
 	say "Returns from call:"
 	say "(Total parameter length is" my.test~output_array~totalParameterLength()")"
