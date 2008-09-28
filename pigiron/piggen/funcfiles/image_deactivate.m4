@@ -12,7 +12,7 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
  * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
  */')dnl
 pigfunc_attribute(`private', `', `String', `member_name(`force_time')', `""', `', `Specifies when the Image_Deactivate function is to take place')dnl
-pigfunc_ctors()dnl
+pigfunc_ctors(`String', `force_time', member_name(`force_time'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
 pigfunc_compose_input_parm(`CountedString', member_getter(`force_time')`()', `force_time')dnl
@@ -30,13 +30,13 @@ pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOExc
 
         function_classname instance = null;
 
-        if (argv.length != 5) {
-            System.out.println("usage: args are:\ninetaddr port user pw target_image");
+        if (argv.length != 6) {
+            System.out.println("usage: args are:\ninetaddr port user pw target_image force_time");
             System.exit(1);
         }
 
-        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4]);
-        instance = new function_classname()(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4]);
+        System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5]);
+        instance = new function_classname()(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5]);
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
