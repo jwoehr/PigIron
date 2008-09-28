@@ -32,14 +32,8 @@
  */
 
 /*
- * File:   ${name}.${extension}
- * Author: ${user}
- * Created on ${date} ${time}
- *
- * Tests PigIron VSMAPI Function ${name}
  * Requires ObjectRexx http://sourceforge.net/projects/oorexx
  *          BSF4REXX   http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/
- * Usage: ${name}.${extension} [arg ...]
  */
 
 /* Invoke ImageUnlockDM */
@@ -71,7 +65,7 @@ exit 1
 
     ::METHOD do_it
         EXPOSE my.test
-	say "Invoking" my.test~pigfunc_name"("my.test~argument_array[1]', 'my.test~argument_array[2]', 'my.test~argument_array[3]', 'my.test~argument_array[4]', 'my.test~argument_array[5]', 'my.test~argument_array[6]")"
+        say my.test~invocation_message
 	my.test~do_it
 	say "Returns from call:"
 	say "(Total parameter length is" my.test~output_array~totalParameterLength()")"
