@@ -40,7 +40,6 @@
 
    ::METHOD assimilate_arguments
    	USE ARG arguments
-        self~argument_array_length=arguments~words
 	self~argument_array=bsf.createArray("String.class", arguments~words)
 	DO i = 1 TO self~argument_array_length
 	      self~argument_array[i]=arguments~word(i)
@@ -51,7 +50,8 @@
    ::METHOD class_instance ATTRIBUTE
    ::METHOD function_instance ATTRIBUTE
    ::METHOD argument_array ATTRIBUTE
-   ::METHOD argument_array_length ATTRIBUTE
+   ::METHOD argument_array_length
+        RETURN self~argument_array~items
    ::METHOD output_array ATTRIBUTE
    
    ::METHOD INIT
