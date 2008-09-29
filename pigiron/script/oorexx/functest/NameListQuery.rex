@@ -52,7 +52,7 @@ exit 1
 
 ::REQUIRES 'pigfunctest.cls'
 
-::CLASS Test_NameListDestroy
+::CLASS Test_NameListQuery
 
     ::METHOD my.test ATTRIBUTE
 
