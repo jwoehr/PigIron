@@ -34,13 +34,14 @@ pigfunc_ctors(`String', `switch_name', member_name(`switch_name'),
 `int', `update_system_config_indicator', member_name(`update_system_config_indicator'),
 `String',`system_config_name', member_name(`system_config_name'),
 `String',`system_config_type', member_name(`system_config_type'),
-`String',`parm_disk_number', member_name(`parm_disk_number'),
 `String',`parm_disk_owner', member_name(`parm_disk_owner'),
+`String',`parm_disk_number', member_name(`parm_disk_number'),
 `String',`parm_disk_password', member_name(`parm_disk_password'),
+`String',`alt_system_config_name', member_name(`alt_system_config_name'),
 `String',`alt_system_config_type', member_name(`alt_system_config_type'),
 `String',`alt_parm_disk_owner', member_name(`alt_parm_disk_owner'),
 `String',`alt_parm_disk_number', member_name(`alt_parm_disk_number'),
-`String',`alt_parm_disk_password' member_name(`alt_parm_disk_password'))dnl
+`String',`alt_parm_disk_password', member_name(`alt_parm_disk_password'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
 pigfunc_compose_input_parm(`CountedString', member_getter(`switch_name')(), `switch_name')dnl
