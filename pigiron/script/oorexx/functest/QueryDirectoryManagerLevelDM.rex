@@ -40,6 +40,7 @@
 /* Invoke QueryDirectoryManagerLevelDM */
 
 PARSE ARG args
+PARSE SOURCE my.platform my.invocation my.command
 if args~words < 5 then signal usage
 it=.Test_QueryDirectoryManagerLevelDM~new(args)
 it~construct_instance()
@@ -47,7 +48,7 @@ it~do_it
 exit
 
 usage:
-say "Usage: function arg0 arg1 .. .. arg5"
+say "Usage:" my.command "arg0 arg1 .. .. arg5"
 exit 1
 
 ::REQUIRES 'pigfunctest.cls'
@@ -66,7 +67,7 @@ exit 1
 
     ::METHOD do_it
         EXPOSE my.test
-	say "Invoking" my.test~pigfunc_name"("my.test~argument_array[1]', 'my.test~argument_array[2]', 'my.test~argument_array[3]', 'my.test~argument_array[4]', 'my.test~argument_array[5]")"
+	say my.test~invocation_message
 	my.test~do_it
 	say "Returns from call:"
 	say "(Total parameter length is" my.test~output_array~totalParameterLength()")"
