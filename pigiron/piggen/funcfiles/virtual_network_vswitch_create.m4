@@ -45,10 +45,10 @@ pigfunc_attribute(`private', `', `String', member_name(`system_config_type'), `"
 pigfunc_attribute(`private', `', `String', member_name(`parm_disk_owner'), `""', `', `Owner of the parm disk')dnl
 pigfunc_attribute(`private', `', `String', member_name(`parm_disk_number'), `""', `', `Number of the parm disk as defined in the server directory')dnl
 pigfunc_attribute(`private', `', `String', member_name(`parm_disk_password'), `"`,'"', `', `Multiwrite password for the parm disk')dnl
-pigfunc_attribute(`private', `', `String', member_name(`alt_system_config_name'), `"`,'"', `', `File name of the second (alternative) system configuration file')dnl
-pigfunc_attribute(`private', `', `String', member_name(`alt_system_config_type'), `"`,'"', `', `File type of the second (alternative) system configuration file')dnl
-pigfunc_attribute(`private', `', `String', member_name(`alt_parm_disk_owner'), `"`,'"', `', `Owner of the second (alternative) parm disk')dnl
-pigfunc_attribute(`private', `', `String', member_name(`alt_parm_disk_number'), `"`,'"', `', `Number of the second (alternative) parm disk')dnl
+pigfunc_attribute(`private', `', `String', member_name(`alt_system_config_name'), `""', `', `File name of the second (alternative) system configuration file')dnl
+pigfunc_attribute(`private', `', `String', member_name(`alt_system_config_type'), `""', `', `File type of the second (alternative) system configuration file')dnl
+pigfunc_attribute(`private', `', `String', member_name(`alt_parm_disk_owner'), `""', `', `Owner of the second (alternative) parm disk')dnl
+pigfunc_attribute(`private', `', `String', member_name(`alt_parm_disk_number'), `""', `', `Number of the second (alternative) parm disk')dnl
 pigfunc_attribute(`private', `', `String', member_name(`alt_parm_disk_password'), `"`,'"', `', `Multiwrite password for the second (alternative) parm disk')dnl
 pigfunc_attribute(`private', `', `int', member_name(`gvrp_value'), `GVRP_VALUE_UNSPECIFIED', `',  `GVRP value')dnl
 pigfunc_ctors(`String', `switch_name', member_name(`switch_name'),
