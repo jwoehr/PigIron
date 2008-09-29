@@ -50,32 +50,57 @@ pigfunc_attribute(`private', `', `String', member_name(`alt_parm_disk_owner'), `
 pigfunc_attribute(`private', `', `String', member_name(`alt_parm_disk_number'), `"`,'"', `', `Number of the second (alternative) parm disk')dnl
 pigfunc_attribute(`private', `', `String', member_name(`alt_parm_disk_password'), `"`,'"', `', `Multiwrite password for the second (alternative) parm disk')dnl
 pigfunc_attribute(`private', `', `int', member_name(`gvrp_value'), `GVRP_VALUE_UNSPECIFIED', `',  `GVRP value')dnl
-pigfunc_ctors(`String', `switch_name', member_name(`switch_name'))dnl
+pigfunc_attribute(`private', `', `String', member_name(`mac_id'), `""', `', `The MAC identifier')dnl
+pigfunc_ctors(`String', `switch_name', member_name(`switch_name'),
+`String', `grant_userid', member_name(`grant_userid'),
+`String', `user_vlan_id', member_name(`user_vlan_id'),
+`String', `revoke_userid', member_name(`revoke_userid'),
+`String', `real_device_address', member_name(`real_device_address'),
+`String', `port_name', member_name(`port_name'),
+`String', `controller_name', member_name(`controller_name'),
+`int', `connection_value', member_name(`connection_value'),
+`int', `queue_memory_limit', member_name(`queue_memory_limit'),
+`int', `routing_value', member_name(`routing_value'),
+`int', `port_type', member_name(`port_type'),
+`int', `update_system_config_indicator', member_name(`update_system_config_indicator'),
+`String', `system_config_name', member_name(`system_config_name'),
+`String', `system_config_type', member_name(`system_config_type'),
+`String', `parm_disk_owner', member_name(`parm_disk_owner'),
+`String', `parm_disk_number', member_name(`parm_disk_number'),
+`String', `parm_disk_password', member_name(`parm_disk_password'),
+`String', `alt_system_config_name', member_name(`alt_system_config_name'),
+`String', `alt_system_config_type',member_name(`alt_system_config_type'),
+`String', `alt_parm_disk_owner', member_name(`alt_parm_disk_owner'),
+`String', `alt_parm_disk_number', member_name(`alt_parm_disk_number'),
+`String', `alt_parm_disk_password', member_name(`alt_parm_disk_password'),
+`int', `gvrp_value', member_name(`gvrp_value'),
+`String', `mac_id', member_name(`mac_id'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`switch_name')(), `switch_name')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`grant_userid'()), `grant_userid')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`user_vlan_id'()), `user_vlan_id')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`revoke_userid')(),`revoke_userid')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`real_device_address')(), `real_device_address')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`port_name'()), `port_name')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`controller_name')(),`controller_name')dnl
-pigfunc_compose_input_parm(VSMInt1, member_getter(`connection_value')(),`connection_value')dnl
-pigfunc_compose_input_parm(VSMInt4, member_getter(`queue_memory_limit')(),`queue_memory_limit')dnl
-pigfunc_compose_input_parm(VSMInt1, member_getter(`routing_value')(),`routing_value')dnl
-pigfunc_compose_input_parm(VSMInt1, member_getter(`port_type')(),`port_type')dnl
-pigfunc_compose_input_parm(VSMInt1, member_getter(`update_system_config_indicator')(),`update_system_config_indicator')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`system_config_name')(),`system_config_name')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`system_config_type')(),`system_config_type')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`parm_disk_owner')(),`parm_disk_owner')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`parm_disk_number')(),`parm_disk_number')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`parm_disk_password')(),`parm_disk_password')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`alt_system_config_name')(),`alt_system_config_name')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`alt_system_config_type')(),`alt_system_config_type')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`alt_parm_disk_owner')(),`alt_parm_disk_owner')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`alt_parm_disk_number')(),`alt_parm_disk_number')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`alt_parm_disk_password')(),`alt_parm_disk_password')dnl
-pigfunc_compose_input_parm(VSMInt1, member_getter(`gvrp_value')(),`gvrp_value')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`switch_name')`()', `switch_name')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`grant_userid')`()', `grant_userid')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`user_vlan_id')`()', `user_vlan_id')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`revoke_userid')`()',`revoke_userid')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`real_device_address')`()', `real_device_address')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`port_name')`()', `port_name')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`controller_name')`()',`controller_name')dnl
+pigfunc_compose_input_parm(`VSMInt1', member_getter(`connection_value')`()',`connection_value')dnl
+pigfunc_compose_input_parm(`VSMInt4', member_getter(`queue_memory_limit')`()',`queue_memory_limit')dnl
+pigfunc_compose_input_parm(`VSMInt1', member_getter(`routing_value')`()',`routing_value')dnl
+pigfunc_compose_input_parm(`VSMInt1', member_getter(`port_type')`()',`port_type')dnl
+pigfunc_compose_input_parm(`VSMInt1', member_getter(`update_system_config_indicator')`()',`update_system_config_indicator')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`system_config_name')`()',`system_config_name')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`system_config_type')`()',`system_config_type')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`parm_disk_owner')`()',`parm_disk_owner')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`parm_disk_number')`()',`parm_disk_number')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`parm_disk_password')`()',`parm_disk_password')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`alt_system_config_name')`()',`alt_system_config_name')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`alt_system_config_type')`()',`alt_system_config_type')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`alt_parm_disk_owner')`()',`alt_parm_disk_owner')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`alt_parm_disk_number')`()',`alt_parm_disk_number')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`alt_parm_disk_password')`()',`alt_parm_disk_password')dnl
+pigfunc_compose_input_parm(`VSMInt1', member_getter(`gvrp_value')`()',`gvrp_value')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`mac_id')`()',`mac_id')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl
