@@ -41,14 +41,14 @@
 
 PARSE ARG args 
 PARSE SOURCE my.platform my.invocation my.command
-if args~words < 6 then signal usage
+if args~words < 5 then signal usage
 it=.Test_StaticImageChangesActivateDM~new(args)
 it~construct_instance()
 it~do_it
 exit
 
 usage:
-say "Usage:" my.command "arg0 arg1 .. .. arg5"
+say "Usage:" my.command "arg0 arg1 .. .. arg4"
 exit 1
 
 ::REQUIRES 'pigfunctest.cls'
@@ -63,7 +63,7 @@ exit 1
 	
     ::METHOD construct_instance
     	EXPOSE my.test
-        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5], "ST", my.test~argument_array[6])
+        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5])
 
     ::METHOD do_it
         EXPOSE my.test
