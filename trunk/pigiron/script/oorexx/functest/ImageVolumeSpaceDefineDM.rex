@@ -32,27 +32,22 @@
  */
 
 /*
- * File:   ${name}.${extension}
- * Author: ${user}
- * Created on ${date} ${time}
- *
- * Tests PigIron VSMAPI Function ${name}
  * Requires ObjectRexx http://sourceforge.net/projects/oorexx
  *          BSF4REXX   http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/
- * Usage: ${name}.${extension} [arg ...]
  */
 
 /* Invoke ImageVolumeSpaceDefineDM */
 
 PARSE ARG args
-if args~words < 6 then signal usage
+PARSE SOURCE my.platform my.invocation my.command
+if args~words < 12 then signal usage
 it=.Test_ImageVolumeSpaceDefineDM~new(args)
 it~construct_instance()
 it~do_it
 exit
 
 usage:
-say "Usage: function arg0 arg1 .. .. arg5"
+say "Usage:" my.command "arg0 arg1 .. .. arg11"
 exit 1
 
 ::REQUIRES 'pigfunctest.cls'
@@ -67,7 +62,8 @@ exit 1
 	
     ::METHOD construct_instance
     	EXPOSE my.test
-        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5], "ST", my.test~argument_array[6])
+        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5],,
+        "I", my.test~argument_array[6], "ST", my.test~argument_array[7], "ST", my.test~argument_array[8], "I", my.test~argument_array[9], "I", my.test~argument_array[10], "ST", my.test~argument_array[11], "I", my.test~argument_array[12])
 
     ::METHOD do_it
         EXPOSE my.test
