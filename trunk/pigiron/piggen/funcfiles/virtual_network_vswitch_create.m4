@@ -51,7 +51,28 @@ pigfunc_attribute(`private', `', `String', member_name(`alt_parm_disk_owner'), `
 pigfunc_attribute(`private', `', `String', member_name(`alt_parm_disk_number'), `"`,'"', `', `Number of the second (alternative) parm disk')dnl
 pigfunc_attribute(`private', `', `String', member_name(`alt_parm_disk_password'), `"`,'"', `', `Multiwrite password for the second (alternative) parm disk')dnl
 pigfunc_attribute(`private', `', `int', member_name(`gvrp_value'), `GVRP_VALUE_UNSPECIFIED', `',  `GVRP value')dnl
-pigfunc_ctors(`String', `switch_name', member_name(`switch_name'))dnl
+pigfunc_ctors(`String', `switch_name', member_name(`switch_name'),
+`String',`real_device_address', member_name(`real_device_address'),
+`String', `port_name', member_name(`port_name'),
+`String', `controller_name', member_name(`controller_name'),
+`int', `connection_value', member_name(`connection_value'),
+`int', `queue_memory_limit', member_name(`queue_memory_limit'),
+`int', `routing_value', member_name(`routing_value'),
+`int', `transport_type', member_name(`transport_type'),
+`int', `vlan_id', member_name(`vlan_id'),
+`int', `port_type', member_name(`port_type'),
+`int', `update_system_config_indicator', member_name(`update_system_config_indicator'),
+`String', `system_config_name', member_name(`system_config_name'),
+`String', `system_config_type', member_name(`system_config_type'),
+`String', `parm_disk_owner', member_name(`parm_disk_owner'),
+`String', `parm_disk_number', member_name(`parm_disk_number'),
+`String', `parm_disk_password', member_name(`parm_disk_password'),
+`String', `alt_system_config_name', member_name(`alt_system_config_name'),
+`String', `alt_system_config_type', member_name(`alt_system_config_type'),
+`String', `alt_parm_disk_owner', member_name(`alt_parm_disk_owner'),
+`String', `alt_parm_disk_number', member_name(`alt_parm_disk_number'),
+`String', `alt_parm_disk_password', member_name(`alt_parm_disk_password'),
+`int', `gvrp_value', member_name(`gvrp_value'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
 pigfunc_compose_input_parm(`CountedString', member_getter(`switch_name')(), `switch_name')dnl
