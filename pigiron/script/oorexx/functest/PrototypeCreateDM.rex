@@ -32,19 +32,14 @@
  */
 
 /*
- * File:   ${name}.${extension}
- * Author: ${user}
- * Created on ${date} ${time}
- *
- * Tests PigIron VSMAPI Function ${name}
  * Requires ObjectRexx http://sourceforge.net/projects/oorexx
  *          BSF4REXX   http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/
- * Usage: ${name}.${extension} [arg ...]
  */
 
 /* Invoke PrototypeCreateDM */
 
 PARSE ARG args
+PARSE SOURCE my.platform my.invocation my.command
 if args~words < 6 then signal usage
 it=.Test_PrototypeCreateDM~new(args)
 it~construct_instance()
@@ -52,7 +47,7 @@ it~do_it
 exit
 
 usage:
-say "Usage: function arg0 arg1 .. .. arg5"
+say "Usage:" my.command "host port userid password targetid prototype_name initial_password initial_account_number prototype_record [prototype_record ...]"
 exit 1
 
 ::REQUIRES 'pigfunctest.cls'
@@ -64,14 +59,18 @@ exit 1
     ::METHOD INIT
     	USE ARG args
 	self~my.test=.PigFuncTest~new("PrototypeCreateDM", args)
-	
+
     ::METHOD construct_instance
     	EXPOSE my.test
-        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5], "ST", my.test~argument_array[6])
+        my.prototype_record_array = .PrototypeRecordArray~new("prototype_record_array")
+        do i = 6 to my.test~argument_array~length
+            my.prototype_record_array~add(.PrototypeRecord~new(my.test~argument_array[i]))
+            end
+        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5], "ST", my.test~argument_array[6], "ST", my.test~argument_array[7], "ST", my.test~argument_array[8], "I", my.prototype_record_array~paramLength(), "O", my.prototype_record_array)
 
     ::METHOD do_it
         EXPOSE my.test
-	say "Invoking" my.test~pigfunc_name"("my.test~argument_array[1]', 'my.test~argument_array[2]', 'my.test~argument_array[3]', 'my.test~argument_array[4]', 'my.test~argument_array[5]', 'my.test~argument_array[6]")"
+	say my.test~invocation_message
 	my.test~do_it
 	say "Returns from call:"
 	say "(Total parameter length is" my.test~output_array~totalParameterLength()")"
