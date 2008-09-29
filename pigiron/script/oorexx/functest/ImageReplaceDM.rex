@@ -66,7 +66,7 @@ exit 1
         do i = 6 to my.test~argument_array~length
             my.image_record_array~add(.ImageRecord~new(my.test~argument_array[i]))
             end
-        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5], "I", my.image_record_array~totalParameterLength(), "O", my.image_record_array)
+        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5], "I", my.image_record_array~paramLength(), "O", my.image_record_array)
 
     ::METHOD do_it
         EXPOSE my.test
