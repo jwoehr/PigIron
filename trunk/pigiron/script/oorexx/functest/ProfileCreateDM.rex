@@ -70,7 +70,7 @@ exit 1
 
     ::METHOD do_it
         EXPOSE my.test
-	 say my.test~invocation_message
+	say my.test~invocation_message
 	my.test~do_it
 	say "Returns from call:"
 	say "(Total parameter length is" my.test~output_array~totalParameterLength()")"
