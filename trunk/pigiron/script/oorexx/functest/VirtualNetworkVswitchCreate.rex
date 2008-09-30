@@ -42,7 +42,7 @@
 PARSE ARG args 
 PARSE SOURCE my.platform my.invocation my.command
 if args~words < 27 then signal usage
-it=.Test_VirtualNetworkVswitchCreate~new(args)
+it=.VirtualNetworkVswitchCreate~new(args)
 it~construct_instance()
 it~do_it
 exit
@@ -51,31 +51,5 @@ usage:
 say "Usage:" my.command "arg0 arg1 .. .. arg26"
 exit 1
 
-::REQUIRES 'pigfunctest.cls'
 
-::CLASS Test_VirtualNetworkVswitchCreate
-
-    ::METHOD my.test ATTRIBUTE
-
-    ::METHOD INIT
-    	USE ARG args
-	self~my.test=.PigFuncTest~new("VirtualNetworkVswitchCreate", args)
-	
-    ::METHOD construct_instance
-    	EXPOSE my.test
-        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5],,
-        "ST", my.test~argument_array[6], "ST", my.test~argument_array[7], "ST", my.test~argument_array[8], "ST", my.test~argument_array[9], "I", my.test~argument_array[10],,
-        "I", my.test~argument_array[11], "I", my.test~argument_array[12], "I", my.test~argument_array[13], "I", my.test~argument_array[14], "I", my.test~argument_array[15],,
-        "I", my.test~argument_array[16], "ST", my.test~argument_array[17], "ST", my.test~argument_array[18],"ST", my.test~argument_array[19], "ST", my.test~argument_array[20],,
-        "ST", my.test~argument_array[21], "ST", my.test~argument_array[22],"ST", my.test~argument_array[23], "ST", my.test~argument_array[24], "ST", my.test~argument_array[25],,
-        "ST", my.test~argument_array[26], "I", my.test~argument_array[27])
-
-    ::METHOD do_it
-        EXPOSE my.test
-	say my.test~invocation_message
-	my.test~do_it
-	say "Returns from call:"
-	say "(Total parameter length is" my.test~output_array~totalParameterLength()")"
-	say my.test~pretty_print()
-
-/* End */
+::REQUIRES "VirtualNetworkVswitchCreate.cls"

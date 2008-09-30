@@ -40,7 +40,7 @@
 
 PARSE ARG args
 if args~words < 5 then signal usage
-it=.Test_ImageNameQueryDM~new(args)
+it=.ImageNameQueryDM~new(args)
 it~construct_instance()
 it~do_it
 exit
@@ -49,26 +49,5 @@ usage:
 say "Usage: function arg0 arg1 .. .. arg4"
 exit 1
 
-::REQUIRES 'pigfunctest.cls'
 
-::CLASS Test_ImageNameQueryDM
-
-    ::METHOD my.test ATTRIBUTE
-
-    ::METHOD INIT
-    	USE ARG args
-	self~my.test=.PigFuncTest~new("ImageNameQueryDM", args)
-	
-    ::METHOD construct_instance
-    	EXPOSE my.test
-        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5]])
-
-    ::METHOD do_it
-        EXPOSE my.test
-        say my.test~invocation_message
-	my.test~do_it
-	say "Returns from call:"
-	say "(Total parameter length is" my.test~output_array~totalParameterLength()")"
-	say my.test~pretty_print()
-
-/* End */
+::REQUIRES "ImageNameQueryDM.cls"

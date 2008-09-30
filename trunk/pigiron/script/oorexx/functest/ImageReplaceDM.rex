@@ -41,7 +41,7 @@
 PARSE ARG args
 PARSE SOURCE my.platform my.invocation my.command
 if args~words < 6 then signal usage
-it=.Test_ImageReplaceDM~new(args)
+it=.ImageReplaceDM~new(args)
 it~construct_instance()
 it~do_it
 exit
@@ -50,30 +50,5 @@ usage:
 say "Usage:" my.command "host port userid password targetid image_record [image_record ...]"
 exit 1
 
-::REQUIRES 'pigfunctest.cls'
 
-::CLASS Test_ImageReplaceDM
-
-    ::METHOD my.test ATTRIBUTE
-
-    ::METHOD INIT
-    	USE ARG args
-	self~my.test=.PigFuncTest~new("ImageReplaceDM", args)
-	
-    ::METHOD construct_instance
-    	EXPOSE my.test
-        my.image_record_array = .ImageRecordArray~new("image_record_array")
-        do i = 6 to my.test~argument_array~length
-            my.image_record_array~add(.ImageRecord~new(my.test~argument_array[i]))
-            end
-        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5], "I", my.image_record_array~paramLength(), "O", my.image_record_array)
-
-    ::METHOD do_it
-        EXPOSE my.test
-        say my.test~invocation_message
-	my.test~do_it
-	say "Returns from call:"
-	say "(Total parameter length is" my.test~output_array~totalParameterLength()")"
-	say my.test~pretty_print()
-
-/* End */
+::REQUIRES "ImageReplaceDM.cls"

@@ -41,7 +41,7 @@
 PARSE ARG args
 PARSE SOURCE my.platform my.invocation my.command
 if args~words < 6 then signal usage
-it=.Test_ProfileCreateDM~new(args)
+it=.ProfileCreateDM~new(args)
 it~construct_instance()
 it~do_it
 exit
@@ -50,30 +50,5 @@ usage:
 say "Usage:" my.command "host port userid password targetid prototype_name initial_password initial_account_number profile_record [profile_record ...]"
 exit 1
 
-::REQUIRES 'pigfunctest.cls'
 
-::CLASS Test_ProfileCreateDM
-
-    ::METHOD my.test ATTRIBUTE
-
-    ::METHOD INIT
-    	USE ARG args
-	self~my.test=.PigFuncTest~new("ProfileCreateDM", args)
-	
-    ::METHOD construct_instance
-    	EXPOSE my.test
-        my.profile_record_array = .ProfileRecordArray~new("profile_record_array")
-        do i = 6 to my.test~argument_array~length
-            my.profile_record_array~add(.ProfileRecord~new(my.test~argument_array[i]))
-            end
-        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5], "ST", my.test~argument_array[6], "ST", my.test~argument_array[7], "ST", my.test~argument_array[8], "I", my.profile_record_array~paramLength(), "O", my.profile_record_array)
-
-    ::METHOD do_it
-        EXPOSE my.test
-	say my.test~invocation_message
-	my.test~do_it
-	say "Returns from call:"
-	say "(Total parameter length is" my.test~output_array~totalParameterLength()")"
-	say my.test~pretty_print()
-
-/* End */
+::REQUIRES "ProfileCreateDM.cls"

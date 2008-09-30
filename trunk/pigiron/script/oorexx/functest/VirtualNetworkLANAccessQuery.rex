@@ -42,7 +42,7 @@
 PARSE ARG args 
 PARSE SOURCE my.platform my.invocation my.command
 if args~words < 7 then signal usage
-it=.Test_VirtualNetworkLANAccessQuery~new(args)
+it=.VirtualNetworkLANAccessQuery~new(args)
 it~construct_instance()
 it~do_it
 exit
@@ -51,27 +51,5 @@ usage:
 say "Usage:" my.command "arg0 arg1 .. .. arg6"
 exit 1
 
-::REQUIRES 'pigfunctest.cls'
 
-::CLASS Test_VirtualNetworkLANAccessQuery
-
-    ::METHOD my.test ATTRIBUTE
-
-    ::METHOD INIT
-    	USE ARG args
-	self~my.test=.PigFuncTest~new("VirtualNetworkLANAccessQuery", args)
-	
-    ::METHOD construct_instance
-    	EXPOSE my.test
-        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5],,
-        "ST", my.test~argument_array[6], "ST", my.test~argument_array[7])
-
-    ::METHOD do_it
-        EXPOSE my.test
-	say my.test~invocation_message
-	my.test~do_it
-	say "Returns from call:"
-	say "(Total parameter length is" my.test~output_array~totalParameterLength()")"
-	say my.test~pretty_print()
-
-/* End */
+::REQUIRES "VirtualNetworkLANAccessQuery.cls"
