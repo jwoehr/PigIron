@@ -37,6 +37,14 @@ import java.util.HashMap;
  * Singleton class with one public static method to interpret a VSMAPI Function
  * return code and reason code. {@code VsmapiRC} returns a {@code ReturnCode}
  * which then can be queried about the {@code ReasonCode}.
+ *
+ * Note: This implementation is not entirely satisfactory. Some Return Code /
+ * Result Code pairs are overloaded in the specification (which seems otherwise
+ * orthogonal) and are effectively context-sensitive.
+ *
+ * For example, for {@code ImageDeactivate}, a Return Code 0
+ * with a non-zero Result Code, the Result Code means the number of seconds
+ * within which the Image is deactivated.
  * @author jax
  */
 public class VsmapiRC {
