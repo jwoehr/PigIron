@@ -12,12 +12,14 @@ to be found in the same directory as this README.TXT file.
 
 CHANGES
 -------
-2008-??-?? 0.6 -- Genuinely "alpha" now due to more testing!
+2008-09-30 0.6 -- Genuinely "alpha" now due to more testing!
 
     * Testing
         * More script/oorexx/functest testing scripts
+        * script/oorexx/functest provides a preliminary complete
+          ObjectRexx interface to PigIron VSMAPI functions -- see docs
     * Bug Fixes
-        * directory_manager_search_DM.m4 was missing a parm
+        * Some of the more complex functions had incorrect description files
     * Support for z/VM V5R4.0 Systems Management Application Programming
         - See http://publib.boulder.ibm.com/infocenter/zvm/v5r4/topic/com.ibm.zvm.v54.dmse6/hcsl8b30.htm
         * Added 5.4 Error Codes
@@ -64,7 +66,7 @@ CHANGES
       scripting for testing.
 
 Functions additionally supported in this release complete
-the 100 functions provided with VSMAPI 5.3:
+the 99 functions provided with VSMAPI 5.3:
 
     * Asynchronous_Notification_Disable_DM
     * Asynchronous_Notification_Enable_DM

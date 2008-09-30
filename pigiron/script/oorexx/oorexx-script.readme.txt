@@ -1,7 +1,5 @@
-pigiron/script/oorexx
-
-Here is where we will put any useful and interesting ObjectRexx scripting for
-PigIron that we come up with.
+pigiron/script/oorexx/functest contains a preliminary but complete
+ObjectRexx scripting interface for PigIron.
 
 To run these, you will need to install and properly configure:
 
@@ -11,4 +9,4 @@ To run these, you will need to install and properly configure:
 All the script files we use are of course covered by the license.txt file found
 in the main or doc directory of the PigIron Project http://pigiron.sourceforge.net
 
-2008-09-02
+2008-09-30
