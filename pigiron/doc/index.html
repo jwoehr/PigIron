@@ -40,7 +40,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii">
   <meta http-equiv="Last-Modified" content=
-  "Sun, 28 Sep 2008 04:38:41 UTC">
+  "Tue, 30 Sep 2008 06:50:28 UTC">
 </head>
 
 <body>
@@ -164,6 +164,9 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
           <ul>
             <li style="font-family: monospace;"><a href=
+            "APIList.txt">APIList.txt</a><br></li>
+
+            <li style="font-family: monospace;"><a href=
             "CHANGES.TXT">CHANGES.TXT</a></li>
 
             <li style="font-family: monospace;"><a href=
@@ -207,12 +210,17 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </ul>
     </li>
 
+    <li>to support scripting via <a href=
+    "http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>
+    on top of <a href="http://sourceforge.net/projects/oorexx">Open
+    ObjectRexx</a> to run the PigIron Java classes.</li>
+
     <li>to support the development of higher-level libraries such
     as packaging PigIron functionality in GUI widgets and Web
     objects<br></li>
 
-    <li>to support development of GUI applications in terms of such
-    GUI widgets and Web objects</li>
+    <li>to support development of GUI and Web applications in terms
+    of such GUI widgets and Web objects</li>
   </ul>
 
   <p><i>Note: PigIron is not associated with the IBM corporation,
@@ -221,7 +229,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   present document assumes understanding of <a href=
   "#IBM_VSMAPI_Documentation">VSMAPI</a> and exerts itself</span>
   not <span style="font-style: italic;">to explain
-  VSMAPI.</span></p>
+  VSMAPI.<br></span></p>
 
   <h3><a name="NOTE_ON_SECURITY" id="NOTE_ON_SECURITY">NOTE ON
   SECURITY (LACK THEREOF)</a></h3>
@@ -315,6 +323,23 @@ THE POSSIBILITY OF SUCH DAMAGE.
         built everything.<br></li>
       </ul>
     </li>
+
+    <li>To use the ObjectRexx interface:
+
+      <ul>
+        <li>Install <a href=
+        "http://sourceforge.net/projects/oorexx">Open
+        ObjectRexx</a></li>
+
+        <li>Install <a href=
+        "http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a></li>
+
+        <li>Put <span style=
+        "font-family: monospace;">/pigiron/script/oorexx/functest</span>
+        in your <span style=
+        "font-family: monospace;">PATH</span><br></li>
+      </ul>
+    </li>
   </ul>
   <hr style="width: 100%; height: 2px;">
 
@@ -376,7 +401,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
     that can be used for testing.</li>
 
     <li>The scripts contained in <span style=
-    "font-family: monospace;">scripts/oorexx</span> use <a href=
+    "font-family: monospace;">scripts/oorexx/functest</span> use
+    <a href=
     "http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>
     on top of <a href="http://sourceforge.net/projects/oorexx">Open
     ObjectRexx</a> to run the PigIron Java classes.
