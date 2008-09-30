@@ -60,6 +60,14 @@
 	self~assimilate_arguments(arguments)
 	self~class_instance=self~class~PigDirectory~at(self~pigfunc_name)
 
+   /* Allow strings to be passed in with substitute chars
+    * e.g., underscore for spaces, then convert to spaces
+    * or whatever.
+    */
+   ::METHOD translate_argument
+        USE ARG index translate_to to_translate
+        self~argument_array[index]=TRANSLATE(self~argument_array[index], translate_to, to_translate)
+
    /* This is overloaded by the subclass. */
    ::METHOD construct_instance
    	SAY "Not implemented yet"
