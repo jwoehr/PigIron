@@ -36,30 +36,30 @@
 
 ::CLASS ImageVolumeDelete PUBLIC
 
-    ::METHOD my.test ATTRIBUTE
+    ::METHOD my.pigfunc ATTRIBUTE
 
     ::METHOD INIT
     	USE ARG args
-	self~my.test=.PigFunc~new("ImageVolumeDelete", args)
+	self~my.pigfunc=.PigFunc~new("ImageVolumeDelete", args)
 	
     ::METHOD construct_instance
-    	EXPOSE my.test
-        my.test~function_instance=my.test~class_instance~newStrict("ST", my.test~argument_array[1], "I", my.test~argument_array[2], "ST", my.test~argument_array[3], "ST", my.test~argument_array[4], "ST", my.test~argument_array[5],,
-        "ST", my.test~argument_array[6], "ST", my.test~argument_array[7], "ST", my.test~argument_array[8], "ST", my.test~argument_array[9], "ST", my.test~argument_array[10],,
-        "ST", my.test~argument_array[11], "ST", my.test~argument_array[12], "ST", my.test~argument_array[13], "ST", my.test~argument_array[14], "ST", my.test~argument_array[15],,
-        "ST", my.test~argument_array[16], "ST", my.test~argument_array[17])
+    	EXPOSE my.pigfunc
+        my.pigfunc~function_instance=my.pigfunc~class_instance~newStrict("ST", my.pigfunc~argument_array[1], "I", my.pigfunc~argument_array[2], "ST", my.pigfunc~argument_array[3], "ST", my.pigfunc~argument_array[4], "ST", my.pigfunc~argument_array[5],,
+        "ST", my.pigfunc~argument_array[6], "ST", my.pigfunc~argument_array[7], "ST", my.pigfunc~argument_array[8], "ST", my.pigfunc~argument_array[9], "ST", my.pigfunc~argument_array[10],,
+        "ST", my.pigfunc~argument_array[11], "ST", my.pigfunc~argument_array[12], "ST", my.pigfunc~argument_array[13], "ST", my.pigfunc~argument_array[14], "ST", my.pigfunc~argument_array[15],,
+        "ST", my.pigfunc~argument_array[16], "ST", my.pigfunc~argument_array[17])
 
     ::METHOD do_it
-        EXPOSE my.test
-        say my.test~invocation_message
-	my.test~do_it
+        EXPOSE my.pigfunc
+        say my.pigfunc~invocation_message
+	my.pigfunc~do_it
 	say "Returns from call:"
-	say "(Total parameter length is" my.test~output_array~totalParameterLength()")"
-	say my.test~pretty_print()
+	say "(Total parameter length is" my.pigfunc~output_array~totalParameterLength()")"
+	say my.pigfunc~pretty_print()
 
 
     ::METHOD doit
-        EXPOSE my.test
-        my.test~do_it
-        return my.test~output_array
+        EXPOSE my.pigfunc
+        my.pigfunc~do_it
+        return my.pigfunc~output_array
 /* End */

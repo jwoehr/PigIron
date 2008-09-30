@@ -41,12 +41,17 @@
 PARSE ARG args
 if args~words < 6 then signal usage
 it=.ImageDeactivate~new(args)
+-- Argument 6 can have spaces in it.
+-- Use underscore "_" to substitute for spaces
+it~my.pigfunc~translate_argument(6," ","_")
 it~construct_instance()
 it~do_it
 exit
 
 usage:
 say "Usage: function arg0 arg1 .. .. arg5"
+say "arg5 can have spaces in it."
+say "Use underscore _ to substitute for spaces"
 exit 1
 
 
