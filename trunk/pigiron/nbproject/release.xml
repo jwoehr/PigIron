@@ -19,6 +19,7 @@
     <target depends="init-release" description="Zip all the sources for PigIron" name="zip-source">
         <zip compress="true" destfile="${srczip.fullpathname}" basedir="${basedir}" excludes="*/**">
             <zipfileset dir="piggen" prefix="${release.name}/piggen"/>
+            <zipfileset dir="script" prefix="${release.name}/script"/>
             <zipfileset dir="src" prefix="${release.name}/src"/>
             <zipfileset dir="nbproject" excludes="private/**" prefix="${release.name}/nbproject"/>
             <zipfileset dir="." includes="README.txt,CHANGES.TXT,license.txt,build.xml,overview.html" prefix="${release.name}"/>
