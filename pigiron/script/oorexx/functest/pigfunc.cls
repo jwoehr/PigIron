@@ -31,10 +31,10 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* Utility for creating PigIron function tests */
+/* Utility for creating OORexx classes of PigIron VSMAPI Functions */
 
 ::REQUIRES BSF.CLS
-::CLASS PigFuncTest PUBLIC
+::CLASS PigFunc PUBLIC
 
   ::METHOD PigDirectory ATTRIBUTE CLASS
 

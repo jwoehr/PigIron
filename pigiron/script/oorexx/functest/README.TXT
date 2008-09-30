@@ -1,6 +1,11 @@
-The .rex files in this directory are ObjectRexx test classes based on pigfunctest.cls
-also found in this directory.
+The .cls files in this directory are ObjectRexx classes based on pigfunc.cls
+They provide a preliminary but complete ObjectRexx interface to VSMAPI
+Test via the corresponding.rex files also found in this directory.
 
-They have not all been run and tested!
+These classes and functions have not all been run and tested, but writing
+them I found numerous corrections in the Java function code mostly generated
+perfectly correctly by PigGen from erroneous description files.
 
+Jack Woehr
+Fairmount, Colorado
 Sept. 2008
