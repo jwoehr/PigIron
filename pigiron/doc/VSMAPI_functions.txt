@@ -5,7 +5,10 @@ Those which have been tested through their ObjectRexx interface
     /pigiron/script/oorexx/functest/<FunctionName>.cls
 invoked via its corresponding test driver
     /pigiron/script/oorexx/functest/<FunctionName>.rex
-are marked with a *.
+from the script
+    /pigiron/script/oorexx/functest/allfunctest.rex
+are marked with a *. Examine allfunctest.rex etc. to understand
+what is covered by the tests, which are not exhaustive yet.
 --------------------
 AsynchronousNotificationDisableDM
 AsynchronousNotificationEnableDM
@@ -20,7 +23,7 @@ DirectoryManagerLocalTagQueryDM
 DirectoryManagerLocalTagSetDM
 * DirectoryManagerSearchDM
 DirectoryManagerTaskCancelDM
-ImageActivate
+* ImageActivate
 * ImageActiveConfigurationQuery
 ImageCPUDefine
 ImageCPUDefineDM
