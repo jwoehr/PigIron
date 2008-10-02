@@ -58,11 +58,18 @@
  * be used anywhere in the script as custom arguments to functions.
  */
 
+-- Set all stems descending from "my." to an empty string
+-- so we can easily test for "is set?"
+my. = ''
+
+-- Get the args and source
 PARSE ARG my.arglist
 PARSE SOURCE my.platform my.invocation my.command
-if my.arglist~words < 6 then signal usage
+if my.arglist~words < 6 then signal usage	
 PARSE VAR my.arglist my.host my.port my.userid my.password my.target my.extraparm my.custom.parameters
 SAY "Performing" my.command my.host my.port my.userid my.password my.target my.extraparm my.custom.parameters
+
+-- Parse the custom parameters
 my.custom.parameters.list=''
 IF my.custom.parameters~words > 0 THEN,
 DO i = 1 to my.custom.parameters~words BY 2
@@ -102,10 +109,10 @@ CALL testing 'ImageStatusQuery' my.host my.port my.userid my.password my.target
 CALL testing 'ImageStatusQuery' my.host my.port my.userid my.password "*"
 CALL testing 'NameListQuery' my.host my.port my.userid my.password "*"
 CALL testing 'QueryDirectoryManagerLevelDM' my.host my.port my.userid my.password my.target
-CALL testing 'SharedMemoryQuery' my.host my.port my.userid my.password my.target
-CALL testing 'SharedMemoryAccessQueryDM' my.host my.port my.userid my.password my.target
+CALL testing 'SharedMemoryQuery' my.host my.port my.userid my.password my.target "*"
+CALL testing 'SharedMemoryAccessQueryDM' my.host my.port my.userid my.password my.target "CMSPIPES"
 CALL testing 'VMRMMeasurementQuery' my.host my.port my.userid my.password my.target
-CALL testing 'VirtualNetworkAdapterQuery' my.host my.port my.userid my.password my.target
+CALL testing 'VirtualNetworkAdapterQuery' my.host my.port my.userid my.password my.target "*"
 
 -- CALL testing 'AsynchronousNotificationDisableDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'AsynchronousNotificationEnableDM' my.host my.port my.userid my.password my.target my.extraparm
@@ -123,7 +130,8 @@ CALL testing 'VirtualNetworkAdapterQuery' my.host my.port my.userid my.password 
 -- CALL testing 'DirectoryManagerSearchDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'DirectoryManagerTaskCancelDM' my.host my.port my.userid my.password my.target my.extraparm
 
--- CALL testing 'ImageActivate' my.host my.port my.userid my.password my.target my.extraparm
+IF my.custom.imageactivate.targetid \= '' THEN CALL testing 'ImageActivate' my.host my.port my.userid my.password my.custom.imageactivate.targetid
+ELSE CALL explain_skip "ImageActivate" "imageactivate.targetid"
 
 -- CALL testing 'ImageCPUDefine' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageCPUDefineDM' my.host my.port my.userid my.password my.target my.extraparm
@@ -134,7 +142,11 @@ CALL testing 'VirtualNetworkAdapterQuery' my.host my.port my.userid my.password 
 -- CALL testing 'ImageCPUSetMaximumDM' my.host my.port my.userid my.password my.target my.extraparm
 
 -- CALL testing 'ImageCreateDM' my.host my.port my.userid my.password my.target my.extraparm
--- CALL testing 'ImageDeactivate' my.host my.port my.userid my.password my.target my.extraparm
+
+IF my.custom.imagedeactivate.targetid = '' THEN CALL explain_skip "ImageDeactivate" "imagedeactivate.targetid"
+ELSE IF my.custom.imagedeactivate.forcetime = '' THEN CALL explain_skip "ImageDeactivate" "imagedeactivate.forcetime"
+ELSE CALL testing 'ImageDeactivate' my.host my.port my.userid my.password my.custom.imagedeactivate.targetid my.custom.imagedeactivate.forcetime
+	
 -- CALL testing 'ImageDeleteDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageDeviceDedicate' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageDeviceDedicateDM' my.host my.port my.userid my.password my.target my.extraparm
@@ -221,15 +233,31 @@ CALL testing 'VirtualNetworkAdapterQuery' my.host my.port my.userid my.password 
 -- CALL testing 'VirtualNetworkVswitchDelete' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'VirtualNetworkVswitchQuery' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'VirtualNetworkVswitchSet' my.host my.port my.userid my.password my.target my.extraparm
+
+CALL draw_pig
+SAY "PigIron All Function Test is complete"
 exit 0
+
+draw_pig:
+PROCEDURE
+SAY " /\- -/\"
+SAY "( (O O) )"
+RETURN
 
 testing:
 PROCEDURE
 PARSE ARG the_function its_args
-SAY " /\- -/\"
-SAY "( (O O) )"
+CALL draw_pig
 SAY "CALLing" the_function its_args
 INTERPRET 'CALL' "'"the_function"'" "'"its_args"'"
+RETURN
+
+explain_skip:
+PROCEDURE EXPOSE my.
+PARSE ARG funcname custom_param_name
+CALL draw_pig
+SAY "Skipping" funcname "since no custom value for" custom_param_name "was offered in the paired custom arguments to" my.command
+SAY "Run" my.command "with no arguments for help."
 RETURN
 
 usage:
