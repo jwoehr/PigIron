@@ -44,7 +44,10 @@
 	
     ::METHOD construct_instance
     	EXPOSE my.pigfunc
-        my.pigfunc~function_instance=my.pigfunc~class_instance~newStrict("ST", my.pigfunc~argument_array[1], "I", my.pigfunc~argument_array[2], "ST", my.pigfunc~argument_array[3], "ST", my.pigfunc~argument_array[4], "ST", my.pigfunc~argument_array[5], "ST", my.pigfunc~argument_array[6])
+	-- Parameter force_time can have blanks, so we use '_' and then substitute here
+	my.pigfunc~translate_argument(6, ' ', '_')
+        my.pigfunc~function_instance=my.pigfunc~class_instance~newStrict("ST", my.pigfunc~argument_array[1], "I", my.pigfunc~argument_array[2], "ST", my.pigfunc~argument_array[3], "ST", my.pigfunc~argument_array[4], "ST", my.pigfunc~argument_array[5],,
+	"ST", my.pigfunc~argument_array[6])
 
     ::METHOD do_it
         EXPOSE my.pigfunc

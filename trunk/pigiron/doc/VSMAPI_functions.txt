@@ -29,7 +29,7 @@ ImageCPUDefine
 ImageCPUDefineDM
 ImageCPUDelete
 ImageCPUDeleteDM
-ImageCPUQuery
+* ImageCPUQuery
 ImageCPUQueryDM
 ImageCPUSetMaximumDM
 ImageCreateDM
@@ -54,10 +54,10 @@ ImageIPLDeleteDM
 ImageIPLQueryDM
 ImageIPLSetDM
 ImageLockDM
-ImageNameQueryDM
+* ImageNameQueryDM
 ImagePasswordSetDM
 * ImageQueryActivateTime
-ImageQueryDM
+* ImageQueryDM
 ImageRecycle
 ImageReplaceDM
 ImageSCSICharacteristicsDefineDM
