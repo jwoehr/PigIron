@@ -44,7 +44,7 @@
 	
     ::METHOD construct_instance
     	EXPOSE my.pigfunc
-        my.pigfunc~function_instance=my.pigfunc~class_instance~newStrict("ST", my.pigfunc~argument_array[1], "I", my.pigfunc~argument_array[2], "ST", my.pigfunc~argument_array[3], "ST", my.pigfunc~argument_array[4], "ST", my.pigfunc~argument_array[5]])
+        my.pigfunc~function_instance=my.pigfunc~class_instance~newStrict("ST", my.pigfunc~argument_array[1], "I", my.pigfunc~argument_array[2], "ST", my.pigfunc~argument_array[3], "ST", my.pigfunc~argument_array[4], "ST", my.pigfunc~argument_array[5])
 
     ::METHOD do_it
         EXPOSE my.pigfunc

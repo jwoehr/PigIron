@@ -1,4 +1,4 @@
 directorymanagersearchdm.searchpattern IPL
 imageactivate.targetid MAINT
 imagedeactivate.targetid MAINT
-imagedeactivate.forcetime IMMED
+imagedeactivate.forcetime WITHIN_20

@@ -76,8 +76,6 @@ CALL load_defaults "allfunctest.defaults"
 -- Now examine custom parameter portion of supplied args which override defaults
 IF my.custom.parameters~words > 0 THEN,
 DO i = 1 to my.custom.parameters~words BY 2
-	-- INTERPRET 'my.custom.'my.custom.parameters~word(i) '=' my.custom.parameters~word(i+1)
-	-- my.custom.parameters.list=my.custom.parameters.list 'my.custom.'my.custom.parameters~word(i)
 	CALL set_custom my.custom.parameters~word(i) my.custom.parameters~word(i+1)
 	END;,
 DO i = 1 to my.custom.parameters.list~words
@@ -100,6 +98,8 @@ IF my.custom.imageactivate.targetid \= '' THEN CALL testing 'ImageActivate' my.h
 ELSE CALL explain_skip "ImageActivate" "imageactivate.targetid"
 	
 CALL testing 'ImageActiveConfigurationQuery' my.host my.port my.userid my.password my.target
+CALL testing 'ImageCPUQuery' my.host my.port my.userid my.password my.target
+
 CALL testing 'ImageQueryActivateTime' my.host my.port my.userid my.password my.target,
                 .bsf~bsf.getStaticValue('com.softwoehr.pigiron.functions.ImageQueryActivateTime', "DATE_FORMAT_INDICATOR_MMDDYY")
 CALL testing 'ImageQueryActivateTime' my.host my.port my.userid my.password my.target,
@@ -112,12 +112,11 @@ CALL testing 'ImageQueryActivateTime' my.host my.port my.userid my.password my.t
                 .bsf~bsf.getStaticValue('com.softwoehr.pigiron.functions.ImageQueryActivateTime', "DATE_FORMAT_INDICATOR_DDMMYY")
 CALL testing 'ImageQueryActivateTime' my.host my.port my.userid my.password my.target,
                 .bsf~bsf.getStaticValue('com.softwoehr.pigiron.functions.ImageQueryActivateTime', "DATE_FORMAT_INDICATOR_DDMMYYYY")
+CALL testing 'ImageQueryDM' my.host my.port my.userid my.password my.target
 CALL testing 'ImageStatusQuery' my.host my.port my.userid my.password my.target
 CALL testing 'ImageStatusQuery' my.host my.port my.userid my.password "*"
 
 -- Here we deactivate the image we activated
--- The following parameter can have blanks in it for which we substitute '_' (underscore).
-my.custom.imagedeactivate.forcetime=TRANSLATE(my.custom.imagedeactivate.forcetime, " ", "_");
 IF my.custom.imagedeactivate.targetid \= '' THEN
 	IF my.custom.imagedeactivate.forcetime \= '' THEN
 	CALL testing 'ImageDeactivate' my.host my.port my.userid my.password my.custom.imagedeactivate.targetid my.custom.imagedeactivate.forcetime
@@ -125,6 +124,7 @@ IF my.custom.imagedeactivate.targetid \= '' THEN
 ELSE CALL explain_skip "ImageDeactivate" "imagedeactivate.targetid"
 
 -- More easy queries
+CALL testing 'ImageNameQueryDM' my.host my.port my.userid my.password my.target
 CALL testing 'NameListQuery' my.host my.port my.userid my.password "*"
 CALL testing 'QueryDirectoryManagerLevelDM' my.host my.port my.userid my.password my.target
 CALL testing 'SharedMemoryQuery' my.host my.port my.userid my.password my.target "*"
@@ -132,6 +132,7 @@ CALL testing 'SharedMemoryAccessQueryDM' my.host my.port my.userid my.password m
 CALL testing 'VMRMMeasurementQuery' my.host my.port my.userid my.password my.target
 CALL testing 'VirtualNetworkAdapterQuery' my.host my.port my.userid my.password my.target "*"
 
+-- Slightly more intricate queries
 IF my.custom.directorymanagersearchdm.searchpattern \= '' THEN CALL testing 'DirectoryManagerSearchDM' my.host my.port my.userid my.password my.target my.custom.directorymanagersearchdm.searchpattern
 ELSE CALL explain_skip 'DirectoryManagerSearchDM' "directorymanagersearchdm.searchpattern"
 
@@ -152,27 +153,24 @@ ELSE CALL explain_skip 'DirectoryManagerSearchDM' "directorymanagersearchdm.sear
 -- CALL testing 'DirectoryManagerLocalTagQueryDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'DirectoryManagerLocalTagSetDM' my.host my.port my.userid my.password my.target my.extraparm
 
-
 -- CALL testing 'DirectoryManagerTaskCancelDM' my.host my.port my.userid my.password my.target my.extraparm
-
-
 
 -- CALL testing 'ImageCPUDefine' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageCPUDefineDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageCPUDelete' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageCPUDeleteDM' my.host my.port my.userid my.password my.target my.extraparm
--- CALL testing 'ImageCPUQuery' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageCPUQueryDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageCPUSetMaximumDM' my.host my.port my.userid my.password my.target my.extraparm
+
 -- CALL testing 'ImageCreateDM' my.host my.port my.userid my.password my.target my.extraparm
-
-
 -- CALL testing 'ImageDeleteDM' my.host my.port my.userid my.password my.target my.extraparm
+
 -- CALL testing 'ImageDeviceDedicate' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageDeviceDedicateDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageDeviceReset' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageDeviceUndedicate' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageDeviceUndedicateDM' my.host my.port my.userid my.password my.target my.extraparm
+
 -- CALL testing 'ImageDiskCopy' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageDiskCopyDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageDiskCreate' my.host my.port my.userid my.password my.target my.extraparm
@@ -183,14 +181,14 @@ ELSE CALL explain_skip 'DirectoryManagerSearchDM' "directorymanagersearchdm.sear
 -- CALL testing 'ImageDiskShareDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageDiskUnshare' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageDiskUnshareDM' my.host my.port my.userid my.password my.target my.extraparm
+
 -- CALL testing 'ImageIPLDeleteDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageIPLQueryDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageIPLSetDM' my.host my.port my.userid my.password my.target my.extraparm
--- CALL testing 'ImageLockDM' my.host my.port my.userid my.password my.target my.extraparm
--- CALL testing 'ImageNameQueryDM' my.host my.port my.userid my.password my.target my.extraparm
--- CALL testing 'ImagePasswordSetDM' my.host my.port my.userid my.password my.target my.extraparm
 
--- CALL testing 'ImageQueryDM' my.host my.port my.userid my.password my.target my.extraparm
+-- CALL testing 'ImageLockDM' my.host my.port my.userid my.password my.target my.extraparm
+
+-- CALL testing 'ImagePasswordSetDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageRecycle' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageReplaceDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageSCSICharacteristicsDefineDM' my.host my.port my.userid my.password my.target my.extraparm
@@ -291,17 +289,18 @@ SAY ""
 SAY " After those first six (6) the arg list is parsed for name/value pairs by walking"
 SAY " the arg list in two's (2's). Any pair, e.g.,"
 SAY ""
-SAY "   image_disk_name FRED"
+SAY "   imagediskcreate.imagedisknumber 1234"
 SAY ""
-SAY " are stored as"
+SAY " is stored:"
 SAY ""
-SAY "   my.custom.image_disk_name=FRED"
+SAY "   my.custom.imagediskcreate.imagedisknumber=1234"
 SAY ""
 SAY " These pairs are reported after parsing early in the script. Then they may"
-SAY " be used anywhere in the script as custom arguments to functions."
-say "List of recognized custom parameters follows:"
-say "(none yet)"
-exit 1
+SAY " be used anywhere in the script as custom arguments to VSMAPI functions."
+SAY ""
+SAY "List of recognized custom parameters follows:"
+SAY "(none yet)"
+EXIT 1
 
 set_custom:
 PROCEDURE EXPOSE my.
