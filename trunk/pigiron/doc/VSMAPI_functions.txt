@@ -62,7 +62,7 @@ ImageRecycle
 ImageReplaceDM
 ImageSCSICharacteristicsDefineDM
 ImageSCSICharacteristicsQueryDM
-ImageStatusQuery
+* ImageStatusQuery
 ImageUnlockDM
 ImageVolumeAdd
 ImageVolumeDelete
@@ -71,7 +71,7 @@ ImageVolumeSpaceQueryDM
 ImageVolumeSpaceRemoveDM
 NameListAdd
 NameListDestroy
-NameListQuery
+* NameListQuery
 NameListRemove
 ProfileCreateDM
 ProfileDeleteDM
@@ -84,15 +84,15 @@ PrototypeDeleteDM
 PrototypeNameQueryDM
 PrototypeQueryDM
 PrototypeReplaceDM
-QueryAPIFunctionalLevel
+* QueryAPIFunctionalLevel
 QueryAsynchronousOperationDM
-QueryDirectoryManagerLevelDM
+* QueryDirectoryManagerLevelDM
 SharedMemoryAccessAddDM
-SharedMemoryAccessQueryDM
+* SharedMemoryAccessQueryDM
 SharedMemoryAccessRemoveDM
 SharedMemoryCreate
 SharedMemoryDelete
-SharedMemoryQuery
+* SharedMemoryQuery
 SharedMemoryReplace
 StaticImageChangesActivateDM
 StaticImageChangesDeactivateDM
@@ -111,7 +111,7 @@ VirtualNetworkAdapterDelete
 VirtualNetworkAdapterDeleteDM
 VirtualNetworkAdapterDisconnect
 VirtualNetworkAdapterDisconnectDM
-VirtualNetworkAdapterQuery
+* VirtualNetworkAdapterQuery
 VirtualNetworkLANAccess
 VirtualNetworkLANAccessQuery
 VirtualNetworkLANCreate
@@ -123,4 +123,5 @@ VirtualNetworkVswitchQuery
 VirtualNetworkVswitchSet
 VMRMConfigurationQuery
 VMRMConfigurationUpdate
-VMRMMeasurementQuery
+* VMRMMeasurementQuery
+---

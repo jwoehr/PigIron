@@ -1,0 +1,4 @@
+directorymanagersearchdm.searchpattern IPL
+imageactivate.targetid MAINT
+imagedeactivate.targetid MAINT
+imagedeactivate.forcetime IMMED
