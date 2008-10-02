@@ -128,14 +128,16 @@ CALL testing 'ImageNameQueryDM' my.host my.port my.userid my.password my.target
 CALL testing 'NameListQuery' my.host my.port my.userid my.password "*"
 CALL testing 'QueryDirectoryManagerLevelDM' my.host my.port my.userid my.password my.target
 CALL testing 'SharedMemoryQuery' my.host my.port my.userid my.password my.target "*"
-CALL testing 'SharedMemoryAccessQueryDM' my.host my.port my.userid my.password my.target "CMSPIPES"
 CALL testing 'VMRMMeasurementQuery' my.host my.port my.userid my.password my.target
 CALL testing 'VirtualNetworkAdapterQuery' my.host my.port my.userid my.password my.target "*"
 
 -- Slightly more intricate queries
+
 IF my.custom.directorymanagersearchdm.searchpattern \= '' THEN CALL testing 'DirectoryManagerSearchDM' my.host my.port my.userid my.password my.target my.custom.directorymanagersearchdm.searchpattern
 ELSE CALL explain_skip 'DirectoryManagerSearchDM' "directorymanagersearchdm.searchpattern"
-
+	
+IF my.custom.sharedmemoryaccessquerydm.memorysegmentname \= '' THEN CALL testing 'SharedMemoryAccessQueryDM' my.host my.port my.userid my.password my.target my.custom.sharedmemoryaccessquerydm.memorysegmentname
+ELSE CALL explain_skip 'SharedMemoryAccessQueryDM' 'sharedmemoryaccessquerydm.memorysegmentname'
 -- ------------ --
 -- Harder stuff --
 -- ------------ --

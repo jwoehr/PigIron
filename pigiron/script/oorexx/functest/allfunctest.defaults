@@ -2,3 +2,4 @@ directorymanagersearchdm.searchpattern IPL
 imageactivate.targetid MAINT
 imagedeactivate.targetid MAINT
 imagedeactivate.forcetime WITHIN_20
+sharedmemoryaccessquerydm.memorysegmentname CMSPIPES
