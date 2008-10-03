@@ -165,6 +165,8 @@ ELSE CALL explain_skip 'SharedMemoryAccessQueryDM' 'sharedmemoryaccessquerydm.me
 -- CALL testing 'ImageCPUSetMaximumDM' my.host my.port my.userid my.password my.target my.extraparm
 
 -- CALL testing 'ImageCreateDM' my.host my.port my.userid my.password my.target my.extraparm
+
+
 -- CALL testing 'ImageDeleteDM' my.host my.port my.userid my.password my.target my.extraparm
 
 -- CALL testing 'ImageDeviceDedicate' my.host my.port my.userid my.password my.target my.extraparm

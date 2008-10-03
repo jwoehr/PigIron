@@ -60,13 +60,29 @@
 	self~assimilate_arguments(arguments)
 	self~class_instance=self~class~PigDirectory~at(self~pigfunc_name)
 
+   ::METHOD DirectoryAt
+        USE ARG aName
+        RETURN self~class~PigDirectory~at(aName)
+
    /* Allow strings to be passed in with substitute chars
-    * e.g., underscore for spaces, then convert to spaces
-    * or whatever.
+    * e.g., underscore for spaces, backslash for empty string,
+    * etc., then convert to spaces or whatever is desired.
     */
    ::METHOD translate_argument
         USE ARG index translate_to to_translate
         self~argument_array[index]=TRANSLATE(self~argument_array[index], translate_to, to_translate)
+
+   /* Allow strings to be passed in with substitute chars
+    * using specifically:
+    *   - underscore ("_") for space
+    *   - backslash  ("\") for empty string
+    * which seems to be a pretty safe assigment of substitute
+    * chars w/r/t VSMAPI.
+    */
+   ::METHOD translate_argument_conventionally
+        USE ARG index
+        self~argument_array[index]=TRANSLATE(self~argument_array[index], ' ', '_')
+        self~argument_array[index]=TRANSLATE(self~argument_array[index], '', '\')
 
    /* This is overloaded by the subclass. */
    ::METHOD construct_instance
@@ -82,7 +98,7 @@
 
    ::METHOD invocation_message
         invoke_msg = "Invoking" self~pigfunc_name"("
-        do i = 1 to self~argument_array_length
+          do i = 1 to self~argument_array_length
             invoke_msg = invoke_msg || self~argument_array[i]
             if i < self~argument_array_length then invoke_msg = invoke_msg', '
             end
@@ -210,7 +226,9 @@
 	self~PigDirectory~put(bsf.import(class_path'.VirtualNetworkVswitchDelete'), "VirtualNetworkVswitchDelete")
 	self~PigDirectory~put(bsf.import(class_path'.VirtualNetworkVswitchQuery'), "VirtualNetworkVswitchQuery")
 	self~PigDirectory~put(bsf.import(class_path'.VirtualNetworkVswitchSet'), "VirtualNetworkVswitchSet")
-	class_path='com.softwoehr.pigiron.access.paramstructs'
+	class_path='com.softwoehr.pigiron.access'
+	self~PigDirectory~put(bsf.import(class_path'.VSMString'), "VSMString")
+        class_path='com.softwoehr.pigiron.access.paramstructs'
 	self~PigDirectory~put(bsf.import(class_path'.AdapterArray'), "AdapterArray")
 	self~PigDirectory~put(bsf.import(class_path'.AdapterStructure'), "AdapterStructure")
 	self~PigDirectory~put(bsf.import(class_path'.AdapterStructureCounted'), "AdapterStructureCounted")
