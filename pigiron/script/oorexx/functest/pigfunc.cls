@@ -75,14 +75,14 @@
    /* Allow strings to be passed in with substitute chars
     * using specifically:
     *   - underscore ("_") for space
-    *   - backslash  ("\") for empty string
+    *   - backslash  ("\") for empty string (and *only* that one character for a blank arg)
     * which seems to be a pretty safe assigment of substitute
     * chars w/r/t VSMAPI.
     */
    ::METHOD translate_argument_conventionally
         USE ARG index
         self~argument_array[index]=TRANSLATE(self~argument_array[index], ' ', '_')
-        self~argument_array[index]=TRANSLATE(self~argument_array[index], '', '\')
+        self~argument_array[index]=STRIP(self~argument_array[index], , '\')
 
    /* This is overloaded by the subclass. */
    ::METHOD construct_instance

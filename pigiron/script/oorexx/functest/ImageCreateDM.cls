@@ -44,16 +44,18 @@
 	
     ::METHOD construct_instance
     	EXPOSE my.pigfunc
-        my.image_record_array = my.pigfunc~class~PigDirectory~at('ImageRecordArray')~new("image_record_array")
+        my.image_record_array = my.pigfunc~DirectoryAt('ImageRecordArray')~new("image_record_array")
         my.pigfunc~translate_argument_conventionally(6) -- allowing the passing of empty prototype_name argument
+        my.pigfunc~translate_argument_conventionally(7) -- allowing the passing of empty initial_password argument
+        my.pigfunc~translate_argument_conventionally(8) -- allowing the passing of empty account_number argument
         do i = 9 to my.pigfunc~argument_array~items
             my.pigfunc~translate_argument_conventionally(i) -- allowing the passing of blanks in arguments and empty args
-            my.image_record_array~add(my.pigfunc~class~PigDirectory~at('ImageRecordStructure')~new(my.pigfunc~DirectoryAt("VSMString")~new(my.pigfunc~argument_array[i]), "image_record"))
+            my.image_record_array~add(my.pigfunc~DirectoryAt('ImageRecordStructure')~new(my.pigfunc~DirectoryAt("VSMString")~new(my.pigfunc~argument_array[i]), "image_record"))
             end
-        SAY 'my.image_record_array~paramLength() ==' my.image_record_array~paramLength()
+        -- /* debug */ SAY 'my.image_record_array~paramLength() ==' my.image_record_array~paramLength()
         my.pigfunc~function_instance=my.pigfunc~class_instance~newStrict("ST", my.pigfunc~argument_array[1], "I", my.pigfunc~argument_array[2], "ST", my.pigfunc~argument_array[3], "ST", my.pigfunc~argument_array[4], "ST", my.pigfunc~argument_array[5],,
-        "ST", "", "ST", my.pigfunc~argument_array[7], "ST", my.pigfunc~argument_array[8], "I", my.image_record_array~paramLength(), "O", my.image_record_array)
-        -- "ST", my.pigfunc~argument_array[6], "ST", my.pigfunc~argument_array[7], "ST", my.pigfunc~argument_array[8], "I", my.image_record_array~paramLength(), "O", my.image_record_array)
+        "ST", my.pigfunc~argument_array[6], "ST", my.pigfunc~argument_array[7], "ST", my.pigfunc~argument_array[8], "I", my.image_record_array~paramLength(), "O", my.image_record_array)
+
     ::METHOD do_it
         EXPOSE my.pigfunc
         say my.pigfunc~invocation_message
