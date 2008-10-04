@@ -101,7 +101,8 @@ CALL testing 'ImageActiveConfigurationQuery' my.host my.port my.userid my.passwo
 CALL testing 'ImageCPUQuery' my.host my.port my.userid my.password my.target
 
 CALL testing 'ImageQueryActivateTime' my.host my.port my.userid my.password my.target,
-                .bsf~bsf.getStaticValue('com.softwoehr.pigiron.functions.ImageQueryActivateTime', "DATE_FORMAT_INDICATOR_MMDDYY")
+		.PigFunc~DirectoryAt('ImageQueryActivateTime')~DATE_FORMAT_INDICATOR_MMDDYY
+                -- .bsf~bsf.getStaticValue('com.softwoehr.pigiron.functions.ImageQueryActivateTime', "DATE_FORMAT_INDICATOR_MMDDYY")
 CALL testing 'ImageQueryActivateTime' my.host my.port my.userid my.password my.target,
                 .bsf~bsf.getStaticValue('com.softwoehr.pigiron.functions.ImageQueryActivateTime', "DATE_FORMAT_INDICATOR_MMDDYYYY")
 CALL testing 'ImageQueryActivateTime' my.host my.port my.userid my.password my.target,

@@ -60,9 +60,9 @@
 	self~assimilate_arguments(arguments)
 	self~class_instance=self~class~PigDirectory~at(self~pigfunc_name)
 
-   ::METHOD DirectoryAt
+   ::METHOD DirectoryAt CLASS
         USE ARG aName
-        RETURN self~class~PigDirectory~at(aName)
+        RETURN self~PigDirectory~at(aName)
 
    /* Allow strings to be passed in with substitute chars
     * e.g., underscore for spaces, backslash for empty string,
