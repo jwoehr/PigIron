@@ -165,8 +165,8 @@ ELSE CALL explain_skip 'SharedMemoryAccessQueryDM' 'sharedmemoryaccessquerydm.me
 -- CALL testing 'ImageCPUQueryDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageCPUSetMaximumDM' my.host my.port my.userid my.password my.target my.extraparm
 
--- CALL testing 'ImageCreateDM' my.host my.port my.userid my.password my.target my.extraparm
-
+-- CALL testing 'ImageCreateDM' my.host my.port my.userid my.password my.target,
+--	my.custom.imagecreatedm.prototypename my.custom.imagecreatedm.intialpassword my.custom.imagecreatedm.accountnumber my.custom.imagecreatedm.alltheotherargs
 
 -- CALL testing 'ImageDeleteDM' my.host my.port my.userid my.password my.target my.extraparm
 
