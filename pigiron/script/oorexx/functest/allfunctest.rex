@@ -125,8 +125,10 @@ IF my.custom.imagedeactivate.targetid \= '' THEN
 ELSE CALL explain_skip "ImageDeactivate" "imagedeactivate.targetid"
 
 -- More easy queries
+CALL testing 'ImageIPLQueryDM' my.host my.port my.userid my.password my.target
 CALL testing 'ImageNameQueryDM' my.host my.port my.userid my.password my.target
 CALL testing 'NameListQuery' my.host my.port my.userid my.password "*"
+CALL testing 'ProfileQueryDM' my.host my.port my.userid my.password my.target
 CALL testing 'QueryDirectoryManagerLevelDM' my.host my.port my.userid my.password my.target
 CALL testing 'SharedMemoryQuery' my.host my.port my.userid my.password my.target "*"
 CALL testing 'VMRMMeasurementQuery' my.host my.port my.userid my.password my.target
@@ -139,6 +141,18 @@ ELSE CALL explain_skip 'DirectoryManagerSearchDM' "directorymanagersearchdm.sear
 	
 IF my.custom.sharedmemoryaccessquerydm.memorysegmentname \= '' THEN CALL testing 'SharedMemoryAccessQueryDM' my.host my.port my.userid my.password my.target my.custom.sharedmemoryaccessquerydm.memorysegmentname
 ELSE CALL explain_skip 'SharedMemoryAccessQueryDM' 'sharedmemoryaccessquerydm.memorysegmentname'
+
+-- 3 x 3 yields nine different cases for '*' ... we should also test specific entry_names
+CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_DEFINITION .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_VOLUME '*'
+CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_DEFINITION .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_REGION '*'
+CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_DEFINITION .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_GROUP '*'
+CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_FREE .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_VOLUME '*'
+CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_FREE .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_REGION '*'
+CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_FREE .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_GROUP '*'
+CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_USED .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_VOLUME '*'
+CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_USED .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_REGION '*'
+CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_USED .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_GROUP '*'
+
 -- ------------ --
 -- Harder stuff --
 -- ------------ --
@@ -188,7 +202,6 @@ ELSE CALL explain_skip 'SharedMemoryAccessQueryDM' 'sharedmemoryaccessquerydm.me
 -- CALL testing 'ImageDiskUnshareDM' my.host my.port my.userid my.password my.target my.extraparm
 
 -- CALL testing 'ImageIPLDeleteDM' my.host my.port my.userid my.password my.target my.extraparm
--- CALL testing 'ImageIPLQueryDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageIPLSetDM' my.host my.port my.userid my.password my.target my.extraparm
 
 -- CALL testing 'ImageLockDM' my.host my.port my.userid my.password my.target my.extraparm
@@ -202,7 +215,7 @@ ELSE CALL explain_skip 'SharedMemoryAccessQueryDM' 'sharedmemoryaccessquerydm.me
 -- CALL testing 'ImageVolumeAdd' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageVolumeDelete' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageVolumeSpaceDefineDM' my.host my.port my.userid my.password my.target my.extraparm
--- CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target my.extraparm
+
 -- CALL testing 'ImageVolumeSpaceRemoveDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'NameListAdd' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'NameListDestroy' my.host my.port my.userid my.password my.target my.extraparm
@@ -210,7 +223,6 @@ ELSE CALL explain_skip 'SharedMemoryAccessQueryDM' 'sharedmemoryaccessquerydm.me
 -- CALL testing 'ProfileCreateDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ProfileDeleteDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ProfileLockDM' my.host my.port my.userid my.password my.target my.extraparm
--- CALL testing 'ProfileQueryDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ProfileReplaceDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ProfileUnlockDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'PrototypeCreateDM' my.host my.port my.userid my.password my.target my.extraparm
@@ -266,7 +278,8 @@ exit 0
 draw_pig:
 PROCEDURE
 SAY " /\- -/\"
-SAY "( (O O) )"
+SAY "( (o o) )"
+SAY ""
 RETURN
 
 testing:
