@@ -51,7 +51,7 @@ ImageDiskShareDM
 ImageDiskUnshare
 ImageDiskUnshareDM
 ImageIPLDeleteDM
-ImageIPLQueryDM
+* ImageIPLQueryDM
 ImageIPLSetDM
 ImageLockDM
 * ImageNameQueryDM
@@ -67,7 +67,7 @@ ImageUnlockDM
 ImageVolumeAdd
 ImageVolumeDelete
 ImageVolumeSpaceDefineDM
-ImageVolumeSpaceQueryDM
+* ImageVolumeSpaceQueryDM
 ImageVolumeSpaceRemoveDM
 NameListAdd
 NameListDestroy
