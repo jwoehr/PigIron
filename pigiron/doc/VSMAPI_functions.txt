@@ -32,9 +32,9 @@ ImageCPUDeleteDM
 * ImageCPUQuery
 ImageCPUQueryDM
 ImageCPUSetMaximumDM
-ImageCreateDM
+* ImageCreateDM
 * ImageDeactivate
-ImageDeleteDM
+* ImageDeleteDM
 ImageDeviceDedicate
 ImageDeviceDedicateDM
 ImageDeviceReset
@@ -76,13 +76,13 @@ NameListRemove
 ProfileCreateDM
 ProfileDeleteDM
 ProfileLockDM
-ProfileQueryDM
+* ProfileQueryDM
 ProfileReplaceDM
 ProfileUnlockDM
 PrototypeCreateDM
 PrototypeDeleteDM
-PrototypeNameQueryDM
-PrototypeQueryDM
+* PrototypeNameQueryDM
+* PrototypeQueryDM
 PrototypeReplaceDM
 * QueryAPIFunctionalLevel
 QueryAsynchronousOperationDM
@@ -113,13 +113,13 @@ VirtualNetworkAdapterDisconnect
 VirtualNetworkAdapterDisconnectDM
 * VirtualNetworkAdapterQuery
 VirtualNetworkLANAccess
-VirtualNetworkLANAccessQuery
+* VirtualNetworkLANAccessQuery
 VirtualNetworkLANCreate
 VirtualNetworkLANDelete
-VirtualNetworkLANQuery
+* VirtualNetworkLANQuery
 VirtualNetworkVswitchCreate
 VirtualNetworkVswitchDelete
-VirtualNetworkVswitchQuery
+* VirtualNetworkVswitchQuery
 VirtualNetworkVswitchSet
 VMRMConfigurationQuery
 VMRMConfigurationUpdate

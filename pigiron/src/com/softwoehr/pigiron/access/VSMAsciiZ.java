@@ -92,11 +92,21 @@ public class VSMAsciiZ implements VSMParm {
      * accidentally supplied after the null terminator)
      */
     public static String stripTerminated(String string) {
-        return string.substring(0, string.indexOf('\0'));
+        if (string != null) {
+            // /* Debug */ System.out.println("String entering stripTerminated is " + string);
+            if (string.indexOf('\0') > 0) {
+                string = string.substring(0, string.indexOf('\0'));
+            }
+        // /* Debug */ System.out.println("String leaving stripTerminated is " + string);
+        }
+        return string;
     }
 
     public static String terminate(String string) {
-        return string + '\0';
+        if (string != null) {
+            string = string + '\0';
+        }
+        return string;
     }
 
     /**
@@ -114,7 +124,9 @@ public class VSMAsciiZ implements VSMParm {
      * @param value a string to be null-terminated by {@code setValue} and set as the value
      */
     public void setValue(String value) {
+        // /* Debug */ System.out.println("String entering setValue is " + value);
         this.value = terminate(stripTerminated(value));
+    // /* Debug */ System.out.println("String leaving setValue is " + value);
     }
 
     /**
