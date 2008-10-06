@@ -92,7 +92,7 @@ DO i = 1 to my.custom.parameters.list~words
 -- ---------------------------------- --
 CALL testing 'CheckAuthentication' my.host my.port my.userid my.password my.target
 CALL testing 'QueryAPIFunctionalLevel' my.host my.port my.userid my.password my.target
-
+/* */
 -- Here we activate an image in case the user specified it in the target param so the easy queries would apply to it
 IF my.custom.imageactivate.targetid \= '' THEN CALL testing 'ImageActivate' my.host my.port my.userid my.password my.custom.imageactivate.targetid
 ELSE CALL explain_skip "ImageActivate" "imageactivate.targetid"
@@ -134,8 +134,9 @@ CALL testing 'SharedMemoryQuery' my.host my.port my.userid my.password my.target
 CALL testing 'VMRMMeasurementQuery' my.host my.port my.userid my.password my.target
 CALL testing 'VirtualNetworkAdapterQuery' my.host my.port my.userid my.password my.target "*"
 
+-- ------------------------------- --
 -- Slightly more intricate queries
-
+-- ------------------------------- --
 IF my.custom.directorymanagersearchdm.searchpattern \= '' THEN CALL testing 'DirectoryManagerSearchDM' my.host my.port my.userid my.password my.target my.custom.directorymanagersearchdm.searchpattern
 ELSE CALL explain_skip 'DirectoryManagerSearchDM' "directorymanagersearchdm.searchpattern"
 	
@@ -152,10 +153,17 @@ CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.
 CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_USED .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_VOLUME '*'
 CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_USED .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_REGION '*'
 CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_USED .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_GROUP '*'
+/* */
+
+CALL testing 'PrototypeQueryDM' my.host my.port my.userid my.password my.custom.prototypequerydm.prototypetoquery
 
 -- ------------ --
 -- Harder stuff --
 -- ------------ --
+-- CALL testing 'ImageCreateDM' my.host my.port my.userid my.password my.target,
+--	my.custom.imagecreatedm.prototypename my.custom.imagecreatedm.intialpassword my.custom.imagecreatedm.accountnumber my.custom.imagecreatedm.alltheotherargs
+
+-- CALL testing 'ImageDeleteDM' my.host my.port my.userid my.password my.target my.extraparm
 
 -- CALL testing 'AsynchronousNotificationDisableDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'AsynchronousNotificationEnableDM' my.host my.port my.userid my.password my.target my.extraparm
@@ -178,11 +186,6 @@ CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.
 -- CALL testing 'ImageCPUDeleteDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageCPUQueryDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageCPUSetMaximumDM' my.host my.port my.userid my.password my.target my.extraparm
-
--- CALL testing 'ImageCreateDM' my.host my.port my.userid my.password my.target,
---	my.custom.imagecreatedm.prototypename my.custom.imagecreatedm.intialpassword my.custom.imagecreatedm.accountnumber my.custom.imagecreatedm.alltheotherargs
-
--- CALL testing 'ImageDeleteDM' my.host my.port my.userid my.password my.target my.extraparm
 
 -- CALL testing 'ImageDeviceDedicate' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'ImageDeviceDedicateDM' my.host my.port my.userid my.password my.target my.extraparm
@@ -228,7 +231,7 @@ CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.
 -- CALL testing 'PrototypeCreateDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'PrototypeDeleteDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'PrototypeNameQueryDM' my.host my.port my.userid my.password my.target my.extraparm
--- CALL testing 'PrototypeQueryDM' my.host my.port my.userid my.password my.target my.extraparm
+
 -- CALL testing 'PrototypeReplaceDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'QueryAsynchronousOperationDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'SharedMemoryAccessAddDM' my.host my.port my.userid my.password my.target my.extraparm
