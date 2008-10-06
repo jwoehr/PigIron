@@ -134,6 +134,7 @@ CALL testing 'NameListQuery' my.host my.port my.userid my.password "*"
 CALL testing 'ProfileQueryDM' my.host my.port my.userid my.password my.target
 CALL testing 'QueryDirectoryManagerLevelDM' my.host my.port my.userid my.password my.target
 CALL testing 'SharedMemoryQuery' my.host my.port my.userid my.password my.target "*"
+CALL testing 'SharedMemoryQuery' my.host my.port my.userid my.password my.target "CMSPIPES"
 CALL testing 'VMRMMeasurementQuery' my.host my.port my.userid my.password my.target
 CALL testing 'VirtualNetworkAdapterQuery' my.host my.port my.userid my.password my.target "*"
 
@@ -253,7 +254,7 @@ CALL testing 'PrototypeQueryDM' my.host my.port my.userid my.password my.custom.
 -- CALL testing 'PrototypeReplaceDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'QueryAsynchronousOperationDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'SharedMemoryAccessAddDM' my.host my.port my.userid my.password my.target my.extraparm
--- CALL testing 'SharedMemoryAccessQueryDM' my.host my.port my.userid my.password my.target my.extraparm
+
 -- CALL testing 'SharedMemoryAccessRemoveDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'SharedMemoryCreate' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'SharedMemoryDelete' my.host my.port my.userid my.password my.target my.extraparm
