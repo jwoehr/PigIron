@@ -7,8 +7,8 @@ imagecreatedm.prototypename "\"
 imagecreatedm.intialpassword "\"
 imagecreatedm.accountnumber "\"
 prototypequerydm.prototypetoquery MAINT
-virtualnetworklanaccessquery.lanownerk MYLANOWN
+virtualnetworklanaccessquery.lanowner MYLANOWN
 virtualnetworklanaccessquery.lanname MYLAN
-virtualnetworklanquery.lanownerk MYLANOWN
+virtualnetworklanquery.lanowner MYLANOWN
 virtualnetworklanquery.lanname MYLAN
 virtualnetworkvswitchquery.switchname MYSWITCH
