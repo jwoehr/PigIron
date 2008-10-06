@@ -3,3 +3,7 @@ imageactivate.targetid MAINT
 imagedeactivate.targetid MAINT
 imagedeactivate.forcetime WITHIN_20
 sharedmemoryaccessquerydm.memorysegmentname CMSPIPES
+imagecreatedm.prototypename "\"
+imagecreatedm.intialpassword "\"
+imagecreatedm.accountnumber "\"
+prototypequerydm.prototypetoquery MAINT
