@@ -1,9 +1,14 @@
 directorymanagersearchdm.searchpattern IPL
-imageactivate.targetid MAINT
-imagedeactivate.targetid MAINT
+imageactivate.targetid BBBB
+imagedeactivate.targetid BBBB
 imagedeactivate.forcetime WITHIN_20
 sharedmemoryaccessquerydm.memorysegmentname CMSPIPES
 imagecreatedm.prototypename "\"
 imagecreatedm.intialpassword "\"
 imagecreatedm.accountnumber "\"
 prototypequerydm.prototypetoquery MAINT
+virtualnetworklanaccessquery.lanownerk MYLANOWN
+virtualnetworklanaccessquery.lanname MYLAN
+virtualnetworklanquery.lanownerk MYLANOWN
+virtualnetworklanquery.lanname MYLAN
+virtualnetworkvswitchquery.switchname MYSWITCH

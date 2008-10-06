@@ -158,7 +158,11 @@
 	self~PigDirectory~put(bsf.import(class_path'.ImageLockDM'), "ImageLockDM")
 	self~PigDirectory~put(bsf.import(class_path'.ImageNameQueryDM'), "ImageNameQueryDM")
 	self~PigDirectory~put(bsf.import(class_path'.ImagePasswordSetDM'), "ImagePasswordSetDM")
-	self~PigDirectory~put(bsf.import(class_path'.ImageQueryActivateTime'), "ImageQueryActivateTime")
+	-- -------------------------------------------------------------
+	-- The following is correct .. all the other lines were mistaken
+	-- -------------------------------------------------------------
+	self~PigDirectory~put(bsf.import(class_path'.ImageQueryActivateTime', "ImageQueryActivateTime"), "ImageQueryActivateTime")
+	-- -------------------------------------------------------------
 	self~PigDirectory~put(bsf.import(class_path'.ImageQueryDM'), "ImageQueryDM")
 	self~PigDirectory~put(bsf.import(class_path'.ImageRecycle'), "ImageRecycle")
 	self~PigDirectory~put(bsf.import(class_path'.ImageReplaceDM'), "ImageReplaceDM")

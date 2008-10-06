@@ -90,29 +90,33 @@ DO i = 1 to my.custom.parameters.list~words
 -- ---------------------------------- --
 -- First we'll run some easy queries. --
 -- ---------------------------------- --
+
 CALL testing 'CheckAuthentication' my.host my.port my.userid my.password my.target
 CALL testing 'QueryAPIFunctionalLevel' my.host my.port my.userid my.password my.target
-/* */
+
 -- Here we activate an image in case the user specified it in the target param so the easy queries would apply to it
 IF my.custom.imageactivate.targetid \= '' THEN CALL testing 'ImageActivate' my.host my.port my.userid my.password my.custom.imageactivate.targetid
 ELSE CALL explain_skip "ImageActivate" "imageactivate.targetid"
 	
 CALL testing 'ImageActiveConfigurationQuery' my.host my.port my.userid my.password my.target
+
+-- 5.4
 CALL testing 'ImageCPUQuery' my.host my.port my.userid my.password my.target
 
 CALL testing 'ImageQueryActivateTime' my.host my.port my.userid my.password my.target,
-		.PigFunc~DirectoryAt('ImageQueryActivateTime')~DATE_FORMAT_INDICATOR_MMDDYY
-                -- .bsf~bsf.getStaticValue('com.softwoehr.pigiron.functions.ImageQueryActivateTime', "DATE_FORMAT_INDICATOR_MMDDYY")
+	.ImageQueryActivateTime~DATE_FORMAT_INDICATOR_MMDDYY
+		-- .PigFunc~DirectoryAt('ImageQueryActivateTime')~DATE_FORMAT_INDICATOR_MMDDYY
 CALL testing 'ImageQueryActivateTime' my.host my.port my.userid my.password my.target,
-                .bsf~bsf.getStaticValue('com.softwoehr.pigiron.functions.ImageQueryActivateTime', "DATE_FORMAT_INDICATOR_MMDDYYYY")
+	.PigFunc~DirectoryAt('ImageQueryActivateTime')~DATE_FORMAT_INDICATOR_MMDDYYYY
 CALL testing 'ImageQueryActivateTime' my.host my.port my.userid my.password my.target,
-                .bsf~bsf.getStaticValue('com.softwoehr.pigiron.functions.ImageQueryActivateTime', "DATE_FORMAT_INDICATOR_YYMMDD")
+        .PigFunc~DirectoryAt('ImageQueryActivateTime')~DATE_FORMAT_INDICATOR_YYMMDD
 CALL testing 'ImageQueryActivateTime' my.host my.port my.userid my.password my.target,
-                .bsf~bsf.getStaticValue('com.softwoehr.pigiron.functions.ImageQueryActivateTime', "DATE_FORMAT_INDICATOR_YYYYMMDD")
+        .PigFunc~DirectoryAt('ImageQueryActivateTime')~DATE_FORMAT_INDICATOR_YYYYMMDD
 CALL testing 'ImageQueryActivateTime' my.host my.port my.userid my.password my.target,
-                .bsf~bsf.getStaticValue('com.softwoehr.pigiron.functions.ImageQueryActivateTime', "DATE_FORMAT_INDICATOR_DDMMYY")
+        .PigFunc~DirectoryAt('ImageQueryActivateTime')~DATE_FORMAT_INDICATOR_DDMMYY
 CALL testing 'ImageQueryActivateTime' my.host my.port my.userid my.password my.target,
-                .bsf~bsf.getStaticValue('com.softwoehr.pigiron.functions.ImageQueryActivateTime', "DATE_FORMAT_INDICATOR_DDMMYYYY")
+        .PigFunc~DirectoryAt('ImageQueryActivateTime')~DATE_FORMAT_INDICATOR_DDMMYYYY
+
 CALL testing 'ImageQueryDM' my.host my.port my.userid my.password my.target
 CALL testing 'ImageStatusQuery' my.host my.port my.userid my.password my.target
 CALL testing 'ImageStatusQuery' my.host my.port my.userid my.password "*"
@@ -143,6 +147,21 @@ ELSE CALL explain_skip 'DirectoryManagerSearchDM' "directorymanagersearchdm.sear
 IF my.custom.sharedmemoryaccessquerydm.memorysegmentname \= '' THEN CALL testing 'SharedMemoryAccessQueryDM' my.host my.port my.userid my.password my.target my.custom.sharedmemoryaccessquerydm.memorysegmentname
 ELSE CALL explain_skip 'SharedMemoryAccessQueryDM' 'sharedmemoryaccessquerydm.memorysegmentname'
 
+IF my.custom.virtualnetworklanaccessquery.lanname \= ''THEN
+	IF my.custom.virtualnetworklanaccessquery.lanowner \= '' THEN
+	CALL testing 'VirtualNetworkLANAccessQuery' my.host my.port my.userid my.password my.target my.custom.virtualnetworklanaccessquery.lanname my.custom.virtualnetworklanaccessquery.lanowner
+	ELSE CALL explain_skip 'VirtualNetworkLANAccessQuery' 'virtualnetworklanaccessquery.lanowner'
+ELSE CALL explain_skip 'VirtualNetworkLANAccessQuery' 'virtualnetworklanaccessquery.lanname'
+
+IF my.custom.virtualnetworklanaccessquery.lanname \= ''THEN
+	IF my.custom.virtualnetworklanaccessquery.lanowner \= '' THEN
+	CALL testing 'VirtualNetworkLANQuery' my.host my.port my.userid my.password my.target my.custom.virtualnetworklanquery.lanname my.custom.virtualnetworklanquery.lanowner
+	ELSE CALL explain_skip 'VirtualNetworkLANQuery' 'virtualnetworklanquery.lanowner'
+ELSE CALL explain_skip 'VirtualNetworkLANQuery' 'virtualnetworklanquery.lanname'
+
+IF my.custom.virtualnetworkvswitchquery.switchname \= '' THEN CALL testing 'VirtualNetworkVswitchQuery' my.host my.port my.userid my.password my.target my.custom.virtualnetworkvswitchquery.switchname
+ELSE CALL explain_skip 'VirtualNetworkVswitchQuery' 'virtualnetworkvswitchquery.switchname'
+
 -- 3 x 3 yields nine different cases for '*' ... we should also test specific entry_names
 CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_DEFINITION .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_VOLUME '*'
 CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_DEFINITION .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_REGION '*'
@@ -153,8 +172,8 @@ CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.
 CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_USED .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_VOLUME '*'
 CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_USED .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_REGION '*'
 CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_USED .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_GROUP '*'
-/* */
 
+-- 5.4
 CALL testing 'PrototypeQueryDM' my.host my.port my.userid my.password my.custom.prototypequerydm.prototypetoquery
 
 -- ------------ --
@@ -265,13 +284,11 @@ CALL testing 'PrototypeQueryDM' my.host my.port my.userid my.password my.custom.
 -- CALL testing 'VirtualNetworkAdapterDisconnectDM' my.host my.port my.userid my.password my.target my.extraparm
 
 -- CALL testing 'VirtualNetworkLANAccess' my.host my.port my.userid my.password my.target my.extraparm
--- CALL testing 'VirtualNetworkLANAccessQuery' my.host my.port my.userid my.password my.target my.extraparm
--- CALL testing 'VirtualNetworkLANCreate' my.host my.port my.userid my.password my.target my.extraparm
+
 -- CALL testing 'VirtualNetworkLANDelete' my.host my.port my.userid my.password my.target my.extraparm
--- CALL testing 'VirtualNetworkLANQuery' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'VirtualNetworkVswitchCreate' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'VirtualNetworkVswitchDelete' my.host my.port my.userid my.password my.target my.extraparm
--- CALL testing 'VirtualNetworkVswitchQuery' my.host my.port my.userid my.password my.target my.extraparm
+
 -- CALL testing 'VirtualNetworkVswitchSet' my.host my.port my.userid my.password my.target my.extraparm
 
 CALL draw_pig
