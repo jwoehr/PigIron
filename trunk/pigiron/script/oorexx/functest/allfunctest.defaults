@@ -2,11 +2,12 @@ directorymanagersearchdm.searchpattern IPL
 imageactivate.targetid BBBB
 imagedeactivate.targetid BBBB
 imagedeactivate.forcetime WITHIN_20
+imagedeletedm.imagetodelete BBBB
 sharedmemoryaccessquerydm.memorysegmentname CMSPIPES
 imagecreatedm.prototypename "\"
 imagecreatedm.intialpassword "\"
 imagecreatedm.accountnumber "\"
-prototypequerydm.prototypetoquery MAINT
+prototypequerydm.prototypetoquery CMS
 virtualnetworklanaccessquery.lanowner MYLANOWN
 virtualnetworklanaccessquery.lanname MYLAN
 virtualnetworklanquery.lanowner MYLANOWN

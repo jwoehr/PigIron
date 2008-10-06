@@ -132,6 +132,7 @@ CALL testing 'ImageIPLQueryDM' my.host my.port my.userid my.password my.target
 CALL testing 'ImageNameQueryDM' my.host my.port my.userid my.password my.target
 CALL testing 'NameListQuery' my.host my.port my.userid my.password "*"
 CALL testing 'ProfileQueryDM' my.host my.port my.userid my.password my.target
+CALL testing 'PrototypeNameQueryDM' my.host my.port my.userid my.password my.target
 CALL testing 'QueryDirectoryManagerLevelDM' my.host my.port my.userid my.password my.target
 CALL testing 'SharedMemoryQuery' my.host my.port my.userid my.password my.target "*"
 CALL testing 'SharedMemoryQuery' my.host my.port my.userid my.password my.target "CMSPIPES"
@@ -141,6 +142,10 @@ CALL testing 'VirtualNetworkAdapterQuery' my.host my.port my.userid my.password 
 -- ------------------------------- --
 -- Slightly more intricate queries
 -- ------------------------------- --
+IF my.custom.imagedeletedm.imagetodelete \= '' THEN -- We should also test other DATA_SECURITY_ERASE flags
+	CALL testing 'ImageDeleteDM' my.host my.port my.userid my.password my.custom.imagedeletedm.imagetodelete .PigFunc~DirectoryAt('ImageDeleteDM')~DATA_SECURITY_ERASE_UNSPECIFIED
+ELSE CALL explain_skip 'ImageDeleteDM' "imagedeletedm.imagetodelete"
+
 IF my.custom.directorymanagersearchdm.searchpattern \= '' THEN CALL testing 'DirectoryManagerSearchDM' my.host my.port my.userid my.password my.target my.custom.directorymanagersearchdm.searchpattern
 ELSE CALL explain_skip 'DirectoryManagerSearchDM' "directorymanagersearchdm.searchpattern"
 	
@@ -173,8 +178,9 @@ CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.
 CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_USED .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_REGION '*'
 CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_USED .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_GROUP '*'
 
--- 5.4
 CALL testing 'PrototypeQueryDM' my.host my.port my.userid my.password my.custom.prototypequerydm.prototypetoquery
+CALL testing 'PrototypeQueryDM' my.host my.port my.userid my.password 'CMS'
+CALL testing 'PrototypeQueryDM' my.host my.port my.userid my.password 'LINUX'
 
 -- ------------ --
 -- Harder stuff --
@@ -182,7 +188,6 @@ CALL testing 'PrototypeQueryDM' my.host my.port my.userid my.password my.custom.
 -- CALL testing 'ImageCreateDM' my.host my.port my.userid my.password my.target,
 --	my.custom.imagecreatedm.prototypename my.custom.imagecreatedm.intialpassword my.custom.imagecreatedm.accountnumber my.custom.imagecreatedm.alltheotherargs
 
--- CALL testing 'ImageDeleteDM' my.host my.port my.userid my.password my.target my.extraparm
 
 -- CALL testing 'AsynchronousNotificationDisableDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'AsynchronousNotificationEnableDM' my.host my.port my.userid my.password my.target my.extraparm
@@ -249,7 +254,6 @@ CALL testing 'PrototypeQueryDM' my.host my.port my.userid my.password my.custom.
 -- CALL testing 'ProfileUnlockDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'PrototypeCreateDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'PrototypeDeleteDM' my.host my.port my.userid my.password my.target my.extraparm
--- CALL testing 'PrototypeNameQueryDM' my.host my.port my.userid my.password my.target my.extraparm
 
 -- CALL testing 'PrototypeReplaceDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'QueryAsynchronousOperationDM' my.host my.port my.userid my.password my.target my.extraparm
