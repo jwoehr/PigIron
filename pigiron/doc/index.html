@@ -40,7 +40,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii">
   <meta http-equiv="Last-Modified" content=
-  "Tue, 30 Sep 2008 06:50:28 UTC">
+  "Tue, 7 Oct 2008 03:05:45 UTC">
 </head>
 
 <body>
@@ -415,6 +415,19 @@ THE POSSIBILITY OF SUCH DAMAGE.
         test scripts to VSMAPI functions
 
           <ul>
+            <li>The current testing coverage is found by:
+
+              <ul>
+                <li>Examining in detail the test cases in <a style=
+                "font-family: monospace;" href=
+                "../script/oorexx/functest/allfunctest.rex">script/oorexx/functest/allfunctest.rex</a></li>
+
+                <li>Checking the simple summary in <a style=
+                "font-family: monospace;" href=
+                "VSMAPI_functions.txt">doc/VSMAPI_functions.txt</a></li>
+              </ul>
+            </li>
+
             <li>Not all the tests have been exercised</li>
           </ul>
         </li>
@@ -462,6 +475,12 @@ THE POSSIBILITY OF SUCH DAMAGE.
         </li>
       </ol>
     </li>
+
+    <li>Testing via <a href=
+    "http://sourceforge.net/projects/oorexx">ObjectRexx</a> bridged
+    to Java via <a href=
+    "http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>
+    (DONE (first pass))</li>
 
     <li>Create Business Objects based on the Access and Functions
     class library (IN PROGRESS)</li>
@@ -579,8 +598,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </ul>
 
       <ul>
-        <li>VSMAPI return codes are interpreted by the
-        singleton&nbsp; <span style=
+        <li>VSMAPI return codes are interpreted by the singleton
+        <span style=
         "font-family: monospace;">com.softwoehr.pigiron.bizobj.VsmapiRC</span>
         .</li>
       </ul>
