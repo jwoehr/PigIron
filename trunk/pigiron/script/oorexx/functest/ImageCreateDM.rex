@@ -40,7 +40,7 @@
 
 PARSE ARG args
 PARSE SOURCE my.platform my.invocation my.command
-if args~words < 9 then signal usage
+if args~words < 8 then signal usage
 it=.ImageCreateDM~new(args)
 it~construct_instance()
 it~do_it
