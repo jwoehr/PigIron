@@ -132,7 +132,9 @@ CALL testing 'ImageIPLQueryDM' my.host my.port my.userid my.password my.target
 CALL testing 'ImageNameQueryDM' my.host my.port my.userid my.password my.target
 CALL testing 'NameListQuery' my.host my.port my.userid my.password "*"
 CALL testing 'ProfileQueryDM' my.host my.port my.userid my.password my.target
+
 CALL testing 'PrototypeNameQueryDM' my.host my.port my.userid my.password my.target
+
 CALL testing 'QueryDirectoryManagerLevelDM' my.host my.port my.userid my.password my.target
 CALL testing 'SharedMemoryQuery' my.host my.port my.userid my.password my.target "*"
 CALL testing 'SharedMemoryQuery' my.host my.port my.userid my.password my.target "CMSPIPES"
@@ -142,9 +144,6 @@ CALL testing 'VirtualNetworkAdapterQuery' my.host my.port my.userid my.password 
 -- ------------------------------- --
 -- Slightly more intricate queries
 -- ------------------------------- --
-IF my.custom.imagedeletedm.imagetodelete \= '' THEN -- We should also test other DATA_SECURITY_ERASE flags
-	CALL testing 'ImageDeleteDM' my.host my.port my.userid my.password my.custom.imagedeletedm.imagetodelete .PigFunc~DirectoryAt('ImageDeleteDM')~DATA_SECURITY_ERASE_UNSPECIFIED
-ELSE CALL explain_skip 'ImageDeleteDM' "imagedeletedm.imagetodelete"
 
 IF my.custom.directorymanagersearchdm.searchpattern \= '' THEN CALL testing 'DirectoryManagerSearchDM' my.host my.port my.userid my.password my.target my.custom.directorymanagersearchdm.searchpattern
 ELSE CALL explain_skip 'DirectoryManagerSearchDM' "directorymanagersearchdm.searchpattern"
@@ -178,17 +177,37 @@ CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.
 CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_USED .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_REGION '*'
 CALL testing 'ImageVolumeSpaceQueryDM' my.host my.port my.userid my.password my.target .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~QUERY_TYPE_USED .PigFunc~DirectoryAt('ImageVolumeSpaceQueryDM')~ENTRY_TYPE_GROUP '*'
 
-CALL testing 'PrototypeQueryDM' my.host my.port my.userid my.password my.custom.prototypequerydm.prototypetoquery
+-- What we really should do here is save the results from a query and iterate over them.
+-- That's a bit more complex that what the Rexx code currently can do in the individual invocation (.rex) files
+-- CALL testing 'PrototypeQueryDM' my.host my.port my.userid my.password my.custom.prototypequerydm.prototypetoquery
+-- So here we will test the popular prototypes by hand
 CALL testing 'PrototypeQueryDM' my.host my.port my.userid my.password 'CMS'
 CALL testing 'PrototypeQueryDM' my.host my.port my.userid my.password 'LINUX'
 
 -- ------------ --
 -- Harder stuff --
 -- ------------ --
--- CALL testing 'ImageCreateDM' my.host my.port my.userid my.password my.target,
---	my.custom.imagecreatedm.prototypename my.custom.imagecreatedm.intialpassword my.custom.imagecreatedm.accountnumber my.custom.imagecreatedm.alltheotherargs
 
+-- Test ImageCreateDM with a prototype
+CALL testing 'ImageCreateDM' my.host my.port my.userid my.password my.custom.imagecreatedm.imagenametocreate,
+	my.custom.imagecreatedm.prototypename my.custom.imagecreatedm.intialpassword my.custom.imagecreatedm.accountnumber
 
+-- Test ImageCreateDM with no prototype and values supplied
+CALL testing 'ImageCreateDM' my.host my.port my.userid my.password my.custom.imagecreatedm.noprototype.imagenametocreate,
+	my.custom.imagecreatedm.noprototype.prototypename my.custom.imagecreatedm.noprototype.intialpassword my.custom.imagecreatedm.noprototype.accountnumber,
+	USER_CCCC_FARQUHAR_32M_512M_G ACCOUNT_W00F IPL_CMS MACHINE_ESA CONSOLE_001F_3215
+	-- my.custom.imagecreatedm.noprototype.alltheotherargs
+
+-- Delete the prototype-created image
+IF my.custom.imagecreatedm.imagenametocreate \= '' THEN -- We should also test other DATA_SECURITY_ERASE flags
+CALL testing 'ImageDeleteDM' my.host my.port my.userid my.password my.custom.imagecreatedm.imagenametocreate .PigFunc~DirectoryAt('ImageDeleteDM')~DATA_SECURITY_ERASE_UNSPECIFIED
+ELSE CALL explain_skip 'ImageDeleteDM' "imagecreatedm.imagenametocreate"
+
+-- Delete the no-prototype created image
+IF my.custom.imagecreatedm.noprototype.imagenametocreate \= '' THEN -- We should also test other DATA_SECURITY_ERASE flags
+CALL testing 'ImageDeleteDM' my.host my.port my.userid my.password my.custom.imagecreatedm.noprototype.imagenametocreate .PigFunc~DirectoryAt('ImageDeleteDM')~DATA_SECURITY_ERASE_UNSPECIFIED
+ELSE CALL explain_skip 'ImageDeleteDM' "imagecreatedm.noprototype.imagenametocreate"
+	
 -- CALL testing 'AsynchronousNotificationDisableDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'AsynchronousNotificationEnableDM' my.host my.port my.userid my.password my.target my.extraparm
 -- CALL testing 'AsynchronousNotificationQueryDM' my.host my.port my.userid my.password my.target my.extraparm
