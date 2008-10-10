@@ -12,6 +12,11 @@ to be found in the same directory as this README.TXT file.
 
 CHANGES
 -------
+2008-10-?? 0.7 -- Testing Testing Testing
+
+    * More Testing
+        * See file doc/VSMAPI_functions.txt for list of test coverage
+
 2008-09-30 0.6 -- Genuinely "alpha" now due to more testing!
 
     * Testing
