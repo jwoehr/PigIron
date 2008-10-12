@@ -12,10 +12,15 @@ to be found in the same directory as this README.TXT file.
 
 CHANGES
 -------
-2008-10-?? 0.7 -- Testing Testing Testing
+2008-10-12 0.7 -- Testing Testing Testing
 
     * More Testing
         * See file doc/VSMAPI_functions.txt for list of test coverage
+        * Testing lately has been wrestling with DIRMAINT and 5.4 install :)
+
+    * Bug Fix
+        * Null ptr bug in VSMAsciiZ
+        * The functions which use VSMAsciiZ aren't yet tested, getting 5.4 up.
 
 2008-09-30 0.6 -- Genuinely "alpha" now due to more testing!
 
