@@ -35,6 +35,11 @@
         <copy file="${dist.dir}/${jar.name}" tofile="${dist.dir}/${jar.release.name}"/>
         <zip compress="false" destfile="${allzip.fullpathname}" basedir="${dist.dir}" includes="${srczip.name},${doczip.name},${jar.release.name}"/>
     </target>
-    <target name="all" depends="zip-all">
+    <target depends="zip-all" description="generate md5sum files for the release archives" name="sumfiles">
+        <checksum format="MD5SUM" file="${srczip.fullpathname}" todir="${dist.dir}" fileext=".md5sum"/>
+        <checksum format="MD5SUM" file="${doczip.fullpathname}" todir="${dist.dir}" fileext=".md5sum"/>
+        <checksum format="MD5SUM" file="${allzip.fullpathname}" todir="${dist.dir}" fileext=".md5sum"/>
+    </target>
+    <target name="all" depends="sumfiles">
     </target>
 </project>
