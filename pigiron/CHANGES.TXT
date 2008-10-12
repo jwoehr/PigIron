@@ -12,6 +12,13 @@ to be found in the same directory as this README.TXT file.
 
 CHANGES
 -------
+2008-??-?? 0.8 -- Completing Testing
+
+    * Testing
+        * Test coverage complete on z/VM 5.4
+    * Build
+        * Generate the md5 sums at release time
+
 2008-10-12 0.7 -- Testing Testing Testing
 
     * More Testing
