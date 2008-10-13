@@ -31,11 +31,6 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
-import com.softwoehr.pigiron.webobj.JSONMarshaller;
-import com.softwoehr.pigiron.webobj.MarshallableObject;
-import com.softwoehr.pigiron.webobj.Marshaller;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,88 +38,15 @@ import org.json.JSONObject;
  * 
  * @author jax
  */
-public class Requestor extends MarshallableObject {
+public class Requestor extends JSONObject {
 
     /**
      *
+     * @throws org.json.JSONException
      */
-    public User pig_user = new User();
-    /**
-     *
-     */
-    public Host pig_host = new Host();
-    /**
-     *
-     */
-    public Function pig_function = new Function();
-    /**
-     *
-     */
-    public JSONObject user = new JSONObject();
-    /**
-     *
-     */
-    public JSONObject host = new JSONObject();
-    /**
-     *
-     */
-    public JSONObject function = new JSONObject();
-
-    private void unpack_members(Marshaller marshaller) {
-        pig_user.fromRepresentation(user.toString(), marshaller);
-        pig_host.fromRepresentation(host.toString(), marshaller);
-        pig_function.fromRepresentation(host.toString(), marshaller);
-    }
-
-    private void prepare_members(Marshaller marshaller) {
-        try {
-            user = new JSONObject(pig_user.toRepresentation(marshaller));
-            host = new JSONObject(pig_host.toRepresentation(marshaller));
-            function = new JSONObject(pig_function.toRepresentation(marshaller));
-        } catch (JSONException ex) {
-            Logger.getLogger(Requestor.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    /*private void prepare_members(Marshaller marshaller, MarshallingTraits marshallingTraits) {
-    try {
-    user = new JSONObject(pig_user.toRepresentation(marshaller));
-    host = new JSONObject(pig_host.toRepresentation(marshaller));
-    function = new JSONObject(pig_function.toRepresentation(marshaller));
-    } catch (JSONException ex) {
-    Logger.getLogger(Requestor.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    }*/
-    @Override
-    public void fromRepresentation(String representation, Marshaller marshaller) {
-        super.fromRepresentation(representation, marshaller);
-        unpack_members(marshaller);
-    }
-
-    @Override
-    public String toRepresentation(Marshaller marshaller) {
-        prepare_members(marshaller);
-        return super.toRepresentation(marshaller);
-    }
-
-    @Override
-    public String[] names() {
-        return new String[]{"user", "host", "function"};
-    }
-
-    /**
-     *
-     * @param argv
-     */
-    public static void main(String[] argv) {
-        String aRepresentation = argv[0];
-        Requestor requestor = new Requestor();
-        JSONMarshaller marshaller = new JSONMarshaller();
-        requestor.fromRepresentation(aRepresentation, marshaller);
-        System.out.println("The new Requestor: " + requestor);
-        System.out.println("   pig_function: " + requestor.pig_function);
-        System.out.println("   pig_user: " + requestor.pig_user);
-        System.out.println("   pig_host: " + requestor.pig_host);
-        System.out.println("Here's a fresh representation: " + requestor.toRepresentation(marshaller));
+    public Requestor() throws JSONException {
+        put("user", new User());
+        put("host", new Host());
+        put("function", new Function());
     }
 }

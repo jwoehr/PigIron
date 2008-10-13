@@ -29,34 +29,42 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.softwoehr.pigiron.webobj;
+package com.softwoehr.pigiron.webobj.topview;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
- * Objects which can be marshalled to a web representation format such
- * as JSON or XML.
+ * 
  * @author jax
  */
-public interface Marshallable {
+public class FunctionName extends JSONObject {
 
     /**
-     * Identify marshallable fields to the marshaller
-     * @return a string array naming the fields to be marshalled.
+     *
+     * @param functionName
+     * @throws org.json.JSONException
      */
-    public String[] names();
+    public FunctionName(String functionName) throws JSONException {
+        super();
+        setFunctionName(functionName);
+    }
 
     /**
-     * Reinstance members of the Marshallable from a string representation
-     * using the Marshaller specified.
-     * @param representation string representation of the Marshallable
-     * @param marshaller the Marshaller specified to do the marshalling
+     *
+     * @return
+     * @throws org.json.JSONException
      */
-    public void fromRepresentation(String representation, Marshaller marshaller);
+    public String getFunctionName() throws JSONException {
+        return getString("functionName");
+    }
 
     /**
-     * Create marshalled representation in string of the marshallable object
-     * using the marshaller provided.
-     * @param marshaller the marshaller to do the work
-     * @return representation in string of the marshallable object
+     *
+     * @param functionName
+     * @throws org.json.JSONException
      */
-    public String toRepresentation(Marshaller marshaller);
+    public void setFunctionName(String functionName) throws JSONException {
+        put("functionName", functionName);
+    }
 }

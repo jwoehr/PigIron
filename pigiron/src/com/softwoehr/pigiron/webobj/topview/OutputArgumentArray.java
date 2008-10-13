@@ -29,37 +29,18 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.softwoehr.pigiron.webobj;
+package com.softwoehr.pigiron.webobj.topview;
 
 /**
- * Parent class of all Marshallers, e.g., JSONMarshaller, etc.
- * if there ever are more implemented.
- *
+ * 
  * @author jax
  */
-public abstract class Marshaller {
+public class OutputArgumentArray extends ArgumentArray {
 
     /**
-     * Create an empty instance.
+     *
      */
-    public Marshaller() {
+    public OutputArgumentArray() {
+        super();
     }
-
-    /**
-     * Return a string representation of the Marshallable per the
-     * member instance of MarshallingTraits describing marshalling options.
-     * @param marshallable the Marshallable to be represented
-     * @return string representation of the Marshallable
-     */
-    public abstract String represent(Marshallable marshallable);
-
-    /**
-     * Marshall the content of a string representation into a Marshallable per
-     * supplied MarshallingTraits object describing marshalling options or characteristics.
-     * @param representation string representation of a Marshallable
-     * @param marshallable Marshallable whose instance data will be refreshed by marshalling
-     * @param marshallingTraits MarshallingTraits object describing marshalling options or characteristics
-     * @return
-     */
-    public abstract Marshallable fromRepresentation(String representation, Marshallable marshallable);
 }

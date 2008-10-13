@@ -31,66 +31,19 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
-import com.softwoehr.pigiron.webobj.MarshallableObject;
-import com.softwoehr.pigiron.webobj.Marshaller;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.json.JSONArray;
-import org.json.JSONException;
 
 /**
  * 
  * @author jax
  */
-public class ArgumentArray extends MarshallableObject {
+public class ArgumentArray extends JSONArray {
 
-    private Vector<Argument> argumentVector = new Vector<Argument>();
-    /**
-     *
-     */
-    public JSONArray arguments = new JSONArray();
-
-    /**
-     *
-     * @return
-     */
-    public ArgumentArray prepareArguments() {
-        arguments = new JSONArray(argumentVector);
-        return this;
+    public ArgumentArray() {
+        super();       
     }
 
-    /**
-     *
-     * @param marshaller
-     */
-    public void unpackArguments(Marshaller marshaller) {
-        argumentVector = new Vector<Argument>();
-        Argument tempArgument = null;
-        for (int i = 0; i < arguments.length(); i++) {
-            tempArgument = new Argument();
-            try {
-                tempArgument.fromRepresentation(arguments.get(i).toString(), marshaller);
-            } catch (JSONException ex) {
-                Logger.getLogger(ArgumentArray.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            argumentVector.add(tempArgument);
-        }
-    }
-
-    @Override
-    public void fromRepresentation(String representation, Marshaller marshaller) {
-        super.fromRepresentation(representation, marshaller);
-        unpackArguments(marshaller);
-    }
-
-    @Override
-    public String toRepresentation(Marshaller marshaller) {
-        prepareArguments();
-        return arguments.toString();
-    }
-
-    public String[] names() {
-        return new String[]{"arguments"};
+    public void put (Argument argument) {
+        super.put(argument);
     }
 }

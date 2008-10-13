@@ -22,6 +22,8 @@ CHANGES
         * Straightened out the threefoldness of the RetC/ReasC/Function
           matrix. Now all messages associated with RCs and reason codes
           should be correct.
+    * Web Objects
+        * Clarified model
 
 2008-10-12 0.7 -- Testing Testing Testing
 

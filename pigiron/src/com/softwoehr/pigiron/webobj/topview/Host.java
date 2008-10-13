@@ -31,88 +31,76 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
-import com.softwoehr.pigiron.webobj.*;
-import java.net.URISyntaxException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * A class to represent the most simple view of a VSMAPI Host.
  * @author jax
  */
-public class Host extends MarshallableObject {
-
-    /**
-     *
-     */
-    public String name = "";
-    /**
-     *
-     */
-    public String dnsName = "";
-    /**
-     *
-     */
-    public String ipAddr = "";
-    /**
-     *
-     */
-    public Integer portNumber = new Integer(-1);
+public class Host extends JSONObject {
 
     /**
      *
      * @return
+     * @throws org.json.JSONException
      */
-    public String getDnsName() {
-        return dnsName;
+    public String getName() throws JSONException {
+        return getString("name");
+    }
+
+    /**
+     *
+     * @return
+     * @throws org.json.JSONException
+     */
+    public String getDnsName() throws JSONException {
+        return getString("dnsName");
+    }
+
+    /**
+     *
+     * @return
+     * @throws org.json.JSONException
+     */
+    public String getIpAddr() throws JSONException {
+        return getString("ipAddr");
+    }
+
+    /**
+     *
+     * @return
+     * @throws org.json.JSONException
+     */
+    public String getPortNumber() throws JSONException {
+        return getString("portNumber");
     }
 
     /**
      *
      * @param dnsName
+     * @throws JSONException
      */
-    public void setDnsName(String dnsName) {
-        this.dnsName = dnsName;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getIpAddr() {
-        return ipAddr;
+    public void setDnsName(String dnsName) throws JSONException {
+        put("dnsName", dnsName);
     }
 
     /**
      *
      * @param ipAddr
+     * @throws JSONException
      */
-    public void setIpAddr(String ipAddr) {
-        this.ipAddr = ipAddr;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getPortNumber() {
-        return portNumber;
+    public void setIpAddr(String ipAddr) throws JSONException {
+        put("ipAddr", ipAddr);
     }
 
     /**
      *
      * @param portNumber
+     * @throws JSONException
      */
-    public void setPortNumber(int portNumber) {
-        this.portNumber = portNumber;
-    }
-
-    /**
-     * Host name as represented to a Web application.
-     * May or may not be related to DNS name .. that latter
-     * sort of thing will be found deeper, follow the URI trail.
-     * @return hostName name
-     */
-    public String getName() {
-        return name;
+    public void setPortNumber(int portNumber) throws JSONException {
+        put("portNumber", portNumber);
     }
 
     /**
@@ -120,9 +108,10 @@ public class Host extends MarshallableObject {
      * May or may not be related to DNS name .. that latter
      * sort of thing will be found deeper, follow the URI trail.
      * @param name the name of the name
+     * @throws JSONException
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String name) throws JSONException {
+        put("name", name);
     }
 
     /**
@@ -138,41 +127,13 @@ public class Host extends MarshallableObject {
      * @param dnsName
      * @param ipAddr
      * @param portNumber
+     * @throws JSONException
      */
-    public Host(String name, String dnsName, String ipAddr, int portNumber) {
+    public Host(String name, String dnsName, String ipAddr, int portNumber) throws JSONException {
         this();
         setName(name);
         setDnsName(dnsName);
         setIpAddr(ipAddr);
         setPortNumber(portNumber);
-    }
-
-    /**
-     * Test run of marshalling
-     * @param argv
-     * @throws java.net.URISyntaxException
-     */
-    public static void main(String[] argv) throws URISyntaxException {
-        String name = argv[0];
-        String dnsName = argv[1];
-        String ipAddr = argv[2];
-        String portNumber = argv[3];
-        String representation = "{" + "\"name\":" + "\"" + name + "\"" + "," + "\"dnsName\":" + "\"" + dnsName + "\"" + "," + "\"ipAddr\":" + "\"" + ipAddr + "\""  + "," + "\"portNumber\":" + portNumber +"}";
-        Host host = new Host("MYZSYS", "myzsys.foobar.com", "192.168.0.199", 12345);
-        Marshaller marshaller = new JSONMarshaller();
-        System.out.println("Here is the string representation of Host at present: " + host.toRepresentation(marshaller));
-        System.out.println("Here is the string representation you submitted: " + representation);
-        host.fromRepresentation(representation, marshaller);
-        System.out.println("Here is the Host after marshalling in your values: ");
-        System.out.println("host.name       == " + host.getName());
-        System.out.println("host.dnsName    == " + host.getDnsName().toString());
-        System.out.println("host.ipAddr     == " + host.getIpAddr().toString());
-        System.out.println("host.portNumber == " + host.getPortNumber());
-        System.out.println("Here is the string representation of Host at present: " + host.toRepresentation(marshaller));
-    }
-
-    @Override
-    public String[] names() {
-        return new String[]{"name", "dnsName", "ipAddr", "portNumber"};
     }
 }

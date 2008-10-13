@@ -29,45 +29,18 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.softwoehr.pigiron.webobj;
+package com.softwoehr.pigiron.webobj.topview;
 
 /**
- * Parent class of all the web objects which can be marshalled
- * into string representation.
- * @see com.softwoehr.pigiron.webobj.Marshaller
+ * 
  * @author jax
  */
-public abstract class MarshallableObject implements Marshallable {
+public class InputArgumentArray extends ArgumentArray {
 
     /**
      *
      */
-    public MarshallableObject() {
+    public InputArgumentArray() {
+        super();
     }
-
-    /**
-     * Reinstance members of the Marshallable from a string representation
-     * using the Marshaller specified.
-     * @param representation string representation of the Marshallable
-     * @param marshaller the Marshaller specified to do the marshalling
-     */
-    public void fromRepresentation(String representation, Marshaller marshaller) {
-        marshaller.fromRepresentation(representation, this);
-    }
-
-    /**
-     * Create marshalled representation in string of the marshallable object
-     * using the marshaller provided.
-     * @param marshaller the marshaller to do the work
-     * @return representation in string of the marshallable object
-     */
-    public String toRepresentation(Marshaller marshaller) {
-        return marshaller.represent(this);
-    }
-
-    /**
-     * Identify marshallable fields to the marshaller
-     * @return a string array naming the fields to be marshalled.
-     */
-    public abstract String[] names();
 }
