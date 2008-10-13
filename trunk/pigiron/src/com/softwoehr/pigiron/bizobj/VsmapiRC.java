@@ -49,59 +49,14 @@ import java.util.HashMap;
  */
 public class VsmapiRC {
 
-    private static VsmapiRC vsmapiRC = null;
-    private HashMap<Integer, ReturnCode> rcMap = new HashMap<Integer, ReturnCode>(50);
-    private HashMap<Integer, String> syntaxErrors = new HashMap<Integer, String>(25);
+    private static HashMap<Integer, ReturnCode> rcMap = new HashMap<Integer, ReturnCode>(50);
+    private static HashMap<Integer, String> syntaxErrors = new HashMap<Integer, String>(25);
 
-    /**
-     * Singleton yields {@code ReturnCode} object for given return code.
-     * Reason code can then be deref'ed using the {@code ReturnCode} object.
-     * @param rc - a VSMAPI Function's return code
-     * @return a {@code ReturnCode} object with text and {@code ReasonCode}
-     * capability.
-     */
-    public static ReturnCode returnCode(int rc) {
-        ReturnCode result = null;
-        if (vsmapiRC == null) {
-            vsmapiRC = new VsmapiRC();
-        }
-        result = vsmapiRC.getReturnCode(rc);
-        return result;
-    }
 
-    /**
-     * Return a multiline string interpreting return code and reason code.
-     * @param rc return code from VSMAPI func
-     * @param reason reason code from VSMAPI func
-     * @return a multiline string interpreting return code and reason code
-     */
-    public static String prettyPrint(int rc, int reason) {
-        String result = null;
-        StringBuffer sb = new StringBuffer();
-        ReturnCode returnCode = VsmapiRC.returnCode(rc);
-        ReasonCode reasonCode = returnCode.getReasonCode(reason);
-        sb.append("Return code is: ");
-        sb.append(returnCode.getValue());
-        sb.append(" : ");
-        sb.append(returnCode.getName());
-        sb.append("\nReason code is: ");
-        sb.append(reasonCode.getValue());
-        sb.append(" : ");
-        sb.append(reasonCode.getName());
-        sb.append(" : ");
-        if (reasonCode instanceof ReasonCodeRC24) {
-            sb.append("Parameter number " + ReasonCodeRC24.class.cast(reasonCode).getParamNumber());
-            sb.append(" : ");
-        }
-        sb.append(reasonCode.getMessage());
-        result = sb.toString();
-        return result;
-    }
-
-    /**
-     * Singelton ctor populates the table of {@code ReturnCode} objects.
-     */
-    protected VsmapiRC() {
+    static {
+        /**
+         * Static ctor populates the table of {@code ReturnCode} objects.
+         */
         ReturnCode rc = new ReturnCode("RC_OK", 0);
         rc.addReasonCode(new ReasonCode("Successful", "RS_NONE", 0));
         rc.addReasonCode(new ReasonCode("Segment was created or replaced, but specified userid in memory_access_identifier could not be found to give RSTD access", "RS_NOT_FOUND", 4));
@@ -512,159 +467,57 @@ public class VsmapiRC {
     }
 
     /**
-     * Interpret the VSMAPI Return Code
-     * @param returnCode the VSMAPI Return Code
-     * @return Object interpreting the VSMAPI Return Code
+     * Singleton yields {@code ReturnCode} object for given return code.
+     * Reason code can then be deref'ed using the {@code ReturnCode} object.
+     * @param rc - a VSMAPI Function's return code
+     * @return a {@code ReturnCode} object with text and {@code ReasonCode}
+     * capability.
      */
-    public ReturnCode getReturnCode(int returnCode) {
-        ReturnCode result = rcMap.get(returnCode);
-        if (result == null) {
-            result = new VsmapiRC.ReturnCode("RC_UNKNOWN_TO_PIGIRON", returnCode);
-        }
+    public static ReturnCode returnCode(int rc) {
+        ReturnCode result = getReturnCode(rc);
         return result;
     }
 
     /**
-     * Object interpreting the VSMAPI Return Code. Contains a string
-     * name and a value. The full textual interpretation comes from the associated
-     * ResultCode.
+     * Return a multiline string interpreting return code and reason code.
+     * @param rc return code from VSMAPI func
+     * @param reason reason code from VSMAPI func
+     * @return a multiline string interpreting return code and reason code
      */
-    public class ReturnCode {
-
-        private final String name;
-        private final int value;
-        /**
-         *
-         */
-        protected HashMap<Integer, ReasonCode> reasonCodes = new HashMap<Integer, ReasonCode>(10);
-
-        /**
-         * Instance with the {@code final} name and value.
-         * @param name Error name, e.g., {@code RS_NONE}
-         * @param value numerical return code.
-         */
-        public ReturnCode(String name, int value) {
-            this.name = name;
-            this.value = value;
+    public static String prettyPrint(int rc, int reason) {
+        String result = null;
+        StringBuffer sb = new StringBuffer();
+        ReturnCode returnCode = VsmapiRC.returnCode(rc);
+        ReasonCode reasonCode = returnCode.getReasonCode(reason);
+        sb.append("Return code is: ");
+        sb.append(returnCode.getValue());
+        sb.append(" : ");
+        sb.append(returnCode.getName());
+        sb.append("\nReason code is: ");
+        sb.append(reasonCode.getValue());
+        sb.append(" : ");
+        sb.append(reasonCode.getName());
+        sb.append(" : ");
+        if (reasonCode instanceof ReasonCodeRC24) {
+            sb.append("Parameter number " + ReasonCodeRC24.class.cast(reasonCode).getParamNumber());
+            sb.append(" : ");
         }
-
-        /**
-         * Add a {@code ReasonCode} to the hash of {@code ReasonCode}s associated
-         * witha given {@code ReturnCode}.
-         * @param reason the numerical reason code
-         */
-        public void addReasonCode(ReasonCode reason) {
-            reasonCodes.put(reason.getValue(), reason);
-        }
-
-        /**
-         * Return a {@code ReasonCode} associated with {@code ReturnCode}.
-         * If not found, return a special reason from PigIron
-         * @param reason numerical VSMAPI Reason Code
-         * @return the interpretive object representing the Reason Code
-         */
-        public ReasonCode getReasonCode(int reason) {
-            ReasonCode result = null;
-            if (reasonCodes.containsKey(reason)) {
-                result = reasonCodes.get(reason);
-            } else {
-                result = new ReasonCode("PigIron does not know this reason code", "RS_UNKNOWN_TO_PIGIRON", reason);
-            }
-            return result;
-        }
-
-        /**
-         * Get the name of the Return Code, e.g, {@code RS_NONE}
-         * @return the name of the Return Code, e.g, {@code RS_NONE}
-         */
-        public String getName() {
-            return name;
-        }
-
-        /**
-         * Get the numerical value of the Return Code
-         * @return the numerical value of the Return Code
-         */
-        public int getValue() {
-            return value;
-        }
+        sb.append(reasonCode.getMessage());
+        result = sb.toString();
+        return result;
     }
 
     /**
-     * Object interpreting a VSMAPI Reason Code associated with a particular
-     * Return Code.
+     * Interpret the VSMAPI Return Code
+     * @param returnCode the VSMAPI Return Code
+     * @return Object interpreting the VSMAPI Return Code
      */
-    public class ReasonCode {
-
-        private final String message;
-        private final String name;
-        private final int value;
-
-        /**
-         * Instance providing message name and value
-         * @param message interpretive message
-         * @param name VSMAPI name of the reason code
-         * @param value numeric value of the reason code
-         */
-        public ReasonCode(String message, String name, int value) {
-            this.message = message;
-            this.name = name;
-            this.value = value;
+    public static ReturnCode getReturnCode(int returnCode) {
+        ReturnCode result = rcMap.get(returnCode);
+        if (result == null) {
+            result = new ReturnCode("RC_UNKNOWN_TO_PIGIRON", returnCode);
         }
-
-        /**
-         * Return interpretive message of the reason code
-         * @return interpretive message
-         */
-        public String getMessage() {
-            return message;
-        }
-
-        /**
-         * Return VSMAPI name of the reason code
-         * @return VSMAPI name of the reason code
-         */
-        public String getName() {
-            return name;
-        }
-
-        /**
-         * Return numeric value of the reason code
-         * @return numeric value of the reason code
-         */
-        public int getValue() {
-            return value;
-        }
-    }
-
-    /**
-     * Extends {@code ReasonCode} with one more field, the parameter number,
-     * since VSMAPI Return Code 24 is for syntax errors and points to the
-     * offending parameter.
-     */
-    public class ReasonCodeRC24 extends ReasonCode {
-
-        private int paramNumber = -1;
-
-        /**
-         * Instance a Reason Code for VSMAPI Return Code 24
-         * @param message interpretive message
-         * @param name VSMAPI name of the reason code
-         * @param value numeric value of the reason code
-         * @param paramNumber the index of the parameter that caused RC24
-         */
-        public ReasonCodeRC24(String message, String name, int value, int paramNumber) {
-            super(message, name, value);
-            this.paramNumber = paramNumber;
-        }
-
-        /**
-         * Get the index of the parameter that caused RC24
-         * @return the index of the parameter that caused RC24
-         */
-        public int getParamNumber() {
-            return paramNumber;
-        }
+        return result;
     }
 
     /**
