@@ -31,54 +31,36 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
-import com.softwoehr.pigiron.webobj.MarshallableObject;
-import com.softwoehr.pigiron.webobj.Marshaller;
 import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  * 
  * @author jax
  */
-public class Function extends MarshallableObject {
+public class Function extends JSONArray {
 
     /**
      *
+     * @throws org.json.JSONException
      */
-    public String function_name = "";
-    private ArgumentArray input_array = new ArgumentArray();
-    private ArgumentArray output_array = new ArgumentArray();
-    /**
-     *
-     */
-    public JSONArray input_arguments = new JSONArray();
-    /**
-     *
-     */
-    public JSONArray output_arguments = new JSONArray();
-
-    /**
-     *
-     * @return
-     */
-    public Function prepare_members() {
-        input_arguments = input_array.prepareArguments().arguments;
-        output_arguments = output_array.prepareArguments().arguments;
-        return this;
+    public Function() throws JSONException {
+        super();
+        put(new FunctionName(""));
+        put(new InputArgumentArray());
+        put(new OutputArgumentArray());
     }
 
-    @Override
-    public void fromRepresentation(String representation, Marshaller marshaller) {
-        super.fromRepresentation(representation, marshaller);
-    }
-
-    @Override
-    public String toRepresentation(Marshaller marshaller) {
-        prepare_members();
-        return super.toRepresentation(marshaller);
-    }
-
-    @Override
-    public String[] names() {
-        return new String[]{"function_name", "input_arguments", "output_arguments"};
+    /**
+     *
+     * @param functionName
+     * @param inputArray
+     * @param outputArray
+     */
+    public Function(FunctionName functionName, InputArgumentArray inputArray, OutputArgumentArray outputArray) {
+        super();
+        put(functionName);
+        put(inputArray);
+        put(outputArray);
     }
 }

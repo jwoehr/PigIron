@@ -31,36 +31,62 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
-import com.softwoehr.pigiron.webobj.MarshallableObject;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * 
  * @author jax ArgumentArray
  */
-public class Argument extends MarshallableObject {
+public class Argument extends JSONObject {
 
-    private String value = "";
+    /**
+     *
+     * @param formalName
+     * @param value
+     * @throws org.json.JSONException
+     */
+    public Argument(String formalName, String value) throws JSONException {
+        super();
+        setValue(value);
+        setFormalName(formalName);
+    }
 
     /**
      *
      * @return
+     * @throws JSONException
      */
-    public String getValue() {
-        return value;
+    public String getValue() throws JSONException {
+        return getString("value");
     }
 
     /**
      *
      * @param value
+     * @throws JSONException
      */
-    public void setValue(String value) {
-        this.value = value;
+    public void setValue(String value) throws JSONException {
+        put("value", value);
     }
 
+    /**
+     *
+     * @return
+     * @throws JSONException
+     */
+    public String getFormalName() throws JSONException {
+        return getString("formalName");
+    }
 
-    @Override
-    public String[] names() {
-        return new String[]{"value"};
+    /**
+     *
+     * @param formalName 
+     * @param value
+     * @throws JSONException
+     */
+    public void setFormalName(String formalName) throws JSONException {
+        put("formalName", formalName);
     }
 }
 /* End */

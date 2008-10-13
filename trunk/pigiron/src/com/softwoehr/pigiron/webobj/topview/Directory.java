@@ -42,6 +42,11 @@ import org.json.JSONException;
  */
 public class Directory extends JSONArray {
 
+    /**
+     *
+     * @param direntry
+     * @return
+     */
     public Directory put(DirectoryEntry direntry) {
         super.put(direntry);
         return this;

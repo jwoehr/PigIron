@@ -31,54 +31,14 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
-import com.softwoehr.pigiron.webobj.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * A class to represent the most simple view of a VSMAPI User.
  * @author jax
  */
-public class User extends MarshallableObject {
-
-    /**
-     *
-     */
-    public String uid = "";
-    /**
-     *
-     */
-    public String password = "";
-
-    /**
-     * Get password to use for the Host.
-     * @return the password to use for the Host
-     */
-    public String getpassword() {
-        return password;
-    }
-
-    /**
-     * Set password to use for the Host
-     * @param password to use for the Host
-     */
-    public void setpassword(String password) {
-        this.password = password;
-    }
-
-    /**
-     * Userid as represented to the Host.
-     * @return user id
-     */
-    public String getuid() {
-        return uid;
-    }
-
-    /**
-     * Userid as represented to the Host.
-     * @param uid user id
-     */
-    public void setuid(String uid) {
-        this.uid = uid;
-    }
+public class User extends JSONObject {
 
     /**
      * Base ctor
@@ -91,37 +51,47 @@ public class User extends MarshallableObject {
      * Instance with userid and password
      * @param uid
      * @param password
+     * @throws JSONException
      */
-    public User(String uid, String password) {
+    public User(String uid, String password) throws JSONException {
         this();
-        setuid(uid);
-        setpassword(password);
+        setUid(uid);
+        setPassword(password);
     }
 
     /**
-     * Test run of marshalling
-     * @param argv
+     * Get password to use for the Host.
+     * @return the password to use for the Host
+     * @throws JSONException
      */
-    public static void main(String[] argv) {
-        String uid = argv[0];
-        String password = argv[1];
-        String representation = "{" + "\"uid\":" + "\"" + uid + "\"" + "," + "\"password\":" + "\"" + password + "\"" + "}";
-        User user = new User("Fringle", "MmBoo");
-        System.out.println("Here is the User created with some silly values (not yours):");
-        System.out.println("user.uid == " + user.getuid());
-        System.out.println("user.password == " + user.getpassword());
-        Marshaller marshaller = new JSONMarshaller();
-        System.out.println("Here is the string representation of User at present: " + user.toRepresentation(marshaller));
-        System.out.println("Here is the string representation you submitted: " + representation);
-        user.fromRepresentation(representation, marshaller);
-        System.out.println("Here is the User after marshalling in your values: ");
-        System.out.println("user.uid == " + user.getuid());
-        System.out.println("user.password == " + user.getpassword());
-        System.out.println("Here is the string representation of User at present: " + user.toRepresentation(marshaller));
+    public String getPassword() throws JSONException {
+        return getString("password");
     }
 
-    @Override
-    public String[] names() {
-        return new String[]{"uid", "password"};
+    /**
+     * Set password to use for the Host
+     * @param password to use for the Host
+     * @throws JSONException
+     */
+    public void setPassword(String password) throws JSONException {
+        put("password", password);
+    }
+
+    /**
+     * Userid as represented to the Host.
+     * @return user id
+     * @throws JSONException
+     */
+    public String getUid() throws JSONException {
+        return getString("uid");
+    }
+
+    /**
+     * Userid as represented to the Host.
+     * @param uid user id
+     * @throws JSONException
+     */
+    public void setUid(String uid) throws JSONException {
+        put("uid", uid);
     }
 }
