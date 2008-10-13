@@ -41,6 +41,30 @@ import org.json.JSONObject;
 public class Host extends JSONObject {
 
     /**
+     * Base ctor
+     * @throws JSONException
+     */
+    public Host() throws JSONException {
+        this("", "", "", -1);
+    }
+
+    /**
+     * Instance with hostName name and URI
+     * @param name
+     * @param dnsName
+     * @param ipAddr
+     * @param portNumber
+     * @throws JSONException
+     */
+    public Host(String name, String dnsName, String ipAddr, int portNumber) throws JSONException {
+        super();
+        setName(name);
+        setDnsName(dnsName);
+        setIpAddr(ipAddr);
+        setPortNumber(portNumber);
+    }
+
+    /**
      *
      * @return
      * @throws org.json.JSONException
@@ -112,28 +136,5 @@ public class Host extends JSONObject {
      */
     public void setName(String name) throws JSONException {
         put("name", name);
-    }
-
-    /**
-     * Base ctor
-     */
-    public Host() {
-        super();
-    }
-
-    /**
-     * Instance with hostName name and URI
-     * @param name
-     * @param dnsName
-     * @param ipAddr
-     * @param portNumber
-     * @throws JSONException
-     */
-    public Host(String name, String dnsName, String ipAddr, int portNumber) throws JSONException {
-        this();
-        setName(name);
-        setDnsName(dnsName);
-        setIpAddr(ipAddr);
-        setPortNumber(portNumber);
     }
 }

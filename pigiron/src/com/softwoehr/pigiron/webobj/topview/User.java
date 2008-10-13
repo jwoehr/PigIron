@@ -42,9 +42,10 @@ public class User extends JSONObject {
 
     /**
      * Base ctor
+     * @throws JSONException
      */
-    public User() {
-        super();
+    public User() throws JSONException {
+        this("","");
     }
 
     /**
@@ -54,7 +55,7 @@ public class User extends JSONObject {
      * @throws JSONException
      */
     public User(String uid, String password) throws JSONException {
-        this();
+        super();
         setUid(uid);
         setPassword(password);
     }

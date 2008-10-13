@@ -41,6 +41,14 @@ import org.json.JSONObject;
 public class FunctionName extends JSONObject {
 
     /**
+     * 
+     * @throws org.json.JSONException
+     */
+    public FunctionName() throws JSONException {
+        this("");
+    }
+
+    /**
      *
      * @param functionName
      * @throws org.json.JSONException
