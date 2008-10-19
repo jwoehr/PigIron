@@ -14,7 +14,7 @@ pigfunc_constant(`public', `int', `DATE_FORMAT_INDICATOR_YYMMDD', `3', `yy-mm-dd
 pigfunc_constant(`public', `int', `DATE_FORMAT_INDICATOR_YYYYMMDD', `4', `yyyy-mm-dd')dnl
 pigfunc_constant(`public', `int', `DATE_FORMAT_INDICATOR_DDMMYY', `5', `dd/mm/yy')dnl
 pigfunc_constant(`public', `int', `DATE_FORMAT_INDICATOR_DDMMYYYY', `6', `dd/mm/yyyy')dnl
-pigfunc_attribute(`private', `', `int', member_name(`date_format_indicator'), `0', `', `The format of the date stamp that is returned')dnl
+pigfunc_attribute(`private', `', `int', member_name(`date_format_indicator'), `0', `', `The ``format'' of the date stamp that is returned')dnl
 pigfunc_ctors(`int', `date_format_indicator', member_name(`date_format_indicator'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
