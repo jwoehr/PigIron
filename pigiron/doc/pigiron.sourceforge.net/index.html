@@ -13,7 +13,7 @@
   "PigIron open source class library supporting IBM z/VM mainframe remote administration via VM SMAPI"
   name="description">
   <meta http-equiv="Last-Modified" content=
-  "Tue, 30 Sep 2008 06:51:22 UTC">
+  "Mon, 20 Oct 2008 04:44:53 UTC">
 </head>
 
 <body>
@@ -40,15 +40,26 @@
 
     <li>is extensible by the end user without deep knowledge of
     Java</li>
+  </ul>Additional Features:<br>
 
+  <ul>
     <li><a href="about_piggen.html">PigGen</a> autogenerates VSMAPI
     parameter type and function from <a href=
     "http://www.gnu.org/software/m4/">m4</a>-based description
     files</li>
 
-    <li><a href="./about_piglet.html">PigLet</a> the PigIron
-    Servlet when completed will provide VSMAPI functionality as
-    JSON data stream for Web applications.</li>
+    <li>Complete scripting interface using <a href=
+    "http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>
+    on top of <a href="http://sourceforge.net/projects/oorexx">Open
+    ObjectRexx</a> to run the PigIron Java classes.</li>
+
+    <li>Incomplete scripting interface using <a href=
+    "http://fiji.sourceforge.net/">FIJI ForthIsh Java
+    Interpreter</a></li>
+
+    <li><a href="about_piglet.html">PigLet</a> the PigIron Servlet
+    when completed will provide VSMAPI functionality as JSON data
+    stream for Web applications.</li>
   </ul>
 
   <p>Current development state: Alpha<br></p>
@@ -63,14 +74,21 @@
 
       <ul>
         <li><span style="font-style: italic;">Not Fully
-        Tested</span>.</li>
+        Tested</span></li>
+
+        <li>To the extent that we have tested, we have tested on
+
+          <ul>
+            <li>OpenBSD</li>
+
+            <li>OpenSolaris x86</li>
+
+            <li>Linux s390x<span style=
+            "font-style: italic;"><br></span></li>
+          </ul>
+        </li>
       </ul>
     </li>
-
-    <li>Complete scripting interface using <a href=
-    "http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>
-    on top of <a href="http://sourceforge.net/projects/oorexx">Open
-    ObjectRexx</a> to run the PigIron Java classes.</li>
   </ul><big><a href=
   "http://sourceforge.net/projects/pigiron/">Please visit and
   download PigIron on Source Forge</a>.</big>
