@@ -259,7 +259,7 @@ push_divert(`compose_in_stream')dnl
      */
     protected ParameterArray composeInputArray`(') {
         VSMString tempString = null;
-        ParameterArray parameterArray = new ParameterArray`(');
+        ParameterArray parameterArray = new ParameterArray`('`this'`)';
         tempString = new VSMString`('getFunctionName`('), getFunctionName`('));
         parameterArray.add`('new VSMInt4`('tempString.paramLength`('), "function_name_length"));
         parameterArray.add`('tempString);
@@ -336,7 +336,7 @@ push_divert(`compose_out_stream')dnl
      * @see com.softwoehr.pigiron.access.ParameterArray
      */
     protected ParameterArray composeOutputArray() {
-        ParameterArray parameterArray = new ParameterArray();
+        ParameterArray parameterArray = new ParameterArray`('`this'`)';
         parameterArray.add(new VSMInt4(-1, "request_id_immediate"));
         parameterArray.add(new VSMInt4(-1, "output_length"));
         parameterArray.add(new VSMInt4(-1, "request_id"));
