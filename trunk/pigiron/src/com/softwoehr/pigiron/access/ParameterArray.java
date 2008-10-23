@@ -32,6 +32,7 @@
 package com.softwoehr.pigiron.access;
 
 import com.softwoehr.pigiron.bizobj.VsmapiRC;
+import com.softwoehr.pigiron.functions.VSMCall;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -44,47 +45,72 @@ import java.util.Vector;
  * Parameter composition, marshalling and transmission nexus.
  * @author jax
  */
-public class ParameterArray extends Vector<VSMParm> {
+public class ParameterArray extends Vector <VSMParm> {
 
     /**
      * Byte size of <tt>int1</tt> datatype
-     */
-    public final static int SIZEOF_INT1 = 1;
+     */ 
+    public static final int SIZEOF_INT1 = 1;
     /**
      * Byte size of <tt>int4</tt> datatype
-     */
-    public final static int SIZEOF_INT4 = 4;
+     */ 
+    public static final int SIZEOF_INT4 = 4;
     /**
      * Byte size of <tt>int8</tt> datatype
-     */
-    public final static int SIZEOF_INT8 = 8;
+     */ 
+    public static final int SIZEOF_INT8 = 8;
 
+    /** 
+     * The VSMCall function using this ParameterArray.
+     * ParameterArray needs this for interpreting
+     * return/reason code pairs which are overloaded.
+     */ 
+    protected VSMCall function = null;
+ 
     /**
      * Create an instance with no parameters.
-     */
-    public ParameterArray() {
+     */ 
+    protected ParameterArray() {
         super();
+    }
+ 
+    /**
+     * Create an instance with {@code function} instanced.
+     * @param function the function creating the parameter array so that this
+     *        information is available for return/reason code interpretation
+     */ 
+    public ParameterArray(VSMCall function) {
+        super();
+        this.function = function;
     }
 
     /**
      * Replace the contents of this ParameterArray with the contents of another.
      * @param value the container of the replacement data
-     */
+     */ 
     public void setValue(ParameterArray value) {
         clear();
-        if (value != null) { // null is legal value
-            addAll(value);   // means "just clear me"
+        if (value != null) {            // null is legal value
+            addAll(value);            // means "just clear me"
         }
     }
 
     /**
+     * Get the function to an instance of which this is assigned.
+     * @return function to an instance of which this is assigned
+     */ 
+    public VSMCall getFunction() {
+        return this.function;
+    } 
+ 
+    /**
      * Searches for a parameter with the specified formal name.
      * @param name formal name of parameter
      * @return parameter if found, else null.
-     */
+     */ 
     public VSMParm parameterNamed(String name) {
         VSMParm result = null;
-        for (Enumeration<VSMParm> e = elements(); e.hasMoreElements();) {
+        for (Enumeration <VSMParm> e = elements(); e.hasMoreElements();) {
             VSMParm v = e.nextElement();
             if (v.getFormalName().equals(name)) {
                 result = v;
@@ -99,8 +125,9 @@ public class ParameterArray extends Vector<VSMParm> {
      * @param index index in this ParameterArray to find the sought parameter at
      * @param out the output stream
      * @throws java.io.IOException on comm error
-     */
+     */ 
     public void writeParameterAt(int index, DataOutputStream out) throws IOException {
+
         VSMParm p = elementAt(index);
         p.write(out);
     }
@@ -122,10 +149,10 @@ public class ParameterArray extends Vector<VSMParm> {
      * @return the sum arrived at by recursive examination of members of the
      * byte length of all the parameters found at the time of examination in this
      * ParameterArray.</p>
-     */
+     */ 
     public long totalParameterLength() {
         long total = 0;
-        Iterator<VSMParm> thisIterator = iterator();
+        Iterator <VSMParm> thisIterator = iterator();
         while (thisIterator.hasNext()) {
             total += thisIterator.next().paramLength();
         }
@@ -138,10 +165,10 @@ public class ParameterArray extends Vector<VSMParm> {
      * @throws java.io.IOException
      * @see #readAll
      * @see <a href="http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm" target="top">z/VM V5R3.0 Systems Management Application Programming SC24-6122-03</a>
-     */
+     */ 
     public void writeAll(DataOutputStream out) throws IOException {
-        /* Write all the params */
-        Iterator<VSMParm> myIterator = iterator();
+        /* Write all the params */ 
+        Iterator <VSMParm> myIterator = iterator();
         while (myIterator.hasNext()) {
             myIterator.next().write(out);
         }
@@ -156,11 +183,11 @@ public class ParameterArray extends Vector<VSMParm> {
      * @throws VSMException
      * @see #writeAll
      * @see <a href="http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm" target="top">z/VM V5R3.0 Systems Management Application Programming SC24-6122-03</a>
-     */
-    public void readAll(DataInputStream in) throws IOException, VSMException {
-        /* Write all the params */
-        int output_length = -1; // -1 means we haven't instanced it yet.
-        ListIterator<VSMParm> currentListIterator = listIterator();
+     */ 
+    public void readAll(DataInputStream in) throws IOException,  VSMException {
+        /* Write all the params */ 
+        int output_length = - 1;        // -1 means we haven't instanced it yet.
+        ListIterator <VSMParm> currentListIterator = listIterator();
         ParameterArray replacement = new ParameterArray();
         VSMParm previous = null;
         while (currentListIterator.hasNext()) {
@@ -168,59 +195,67 @@ public class ParameterArray extends Vector<VSMParm> {
             // /* Debug */ System.err.println(" next list item in ParameterArray.readAll is:\n  " + copyOfCurrentParm);
             if (copyOfCurrentParm instanceof VSMInt) {
                 // /* Debug */ System.err.println(" reading a VSMInt ");
-                copyOfCurrentParm.read(in, -1);
-                if (replacement.size() == 0) { // If this is the first thing we read
-                    replacement.add(copyOfCurrentParm); // ... it's the request_id_immediate
-                // ... and of course don't decrement output length
-                // ... since we haven't readoutput length yet.
-                } else if (replacement.size() == 1) { // If this is the second thing we read
-                    // ... then this should be the remaining output length param.
-                    output_length = VSMInt4.class.cast(copyOfCurrentParm).getValue();
-                    replacement.add(copyOfCurrentParm); // There's output_length!
-                } else { // We're beyond the first two int4's and now into the output body
-                    replacement.add(copyOfCurrentParm);
-                    output_length -= copyOfCurrentParm.paramLength();
+                copyOfCurrentParm.read(in, - 1);
+                if (replacement.size() == 0) {                    // If this is the first thing we read
+                    replacement.add(copyOfCurrentParm);                    // ... it's the request_id_immediate
+                    // ... and of course don't decrement output length
+                    // ... since we haven't readoutput length yet.
+                } else {
+                    if (replacement.size() == 1) {                        // If this is the second thing we read
+                        // ... then this should be the remaining output length param.
+                        output_length = VSMInt4 .class.cast(copyOfCurrentParm).getValue();
+                        replacement.add(copyOfCurrentParm);                        // There's output_length!
+                    } else {                        // We're beyond the first two int4's and now into the output body
+                        replacement.add(copyOfCurrentParm);
+                        output_length -= copyOfCurrentParm.paramLength();
+                    }
                 }
-            // /* Debug */ System.err.println(" Value of read VSMInt " + copyOfCurrentParm.getFormalName() + " == " + VSMInt.class.cast(copyOfCurrentParm).getLongValue());
-            } else if (copyOfCurrentParm instanceof VSMString | copyOfCurrentParm instanceof VSMArray | copyOfCurrentParm instanceof VSMStruct) {
-                if (!replacement.isEmpty()) {
-                    previous = replacement.lastElement();
-                    // /* Debug */ System.err.println("previous param is " + previous);
-                    if (previous instanceof VSMInt4) {
-                        int countLength = VSMInt4.class.cast(previous).getValue();
-                        // /* Debug */ System.err.println(" Getting ready to read " + copyOfCurrentParm + " with read length " + countLength);
-                        // /* Debug */ System.err.flush();
-                        copyOfCurrentParm.read(in, countLength);
+
+                // /* Debug */ System.err.println(" Value of read VSMInt " + copyOfCurrentParm.getFormalName() + " == " + VSMInt.class.cast(copyOfCurrentParm).getLongValue());
+            } else {
+                if (copyOfCurrentParm instanceof VSMString | copyOfCurrentParm instanceof VSMArray | copyOfCurrentParm instanceof VSMStruct) {
+                    if (! replacement.isEmpty()) {
+                        previous = replacement.lastElement();
+                        // /* Debug */ System.err.println("previous param is " + previous);
+                        if (previous instanceof VSMInt4) {
+                            int countLength = VSMInt4 .class.cast(previous).getValue();
+                            // /* Debug */ System.err.println(" Getting ready to read " + copyOfCurrentParm + " with read length " + countLength);
+                            // /* Debug */ System.err.flush();
+                            copyOfCurrentParm.read(in, countLength);
+                            output_length -= copyOfCurrentParm.paramLength();
+                            replacement.add(copyOfCurrentParm);
+                        } else {
+                            // The previous parm isn't the required count for the copyOfCurrentParm counted parmtype
+                            throw new ParameterArrayReadAllException(" Previous parm was not a count for the current counted parmtype. " + copyOfCurrentParm);
+                        }
+                    } else {
+                        // There's no count for the counted parmtype
+                        throw new ParameterArrayReadAllException(" There is no count for the current counted parmtype. " + copyOfCurrentParm);
+                    }
+                } else {
+                    if (copyOfCurrentParm instanceof VSMAsciiZ | copyOfCurrentParm instanceof VSMAsciiZArray) {
+                        copyOfCurrentParm.read(in, output_length);
                         output_length -= copyOfCurrentParm.paramLength();
                         replacement.add(copyOfCurrentParm);
                     } else {
-                        // The previous parm isn't the required count for the copyOfCurrentParm counted parmtype
-                        throw new ParameterArrayReadAllException(" Previous parm was not a count for the current counted parmtype. " + copyOfCurrentParm);
+                        throw new ParameterArrayReadAllException(" Unknown parameter type.");
                     }
-                } else {
-                    // There's no count for the counted parmtype
-                    throw new ParameterArrayReadAllException(" There is no count for the current counted parmtype. " + copyOfCurrentParm);
                 }
-            } else if (copyOfCurrentParm instanceof VSMAsciiZ | copyOfCurrentParm instanceof VSMAsciiZArray) {
-                copyOfCurrentParm.read(in, output_length);
-                output_length -= copyOfCurrentParm.paramLength();
-                replacement.add(copyOfCurrentParm);
-            } else {
-                throw new ParameterArrayReadAllException(" Unknown parameter type.");
             }
+
             // System.err.flush();
             // System.err.println("how many times? " + howmanytimes++);
-
-            /* Check that we don't read past end when we get error documents */
-            /* "- 2 * SIZEOF_INT4" because output_length doesn't count the */
-            /* immediate reply and the output_length itself */
+ 
+            /* Check that we don't read past end when we get error documents */ 
+            /* "- 2 * SIZEOF_INT4" because output_length doesn't count the */ 
+            /* immediate reply and the output_length itself */ 
             // if (output_length != -1 & output_length <= replacement.totalParameterLength() - 2 * SIZEOF_INT4) {
-            if (output_length != -1 & output_length <= 0) {
+            if (output_length != - 1 & output_length <= 0) {
                 break;
             }
-        // /* Debug */ System.err.println(" ---");
-        // /* Debug */ System.err.println("  output_length being decremented in ParameterArray.readAll() is now " + output_length);
-        // /* Debug */ System.err.println(" ---");
+            // /* Debug */ System.err.println(" ---");
+            // /* Debug */ System.err.println("  output_length being decremented in ParameterArray.readAll() is now " + output_length);
+            // /* Debug */ System.err.println(" ---");
         }
         setValue(replacement);
     }
@@ -228,7 +263,7 @@ public class ParameterArray extends Vector<VSMParm> {
     /**
      * Gen an interpretive string of params and fuc ret and reason codes.
      * @return an interpretive string of params and fuc ret and reason codes.
-     */
+     */ 
     public String prettyPrintAll() {
         StringBuffer sb = new StringBuffer();
         sb.append(prettyPrintRCAndReason());
@@ -239,10 +274,10 @@ public class ParameterArray extends Vector<VSMParm> {
     /**
      * Prettyprint to a string each param in the array.
      * @return an interpretive string containing the prettyprint of each param in the array
-     */
+     */ 
     public String prettyPrintParams() {
         StringBuffer sb = new StringBuffer();
-        Iterator<VSMParm> i = iterator();
+        Iterator <VSMParm> i = iterator();
         while (i.hasNext()) {
             sb.append(i.next().prettyPrint());
             sb.append("\n");
@@ -253,32 +288,34 @@ public class ParameterArray extends Vector<VSMParm> {
     /**
      * Examine the array for ret code and reason code and return an interpretive string.
      * @return an interpretive string for ret code and reason code
-     */
+     */ 
     public String prettyPrintRCAndReason() {
         String result = null;
         VSMParm rc = parameterNamed("return_code");
         VSMParm reason = parameterNamed("reason_code");
         if (rc == null) {
             result = "No parameter named return_code found in " + this;
-        } else if (reason == null) {
-            result = "No parameter named reason_code found in " + this;
         } else {
-            VSMInt4 rc_int4 = VSMInt4.class.cast(rc);
-            VSMInt4 reason_int4 = VSMInt4.class.cast(reason);
-            result = VsmapiRC.prettyPrint(rc_int4.getValue(), reason_int4.getValue()) + "\n";
+            if (reason == null) {
+                result = "No parameter named reason_code found in " + this;
+            } else {
+                VSMInt4 rc_int4 = VSMInt4 .class.cast(rc);
+                VSMInt4 reason_int4 = VSMInt4 .class.cast(reason);
+                result = VsmapiRC.prettyPrint(rc_int4.getValue(), reason_int4.getValue(), getFunction()) + "\n";
+            }
         }
         return result;
     }
 
     /**
      * Exception to throw if there's a Pigiron internal marshalling error in the read.
-     */
+     */ 
     public class ParameterArrayReadAllException extends VSMException {
 
         /**
          * Instance the exception with a specific message.
          * @param message the message
-         */
+         */ 
         public ParameterArrayReadAllException(String message) {
             super(message);
         }
