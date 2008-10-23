@@ -31,7 +31,9 @@
  */
 package com.softwoehr.pigiron.bizobj;
 
+import com.softwoehr.pigiron.functions.*;
 import java.util.HashMap;
+import java.util.Vector;
 
 /**
  * Singleton class with one public static method to interpret a VSMAPI Function
@@ -52,27 +54,32 @@ public class VsmapiRC {
     private static HashMap<Integer, ReturnCode> rcMap = new HashMap<Integer, ReturnCode>(50);
     private static HashMap<Integer, String> syntaxErrors = new HashMap<Integer, String>(25);
 
-
     static {
         /**
          * Static ctor populates the table of {@code ReturnCode} objects.
          */
+	Vector<ReasonCodeOverload> vrco = new Vector<ReasonCodeOverload>();
         ReturnCode rc = new ReturnCode("RC_OK", 0);
         rc.addReasonCode(new ReasonCode("Successful", "RS_NONE", 0));
-        rc.addReasonCode(new ReasonCode("Segment was created or replaced, but specified userid in memory_access_identifier could not be found to give RSTD access", "RS_NOT_FOUND", 4));
+        vrco.clear();
+	vrco.add(new ReasonCodeOverload("CPU defined, but CPU affinity suppressed", "RS_AFFINITY_SUPPRESSED", 4, ImageCPUDefine.class)); // 0/4 is overloaded
+	rc.addReasonCode(new ReasonCode("Segment was created or replaced, but specified userid in memory_access_identifier could not be found to give RSTD access", "RS_NOT_FOUND", 4, vrco));
         rc.addReasonCode(new ReasonCode("Request successful; object directory offline", "RS_OFFLINE", 8));
-        rc.addReasonCode(new ReasonCode("Request successful; NAMESAVE statement already exists in directory", "RS_NAMESAVE_EXISTS", 12));
-        rc.addReasonCode(new ReasonCode("Request successful; new list created", "RS_NEW_LIST", 12));
-        rc.addReasonCode(new ReasonCode("Image not active", "RS_NOT_ACTIVE", 12));
+        vrco.clear();
+	vrco.add(new ReasonCodeOverload("Image not active", "RS_NOT_ACTIVE", 12, ImageStatusQuery.class)); // 0/12 is overloaded
+	vrco.add(new ReasonCodeOverload("Request successful; new list created", "RS_NEW_LIST", 12, NameListAdd.class)); // 0/12 is overloaded
+        rc.addReasonCode(new ReasonCode("Request successful; NAMESAVE statement already exists in directory", "RS_NAMESAVE_EXISTS", 12, vrco));
         rc.addReasonCode(new ReasonCode("Request successful; no more entries, list destroyed", "RS_LIST_DESTROYED", 16));
-        rc.addReasonCode(new ReasonCode("Request successful; new virtual network LAN created", "RS_VMLAN_CREATED", 20));
-        rc.addReasonCode(new ReasonCode("No output; user(s) not authorized for specified segment", "RS_NOT_AUTHORIZED", 20));
+	vrco.clear();
+	vrco.add(new ReasonCodeOverload("Request successful; new virtual network LAN created", "RS_VMLAN_CREATED", 20, VirtualNetworkLANCreate.class)); // 0/20 is overloaded
+        rc.addReasonCode(new ReasonCode("No output; user(s) not authorized for specified segment", "RS_NOT_AUTHORIZED", 20, vrco));
         rc.addReasonCode(new ReasonCode("Request successful; virtual network LAN removed", "RS_VMLAN_REMOVED", 24));
-        rc.addReasonCode(new ReasonCode("No matching entries found. Return buffer is empty.", "RS_NONE_FOUND", 28));
-        rc.addReasonCode(new ReasonCode("There are no SCSI characteristics for this image.", "RS_EMPTY", 28));
-        rc.addReasonCode(new ReasonCode("Query request successful, but segment not found", "RS_SEGMENT_NOT_FOUND", 28));
-        rc.addReasonCode(new ReasonCode("Query request successful, but no data returned since no item was found matching the search criteria", "RS_NO_MATCH_ON_SEARCH", 28));
-        rc.addReasonCode(new ReasonCode("No matching entries found", "RS_NOTIFY_NOT_FOUND", 28));
+	vrco.clear();
+	vrco.add(new ReasonCodeOverload("There are no SCSI characteristics for this image.", "RS_EMPTY", 28, ImageSCSICharacteristicsQueryDM.class)); // 0/28 is very overloaded
+        vrco.add(new ReasonCodeOverload("Query request successful, but segment not found", "RS_SEGMENT_NOT_FOUND", 28, SharedMemoryQuery.class)); // 0/28 is very overloaded
+        // vrco.add(new ReasonCodeOverload("Query request successful, but no data returned since no item was found matching the search criteria", "RS_NO_MATCH_ON_SEARCH", 28, /* dead? */ )); // 0/28 is very overloaded
+        vrco.add(new ReasonCodeOverload("No matching entries found", "RS_NOTIFY_NOT_FOUND", 28, AsynchronousNotificationQueryDM.class)); // 0/28 is very overloaded
+	rc.addReasonCode(new ReasonCode("No matching entries found. Return buffer is empty.", "RS_NONE_FOUND", 28, vrco));
         rc.addReasonCode(new ReasonCode("Name was not in list", "RS_NOT_IN_LIST", 32));
         rc.addReasonCode(new ReasonCode("Name is already in list", "RS_NAME_IN_LIST", 36));
         rc.addReasonCode(new ReasonCode("Request successful; new virtual switch created", "RS_VSWITCH_CREATED", 40));
@@ -108,7 +115,6 @@ public class VsmapiRC {
                 return result;
             }
         };
-        rc.addReasonCode(new ReasonCode("Parameter value not recognized", "RS_UNRECOG", 19));
         rcMap.put(rc.getValue(), rc);
         rc = new ReturnCode("RCERR_FILE_NOT_FOUND", 28);
         rc.addReasonCode(new ReasonCode("Namelist file not found", "RS_NONE", 0));
@@ -142,11 +148,21 @@ public class VsmapiRC {
         rc = new ReturnCode("RCERR_PW_EXPIRED", 128);
         rc.addReasonCode(new ReasonCode("Authentication error; password expired", "RS_NONE", 0));
         rcMap.put(rc.getValue(), rc);
-        rc = new ReturnCode("RCERR_ESM", 188);
-        // rc.addReasonCode(new ReasonCode("Internal server error; ESM failure", "psrc2", psrc2));
+        rc = new ReturnCode("RCERR_ESM", 188) {
+
+            @Override
+            public ReasonCode getReasonCode(int reason) { // SPECIAL
+                return new ReasonCode("Internal server error; ESM failure", "Product-specific return code " + reason, reason);
+            }
+        };
         rcMap.put(rc.getValue(), rc);
-        rc = new ReturnCode("RCERR_PW_CHECK", 192);
-        //  rc.addReasonCode(new ReasonCode("Internal server error; cannot authenticate user/password", "psrc2", psrc2));
+        rc = new ReturnCode("RCERR_PW_CHECK", 192) {
+
+            @Override
+            public ReasonCode getReasonCode(int reason) { // SPECIAL
+                return new ReasonCode("Internal server error; cannot authenticate user/password", "Product-specific return code " + reason, reason);
+            }
+        };
         rcMap.put(rc.getValue(), rc);
         rc = new ReturnCode("RCERR_IMAGEOP", 200);
         rc.addReasonCode(new ReasonCode("Image operation error", "RS_NONE", 0));
@@ -157,8 +173,9 @@ public class VsmapiRC {
         rc.addReasonCode(new ReasonCode("List not found", "RS_LIST_NOT_FOUND", 24));
         rc.addReasonCode(new ReasonCode("Some images in list not activated", "RS_NOT_ALL", 28));
         rc.addReasonCode(new ReasonCode("Some images in list not deactivated", "RS_SOME_NOT_DEACT", 32));
-        rc.addReasonCode(new ReasonCode("Some images in list not recycled", "RS_SOME_NOT_RECYC", 36));
-        rc.addReasonCode(new ReasonCode("Specified time results in interval greater than max allowed", "RS_TIME_NOT_VALID", 36));
+	vrco.clear();
+	vrco.add(new ReasonCodeOverload("Some images in list not recycled", "RS_SOME_NOT_RECYC", 36, ImageRecycle.class)); // 200/36 is overloaded
+        rc.addReasonCode(new ReasonCode("Specified time results in interval greater than max allowed", "RS_TIME_NOT_VALID", 36, vrco));
         rcMap.put(rc.getValue(), rc);
         rc = new ReturnCode("RCERR_IMAGEDEVU ", 204);
         rc.addReasonCode(new ReasonCode("Image device usage error", "RS_NONE", 0));
@@ -190,8 +207,9 @@ public class VsmapiRC {
         rc = new ReturnCode("RCERR_IMAGECONN", 212);
         rc.addReasonCode(new ReasonCode("Active image connectivity error", "RS_NONE", 0));
         rc.addReasonCode(new ReasonCode("Partner image not found", "RS_NO_PARTNER", 4));
-        rc.addReasonCode(new ReasonCode("Image not authorized to connect", "RS_AUTHERR_CONNECT", 8));
-        rc.addReasonCode(new ReasonCode("Adapter does not exist", "RS_ADAPTER_NOT_EXIST", 8));
+        vrco.clear();
+	vrco.add(new ReasonCodeOverload("Adapter does not exist", "RS_ADAPTER_NOT_EXIST", 8, VirtualNetworkAdapterQuery.class)); // 212/8 is overloaded
+        rc.addReasonCode(new ReasonCode("Image not authorized to connect", "RS_AUTHERR_CONNECT", 8, vrco));
         rc.addReasonCode(new ReasonCode("LAN does not exist", "RS_LAN_NOT_EXIST", 12));
         rc.addReasonCode(new ReasonCode("LAN owner LAN name does not exist", "RS_NOT_EXIST", 16));
         rc.addReasonCode(new ReasonCode("Requested LAN owner not active", "RS_OWNER_NOT_ACTIVE", 20));
@@ -267,8 +285,9 @@ public class VsmapiRC {
         rc.addReasonCode(new ReasonCode("Image device already defined", "RS_EXISTS", 4));
         rc.addReasonCode(new ReasonCode("Image device not defined", "RS_NOT_DEFINED", 8));
         rc.addReasonCode(new ReasonCode("Image device is locked", "RS_LOCKED", 12));
-        rc.addReasonCode(new ReasonCode("Image device type not same as source", "RS_TYPE_NOT_SAME", 24));
-        rc.addReasonCode(new ReasonCode("Image device is not locked", "RS_NOT_LOCKED", 24));
+        vrco.clear();
+	vrco.add(new ReasonCodeOverload("Image device type not same as source", "RS_TYPE_NOT_SAME", 24, ImageDiskCopyDM.class)); // 404/24 is overloaded
+        rc.addReasonCode(new ReasonCode("Image device is not locked", "RS_NOT_LOCKED", 24, vrco));
         rc.addReasonCode(new ReasonCode("Image device size not same as source", "RS_SIZE_NOT_SAME", 28));
         rcMap.put(rc.getValue(), rc);
         rc = new ReturnCode("RCERR_IMAGEDISKD", 408);
@@ -484,7 +503,7 @@ public class VsmapiRC {
      * @param reason reason code from VSMAPI func
      * @return a multiline string interpreting return code and reason code
      */
-    public static String prettyPrint(int rc, int reason) {
+    public static String prettyPrint(int rc, int reason, VSMCall function) {
         String result = null;
         StringBuffer sb = new StringBuffer();
         ReturnCode returnCode = VsmapiRC.returnCode(rc);
@@ -494,15 +513,15 @@ public class VsmapiRC {
         sb.append(" : ");
         sb.append(returnCode.getName());
         sb.append("\nReason code is: ");
-        sb.append(reasonCode.getValue());
+        sb.append(reasonCode.getValue(function));
         sb.append(" : ");
-        sb.append(reasonCode.getName());
+        sb.append(reasonCode.getName(function));
         sb.append(" : ");
         if (reasonCode instanceof ReasonCodeRC24) {
             sb.append("Parameter number " + ReasonCodeRC24.class.cast(reasonCode).getParamNumber());
             sb.append(" : ");
         }
-        sb.append(reasonCode.getMessage());
+        sb.append(reasonCode.getMessage(function));
         result = sb.toString();
         return result;
     }
@@ -519,7 +538,7 @@ public class VsmapiRC {
         }
         return result;
     }
-
+    
     /**
      * Demonstrate Return Code and Reason Code explanation
      * @param argv return_code reason_code
@@ -531,6 +550,6 @@ public class VsmapiRC {
         }
         int rc = Integer.parseInt(argv[0]);
         int reason = Integer.parseInt(argv[1]);
-        System.out.println(VsmapiRC.prettyPrint(rc, reason));
+        System.out.println(VsmapiRC.prettyPrint(rc, reason, null));
     }
 }
