@@ -35,13 +35,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * 
- * @author jax ArgumentArray
+ * Represents an argument to a VSMAPI function
+ * @author jax
  */
 public class Argument extends JSONObject {
 
     /**
-     *
+     * Create with the formal name of the argument and the value
      * @param formalName
      * @param value
      * @throws org.json.JSONException
