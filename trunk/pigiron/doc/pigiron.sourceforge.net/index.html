@@ -13,7 +13,7 @@
   "PigIron open source class library supporting IBM z/VM mainframe remote administration via VM SMAPI"
   name="description">
   <meta http-equiv="Last-Modified" content=
-  "Mon, 20 Oct 2008 04:44:53 UTC">
+  "Fri, 24 Oct 2008 00:04:22 UTC">
 </head>
 
 <body>
@@ -25,22 +25,21 @@
   J. Woehr jwoehr@softwoehr.com PO Box 51, Golden, Colorado
   80402-0051 USA All rights reserved.</tt><br>
 
-  <p>PigIron is an open source Java class library which:</p>
+  <h2>PigIron</h2>
 
-  <ul>
-    <li>provides Java class wrappers for the IBM &reg; z/VM &reg;
-    Virtual Machine Operating System's <a href=
-    "http://publib.boulder.ibm.com/infocenter/zvm/v5r4/topic/com.ibm.zvm.v54.dmse6/hcsl8b30.htm">
-      Systems Management Application Programming Interface</a>
+  <p>PigIron is an open source Java class library which provides
+  Java class wrappers for the IBM &reg; z/VM &reg; Virtual Machine
+  Operating System's Systems Management Application Programming
+  Interface (called VSMAPI in PigIron documentation). PigIron
+  supports all 99 <a href=
+  "http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm">
+  VSMAPI for z/VM V5R3</a> functions and the 15 additional <a href=
+  "http://publib.boulder.ibm.com/infocenter/zvm/v5r4/topic/com.ibm.zvm.v54.dmse6/hcsl8b30.htm">
+  VSMAPI for z/VM V5R4</a> functions. PigIron is <a href=
+  "about_piggen.html">extensible</a> by the expert z/VM host-side
+  VSMAPI Rexx coder without deep knowledge of Java.</p>
 
-      <ul>
-        <li>(called VSMAPI in PigIron documentation)</li>
-      </ul>
-    </li>
-
-    <li>is extensible by the end user without deep knowledge of
-    Java</li>
-  </ul>Additional Features:<br>
+  <h2>Additional Features</h2>
 
   <ul>
     <li><a href="about_piggen.html">PigGen</a> autogenerates VSMAPI
@@ -53,38 +52,38 @@
     on top of <a href="http://sourceforge.net/projects/oorexx">Open
     ObjectRexx</a> to run the PigIron Java classes.</li>
 
-    <li>Incomplete scripting interface using <a href=
+    <li>Developing scripting interface using <a href=
     "http://fiji.sourceforge.net/">FIJI ForthIsh Java
-    Interpreter</a></li>
+    Interpreter</a>.</li>
 
     <li><a href="about_piglet.html">PigLet</a> the PigIron Servlet
     when completed will provide VSMAPI functionality as JSON data
     stream for Web applications.</li>
   </ul>
 
-  <p>Current development state: Alpha<br></p>
+  <h2>Current development state<br></h2>
 
   <ul>
-    <li>Code in tree supports all 99 <a href=
-    "http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm">
-      VSMAPI for z/VM V5R3</a> functions and the 15 additional
-      <a href=
-      "http://publib.boulder.ibm.com/infocenter/zvm/v5r4/topic/com.ibm.zvm.v54.dmse6/hcsl8b30.htm">
-      VSMAPI for z/VM V5R4</a> functions.
+    <li>"Almost beta" alpha-level
 
       <ul>
-        <li><span style="font-style: italic;">Not Fully
-        Tested</span></li>
+        <li><span style="font-style: italic;">Incomplete test case
+        coverage<br></span></li>
+      </ul>
 
-        <li>To the extent that we have tested, we have tested on
+      <ul>
+        <li>To the extent that we have tested, PigIron is working
+        fine. We have tested running Java 5 and 6 on the following
+        platforms:
 
           <ul>
             <li>OpenBSD</li>
 
             <li>OpenSolaris x86</li>
 
-            <li>Linux s390x<span style=
-            "font-style: italic;"><br></span></li>
+            <li>Linux s390x</li>
+
+            <li>Windows<br></li>
           </ul>
         </li>
       </ul>
