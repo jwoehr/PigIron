@@ -12,7 +12,7 @@ dnl
 pigfunc_constant(`public', `int', `SYNCHECK_AND_UPDATE', `0', `both  a syntax check and configuration update')dnl
 pigfunc_constant(`public', `int', `SYNCHECK_SYNTAX_ONLY', `1', `only a syntax check of the configuration is done')dnl
 pigfunc_attribute(`private', `', `String', member_name(`configuration_file_name'),   `""', `', `The name of the configuration file.')dnl
-pigfunc_attribute(`private', `', `String', member_name(`configuration_file_type'),   `""', `', `The name of the configuration file.')dnl
+pigfunc_attribute(`private', `', `String', member_name(`configuration_file_type'),   `""', `', `The type of the configuration file.')dnl
 pigfunc_attribute(`private', `', `String', member_name(`configuration_dir_name'),   `""', `', `The fully-qualified Shared File System (SFS) directory name where the configuration file is located.')dnl
 pigfunc_ctors(`String', `configuration_file_name', member_name(`configuration_file_name'),
 `String', `configuration_file_type', member_name(`configuration_file_type'),
