@@ -72,7 +72,8 @@ then
     	echo "$TARGDIR" 'is not a fully qualified path (must start with ''/'').'
 	exit 2
     fi
-    echo -n > ${OUTFILE} # clear the output file
+    cat pigiron_copyright_fijicomment.txt > ${OUTFILE} # clear the output file
+
     cd $PARMFILE_SRCDIR
     for i in *.m4
     do
