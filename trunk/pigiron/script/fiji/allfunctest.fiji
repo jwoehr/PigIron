@@ -29,3 +29,51 @@ allfunctest.defaults.fiji load
 \ Now load FIJI support for PigIron \
 pigiron_support.fiji load
 
+\ You will have to fill these in on your own \
+value my.host
+value my.port
+value my.userid
+value my.password
+value my.target
+
+\ utils \
+
+: announce \ functorName -- \ " Testing" . . cr ;
+: doandprint \ args functor -- \ doIt ( ) prettyPrintAll ( ) . cr ;
+: explain_skip \ StringValueName StringTestorName -- \ . " not run because " . . " was not set." . cr ;
+
+\ tests \
+
+: testing_CheckAuthentication \ -- \
+  " CheckAuthentication" announce
+   my.host my.port my.userid my.password my.target CheckAuthentication doandprint
+;
+
+: testing_QueryAPIFunctionalLevel \ -- \
+   " QueryAPIFunctionalLevel" announce
+    my.host my.port my.userid my.password my.target QueryAPIFunctionalLevel doandprint
+;
+
+: testing_ImageActivate \ -- \
+   " ImageActivate" announce
+   imageactivate.targetid null <>
+   if my.host my.port my.userid my.password imageactivate.targetid ImageActivate doandprint
+   else ' my.custom.imageactivate.targetid ' testing_ImageActivate explain_skip
+   then
+;
+
+: testing_ImageDeactivate \ -- \
+   " ImageActivate announce"
+   imageactivate.targetid null <>
+   if my.host my.port my.userid my.password imageactivate.targetid imagedeactivate.forcetime ImageDeactivate doandprint
+   else ' my.custom.imageactivate.targetid ' testing_ImageActivate explain_skip
+   then
+;
+
+\ whole shebang \
+: test-all \ -- \
+   testing_CheckAuthentication
+   testing_QueryAPIFunctionalLevel
+   testing_ImageActivate
+   testing_ImageDeactivate
+;
