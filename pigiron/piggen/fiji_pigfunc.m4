@@ -106,9 +106,9 @@ pop_divert()dnl
 \\ pigfunc_constant(`accessor', `type', `name', `initial_value', `comment')
 define(`pigfunc_constant',`dnl
 push_divert(constant_stream)dnl
-    \ (java $2) param_entity_name().$3 $5 \
-    value param_entity_name().$3
-    $4 to param_entity_name().$3
+    \ (java $2) function_classname().$3 $5 \
+    value function_classname().$3
+    $4 to function_classname().$3
 pop_divert()dnl
 ')
 
