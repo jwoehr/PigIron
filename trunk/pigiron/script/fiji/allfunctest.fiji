@@ -1,0 +1,31 @@
+\ allfunctest.fiji \
+\ Test the PigIron Project http://pigiron.sourceforge.net \
+\ Declare values that will be used as parameters in making VSMAPI functions \
+value directorymanagersearchdm.searchpattern
+value imageactivate.targetid
+value imagedeactivate.targetid
+value imagedeactivate.forcetime
+value imagedeletedm.imagetodelete
+value sharedmemoryaccessquerydm.memorysegmentname
+value imagecreatedm.imagenametocreate
+value imagecreatedm.prototypename
+value imagecreatedm.intialpassword
+value imagecreatedm.accountnumber
+value imagecreatedm.noprototype.imagenametocreate
+value imagecreatedm.noprototype.prototypename
+value imagecreatedm.noprototype.intialpassword
+value imagecreatedm.noprototype.accountnumber
+value imagecreatedm.noprototype.alltheotherargs
+value prototypequerydm.prototypetoquery
+value virtualnetworklanaccessquery.lanowner
+value virtualnetworklanaccessquery.lanname
+value virtualnetworklanquery.lanowner
+value virtualnetworklanquery.lanname
+value virtualnetworkvswitchquery.switchname
+
+\ Now load the defaults file containing assignments to the values \
+allfunctest.defaults.fiji load
+
+\ Now load FIJI support for PigIron \
+pigiron_support.fiji load
+
