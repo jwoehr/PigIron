@@ -63,7 +63,7 @@ value my.target
 ;
 
 : testing_ImageDeactivate \ -- \
-   " ImageActivate announce"
+   " ImageDeactivate" announce
    imageactivate.targetid null <>
    if my.host my.port my.userid my.password imageactivate.targetid imagedeactivate.forcetime ImageDeactivate doandprint
    else ' my.custom.imageactivate.targetid ' testing_ImageActivate explain_skip
