@@ -1,21 +1,21 @@
-IPL to directorymanagersearchdm.searchpattern
-BBBB to imageactivate.targetid
-BBBB to imagedeactivate.targetid
-WITHIN_20 to imagedeactivate.forcetime
-BBBB to imagedeletedm.imagetodelete
-CMSPIPES to sharedmemoryaccessquerydm.memorysegmentname
-"BBBB" to imagecreatedm.imagenametocreate
-"CMS" to imagecreatedm.prototypename
-"FARQUHAR" to imagecreatedm.intialpassword
-"123456" to imagecreatedm.accountnumber
-"CCCC" to imagecreatedm.noprototype.imagenametocreate
-"\" to imagecreatedm.noprototype.prototypename
-"\" to imagecreatedm.noprototype.intialpassword
-"\" to imagecreatedm.noprototype.accountnumber
-USER_CCCC_FARQUHAR_32M_512M_G to imagecreatedm.noprototype.alltheotherargs
-'*' to prototypequerydm.prototypetoquery
-MYLANOWN to virtualnetworklanaccessquery.lanowner
-MYLAN to virtualnetworklanaccessquery.lanname
-MYLANOWN to virtualnetworklanquery.lanowner
-MYLAN to virtualnetworklanquery.lanname
-MYSWITCH to virtualnetworkvswitchquery.switchname
+" IPL" to directorymanagersearchdm.searchpattern
+" BBBB" to imageactivate.targetid
+" BBBB" to imagedeactivate.targetid
+" WITHIN 20" to imagedeactivate.forcetime
+" BBBB" to imagedeletedm.imagetodelete
+" CMSPIPES" to sharedmemoryaccessquerydm.memorysegmentname
+" BBBB" to imagecreatedm.imagenametocreate
+" CMS" to imagecreatedm.prototypename
+" FARQUHAR" to imagecreatedm.intialpassword
+" 123456" to imagecreatedm.accountnumber
+" CCCC" to imagecreatedm.noprototype.imagenametocreate
+" \" to imagecreatedm.noprototype.prototypename
+" \" to imagecreatedm.noprototype.intialpassword
+" \" to imagecreatedm.noprototype.accountnumber
+" USER CCCC FARQUHAR 32M 512M G" to imagecreatedm.noprototype.alltheotherargs
+' *' to prototypequerydm.prototypetoquery
+" MYLANOWN" to virtualnetworklanaccessquery.lanowner
+" MYLAN" to virtualnetworklanaccessquery.lanname
+" MYLANOWN" to virtualnetworklanquery.lanowner
+" MYLAN" to virtualnetworklanquery.lanname
+" MYSWITCH" to virtualnetworkvswitchquery.switchname
