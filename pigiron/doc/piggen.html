@@ -40,7 +40,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii">
   <meta http-equiv="Last-Modified" content=
-  "Wed, 24 Sep 2008 19:42:43 UTC">
+  "Fri, 31 Oct 2008 06:46:17 UTC">
 </head>
 
 <body>
@@ -63,7 +63,18 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <h2>Contents</h2>
 
   <ul>
-    <li><a href="#Overview">Overview</a></li>
+    <li>
+      <a href="#Overview">Overview of PigIron's PigGen</a>
+
+      <ul>
+        <li><a href="#You_have_two_principal_uses_for_PigGen">You
+        have two principal uses for PigGen</a></li>
+
+        <li><a href="#PigGen_also_generates_FIJI_source_to">PigGen
+        also generates FIJI source to simplify scripting PigIron
+        via FIJI</a></li>
+      </ul>
+    </li>
 
     <li>
       <a href="#Disclaimers">Disclaimers</a>
@@ -101,12 +112,15 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <h2><a name="Overview" id="Overview">Overview of PigIron's
   PigGen</a></h2>
 
-  <p>PigGen autogenerates Java source code to embody <a href=
-  "index.html">PigIron</a>-specific VSMAPI parameter structures and
-  arrays and VSMAPI function calls for either native VSMAPI
-  functions or for your own custom VSMAPI host-side functions.</p>
+  <p>PigGen read description files and generates Java source code
+  to embody <a href="index.html">PigIron</a>-specific VSMAPI
+  parameter structures and arrays and VSMAPI function calls for
+  either native VSMAPI functions or for your own custom VSMAPI
+  host-side functions.</p>
 
-  <p>You have two uses for PigGen:</p>
+  <h3><a name="You_have_two_principal_uses_for_PigGen" id=
+  "You_have_two_principal_uses_for_PigGen"></a>You have two
+  principal uses for PigGen</h3>
 
   <ol>
     <li>You can extend PigIron as IBM adds new VSMAPI Functions
@@ -118,6 +132,17 @@ THE POSSIBILITY OF SUCH DAMAGE.
     custom-coded host-side extensions to VSMAPI (since VSMAPI
     supports custom extension coding).</li>
   </ol>
+
+  <h3><a name="PigGen_also_generates_FIJI_source_to" id=
+  "PigGen_also_generates_FIJI_source_to"></a>PigGen also generates
+  FIJI source to simplify scripting PigIron via FIJI</h3><a href=
+  "http://fiji.sourceforge.net/">FIJI the ForthIsh Java
+  Interpreter</a> can be used to drive or test PigIron. The same
+  description files used to generate PigIron's own Java source code
+  embodying VSMAPI function parameters, structures and functions
+  can be interpreted by PigGen to produce FIJI source to make it
+  easier to employ PigIron in a FIJI program, such as some of the
+  test code accompanying PigIron.<br>
 
   <h2><a name="Disclaimers" id="Disclaimers">Disclaimers</a></h2>
 
@@ -173,17 +198,20 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
   <div style="margin-left: 40px;">
     <h3>Interesting Conversational Snippet on the Why of
-    PigGen</h3>(10:08:15) Dave Jones: looking at class
-    VSMCall....this is beginning to make sense..<br>
-    (10:09:46) Uncle Jax: Right, that's the base from which all
-    funct calls are extended. Class commonality. But DESIGN PATTERN
-    COMMONALITY e.g., each VSMAPI FUnction class layout of
-    composeInput() and composeOutput() is not subject to
-    inheritance factoring .. the commonality is more easily
-    expressed in m4 macros.<br>
-    (10:10:03) Dave Jones: OK<br>
-    (10:10:18) Uncle Jax: Makes up for Java not having templates
-    like C++ does.
+    PigGen</h3><span style="font-family: monospace;">(10:08:15)
+    Dave Jones: looking at class VSMCall....this is beginning to
+    make sense..</span><br style="font-family: monospace;">
+    <span style="font-family: monospace;">(10:09:46) Uncle Jax:
+    Right, that's the base from which all funct calls are extended.
+    Class commonality. But DESIGN PATTERN COMMONALITY e.g., each
+    VSMAPI FUnction class layout of composeInput() and
+    composeOutput() is not subject to inheritance factoring .. the
+    commonality is more easily expressed in m4
+    macros.</span><br style="font-family: monospace;">
+    <span style="font-family: monospace;">(10:10:03) Dave Jones:
+    OK</span><br style="font-family: monospace;">
+    <span style="font-family: monospace;">(10:10:18) Uncle Jax:
+    Makes up for Java not having templates like C++ does.</span>
   </div>
 
   <h3><a name="How_PigGen_Works" id="How_PigGen_Works">How PigGen
@@ -197,30 +225,69 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <p>PigGen is implemented in a few macro files:</p>
 
   <ul>
-    <li><tt>/pigiron/piggen/pigsty.m4 ... common macros shared by
-    other macro files</tt></li>
+    <li><tt>/pigiron/piggen/pigsty.m4</tt> ... common macros shared
+    by other macro files</li>
 
-    <li><tt>/pigiron/piggenpigstruct.m4 ... macros to define
-    parameter structures</tt></li>
+    <li><tt>/pigiron/piggen/pigstruct.m4</tt> ... macros to define
+    parameter structures</li>
 
-    <li><tt>/pigiron/piggenpigarray.m4 ... macros to define arrays
-    of parameter structures</tt></li>
+    <li><tt>/pigiron/piggen/pigarray.m4</tt> ... macros to define
+    arrays of parameter structures</li>
 
-    <li><tt>/pigiron/piggenpigfunc.m4 ... macros to define
-    functions</tt></li>
-  </ul>There are also a few additional files such as shell scripts
-  which support the process of generating these macros.
+    <li><tt>/pigiron/piggen/pigfunc.m4</tt> ... macros to define
+    functions</li>
+  </ul>There are also a few shell scripts which invoke m4 and carry
+  out the workflow for applying these macros to description
+  files:<br>
+
+  <ul>
+    <li><span style="font-family: monospace;">gen-all.sh</span> ...
+    generate from all the description files in a directory<br></li>
+
+    <li><span style="font-family: monospace;">piggen.sh</span> ...
+    generate from one description file<br></li>
+  </ul>In the case of autogeneration of <a href=
+  "#PigGen_also_generates_FIJI_source_to">FIJI helper code</a> for
+  running or testing PigIron's Java classes, there are files
+  parallel to those used for Java generation:<br>
+
+  <ul>
+    <li><tt>/pigiron/piggen/pigsty.m4</tt> ... FIJI autogeneration
+    also uses these common macros</li>
+
+    <li><tt>/pigiron/piggen/fiji_pigstruct.m4</tt> ... macros to
+    define parameter structures</li>
+
+    <li><tt>/pigiron/piggen/fiji_pigarray.m4</tt> ... macros to
+    define arrays of parameter structures</li>
+
+    <li><tt>/pigiron/piggen/fiji_pigfunc.m4</tt> ... macros to
+    define functions</li>
+
+    <li>
+      <span style="font-family: monospace;">gen-fiji.sh</span> ...
+      shell script to process two directories, one for function
+      files, one for parameter files, into one massive FIJI source
+      file.
+
+      <ul>
+        <li>This turned out to be the easiest way to do
+        testing!<br></li>
+      </ul>
+    </li>
+  </ul>
 
   <h3><a name="Invocation" id="Invocation">Invocation</a></h3>
 
-  <p>PigGen runs from its own directory, <tt>/pigiron/piggen/</tt>
-  and compiles <a href="#Description_Files">description files</a>
-  written in PigGen macros into Java source code.</p>
+  <p>PigGen as run by the shell files provided runs from its own
+  directory, <tt>/pigiron/piggen/</tt> and compiles <a href=
+  "#Description_Files">description files</a> written in PigGen
+  macros into Java source code.</p>
 
   <h4>Compiling one file</h4>
 
-  <blockquote>
-    <tt>cd</tt> <i>piggen_dir</i> <tt>; ./piggen.sh</tt>
+  <blockquote style="font-family: monospace;">
+    cd <i>piggen_dir</i> ; ./piggen.sh
     <i>macroized_description_file output_directory</i>
   </blockquote>E.g, assuming you have unpacked the archive
   <tt>pigiron-</tt><i>release_num</i><tt>.zip</tt> into
@@ -354,28 +421,11 @@ THE POSSIBILITY OF SUCH DAMAGE.
     </li>
 
     <li>Names used for members and functions should always be of
-    one of the form:
-
-      <ul>
-        <li><tt>lcase_lcase</tt></li>
-
-        <li><tt>lcase_lcase_lcase</tt></li>
-
-        <li><tt>lcase_lcase_lcase_lcase</tt></li>
-      </ul>
-    </li>
-
-    <li>PigGen can javaize these forms into either member name
-    format (<tt>lcaseUlcaseUlcase</tt> ... etc.) or class name
-    format (<tt>UlcaseUlcaseUlcase</tt> ... etc.) as appropriate if
-    you use the javaize macro, or PigGen will use them in the form,
-    for example, <span style=
-    "font-family: monospace;">set_some_attribute()</span>
-    .<br></li>
+    one of the form <tt>lcase_lcase[[_lcase] ..]</tt> .</li>
 
     <li>When you name a structure type or array type in describing
-    a new structure type, you always name it in class name format
-    (initial capital).</li><!-- li></li>
+    a new structure type, you always name it in conventional class
+    name format (initial capital).</li><!-- li></li>
       <li></li>
       <li></li>
       <li></li -->
@@ -438,7 +488,9 @@ THE POSSIBILITY OF SUCH DAMAGE.
         <td><tt><a name="macroref.pigsty.param_namespace_end" id=
         "macroref.pigsty.param_namespace_end"></a>param_namespace_end()</tt></td>
 
-        <td><br></td>
+        <td>Closes a namespace. This is useful if you generate from
+        multiple description files concatenated together as is done
+        in autogenerating FIJI source.<br></td>
 
         <td><br></td>
       </tr>
@@ -481,6 +533,52 @@ THE POSSIBILITY OF SUCH DAMAGE.
         <td><br></td>
 
         <td><br></td>
+      </tr>
+
+      <tr>
+        <td style="vertical-align: top;"><span style=
+        "font-family: monospace;"><a name=
+        "member_nametype_formal_name" id=
+        "member_nametype_formal_name"></a>member_name(`type_formal_name')</span><br>
+        </td>
+
+        <td style="vertical-align: top;">Converts a formal name of
+        a VSMAPI type used as an attribute of some VSMAPI entity
+        into the sort of Java-style (Camelized) notation used in
+        PigIron.<br></td>
+
+        <td style="vertical-align: top;"><br></td>
+      </tr>
+
+      <tr>
+        <td style="vertical-align: top;"><a style=
+        "font-family: monospace;" name=
+        "member_gettermember_formal_name" id=
+        "member_gettermember_formal_name"></a><span style=
+        "font-family: monospace;">member_getter(`member_formal_name')</span><br>
+        </td>
+
+        <td style="vertical-align: top;">Generates the name of Java
+        getter function for a VSMAPI type used as an attribute of
+        some VSMAPI entity. Used to generate the name for
+        declaration and for execution.<br></td>
+
+        <td style="vertical-align: top;"><br></td>
+      </tr>
+
+      <tr>
+        <td style="vertical-align: top;"><span style=
+        "font-family: monospace;"><a name=
+        "member_settermember_formal_name" id=
+        "member_settermember_formal_name"></a>member_setter(`member_formal_name')</span><br>
+        </td>
+
+        <td style="vertical-align: top;">Generates the name of Java
+        setter function for a VSMAPI type used as an attribute of
+        some VSMAPI entity. Used to generate the name for
+        declaration and for execution.</td>
+
+        <td style="vertical-align: top;"><br></td>
       </tr>
     </tbody>
   </table>
@@ -786,7 +884,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
         <td><br></td>
       </tr>
     </tbody>
-  </table>
+  </table><br>
+  <hr>
 
   <h2><a name="Bugs" id="Bugs"></a>Bugs</h2>There are a number of
   instances in which PigGen performs less than ideally. All are
