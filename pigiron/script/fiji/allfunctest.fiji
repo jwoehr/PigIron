@@ -70,10 +70,84 @@ value my.target
    then
 ;
 
+: testing_ImageActiveConfigurationQuery  " ImageActiveConfigurationQuery" announce
+my.host my.port my.userid my.password my.target ImageActiveConfigurationQuery doandprint ;
+
+: testing_ImageCPUQuery " ImageCPUQuery" announce
+ my.host my.port my.userid my.password my.target ImageCPUQuery doandprint ;
+
+: testing_ImageQueryActivateTime_1 " ImageQueryActivateTime" announce
+ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORMAT_INDICATOR_MMDDYY ImageQueryActivateTime doandprint ;
+: testing_ImageQueryActivateTime_2  " ImageQueryActivateTime" announce
+my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORMAT_INDICATOR_MMDDYYYY ImageQueryActivateTime doandprint ;
+: testing_ImageQueryActivateTime_3  " ImageQueryActivateTime" announce
+my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORMAT_INDICATOR_YYMMDD ImageQueryActivateTime doandprint ;
+: testing_ImageQueryActivateTime_4 " ImageQueryActivateTime" announce
+ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORMAT_INDICATOR_YYYYMMDD ImageQueryActivateTime doandprint ;
+: testing_ImageQueryActivateTime_5 " ImageQueryActivateTime" announce
+ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORMAT_INDICATOR_DDMMYY ImageQueryActivateTime doandprint ;
+: testing_ImageQueryActivateTime_6 " ImageQueryActivateTime" announce
+ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORMAT_INDICATOR_DDMMYYYY ImageQueryActivateTime doandprint ;
+
+: testing_ImageQueryDM " ImageQueryDM" announce
+ my.host my.port my.userid my.password my.target ImageQueryDM doandprint ;
+: testing_ImageStatusQuery_1 " ImageStatusQuery" announce
+ my.host my.port my.userid my.password my.target ImageStatusQuery doandprint ;
+: testing_ImageStatusQuery_2 " ImageStatusQuery" announce
+ my.host my.port my.userid my.password " *" ImageStatusQuery doandprint ;
+
+: testing_ImageIPLQueryDM
+    " ImageIPLQueryDM" announce  my.host my.port my.userid my.password my.target ImageIPLQueryDM doandprint ;
+: testing_ImageNameQueryDM
+    " ImageNameQueryDM" announce  my.host my.port my.userid my.password my.target ImageNameQueryDM doandprint ;
+: testing_NameListQuery
+    " NameListQuery" announce  my.host my.port my.userid my.password
+    " *" NameListQuery doandprint ;
+: testing_ProfileQueryDM
+    " ProfileQueryDM" announce  my.host my.port my.userid my.password my.target ProfileQueryDM doandprint ;
+
+: testing_PrototypeNameQueryDM
+    " PrototypeNameQueryDM" announce  my.host my.port my.userid my.password my.target PrototypeNameQueryDM doandprint ;
+
+: testing_QueryDirectoryManagerLevelDM
+    " QueryDirectoryManagerLevelDM" announce  my.host my.port my.userid my.password my.target QueryDirectoryManagerLevelDM doandprint ;
+: testing_SharedMemoryQuery_1
+    " SharedMemoryQuery" announce  my.host my.port my.userid my.password my.target " *" SharedMemoryQuery doandprint ;
+: testing_SharedMemoryQuery_2
+    " SharedMemoryQuery" announce  my.host my.port my.userid my.password my.target " CMSPIPES" SharedMemoryQuery doandprint ;
+: testing_VMRMMeasurementQuery
+    " VMRMMeasurementQuery" announce  my.host my.port my.userid my.password my.target VMRMMeasurementQuery doandprint ;
+: testing_VirtualNetworkAdapterQuery
+    " VirtualNetworkAdapterQuery" announce  my.host my.port my.userid my.password my.target " *" VirtualNetworkAdapterQuery doandprint ;
+
+
+
 \ whole shebang \
 : test-all \ -- \
-   testing_CheckAuthentication
-   testing_QueryAPIFunctionalLevel
-   testing_ImageActivate
-   testing_ImageDeactivate
+    testing_CheckAuthentication
+    testing_QueryAPIFunctionalLevel
+    testing_ImageActivate
+    testing_ImageDeactivate
+    testing_ImageActiveConfigurationQuery
+    testing_ImageCPUQuery
+    testing_ImageQueryActivateTime_1
+    testing_ImageQueryActivateTime_2
+    testing_ImageQueryActivateTime_3
+    testing_ImageQueryActivateTime_4
+    testing_ImageQueryActivateTime_5
+    testing_ImageQueryActivateTime_6
+    testing_ImageQueryDM
+    testing_ImageStatusQuery_1
+    testing_ImageStatusQuery_2
+    testing_ImageIPLQueryDM
+    testing_ImageNameQueryDM
+    testing_NameListQuery
+    testing_ProfileQueryDM
+    testing_PrototypeNameQueryDM
+    testing_QueryDirectoryManagerLevelDM
+    testing_SharedMemoryQuery_1
+    testing_SharedMemoryQuery_2
+    testing_VMRMMeasurementQuery
+    testing_VirtualNetworkAdapterQuery
 ;
+     
