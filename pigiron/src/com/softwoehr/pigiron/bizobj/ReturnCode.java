@@ -93,6 +93,7 @@ public class ReturnCode {
     /**
      * Return a {@code ReasonCode} associated with {@code ReturnCode}.
      * If not found, return a special reason from PigIron
+     * @param reason the numerical reason code
      * @return the interpretive object representing the Reason Code
      */ 
     public ReasonCode getReasonCode(int reason) {
@@ -105,6 +106,20 @@ public class ReturnCode {
         return result;
     }
 
+    /**
+     * Return a {@code ReasonCode} associated with {@code ReturnCode}.
+     * If not found, return a special reason from PigIron. This form
+     * returns the same as {@code getReasonCode(int reason)} until
+     * overloaded in the slots for the ambiguous VSMAPI retcode.
+     * @param reason the numerical reason code
+     * @param function the VSMCall whose retcode/reascode this is since some
+     * are extremely function-specific, e.g., {@code ImageDeactivate RetC 0 ReasC} <i>numseconds</i>
+     * @return the interpretive object representing the Reason Code
+     */ 
+    public ReasonCode getReasonCode(int reason, VSMCall function) {
+        return getReasonCode(reason);
+    }
+    
     /**
      * Get the name of the Return Code, e.g, {@code RS_NONE}
      * @return the name of the Return Code, e.g, {@code RS_NONE}

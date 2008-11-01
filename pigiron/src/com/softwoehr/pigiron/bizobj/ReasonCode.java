@@ -121,6 +121,8 @@ public class ReasonCode {
 
     /**
      * Return numeric value of the reason code
+     * @param function the calling function in order to disambiguate any
+     * overloaded return/reason pairs - {@code null} means return the default.
      * @return numeric value of the reason code
      */ 
     public int getValue(VSMCall function) {
