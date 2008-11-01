@@ -38,15 +38,24 @@ import java.util.Vector;
 /**
  * Singleton class with one public static method to interpret a VSMAPI Function
  * return code and reason code. {@code VsmapiRC} returns a {@code ReturnCode}
- * which then can be queried about the {@code ReasonCode}.
+ * which then can be queried about the {@code ReasonCode} using the ReasonCode
+ * as an index into a sparse vector associated with the return code.
  *
- * Note: This implementation is not entirely satisfactory. Some Return Code /
- * Result Code pairs are overloaded in the specification (which seems otherwise
- * orthogonal) and are effectively context-sensitive.
+ * However, some Return Code / Result Code pairs are overloaded in the
+ * specification to be context-sensitive for the calling VSMAPI function. Thus
+ * there is an ReasonCodeOverload class and a sparse vector of these associated
+ * with certain resason codes instancings for certain return codes.
  *
- * For example, for {@code ImageDeactivate}, a Return Code 0
- * with a non-zero Result Code, the Result Code means the number of seconds
- * within which the Image is deactivated.
+ * Then Yet Again there is one more wrinkle, the return code whose reason codes
+ * in some instances can be indexes into a sparse vector AND ALSO in other cases
+ * the reason code is simply a numeric value. For example, for
+ * {@code ImageDeactivate}, a Return Code 0 with a non-zero Result Code,
+ * the Result Code means the number of seconds within which the Image is
+ * deactivated.
+ *
+ * So both ReturnCode and ReasonCode must know how to use a VSMCall reference
+ * to find the right thing.
+ *
  * @author jax
  */
 public class VsmapiRC {
@@ -103,7 +112,7 @@ public class VsmapiRC {
         rc = new ReturnCode("RCERR_SYNTAX", 24) {
 
             @Override
-            public ReasonCode getReasonCode(int reason) { // SPECIAL
+            public ReasonCode getReasonCode(int reason, VSMCall function) { // SPECIAL
                 ReasonCode result = null;
                 int pp = reason / 100; // parameter number
                 int rr = reason % 100; // reason code
@@ -151,7 +160,7 @@ public class VsmapiRC {
         rc = new ReturnCode("RCERR_ESM", 188) {
 
             @Override
-            public ReasonCode getReasonCode(int reason) { // SPECIAL
+            public ReasonCode getReasonCode(int reason, VSMCall function) { // SPECIAL
                 return new ReasonCode("Internal server error; ESM failure", "Product-specific return code " + reason, reason);
             }
         };
@@ -159,7 +168,7 @@ public class VsmapiRC {
         rc = new ReturnCode("RCERR_PW_CHECK", 192) {
 
             @Override
-            public ReasonCode getReasonCode(int reason) { // SPECIAL
+            public ReasonCode getReasonCode(int reason, VSMCall function) { // SPECIAL
                 return new ReasonCode("Internal server error; cannot authenticate user/password", "Product-specific return code " + reason, reason);
             }
         };
@@ -258,7 +267,7 @@ public class VsmapiRC {
         {
 
             @Override
-            public ReasonCode getReasonCode(int reason) {
+            public ReasonCode getReasonCode(int reason, VSMCall function) {
                 ReasonCode result = null;
 
                 if (reason == 0) {
@@ -370,7 +379,7 @@ public class VsmapiRC {
         {
 
             @Override
-            public ReasonCode getReasonCode(int reason) {
+            public ReasonCode getReasonCode(int reason, VSMCall function) {
                 return new ReasonCode("Target ID not added - Reason is product-specific return code", "RS_PSRC", reason);
             }
         };
@@ -388,7 +397,7 @@ public class VsmapiRC {
         {
 
             @Override
-            public ReasonCode getReasonCode(int reason) {
+            public ReasonCode getReasonCode(int reason, VSMCall function) {
                 ReasonCode result = null;
 
                 if (reason == 0) {
@@ -404,7 +413,7 @@ public class VsmapiRC {
         {
 
             @Override
-            public ReasonCode getReasonCode(int reason) {
+            public ReasonCode getReasonCode(int reason, VSMCall function) {
                 return new ReasonCode("Internal directory manager error - Product-specific return code", "RS_PSRC", reason);
             }
         };
@@ -507,7 +516,7 @@ public class VsmapiRC {
         String result = null;
         StringBuffer sb = new StringBuffer();
         ReturnCode returnCode = VsmapiRC.returnCode(rc);
-        ReasonCode reasonCode = returnCode.getReasonCode(reason);
+        ReasonCode reasonCode = returnCode.getReasonCode(reason, function);
         sb.append("Return code is: ");
         sb.append(returnCode.getValue());
         sb.append(" : ");
