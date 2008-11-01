@@ -68,7 +68,19 @@ public class VsmapiRC {
          * Static ctor populates the table of {@code ReturnCode} objects.
          */
 	Vector<ReasonCodeOverload> vrco = new Vector<ReasonCodeOverload>();
-        ReturnCode rc = new ReturnCode("RC_OK", 0);
+        ReturnCode rc = new ReturnCode("RC_OK", 0){
+	
+            @Override
+            public ReasonCode getReasonCode(int reason, VSMCall function) { // SPECIAL 0/Seconds for ImageDeactivate
+		ReasonCode result = null;
+		if (function instanceof ImageDeactivate) {
+		    result =  new ReasonCode("Request successful; Image Deactivated Within " + reason + " Seconds", "secs", reason);
+		} else {
+                    result = super.getReasonCode(reason, function);
+                }
+                return result;
+            }
+        };
         rc.addReasonCode(new ReasonCode("Successful", "RS_NONE", 0));
         vrco.clear();
 	vrco.add(new ReasonCodeOverload("CPU defined, but CPU affinity suppressed", "RS_AFFINITY_SUPPRESSED", 4, ImageCPUDefine.class)); // 0/4 is overloaded
