@@ -218,9 +218,9 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     my.host my.port my.userid my.password imagecreatedm.noprototype.imagenametocreate
     java.lang.String class new ( ) dup dup \ three empty args for no-prototype version of call \
     new_ImageRecordStructure dup clear ( ) drop \ void funcs in Java return null in Fiji! \
-    dup " USER_CCCC_FARQUHAR_32M_512M_G" add_image_record
-    dup " ACCOUNT_W00F" add_image_record
-    dup " IPL_CMS MACHINE_ESA CONSOLE_001F_3215" add_image_record
+    dup " USER CCCC FARQUHAR 32M 512M G" add_image_record
+    dup " ACCOUNT W00F" add_image_record
+    dup " IPL CMS MACHINE ESA CONSOLE 001F 3215" add_image_record
     new_ImageRecordArray dup rot add ( rot java.lang.Object () , ) drop
     dup paramLength ( ) longValue ( ) swap
     \ imagecreatedm.noprototype.alltheotherargs \
