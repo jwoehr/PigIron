@@ -9,9 +9,6 @@
 " FARQUHAR" to imagecreatedm.intialpassword
 " 123456" to imagecreatedm.accountnumber
 " CCCC" to imagecreatedm.noprototype.imagenametocreate
-" \" to imagecreatedm.noprototype.prototypename
-" \" to imagecreatedm.noprototype.intialpassword
-" \" to imagecreatedm.noprototype.accountnumber
 " USER CCCC FARQUHAR 32M 512M G" to imagecreatedm.noprototype.alltheotherargs
 ' *' to prototypequerydm.prototypetoquery
 " MYLANOWN" to virtualnetworklanaccessquery.lanowner
