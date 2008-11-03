@@ -40,7 +40,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii">
   <meta http-equiv="Last-Modified" content=
-  "Fri, 31 Oct 2008 06:46:17 UTC">
+  "Mon, 3 Nov 2008 06:15:22 UTC">
 </head>
 
 <body>
@@ -100,13 +100,29 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
         <li><a href="#Invocation">Invocation</a></li>
 
+        <li style="list-style: none">
+          <ul>
+            <li><a href="#Compiling_one_file">Compiling one
+            file</a></li>
+          </ul>
+        </li>
+
         <li><a href="#Description_Files">Description Files</a></li>
+
+        <li style="list-style: none">
+          <ul>
+            <li><a href="#Easy_m4">Easy m4</a></li>
+
+            <li><a href="#Description_File_Coding">Description File
+            Coding</a></li>
+          </ul>
+        </li>
 
         <li><a href="#Macro_Reference">Macro Reference</a></li>
       </ul>
     </li>
 
-    <li><a href="#Bugs">Bugs</a></li>
+    <li><a href="#Caveats">Caveats</a></li>
   </ul>
 
   <h2><a name="Overview" id="Overview">Overview of PigIron's
@@ -143,6 +159,15 @@ THE POSSIBILITY OF SUCH DAMAGE.
   can be interpreted by PigGen to produce FIJI source to make it
   easier to employ PigIron in a FIJI program, such as some of the
   test code accompanying PigIron.<br>
+  <small><br>
+  The directory <a href="../script/fiji">pigiron/script/fiji</a>
+  contains the FIJI support for PigIron. Using PigGen as <a href=
+  "#autogeneration_of_FIJI_helper_code">described below</a> the
+  file <a href=
+  "../script/fiji/pigiron_support.fiji">pigiron_support.fiji</a>
+  was generated. It is loaded by <a href=
+  "../script/fiji/allfunctest.fiji">allfunctest.fiji</a> which
+  effectuates a number of PigIron tests.</small><br>
 
   <h2><a name="Disclaimers" id="Disclaimers">Disclaimers</a></h2>
 
@@ -246,10 +271,11 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
     <li><span style="font-family: monospace;">piggen.sh</span> ...
     generate from one description file<br></li>
-  </ul>In the case of autogeneration of <a href=
-  "#PigGen_also_generates_FIJI_source_to">FIJI helper code</a> for
-  running or testing PigIron's Java classes, there are files
-  parallel to those used for Java generation:<br>
+  </ul>In the case of <a name="autogeneration_of_FIJI_helper_code"
+  id="autogeneration_of_FIJI_helper_code"></a>autogeneration of
+  <a href="#PigGen_also_generates_FIJI_source_to">FIJI helper
+  code</a> for running or testing PigIron's Java classes, there are
+  files parallel to those used for Java generation:<br>
 
   <ul>
     <li><tt>/pigiron/piggen/pigsty.m4</tt> ... FIJI autogeneration
@@ -284,7 +310,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
   "#Description_Files">description files</a> written in PigGen
   macros into Java source code.</p>
 
-  <h4>Compiling one file</h4>
+  <h4><a name="Compiling_one_file" id=
+  "Compiling_one_file"></a>Compiling one file</h4>
 
   <blockquote style="font-family: monospace;">
     cd <i>piggen_dir</i> ; ./piggen.sh
@@ -300,10 +327,16 @@ THE POSSIBILITY OF SUCH DAMAGE.
     <tt>cd /usr/local/src/pigiron/piggen ; ./piggen.sh
     /usr/local/work/mysrc/my_custom_struct.m4
     /usr/local/wrk/myjava</tt>
-  </blockquote>
-
-  <p><tt><b>TODO:</b></tt> describe Java compilation of resulting
-  code</p>
+  </blockquote>You will then wish to copy the resulting Java file
+  describing your struct or array or function to a directory where
+  it will be compiled into PigIron, either to PigIron's own
+  directories for this sort of thing (<a href=
+  "../src/com/softwoehr/pigiron/access/paramstructs/"><span style=
+  "font-family: monospace;">pigiron/src/com/softwoehr/pigiron/access/paramstructs</span></a>
+  for structures and arrays or <a style="font-family: monospace;"
+  href=
+  "../src/com/softwoehr/pigiron/functions">pigiron/src/com/softwoehr/pigiron/functions</a>
+  for functions) or to your own directory which you add to PigIron.
 
   <h3><a name="Description_Files" id=
   "Description_Files">Description Files</a></h3>
@@ -339,7 +372,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   difficult, but you are only required to understand a small subset
   of the rules and mostly just follow directions and examples.</p>
 
-  <h4>Easy m4</h4>
+  <h4><a name="Easy_m4" id="Easy_m4"></a>Easy m4</h4>
 
   <ul>
     <li>To quote something against macro expansion in m4, you lead
@@ -390,7 +423,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
   stated above to use PigGen, given that there are over one hundred
   examples of description file coding included with PigGen.</p>
 
-  <h4>Description File Coding</h4>
+  <h4><a name="Description_File_Coding" id=
+  "Description_File_Coding"></a>Description File Coding</h4>
 
   <ul>
     <li>The description file must be complete and correct to
@@ -459,8 +493,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
         <td>
           Opens a namespace in which certain names conventional to
           the construction of parameter description files are
-          pre-defined on the basis of the entity name an associated
-          function name.<br>
+          pre-defined on the basis of the entity name and
+          associated function name.<br>
 
           <ul>
             <li><span style=
@@ -502,7 +536,10 @@ THE POSSIBILITY OF SUCH DAMAGE.
         </a>function_namespace(`function_formal_name',
         `significant_parameter_formal_name')</tt></td>
 
-        <td><br></td>
+        <td>Opens a namespace in which certain names conventional
+        to the construction of function description files are
+        pre-defined on the basis of the function name and
+        associated signficant parameter name.</td>
 
         <td><br></td>
       </tr>
@@ -521,7 +558,10 @@ THE POSSIBILITY OF SUCH DAMAGE.
         <td><tt><a name="macroref.pigsty.javaizeformal_name" id=
         "macroref.pigsty.javaizeformal_name"></a>javaize(`formal_name')</tt></td>
 
-        <td><br></td>
+        <td>Javaizes (or "camel cases") a formal name of the form
+        <span style="font-family: monospace;">formal_name</span> to
+        <span style="font-family: monospace;">FormalName</span>
+        etc.<br></td>
 
         <td><br></td>
       </tr>
@@ -530,7 +570,10 @@ THE POSSIBILITY OF SUCH DAMAGE.
         <td><tt><a name="macroref.pigsty.javaize_lcformal_name" id=
         "macroref.pigsty.javaize_lcformal_name"></a>javaize_lc(`formal_name')</tt></td>
 
-        <td><br></td>
+        <td>Javaizes (or "camel cases") a formal name of the form
+        <span style="font-family: monospace;">formal_name</span> to
+        <span style="font-family: monospace;">formalName</span>
+        etc. with the initial letter in lower case.<br></td>
 
         <td><br></td>
       </tr>
@@ -602,7 +645,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
         "macroref.pigarray.pigparm_importimport_name" id=
         "macroref.pigarray.pigparm_importimport_name"></a>pigparm_import(`import_name')</tt></td>
 
-        <td>Conveys an imported class specification to Java.</td>
+        <td>Conveys an imported class specification to
+        Java.<br></td>
 
         <td>
         <tt>pigparm_import(`com.softwoehr.pigiron.access.*')</tt></td>
@@ -613,7 +657,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
         "macroref.pigarray.pigparm_classnameextendspackage" id=
         "macroref.pigarray.pigparm_classnameextendspackage"></a>pigparm_class(`name',`extends',`package',`comment')</tt></td>
 
-        <td><br></td>
+        <td>Declares a class to Java representing a VSMAPI array
+        type and commences its definition.<br></td>
 
         <td><br></td>
       </tr>
@@ -654,7 +699,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
         <td><tt><a name="macroref.pigarray.pigparm_endclass" id=
         "macroref.pigarray.pigparm_endclass"></a>pigparm_endclass</tt></td>
 
-        <td><br></td>
+        <td>Completes and closes the definition of the Java
+        class.<br></td>
 
         <td><br></td>
       </tr>
@@ -696,7 +742,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </tr>
 
       <tr>
-        <td><tt>pigparm_constant(`accessor',</tt></td>
+        <td><tt><a name="macroref.pigstruct.pigparm_constant" id=
+        "macroref.pigstruct.pigparm_constant"></a>pigparm_constant(`accessor',</tt></td>
 
         <td><br></td>
 
@@ -887,9 +934,10 @@ THE POSSIBILITY OF SUCH DAMAGE.
   </table><br>
   <hr>
 
-  <h2><a name="Bugs" id="Bugs"></a>Bugs</h2>There are a number of
-  instances in which PigGen performs less than ideally. All are
-  within tolerance, but should be noted to avoid surprises.<br>
+  <h2><a name="Caveats" id="Caveats"></a>Caveats<br></h2>There are
+  a number of instances in which PigGen performs less than ideally.
+  All are within tolerance, but should be noted to avoid
+  surprises.<br>
 
   <ul>
     <li>Array generation via <span style="font-family: monospace;">
@@ -906,11 +954,19 @@ THE POSSIBILITY OF SUCH DAMAGE.
       the non-existent type is invoked explicitly in your code.
 
       <ul>
-        <li>Workaround: don't call the superfluous
-        functions.<br></li>
+        <li>Workaround: don't call the superfluous functions.</li>
       </ul>
     </li>
-  </ul><br>
+
+    <li>PigGen's structure and array description syntax is a model
+    of the aesthetics of autogeneration; the function syntax less
+    beautiful. There are many coding possibilities that might occur
+    to you when you generation your own function files that are
+    allowed by PigGen's complex syntax for functions. Most of them
+    you will never want nor need. I apologize for the complexity
+    which allows for flexibility without having to hand-modify
+    generated files.</li>
+  </ul>
   <hr>
 
   <p><a href="http://pigiron.sourceforge.net">The PigIron

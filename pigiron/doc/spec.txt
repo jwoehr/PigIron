@@ -13,15 +13,16 @@ for more information about VSMAPI.
 PigIron is not associated with the IBM corporation.
 
 Planned Development:
-    1. Implement the access class library. (DONE)
-        * parameter creation
-        * parameter marshalling
-        * communication with VSMAPI host
-    2. Implement VSMAPI Functions in terms of the access class library. (IN PROGRESS)
+    1. Implement the access class library. (mostly DONE)
+        * parameter creation (DONE)
+        * parameter marshalling (DONE)
+        * communication with VSMAPI host (DONE)
+	* support SSL (TODO)
+    2. Implement VSMAPI Functions in terms of the access class library. (DONE)
         * Support z/VM R5.3
         * Support z/VM R5.4
         * Support user-defined custom functions
-    3. Create GUI widgets based on VSMAPI Functions (TODO)
-    4. Create GUI management app based on GUI VSMAPI Function widgets (TODO)
+    3. Create GUI and/or Web app widgets based on VSMAPI Functions (IN PROGRESS)
+    4. Create GUI and/or Web management app based on GUI VSMAPI Function widgets (TODO)
 
 == END ==
