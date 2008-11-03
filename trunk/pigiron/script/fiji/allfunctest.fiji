@@ -196,13 +196,14 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
 : testing_PrototypeQueryDM_2 " PrototypeQueryDM_2" announce
     my.host my.port my.userid my.password " LINUX" PrototypeQueryDM doandprint ;
 
-\ Test ImageCreateDM with a prototype \
+\ Test ImageCreateDM with a prototype \ \ This has to be fixed \
 : testing_ImageCreateDM_1 " ImageCreateDM_1" announce
     my.host my.port my.userid my.password imagecreatedm.imagenametocreate
     imagecreatedm.prototypename imagecreatedm.intialpassword imagecreatedm.accountnumber
+    0 null
     ImageCreateDM doandprint ;
 
-\ Test ImageCreateDM with no prototype and values supplied \
+\ Test ImageCreateDM with no prototype and values supplied \  \ This has to be fixed \
 : testing_ImageCreateDM_2 " ImageCreateDM_2" announce
     my.host my.port my.userid my.password imagecreatedm.noprototype.imagenametocreate
     imagecreatedm.noprototype.prototypename imagecreatedm.noprototype.intialpassword
@@ -272,8 +273,8 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_ImageVolumeSpaceQueryDM_9
     testing_PrototypeQueryDM_1
     testing_PrototypeQueryDM_2
-    testing_ImageCreateDM_1
-    testing_ImageCreateDM_2
+    \ testing_ImageCreateDM_1 \
+    \ testing_ImageCreateDM_2 \
     testing_ImageDeleteDM_1
     testing_ImageDeleteDM_2
     ;
