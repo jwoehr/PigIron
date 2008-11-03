@@ -32,19 +32,20 @@ define(`pigparm_import',`')
 
 \\ pigparm_class(`name',`extends',`package',`comment')
 define(`pigparm_class',`dnl
-push_divert(class_header_stream)dnl
 pushdef(`x_name', $1)dnl
 pushdef(`x_extends', $2)dnl
 pushdef(`x_package', $3)dnl
 pushdef(`x_comment', $4)dnl
 define(`myClass',x_name())dnl
-define(`mySuperClass',x_extends())dnl
+define(`myFullClassPath', x_package().x_name())dnl
+push_divert(class_header_stream)dnl
 \ x_comment() \
+value myClass " myFullClassPath" to myClass
+pop_divert()dnl
 popdef(`x_comment')dnl
 popdef(`x_package')dnl
 popdef(`x_extends')dnl
 popdef(`x_name')dnl
-pop_divert()dnl
 ')
 
 \\ pigparm_constant(`accessor', `type', `name', `initial_value', `comment')
@@ -60,7 +61,13 @@ pop_divert()dnl
 define(`pigparm_attribute',`')
 
 \\ pigparm_ctors
-define(`pigparm_ctors',`')
+define(`pigparm_ctors',`dnl
+push_divert(ctor_stream)dnl
+: new_`'myClass() \ -- myClass()_instance \
+    myFullClassPath class new ( )
+;
+pop_divert()
+')
 
 \\ pigparm_model_start()
 define(`pigparm_model_start',`')
@@ -108,6 +115,8 @@ undivert(function_stream)dnl
 undivert(class_footer_stream)dnl
 undivert(file_footer_stream)dnl
 pop_divert()dnl
+undefine(`myClass')dnl
+undefine(`myFullClassPath')dnl
 ')
 
 \\ End of pigarray.m4
