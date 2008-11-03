@@ -58,7 +58,7 @@ value my.target
    " ImageActivate" announce
    imageactivate.targetid null <>
    if my.host my.port my.userid my.password imageactivate.targetid ImageActivate doandprint
-   else ' my.custom.imageactivate.targetid ' testing_ImageActivate explain_skip
+   else " imageactivate.targetid" " testing_ImageActivate" explain_skip
    then
 ;
 
@@ -66,7 +66,7 @@ value my.target
    " ImageDeactivate" announce
    imageactivate.targetid null <>
    if my.host my.port my.userid my.password imageactivate.targetid imagedeactivate.forcetime ImageDeactivate doandprint
-   else ' my.custom.imageactivate.targetid ' testing_ImageActivate explain_skip
+   else " imageactivate.targetid" " testing_ImageActivate" explain_skip
    then
 ;
 
@@ -118,92 +118,92 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
 : testing_VMRMMeasurementQuery
     " VMRMMeasurementQuery" announce  my.host my.port my.userid my.password my.target VMRMMeasurementQuery doandprint ;
 : testing_VirtualNetworkAdapterQuery
-    " VirtualNetworkAdapterQuery" announce  my.host my.port my.userid my.password my.target " *" VirtualNetworkAdapterQuery doandprint ;
+    " VirtualNetworkAdapterQuery" announce my.host my.port my.userid my.password my.target " *" VirtualNetworkAdapterQuery doandprint ;
 
-: testing_DirectoryManagerSearchDM '  testing_DirectoryManagerSearchDM announce
-    directorymanagersearchdm.searchpattern null <>
-    if my.host my.port my.userid my.password my.target directorymanagersearchdm.searchpattern DirectoryManagerSearchDM doandprint
-    else ' directorymanagersearchdm.searchpattern  ' testing_DirectoryManagerSearchDM explain_skip
-    then ;
-	
-: testing_SharedMemoryAccessQueryDM ' testing_SharedMemoryAccessQueryDM announce
+: testing_DirectoryManagerSearchDM " DirectoryManagerSearchDM" announce
+     directorymanagersearchdm.searchpattern null <> 
+     if  my.host my.port my.userid my.password my.target directorymanagersearchdm.searchpattern DirectoryManagerSearchDM doandprint
+     else " directorymanagersearchdm.searchpattern"  " testing_DirectoryManagerSearchDM" explain_skip
+     then ;
+        
+: testing_SharedMemoryAccessQueryDM " SharedMemoryAccessQueryDM" announce
     sharedmemoryaccessquerydm.memorysegmentname null <>
     if my.host my.port my.userid my.password my.target sharedmemoryaccessquerydm.memorysegmentname SharedMemoryAccessQueryDM doandprint
-    else ' sharedmemoryaccessquerydm.memorysegmentname ' testing_SharedMemoryAccessQueryDM  explain_skip
+    else " sharedmemoryaccessquerydm.memorysegmentname" " testing_SharedMemoryAccessQueryDM"  explain_skip
     then ;
 
-: testing_VirtualNetworkLANAccessQuery ' testing_VirtualNetworkLANAccessQuery announce
+: testing_VirtualNetworkLANAccessQuery " VirtualNetworkLANAccessQuery" announce
     virtualnetworklanaccessquery.lanname null <>
         if virtualnetworklanaccessquery.lanowner null <>
             if my.host my.port my.userid my.password my.target virtualnetworklanaccessquery.lanname virtualnetworklanaccessquery.lanowner
             VirtualNetworkLANAccessQuery doandprint
-	else ' virtualnetworklanaccessquery.lanowner ' testing_VirtualNetworkLANAccessQuery explain_skip
+        else " virtualnetworklanaccessquery.lanowner" " testing_VirtualNetworkLANAccessQuery" explain_skip
         then
-    else ' virtualnetworklanaccessquery.lanname  ' testing_VirtualNetworkLANAccessQuery explain_skip
+    else " virtualnetworklanaccessquery.lanname"  " testing_VirtualNetworkLANAccessQuery" explain_skip
     then ;
 
-: testing_VirtualNetworkLANQuery ' testing_VirtualNetworkLANQuery announce
+: testing_VirtualNetworkLANQuery " VirtualNetworkLANQuery" announce
     virtualnetworklanaccessquery.lanname null <>
         if virtualnetworklanaccessquery.lanowner null <>
             if my.host my.port my.userid my.password my.target virtualnetworklanquery.lanname virtualnetworklanquery.lanowner
             VirtualNetworkLANQuery doandprint
-	else ' virtualnetworklanquery.lanowner ' testing_VirtualNetworkLANQuery explain_skip
+        else " virtualnetworklanquery.lanowner" " testing_VirtualNetworkLANQuery" explain_skip
         then
-    else ' virtualnetworklanquery.lanname ' testing_VirtualNetworkLANQuery  explain_skip
+    else " virtualnetworklanquery.lanname" " testing_VirtualNetworkLANQuery"  explain_skip
     then ;
 
-: testing_VirtualNetworkVswitchQuery ' testing_VirtualNetworkVswitchQuery announce
+: testing_VirtualNetworkVswitchQuery " VirtualNetworkVswitchQuery" announce
     virtualnetworkvswitchquery.switchname null <>
     if my.host my.port my.userid my.password my.target virtualnetworkvswitchquery.switchname VirtualNetworkVswitchQuery doandprint
-    else ' virtualnetworkvswitchquery.switchname ' testing_VirtualNetworkVswitchQuery explain_skip
+    else " virtualnetworkvswitchquery.switchname" " testing_VirtualNetworkVswitchQuery" explain_skip
     then ;
 
 
 \ 3 x 3 yields nine different cases for * ... we should also test specific entry_names \
-: testing_ImageVolumeSpaceQueryDM_1 ' testing_ImageVolumeSpaceQueryDM_1 announce
+: testing_ImageVolumeSpaceQueryDM_1 " ImageVolumeSpaceQueryDM_1" announce
     my.host my.port my.userid my.password my.target ImageVolumeSpaceQueryDM.QUERY_TYPE_DEFINITION ImageVolumeSpaceQueryDM.ENTRY_TYPE_VOLUME " *"
     ImageVolumeSpaceQueryDM doandprint ;
-: testing_ImageVolumeSpaceQueryDM_2 ' testing_ImageVolumeSpaceQueryDM_2 announce
+: testing_ImageVolumeSpaceQueryDM_2 " ImageVolumeSpaceQueryDM_2" announce
     my.host my.port my.userid my.password my.target ImageVolumeSpaceQueryDM.QUERY_TYPE_DEFINITION ImageVolumeSpaceQueryDM.ENTRY_TYPE_REGION " *"
     ImageVolumeSpaceQueryDM doandprint ;
-: testing_ImageVolumeSpaceQueryDM_3 ' testing_ImageVolumeSpaceQueryDM_3 announce
+: testing_ImageVolumeSpaceQueryDM_3 " ImageVolumeSpaceQueryDM_3" announce
     my.host my.port my.userid my.password my.target ImageVolumeSpaceQueryDM.QUERY_TYPE_DEFINITION ImageVolumeSpaceQueryDM.ENTRY_TYPE_GROUP " *"
     ImageVolumeSpaceQueryDM doandprint ;
-: testing_ImageVolumeSpaceQueryDM_4 ' testing_ImageVolumeSpaceQueryDM_4 announce
+: testing_ImageVolumeSpaceQueryDM_4 " ImageVolumeSpaceQueryDM_4" announce
     my.host my.port my.userid my.password my.target ImageVolumeSpaceQueryDM.QUERY_TYPE_FREE ImageVolumeSpaceQueryDM.ENTRY_TYPE_VOLUME " *"
     ImageVolumeSpaceQueryDM doandprint ;
-: testing_ImageVolumeSpaceQueryDM_5 ' testing_ImageVolumeSpaceQueryDM_5 announce
+: testing_ImageVolumeSpaceQueryDM_5 " ImageVolumeSpaceQueryDM_5" announce
     my.host my.port my.userid my.password my.target ImageVolumeSpaceQueryDM.QUERY_TYPE_FREE ImageVolumeSpaceQueryDM.ENTRY_TYPE_REGION " *"
     ImageVolumeSpaceQueryDM doandprint ;
-: testing_ImageVolumeSpaceQueryDM_6 ' testing_ImageVolumeSpaceQueryDM_6 announce
+: testing_ImageVolumeSpaceQueryDM_6 " ImageVolumeSpaceQueryDM_6" announce
     my.host my.port my.userid my.password my.target ImageVolumeSpaceQueryDM.QUERY_TYPE_FREE ImageVolumeSpaceQueryDM.ENTRY_TYPE_GROUP " *"
     ImageVolumeSpaceQueryDM doandprint ;
-: testing_ImageVolumeSpaceQueryDM_7 ' testing_ImageVolumeSpaceQueryDM_7  announce
+: testing_ImageVolumeSpaceQueryDM_7 " ImageVolumeSpaceQueryDM_7"  announce
     my.host my.port my.userid my.password my.target ImageVolumeSpaceQueryDM.QUERY_TYPE_USED ImageVolumeSpaceQueryDM.ENTRY_TYPE_VOLUME " *"
     ImageVolumeSpaceQueryDM doandprint ;
-: testing_ImageVolumeSpaceQueryDM_8 ' testing_ImageVolumeSpaceQueryDM_8  announce
+: testing_ImageVolumeSpaceQueryDM_8 " ImageVolumeSpaceQueryDM_8"  announce
     my.host my.port my.userid my.password my.target ImageVolumeSpaceQueryDM.QUERY_TYPE_USED ImageVolumeSpaceQueryDM.ENTRY_TYPE_REGION " *"
     ImageVolumeSpaceQueryDM doandprint ;
-: testing_ImageVolumeSpaceQueryDM_9 ' testing_ImageVolumeSpaceQueryDM_9  announce
+: testing_ImageVolumeSpaceQueryDM_9 " ImageVolumeSpaceQueryDM_9"  announce
     my.host my.port my.userid my.password my.target ImageVolumeSpaceQueryDM.QUERY_TYPE_USED ImageVolumeSpaceQueryDM.ENTRY_TYPE_GROUP " *"
     ImageVolumeSpaceQueryDM doandprint ;
 
 \ What we really should do here is save the results from a query and iterate over them. \
 \ That's a bit more complex that what the Rexx code currently can do in the individual invocation (.rex) files \
 \ So here we will test the popular prototypes by hand \
-: testing_PrototypeQueryDM_1 '  testing_PrototypeQueryDM_1 announce
-    my.host my.port my.userid my.password ' CMS PrototypeQueryDM doandprint ;
-: testing_PrototypeQueryDM_2 ' testing_PrototypeQueryDM_2 announce
-    my.host my.port my.userid my.password ' LINUX PrototypeQueryDM doandprint ;
+: testing_PrototypeQueryDM_1 " PrototypeQueryDM_1" announce
+    my.host my.port my.userid my.password " CMS" PrototypeQueryDM doandprint ;
+: testing_PrototypeQueryDM_2 " PrototypeQueryDM_2" announce
+    my.host my.port my.userid my.password " LINUX" PrototypeQueryDM doandprint ;
 
 \ Test ImageCreateDM with a prototype \
-: testing_ImageCreateDM_1 ' testing_ImageCreateDM_1 announce
+: testing_ImageCreateDM_1 " ImageCreateDM_1" announce
     my.host my.port my.userid my.password imagecreatedm.imagenametocreate
     imagecreatedm.prototypename imagecreatedm.intialpassword imagecreatedm.accountnumber
     ImageCreateDM doandprint ;
 
 \ Test ImageCreateDM with no prototype and values supplied \
-: testing_ImageCreateDM_2 ' testing_ImageCreateDM_2 announce
+: testing_ImageCreateDM_2 " ImageCreateDM_2" announce
     my.host my.port my.userid my.password imagecreatedm.noprototype.imagenametocreate
     imagecreatedm.noprototype.prototypename imagecreatedm.noprototype.intialpassword
     imagecreatedm.noprototype.accountnumber
@@ -212,21 +212,21 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     ImageCreateDM doandprint ;
 
 \ Delete the prototype-created image \
-: testing_ImageDeleteDM_1 ' testing_ImageDeleteDM_1 announce
+: testing_ImageDeleteDM_1 " ImageDeleteDM_1" announce
     imagecreatedm.imagenametocreate null <> 
     if \ We should also test other DATA_SECURITY_ERASE flags \
         my.host my.port my.userid my.password imagecreatedm.imagenametocreate ImageDeleteDM.DATA_SECURITY_ERASE_UNSPECIFIED
         ImageDeleteDM doandprint
-    else " imagecreatedm.imagenametocreate" ' testing_ImageDeleteDM explain_skip
+    else " imagecreatedm.imagenametocreate" " testing_ImageDeleteDM" explain_skip
     then ;
 
 \ Delete the no-prototype created image \
-: testing_ImageDeleteDM_2 ' testing_ImageDeleteDM_2 announce
+: testing_ImageDeleteDM_2 " ImageDeleteDM_2" announce
     imagecreatedm.noprototype.imagenametocreate null <> 
     if \ We should also test other DATA_SECURITY_ERASE flags \
         my.host my.port my.userid my.password imagecreatedm.noprototype.imagenametocreate ImageDeleteDM.DATA_SECURITY_ERASE_UNSPECIFIED
         ImageDeleteDM doandprint
-    else " imagecreatedm.noprototype.imagenametocreate" ' ImageDeleteDM explain_skip
+    else " imagecreatedm.noprototype.imagenametocreate" " ImageDeleteDM" explain_skip
     then ;
 
 \ whole shebang \
