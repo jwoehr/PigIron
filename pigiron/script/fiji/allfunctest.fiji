@@ -200,7 +200,7 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
 : testing_ImageCreateDM_1 " ImageCreateDM_1" announce
     my.host my.port my.userid my.password imagecreatedm.imagenametocreate
     imagecreatedm.prototypename imagecreatedm.intialpassword imagecreatedm.accountnumber
-    0 null
+    new_ImageRecordArray dup paramLength ( ) longValue ( ) swap
     ImageCreateDM doandprint ;
 
 \ Test ImageCreateDM with no prototype and values supplied \  \ This has to be fixed \
@@ -208,7 +208,7 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     my.host my.port my.userid my.password imagecreatedm.noprototype.imagenametocreate
     imagecreatedm.noprototype.prototypename imagecreatedm.noprototype.intialpassword
     imagecreatedm.noprototype.accountnumber
-    " USER_CCCC_FARQUHAR_32M_512M_G  ACCOUNT_W00F " IPL_CMS MACHINE_ESA CONSOLE_001F_3215"
+    " USER_CCCC_FARQUHAR_32M_512M_G"  " ACCOUNT_W00F" " IPL_CMS MACHINE_ESA CONSOLE_001F_3215"
     \ imagecreatedm.noprototype.alltheotherargs \
     ImageCreateDM doandprint ;
 
