@@ -288,7 +288,7 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_PrototypeQueryDM_1
     testing_PrototypeQueryDM_2
     testing_ImageCreateDM_1
-    \ testing_ImageCreateDM_2 \
+    testing_ImageCreateDM_2
     testing_ImageDeleteDM_1
     testing_ImageDeleteDM_2
     ;
