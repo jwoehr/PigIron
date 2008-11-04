@@ -16,3 +16,4 @@
 " MYLANOWN" to virtualnetworklanquery.lanowner
 " MYLAN" to virtualnetworklanquery.lanname
 " MYSWITCH" to virtualnetworkvswitchquery.switchname
+" 36TB33T5" to imagepasswordsetdm.newpassword

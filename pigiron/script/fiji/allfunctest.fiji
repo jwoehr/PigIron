@@ -22,6 +22,7 @@ value virtualnetworklanaccessquery.lanname
 value virtualnetworklanquery.lanowner
 value virtualnetworklanquery.lanname
 value virtualnetworkvswitchquery.switchname
+value imagepasswordsetdm.newpassword
 
 \ Now load the defaults file containing assignments to the values \
 allfunctest.defaults.fiji load
@@ -244,6 +245,9 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     else " imagecreatedm.noprototype.imagenametocreate" " ImageDeleteDM" explain_skip
     then ;
 
+: testing_ImagePasswordSetDM " ImagePasswordSetDM" announce
+    my.host my.port my.userid my.password my.target imagepasswordsetdm.newpassword ImagePasswordSetDM doandprint ;
+
 \ whole shebang \
 : test-all \ -- \
     testing_CheckAuthentication
@@ -291,4 +295,195 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_ImageCreateDM_2
     testing_ImageDeleteDM_1
     testing_ImageDeleteDM_2
+    / testing_ImagePasswordSetDM /
     ;
+
+\ : testing_AsynchronousNotificationDisableDM " AsynchronousNotificationDisableDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm AsynchronousNotificationDisableDM doandprint ; \
+\ : testing_AsynchronousNotificationEnableDM " AsynchronousNotificationEnableDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm AsynchronousNotificationEnableDM doandprint ; \
+\ : testing_AsynchronousNotificationQueryDM " AsynchronousNotificationQueryDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm AsynchronousNotificationQueryDM doandprint ; \
+
+\ : testing_AuthorizationListAdd " AuthorizationListAdd" announce
+    my.host my.port my.userid my.password my.target my.extraparm AuthorizationListAdd doandprint ; \
+\ : testing_AuthorizationListQuery " AuthorizationListQuery" announce
+    my.host my.port my.userid my.password my.target my.extraparm AuthorizationListQuery doandprint ; \
+\ : testing_AuthorizationListRemove " AuthorizationListRemove" announce
+    my.host my.port my.userid my.password my.target my.extraparm AuthorizationListRemove doandprint ; \
+
+\ : testing_DirectoryManagerLocalTagDefineDM " DirectoryManagerLocalTagDefineDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm DirectoryManagerLocalTagDefineDM doandprint ; \
+\ : testing_DirectoryManagerLocalTagDeleteDM " DirectoryManagerLocalTagDeleteDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm DirectoryManagerLocalTagDeleteDM doandprint ; \
+\ : testing_DirectoryManagerLocalTagQueryDM " DirectoryManagerLocalTagQueryDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm DirectoryManagerLocalTagQueryDM doandprint ; \
+\ : testing_DirectoryManagerLocalTagSetDM " DirectoryManagerLocalTagSetDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm DirectoryManagerLocalTagSetDM doandprint ; \
+
+\ : testing_DirectoryManagerTaskCancelDM " DirectoryManagerTaskCancelDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm DirectoryManagerTaskCancelDM doandprint ; \
+
+\ : testing_ImageCPUDefine " ImageCPUDefine" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageCPUDefine doandprint ; \
+\ : testing_ImageCPUDefineDM " ImageCPUDefineDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageCPUDefineDM doandprint ; \
+\ : testing_ImageCPUDelete " ImageCPUDelete" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageCPUDelete doandprint ; \
+\ : testing_ImageCPUDeleteDM " ImageCPUDeleteDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageCPUDeleteDM doandprint ; \
+\ : testing_ImageCPUQueryDM " ImageCPUQueryDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageCPUQueryDM doandprint ; \
+\ : testing_ImageCPUSetMaximumDM " ImageCPUSetMaximumDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageCPUSetMaximumDM doandprint ; \
+
+\ : testing_ImageDeviceDedicate " ImageDeviceDedicate" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageDeviceDedicate doandprint ; \
+\ : testing_ImageDeviceDedicateDM " ImageDeviceDedicateDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageDeviceDedicateDM doandprint ; \
+\ : testing_ImageDeviceReset " ImageDeviceReset" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageDeviceReset doandprint ; \
+\ : testing_ImageDeviceUndedicate " ImageDeviceUndedicate" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageDeviceUndedicate doandprint ; \
+\ : testing_ImageDeviceUndedicateDM " ImageDeviceUndedicateDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageDeviceUndedicateDM doandprint ; \
+
+\ : testing_ImageDiskCopy " ImageDiskCopy" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageDiskCopy doandprint ; \
+\ : testing_ImageDiskCopyDM " ImageDiskCopyDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageDiskCopyDM doandprint ; \
+\ : testing_ImageDiskCreate " ImageDiskCreate" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageDiskCreate doandprint ; \
+\ : testing_ImageDiskCreateDM " ImageDiskCreateDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageDiskCreateDM doandprint ; \
+\ : testing_ImageDiskDelete " ImageDiskDelete" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageDiskDelete doandprint ; \
+\ : testing_ImageDiskDeleteDM " ImageDiskDeleteDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageDiskDeleteDM doandprint ; \
+\ : testing_ImageDiskShare " ImageDiskShare" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageDiskShare doandprint ; \
+\ : testing_ImageDiskShareDM " ImageDiskShareDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageDiskShareDM doandprint ; \
+\ : testing_ImageDiskUnshare " ImageDiskUnshare" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageDiskUnshare doandprint ; \
+\ : testing_ImageDiskUnshareDM " ImageDiskUnshareDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageDiskUnshareDM doandprint ; \
+
+\ : testing_ImageIPLDeleteDM " ImageIPLDeleteDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageIPLDeleteDM doandprint ; \
+\ : testing_ImageIPLSetDM " ImageIPLSetDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageIPLSetDM doandprint ; \
+
+\ : testing_ImageLockDM " ImageLockDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageLockDM doandprint ; \
+
+\ : testing_ImageRecycle " ImageRecycle" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageRecycle doandprint ; \
+\ : testing_ImageReplaceDM " ImageReplaceDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageReplaceDM doandprint ; \
+\ : testing_ImageSCSICharacteristicsDefineDM " ImageSCSICharacteristicsDefineDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageSCSICharacteristicsDefineDM doandprint ; \
+\ : testing_ImageSCSICharacteristicsQueryDM " ImageSCSICharacteristicsQueryDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageSCSICharacteristicsQueryDM doandprint ; \
+\ : testing_ImageUnlockDM " ImageUnlockDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageUnlockDM doandprint ; \
+\ : testing_ImageVolumeAdd " ImageVolumeAdd" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageVolumeAdd doandprint ; \
+\ : testing_ImageVolumeDelete " ImageVolumeDelete" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageVolumeDelete doandprint ; \
+\ : testing_ImageVolumeSpaceDefineDM " ImageVolumeSpaceDefineDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageVolumeSpaceDefineDM doandprint ; \
+
+\ : testing_ImageVolumeSpaceRemoveDM " ImageVolumeSpaceRemoveDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ImageVolumeSpaceRemoveDM doandprint ; \
+\ : testing_NameListAdd " NameListAdd" announce
+    my.host my.port my.userid my.password my.target my.extraparm NameListAdd doandprint ; \
+\ : testing_NameListDestroy " NameListDestroy" announce
+    my.host my.port my.userid my.password my.target my.extraparm NameListDestroy doandprint ; \
+\ : testing_NameListRemove " NameListRemove" announce
+    my.host my.port my.userid my.password my.target my.extraparm NameListRemove doandprint ; \
+\ : testing_ProfileCreateDM " ProfileCreateDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ProfileCreateDM doandprint ; \
+\ : testing_ProfileDeleteDM " ProfileDeleteDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ProfileDeleteDM doandprint ; \
+\ : testing_ProfileLockDM " ProfileLockDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ProfileLockDM doandprint ; \
+\ : testing_ProfileReplaceDM " ProfileReplaceDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ProfileReplaceDM doandprint ; \
+\ : testing_ProfileUnlockDM " ProfileUnlockDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm ProfileUnlockDM doandprint ; \
+\ : testing_PrototypeCreateDM " PrototypeCreateDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm PrototypeCreateDM doandprint ; \
+\ : testing_PrototypeDeleteDM " PrototypeDeleteDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm PrototypeDeleteDM doandprint ; \
+
+\ : testing_PrototypeReplaceDM " PrototypeReplaceDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm PrototypeReplaceDM doandprint ; \
+\ : testing_QueryAsynchronousOperationDM " QueryAsynchronousOperationDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm QueryAsynchronousOperationDM doandprint ; \
+\ : testing_SharedMemoryAccessAddDM " SharedMemoryAccessAddDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm SharedMemoryAccessAddDM doandprint ; \
+
+\ : testing_SharedMemoryAccessRemoveDM " SharedMemoryAccessRemoveDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm SharedMemoryAccessRemoveDM doandprint ; \
+\ : testing_SharedMemoryCreate " SharedMemoryCreate" announce
+    my.host my.port my.userid my.password my.target my.extraparm SharedMemoryCreate doandprint ; \
+\ : testing_SharedMemoryDelete " SharedMemoryDelete" announce
+    my.host my.port my.userid my.password my.target my.extraparm SharedMemoryDelete doandprint ; \
+\ : testing_SharedMemoryReplace " SharedMemoryReplace" announce
+    my.host my.port my.userid my.password my.target my.extraparm SharedMemoryReplace doandprint ; \
+
+\ : testing_StaticImageChangesActivateDM " StaticImageChangesActivateDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm StaticImageChangesActivateDM doandprint ; \
+\ : testing_StaticImageChangesDeactivateDM " StaticImageChangesDeactivateDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm StaticImageChangesDeactivateDM doandprint ; \
+\ : testing_StaticImageChangesImmediateDM " StaticImageChangesImmediateDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm StaticImageChangesImmediateDM doandprint ; \
+
+\ : testing_VMRMConfigurationQuery " VMRMConfigurationQuery" announce
+    my.host my.port my.userid my.password my.target my.extraparm VMRMConfigurationQuery doandprint ; \
+\ : testing_VMRMConfigurationUpdate " VMRMConfigurationUpdate" announce
+    my.host my.port my.userid my.password my.target my.extraparm VMRMConfigurationUpdate doandprint ; \
+
+\ : testing_VirtualChannelConnectionCreate " VirtualChannelConnectionCreate" announce
+    my.host my.port my.userid my.password my.target my.extraparm VirtualChannelConnectionCreate doandprint ; \
+\ : testing_VirtualChannelConnectionCreateDM " VirtualChannelConnectionCreateDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm VirtualChannelConnectionCreateDM doandprint ; \
+\ : testing_VirtualChannelConnectionDelete " VirtualChannelConnectionDelete" announce
+    my.host my.port my.userid my.password my.target my.extraparm VirtualChannelConnectionDelete doandprint ; \
+\ : testing_VirtualChannelConnectionDeleteDM " VirtualChannelConnectionDeleteDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm VirtualChannelConnectionDeleteDM doandprint ; \
+
+\ : testing_VirtualNetworkAdapterConnectLAN " VirtualNetworkAdapterConnectLAN" announce
+    my.host my.port my.userid my.password my.target my.extraparm VirtualNetworkAdapterConnectLAN doandprint ; \
+\ : testing_VirtualNetworkAdapterConnectLANDM " VirtualNetworkAdapterConnectLANDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm VirtualNetworkAdapterConnectLANDM doandprint ; \
+\ : testing_VirtualNetworkAdapterConnectVswitch " VirtualNetworkAdapterConnectVswitch" announce
+    my.host my.port my.userid my.password my.target my.extraparm VirtualNetworkAdapterConnectVswitch doandprint ; \
+\ : testing_VirtualNetworkAdapterConnectVswitchDM " VirtualNetworkAdapterConnectVswitchDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm VirtualNetworkAdapterConnectVswitchDM doandprint ; \
+\ : testing_VirtualNetworkAdapterCreate " VirtualNetworkAdapterCreate" announce
+    my.host my.port my.userid my.password my.target my.extraparm VirtualNetworkAdapterCreate doandprint ; \
+\ : testing_VirtualNetworkAdapterCreateDM " VirtualNetworkAdapterCreateDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm VirtualNetworkAdapterCreateDM doandprint ; \
+\ : testing_VirtualNetworkAdapterDelete " VirtualNetworkAdapterDelete" announce
+    my.host my.port my.userid my.password my.target my.extraparm VirtualNetworkAdapterDelete doandprint ; \
+\ : testing_VirtualNetworkAdapterDeleteDM " VirtualNetworkAdapterDeleteDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm VirtualNetworkAdapterDeleteDM doandprint ; \
+\ : testing_VirtualNetworkAdapterDisconnect " VirtualNetworkAdapterDisconnect" announce
+    my.host my.port my.userid my.password my.target my.extraparm VirtualNetworkAdapterDisconnect doandprint ; \
+\ : testing_VirtualNetworkAdapterDisconnectDM " VirtualNetworkAdapterDisconnectDM" announce
+    my.host my.port my.userid my.password my.target my.extraparm VirtualNetworkAdapterDisconnectDM doandprint ; \
+
+\ : testing_VirtualNetworkLANAccess " VirtualNetworkLANAccess" announce
+    my.host my.port my.userid my.password my.target my.extraparm VirtualNetworkLANAccess doandprint ; \
+
+\ : testing_VirtualNetworkLANDelete " VirtualNetworkLANDelete" announce
+    my.host my.port my.userid my.password my.target my.extraparm VirtualNetworkLANDelete doandprint ; \
+\ : testing_VirtualNetworkVswitchCreate " VirtualNetworkVswitchCreate" announce
+    my.host my.port my.userid my.password my.target my.extraparm VirtualNetworkVswitchCreate doandprint ; \
+\ : testing_VirtualNetworkVswitchDelete " VirtualNetworkVswitchDelete" announce
+    my.host my.port my.userid my.password my.target my.extraparm VirtualNetworkVswitchDelete doandprint ; \
+
+\ : testing_VirtualNetworkVswitchSet " VirtualNetworkVswitchSet" announce
+    my.host my.port my.userid my.password my.target my.extraparm VirtualNetworkVswitchSet doandprint ; \
