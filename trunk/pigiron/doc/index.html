@@ -40,7 +40,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii">
   <meta http-equiv="Last-Modified" content=
-  "Mon, 3 Nov 2008 23:04:49 UTC">
+  "Tue, 4 Nov 2008 08:04:16 UTC">
 </head>
 
 <body>
@@ -289,32 +289,38 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
   <ul>
     <li>
-      <span style=
-      "font-family: monospace;">pigiron-{release_number}-all.zip</span>
-      (e.g., <span style=
-      "font-family: monospace;">pigiron-0.5-all.zip</span>)
+      <big><span style=
+      "font-family: monospace;">pigiron-{release_number}-all.zip</span></big>
+      (e.g., <big><span style=
+      "font-family: monospace;">pigiron-0.5-all.zip</span></big>)
       contains source, executable code and documentation.
 
       <ul>
-        <li><span style=
+        <li><big><span style=
         "font-family: monospace;">pigiron</span><span style=
-        "font-family: monospace;">-{release_number}.jar</span> is
-        the executable code.<br></li>
+        "font-family: monospace;">-{release_number}.jar</span></big>
+        is the executable code.<br></li>
       </ul>
     </li>
 
-    <li><span style=
-    "font-family: monospace;">pigiron-{release_number}-src.zip</span>
-    (e.g., <span style=
-    "font-family: monospace;">pigiron-0.5-src.zip</span>) contains
-    the source code only.<br></li>
+    <li><big><span style=
+    "font-family: monospace;">pigiron-{release_number}-src.zip</span></big>
+    (e.g., <big><span style=
+    "font-family: monospace;">pigiron-0.5-src.zip</span></big>)
+    contains the source code only.<br></li>
 
-    <li><span style=
-    "font-family: monospace;">pigiron-{release_number}-doc.zip</span>
-    (e.g., <span style=
-    "font-family: monospace;">pigiron-0.5-doc.zip</span>) contains
-    documentation only (this and other documentation as well as
-    javadocs for the code itself).<br></li>
+    <li><big><span style=
+    "font-family: monospace;">pigiron-{release_number}-doc.zip</span></big>
+    (e.g., <big><span style=
+    "font-family: monospace;">pigiron-0.5-doc.zip</span></big>)
+    contains documentation only (this and other documentation as
+    well as javadocs for the code itself).</li>
+
+    <li><big><span style=
+    "font-family: monospace;">md5sum</span></big> files are
+    provided for each of the <big style=
+    "font-family: monospace;">.zip</big> files on the download
+    site.<br></li>
   </ul>
 
   <h3><a name="Viewing_Javadoc_for_PigIron" id=
@@ -339,8 +345,13 @@ THE POSSIBILITY OF SUCH DAMAGE.
     "font-family: monospace;">pigiron-{release_number}.jar</span>
     (e.g., <span style=
     "font-family: monospace;">pigiron-0.5.jar</span>) contains the
-    executable code. Put this jar file in your classpath to use
-    PigIron.</li>
+    executable code.
+
+      <ul>
+        <li>Put this jar file in your classpath to use
+        PigIron.</li>
+      </ul>
+    </li>
 
     <li>You may unpack the PigIron source anywhere. To build:
 
@@ -379,8 +390,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
         <li>Put <span style=
         "font-family: monospace;">pigiron.jar</span> in your
-        <span style=
-        "font-family: monospace;">CLASSPATH<br></span></li>
+        <span style="font-family: monospace;">CLASSPATH</span> so
+        that BSF4Rexx can access PigIron classes.</li>
       </ul>
     </li>
 
@@ -389,11 +400,16 @@ THE POSSIBILITY OF SUCH DAMAGE.
       <ul>
         <li>Download and install <a href=
         "http://fiji.sourceforge.net/">FIJI the ForthIsh Java
-        Interpreter</a></li>
+        Interpreter</a> placing its <big><span style=
+        "font-family: monospace;">.jar</span></big> file
+        appropriately.</li>
 
         <li>Put <span style=
         "font-family: monospace;">pigiron.jar</span> in your
-        <span style="font-family: monospace;">CLASSPATH</span></li>
+        <span style="font-family: monospace;">CLASSPATH</span> as
+        well as the FIJI <big><span style=
+        "font-family: monospace;">.jar</span></big> so that FIJI
+        can access PigIron classes.</li>
       </ul>
     </li>
   </ul>
@@ -765,7 +781,11 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <h3><a name="Project_Setup" id="Project_Setup"></a>Project
   Setup</h3>PigIron was created as a <a href=
   "http://netbeans.org">NetBeans</a> project (NetBeans 6.1) but is
-  no longer being maintained as one.<br>
+  no longer being maintained as one ... <span style=
+  "font-style: italic;">see my blog entry</span> <a href=
+  "--%20CALL%20testing%20%27AsynchronousNotificationDisableDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27AsynchronousNotificationEnableDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27AsynchronousNotificationQueryDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A%0A--%20CALL%20testing%20%27AuthorizationListAdd%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27AuthorizationListQuery%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27AuthorizationListRemove%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A%0A--%20CALL%20testing%20%27DirectoryManagerLocalTagDefineDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27DirectoryManagerLocalTagDeleteDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27DirectoryManagerLocalTagQueryDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27DirectoryManagerLocalTagSetDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A%0A--%20CALL%20testing%20%27DirectoryManagerTaskCancelDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A%0A--%20CALL%20testing%20%27ImageCPUDefine%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageCPUDefineDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageCPUDelete%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageCPUDeleteDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageCPUQueryDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageCPUSetMaximumDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A%0A--%20CALL%20testing%20%27ImageDeviceDedicate%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageDeviceDedicateDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageDeviceReset%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageDeviceUndedicate%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageDeviceUndedicateDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A%0A--%20CALL%20testing%20%27ImageDiskCopy%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageDiskCopyDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageDiskCreate%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageDiskCreateDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageDiskDelete%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageDiskDeleteDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageDiskShare%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageDiskShareDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageDiskUnshare%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageDiskUnshareDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A%0A--%20CALL%20testing%20%27ImageIPLDeleteDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageIPLSetDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A%0A--%20CALL%20testing%20%27ImageLockDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A%0A--%20CALL%20testing%20%27ImagePasswordSetDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageRecycle%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageReplaceDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageSCSICharacteristicsDefineDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageSCSICharacteristicsQueryDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageUnlockDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageVolumeAdd%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageVolumeDelete%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ImageVolumeSpaceDefineDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A%0A--%20CALL%20testing%20%27ImageVolumeSpaceRemoveDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27NameListAdd%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27NameListDestroy%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27NameListRemove%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ProfileCreateDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ProfileDeleteDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ProfileLockDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ProfileReplaceDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27ProfileUnlockDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27PrototypeCreateDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27PrototypeDeleteDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A%0A--%20CALL%20testing%20%27PrototypeReplaceDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27QueryAsynchronousOperationDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27SharedMemoryAccessAddDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A%0A--%20CALL%20testing%20%27SharedMemoryAccessRemoveDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27SharedMemoryCreate%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27SharedMemoryDelete%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27SharedMemoryReplace%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A%0A--%20CALL%20testing%20%27StaticImageChangesActivateDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27StaticImageChangesDeactivateDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27StaticImageChangesImmediateDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A%0A--%20CALL%20testing%20%27VMRMConfigurationQuery%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27VMRMConfigurationUpdate%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A%0A--%20CALL%20testing%20%27VirtualChannelConnectionCreate%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27VirtualChannelConnectionCreateDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27VirtualChannelConnectionDelete%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27VirtualChannelConnectionDeleteDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A%0A--%20CALL%20testing%20%27VirtualNetworkAdapterConnectLAN%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27VirtualNetworkAdapterConnectLANDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27VirtualNetworkAdapterConnectVswitch%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27VirtualNetworkAdapterConnectVswitchDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27VirtualNetworkAdapterCreate%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27VirtualNetworkAdapterCreateDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27VirtualNetworkAdapterDelete%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27VirtualNetworkAdapterDeleteDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27VirtualNetworkAdapterDisconnect%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27VirtualNetworkAdapterDisconnectDM%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A%0A--%20CALL%20testing%20%27VirtualNetworkLANAccess%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A%0A--%20CALL%20testing%20%27VirtualNetworkLANDelete%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27VirtualNetworkVswitchCreate%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0A--%20CALL%20testing%20%27VirtualNetworkVswitchDelete%27%20my.host%20my.port%20my.userid%20my.password%20my.target%20my.extraparm%0Ahttp://dobbscodetalk.com/index.php?option=com_content&amp;task=view&amp;id=831&amp;Itemid=29">
+  What Price Simplicity?</a> <span style="font-style: italic;">for
+  more insight</span>.<br>
   <br>
   The <a href="http://ant.apache.org">Ant</a> files used to build
   the project can be executed from the command line.<br>
@@ -777,7 +797,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   directories <big><span style=
   "font-family: monospace;">build</span></big> and
   <big><span style="font-family: monospace;">dist</span></big> for
-  the results<br>
+  the results.<br>
 
   <h3><a name="External_libraries" id=
   "External_libraries"></a>External libraries</h3>In trying to keep
