@@ -55,7 +55,7 @@ ImageIPLDeleteDM
 ImageIPLSetDM
 ImageLockDM
 * ImageNameQueryDM
-ImagePasswordSetDM
+* ImagePasswordSetDM
 * ImageQueryActivateTime
 * ImageQueryDM
 ImageRecycle
