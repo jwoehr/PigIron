@@ -1,8 +1,9 @@
 include(`pigfunc.m4')dnl \\ authorization_list_query.m4
-function_namespace(`Authorization_List_Query')dnl
+function_namespace(`Authorization_List_Query',`auth_record_array')dnl
 pigfunc_start()dnl
 pigfunc_import(`java.io.IOException')dnl
 pigfunc_import(`com.softwoehr.pigiron.access.*')dnl
+pigfunc_import(`com.softwoehr.pigiron.access.paramstructs.'significant_parameter_classname)dnl
 pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',`function_formal_name',`dnl
 
 /**
@@ -19,6 +20,8 @@ pigfunc_compose_input_parm(`CountedString', `get_for_id()', `for_id')dnl
 pigfunc_compose_input_parm(`CountedString', `get_function_id()', `function_id')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
+pigfunc_compose_output_parm(`VSMInt4', `-1', significant_parameter_formal_name`_length')dnl
+pigfunc_compose_output_parm(significant_parameter_classname, `null', significant_parameter_formal_name)dnl 
 pigfunc_compose_output_end()dnl
 pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException`,' VSMException', `dnl
      * You can execute the VSMAPI call from <tt>main()</tt>, try it
