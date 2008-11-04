@@ -1,5 +1,5 @@
 include(`pigstruct.m4')dnl \\ real_device_structure.m4
-param_namespace(`real_device', javaize(`Virtual_Network_Vswitch_Query'))dnl
+param_namespace(`real_device', `Virtual_Network_Vswitch_Query')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
 pigparm_class(structure_classname, `VSMStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl

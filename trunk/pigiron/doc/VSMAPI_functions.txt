@@ -14,7 +14,7 @@ AsynchronousNotificationDisableDM
 AsynchronousNotificationEnableDM
 AsynchronousNotificationQueryDM
 AuthorizationListAdd
-AuthorizationListQuery
+* AuthorizationListQuery
 AuthorizationListRemove
 * CheckAuthentication
 DirectoryManagerLocalTagDefineDM
