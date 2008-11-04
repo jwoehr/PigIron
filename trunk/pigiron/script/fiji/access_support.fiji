@@ -36,4 +36,3 @@ value VSMInt8 ' com.softwoehr.pigiron.access.VSMInt8 to VSMInt8
 
 value VSMString ' com.softwoehr.pigiron.access.VSMString to VSMString
 value VSMAsciiZ ' com.softwoehr.pigiron.access.VSMAsciiZ to VSMAsciiZ
-
