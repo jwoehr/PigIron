@@ -248,6 +248,7 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     else " imagecreatedm.noprototype.imagenametocreate" " ImageDeleteDM" explain_skip
     then ;
 
+\ On our installation DIRMAINT does not have access to directory object so this is safe \
 : testing_ImagePasswordSetDM " ImagePasswordSetDM" announce
     my.host my.port my.userid my.password my.target imagepasswordsetdm.newpassword ImagePasswordSetDM doandprint ;
 
@@ -304,7 +305,8 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_ImageCreateDM_2
     testing_ImageDeleteDM_1
     testing_ImageDeleteDM_2
-    / testing_ImagePasswordSetDM /
+    testing_ImagePasswordSetDM
+    testing_AuthorizationListQuery
     ;
 
 \ : testing_AsynchronousNotificationDisableDM " AsynchronousNotificationDisableDM" announce
