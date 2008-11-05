@@ -10,6 +10,7 @@
 " 123456" to imagecreatedm.accountnumber
 " CCCC" to imagecreatedm.noprototype.imagenametocreate
 " USER CCCC FARQUHAR 32M 512M G" to imagecreatedm.noprototype.alltheotherargs
+" PIGTEST" to prototypecreatedm.prototypetocreate
 ' *' to prototypequerydm.prototypetoquery
 " MYLANOWN" to virtualnetworklanaccessquery.lanowner
 " MYLAN" to virtualnetworklanaccessquery.lanname
