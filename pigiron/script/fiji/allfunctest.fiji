@@ -1,12 +1,12 @@
 \ allfunctest.fiji \
 \ Test the PigIron Project http://pigiron.sourceforge.net \
+
 \ Declare values that will be used as parameters in making VSMAPI functions \
+value authorizationlistquery.targetid
+value authorizationlistquery.forid
+value authorizationlistquery.functionid
 value directorymanagersearchdm.searchpattern
 value imageactivate.targetid
-value imagedeactivate.targetid
-value imagedeactivate.forcetime
-value imagedeletedm.imagetodelete
-value sharedmemoryaccessquerydm.memorysegmentname
 value imagecreatedm.imagenametocreate
 value imagecreatedm.prototypename
 value imagecreatedm.intialpassword
@@ -16,17 +16,19 @@ value imagecreatedm.noprototype.prototypename
 value imagecreatedm.noprototype.intialpassword
 value imagecreatedm.noprototype.accountnumber
 value imagecreatedm.noprototype.alltheotherargs
+value imagedeactivate.targetid
+value imagedeactivate.forcetime
+value imagedeletedm.imagetodelete
+value imagepasswordsetdm.newpassword
 value prototypecreatedm.prototypetocreate
+value prototypedeletedm.prototypetodelete
 value prototypequerydm.prototypetoquery
+value sharedmemoryaccessquerydm.memorysegmentname
 value virtualnetworklanaccessquery.lanowner
 value virtualnetworklanaccessquery.lanname
 value virtualnetworklanquery.lanowner
 value virtualnetworklanquery.lanname
 value virtualnetworkvswitchquery.switchname
-value imagepasswordsetdm.newpassword
-value authorizationlistquery.targetid
-value authorizationlistquery.forid
-value authorizationlistquery.functionid
 
 \ Now load the defaults file containing assignments to the values \
 allfunctest.defaults.fiji load
@@ -121,19 +123,6 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     add ( rot java.lang.Object () , ) drop
     ;
     
-: testing_PrototypeCreateDM " PrototypeCreateDM" announce
-    my.host my.port my.userid my.password prototypecreatedm.prototypetocreate
-    new_PrototypeRecordStructure dup clear ( ) drop \ void funcs in Java return null in Fiji! \
-    dup " USER CCCC FARQUHAR 32M 512M G" add_prototype_record
-    dup " ACCOUNT W00F" add_prototype_record
-    dup " IPL CMS MACHINE ESA CONSOLE 001F 3215" add_prototype_record
-    new_PrototypeRecordArray dup rot add ( rot java.lang.Object () , ) drop
-    dup paramLength ( ) longValue ( ) swap
-    PrototypeCreateDM doandprint ;
-
-: testing_PrototypeNameQueryDM
-    " PrototypeNameQueryDM" announce  my.host my.port my.userid my.password my.target PrototypeNameQueryDM doandprint ;
-
 : testing_QueryDirectoryManagerLevelDM
     " QueryDirectoryManagerLevelDM" announce  my.host my.port my.userid my.password my.target QueryDirectoryManagerLevelDM doandprint ;
 : testing_SharedMemoryQuery_1
@@ -183,7 +172,6 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     else " virtualnetworkvswitchquery.switchname" " testing_VirtualNetworkVswitchQuery" explain_skip
     then ;
 
-
 \ 3 x 3 yields nine different cases for * ... we should also test specific entry_names \
 : testing_ImageVolumeSpaceQueryDM_1 " ImageVolumeSpaceQueryDM_1" announce
     my.host my.port my.userid my.password my.target ImageVolumeSpaceQueryDM.QUERY_TYPE_DEFINITION ImageVolumeSpaceQueryDM.ENTRY_TYPE_VOLUME " *"
@@ -213,13 +201,32 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     my.host my.port my.userid my.password my.target ImageVolumeSpaceQueryDM.QUERY_TYPE_USED ImageVolumeSpaceQueryDM.ENTRY_TYPE_GROUP " *"
     ImageVolumeSpaceQueryDM doandprint ;
 
+: testing_PrototypeCreateDM " PrototypeCreateDM" announce
+    my.host my.port my.userid my.password prototypecreatedm.prototypetocreate
+    new_PrototypeRecordStructure dup clear ( ) drop \ void funcs in Java return null in Fiji! \
+    dup " USER CCCC FARQUHAR 32M 512M G" add_prototype_record
+    dup " ACCOUNT W00F" add_prototype_record
+    dup " IPL CMS MACHINE ESA CONSOLE 001F 3215" add_prototype_record
+    new_PrototypeRecordArray dup rot add ( rot java.lang.Object () , ) drop
+    dup paramLength ( ) longValue ( ) swap
+    PrototypeCreateDM doandprint ;
+
+: testing_PrototypeNameQueryDM
+    " PrototypeNameQueryDM" announce  my.host my.port my.userid my.password my.target PrototypeNameQueryDM doandprint ;
+
 \ What we really should do here is save the results from a query and iterate over them. \
-\ That's a bit more complex that what the Rexx code currently can do in the individual invocation (.rex) files \
-\ So here we will test the popular prototypes by hand \
+\ But here we will test the popular prototypes by hand \
 : testing_PrototypeQueryDM_1 " PrototypeQueryDM_1" announce
     my.host my.port my.userid my.password " CMS" PrototypeQueryDM doandprint ;
 : testing_PrototypeQueryDM_2 " PrototypeQueryDM_2" announce
     my.host my.port my.userid my.password " LINUX" PrototypeQueryDM doandprint ;
+\ query the proto we created \
+: testing_PrototypeQueryDM_3 " PrototypeQueryDM_3" announce
+    my.host my.port my.userid my.password prototypecreatedm.prototypetocreate PrototypeQueryDM doandprint ;
+
+\ delete some proto which is probably the one we created \
+: testing_PrototypeDeleteDM " PrototypeDeleteDM" announce
+    my.host my.port my.userid my.password prototypedeletedm.prototypetodelete PrototypeDeleteDM doandprint ;
 
 \ Test ImageCreateDM with a prototype \
 : testing_ImageCreateDM_1 " ImageCreateDM_1" announce
@@ -298,7 +305,6 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_ImageNameQueryDM
     testing_NameListQuery
     testing_ProfileQueryDM
-    testing_PrototypeNameQueryDM
     testing_QueryDirectoryManagerLevelDM
     testing_SharedMemoryQuery_1
     testing_SharedMemoryQuery_2
@@ -318,8 +324,12 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_ImageVolumeSpaceQueryDM_7
     testing_ImageVolumeSpaceQueryDM_8
     testing_ImageVolumeSpaceQueryDM_9
+    testing_PrototypeCreateDM
+    testing_PrototypeNameQueryDM
     testing_PrototypeQueryDM_1
     testing_PrototypeQueryDM_2
+    testing_PrototypeQueryDM_3
+    testing_PrototypeDeleteDM
     testing_ImageCreateDM_1
     testing_ImageCreateDM_2
     testing_ImageDeleteDM_1
@@ -441,9 +451,6 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     my.host my.port my.userid my.password my.target my.extraparm ProfileReplaceDM doandprint ; \
 \ : testing_ProfileUnlockDM " ProfileUnlockDM" announce
     my.host my.port my.userid my.password my.target my.extraparm ProfileUnlockDM doandprint ; \
-
-\ : testing_PrototypeDeleteDM " PrototypeDeleteDM" announce
-    my.host my.port my.userid my.password my.target my.extraparm PrototypeDeleteDM doandprint ; \
 
 \ : testing_PrototypeReplaceDM " PrototypeReplaceDM" announce
     my.host my.port my.userid my.password my.target my.extraparm PrototypeReplaceDM doandprint ; \

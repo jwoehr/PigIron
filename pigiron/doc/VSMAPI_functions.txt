@@ -79,8 +79,8 @@ ProfileLockDM
 * ProfileQueryDM
 ProfileReplaceDM
 ProfileUnlockDM
-PrototypeCreateDM
-PrototypeDeleteDM
+* PrototypeCreateDM
+* PrototypeDeleteDM
 * PrototypeNameQueryDM
 * PrototypeQueryDM
 PrototypeReplaceDM
