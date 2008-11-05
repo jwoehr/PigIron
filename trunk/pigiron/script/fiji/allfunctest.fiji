@@ -220,9 +220,21 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     my.host my.port my.userid my.password " CMS" PrototypeQueryDM doandprint ;
 : testing_PrototypeQueryDM_2 " PrototypeQueryDM_2" announce
     my.host my.port my.userid my.password " LINUX" PrototypeQueryDM doandprint ;
+
 \ query the proto we created \
 : testing_PrototypeQueryDM_3 " PrototypeQueryDM_3" announce
     my.host my.port my.userid my.password prototypecreatedm.prototypetocreate PrototypeQueryDM doandprint ;
+
+\ modify the proto we created \
+: testing_PrototypeReplaceDM " PrototypeReplaceDM" announce
+    my.host my.port my.userid my.password prototypecreatedm.prototypetocreate
+    new_PrototypeRecordStructure dup clear ( ) drop \ void funcs in Java return null in Fiji! \
+    dup " USER QQQQ CAFEBABE 32M 512M G" add_prototype_record
+    dup " ACCOUNT ARF0" add_prototype_record
+    dup " IPL CMS MACHINE ESA CONSOLE 001F 3219" add_prototype_record
+    new_PrototypeRecordArray dup rot add ( rot java.lang.Object () , ) drop
+    dup paramLength ( ) longValue ( ) swap
+    PrototypeReplaceDM doandprint ;
 
 \ delete some proto which is probably the one we created \
 : testing_PrototypeDeleteDM " PrototypeDeleteDM" announce
@@ -329,7 +341,10 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_PrototypeQueryDM_1
     testing_PrototypeQueryDM_2
     testing_PrototypeQueryDM_3
+    testing_PrototypeReplaceDM    \ modify the proto we created \
+    testing_PrototypeQueryDM_3    \ query again the proto we created and modified \
     testing_PrototypeDeleteDM
+    testing_PrototypeNameQueryDM  \ make sure our proto went away \
     testing_ImageCreateDM_1
     testing_ImageCreateDM_2
     testing_ImageDeleteDM_1
@@ -452,8 +467,6 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
 \ : testing_ProfileUnlockDM " ProfileUnlockDM" announce
     my.host my.port my.userid my.password my.target my.extraparm ProfileUnlockDM doandprint ; \
 
-\ : testing_PrototypeReplaceDM " PrototypeReplaceDM" announce
-    my.host my.port my.userid my.password my.target my.extraparm PrototypeReplaceDM doandprint ; \
 \ : testing_QueryAsynchronousOperationDM " QueryAsynchronousOperationDM" announce
     my.host my.port my.userid my.password my.target my.extraparm QueryAsynchronousOperationDM doandprint ; \
 \ : testing_SharedMemoryAccessAddDM " SharedMemoryAccessAddDM" announce

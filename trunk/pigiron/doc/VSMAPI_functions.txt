@@ -83,7 +83,7 @@ ProfileUnlockDM
 * PrototypeDeleteDM
 * PrototypeNameQueryDM
 * PrototypeQueryDM
-PrototypeReplaceDM
+* PrototypeReplaceDM
 * QueryAPIFunctionalLevel
 QueryAsynchronousOperationDM
 * QueryDirectoryManagerLevelDM
