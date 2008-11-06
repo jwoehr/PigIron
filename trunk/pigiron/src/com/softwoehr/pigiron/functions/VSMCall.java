@@ -181,6 +181,26 @@ public abstract class VSMCall {
     }
 
     /**
+     * Run the VSMAPI call and return its output parameters. This is the big one
+     * after all the instance's private data has been set and the input and output
+     * parameters have been composed.     
+     * @param ssl if true, connect in SSL mode, plain socket otherwise
+     * @return ParameterArray of output paramters resulting from the VSMAPI call
+     * @throws java.io.IOException if there is a communication error
+     * @throws com.softwoehr.pigiron.access.VSMException if there is an error in parameter reading/writing
+     */
+    public ParameterArray doIt(boolean ssl) throws IOException, VSMException {
+        /* This will hold return from VSMAPI call */
+        composeInputArray();
+        composeOutputArray();
+        connect(ssl);
+        writeInput(connection.getOutputStream());
+        readOutput(connection.getInputStream());
+        disconnect();
+        return outParams;
+    }
+    
+    /**
      * Get the Connection object currently assigned to the VSMCall
      * @return the Connection object currently assigned to the VSMCall or <tt>null</tt>
      * @see com.softwoehr.pigiron.access.Connection
