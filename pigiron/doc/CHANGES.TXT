@@ -15,13 +15,14 @@ CHANGES
 2008-??-?? 0.8 -- Completing Testing
 
     * Testing
-        * Test coverage complete on z/VM 5.4
+        * Test coverage nearly complete on z/VM 5.4
     * Build
         * Generate the md5 sums at release time
     * Return Codes / Reason Codes
         * Straightened out the threefoldness of the RetC/ReasC/Function
           matrix. Now all messages associated with RCs and reason codes
           should be correct.
+    * SSL Support added  
     * Web Objects
         * Clarified model
 
