@@ -30,6 +30,9 @@ value virtualnetworklanquery.lanowner
 value virtualnetworklanquery.lanname
 value virtualnetworkvswitchquery.switchname
 
+\ Control whether our sockets are SSL sockets \
+value useSSL? true to useSSL?
+
 \ Now load the defaults file containing assignments to the values \
 allfunctest.defaults.fiji load
 
@@ -38,17 +41,18 @@ pigiron_support.fiji load
 access_support.fiji load
 
 \ You will have to fill these in on your own \
+\ E.g., ' /home/me/my_defaults_file.fiji load \
 value my.host
 value my.port
 value my.userid
 value my.password
 value my.target
-\ E.g., ' /home/me/my_defaults_file.fiji load \
+value useSSL?? \ true to useSSL? makes connections use SSL sockets \
 
 \ utils \
 
 : announce \ functorName -- \ " Testing" . . cr ;
-: doandprint \ args functor -- \ doIt ( ) prettyPrintAll ( ) . cr ;
+: doandprint \ args functor -- \ doIt ( useSSL? (primitive) , ) prettyPrintAll ( ) . cr ;
 : explain_skip \ StringValueName StringTestorName -- \ . " not run because " . . " was not set." . cr ;
 
 \ tests \
