@@ -34,6 +34,7 @@ package com.softwoehr.pigiron.functions;
 import com.softwoehr.pigiron.access.Connection;
 import com.softwoehr.pigiron.access.ParameterArray;
 import com.softwoehr.pigiron.access.SocketConnection;
+import com.softwoehr.pigiron.access.SSLSocketConnection;
 import com.softwoehr.pigiron.access.VSMException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -101,6 +102,24 @@ public abstract class VSMCall {
         connection = new SocketConnection(hostname, port);
         connection.connect();
     }
+    
+    /**
+     * Create a new connection to the VSMAPI Host and open it in 
+     * either SSL mode or plain socket depending on boolean.
+     * @param ssl if true, connect in SSL mode, plain socket otherwise
+     * @throws java.net.UnknownHostException if hostname can't be found
+     * @throws java.io.IOException if error in connect.
+     * @see com.softwoehr.pigiron.access.Connection
+     */
+    protected void connect(boolean ssl) throws UnknownHostException, IOException {
+	if (ssl) {
+	    connection = new SSLSocketConnection(hostname, port);
+	}
+	else { 
+	    connection = new SocketConnection(hostname, port);
+	}
+        connection.connect();
+    }
 
     /**
      * Create a new connection to the VSMAPI Host and open it.
@@ -115,6 +134,22 @@ public abstract class VSMCall {
         this.port = port;
         connect();
     }
+    
+    /**
+     * Create a new connection to the VSMAPI Host and open it in either
+     * plain socket or SSL socket mode dependingon boolean.
+     * @param hostname the name of the Host to which to connect
+     * @param port the number of the Host port to which to connect
+     * @param ssl if true, connect in SSL mode, plain socket otherwise
+     * @throws java.net.UnknownHostException if hostname can't be found
+     * @throws java.io.IOException if error in connect.
+     * @see com.softwoehr.pigiron.access.Connection
+     */
+    protected void connect(String hostname, int port, boolean ssl) throws UnknownHostException, IOException {
+        this.hostname = hostname;
+        this.port = port;
+        connect(ssl);
+    } 
 
     /**
      * Disconnect from the Host.
