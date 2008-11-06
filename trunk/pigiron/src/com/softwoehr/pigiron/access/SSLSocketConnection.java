@@ -38,23 +38,18 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import javax.net.ssl.SSLSocketFactory;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.net.ssl.SSLContext;
 
 /**
  * Represents the IP SSL Socket connection to the SMAPI Host.
- * NOT FINISHED NOT USEABLE
+ * NOT TESTED
  * @see com.softwoehr.pigiron.functions.VSMCall
  * @author jax
  */
-public class SSLSocketConnection implements Connection {
-
-    private DataInputStream inputStream;
-    private DataOutputStream outputStream;
-    private Socket socket;
-    private String hostname;
-    private int port;
+public class SSLSocketConnection extends SocketConnection {
 
     /**
      * Create a <tt>Connection</tt> ready to <tt>connect</tt> to
@@ -63,128 +58,18 @@ public class SSLSocketConnection implements Connection {
      * @param port the port to which SMAPI is listening on the Host
      */
     public SSLSocketConnection(String hostname, int port) {
-        this.hostname = hostname;
-        this.port = port;
+       super(hostname, port);
     }
 
     /**
-     * Get the input stream to the socket.
-     * @return the input stream to the socket
-     */
-    public DataInputStream getInputStream() {
-        return inputStream;
-    }
-
-    /**
-     * Get the output stream from the socket.
-     * @return the output stream from the socket
-     */
-    public DataOutputStream getOutputStream() {
-        return outputStream;
-    }
-
-    /**
-     * Instance the input stream.
-     * @param inputStream the input stream to assign to this Connection
-     */
-    public void setInputStream(DataInputStream inputStream) {
-        this.inputStream = inputStream;
-    }
-
-    /**
-     * Instance the output stream.
-     * @param outputStream the output stream to assign to this Connection
-     */
-    public void setOutputStream(DataOutputStream outputStream) {
-        this.outputStream = outputStream;
-    }
-
-    /**
-     * Get the name of the Host to which this Connection pertains.
-     * @return the name of the Host to which this Connection pertains
-     */
-    public String getHostname() {
-        return hostname;
-    }
-
-    /**
-     * Set the name of the Host to which this Connection pertains.
-     * @param hostname the name of the Host to which this Connection pertains
-     */
-    public void setHostname(String hostname) {
-        this.hostname = hostname;
-    }
-
-    /**
-     * Get the number of the Host port to which this Connection pertains.
-     * @return the number of the Host port to which this Connection pertains
-     */
-    public int getPort() {
-        return port;
-    }
-
-    /**
-     * Set the number of the Host port to which this Connection pertains.
-     * @param port the number of the Host port to which this Connection pertains
-     */
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    /**
-     * Get the socket to which this Connection pertains.
-     * @return the socket to which this Connection pertains
-     */
-    public Socket getSocket() {
-        return socket;
-    }
-
-    /**
-     * Set the socket to which this Connection pertains.
-     * @param socket the socket to which this Connection pertain
-     */
-    protected void setSocket(Socket socket) {
-        this.socket = socket;
-    }
-
-    /**
-     * Establish the connection to the Host VSMAPI.
+     * Establish the connection to the Host VSMAPI, this time as SSL
      * @throws UnknownHostException if the hostname can't be found
      * @throws IOException if there is an I/O error in connecting
      */
     public void connect() throws UnknownHostException, IOException {
         // /* Debug */ System.out.println("Connection.connect ... host and port are " + hostname + port);
-        setSocket(new Socket(hostname, port));
+        setSocket(SSLSocketFactory.getDefault().createSocket(hostname, port));
         setOutputStream(new DataOutputStream(new BufferedOutputStream(socket.getOutputStream())));
         setInputStream(new DataInputStream(new BufferedInputStream(socket.getInputStream())));
-    }
-
-    /**
-     * Disestablish the connection to the Host VSMAPI.
-     */
-    public void disconnect() {
-        try {
-            getOutputStream().close();
-        } catch (IOException ex) {
-            Logger.getLogger(SSLSocketConnection.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            getInputStream().close();
-        } catch (IOException ex) {
-            Logger.getLogger(SSLSocketConnection.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            getSocket().close();
-        } catch (IOException ex) {
-            Logger.getLogger(SSLSocketConnection.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    /**
-     * True if currently connected.
-     * @return true if currently connected, false otherwise.
-     */
-    public boolean isConnected() {
-        return getSocket().isConnected();
     }
 }

@@ -48,11 +48,11 @@ import java.util.logging.Logger;
  */
 public class SocketConnection implements Connection {
 
-    private DataInputStream inputStream;
-    private DataOutputStream outputStream;
-    private Socket socket;
-    private String hostname;
-    private int port;
+    protected DataInputStream inputStream;
+    protected DataOutputStream outputStream;
+    protected Socket socket;
+    protected String hostname;
+    protected int port;
 
     /**
      * Create a <tt>Connection</tt> ready to <tt>connect</tt> to
