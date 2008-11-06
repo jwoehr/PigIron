@@ -77,7 +77,8 @@ then
     cd $PARMFILE_SRCDIR
     for i in *.m4
     do
-        echo '\\' $i '\\' >> ${OUTFILE}
+        echo >> ${OUTFILE}
+	echo '\\' $i '\\' >> ${OUTFILE}
     	cat $i | sed 's/include(`/include(`fiji_/g' | \
 	$GM4 -I $SCRIPTDIR >> ${OUTFILE}
     done
@@ -90,6 +91,7 @@ then
     cd $FUNCFILE_SRCDIR
     for i in *.m4
     do
+        echo >> ${OUTFILE}
         echo '\\' $i '\\' >> ${OUTFILE}
     	cat $i | sed 's/include(`/include(`fiji_/g' | \
 	$GM4 -I $SCRIPTDIR >> ${OUTFILE}
