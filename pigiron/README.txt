@@ -39,11 +39,12 @@ You can start at the root of all documentation by opening doc/index.html in
 your browser.
 
 NOTE ON SECURITY (LACK THEREOF):
-    * Currently NO secure sockets implementation. Sends your password in
-      CLEAR TEXT. Use ONLY on a secure LAN behind a firewall.
+    * PigIron supports Secure Sockets Layer communictions. Use the boolean true flag
+      to the VSMCall.doIt() function to use SSL. Otherwise, PigIron sends your password in
+      CLEAR TEXT, in which case we recommend you use ONLY on a secure LAN behind a firewall.
 
-PigIron currently supports z/VM r5.3 SMAPI.
+PigIron currently supports z/VM r5.4 SMAPI.
 
 Fairmount, Colorado
-2008-08-20
+2008-11-10
 
