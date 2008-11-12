@@ -272,6 +272,13 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     \ imagecreatedm.noprototype.alltheotherargs \
     ImageCreateDM doandprint ;
 
+\ Delete the IPL for the no-prototype image we created \
+: testing_ImageIPLDeleteDM " ImageIPLDeleteDM" announce
+    my.host my.port my.userid my.password imagecreatedm.noprototype.imagenametocreate ImageIPLDeleteDM doandprint ;
+
+: query_no_proto_ipl_statement \ -- \
+    " ImageIPLQueryDM" announce  my.host my.port my.userid my.password imagecreatedm.noprototype.imagenametocreate ImageIPLQueryDM doandprint ;
+
 \ Delete the prototype-created image \
 : testing_ImageDeleteDM_1 " ImageDeleteDM_1" announce
     imagecreatedm.imagenametocreate null <> 
@@ -351,6 +358,8 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_PrototypeNameQueryDM  \ make sure our proto went away \
     testing_ImageCreateDM_1
     testing_ImageCreateDM_2
+    testing_ImageIPLDeleteDM \ Delete the no-proto account IPL statement \
+    query_no_proto_ipl_statement \ See what happened \
     testing_ImageDeleteDM_1
     testing_ImageDeleteDM_2
     testing_ImagePasswordSetDM
@@ -427,8 +436,7 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
 \ : testing_ImageDiskUnshareDM " ImageDiskUnshareDM" announce
     my.host my.port my.userid my.password my.target my.extraparm ImageDiskUnshareDM doandprint ; \
 
-\ : testing_ImageIPLDeleteDM " ImageIPLDeleteDM" announce
-    my.host my.port my.userid my.password my.target my.extraparm ImageIPLDeleteDM doandprint ; \
+\ Set a new IPL for the no-prototype image we created \
 \ : testing_ImageIPLSetDM " ImageIPLSetDM" announce
     my.host my.port my.userid my.password my.target my.extraparm ImageIPLSetDM doandprint ; \
 
