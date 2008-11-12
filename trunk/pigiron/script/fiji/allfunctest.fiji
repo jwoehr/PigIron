@@ -276,6 +276,10 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
 : testing_ImageIPLDeleteDM " ImageIPLDeleteDM" announce
     my.host my.port my.userid my.password imagecreatedm.noprototype.imagenametocreate ImageIPLDeleteDM doandprint ;
 
+\ Set a new IPL for the no-prototype image we created \
+: testing_ImageIPLSetDM " ImageIPLSetDM" announce
+    my.host my.port my.userid my.password imagecreatedm.noprototype.imagenametocreate " ELEPHANT" " 123" " ON PARADE"  ImageIPLSetDM doandprint ;
+
 : query_no_proto_ipl_statement \ -- \
     " ImageIPLQueryDM" announce  my.host my.port my.userid my.password imagecreatedm.noprototype.imagenametocreate ImageIPLQueryDM doandprint ;
 
@@ -360,6 +364,8 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_ImageCreateDM_2
     testing_ImageIPLDeleteDM \ Delete the no-proto account IPL statement \
     query_no_proto_ipl_statement \ See what happened \
+    testing_ImageIPLSetDM \ Create for the no-proto account a new IPL statement \
+    query_no_proto_ipl_statement \ See what happened \
     testing_ImageDeleteDM_1
     testing_ImageDeleteDM_2
     testing_ImagePasswordSetDM
@@ -435,10 +441,6 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     my.host my.port my.userid my.password my.target my.extraparm ImageDiskUnshare doandprint ; \
 \ : testing_ImageDiskUnshareDM " ImageDiskUnshareDM" announce
     my.host my.port my.userid my.password my.target my.extraparm ImageDiskUnshareDM doandprint ; \
-
-\ Set a new IPL for the no-prototype image we created \
-\ : testing_ImageIPLSetDM " ImageIPLSetDM" announce
-    my.host my.port my.userid my.password my.target my.extraparm ImageIPLSetDM doandprint ; \
 
 \ : testing_ImageLockDM " ImageLockDM" announce
     my.host my.port my.userid my.password my.target my.extraparm ImageLockDM doandprint ; \
