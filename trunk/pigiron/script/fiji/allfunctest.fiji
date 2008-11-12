@@ -32,6 +32,9 @@ value virtualnetworkvswitchquery.switchname
 
 \ Control whether our sockets are SSL sockets \
 value useSSL? true to useSSL?
+\ true == ssl, false == regular socket   \
+\ we actually override this in our local \
+\ settings file before invoking any test \
 
 \ Now load the defaults file containing assignments to the values \
 allfunctest.defaults.fiji load
@@ -40,22 +43,22 @@ allfunctest.defaults.fiji load
 pigiron_support.fiji load
 access_support.fiji load
 
-\ You will have to fill these in on your own \
+\ You will have to fill these in on your own  \
 \ E.g., ' /home/me/my_defaults_file.fiji load \
 value my.host
 value my.port
 value my.userid
 value my.password
 value my.target
-value useSSL?? \ true to useSSL? makes connections use SSL sockets \
 
 \ utils \
-
 : announce \ functorName -- \ " Testing" . . cr ;
 : doandprint \ args functor -- \ doIt ( useSSL? (primitive) , ) prettyPrintAll ( ) . cr ;
 : explain_skip \ StringValueName StringTestorName -- \ . " not run because " . . " was not set." . cr ;
 
+\ ===== \
 \ tests \
+\ ===== \
 
 : testing_CheckAuthentication \ -- \
   " CheckAuthentication" announce
@@ -311,7 +314,7 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     authorizationlistquery.targetid authorizationlistquery.forid authorizationlistquery.functionid
     AuthorizationListQuery doandprint ;
 
-\ whole shebang \
+\ whole shebang as a sorta scripted dance \
 : test-all \ -- \
     testing_CheckAuthentication
     testing_QueryAPIFunctionalLevel
@@ -371,6 +374,10 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_ImagePasswordSetDM
     testing_AuthorizationListQuery
     ;
+
+\ ==== \
+\ TODO \
+\ ==== \
 
 \ : testing_AsynchronousNotificationDisableDM " AsynchronousNotificationDisableDM" announce
     my.host my.port my.userid my.password my.target my.extraparm AsynchronousNotificationDisableDM doandprint ; \
@@ -549,3 +556,5 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
 
 \ : testing_VirtualNetworkVswitchSet " VirtualNetworkVswitchSet" announce
     my.host my.port my.userid my.password my.target my.extraparm VirtualNetworkVswitchSet doandprint ; \
+
+\ End \
