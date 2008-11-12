@@ -68,9 +68,9 @@ ImageDiskShare
 ImageDiskShareDM
 ImageDiskUnshare
 ImageDiskUnshareDM
-ImageIPLDeleteDM
+* ImageIPLDeleteDM
 * ImageIPLQueryDM
-ImageIPLSetDM
+* ImageIPLSetDM
 ImageLockDM
 * ImageNameQueryDM
 * ImagePasswordSetDM
