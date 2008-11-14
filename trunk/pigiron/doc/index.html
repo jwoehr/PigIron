@@ -40,7 +40,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii">
   <meta http-equiv="Last-Modified" content=
-  "Thu, 6 Nov 2008 08:19:40 UTC">
+  "Fri, 14 Nov 2008 09:29:41 UTC">
 </head>
 
 <body>
@@ -54,7 +54,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <p><tt>Copyright (c) 2008, Jack J. Woehr <a href=
   "mailto:jwoehr@softwoehr.com">jwoehr@softwoehr.com</a> PO Box 51,
   Golden, Colorado 80402-0051 USA All rights reserved.</tt></p>This
-  is code documentation. If you want navigation, here are some ...
+  is code documentation. If you want navigation, here are some<br>
 
   <h2>Quick External Links</h2>
 
@@ -106,14 +106,29 @@ THE POSSIBILITY OF SUCH DAMAGE.
     </li>
 
     <li>Open Source Software used in conjunction with PigIron
+    development
 
       <ul>
+        <li>All of the following are used in developing PigIron
+        itself
+
+          <ul>
+            <li>None of these are necessary merely to use
+            PigIron!</li>
+          </ul>
+        </li>
+
         <li><a href="http://fiji.sourceforge.net/">FIJI ForthIsh
         Java Interpreter</a> used in scripting and testing
-        PigIron<br></li>
+        PigIron</li>
+
+        <li><a href="http://www.gnu.org/software/m4/">GNU m4</a>
+        used by <a href="piggen.html">PigGen</a> to autogenerate
+        Java code for new PigIron classes</li>
 
         <li>
-          <a href="http://www.oorexx.org">Open ObjectRexx</a>
+          <a href="http://www.oorexx.org">Open ObjectRexx</a> can
+          be used to script and test PigIron
 
           <ul>
             <li><a href=
@@ -123,7 +138,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
         </li>
       </ul>
     </li>
-  </ul>Now, onwards to the code documentation for PigIron:
+  </ul>Now, onwards to the <span style="font-weight: bold;">code
+  documentation</span> for PigIron:
 
   <h2>Contents</h2>
 
@@ -132,8 +148,15 @@ THE POSSIBILITY OF SUCH DAMAGE.
       <a href="#Overview">Overview</a>
 
       <ul>
-        <li><a href="#NOTE_ON_SECURITY">NOTE ON SECURITY (LACK
-        THEREOF)</a></li>
+        <li>
+          <a href="#NOTE_ON_SECURITY">NOTE ON SECURITY (AND LACK
+          THEREOF)</a>
+
+          <ul>
+            <li><small><a href="#Using_PigIron_and_SSL">Using
+            PigIron and SSL</a></small></li>
+          </ul>
+        </li>
 
         <li><a href="#Getting_PigIron">Getting PigIron</a></li>
 
@@ -171,6 +194,19 @@ THE POSSIBILITY OF SUCH DAMAGE.
     <li><a href="#Theory_of_PigIron">Theory of PigIron</a></li>
 
     <li>
+      <a href="#Using_PigIron">Using PigIron</a>
+
+      <ul>
+        <li><a href="#Example_CheckAuthentication">Example:
+        <span style=
+        "font-family: monospace;">CheckAuthentication</span></a></li>
+
+        <li><a href="#Using_PigIron.Security_Note">Security
+        Note</a><br></li>
+      </ul>
+    </li>
+
+    <li>
       <a href="#Architecture">Architecture</a>
 
       <ul>
@@ -198,23 +234,32 @@ THE POSSIBILITY OF SUCH DAMAGE.
         <li><a href="../javadoc/index.html">PigIron
         Javadocs</a></li>
 
-        <li style="font-family: monospace;">Text Documents
+        <li><a href="pigiron.sourceforge.net/index.html">PigIron's
+        SourceForge website documents</a><br></li>
+
+        <li>Text Documents
 
           <ul>
-            <li style="font-family: monospace;"><a href=
-            "APIList.txt">APIList.txt</a><br></li>
+            <li><a href="APIList.txt">APIList.txt</a> is a list of
+            System Management APIs.<br></li>
 
-            <li style="font-family: monospace;"><a href=
-            "CHANGES.TXT">CHANGES.TXT</a></li>
+            <li><a href="CHANGES.TXT">CHANGES.TXT</a> is the
+            generalized change description for releases.<br></li>
 
-            <li style="font-family: monospace;"><a href=
-            "INSTALL.TXT">INSTALL.TXT</a></li>
+            <li><a href="INSTALL.TXT">INSTALL.TXT</a> is a simple
+            explanation of installation.<br></li>
 
-            <li style="font-family: monospace;"><a href=
-            "README.TXT">README.TXT</a></li>
+            <li><a href="README.TXT">README.TXT</a> should
+            obviously be read first!<br></li>
 
-            <li><a style="font-family: monospace;" href=
-            "spec.txt">spec.txt</a></li>
+            <li><a href="spec.txt">spec.txt</a> is an early
+            document describing the intent of the project.<br></li>
+
+            <li><a href=
+            "VSMAPI_functions.txt">VSMAPI_functions.txt</a> is a
+            list of all the PigIron VSMAPI function classes with
+            asterisk <span style="font-family: monospace;">*</span>
+            next to each one that has been tested.</li>
           </ul>
         </li>
       </ul>
@@ -270,14 +315,33 @@ THE POSSIBILITY OF SUCH DAMAGE.
   VSMAPI.<br></span></p>
 
   <h3><a name="NOTE_ON_SECURITY" id="NOTE_ON_SECURITY">NOTE ON
-  SECURITY (LACK THEREOF)</a></h3>
+  SECURITY (AND LACK THEREOF)</a></h3>
 
-  <p><b>Currently there is NO secure sockets implementation.
-  PigIron currently sends your password in CLEAR TEXT. Use PigIron
-  ONLY on a secure LAN behind a firewall.</b></p>
+  <h4><a name="Using_PigIron_and_SSL" id=
+  "Using_PigIron_and_SSL"></a>Using PigIron and SSL</h4>
 
-  <p>We're working on this. It's tempting to use only Java 1.6
-  because SSL is easier, but that's probably too restrictive.</p>
+  <p>Pigiron possesses a <span style="font-style: italic;">not
+  fully tested</span> Secure Sockets Layer (SSL)
+  implementation.<br></p>
+
+  <p>To use SSL with PigIron pass <span style=
+  "font-family: monospace;">boolean true</span> to <span style=
+  "font-family: monospace;">VSMCall.doIt(boolean ssl)</span> to
+  indicate SSL mode. <span style="text-decoration: underline;">The
+  argument</span> <span style=
+  "font-family: monospace; text-decoration: underline;">false</span>
+  <span style="text-decoration: underline;">indicates clear text
+  mode, in which case your passwords and data are transmitted over
+  the network in plain text, in which case you should only use
+  PigIron on a secure intranet.</span><br></p>
+
+  <p><span style="font-weight: bold;">Note:</span> Actually you
+  will never call <span style=
+  "font-family: monospace;">VSMCall.doIt(boolean ssl)</span> but
+  instead the override of that function in the PigIron class
+  mapping to the VSMAPI function you're using, i.e., <span style=
+  "font-family: monospace;">CheckAuthentication.doIt(boolean
+  ssl)</span> .&nbsp;<br></p>
 
   <h3><a name="Getting_PigIron" id="Getting_PigIron">Getting
   PigIron</a></h3>
@@ -471,8 +535,11 @@ THE POSSIBILITY OF SUCH DAMAGE.
   a testing environment!<br></p>
 
   <ul>
-    <li>Many com.softwoehr.pigiron.functions classes have a main()
-    that can be used for testing.</li>
+    <li>Some <span style=
+    "font-family: monospace;">com.softwoehr.pigiron.functions
+    classes</span> have a <span style=
+    "font-family: monospace;">main()</span> that can be used for
+    testing.</li>
 
     <li>The scripts contained in <span style=
     "font-family: monospace;">scripts/oorexx/functest</span> use
@@ -499,7 +566,13 @@ THE POSSIBILITY OF SUCH DAMAGE.
               </ul>
             </li>
 
-            <li>Not all the tests have been exercised</li>
+            <li>Not all the tests have been exercised (extensive
+            setup required on host)
+
+              <ul>
+                <li>This is in progress<br></li>
+              </ul>
+            </li>
           </ul>
         </li>
       </ul>
@@ -515,8 +588,9 @@ THE POSSIBILITY OF SUCH DAMAGE.
         href="../script/fiji">pigiron/script/fiji</a></big>
         contains the FIJI support for PigIron.</li>
 
-        <li>Using PigGen as described in the PigGen documentation,
-        the file <big><a style="font-family: monospace;" href=
+        <li>Using PigGen as described in the <a href=
+        "piggen.html">PigGen documentation</a>, the file
+        <big><a style="font-family: monospace;" href=
         "../script/fiji/pigiron_support.fiji">pigiron_support.fiji</a></big>
         was autogenerated.</li>
 
@@ -533,10 +607,10 @@ THE POSSIBILITY OF SUCH DAMAGE.
         classes.</li>
 
         <li><big style=
-        "font-family: monospace;">allfunctest.fiji</big> is
-        currently caught up to the level of <big><span style=
+        "font-family: monospace;">allfunctest.fiji</big> is beyond
+        the level of <big><span style=
         "font-family: monospace;">allfunctest.rex</span></big> and
-        will pass by that level soon.<br></li>
+        it currently proceeding<br></li>
       </ul>
     </li>
   </ul>
@@ -602,7 +676,19 @@ THE POSSIBILITY OF SUCH DAMAGE.
     <li>Create Web management app based on the Piglet PigIron Java
     Servlet (TODO)</li>
 
-    <li>There is some talk of a standalone GUI (WIBNI)<br></li>
+    <li>There is some talk of a standalone GUI (WIBNI)
+
+      <ul>
+        <li>Currently experimenting with a preliminary <a href=
+        "http://sourceforge.net/projects/javacurses/">JCurses</a>-based
+        character-mode UI
+
+          <ul>
+            <li>not checked in yet<br></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </ol>
   <hr style="width: 100%; height: 2px;">
 
@@ -755,6 +841,180 @@ THE POSSIBILITY OF SUCH DAMAGE.
   which will offer phat wrappers around the <span style=
   "font-family: monospace;">com.softwoehr.pigiron.functions</span>
   .<br>
+  <hr style="width: 100%; height: 2px;">
+
+  <h2><a name="Using_PigIron" id="Using_PigIron"></a>Using
+  PigIron</h2>PigIron maps VSMAPI functions to classes.<br>
+  <br>
+  To call a VSMAPI function:<br>
+
+  <ol>
+    <li>You will need an instance of the appropriate PigIron VSMAPI
+    function class found in <span style="font-family: monospace;">
+      com.softwoehr.pigiron.functions</span> .
+
+      <ul>
+        <li>E.g., <span style=
+        "font-family: monospace;">com.softwoehr.pigiron.functions.CheckAuthentication</span>
+        which maps to the VSMAPI function <span style=
+        "font-family: monospace;">Check_Authentication.</span></li>
+      </ul>
+    </li>
+
+    <li>Use the class's major constructor which takes all the
+    arguments the VSMAPI function needs
+
+      <ul>
+        <li>Where the arguments are of the simple VSMAPI types like
+        VSMInt4 and VSMString, construct appropriate
+        instances.</li>
+
+        <li>Where the arguments are of the complex parameter types
+        mapped to classes in <span style=
+        "font-family: monospace;">com.softwoehr.pigiron.access.paramstructs</span>,
+        construct appropriate instances of same.</li>
+      </ul>
+
+      <div style="margin-left: 2em">
+        <ul>
+          <li>The most complicated cases involve those VSMAPI
+          functions which take Arrays of Structs or Arrays of
+          simple types.
+
+            <ol>
+              <li>Construct the appropriate Array type (again found
+              in <span style=
+              "font-family: monospace;">com.softwoehr.pigiron.access.paramstructs</span>)<br>
+              </li>
+
+              <li>Construct the Struct or simple type instances one
+              at a time</li>
+
+              <li>Populate the Array type with the Struct or simple
+              type instances as you create them.</li>
+            </ol>
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <li>Call the <span style="font-family: monospace;">doIt(boolean
+    ssl)</span> method of the PigIron VSMAPI function class.
+
+      <ul>
+        <li>
+          <span style="font-family: monospace;">doIt(boolean
+          ssl)</span> returns the type <span style=
+          "font-family: monospace;">com.softwoehr.pigiron.access.ParameterArray</span>
+          which you examine for the results of the VSMAPI function
+          call.
+
+          <ul>
+            <li><span style=
+            "font-family: monospace;">&nbsp;</span><span style=
+            "font-family: monospace;">ParameterArray.</span><span style="font-family: monospace;">prettyPrintAll()</span>
+            dumps the results to an informative multiline
+            <span style=
+            "font-family: monospace;">java.lang.String</span>
+            .</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ol>
+
+  <h4><a name="Example_CheckAuthentication" id=
+  "Example_CheckAuthentication"></a>Example: <span style=
+  "font-family: monospace;">CheckAuthentication</span><br></h4>The
+  simplest example is <span style=
+  "font-family: monospace;">CheckAuthentication</span> as called in
+  <span style=
+  "font-family: monospace;">CheckAuthentication.main()</span>:<br>
+  <br>
+
+  <div style="margin-left: 40px;">
+    &nbsp;&nbsp; <span style=
+    "font-family: monospace;">/**</span><br style=
+    "font-family: monospace;">
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;
+    * You can execute the VSMAPI call from {@code main()}, try
+    it</span><br style="font-family: monospace;">
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;
+    * with no args to see the usage message.</span><br style=
+    "font-family: monospace;">
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;
+    * @param argv array of commandline args</span><br style=
+    "font-family: monospace;">
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;
+    * @throws IOException on comm error</span><br style=
+    "font-family: monospace;">
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;
+    * @throws VSMException on internal Pigiron param marshalling
+    error</span><br style="font-family: monospace;">
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;
+    */</span><br style="font-family: monospace;">
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp; public
+    static void main(String[] argv) throws IOException,
+    VSMException {</span><br style="font-family: monospace;">
+    <br style="font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    CheckAuthentication instance = null;</span><br style=
+    "font-family: monospace;">
+    <br style="font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    if (argv.length != 5) {</span><br style=
+    "font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    System.out.println("usage: args are:\ninetaddr port user pw
+    target_id");</span><br style="font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    System.exit(1);</span><br style="font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    }</span><br style="font-family: monospace;">
+    <br style="font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    System.out.println("Args are: " + argv[0] + " " + argv[1] + " "
+    + argv[2] + " " + argv[3] + " " + argv[4]);</span><br style=
+    "font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    instance = new CheckAuthentication(argv[0],
+    Integer.valueOf(argv[1]).intValue(), argv[2], argv[3],
+    argv[4]);</span><br style="font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br style="font-family: monospace;">
+
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    ParameterArray pA = instance.doIt();</span><br style=
+    "font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    System.out.println("Returns from call to " +
+    instance.getFunctionName() + ":");</span><br style=
+    "font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    System.out.println(pA.prettyPrintAll());</span><br style=
+    "font-family: monospace;">
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp;
+    }<br></span>
+  </div>
+
+  <p><a name="Using_PigIron.Security_Note" id=
+  "Using_PigIron.Security_Note"></a><span style=
+  "font-weight: bold;">Security Note:</span> The <span style=
+  "font-family: monospace;">main()</span> methods to the source
+  code do not currently use SSL. They were designed for only for
+  early testing of the code. Do not call <span style=
+  "font-family: monospace;">main()</span> methods of PigIron
+  outside a secure intranet!</p>
   <hr style="width: 100%; height: 2px;">
 
   <h2><a name="Architecture" id=
