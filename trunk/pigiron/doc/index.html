@@ -40,7 +40,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii">
   <meta http-equiv="Last-Modified" content=
-  "Fri, 14 Nov 2008 09:29:41 UTC">
+  "Sun, 16 Nov 2008 03:28:57 UTC">
 </head>
 
 <body>
@@ -268,7 +268,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
   <h2><a name="Overview" id="Overview">Overview</a></h2>
 
-  <p>PigIron provides Java class wrappers for the <a href=
+  <p>PigIron implements in Java the client side of the <a href=
   "http://www.ibm.com">IBM</a> &reg; <a href=
   "http://www.vm.ibm.com">z/VM &reg; Virtual Machine Operating
   System</a>'s <a href=
@@ -399,7 +399,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
   <p><a href="./license.txt">View the BSD-style license for the
   PigIron Class Library</a>.</p>
-  <hr style="width: 100%; height: 2px;">
 
   <h2><a name="Installation" id=
   "Installation"></a>Installation</h2>
@@ -477,7 +476,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </ul>
     </li>
   </ul>
-  <hr style="width: 100%; height: 2px;">
 
   <h2><a name="Specification" id=
   "Specification">Specification</a></h2>PigIron is a library of
@@ -690,7 +688,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </ul>
     </li>
   </ol>
-  <hr style="width: 100%; height: 2px;">
 
   <h2><a name="Theory_of_PigIron" id="Theory_of_PigIron"></a>Theory
   of PigIron</h2>PigIron implements a recursive descent parser to
@@ -829,7 +826,9 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
     <li>PigIron structures and functions contain the definition of
     constants relevant to their parameters.</li>
-  </ul>PigIron's class library represention of VSMAPI functions in
+  </ul>
+
+  <p>PigIron's class library represention of VSMAPI functions in
   <span style=
   "font-family: monospace;">com.softwoehr.pigiron.functions</span>
   manages communications and parameter marshalling and
@@ -840,8 +839,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   "font-family: monospace;">com.softwoehr.pigiron.bizobj</span>
   which will offer phat wrappers around the <span style=
   "font-family: monospace;">com.softwoehr.pigiron.functions</span>
-  .<br>
-  <hr style="width: 100%; height: 2px;">
+  .</p>
 
   <h2><a name="Using_PigIron" id="Using_PigIron"></a>Using
   PigIron</h2>PigIron maps VSMAPI functions to classes.<br>
@@ -875,7 +873,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
         construct appropriate instances of same.</li>
       </ul>
 
-      <div style="margin-left: 2em">
+      <div style="margin-left: 2em;">
         <ul>
           <li>The most complicated cases involve those VSMAPI
           functions which take Arrays of Structs or Arrays of
@@ -1015,7 +1013,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
   early testing of the code. Do not call <span style=
   "font-family: monospace;">main()</span> methods of PigIron
   outside a secure intranet!</p>
-  <hr style="width: 100%; height: 2px;">
 
   <h2><a name="Architecture" id=
   "Architecture"></a>Architecture</h2>
