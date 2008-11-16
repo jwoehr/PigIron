@@ -26,3 +26,6 @@ prototypecreatedm.prototypetocreate to prototypedeletedm.prototypetodelete
 " MYLANOWN" to virtualnetworklanquery.lanowner
 " MYLAN" to virtualnetworklanquery.lanname
 " MYSWITCH" to virtualnetworkvswitchquery.switchname
+" JACK" to authorizationlistadd.targetid
+" JACK" to authorizationlistadd.forid
+" Fembot_Race" to authorizationlistadd.functionid
