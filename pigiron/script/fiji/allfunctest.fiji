@@ -2,6 +2,9 @@
 \ Test the PigIron Project http://pigiron.sourceforge.net \
 
 \ Declare values that will be used as parameters in making VSMAPI functions \
+value authorizationlistadd.targetid
+value authorizationlistadd.forid
+value authorizationlistadd.functionid
 value authorizationlistquery.targetid
 value authorizationlistquery.forid
 value authorizationlistquery.functionid
@@ -309,10 +312,29 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     my.host my.port my.userid my.password my.target imagepasswordsetdm.newpassword ImagePasswordSetDM doandprint ;
 
 \ Query all authorizations all virtual images all functions \
-: testing_AuthorizationListQuery " AuthorizationListQuery" announce
+: testing_AuthorizationListQuery1 " AuthorizationListQuery" announce
     my.host my.port my.userid my.password
     authorizationlistquery.targetid authorizationlistquery.forid authorizationlistquery.functionid
     AuthorizationListQuery doandprint ;
+
+\ Add authorization for a user for a given function with a comment added by "forid" to the auth record \
+: testing_AuthorizationListAdd " AuthorizationListAdd" announce
+    my.host my.port my.userid my.password authorizationlistadd.targetid authorizationlistadd.forid authorizationlistadd.functionid
+    AuthorizationListAdd doandprint ;
+
+\ Query authorizations which we just added \
+: testing_AuthorizationListQuery2 " AuthorizationListQuery" announce
+    my.host my.port my.userid my.password
+    authorizationlistadd.targetid authorizationlistadd.forid authorizationlistadd.functionid
+    AuthorizationListQuery doandprint ;
+
+\ Remove the authorization which we just added \
+: testing_AuthorizationListRemove " AuthorizationListRemove" announce
+    my.host my.port my.userid my.password  authorizationlistadd.targetid authorizationlistadd.forid authorizationlistadd.functionid
+    AuthorizationListRemove doandprint ;
+
+
+
 
 \ whole shebang as a sorta scripted dance \
 : test-all \ -- \
@@ -372,7 +394,11 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_ImageDeleteDM_1
     testing_ImageDeleteDM_2
     testing_ImagePasswordSetDM
-    testing_AuthorizationListQuery
+    testing_AuthorizationListQuery1 \ just take a look \
+    testing_AuthorizationListAdd    \ add an entry \
+    testing_AuthorizationListQuery2 \ See if you can find that entry \
+    testing_AuthorizationListRemove \ remove entry \
+    testing_AuthorizationListQuery2 \ See if it is gone \
     ;
 
 \ ==== \
@@ -385,12 +411,6 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     my.host my.port my.userid my.password my.target my.extraparm AsynchronousNotificationEnableDM doandprint ; \
 \ : testing_AsynchronousNotificationQueryDM " AsynchronousNotificationQueryDM" announce
     my.host my.port my.userid my.password my.target my.extraparm AsynchronousNotificationQueryDM doandprint ; \
-
-\ : testing_AuthorizationListAdd " AuthorizationListAdd" announce
-    my.host my.port my.userid my.password my.target my.extraparm AuthorizationListAdd doandprint ; \
-
-\ : testing_AuthorizationListRemove " AuthorizationListRemove" announce
-    my.host my.port my.userid my.password my.target my.extraparm AuthorizationListRemove doandprint ; \
 
 \ : testing_DirectoryManagerLocalTagDefineDM " DirectoryManagerLocalTagDefineDM" announce
     my.host my.port my.userid my.password my.target my.extraparm DirectoryManagerLocalTagDefineDM doandprint ; \
