@@ -44,18 +44,19 @@ import java.net.Socket;
  * described in the VSMAPI documentation for
  * <a href="http://publib.boulder.ibm.com/infocenter/zvm/v5r4/index.jsp?topic=/com.ibm.zvm.v54.dmse6/cslane.htm">
  * Asynchronous_Notification_Enable_DM</a>. Reads notifications and prints them
- * on an PrintStream. The example {@code main()} routine uses {@code System.out}
+ * on a PrintStream. The example {@code main()} routine uses {@code System.out}
  * as the PrintStream.
  *
  * To use this subscriber:
  * <ol>
- * <li>Pick a port and invoke the ctor on that port.</li>
- * <li>Use com.softwoehr.pigiron.functions.AsynchronousNotificationEnableDM to start subscriptions to this port (on the host on which you started the AsynchronousSubscriber)<li>
+ * <li>Pick an ip addr, a port, a backlog (e.g., 50) and a timeout in ms (0 means "never") and invoke the ctor on that port.</li>
+ * <li>Use {@code com.softwoehr.pigiron.functions.AsynchronousNotificationEnableDM} to start subscriptions to this port (on the host on which you started the AsynchronousSubscriber)<li>
  * </ol>
  *
  * @author     jax
  * @created    November 16, 2008
  * @see        com.softwoehr.pigiron.access.ParameterArray
+ * @see        com.softwoehr.pigiron.functions.AsynchronousNotificationEnableDM
  */
 public class AsynchronousSubscriber {
 
@@ -74,12 +75,12 @@ public class AsynchronousSubscriber {
 	/**
 	 *Constructor for the AsynchronousSubscriber object
 	 *
-	 * @param  inetaddress                        Description of the Parameter
-	 * @param  port                               Description of the Parameter
-	 * @param  backlog                            Description of the Parameter
-	 * @param  timeout                            Description of the Parameter
-	 * @exception  java.io.IOException            Description of the Exception
-	 * @exception  java.net.UnknownHostException  Description of the Exception
+	 * @param  inetaddress                        interface to bind on
+	 * @param  port                               port to bind on
+	 * @param  backlog                            backlog queue size
+	 * @param  timeout                            accept timeout in ms
+	 * @exception  java.io.IOException            on I/O error
+	 * @exception  java.net.UnknownHostException  on bad interface name or num
 	 */
 	AsynchronousSubscriber(InetAddress inetaddress, int port, int backlog, int timeout) throws java.io.IOException, java.net.UnknownHostException {
 		myServerSocket = ServerSocketFactory.getDefault()
@@ -114,31 +115,46 @@ public class AsynchronousSubscriber {
 	}
 
 	/**
-	 *  Description of the Method
+	 *  Read one of the messages from the notification you subscribed to via AsynchronousNotificationEnableDM
 	 *
-	 * @return                                                Description of the Return Value
-	 * @exception  java.io.IOException                        Description of the Exception
-	 * @exception  com.softwoehr.pigiron.access.VSMException  Description of the Exception
+	 * @return                                                ParameterArray with the message from notifier
+	 * @exception  java.io.IOException                        Any I/O exception other than java.net.SocketTimeoutException (which we catch and ignore, this is just {@code accept()} timing out in a loop)
+	 * @exception  com.softwoehr.pigiron.access.VSMException  Error in parameter marshalling
 	 */
 	ParameterArray readNotification() throws java.io.IOException, com.softwoehr.pigiron.access.VSMException {
-		Socket socket = myServerSocket.accept();
-		DataInputStream din = new DataInputStream(socket.getInputStream());
-		ParameterArray pa = composeOutputArray();
-		pa.readAll(din);
-		socket.close();
+		ParameterArray pa = null;
+		try {
+			Socket socket = myServerSocket.accept();
+			DataInputStream din = new DataInputStream(socket.getInputStream());
+			pa = composeOutputArray();
+			pa.readAll(din);
+			socket.close();
+		} catch (java.net.SocketTimeoutException ex) {
+			// do nothing on this particular exception
+			// maybe log?
+		}
+
 		return pa;
+		// possibly null
 	}
 
 	/**
-	 *  Description of the Method
+	 *  Loop either reading notifications or timing out in {@code accept()} and listening again
 	 *
-	 * @param  os                                             Description of the Parameter
-	 * @exception  java.io.IOException                        Description of the Exception
-	 * @exception  com.softwoehr.pigiron.access.VSMException  Description of the Exception
+	 * @param  printstream                                    PrintStream to report on
+	 * @exception  java.io.IOException                        Any I/O exception other than java.net.SocketTimeoutException (which we ignore, this is a loop)
+	 * @exception  com.softwoehr.pigiron.access.VSMException  Error in parameter marshalling
 	 */
-	public void subscriptionLoop(PrintStream os) throws java.io.IOException, com.softwoehr.pigiron.access.VSMException {
+	public void subscriptionLoop(PrintStream printstream) throws java.io.IOException, com.softwoehr.pigiron.access.VSMException {
+		ParameterArray pa = null;
 		while (!quitFlag) {
-			os.println(readNotification().prettyPrintParams());
+			pa = readNotification();
+			if (pa != null) {
+				printstream.println(pa.prettyPrintParams());
+			} else {
+				// debug
+				System.out.println("accept timeout");
+			}
 		}
 	}
 
@@ -146,7 +162,8 @@ public class AsynchronousSubscriber {
 	/**
 	 *  Sets the timeout attribute of the AsynchronousSubscriber object
 	 *
-	 * @param  timeout  The new timeout value
+	 * @param  timeout                       The new timeout value
+	 * @exception  java.net.SocketException  Description of the Exception
 	 */
 	public void setTimeout(int timeout) throws java.net.SocketException {
 		if (myServerSocket != null) {
@@ -155,7 +172,8 @@ public class AsynchronousSubscriber {
 	}
 
 	/**
-	 *  Description of the Method
+	 * A flag to terminate the server after the next time it either services a notification
+	 * or simply times out in accept()
 	 *
 	 * @param  quitOrNot  If true, signal subscriptionLoop to quit, if false, can continue
 	 * @see               #subscriptionLoop
