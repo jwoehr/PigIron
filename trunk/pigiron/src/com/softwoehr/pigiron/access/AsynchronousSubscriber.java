@@ -58,23 +58,40 @@ import java.net.Socket;
  * @see        com.softwoehr.pigiron.access.ParameterArray
  */
 public class AsynchronousSubscriber {
-	private ServerSocket myServerSocket = null;
+
 	private boolean quitFlag = false;
+
+	/**
+	 *  Description of the Field
+	 */
+	protected ServerSocket myServerSocket = null;
+
+	/**
+	 *Constructor for the AsynchronousSubscriber object
+	 */
+	protected AsynchronousSubscriber() { }
 
 	/**
 	 *Constructor for the AsynchronousSubscriber object
 	 *
+	 * @param  inetaddress                        Description of the Parameter
 	 * @param  port                               Description of the Parameter
+	 * @param  backlog                            Description of the Parameter
+	 * @param  timeout                            Description of the Parameter
 	 * @exception  java.io.IOException            Description of the Exception
 	 * @exception  java.net.UnknownHostException  Description of the Exception
 	 */
-	AsynchronousSubscriber(int port) throws java.io.IOException, java.net.UnknownHostException {
-		// myServerSocket = ServerSocketFactory.getDefault().createServerSocket(port);
-		myServerSocket = new ServerSocket(port, 50, InetAddress.getLocalHost());
-		myServerSocket.setSoTimeout(0);
-		System.out.println("My server socket is: " + myServerSocket);
-		System.out.println("My inet address  is: " + myServerSocket.getInetAddress());
-		System.out.println("My socket  is bound: " + myServerSocket.isBound());
+	AsynchronousSubscriber(InetAddress inetaddress, int port, int backlog, int timeout) throws java.io.IOException, java.net.UnknownHostException {
+		myServerSocket = ServerSocketFactory.getDefault()
+				.createServerSocket(port, backlog, inetaddress == null ? InetAddress.getLocalHost() : inetaddress);
+		/*
+		 *  myServerSocket = new ServerSocket(port, 50, inetaddress == null ? InetAddress.getLocalHost() : inetaddress);
+		 */
+		setTimeout(timeout);
+		System.out.println("My server socket is:   " + myServerSocket);
+		System.out.println("My inet address  is:   " + myServerSocket.getInetAddress() + ":" + myServerSocket.getLocalPort());
+		System.out.println("My backlog was set to: " + backlog);
+		System.out.println("My socket  is bound:   " + myServerSocket.isBound());
 	}
 
 	/**
@@ -115,8 +132,9 @@ public class AsynchronousSubscriber {
 	/**
 	 *  Description of the Method
 	 *
-	 * @param  os                       Description of the Parameter
-	 * @exception  java.io.IOException  Description of the Exception
+	 * @param  os                                             Description of the Parameter
+	 * @exception  java.io.IOException                        Description of the Exception
+	 * @exception  com.softwoehr.pigiron.access.VSMException  Description of the Exception
 	 */
 	public void subscriptionLoop(PrintStream os) throws java.io.IOException, com.softwoehr.pigiron.access.VSMException {
 		while (!quitFlag) {
@@ -124,17 +142,55 @@ public class AsynchronousSubscriber {
 		}
 	}
 
+
+	/**
+	 *  Sets the timeout attribute of the AsynchronousSubscriber object
+	 *
+	 * @param  timeout  The new timeout value
+	 */
+	public void setTimeout(int timeout) throws java.net.SocketException {
+		if (myServerSocket != null) {
+			myServerSocket.setSoTimeout(timeout);
+		}
+	}
+
+	/**
+	 *  Description of the Method
+	 *
+	 * @param  quitOrNot  If true, signal subscriptionLoop to quit, if false, can continue
+	 * @see               #subscriptionLoop
+	 */
+	public void quit(boolean quitOrNot) {
+		quitFlag = quitOrNot;
+	}
+
 	/**
 	 *  The main program for the AsynchronousSubscriber class
 	 *
-	 * @param  argv                               The command line arguments
-	 * @exception  java.io.IOException            Description of the Exception
-	 * @exception  java.net.UnknownHostException  Description of the Exception
+	 * @param  argv                                           The four command line arguments (inetaddress port backlog timeout)
+	 * @exception  java.io.IOException                        Description of the Exception
+	 * @exception  java.net.UnknownHostException              Description of the Exception
+	 * @exception  com.softwoehr.pigiron.access.VSMException  Description of the Exception
 	 */
-	public static void main(String[] argv) throws java.io.IOException, java.net.UnknownHostException, com.softwoehr.pigiron.access.VSMException  {
-		int port = new Integer(argv[0]).intValue();
-		System.out.println("Will bind to port " + port + ".");
-		AsynchronousSubscriber as = new AsynchronousSubscriber(port);
+	public static void main(String[] argv) throws java.io.IOException, java.net.UnknownHostException, com.softwoehr.pigiron.access.VSMException {
+		if (argv.length != 4) {
+			System.out.println("usage: AsynchronousSubscribe inetaddress port backlog timeout");
+			System.exit(1);
+		}
+
+		InetAddress inetaddr = null;
+		if (argv[0].equals("")) {
+			inetaddr = InetAddress.getLocalHost();
+		} else {
+			inetaddr = InetAddress.getByName(argv[0]);
+		}
+
+		int port = new Integer(argv[1]).intValue();
+		int backlog = new Integer(argv[2]).intValue();
+		int timeout = new Integer(argv[3]).intValue();
+
+		System.out.println("Creating AsynchronousSubscriber on " + inetaddr + ":" + port + " with backlog of " + backlog + " with timeout of " + timeout + ".");
+		AsynchronousSubscriber as = new AsynchronousSubscriber(inetaddr, port, backlog, timeout);
 		as.subscriptionLoop(System.out);
 	}
 }
