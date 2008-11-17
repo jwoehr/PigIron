@@ -63,17 +63,18 @@ public class AsynchronousSubscriber {
 	private boolean quitFlag = false;
 
 	/**
-	 *  Description of the Field
+	 *  The actual server socket
 	 */
 	protected ServerSocket myServerSocket = null;
 
 	/**
-	 *Constructor for the AsynchronousSubscriber object
+	 * Simple Constructor for the AsynchronousSubscriber object is protected, does nothing useful.
 	 */
 	protected AsynchronousSubscriber() { }
 
 	/**
-	 *Constructor for the AsynchronousSubscriber object
+	 * Parameterized constructor for the AsynchronousSubscriber object expects an address, a port, a
+	 * backlog queue size for the server, and a timeout for falling out of {@code accept()}.
 	 *
 	 * @param  inetaddress                        interface to bind on
 	 * @param  port                               port to bind on
