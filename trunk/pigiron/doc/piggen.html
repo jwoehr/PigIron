@@ -40,9 +40,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii">
   <meta http-equiv="Last-Modified" content=
-  "Fri, 7 Nov 2008 05:39:48 UTC">
-  <meta http-equiv="Last-Modified" content=
-  "Sun, 9 Nov 2008 07:16:47 UTC">
+  "Sun, 16 Nov 2008 23:54:06 UTC">
 </head>
 
 <body>
@@ -111,9 +109,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
           </ul>
         </li>
 
-        <li><a href="" id="How_PigGen_Works" name=
-        "How_PigGen_Works">PigGen Generated Much of PigIron
-        Itself</a></li>
+        <li><a href="#PigGen_Generated_Much_of_PigIron">PigGen
+        Generated Much of PigIron Itself</a></li>
 
         <li><a href="#How_PigGen_Works">How PigGen Works</a></li>
 
@@ -121,8 +118,14 @@ THE POSSIBILITY OF SUCH DAMAGE.
           <a href="#Invocation">Invocation</a>
 
           <ul>
-            <li><a href="#Compiling_one_file">Compiling one
-            file</a></li>
+            <li><a href="#Compiling_one_file">Compiling one file to
+            Java source cod</a><a href=
+            "#Compiling_one_file">e</a><br></li>
+
+            <li><a href=
+            "#Compiling_all_PigIrons_own_description_files">Compiling
+            all PigIron's own description files to Java source
+            code</a></li>
           </ul>
         </li>
 
@@ -241,9 +244,9 @@ THE POSSIBILITY OF SUCH DAMAGE.
     of the trademarks mentioned in PigIron documentation.</li>
   </ul>
 
-  <h2><a name="#Credits">Credits</a></h2>Thanks to <a href=
-  "http://www.designedtoat.com">Free Original Clipart at Designed
-  to a T</a> for the <a href="#Image_of_noble_porcine">pig
+  <h2><a name="Credits" id="Credits">Credits</a></h2>Thanks to
+  <a href="http://www.designedtoat.com">Free Original Clipart at
+  Designed to a T</a> for the <a href="#Image_of_noble_porcine">pig
   image</a>!
   <hr>
 
@@ -283,10 +286,11 @@ THE POSSIBILITY OF SUCH DAMAGE.
   </div>
 
   <h3><a name="PigGen_Generated_Much_of_PigIron" id=
-  "How_PigGen_Works">PigGen Generated Much of PigIron
-  Itself</a></h3>PigIron as released supports currently 114 VSMAPI
-  functions and their associated parameter types. All the Java
-  source for the individual VSMAPI function classes in <span style=
+  "PigGen_Generated_Much_of_PigIron">PigGen Generated Much of
+  PigIron Itself</a></h3>PigIron as released supports currently 114
+  VSMAPI functions and their associated parameter types. All the
+  Java source for the individual VSMAPI function classes in
+  <span style=
   "font-family: monospace;">pigiron/src/com/softwoehr/pigiron/functions</span>
   and their parameter types in <span style=
   "font-family: monospace;">pigiron/src/com/softwoehr/pigiron/access/parmfiles</span>
@@ -371,10 +375,13 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <p>PigGen as run by the shell files provided runs from its own
   directory, <tt>pigiron/piggen/</tt> and compiles <a href=
   "#Description_Files">description files</a> written in PigGen
-  macros into Java source code.</p>
+  macros into Java source code for PigIron itself and also,
+  optionally, into FIJI source code bindings to be used for
+  scripting PigIron from FIJI.<br></p>
 
   <h4><a name="Compiling_one_file" id=
-  "Compiling_one_file"></a>Compiling one file</h4>
+  "Compiling_one_file"></a>Compiling one file to Java source
+  code<br></h4>
 
   <blockquote style="font-family: monospace;">
     cd <i>piggen_dir</i> ; ./piggen.sh
@@ -384,7 +391,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <tt>/usr/local/src/</tt> and have made your own directories, one
   for custom source in <tt>/usr/local/work/mysrc/</tt> and one for
   java code waiting to be compiled in
-  <tt>/usr/local/work/myjava/</tt>:
+  <tt>/usr/local/work/myjava/</tt> :
 
   <blockquote>
     <tt>cd /usr/local/src/pigiron/piggen ; ./piggen.sh
@@ -399,7 +406,30 @@ THE POSSIBILITY OF SUCH DAMAGE.
   for structures and arrays or <a style="font-family: monospace;"
   href=
   "../src/com/softwoehr/pigiron/functions">pigiron/src/com/softwoehr/pigiron/functions</a>
-  for functions) or to your own directory which you add to PigIron.
+  for functions) or to your own directory which you add to
+  PigIron.<br>
+
+  <h4><a name="Compiling_all_PigIrons_own_description_files" id=
+  "Compiling_all_PigIrons_own_description_files"></a>Compiling all
+  PigIron's own description files to Java source code</h4>
+
+  <p>The script <span style=
+  "font-family: monospace;">pigiron/piggen/gen-all.sh</span>
+  generates all PigIron's own description files to Java source code
+  in the <span style="font-family: monospace;">build</span>
+  directory.<br></p>
+
+  <p>There is also a relevant target in <span style=
+  "font-family: monospace;">pigiron/build.xml</span> which
+  <span style="font-family: monospace;">ant -p</span> will
+  reveal:<br></p>
+
+  <div style="margin-left: 40px;">
+    <span style=
+    "font-family: monospace;">pigiron-autogen&nbsp;&nbsp;
+    Autogenerates all PigIron-provided paramstructs and functions
+    from PigGen description files</span><br>
+  </div>
 
   <h3><a name="Description_Files" id=
   "Description_Files">Description Files</a></h3>
