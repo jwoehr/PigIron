@@ -47,16 +47,26 @@ import java.net.Socket;
  * on a PrintStream. The example {@code main()} routine uses {@code System.out}
  * as the PrintStream.
  *
- * To use this subscriber:
+ *  This is the basic use case:
  * <ol>
- * <li>Pick an ip addr, a port, a backlog (e.g., 50) and a timeout in ms (0 means "never") and invoke the ctor on that port.</li>
- * <li>Use {@code com.softwoehr.pigiron.functions.AsynchronousNotificationEnableDM} to start subscriptions to this port (on the host on which you started the AsynchronousSubscriber)<li>
+ * <li>Create the server</li>
+ * <li>Loop either {@code accept()}ing or timing out</li>
+ * <li>If the quit flag gets set (e.g., from another thread), exit the loop</li>
+ * </ol>
+ * To use this subscriber in conjunction with a subscription:
+ * <ol>
+ * <li>Pick an ip addr, a port, a backlog (e.g., 50) and a timeout in ms (0 means "never") and invoke the ctor</li>
+ * <li>Use {@code subscriptionLoop()} to loop around the implicit {@code accept()} waiting for the quit flag.</li>
+ * <li>Use {@code com.softwoehr.pigiron.functions.AsynchronousNotificationEnableDM} to start subscriptions to this port (on the host on which you started the AsynchronousSubscriber).</li>
+ * <li>Eventually perhaps cancel your subscription via {@code com.softwoehr.pigiron.functions.AsynchronousNotificationDisableDM}</li>
+ * <li>AsynchronousSubscriber.quit() (e.g., issued from another thread) sets the quit flag so the next time the server falls out of the accept() loop, it will exit.</li>
  * </ol>
  *
  * @author     jax
  * @created    November 16, 2008
  * @see        com.softwoehr.pigiron.access.ParameterArray
  * @see        com.softwoehr.pigiron.functions.AsynchronousNotificationEnableDM
+ * @see        com.softwoehr.pigiron.functions.AsynchronousNotificationDisableDM
  */
 public class AsynchronousSubscriber {
 
@@ -68,7 +78,7 @@ public class AsynchronousSubscriber {
 	protected ServerSocket myServerSocket = null;
 
 	/**
-	 * Simple Constructor for the AsynchronousSubscriber object is protected, does nothing useful.
+	 * Simple Constructor for the AsynchronousSubscriber object is not useful.
 	 */
 	protected AsynchronousSubscriber() { }
 
@@ -79,11 +89,12 @@ public class AsynchronousSubscriber {
 	 * @param  inetaddress                        interface to bind on
 	 * @param  port                               port to bind on
 	 * @param  backlog                            backlog queue size
-	 * @param  timeout                            accept timeout in ms
+	 * @param  timeout                            accept timeout in ms -- Since {@code subscriptionLoop()} loops around this timeout in the accept(), it is best that the timeout not be 0 but some reasonable value between 1500 - 15000
 	 * @exception  java.io.IOException            on I/O error
 	 * @exception  java.net.UnknownHostException  on bad interface name or num
+	 * @see #subscriptionLoop
 	 */
-	AsynchronousSubscriber(InetAddress inetaddress, int port, int backlog, int timeout) throws java.io.IOException, java.net.UnknownHostException {
+	public AsynchronousSubscriber(InetAddress inetaddress, int port, int backlog, int timeout) throws java.io.IOException, java.net.UnknownHostException {
 		myServerSocket = ServerSocketFactory.getDefault()
 				.createServerSocket(port, backlog, inetaddress == null ? InetAddress.getLocalHost() : inetaddress);
 		/*
@@ -140,7 +151,7 @@ public class AsynchronousSubscriber {
 	}
 
 	/**
-	 *  Loop either reading notifications or timing out in {@code accept()} and listening again
+	 *  Loop either reading notifications or timing out in {@code accept()} and listening again.
 	 *
 	 * @param  printstream                                    PrintStream to report on
 	 * @exception  java.io.IOException                        Any I/O exception other than java.net.SocketTimeoutException (which we ignore, this is a loop)
@@ -184,7 +195,12 @@ public class AsynchronousSubscriber {
 	}
 
 	/**
-	 *  The main program for the AsynchronousSubscriber class
+	 *  The main program for the AsynchronousSubscriber class illustrates the basic use case:
+	 *  <ol>
+	 * <li>Create the server</li>
+	 * <li>Loop either {@code accept()}ing or timing out</li>
+	 * <li>If the quit flag gets set (e.g., from another thread), exit the loop</li>
+	 * </ol>
 	 *
 	 * @param  argv                                           The four command line arguments (inetaddress port backlog timeout)
 	 * @exception  java.io.IOException                        Description of the Exception
