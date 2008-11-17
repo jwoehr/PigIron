@@ -40,7 +40,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii">
   <meta http-equiv="Last-Modified" content=
-  "Sun, 16 Nov 2008 03:28:57 UTC">
+  "Mon, 17 Nov 2008 21:37:59 UTC">
 </head>
 
 <body>
@@ -202,7 +202,11 @@ THE POSSIBILITY OF SUCH DAMAGE.
         "font-family: monospace;">CheckAuthentication</span></a></li>
 
         <li><a href="#Using_PigIron.Security_Note">Security
-        Note</a><br></li>
+        Note</a></li>
+
+        <li><a href="#Using_the_simple_TCP_subscriber_to">Using the
+        simple TCP subscriber to Directory Manager async
+        notifications</a></li>
       </ul>
     </li>
 
@@ -478,15 +482,26 @@ THE POSSIBILITY OF SUCH DAMAGE.
   </ul>
 
   <h2><a name="Specification" id=
-  "Specification">Specification</a></h2>PigIron is a library of
-  Java class wrappers for the IBM z/VM Virtual Machine Operating
-  System Systems Management Application Programming Interface
-  (sometimes called VSMAPI).
+  "Specification">Specification</a></h2>PigIron is an open source
+  Java class library which implements the client side of the IBM
+  z/VM Virtual Machine Operating System Systems Management
+  Application Programming Interface (sometimes called VSMAPI). It
+  includes Java implementations of<br>
 
   <ul>
-    <li><a href="#IBM_VSMAPI_Documentation">More information about
-    VSMAPI</a></li>
+    <li>all 99 VSMAPI 5.3 functions</li>
+
+    <li>all 15 additional VSMAPI 5.4 functions</li>
+
+    <li>a simple TCP subscriber to Directory Manager async
+    notifications as described in the VSMAPI documentation for
+    <a href=
+    "http://publib.boulder.ibm.com/infocenter/zvm/v5r4/index.jsp?topic=/com.ibm.zvm.v54.dmse6/cslane.htm">
+    Asynchronous_Notification_Enable_DM</a>.</li>
   </ul>
+
+  <p><a href="#IBM_VSMAPI_Documentation">More information about
+  VSMAPI</a></p>
 
   <h3><a name="Current_Level_of_Support" id=
   "Current_Level_of_Support">Level of Support</a></h3>
@@ -1012,7 +1027,17 @@ THE POSSIBILITY OF SUCH DAMAGE.
   code do not currently use SSL. They were designed for only for
   early testing of the code. Do not call <span style=
   "font-family: monospace;">main()</span> methods of PigIron
-  outside a secure intranet!</p>
+  outside a secure intranet!<br></p>
+
+  <h3><a name="Using_the_simple_TCP_subscriber_to" id=
+  "Using_the_simple_TCP_subscriber_to"></a>Using the simple TCP
+  subscriber to Directory Manager async notifications</h3>Using the
+  simple TCP subscriber to Directory Manager async notifications is
+  usually as easy as calling <a href=
+  "../javadoc/com/softwoehr/pigiron/access/AsynchronousSubscriber.html">
+  <span style=
+  "font-family: monospace;">com.softwoehr.pigiron.access.AsynchronousSubscriber.main()</span></a>
+  .
 
   <h2><a name="Architecture" id=
   "Architecture"></a>Architecture</h2>
