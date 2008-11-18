@@ -1,0 +1,28 @@
+Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+PO Box 51, Golden, Colorado 80402-0051 USA
+All rights reserved.
+
+PigIron is a library of Java class wrappers for the IBM z/VM Virtual Machine
+Operating System Systems Management Application Programming Interface
+(sometimes called VSMAPI).
+
+See http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm
+and http://publib.boulder.ibm.com/infocenter/zvm/v5r4/topic/com.ibm.zvm.v54.dmse6/hcsl8b30.htm
+for more information about VSMAPI.
+
+PigIron is not associated with the IBM corporation.
+
+Planned Development:
+    1. Implement the access class library. (mostly DONE)
+        * parameter creation (DONE)
+        * parameter marshalling (DONE)
+        * communication with VSMAPI host (DONE)
+	* support SSL (TODO)
+    2. Implement VSMAPI Functions in terms of the access class library. (DONE)
+        * Support z/VM R5.3
+        * Support z/VM R5.4
+        * Support user-defined custom functions
+    3. Create GUI and/or Web app widgets based on VSMAPI Functions (IN PROGRESS)
+    4. Create GUI and/or Web management app based on GUI VSMAPI Function widgets (TODO)
+
+== END ==
