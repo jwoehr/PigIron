@@ -31,9 +31,9 @@ what is not. The tests are indicative but not exhaustive.
 AsynchronousNotificationDisableDM
 AsynchronousNotificationEnableDM
 AsynchronousNotificationQueryDM
-AuthorizationListAdd
+* AuthorizationListAdd
 * AuthorizationListQuery
-AuthorizationListRemove
+* AuthorizationListRemove
 * CheckAuthentication
 DirectoryManagerLocalTagDefineDM
 DirectoryManagerLocalTagDeleteDM
@@ -71,7 +71,7 @@ ImageDiskUnshareDM
 * ImageIPLDeleteDM
 * ImageIPLQueryDM
 * ImageIPLSetDM
-ImageLockDM
+* ImageLockDM
 * ImageNameQueryDM
 * ImagePasswordSetDM
 * ImageQueryActivateTime
@@ -81,7 +81,7 @@ ImageReplaceDM
 ImageSCSICharacteristicsDefineDM
 ImageSCSICharacteristicsQueryDM
 * ImageStatusQuery
-ImageUnlockDM
+* ImageUnlockDM
 ImageVolumeAdd
 ImageVolumeDelete
 ImageVolumeSpaceDefineDM

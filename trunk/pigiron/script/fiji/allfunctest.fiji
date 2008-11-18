@@ -22,6 +22,8 @@ value imagecreatedm.noprototype.alltheotherargs
 value imagedeactivate.targetid
 value imagedeactivate.forcetime
 value imagedeletedm.imagetodelete
+value imagelockdm.targettolock
+value imagelockdm.devicetolock
 value imagepasswordsetdm.newpassword
 value prototypecreatedm.prototypetocreate
 value prototypedeletedm.prototypetodelete
@@ -333,8 +335,13 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     my.host my.port my.userid my.password  authorizationlistadd.targetid authorizationlistadd.forid authorizationlistadd.functionid
     AuthorizationListRemove doandprint ;
 
+\ We're going to lock an image or device and unlock it \
+: testing_ImageLockDM " ImageLockDM" announce
+    my.host my.port my.userid my.password imagelockdm.targettolock imagelockdm.devicetolock ImageLockDM doandprint ;
 
-
+\ We unlock the same image we locked \
+: testing_ImageUnlockDM " ImageUnlockDM" announce
+    my.host my.port my.userid my.password imagelockdm.targettolock imagelockdm.devicetolock ImageUnlockDM doandprint ;
 
 \ whole shebang as a sorta scripted dance \
 : test-all \ -- \
@@ -386,6 +393,8 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_PrototypeDeleteDM
     testing_PrototypeNameQueryDM  \ make sure our proto went away \
     testing_ImageCreateDM_1
+    testing_ImageLockDM     \ locks the image we just created \
+    testing_ImageUnlockDM   \ unlocks the same image we just created and locked \ 
     testing_ImageCreateDM_2
     testing_ImageIPLDeleteDM \ Delete the no-proto account IPL statement \
     query_no_proto_ipl_statement \ See what happened \
@@ -469,9 +478,6 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
 \ : testing_ImageDiskUnshareDM " ImageDiskUnshareDM" announce
     my.host my.port my.userid my.password my.target my.extraparm ImageDiskUnshareDM doandprint ; \
 
-\ : testing_ImageLockDM " ImageLockDM" announce
-    my.host my.port my.userid my.password my.target my.extraparm ImageLockDM doandprint ; \
-
 \ : testing_ImageRecycle " ImageRecycle" announce
     my.host my.port my.userid my.password my.target my.extraparm ImageRecycle doandprint ; \
 \ : testing_ImageReplaceDM " ImageReplaceDM" announce
@@ -480,8 +486,7 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     my.host my.port my.userid my.password my.target my.extraparm ImageSCSICharacteristicsDefineDM doandprint ; \
 \ : testing_ImageSCSICharacteristicsQueryDM " ImageSCSICharacteristicsQueryDM" announce
     my.host my.port my.userid my.password my.target my.extraparm ImageSCSICharacteristicsQueryDM doandprint ; \
-\ : testing_ImageUnlockDM " ImageUnlockDM" announce
-    my.host my.port my.userid my.password my.target my.extraparm ImageUnlockDM doandprint ; \
+
 \ : testing_ImageVolumeAdd " ImageVolumeAdd" announce
     my.host my.port my.userid my.password my.target my.extraparm ImageVolumeAdd doandprint ; \
 \ : testing_ImageVolumeDelete " ImageVolumeDelete" announce

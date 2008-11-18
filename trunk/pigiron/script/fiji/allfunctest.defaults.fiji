@@ -17,6 +17,8 @@ imageactivate.targetid to imagedeactivate.targetid
 " WITHIN 20" to imagedeactivate.forcetime
 imagecreatedm.imagenametocreate to imagedeletedm.imagetodelete
 " 36TB33T5" to imagepasswordsetdm.newpassword
+imagecreatedm.imagenametocreate to imagelockdm.targettolock
+java.lang.String class new ( ) to imagelockdm.devicetolock
 " PIGTEST" to prototypecreatedm.prototypetocreate
 prototypecreatedm.prototypetocreate to prototypedeletedm.prototypetodelete
 ' *' to prototypequerydm.prototypetoquery
