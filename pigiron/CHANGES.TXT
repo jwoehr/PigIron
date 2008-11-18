@@ -2,34 +2,39 @@ Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
 PO Box 51, Golden, Colorado 80402-0051 USA
 All rights reserved.
 
-This is the PigIron project. PigIron is a library of Java class wrappers for the
-IBM z/VM Virtual Machine Operating System Systems Management Application
-Programming Interface (sometimes called VSMAPI). http://pigiron.sourceforge.net
+This is the PigIron project. PigIron is a Java class library implementing
+the client specification for the IBM z/VM Virtual Machine Operating System
+Systems Management Application Programming Interface (sometimes called VSMAPI).
 
-Please read the file license.txt which is the license under which the
+http://pigiron.sourceforge.net
+
+Please read the file license.txt which is the NO WARRANTY license under which the
 PigIron open source project is coded, released and distributed. license.txt is
 to be found in the same directory as this README.TXT file.
 
 CHANGES
 -------
-2008-??-?? 0.8 -- Completing Testing
+2008-11-17 0.8 -- More Testing More Testing More Testing
 
     * Testing
         * Mostly using FIJI ForthIsh Java Interpreter for testing now
             * http://fiji.sourceforge.net
-        * Test coverage nearly complete on z/VM 5.4
-        * Bugs found and fixed
-            * Incomplete PigGen parameter descriptions
+        * Much more test coverage
+        * Bugs found and fixed (two or three)
+            * Discovered and completed incomplete PigGen parameter descriptions
+            * No actual code bugs discovered!
     * Build
         * Generate the md5 sums at release time
+    * Features
+        * Added a simple TCP asynchronous subscriber to DM notifications
     * Return Codes / Reason Codes
         * Straightened out the threefoldness of the RetC/ReasC/Function
           matrix. Now all messages associated with RCs and reason codes
           should be correct.
     * SSL Support added
-        * Needs more testing
+        * Needs testing.
     * Web Objects
-        * Clarified model
+        * Clarified JSON model somewhat
 
 2008-10-12 0.7 -- Testing Testing Testing
 
