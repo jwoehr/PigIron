@@ -40,7 +40,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii">
   <meta http-equiv="Last-Modified" content=
-  "Sun, 16 Nov 2008 23:54:06 UTC">
+  "Wed, 19 Nov 2008 05:50:57 UTC">
 </head>
 
 <body>
@@ -547,12 +547,35 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </ul>
     </li>
 
+    <li>On the second line in your description file use the
+    appropriate namespace opener.
+
+      <ul>
+        <li>For struct or array type use a <a href=
+        "#macroref.pigsty.param_namespaceentity"><tt>param_namespace()</tt></a>
+        statement.</li>
+
+        <li>For a function use a <a href=
+        "#macroref.pigsty.function_namespacefunction_formal_name"><tt>
+        function_namespace(</tt><tt>)</tt></a> statement.</li>
+      </ul>
+    </li>
+
+    <li>The last line of your file should be a <a href=
+    "#macroref.pigsty.param_namespace_end"><tt>param_namespace_end()</tt></a>
+    or <a href=
+    "#macroref.function_namespace_end"><tt>function_namespace_end()</tt></a>
+    statement as appropriate.<br></li>
+
     <li>Names used for members and functions should always be of
     one of the form <tt>lcase_lcase[[_lcase] ..]</tt> .</li>
 
-    <li>When you name a structure type or array type in describing
-    a new structure type, you always name it in conventional class
-    name format (initial capital).</li><!-- li></li>
+    <li>When you name an extant (defined in some other description
+    file) structure type or array type in describing a new
+    structure type, you always name it in conventional class name
+    format (initial capital) because that is what it becomes in
+    Java and that is how it must be referenced.<br></li>
+    <!-- li></li>
       <li></li>
       <li></li>
       <li></li -->
@@ -842,7 +865,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
         "macroref.pigstruct.pigparm_classnameextendspackage" id=
         "macroref.pigstruct.pigparm_classnameextendspackage"></a>pigparm_class(`name',`extends',`package',`comment')</tt></td>
 
-        <td><br></td>
+        <td>Declares a class to Java representing a VSMAPI struct
+        type and commences its definition.</td>
 
         <td><br></td>
       </tr>
@@ -851,7 +875,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
         <td><tt><a name="macroref.pigstruct.pigparm_constant" id=
         "macroref.pigstruct.pigparm_constant"></a>pigparm_constant(`accessor',</tt></td>
 
-        <td><br></td>
+        <td>Creates a constant value as a static public final
+        member of your PigIron VSMAPI struct class.</td>
 
         <td><br></td>
       </tr>
@@ -859,7 +884,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
       <tr>
         <td><tt>pigparm_attribute(`accessor',</tt></td>
 
-        <td><br></td>
+        <td>Creates a mutable attribute with setters and
+        getters.</td>
 
         <td><br></td>
       </tr>
@@ -867,7 +893,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
       <tr>
         <td><tt>pigparm_ctors()</tt></td>
 
-        <td><br></td>
+        <td>Generates the basic constructor code for your PigIron
+        VSMAPI struct class.</td>
 
         <td><br></td>
       </tr>
@@ -875,7 +902,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
       <tr>
         <td><tt>pigparm_function(`accessor',</tt></td>
 
-        <td><br></td>
+        <td>Generates a function to your specification allowing you
+        to inline Java code in the PigGen description file.</td>
 
         <td><br></td>
       </tr>
@@ -884,7 +912,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
         <td><tt><a name="macroref.pigstruct.pigparm_endclass" id=
         "macroref.pigstruct.pigparm_endclass"></a>pigparm_endclass</tt></td>
 
-        <td><br></td>
+        <td>Completes and closes the definition of the Java
+        class.</td>
 
         <td><br></td>
       </tr>
@@ -939,7 +968,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
       <tr>
         <td><tt>pigfunc_constant(`accessor',</tt></td>
 
-        <td><br></td>
+        <td>Creates a constant value as a static public final
+        member of your PigIron VSMAPI function class.</td>
 
         <td><br></td>
       </tr>
@@ -947,7 +977,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
       <tr>
         <td><tt>pigfunc_attribute(`accessor',</tt></td>
 
-        <td><br></td>
+        <td>Creates a mutable attribute with setters and
+        getters.</td>
 
         <td><br></td>
       </tr>
@@ -955,7 +986,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
       <tr>
         <td><tt>pigfunc_function(`accessor',</tt></td>
 
-        <td><br></td>
+        <td>Generates a function to your specification allowing you
+        to inline Java code in the PigGen description file.</td>
 
         <td><br></td>
       </tr>
@@ -1035,7 +1067,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
         <td><tt><a name="macroref.pigfunc.pigfunc_endclass" id=
         "macroref.pigfunc.pigfunc_endclass"></a>pigfunc_endclass()</tt></td>
 
-        <td><br></td>
+        <td>Completes and closes the definition of the Java
+        class.</td>
 
         <td><br></td>
       </tr>
