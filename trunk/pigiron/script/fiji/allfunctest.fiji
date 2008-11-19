@@ -343,6 +343,16 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
 : testing_ImageUnlockDM " ImageUnlockDM" announce
     my.host my.port my.userid my.password imagelockdm.targettolock imagelockdm.devicetolock ImageUnlockDM doandprint ;
 
+\ Test all notifications \
+: testing_AsynchronousNotificationQueryDM " AsynchronousNotificationQueryDM" announce
+    my.host my.port my.userid my.password " *"
+    AsynchronousNotificationQueryDM.ENTITY_TYPE_DIRECTORY
+    AsynchronousNotificationQueryDM.COMMUNICATION_TYPE_UNSPECIFIED \ AsynchronousNotificationQueryDM.COMMUNICATION_TYPE_TCP \
+    0 java.lang.String class new ( )
+    AsynchronousNotificationQueryDM.ENCODING_UNSPECIFIED
+    " *"
+    AsynchronousNotificationQueryDM doandprint ;
+
 \ whole shebang as a sorta scripted dance \
 : test-all \ -- \
     testing_CheckAuthentication
@@ -408,6 +418,7 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_AuthorizationListQuery2 \ See if you can find that entry \
     testing_AuthorizationListRemove \ remove entry \
     testing_AuthorizationListQuery2 \ See if it is gone \
+    testing_AsynchronousNotificationQueryDM \ Basically specify anything and everything \
     ;
 
 \ ==== \
@@ -418,8 +429,6 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     my.host my.port my.userid my.password my.target my.extraparm AsynchronousNotificationDisableDM doandprint ; \
 \ : testing_AsynchronousNotificationEnableDM " AsynchronousNotificationEnableDM" announce
     my.host my.port my.userid my.password my.target my.extraparm AsynchronousNotificationEnableDM doandprint ; \
-\ : testing_AsynchronousNotificationQueryDM " AsynchronousNotificationQueryDM" announce
-    my.host my.port my.userid my.password my.target my.extraparm AsynchronousNotificationQueryDM doandprint ; \
 
 \ : testing_DirectoryManagerLocalTagDefineDM " DirectoryManagerLocalTagDefineDM" announce
     my.host my.port my.userid my.password my.target my.extraparm DirectoryManagerLocalTagDefineDM doandprint ; \

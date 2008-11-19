@@ -30,7 +30,7 @@ what is not. The tests are indicative but not exhaustive.
 ---
 AsynchronousNotificationDisableDM
 AsynchronousNotificationEnableDM
-AsynchronousNotificationQueryDM
+* AsynchronousNotificationQueryDM
 * AuthorizationListAdd
 * AuthorizationListQuery
 * AuthorizationListRemove

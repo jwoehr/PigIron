@@ -11,7 +11,7 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
  * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
  */')dnl \\ significant_parameter_formal_name bound in namespace
 pigfunc_constant(`public', `int', `ENTITY_TYPE_DIRECTORY', `1', `DIRECTORY')dnl
-pigfunc_constant(`public', `int', `COMMUNICATION_TYPE_Unspecified', `0', `Unspecified')dnl
+pigfunc_constant(`public', `int', `COMMUNICATION_TYPE_UNSPECIFIED', `0', `Unspecified')dnl
 pigfunc_constant(`public', `int', `COMMUNICATION_TYPE_TCP', `1', `TCP')dnl
 pigfunc_constant(`public', `int', `COMMUNICATION_TYPE_UDP', `2', `UDP')dnl
 pigfunc_constant(`public', `int', `ENCODING_UNSPECIFIED', `0', `Unspecified')dnl
