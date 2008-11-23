@@ -53,7 +53,7 @@ import java.util.Map;
  * The generic <code>get()</code> and <code>opt()</code> methods return an
  * object which you can cast or query for type. There are also typed
  * <code>get</code> and <code>opt</code> methods that do type checking and type
- * coersion for you.
+ * coercion for you.
  * <p>
  * The texts produced by the <code>toString</code> methods strictly conform to
  * JSON syntax rules. The constructors are more forgiving in the texts they will
@@ -75,7 +75,7 @@ import java.util.Map;
  *     well as by <code>,</code> <small>(comma)</small>.</li>
  * <li>Numbers may have the <code>0-</code> <small>(octal)</small> or
  *     <code>0x-</code> <small>(hex)</small> prefix.</li>
- * <li>Comments written in the slashshlash, slashstar, and hash conventions
+ * <li>Comments written in the slashslash, slashstar, and hash conventions
  *     will be ignored.</li>
  * </ul>
 
