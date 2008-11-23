@@ -75,6 +75,10 @@ public class VsmapiRC {
 		ReasonCode result = null;
 		if (function instanceof ImageDeactivate) {
 		    result =  new ReasonCode("Request successful; Image Deactivated Within " + reason + " Seconds", "secs", reason);
+		} else if (function instanceof QueryAPIFunctionalLevel) {
+		    String level = "unknown";
+		    switch (reason) { case 0 : level= "5.3"; break; case 540 : level = "5.4"; break; }
+		    result =  new ReasonCode("API Level is " + level, "decimal coded API level", reason);
 		} else {
                     result = super.getReasonCode(reason, function);
                 }
