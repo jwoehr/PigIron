@@ -64,7 +64,7 @@ public class FunctionName extends JSONObject {
      * @throws org.json.JSONException
      */
     public String getFunctionName() throws JSONException {
-        return getString("functionName");
+        return getString("function_name");
     }
 
     /**
@@ -73,6 +73,6 @@ public class FunctionName extends JSONObject {
      * @throws org.json.JSONException
      */
     public void setFunctionName(String functionName) throws JSONException {
-        put("functionName", functionName);
+        put("function_name", functionName);
     }
 }
