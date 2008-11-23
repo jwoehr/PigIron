@@ -20,6 +20,7 @@ CHANGES
     * Bugs fixed
         * Result code for QueryAPIFunctionalLevel wasn't being interpreted.
     * Features
+        * More on web objects
     
 2008-11-17 0.8 -- More Testing More Testing More Testing
 
