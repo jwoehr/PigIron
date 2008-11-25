@@ -40,7 +40,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii">
   <meta http-equiv="Last-Modified" content=
-  "Mon, 17 Nov 2008 21:37:59 UTC">
+  "Tue, 25 Nov 2008 04:00:45 UTC">
 </head>
 
 <body>
@@ -754,14 +754,42 @@ THE POSSIBILITY OF SUCH DAMAGE.
         count-and-string in the generated Java code.</li>
 
         <li>VSMAPI 5.4 introduces new type wrinkles which are
-        supported in PigIron by
+        supported in PigIron
 
           <ul>
-            <li style="font-family: monospace;">
-            com.softwoehr.pigiron.access.VSMAsciiZ</li>
+            <li>New basic types that did not exist in 5.3:
 
-            <li style="font-family: monospace;">
-            com.softwoehr.pigiron.access.VSMAsciiZArray</li>
+              <ul>
+                <li style="font-family: monospace;">
+                com.softwoehr.pigiron.access.VSMAsciiZ</li>
+
+                <li style="font-family: monospace;">
+                com.softwoehr.pigiron.access.VSMAsciiZArray</li>
+              </ul>
+            </li>
+
+            <li>Overloading of names that were unique in 5.3
+
+              <ul>
+                <li>
+                  <span style=
+                  "font-family: monospace;">cpu_info_struct</span>
+
+                  <ul>
+                    <li style="font-family: monospace;">
+                    ImageActiveConfigurationQuery</li>
+
+                    <li style="font-family: monospace;">
+                    ImageCPUQuery</li>
+                  </ul>
+                </li>
+
+                <li>Fixed this by augmenting <span style=
+                "font-family: monospace;">com.softwoehr.access.paramstructs.CpuInfo*.java</span>
+                with <span style=
+                "font-family: monospace;">com.softwoehr.access.paramstructs.CpuInfo2*.java</span></li>
+              </ul>
+            </li>
           </ul>
         </li>
       </ul>
