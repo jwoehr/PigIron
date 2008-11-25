@@ -17,7 +17,8 @@ pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_id
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_parm(`CountedString', `""', `query_timestamp')dnl
-pigfunc_compose_output_parm(`CountedString', `""', `file_name')dnl
+dnl \\ pigfunc_compose_output_parm(`CountedString', `""', `file_name')dnl \\ 5.3
+pigfunc_compose_output_parm(`CountedString', `""', `file_spec')dnl \\ 5.4
 pigfunc_compose_output_parm(`CountedString', `""', `file_timestamp')dnl
 pigfunc_compose_output_parm(`VSMInt4', `-1', significant_parameter_formal_name`_length')dnl
 pigfunc_compose_output_parm(`significant_parameter_classname', `null', `significant_parameter_formal_name')dnl
