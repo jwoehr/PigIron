@@ -1,7 +1,29 @@
 \ allfunctest.fiji \
 \ Test the PigIron Project http://pigiron.sourceforge.net \
 
+\ Load FIJI support for PigIron \
+\ ----------------------------- \
+pigiron_support.fiji load
+access_support.fiji load
+
+\ Control whether our sockets are SSL sockets \
+value useSSL? true to useSSL?
+\ true == ssl, false == regular socket   \
+\ we actually override this in our local \
+\ settings file before invoking any test \
+
+\ You will have to fill these in on your own  \
+\ E.g., ' /home/me/my_defaults_file.fiji load \
+value my.host
+value my.port
+value my.userid
+value my.password
+value my.target
+\ load these now, my.target is referenced in later load \
+' /home/jax/pigiron_private.fiji load
+
 \ Declare values that will be used as parameters in making VSMAPI functions \
+\ ------------------------------------------------------------------------- \
 value authorizationlistadd.targetid
 value authorizationlistadd.forid
 value authorizationlistadd.functionid
@@ -10,6 +32,9 @@ value authorizationlistquery.forid
 value authorizationlistquery.functionid
 value directorymanagersearchdm.searchpattern
 value imageactivate.targetid
+value imagecpudefine.targetid
+value imagecpudefine.cpuid
+value imagecpudefine.cputype
 value imagecreatedm.imagenametocreate
 value imagecreatedm.prototypename
 value imagecreatedm.intialpassword
@@ -35,26 +60,8 @@ value virtualnetworklanquery.lanowner
 value virtualnetworklanquery.lanname
 value virtualnetworkvswitchquery.switchname
 
-\ Control whether our sockets are SSL sockets \
-value useSSL? true to useSSL?
-\ true == ssl, false == regular socket   \
-\ we actually override this in our local \
-\ settings file before invoking any test \
-
-\ Now load the defaults file containing assignments to the values \
+\ Now load the defaults file containing assignments to these values \
 allfunctest.defaults.fiji load
-
-\ Now load FIJI support for PigIron \
-pigiron_support.fiji load
-access_support.fiji load
-
-\ You will have to fill these in on your own  \
-\ E.g., ' /home/me/my_defaults_file.fiji load \
-value my.host
-value my.port
-value my.userid
-value my.password
-value my.target
 
 \ utils \
 : announce \ functorName -- \ " Testing" . . cr ;
@@ -94,8 +101,21 @@ value my.target
 : testing_ImageActiveConfigurationQuery  " ImageActiveConfigurationQuery" announce
 my.host my.port my.userid my.password my.target ImageActiveConfigurationQuery doandprint ;
 
+\ Define CPU and look for it \
+\ -------------------------- \
+
+: testing_ImageCPUDefine " ImageCPUDefine" announce
+    my.host my.port my.userid my.password
+    imagecpudefine.targetid imagecpudefine.cpuid imagecpudefine.cputype
+    ImageCPUDefine doandprint ;
+
+: testing_ImageCPUDelete " ImageCPUDelete" announce
+    my.host my.port my.userid my.password
+    imagecpudefine.targetid imagecpudefine.cpuid
+    ImageCPUDelete doandprint ;
+
 : testing_ImageCPUQuery " ImageCPUQuery" announce
- my.host my.port my.userid my.password my.target ImageCPUQuery doandprint ;
+ my.host my.port my.userid my.password imagecpudefine.targetid ImageCPUQuery doandprint ;
 
 : testing_ImageQueryActivateTime_1 " ImageQueryActivateTime" announce
  my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORMAT_INDICATOR_MMDDYY ImageQueryActivateTime doandprint ;
@@ -360,7 +380,9 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_ImageActivate
     testing_ImageDeactivate
     testing_ImageActiveConfigurationQuery
+\    testing_ImageCPUDefine \ 
     testing_ImageCPUQuery
+\    testing_ImageCPUDelete \
     testing_ImageQueryActivateTime_1
     testing_ImageQueryActivateTime_2
     testing_ImageQueryActivateTime_3
@@ -442,12 +464,9 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
 \ : testing_DirectoryManagerTaskCancelDM " DirectoryManagerTaskCancelDM" announce
     my.host my.port my.userid my.password my.target my.extraparm DirectoryManagerTaskCancelDM doandprint ; \
 
-\ : testing_ImageCPUDefine " ImageCPUDefine" announce
-    my.host my.port my.userid my.password my.target my.extraparm ImageCPUDefine doandprint ; \
 \ : testing_ImageCPUDefineDM " ImageCPUDefineDM" announce
     my.host my.port my.userid my.password my.target my.extraparm ImageCPUDefineDM doandprint ; \
-\ : testing_ImageCPUDelete " ImageCPUDelete" announce
-    my.host my.port my.userid my.password my.target my.extraparm ImageCPUDelete doandprint ; \
+
 \ : testing_ImageCPUDeleteDM " ImageCPUDeleteDM" announce
     my.host my.port my.userid my.password my.target my.extraparm ImageCPUDeleteDM doandprint ; \
 \ : testing_ImageCPUQueryDM " ImageCPUQueryDM" announce

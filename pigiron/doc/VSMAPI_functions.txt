@@ -43,9 +43,9 @@ DirectoryManagerLocalTagSetDM
 DirectoryManagerTaskCancelDM
 * ImageActivate
 * ImageActiveConfigurationQuery
-ImageCPUDefine
+* ImageCPUDefine
 ImageCPUDefineDM
-ImageCPUDelete
+* ImageCPUDelete
 ImageCPUDeleteDM
 * ImageCPUQuery
 ImageCPUQueryDM

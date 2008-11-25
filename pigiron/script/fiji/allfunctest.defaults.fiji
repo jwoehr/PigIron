@@ -4,6 +4,9 @@ java.lang.String class new ( ) to authorizationlistquery.targetid
 " *" to authorizationlistquery.functionid
 " IPL" to directorymanagersearchdm.searchpattern
 " BBBB" to imageactivate.targetid
+my.target to imagecpudefine.targetid
+" FA" to imagecpudefine.cpuid
+ImageCPUDefine.CPU_TYPE_CP to imagecpudefine.cputype
 " BBBB" to imagecreatedm.imagenametocreate
 " CMS"  to imagecreatedm.prototypename
 " FARQUHAR" to imagecreatedm.intialpassword
