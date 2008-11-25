@@ -19,6 +19,11 @@ CHANGES
     * Testing
     * Bugs fixed
         * Result code for QueryAPIFunctionalLevel wasn't being interpreted.
+        * Discovered that the typename "cpu_info_structure" is overloaded as
+          of 5.4 and the version of that family of types created for
+          ImageActiveConfigurationQuery had to be supplemented with another
+          version (called CpuInfo2Structure, CpuInfo2StructureCounted,
+          CpuInfo2Array in PigIron).
     * Features
         * More on web objects
     
