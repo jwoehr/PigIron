@@ -25,7 +25,9 @@ CHANGES
           version (called CpuInfo2Structure, CpuInfo2StructureCounted,
           CpuInfo2Array in PigIron).
     * Features
-        * More on web objects
+        * Changed file_name to file_spec in return params of
+          VMRM_Measurement_Query because 5.4 made that one change
+    * More on web objects
     
 2008-11-17 0.8 -- More Testing More Testing More Testing
 
