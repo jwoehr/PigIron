@@ -31,37 +31,89 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
-import org.json.JSONObject;
+import com.softwoehr.pigiron.webobj.WebObject;
+
+import java.util.Iterator;
+
 import org.json.JSONException;
 
+
 /**
+ * A class to represent PigIron VSMAPI Function execution
+ * from start to finish.
+ *
  * @author     jax
  * @created    November 23, 2008
  */
-public class Function extends JSONObject {
+public class Function extends WebObject {
 
-	/**
-	 * @exception  JSONException        Description of the Exception
-	 * @throws  org.json.JSONException
-	 */
-	public Function() throws JSONException {
-		super();
-		put("function_name", new FunctionName(""));
-		put("input_arguments", new InputArgumentArray());
-		put("output_arguments", new OutputArgumentArray());
-	}
+ 
+    static { setNames(new String [] {"function_name" ,"input_arguments" ,
+        "output_arguments" ,"return_code" ,"result_code" ,"request_id" }
+       ); }
 
-	/**
-	 * @param  functionName
-	 * @param  inputArray
-	 * @param  outputArray
-	 * @exception  JSONException  Description of the Exception
-	 */
-	public Function(FunctionName functionName, InputArgumentArray inputArray, OutputArgumentArray outputArray) throws JSONException {
-		super();
-		put("function_name", functionName);
-		put("input_arguments", inputArray);
-		put("output_arguments", outputArray);
-	}
+    /**
+     * Create a JSON map of a PigIron VSMAPI function to execute
+     * with default values, i.e., "unspecified".
+     * @exception  JSONException        on JSON error
+     * @throws  org.json.JSONException
+     */ 
+    public Function() throws JSONException {
+        super();
+        initDefaults();
+    }
+
+    /**
+     * Create a JSON map of a PigIron VSMAPI function to execute
+     * with important values specified
+     *
+     * @param  functionName function name
+     * @param  inputArray   an array representing PigIron VSMAPI input parameters
+     * @param  outputArray  an array representing PigIron VSMAPI output parameters
+     * @exception  JSONException   on JSON error
+     */ 
+    public Function(FunctionName functionName, InputArgumentArray inputArray,
+             OutputArgumentArray outputArray) throws JSONException {
+        this();
+        put("function_name", functionName);
+        put("input_arguments", inputArray);
+        put("output_arguments", outputArray);
+    }
+
+    /**
+     * Init some output fields with defaults.
+     *
+     */ 
+    private void initDefaults() throws JSONException {
+        put("function_name", new FunctionName(""));
+        put("input_arguments", new InputArgumentArray());
+        put("output_arguments", new OutputArgumentArray());
+        put("return_code", - 1);
+        put("result_code", - 1);
+        put("request_id", - 1);
+    }
+
+    /**
+     * Create a JSON map of a PigIron VSMAPI function
+     * from another Function object
+     *
+     * @param  function  another instance whose values are copied to this
+     */ 
+    public Function(Function function) throws JSONException {
+        super();
+        copyFrom(function);
+    }
+
+    /**
+     *  Copy the keys we care about from instance A to instance B.
+     *
+     * @param  function  another instance whose values are copied to this
+     */ 
+    public void copyFrom(Function function) throws JSONException {
+        Iterator keyIterator = function.keys();
+        while (keyIterator.hasNext()) {
+            Object key = keyIterator.next();
+            put(key.toString(), function.get(key.toString()));
+        }
+    }
 }
-
