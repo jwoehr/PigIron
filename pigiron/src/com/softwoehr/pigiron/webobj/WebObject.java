@@ -31,42 +31,43 @@
  */
 package com.softwoehr.pigiron.webobj;
 
-import com.softwoehr.pigiron.webobj.topview.*;
-// import org.json.JSONObject;
+import java.util.Vector;
+
 import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
- *  An executor of JSON descriptions of PigIron VSMAPI Functions
- * which returns the original object with the response fields filled out.
+ * A class to represent PigIron VSMAPI Function execution
+ * from start to finish.
  *
  * @author     jax
- * @created    November 27, 2008
+ * @created    November 23, 2008
  */
-public class Engine {
+public class WebObject extends JSONObject {
 
-    /**
-     *Constructor for the Engine object
-     */ 
-    public Engine() {
+    protected static Vector <String> names;
+
+    public WebObject() {
+        super();
     }
-
-    /**
-     *  Execute from a JSON description of a PigIron VSMAPI Function instance
-     * and return the original object with the response fields filled out.
-     *
-     * @param  request a com.softwoehr.pigiron.webobj.topview.Function instance
-     * @return         effectively the same instance with response fields filled out
-     */ 
-    public Function execute(Function request) {
-
-        Function response = null;
-
-        try {
-            response = new Function(request);
-        } catch (JSONException ex) {
+ 
+    protected static void setNames(String [] someNames) {
+        names = new Vector <String>(someNames.length);
+        for (int i = 0; i < someNames.length; i++) {
+            names.add(someNames[i]); 
         }
-
-        return response;
     }
+ 
+    /**
+     *  Description of the Field
+     */ 
+    public static String []getNames() {
+        return names.toArray(new String [names.size()]);
+    }
+
+    public static boolean isName(String name) {
+        return names.indexOf(name) != - 1;
+    }
+
 }
