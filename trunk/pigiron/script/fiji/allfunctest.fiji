@@ -447,6 +447,40 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
 \ TODO \
 \ ==== \
 
+\ These non-DM functions remain to test:
+ImageDeviceDedicate
+ImageDeviceReset
+ImageDeviceUndedicate
+ImageDiskCopy
+ImageDiskCreate
+ImageDiskDelete
+ImageDiskShare
+ImageDiskUnshare
+ImageRecycle
+ImageVolumeAdd
+ImageVolumeDelete
+NameListAdd
+NameListDestroy
+NameListRemove
+SharedMemoryCreate
+SharedMemoryDelete
+SharedMemoryReplace
+VirtualChannelConnectionCreate
+VirtualChannelConnectionDelete
+VirtualNetworkAdapterConnectLAN
+VirtualNetworkAdapterConnectVswitch
+VirtualNetworkAdapterCreate
+VirtualNetworkAdapterDelete
+VirtualNetworkAdapterDisconnect
+VirtualNetworkLANAccess
+VirtualNetworkLANCreate
+VirtualNetworkLANDelete
+VirtualNetworkVswitchCreate
+VirtualNetworkVswitchDelete
+VirtualNetworkVswitchSet
+VMRMConfigurationQuery
+VMRMConfigurationUpdate \
+
 \ : testing_AsynchronousNotificationDisableDM " AsynchronousNotificationDisableDM" announce
     my.host my.port my.userid my.password my.target my.extraparm AsynchronousNotificationDisableDM doandprint ; \
 \ : testing_AsynchronousNotificationEnableDM " AsynchronousNotificationEnableDM" announce
