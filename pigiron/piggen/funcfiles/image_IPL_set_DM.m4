@@ -7,7 +7,7 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 
 /**
  * {@code function_formal_name} VSMAPI Function
- * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
+dnl * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
  */')dnl \\ significant_parameter_formal_name bound in namespace
 pigfunc_attribute(`private', `', `String',  member_name(`saved_system'), `""', `', `The name of the saved system or virtual device address of the device containing the system to be loaded')dnl
 pigfunc_attribute(`private', `', `String',  member_name(`load_parameter'), `""', `', `Load parameter (up to 8 characters) that is used by the IPLd system')dnl

@@ -7,7 +7,7 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 
 /**
  * {@code function_formal_name} VSMAPI Function
- * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
+dnl * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
  */')dnl \\ significant_parameter_formal_name bound in namespace
 pigfunc_constant(`public', `int', `ENCODING_UNSPECIFIED', `0', `Unspecified')dnl
 pigfunc_constant(`public', `int', `ENCODING_ASCII', `1', `ASCII')dnl
@@ -17,10 +17,6 @@ pigfunc_constant(`public', `int', `SUBSCRIPTION_TYPE_INCLUDE', `1', `target_iden
 pigfunc_constant(`public', `int', `SUBSCRIPTION_TYPE_EXCLUDE', `2', `target_identifier will not receive notifications for associated directory changes')dnl
 pigfunc_constant(`public', `int', `COMMUNICATION_TYPE_TCP', `1', `TCP')dnl
 pigfunc_constant(`public', `int', `COMMUNICATION_TYPE_UDP', `2', `UDP')dnl
-dnl ----
-dnl NOTE: docs say "When the communication_type is "TCP" or "UDP", the following are additional input arguments:" etc.
-dnl So possibly this function will have in the future to send multiple forms of its argument list.
-dnl ----
 pigfunc_attribute(`private', `', `int', member_name(`entity_type'), `0', `', `The entity type for which notifications will be sent.')dnl
 pigfunc_attribute(`private', `', `int', member_name(`subscription_type'), `0', `', `The subscription type')dnl
 pigfunc_attribute(`private', `', `int', member_name(`communication_type'), `0', `', `The communication used for notifications')dnl

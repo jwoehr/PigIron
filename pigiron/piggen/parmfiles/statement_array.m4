@@ -1,5 +1,5 @@
 include(`pigarray.m4')dnl \\ statement_array.m4
-param_namespace(`statement',`DirectoryManagerSearchDM')dnl
+param_namespace(`statement',`Directory_Manager_Search_DM')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
 pigparm_class(array_classname, `VSMArray',`com.softwoehr.pigiron.access.paramstructs',`dnl

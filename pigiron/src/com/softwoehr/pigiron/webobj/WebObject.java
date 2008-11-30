@@ -36,7 +36,6 @@ import java.util.Vector;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 /**
  * A class to represent PigIron VSMAPI Function execution
  * from start to finish.
@@ -46,28 +45,63 @@ import org.json.JSONObject;
  */
 public class WebObject extends JSONObject {
 
+    /**
+     *  A Vector of the JSON keys (names) that are valid for
+     * a given WebObject extender
+     */ 
     protected static Vector <String> names;
 
+    /**
+     * Construct an (empty) WebObject
+     */ 
     public WebObject() {
         super();
     }
- 
-    protected static void setNames(String [] someNames) {
+
+    /**
+     *Construct a  WebObject passing a JSON string to the superclass
+     *
+     * @param  jsonText                    Description of the Parameter
+     * @exception  org.json.JSONException  Description of the Exception
+     */ 
+    protected WebObject(String jsonText) throws org.json.JSONException {
+        super(jsonText);
+    }
+
+
+    /**
+     *  Sets Vector of the JSON keys (names) that are valid for
+     * a given WebObject extender.
+     *
+     * @param  someNames The array of JSON keys (names) that are valid for
+     * a given WebObject extender
+     */ 
+    public static void setNames(String [] someNames) {
         names = new Vector <String>(someNames.length);
         for (int i = 0; i < someNames.length; i++) {
-            names.add(someNames[i]); 
+            names.add(someNames[i]);
         }
     }
- 
+
     /**
-     *  Description of the Field
+     *  Get the array of JSON keys (names) that are valid for
+     * a given WebObject extender
+     *
+     * @return    The names
      */ 
     public static String []getNames() {
         return names.toArray(new String [names.size()]);
     }
 
+    /**
+     * Identifies whether a JSON key is one of the names a given
+     * WebObject extender uses.
+     *
+     * @param  name  the JSON key
+     * @return       true if the key is one the class uses
+     */ 
     public static boolean isName(String name) {
         return names.indexOf(name) != - 1;
     }
-
 }
+

@@ -50,6 +50,7 @@ public class Function extends WebObject {
  
     static { setNames(new String [] {"function_name" ,"input_arguments" ,
         "output_arguments" ,"return_code" ,"result_code" ,"request_id" }
+
        ); }
 
     /**
@@ -74,6 +75,7 @@ public class Function extends WebObject {
      */ 
     public Function(FunctionName functionName, InputArgumentArray inputArray,
              OutputArgumentArray outputArray) throws JSONException {
+
         this();
         put("function_name", functionName);
         put("input_arguments", inputArray);
@@ -103,7 +105,17 @@ public class Function extends WebObject {
         super();
         copyFrom(function);
     }
-
+ 
+    /**
+     * Create a JSON map of a PigIron VSMAPI function
+     * from a JSON String
+     *
+     * @param  jsonText  text in JSON that ought to be a Function
+     */ 
+    public Function(String jsonText) throws JSONException {
+        super(jsonText);
+    }
+ 
     /**
      *  Copy the keys we care about from instance A to instance B.
      *

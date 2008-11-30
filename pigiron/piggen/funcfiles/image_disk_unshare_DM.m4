@@ -6,7 +6,7 @@ pigfunc_import(`com.softwoehr.pigiron.access.*')dnl
 pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',function_formal_name,`dnl
 
 /**
- * @{code function_formal_name} VSMAPI Function
+ * {@code function_formal_name} VSMAPI Function
  */')dnl
 pigfunc_attribute(`private', `', `String', `member_name(`image_disk_number')', `""', `', `The target_image_name's virtual device address of the disk to be unshared')dnl
 pigfunc_attribute(`private', `', `String', `member_name(`target_image_name')', `""', `', `The virtual device address of the previously-shared disk to be removed from the configuration')dnl
