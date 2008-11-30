@@ -7,7 +7,7 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 
 /**
  * {@code function_formal_name} VSMAPI Function
- * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
+dnl * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
  */')dnl \\ significant_parameter_formal_name bound in namespace
 pigfunc_ctors()dnl
 pigfunc_compose_input_start()dnl
