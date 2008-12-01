@@ -66,7 +66,7 @@ public class Engine {
         try {
             response = new Response(requestor);
             Function function = requestor.getFunction();
-            // String functionName = function.get("function_name");
+            String functionName = function.get_function_name();
             // Class pigIronFunction =
         } catch (JSONException ex) {
         }

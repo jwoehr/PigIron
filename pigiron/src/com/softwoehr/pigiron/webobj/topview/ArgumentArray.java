@@ -31,6 +31,7 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
+import org.json.JSONException;
 import org.json.JSONArray;
 import com.softwoehr.pigiron.access.ParameterArray;
 
@@ -46,7 +47,11 @@ public class ArgumentArray extends JSONArray {
     public ArgumentArray() {
         super();
     }
-
+    
+    public ArgumentArray(JSONArray array)  throws JSONException {
+        super(array);
+    }
+    
     /**
      *  Put an Argument to the array
      *
