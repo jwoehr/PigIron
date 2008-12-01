@@ -34,39 +34,40 @@ package com.softwoehr.pigiron.webobj;
 import com.softwoehr.pigiron.webobj.topview.*;
 import org.json.JSONException;
 
-
 /**
  *  An executor of JSON descriptions of PigIron VSMAPI Functions
  * which consumes a Requestor and returns a Response.
  *
  * @author     jax
- * @created    November 27, 2008
+ * @see com.softwoehr.pigiron.webobj.topview.Requestor
+ * @see com.softwoehr.pigiron.webobj.topview.Response
  */
 public class Engine {
 
     /**
      *Constructor for the Engine object
      */ 
-    public Engine() {
-    }
+    public Engine() { }
 
     /**
      *  Execute from a Requestor, a JSON description of a proposed PigIron
      * VSMAPI Function instance, and return a Response which contains (among
      * other things) the original object with the response fields filled out.
      *
-     * @param  request  a Requestor describing a proposed PigIron VSMAPI
-     * Function instance
-     * @return          a Response which contains (among other things) the
+     * @param  requestor                   Description of the Parameter
+     * @return                             a Response which contains (among other things) the
      * original object with the response fields filled out
-     * @see com.softwoehr.pigiron.webobj.topview.Requestor
+     * @exception  org.json.JSONException  on JSON error
      */ 
-    public Response execute(Requestor requestor) {
+    public Response execute(Requestor requestor) throws org.json.JSONException {
 
-        Response response = null;
+        Response response = new Response();
 
         try {
             response = new Response(requestor);
+            Function function = requestor.getFunction();
+            // String functionName = function.get("function_name");
+            // Class pigIronFunction =
         } catch (JSONException ex) {
         }
 
@@ -86,3 +87,4 @@ public class Engine {
         System.out.println(response);
     }
 }
+

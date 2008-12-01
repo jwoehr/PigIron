@@ -68,7 +68,25 @@ public class WebObject extends JSONObject {
         super(jsonText);
     }
 
+   /**
+     *Construct a  WebObject from a WebObject using JSON's constrained copy ctor
+     *
+     * @param  webObject                   The object to copy key/vals from
+     * @exception  org.json.JSONException  on JSON error
+     */ 
+    protected WebObject(WebObject webObject) throws org.json.JSONException {
+        super(webObject, getNames());
+    }
 
+   /**
+     *Construct a  WebObject from a JSONObject using JSON's constrained copy ctor
+     *
+     * @param  webObject                   The object to copy key/vals from
+     * @exception  org.json.JSONException  on JSON error
+     */ 
+    protected WebObject(JSONObject jsonObject) throws org.json.JSONException {
+        super(jsonObject, getNames());
+    }
     /**
      *  Sets Vector of the JSON keys (names) that are valid for
      * a given WebObject extender.
