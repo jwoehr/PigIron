@@ -31,6 +31,8 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
+import org.json.JSONException;
+import org.json.JSONArray;
 /**
  * 
  * @author jax
@@ -42,5 +44,9 @@ public class OutputArgumentArray extends ArgumentArray {
      */
     public OutputArgumentArray() {
         super();
+    }
+
+    public OutputArgumentArray(JSONArray array)  throws JSONException {
+        super(array);
     }
 }
