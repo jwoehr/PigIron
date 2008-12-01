@@ -37,7 +37,7 @@ import org.json.JSONException;
 
 /**
  *  An executor of JSON descriptions of PigIron VSMAPI Functions
- * which returns the original object with the response fields filled out.
+ * which consumes a Requestor and returns a Response.
  *
  * @author     jax
  * @created    November 27, 2008
@@ -51,11 +51,15 @@ public class Engine {
     }
 
     /**
-     *  Execute from a JSON description of a PigIron VSMAPI Function instance
-     * and return the original object with the response fields filled out.
+     *  Execute from a Requestor, a JSON description of a proposed PigIron
+     * VSMAPI Function instance, and return a Response which contains (among
+     * other things) the original object with the response fields filled out.
      *
-     * @param  request  a com.softwoehr.pigiron.webobj.topview.Function instance
-     * @return          effectively the same instance with response fields filled out
+     * @param  request  a Requestor describing a proposed PigIron VSMAPI
+     * Function instance
+     * @return          a Response which contains (among other things) the
+     * original object with the response fields filled out
+     * @see com.softwoehr.pigiron.webobj.topview.Requestor
      */ 
     public Response execute(Requestor requestor) {
 
@@ -70,9 +74,9 @@ public class Engine {
     }
 
     /**
-     *  The main program for testing the Engine class
+     *  A simple main program for testing the Engine class
      *
-     * @param  args                        arg0 JSON string represeting a Requestor
+     * @param  args                        arg0 JSON string of a Requestor
      * @exception  org.json.JSONException  on JSON error
      */ 
     public static void main(String [] args) throws org.json.JSONException {
