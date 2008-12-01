@@ -38,7 +38,6 @@ import org.json.JSONObject;
  * Represents an argument to a VSMAPI function
  *
  * @author     jax
- * @created    November 30, 2008
  */
 public class Argument extends JSONObject {
 
@@ -127,7 +126,6 @@ public class Argument extends JSONObject {
         } else {
             put("value", value);
         }
-
     }
 
     /**
