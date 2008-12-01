@@ -35,6 +35,7 @@ import com.softwoehr.pigiron.access.VSMParm;
 import com.softwoehr.pigiron.access.VSMInt;
 import com.softwoehr.pigiron.access.VSMString;
 import com.softwoehr.pigiron.access.VSMAsciiZ;
+import com.softwoehr.pigiron.webobj.WebObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,12 +44,15 @@ import org.json.JSONObject;
  *
  * @author     jax
  */
-public class Argument extends JSONObject {
+public class Argument extends WebObject {
 
     /**
      *  Names we use for members
      */ 
-    public static final String []names = {"formalName" ,"value"} ;
+    static {
+        setNames(new String []{"formalName" ,"value"}
+       ); 
+    }
 
     /**
      * Create with defaults (empty).
@@ -107,8 +111,8 @@ public class Argument extends JSONObject {
      * @param  anArgument         a like Argument
      * @exception  JSONException  on JSON err
      */ 
-    public Argument(JSONObject anArgument) throws JSONException {
-        super(anArgument,names);
+    public Argument(WebObject anArgument) throws JSONException {
+        super(anArgument);
     }
 
     /**
@@ -196,6 +200,7 @@ public class Argument extends JSONObject {
      */ 
     public static Argument from(VSMString vsmString) throws JSONException {
         Argument result = new Argument(vsmString.getFormalName(), vsmString.getValue());
+
         return result;
     }
 
@@ -208,6 +213,7 @@ public class Argument extends JSONObject {
      */ 
     public static Argument from(VSMAsciiZ vsmAsciiZ) throws JSONException {
         Argument result = new Argument(vsmAsciiZ.getFormalName(), vsmAsciiZ.getValue());
+
         return result;
     }
 

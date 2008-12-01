@@ -37,7 +37,9 @@ import com.softwoehr.pigiron.access.ParameterArray;
 
 /**
  * An array of arguments for PigIron VSMAPI functionality.
+ *
  * @author     jax
+ * @created    December 1, 2008
  */
 public class ArgumentArray extends JSONArray {
 
@@ -47,11 +49,17 @@ public class ArgumentArray extends JSONArray {
     public ArgumentArray() {
         super();
     }
-    
-    public ArgumentArray(JSONArray array)  throws JSONException {
+
+    /**
+     *Constructor for the ArgumentArray object from a JSONArray.
+     *
+     * @param  array              the array of Arguments to assimilate
+     * @exception  JSONException  on JSON err
+     */ 
+    public ArgumentArray(JSONArray array) throws JSONException {
         super(array);
     }
-    
+
     /**
      *  Put an Argument to the array
      *

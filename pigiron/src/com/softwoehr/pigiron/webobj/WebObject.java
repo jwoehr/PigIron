@@ -87,6 +87,7 @@ public class WebObject extends JSONObject {
     protected WebObject(JSONObject jsonObject) throws org.json.JSONException {
         super(jsonObject, getNames());
     }
+    
     /**
      *  Sets Vector of the JSON keys (names) that are valid for
      * a given WebObject extender.
