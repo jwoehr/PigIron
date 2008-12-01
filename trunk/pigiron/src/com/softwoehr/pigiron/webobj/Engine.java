@@ -32,7 +32,6 @@
 package com.softwoehr.pigiron.webobj;
 
 import com.softwoehr.pigiron.webobj.topview.*;
-
 import org.json.JSONException;
 
 
@@ -58,7 +57,7 @@ public class Engine {
      * @param  request  a com.softwoehr.pigiron.webobj.topview.Function instance
      * @return          effectively the same instance with response fields filled out
      */ 
-    public Function execute(Function request) {
+    public Function execute(Function request, Host host) {
 
         Function response = null;
 
@@ -73,14 +72,15 @@ public class Engine {
     /**
      *  The main program for the Engine class
      *
-     * @param  args                        arg0 JSON string represeting a Function
+     * @param  args                        arg0 JSON string represeting a Requestor
      * @exception  org.json.JSONException  on JSON error
      */ 
     public static void main(String [] args) throws org.json.JSONException {
-
-        Function function = new Function(args[0]);
+        Requestor requestor = new Requestor(args[0]);
         Engine engine = new Engine();
-        function = engine.execute(function);
+        Function function = engine.execute(requestor.getFunction(),
+                 requestor.getHost());
+
         System.out.println(function);
     }
 }
