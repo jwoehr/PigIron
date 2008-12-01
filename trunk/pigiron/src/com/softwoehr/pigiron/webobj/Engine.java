@@ -57,12 +57,12 @@ public class Engine {
      * @param  request  a com.softwoehr.pigiron.webobj.topview.Function instance
      * @return          effectively the same instance with response fields filled out
      */ 
-    public Function execute(Function request, Host host) {
+    public Response execute(Requestor requestor) {
 
-        Function response = null;
+        Response response = null;
 
         try {
-            response = new Function(request);
+            response = new Response(requestor);
         } catch (JSONException ex) {
         }
 
@@ -70,7 +70,7 @@ public class Engine {
     }
 
     /**
-     *  The main program for the Engine class
+     *  The main program for testing the Engine class
      *
      * @param  args                        arg0 JSON string represeting a Requestor
      * @exception  org.json.JSONException  on JSON error
@@ -78,9 +78,7 @@ public class Engine {
     public static void main(String [] args) throws org.json.JSONException {
         Requestor requestor = new Requestor(args[0]);
         Engine engine = new Engine();
-        Function function = engine.execute(requestor.getFunction(),
-                 requestor.getHost());
-
-        System.out.println(function);
+        Response response = engine.execute(requestor);
+        System.out.println(response);
     }
 }
