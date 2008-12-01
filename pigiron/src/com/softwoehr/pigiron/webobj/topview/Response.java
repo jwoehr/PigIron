@@ -35,14 +35,36 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * A class representing a completed request to PigIron
+* {@code Response} represents the JSON response to a completed request to PigIron.
+ * It contains  embedded the spawning Requestor with the Requestor's response fields
+ * filled in (e.g., function.output_arguments[]) as well as Response-specific
+ * fields.
  *
  * @author     jax
  * @created    November 30, 2008
  */
 public class Response extends JSONObject {
 
-    public enum Results { NO_RESPONSE, SUCCESS, FAILURE, JSON_ERR, PIGIRON_ERR } ;
+    /** Represents the various semantics of a Response:
+     * <ul>
+     * <li>success all the way through in making the VSMAPI call</li>
+     * <li>failure returned by a VSMAPI call itself successfully propagated through the layers of PigIron code</li>
+     * <li>error in formatting or content of the JSON value of the Requestor</li>
+     * <li>error in the PigIron execution of a Requestor containing well-formed JSON</li>
+     * <li>the value of the Response is at the moment undefined, e.g., in default state before use</li>
+     *</ul>
+     */
+    public enum Results {
+    /** Undefined, the default state of the Response object before it used */
+    NO_RESPONSE,
+    /** Your request succeeded, results returned in the embedded copy of the original Requestor. */ 
+    SUCCESS,
+    /** Your request failed at the VSMAPI level, results returned in the embedded copy of the original Requestor. */
+    FAILURE,
+    /** Something was wrong with the JSON input provided, see Response.messageText. */
+    JSON_ERR,
+    /** PigIron encountered an error, see Response.messageText. */
+    PIGIRON_ERR } ;
 
     /**
      *  Names we use for members
@@ -68,7 +90,7 @@ public class Response extends JSONObject {
      */ 
     public Response(Requestor requestor) throws JSONException {
         this();
-	setRequestor(requestor);
+        setRequestor(requestor);
     }
 
     /**
