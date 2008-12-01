@@ -48,8 +48,7 @@ import org.json.JSONException;
 public class Function extends WebObject {
 
  
-    static { setNames(new String [] {"function_name" ,"input_arguments" ,
-        "output_arguments" ,"return_code" ,"result_code" ,"request_id" }
+    static { setNames(new String [] {"function_name" ,"input_arguments" ,"output_arguments" ,"return_code" ,"result_code" ,"request_id" }
 
        ); }
 
@@ -73,9 +72,7 @@ public class Function extends WebObject {
      * @param  outputArray  an array representing PigIron VSMAPI output parameters
      * @exception  JSONException   on JSON error
      */ 
-    public Function(FunctionName functionName, InputArgumentArray inputArray,
-             OutputArgumentArray outputArray) throws JSONException {
-
+    public Function(String functionName, InputArgumentArray inputArray, OutputArgumentArray outputArray) throws JSONException {
         this();
         put("function_name", functionName);
         put("input_arguments", inputArray);
@@ -87,7 +84,7 @@ public class Function extends WebObject {
      *
      */ 
     private void initDefaults() throws JSONException {
-        put("function_name", new FunctionName(""));
+        put("function_name", "");
         put("input_arguments", new InputArgumentArray());
         put("output_arguments", new OutputArgumentArray());
         put("return_code", - 1);
