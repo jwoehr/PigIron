@@ -2,11 +2,11 @@
  * Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
  * PO Box 51, Golden, Colorado 80402-0051 USA
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *     * Redistributions of source code must retain the above copyright
  *         notice, this list of conditions and the following disclaimer.
  *     * Redistributions in binary form must reproduce the above copyright
@@ -16,7 +16,7 @@
  *     * Neither the name of the PigIron Project nor the names of its
  *         contributors may be used to endorse or promote products derived
  *         from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -39,13 +39,19 @@ import org.json.JSONObject;
  * @author jax
  */
 public class Host extends JSONObject {
+    /**
+     *  Names we use for members
+     */ 
+    public static final String []names = {"name" ,"dnsName" ,"ipAddr" ,
+            "portNumber"}
+    ;
 
     /**
      * Base ctor
      * @throws JSONException
-     */
+     */ 
     public Host() throws JSONException {
-        this("", "", "", -1);
+        this("","","", - 1);
     }
 
     /**
@@ -55,74 +61,98 @@ public class Host extends JSONObject {
      * @param ipAddr
      * @param portNumber
      * @throws JSONException
-     */
-    public Host(String name, String dnsName, String ipAddr, int portNumber) throws JSONException {
+     */ 
+    public Host(String name, String dnsName, String ipAddr,
+             int portNumber) throws JSONException {
+
         super();
         setName(name);
         setDnsName(dnsName);
         setIpAddr(ipAddr);
         setPortNumber(portNumber);
     }
+ 
+    /**
+     *Constructor for the Host from a string of JSON representation
+     *
+     * @param  jsonRepresentation  argument described in JSON
+     * @exception  JSONException   on JSON err
+     * @throws  JSONException      on JSON err
+     */ 
+    public Host(String jsonRepresentation) throws JSONException {
+        super(jsonRepresentation);
+    }
+ 
+    /**
+     *Constructor for the Host from a JSONObject using only
+     * the members named in Host.names
+     *
+     * @param  anHost         a like Host
+     * @exception  JSONException  on JSON err
+     */ 
+    public Host(JSONObject anHost) throws JSONException {
+        super(anHost,names);
+    }
 
     /**
-     *
-     * @return
-     * @throws org.json.JSONException
-     */
+     * get Name
+     * @return name
+     * @throws org.json.JSONException on JSON err
+     */ 
     public String getName() throws JSONException {
         return getString("name");
     }
 
     /**
-     *
-     * @return
-     * @throws org.json.JSONException
-     */
+     * get DnsName
+     * @return Dns Name
+     * @throws org.json.JSONException on JSON err
+     */ 
     public String getDnsName() throws JSONException {
         return getString("dnsName");
     }
 
     /**
-     *
-     * @return
-     * @throws org.json.JSONException
-     */
+     * get IpAddr
+     * @return Ip Addr
+     * @throws org.json.JSONException on JSON err
+     */ 
     public String getIpAddr() throws JSONException {
         return getString("ipAddr");
     }
 
     /**
-     *
-     * @return
-     * @throws org.json.JSONException
-     */
+     * get PortNumber
+     * @return port Number
+     * @throws org.json.JSONException on JSON err
+     */ 
     public String getPortNumber() throws JSONException {
         return getString("portNumber");
     }
 
     /**
-     *
+     * et Dns Name
      * @param dnsName
-     * @throws JSONException
-     */
+     * @throws JSONException on JSON err
+     */ 
     public void setDnsName(String dnsName) throws JSONException {
         put("dnsName", dnsName);
     }
 
     /**
-     *
+     * set Ip Addr
      * @param ipAddr
-     * @throws JSONException
-     */
+     * @throws JSONException on JSON err
+     */ 
     public void setIpAddr(String ipAddr) throws JSONException {
         put("ipAddr", ipAddr);
     }
 
     /**
-     *
-     * @param portNumber
-     * @throws JSONException
-     */
+     * set Port Number
+     * @param port Number
+     * @throws JSONException on JSON err
+     */ 
     public void setPortNumber(int portNumber) throws JSONException {
         put("portNumber", portNumber);
     }
@@ -132,8 +162,8 @@ public class Host extends JSONObject {
      * May or may not be related to DNS name .. that latter
      * sort of thing will be found deeper, follow the URI trail.
      * @param name the name of the name
-     * @throws JSONException
-     */
+     * @throws JSONException on JSON err
+     */ 
     public void setName(String name) throws JSONException {
         put("name", name);
     }

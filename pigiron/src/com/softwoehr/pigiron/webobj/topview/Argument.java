@@ -42,14 +42,14 @@ import org.json.JSONObject;
 public class Argument extends JSONObject {
 
     /**
-     *  Description of the Field
+     *  Names we use for members
      */ 
     public static final String []names = {"formalName" ,"value"} ;
 
     /**
      * Create with defaults (empty).
      *
-     * @exception  JSONException        Description of the Exception
+     * @exception  JSONException        on JSON err
      * @throws  org.json.JSONException  on JSON err
      */ 
     public Argument() throws JSONException {
@@ -61,8 +61,8 @@ public class Argument extends JSONObject {
      *Constructor for the Argument from a string of JSON representation
      *
      * @param  jsonRepresentation  argument described in JSON
-     * @exception  JSONException   Description of the Exception
-     * @throws  JSONException      Description of the Exception
+     * @exception  JSONException   on JSON err
+     * @throws  JSONException      on JSON err
      */ 
     public Argument(String jsonRepresentation) throws JSONException {
         super(jsonRepresentation);
@@ -73,7 +73,7 @@ public class Argument extends JSONObject {
      *
      * @param  formalName
      * @param  value
-     * @exception  JSONException        Description of the Exception
+     * @exception  JSONException        on JSON err
      * @throws  org.json.JSONException  on JSON err
      */ 
     public Argument(String formalName, String value) throws JSONException {
@@ -95,9 +95,9 @@ public class Argument extends JSONObject {
     }
 
     /**
-     *  Description of the Method
+     *   init defaults
      *
-     * @exception  JSONException  Description of the Exception
+     * @exception  JSONException  on JSON err
      */ 
     private void initDefaults() throws JSONException {
         setFormalName("");
