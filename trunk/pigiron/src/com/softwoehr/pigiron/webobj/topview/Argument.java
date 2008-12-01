@@ -31,6 +31,10 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
+import com.softwoehr.pigiron.access.VSMParm;
+import com.softwoehr.pigiron.access.VSMInt;
+import com.softwoehr.pigiron.access.VSMString;
+import com.softwoehr.pigiron.access.VSMAsciiZ;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -69,10 +73,10 @@ public class Argument extends JSONObject {
     }
 
     /**
-     * Create with the formal name of the argument and the value
+     * Create with the formal name of the argument and the string value
      *
-     * @param  formalName
-     * @param  value
+     * @param  formalName               formal name
+     * @param  value                    string value
      * @exception  JSONException        on JSON err
      * @throws  org.json.JSONException  on JSON err
      */ 
@@ -80,7 +84,20 @@ public class Argument extends JSONObject {
         this();
         setFormalName(formalName);
         setValue(value);
+    }
 
+    /**
+     * Create with the formal name of the argument and the numerical value
+     *
+     * @param  formalName               formal name
+     * @param  value                    numerical value
+     * @exception  JSONException        on JSON err
+     * @throws  org.json.JSONException  on JSON err
+     */ 
+    public Argument(String formalName, long value) throws JSONException {
+        this();
+        setFormalName(formalName);
+        setValue(value);
     }
 
     /**
@@ -115,7 +132,7 @@ public class Argument extends JSONObject {
     }
 
     /**
-     * Set the value
+     * Set the string value
      *
      * @param  value           the value
      * @throws  JSONException  on JSON err
@@ -126,6 +143,16 @@ public class Argument extends JSONObject {
         } else {
             put("value", value);
         }
+    }
+
+    /**
+     * Set the numerical value
+     *
+     * @param  value           the value
+     * @throws  JSONException  on JSON err
+     */ 
+    public void setValue(long value) throws JSONException {
+        put("value", value);
     }
 
     /**
@@ -146,6 +173,42 @@ public class Argument extends JSONObject {
      */ 
     public void setFormalName(String formalName) throws JSONException {
         put("formalName", formalName);
+    }
+
+    /**
+     *  Assimilate a VSMInt as an Argument
+     *
+     * @param  vsmInt  A VSMIntinstance to be used as an Argument
+     * @return        An Argument created from the type
+     * @throws  JSONException  on JSON err
+     */ 
+    public static Argument from(VSMInt vsmInt) throws JSONException {
+        Argument result = new Argument(VSMParm .class.cast(vsmInt).getFormalName(), vsmInt.getLongValue());
+        return result;
+    }
+
+    /**
+     *  Assimilate a VSMString as an Argument
+     *
+     * @param  vsmString  A VSMString instance to be used as an Argument
+     * @return         An Argument created from the type
+     * @throws  JSONException  on JSON err
+     */ 
+    public static Argument from(VSMString vsmString) throws JSONException {
+        Argument result = new Argument(vsmString.getFormalName(), vsmString.getValue());
+        return result;
+    }
+
+    /**
+     *  Assimilate a VSMAsciiZ as an Argument
+     *
+     * @param  vsmAsciiZ  A VSMAsciiZ instance to be used as an Argument
+     * @return         An Argument created from the type
+     * @throws  JSONException  on JSON err
+     */ 
+    public static Argument from(VSMAsciiZ vsmAsciiZ) throws JSONException {
+        Argument result = new Argument(vsmAsciiZ.getFormalName(), vsmAsciiZ.getValue());
+        return result;
     }
 
     /**
