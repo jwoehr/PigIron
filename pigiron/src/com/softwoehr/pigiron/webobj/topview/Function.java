@@ -32,11 +32,9 @@
 package com.softwoehr.pigiron.webobj.topview;
 
 import com.softwoehr.pigiron.webobj.WebObject;
-
 import java.util.Iterator;
-
 import org.json.JSONException;
-
+import org.json.JSONObject;
 
 /**
  * A class to represent PigIron VSMAPI Function execution
@@ -47,16 +45,16 @@ import org.json.JSONException;
  */
 public class Function extends WebObject {
 
- 
-    static { setNames(new String [] {"function_name" ,"input_arguments" ,"output_arguments" ,"return_code" ,"result_code" ,"request_id" }
-
-       ); }
+    static {
+        setNames(new String [] {"function_name" ,"input_arguments" ,
+                "output_arguments" ,"return_code" ,"result_code" ,"request_id" }
+       );
+    }
 
     /**
      * Create a JSON map of a PigIron VSMAPI function to execute
      * with default values, i.e., "unspecified".
      * @exception  JSONException        on JSON error
-     * @throws  org.json.JSONException
      */ 
     public Function() throws JSONException {
         super();
@@ -80,6 +78,28 @@ public class Function extends WebObject {
     }
 
     /**
+     * Create a JSON map of a PigIron VSMAPI function
+     * from another Function object
+     *
+     * @param  function  another instance whose values are copied to this
+     */ 
+    public Function(Function function) throws JSONException {
+        super(function);
+        // copyFrom(function);
+    }
+ 
+    /**
+     * Create a JSON map of a PigIron VSMAPI function
+     * from a JSON String importing only those keyvals we care about.
+     * Silently discards unrecognized key/value pairs.
+     *
+     * @param  jsonText  text in JSON that ought to be a Function
+     */ 
+    public Function(String jsonText) throws JSONException {
+        super(new JSONObject(jsonText));
+    }
+ 
+    /**
      * Init some output fields with defaults.
      *
      */ 
@@ -91,28 +111,7 @@ public class Function extends WebObject {
         put("result_code", - 1);
         put("request_id", - 1);
     }
-
-    /**
-     * Create a JSON map of a PigIron VSMAPI function
-     * from another Function object
-     *
-     * @param  function  another instance whose values are copied to this
-     */ 
-    public Function(Function function) throws JSONException {
-        super();
-        copyFrom(function);
-    }
- 
-    /**
-     * Create a JSON map of a PigIron VSMAPI function
-     * from a JSON String
-     *
-     * @param  jsonText  text in JSON that ought to be a Function
-     */ 
-    public Function(String jsonText) throws JSONException {
-        super(jsonText);
-    }
- 
+    
     /**
      *  Copy the keys we care about from instance A to instance B.
      *
@@ -122,7 +121,10 @@ public class Function extends WebObject {
         Iterator keyIterator = function.keys();
         while (keyIterator.hasNext()) {
             Object key = keyIterator.next();
-            put(key.toString(), function.get(key.toString()));
+            String keyName = key.toString();
+            if (isName(keyName)) {
+                put(keyName, function.get(keyName));
+            }
         }
     }
 }
