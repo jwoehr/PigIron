@@ -153,7 +153,7 @@ public class Response extends WebObject {
     }
  
     /**
-     *  Gets the requestor attribute of the Response object
+     *  Gets a copy of the requestor attribute of the Response object
      *
      * @return                    The requestor value
      * @exception  JSONException  on JSON err
