@@ -39,7 +39,7 @@ import org.json.JSONException;
 
 /**
  *  An executor of JSON descriptions of PigIron VSMAPI Functions
- * which consumes a Requestor and returns a Response.
+ * that consumes a Requestor and returns a Response.
  *
  * @author     jax
  * @see com.softwoehr.pigiron.webobj.topview.Requestor
@@ -53,13 +53,21 @@ public class Engine {
     public Engine() { }
 
     /**
-     *  Execute from a Requestor, a JSON description of a proposed PigIron
-     * VSMAPI Function instance, and return a Response which contains (among
-     * other things) the original object with the response fields filled out.
+     *  Execute from a Requestor, (a JSON description of a proposed PigIron
+     * VSMAPI Function instance), and return a Response which contains (among
+     * other things) the original Requestor object with the output param fields
+     * filled out.
+     *
+     * The Response is created here and passed to the Function instance.
+     * The Function instance recreates the Response and passes it back.
+     * This is done to make the structure of <tt>Engine.execute()</tt> a little simpler
+     * because the Response object passed back out of <tt>execute()</tt> might be the one
+     * getting filled in by the Function instance or might be the one <tt>execute()</tt>
+     * started with but filled in on some failure local to the Engine.
      *
      * @param  requestor                   Description of the Parameter
      * @return                             a Response which contains (among other things) the
-     * original object with the response fields filled out
+     * original Requestor object with the output param fields filled out
      * @exception  org.json.JSONException  on JSON error creating the empty Response
      */ 
     public Response execute(Requestor requestor) throws org.json.JSONException {
@@ -112,7 +120,10 @@ public class Engine {
     }
 
     /**
-     *  A simple main program for testing the Engine class
+     *  A simple main program for testing the Engine class. It can be tested
+     * on any supported function, e.g:<br>
+     *
+     * <tt>java -cp dist/pigiron.jar com.softwoehr.pigiron.webobj.Engine '{"function":{"function_name":"CheckAuthentication"},"host":{"dnsName":"mybox.mydomain.com","portNumber":12345},"user":{"uid":"FRED","password":"FOOBAR"}}'</tt>
      *
      * @param  args                        arg0 JSON string of a Requestor
      * @exception  org.json.JSONException  on JSON error
