@@ -31,9 +31,11 @@
  */
 package com.softwoehr.pigiron.webobj.topview.functions;
 
-import com.softwoehr.pigiron.access.VSMException;
-import com.softwoehr.pigiron.webobj.topview.*;
 import com.softwoehr.pigiron.access.ParameterArray;
+import com.softwoehr.pigiron.access.VSMException;
+import com.softwoehr.pigiron.access.VSMInt4;
+import com.softwoehr.pigiron.bizobj.VsmapiRC;
+import com.softwoehr.pigiron.webobj.topview.*;
 
 /**
  *  Description of the Class
@@ -54,7 +56,6 @@ public class CheckAuthentication extends FunctionProxy {
      * @exception  org.json.JSONException  Description of the Exception
      */ 
     public CheckAuthentication(Requestor requestor, Response response) throws org.json.JSONException {
-
         super(requestor,response);
     }
 
@@ -67,14 +68,18 @@ public class CheckAuthentication extends FunctionProxy {
     public Response execute() throws org.json.JSONException {
         response.setResult(Response.Results.SUCCESS.name());
         com.softwoehr.pigiron.functions.CheckAuthentication pigfunc = new com.softwoehr.pigiron.functions.CheckAuthentication(host.getDnsName(), host.getPortNumber(), user.getUid(), user.getPassword(), "");
-                
         try {
             ParameterArray pA = pigfunc.doIt();
             /* Debug */ System.err.println(pA.prettyPrintAll());
-            Function f = requestor.getFunction();            
-	    f.put("output_arguments", OutputArgumentArray.from(pA));
-	    requestor.setFunction(f);
+            Function f = requestor.getFunction();
+            f.put("output_arguments", OutputArgumentArray.from(pA));
+            requestor.setFunction(f);
             response.setRequestor(requestor);
+            VSMInt4 rc_int4 = VSMInt4 .class.cast(pA.parameterNamed("return_code"));
+            VSMInt4 reason_int4 = VSMInt4 .class.cast(pA.parameterNamed("reason_code"));
+            response.setMessageText(VsmapiRC.prettyPrint(rc_int4.getValue(), reason_int4.getValue(), pigfunc));
+            long rc = rc_int4.getLongValue();
+            if (rc != 0) { response.setResult(Response.Results.FAILURE.name()); }
         } catch (java.io.IOException ex) {
             response.setResult(Response.Results.FAILURE.name());
             response.setMessageText(ex.toString());
@@ -82,7 +87,7 @@ public class CheckAuthentication extends FunctionProxy {
             response.setResult(Response.Results.PIGIRON_ERR.name());
             response.setMessageText(ex.toString());
         }
- 
+
         return response;
     }
 }
