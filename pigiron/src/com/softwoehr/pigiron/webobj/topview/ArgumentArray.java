@@ -57,7 +57,7 @@ public class ArgumentArray extends JSONArray {
      * @exception  JSONException  on JSON err
      */ 
     public ArgumentArray(JSONArray array) throws JSONException {
-        super(array);
+        super(array.toString());
     }
 
     /**
