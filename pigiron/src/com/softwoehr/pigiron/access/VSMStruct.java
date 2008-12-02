@@ -75,10 +75,6 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     public VSMStruct(VSMStruct value) {
         this();
         setValue(value);
-        /*Iterator<VSMParm> it = iterator();
-        while (it.hasNext()) {
-        add(it.next().copyOf());
-        }*/
     }
 
     /**
