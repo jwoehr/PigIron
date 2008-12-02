@@ -137,8 +137,8 @@ public class Host extends WebObject {
      * @exception  JSONException        Description of the Exception
      * @throws  org.json.JSONException  on JSON err
      */ 
-    public String getPortNumber() throws JSONException {
-        return getString("portNumber");
+    public int getPortNumber() throws JSONException {
+        return getInt("portNumber");
     }
 
     /**

@@ -31,7 +31,9 @@
  */
 package com.softwoehr.pigiron.webobj.topview.functions;
 
+import com.softwoehr.pigiron.access.VSMException;
 import com.softwoehr.pigiron.webobj.topview.*;
+
 
 /**
  *  Description of the Class
@@ -41,11 +43,15 @@ import com.softwoehr.pigiron.webobj.topview.*;
  */
 public class CheckAuthentication extends FunctionProxy {
 
+    private InputArgumentArray inArray = null;
+    private OutputArgumentArray outArray = null;
+
     /**
      *Constructor for the CheckAuthentication object
      *
-     * @param  requestor  Description of the Parameter
-     * @param  response   Description of the Parameter
+     * @param  requestor                   Description of the Parameter
+     * @param  response                    Description of the Parameter
+     * @exception  org.json.JSONException  Description of the Exception
      */ 
     public CheckAuthentication(Requestor requestor, Response response) throws org.json.JSONException {
         super(requestor,response);
@@ -59,7 +65,13 @@ public class CheckAuthentication extends FunctionProxy {
      */ 
     public Response execute() throws org.json.JSONException {
         response.setResult(Response.Results.SUCCESS.name());
+        com.softwoehr.pigiron.functions.CheckAuthentication pigfunc = new com.softwoehr.pigiron.functions.CheckAuthentication(host.getDnsName(), host.getPortNumber(), user.getUid(), user.getPassword(), "foo");
+        try {
+            pigfunc.doIt();
+        } catch (java.io.IOException ex) {
+        } catch (VSMException ex) {
+        }
+
         return response;
     }
 }
-

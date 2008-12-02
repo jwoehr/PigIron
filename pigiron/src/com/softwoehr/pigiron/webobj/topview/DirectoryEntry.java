@@ -6,20 +6,27 @@ package com.softwoehr.pigiron.webobj.topview;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import com.softwoehr.pigiron.webobj.WebObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * 
+ *
  * @author jax
  */
-public class DirectoryEntry extends JSONObject {
-
+public class DirectoryEntry extends WebObject {
+    /**
+     *  Names we use for members
+     */ 
+    static {
+        setNames(new String []{"name" ,"uri"}
+       );
+    }
     /**
      *
      * @return
      * @throws org.json.JSONException
-     */
+     */ 
     public String getName() throws JSONException {
         return getString("name");
     }
@@ -29,8 +36,8 @@ public class DirectoryEntry extends JSONObject {
      * @return
      * @throws java.net.URISyntaxException
      * @throws org.json.JSONException
-     */
-    public URI getURI() throws URISyntaxException, JSONException {
+     */ 
+    public URI getURI() throws URISyntaxException,  JSONException {
         return new URI(getString("uri"));
     }
 
@@ -39,9 +46,9 @@ public class DirectoryEntry extends JSONObject {
      * @param name
      * @param uri
      * @throws org.json.JSONException
-     */
+     */ 
     public DirectoryEntry(String name, URI uri) throws JSONException {
-        put("name", name);
+        put("name",name);
         put("uri", uri);
     }
 
@@ -49,7 +56,7 @@ public class DirectoryEntry extends JSONObject {
      *
      * @param source
      * @throws org.json.JSONException
-     */
+     */ 
     protected DirectoryEntry(String source) throws JSONException {
         super(source);
     }
@@ -59,8 +66,10 @@ public class DirectoryEntry extends JSONObject {
      * @param argv
      * @throws URISyntaxException
      * @throws JSONException
-     */
-    public static void main(String[] argv) throws URISyntaxException, JSONException {
+     */ 
+    public static void main(String [] argv) throws URISyntaxException, 
+             JSONException {
+
         String name = argv[0];
         String uri = argv[1];
         // String rerepresentation = argv[2];
