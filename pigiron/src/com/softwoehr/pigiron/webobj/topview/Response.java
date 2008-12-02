@@ -36,10 +36,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * {@code Response} represents the JSON response to a completed request to PigIron.
- * It contains  embedded the spawning Requestor with the Requestor's response fields
- * filled in (e.g., function.output_arguments[]) as well as Response-specific
- * fields.
+ * {@code Response} represents the JSON-style response to a completed request to PigIron.
+ * It contains embedded within it the spawning Requestor with the Requestor's response fields
+ * filled in (e.g., function.output_arguments[]), as well as Response-specific
+ * fields such as <tt>"result"</tt> and <tt>"messageText"</tt>.
  *
  * @author     jax
  * @created    November 30, 2008
@@ -53,12 +53,12 @@ public class Response extends WebObject {
        );
     }
     /** Represents the various semantics of a Response:
-     * <ul>
-     * <li>success all the way through in making the VSMAPI call</li>
-     * <li>failure returned by a VSMAPI call itself successfully propagated through the layers of PigIron code</li>
-     * <li>error in formatting or content of the JSON value of the Requestor</li>
-     * <li>error in the PigIron execution of a Requestor containing well-formed JSON</li>
-     * <li>the value of the Response is at the moment undefined, e.g., in default state before use</li>
+     * <ul><br>
+     * <li>- success all the way through in making the VSMAPI call;<br></li>
+     * <li>- failure returned by a VSMAPI call itself successfully propagated through the layers of PigIron code;<br></li>
+     * <li>- error in formatting or content of the JSON value of the Requestor;<br></li>
+     * <li>- error in the PigIron execution of a Requestor containing well-formed JSON;<br></li>
+     * <li>- the value of the Response is at the moment undefined, e.g., in default state before use.</li>
      *</ul>
      */ 
     public static enum Results {    /** Undefined, the default state of the Response object before it used */ 
@@ -69,9 +69,8 @@ public class Response extends WebObject {
     PIGIRON_ERR } ;
 
     /**
-     * Create a default (empty) Response
+     * Create a default (empty) Response.
      *
-     * @exception  JSONException        on JSON err
      * @throws  org.json.JSONException  on JSON err
      */ 
     public Response() throws JSONException {
@@ -82,7 +81,6 @@ public class Response extends WebObject {
     /**
      * Create a Response around a Requestor
      *
-     * @exception  JSONException        on JSON err
      * @throws  org.json.JSONException  on JSON err
      */ 
     public Response(Requestor requestor) throws JSONException {
@@ -95,7 +93,6 @@ public class Response extends WebObject {
      * the members named in Response.names
      *
      * @param  aResponse               a requestor object or something like it
-     * @exception  JSONException        on JSON err
      * @throws  org.json.JSONException  on JSON err
      */ 
     public Response(WebObject aResponse) throws JSONException {
@@ -106,76 +103,82 @@ public class Response extends WebObject {
      *Constructor for the Response from a string of JSON representation
      *
      * @param  jsonRepresentation  requestor described in JSON
-     * @exception  JSONException   on JSON err
+     * @throws  JSONException   on JSON err
      */ 
     public Response(String jsonRepresentation) throws JSONException {
         super(jsonRepresentation);
     }
 
     /**
-     *  Gets the result attribute of the Response object
+     *  Gets the result attribute of the Response object.
      *
      * @return                    The result value
-     * @exception  JSONException  on JSON err
+     * @throws  JSONException  on JSON err
      */ 
     public String getResult() throws JSONException {
         return getString("result");
     }
 
     /**
-     *  Sets the result attribute of the Response object
+     *  Sets the result attribute of the Response object.
      *
      * @param  result               The new result value
-     * @exception  JSONException  on JSON err
+     * @throws  JSONException  on JSON err
      */ 
     public void setResult(String result) throws JSONException {
         put("result", result);
     }
 
     /**
-     *  Gets the messageText attribute of the Response object
+     *  Gets the messageText attribute of the Response object. Message text
+     * can be VSMAPI return/reason code intrepetation, JSON or other exception
+     * text, or PigIron error messages.
      *
      * @return                    The messageText value
-     * @exception  JSONException  on JSON err
+     * @throws  JSONException  on JSON err
      */ 
     public String getMessageText() throws JSONException {
         return getString("messageText");
     }
 
     /**
-     *  Sets the messageText attribute of the Response object
+     *  Sets the messageText attribute of the Response object. Message text
+     * can be VSMAPI return/reason code intrepetation, JSON or other exception
+     * text, or PigIron error messages.
      *
      * @param  messageText               The new messageText value
-     * @exception  JSONException  on JSON err
+     * @throws  JSONException  on JSON err
      */ 
     public void setMessageText(String messageText) throws JSONException {
         put("messageText", messageText);
     }
  
     /**
-     *  Gets a copy of the requestor attribute of the Response object
+     *  Gets a copy of the requestor attribute of the Response object.
+     * This is the copy of the original Requestor that let to the Response
      *
      * @return                    The requestor value
-     * @exception  JSONException  on JSON err
+     * @throws  JSONException  on JSON err
      */ 
     public Requestor getRequestor() throws JSONException {
         return new Requestor(getJSONObject("requestor"));
     }
 
     /**
-     *  Sets the requestor attribute of the Response object
+     *  Sets the requestor attribute of the Response object.
+     * This is the copy of the original Requestor that let to the Response.
      *
      * @param  requestor               The new requestor value
-     * @exception  JSONException  on JSON err
+     * @throws  JSONException  on JSON err
      */ 
     public void setRequestor(Requestor requestor) throws JSONException {
         put("requestor", requestor);
     }
  
     /**
-     *  init defaults
+     *  Init the fields to a "no-news" default.
      *
-     * @exception  JSONException  on JSON err
+     * @throws  JSONException  on JSON err
      */ 
     private void initDefaults() throws JSONException {
         put("result", Results.NO_RESPONSE);

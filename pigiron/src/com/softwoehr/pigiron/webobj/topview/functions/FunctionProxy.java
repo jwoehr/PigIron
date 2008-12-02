@@ -43,50 +43,51 @@ import com.softwoehr.pigiron.webobj.topview.*;
 public abstract class FunctionProxy {
 
     /**
-     *  Description of the Field
+     *  Target host extracted from the requestor
      */ 
     public Host host = null;
     /**
-     *  Description of the Field
+     *  User extracted from the requestor
      */ 
     public User user = null;
     /**
-     *  Description of the Field
+     *  Response to be filled in and returned
      */ 
     public Response response = null;
     /**
-     *  Description of the Field
+     *  Requestor which is also copied into response
      */ 
     public Requestor requestor = null;
     /**
-     *  Description of the Field
+     *  Function extracted from the requestor
      */ 
     public Function function = null;
 
     /**
      *Constructor for the FunctionProxy object
      *
-     * @param  requestor  Description of the Parameter
-     * @param  response   Description of the Parameter
+     * @param  requestor  the request to be executed
+     * @param  response   the response to be returned
      */ 
     public FunctionProxy(Requestor requestor, Response response) throws org.json.JSONException {
         assimilate(requestor,response);
     }
 
     /**
-     *  Description of the Method
+     * Execute the request passed in to the ctor
      *
-     * @return                             Description of the Return Value
-     * @exception  org.json.JSONException  Description of the Exception
+     * @return                             the Response composed partly by the
+     * Engine and partly by this FunctionProxy
+     * @exception  org.json.JSONException  on JSON err
      */ 
     public abstract Response execute() throws org.json.JSONException;
 
     /**
      *  Description of the Method
      *
-     * @param  requestor                   Description of the Parameter
-     * @param  response                    Description of the Parameter
-     * @exception  org.json.JSONException  Description of the Exception
+     * @param  requestor                   the request to be executed
+     * @param  response                    the response to be returned
+     * @exception  org.json.JSONException  on JSON err
      */ 
     public void assimilate(Requestor requestor, Response response) throws org.json.JSONException {
         this.requestor = requestor;
