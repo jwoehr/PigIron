@@ -32,6 +32,8 @@
 package com.softwoehr.pigiron.webobj;
 
 import com.softwoehr.pigiron.webobj.topview.*;
+import com.softwoehr.pigiron.webobj.topview.functions.FunctionProxy;
+import com.softwoehr.pigiron.webobj.topview.functions.FunctionTable;
 import org.json.JSONException;
 
 /**
@@ -57,18 +59,41 @@ public class Engine {
      * @param  requestor                   Description of the Parameter
      * @return                             a Response which contains (among other things) the
      * original object with the response fields filled out
-     * @exception  org.json.JSONException  on JSON error
+     * @exception  org.json.JSONException  on JSON error creating the empty Response
      */ 
     public Response execute(Requestor requestor) throws org.json.JSONException {
 
         Response response = new Response();
-
+        Function function = null;
+        String functionName = null;
+        String jsonErr = "";
         try {
             response = new Response(requestor);
-            Function function = requestor.getFunction();
-            String functionName = function.get_function_name();
-            // Class pigIronFunction =
+            function = requestor.getFunction();
+            functionName = function.get_function_name();
+            System.err.println("Function name in execute is: " + functionName);
+            try {
+                if (functionName != null) {
+                    Class <? extends FunctionProxy> functionProxy = FunctionTable.get(functionName);
+                    System.err.println("Class in execute is: " + functionProxy);
+                    response = functionProxy.newInstance().execute(requestor, response);
+
+                } else {
+                    response.setResult(Response.Results.JSON_ERR.name());
+                    response.setMessageText("No function name found in JSON stream");
+                }
+            } catch (java.lang.InstantiationException ex) {
+                response.setResult(Response.Results.PIGIRON_ERR.name());
+                response.setMessageText("InstantiationException instancing FunctionProxy instance" + ex.getMessage());
+            }
+	    catch (java.lang.IllegalAccessException ex) {
+                response.setResult(Response.Results.PIGIRON_ERR.name());
+                response.setMessageText("InstantiationException instancing FunctionProxy instance: " + ex.getMessage());
+            }
         } catch (JSONException ex) {
+            jsonErr = ex.getMessage();
+            response.setResult(Response.Results.JSON_ERR.name());
+            response.setMessageText(jsonErr);
         }
 
         return response;
