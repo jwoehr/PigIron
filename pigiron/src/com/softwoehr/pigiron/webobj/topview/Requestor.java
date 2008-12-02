@@ -126,6 +126,8 @@ public class Requestor extends JSONObject {
      * @exception  JSONException  on JSON err
      */ 
     public Function getFunction() throws JSONException {
+	String temp = get("function").toString();
+	System.err.println("function is: " + temp);
         return new Function(get("function").toString());
     }
 

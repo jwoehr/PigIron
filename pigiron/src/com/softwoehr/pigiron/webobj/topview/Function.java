@@ -46,7 +46,8 @@ import org.json.JSONObject;
 public class Function extends WebObject {
 
     static {
-        setNames(new String []{"function_name" ,"input_arguments" ,"output_arguments" ,"return_code" ,"result_code" ,"request_id"}
+        setNames(new String []{"function_name" ,"input_arguments" ,
+                "output_arguments" ,"return_code" ,"result_code" ,"request_id"}
        );
     }
 
@@ -70,8 +71,7 @@ public class Function extends WebObject {
      * @param  outputArray        an array representing PigIron VSMAPI output parameters
      * @exception  JSONException  on JSON error
      */ 
-    public Function(String functionName, InputArgumentArray inputArray,
-             OutputArgumentArray outputArray) throws JSONException {
+    public Function(String functionName, InputArgumentArray inputArray, OutputArgumentArray outputArray) throws JSONException {
 
         this();
         put("function_name", functionName);
@@ -118,58 +118,57 @@ public class Function extends WebObject {
     }
 
     /**
-     *  Description of the Method
+     *  Accessor to attributes associated with VSMAPI function
      *
-     * @return    Description of the Return Value
+     * @return    function_name
      */ 
     public String get_function_name() throws JSONException {
         return getString("function_name");
     }
 
     /**
-     *  Description of the Method
+     *  Accessor to attributes associated with VSMAPI function
      *
-     * @return    Description of the Return Value
+     * @return    input_arguments
      */ 
     public InputArgumentArray get_input_arguments() throws JSONException {
         return new InputArgumentArray(getJSONArray("input_arguments"));
     }
 
     /**
-     *  Description of the Method
+     *  Accessor to attributes associated with VSMAPI function
      *
-     * @return    Description of the Return Value
+     * @return    output_arguments
      */ 
     public OutputArgumentArray get_output_arguments() throws JSONException {
         return new OutputArgumentArray(getJSONArray("output_arguments"));
     }
 
     /**
-     *  Description of the Method
+     *  Accessor to attributes associated with VSMAPI function
      *
-     * @return    Description of the Return Value
+     * @return    return_code
      */ 
     public int get_return_code() throws JSONException {
         return getInt("return_code");
     }
 
     /**
-     *  Description of the Method
+     *  Accessor to attributes associated with VSMAPI function
      *
-     * @return    Description of the Return Value
+     * @return    result_code
      */ 
     public int get_result_code() throws JSONException {
         return getInt("result_code");
     }
 
     /**
-     *  Description of the Method
+     *  Accessor to attributes associated with VSMAPI function
      *
-     * @return    Description of the Return Value
+     * @return   request_id
      */ 
     public int get_request_id() throws JSONException {
         return getInt("request_id");
     }
-
 }
 

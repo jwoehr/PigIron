@@ -121,8 +121,8 @@ public class Response extends JSONObject {
      * @return                    The result value
      * @exception  JSONException  on JSON err
      */ 
-    public int getResult() throws JSONException {
-        return getInt("result");
+    public String getResult() throws JSONException {
+        return getString("result");
     }
 
     /**
@@ -131,7 +131,7 @@ public class Response extends JSONObject {
      * @param  result               The new result value
      * @exception  JSONException  on JSON err
      */ 
-    public void setResult(int result) throws JSONException {
+    public void setResult(String result) throws JSONException {
         put("result", result);
     }
 
