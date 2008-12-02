@@ -31,6 +31,7 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
+import com.softwoehr.pigiron.webobj.WebObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,13 +40,15 @@ import org.json.JSONObject;
  *
  * @author     jax
  */
-public class User extends JSONObject {
+public class User extends WebObject {
 
     /**
      *  Names we use for members
      */ 
-    public static final String []names = {"uid" ,"password"} ;
-
+    static {
+        setNames(new String []{"uid" ,"password"}
+       ); 
+    }
     /**
      * Base ctor
      *
@@ -87,7 +90,7 @@ public class User extends JSONObject {
      * @exception  JSONException  on JSON err
      */ 
     public User(JSONObject anUser) throws JSONException {
-        super(anUser,names);
+        super(anUser);
     }
 
     /**
