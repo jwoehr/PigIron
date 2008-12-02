@@ -39,6 +39,7 @@ public class FunctionTable {
     static {
 	functions = new Hashtable<String, Class<? extends FunctionProxy>>(200);
 	functions.put("CheckAuthentication", CheckAuthentication.class);
+	functions.put("QueryAPIFunctionalLevel", QueryAPIFunctionalLevel.class);
     }
     
     public static Class<? extends FunctionProxy> get(String key) {
