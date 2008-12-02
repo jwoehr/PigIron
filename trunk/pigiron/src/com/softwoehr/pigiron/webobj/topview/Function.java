@@ -35,6 +35,7 @@ import com.softwoehr.pigiron.webobj.WebObject;
 import java.util.Iterator;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 /**
  * A class to represent PigIron VSMAPI Function execution
@@ -46,8 +47,7 @@ import org.json.JSONObject;
 public class Function extends WebObject {
 
     static {
-        setNames(new String []{"function_name" ,"input_arguments" ,
-                "output_arguments" ,"return_code" ,"result_code" ,"request_id"}
+        setNames(new String []{"function_name" ,"input_arguments" ,"output_arguments" ,"return_code" ,"result_code" ,"request_id"}
        );
     }
 
@@ -71,7 +71,8 @@ public class Function extends WebObject {
      * @param  outputArray        an array representing PigIron VSMAPI output parameters
      * @exception  JSONException  on JSON error
      */ 
-    public Function(String functionName, InputArgumentArray inputArray, OutputArgumentArray outputArray) throws JSONException {
+    public Function(String functionName, InputArgumentArray inputArray,
+             OutputArgumentArray outputArray) throws JSONException {
 
         this();
         put("function_name", functionName);
@@ -120,7 +121,8 @@ public class Function extends WebObject {
     /**
      *  Accessor to attributes associated with VSMAPI function
      *
-     * @return    function_name
+     * @return                    function_name
+     * @exception  JSONException  Description of the Exception
      */ 
     public String get_function_name() throws JSONException {
         return getString("function_name");
@@ -129,25 +131,36 @@ public class Function extends WebObject {
     /**
      *  Accessor to attributes associated with VSMAPI function
      *
-     * @return    input_arguments
+     * @return                    input_arguments
+     * @exception  JSONException  Description of the Exception
      */ 
     public InputArgumentArray get_input_arguments() throws JSONException {
-        return new InputArgumentArray(getJSONArray("input_arguments"));
+	InputArgumentArray result = null;
+        if (has("input_arguments")) {
+            result = new InputArgumentArray(getJSONArray("input_arguments"));
+        }
+        return result;
     }
 
     /**
      *  Accessor to attributes associated with VSMAPI function
      *
-     * @return    output_arguments
+     * @return                    output_arguments
+     * @exception  JSONException  Description of the Exception
      */ 
     public OutputArgumentArray get_output_arguments() throws JSONException {
-        return new OutputArgumentArray(getJSONArray("output_arguments"));
+        OutputArgumentArray result = null;
+        if (has("output_arguments")) {
+            result = new OutputArgumentArray(getJSONArray("output_arguments"));
+        }
+        return result;
     }
 
     /**
      *  Accessor to attributes associated with VSMAPI function
      *
-     * @return    return_code
+     * @return                    return_code
+     * @exception  JSONException  Description of the Exception
      */ 
     public int get_return_code() throws JSONException {
         return getInt("return_code");
@@ -156,7 +169,8 @@ public class Function extends WebObject {
     /**
      *  Accessor to attributes associated with VSMAPI function
      *
-     * @return    result_code
+     * @return                    result_code
+     * @exception  JSONException  Description of the Exception
      */ 
     public int get_result_code() throws JSONException {
         return getInt("result_code");
@@ -165,7 +179,8 @@ public class Function extends WebObject {
     /**
      *  Accessor to attributes associated with VSMAPI function
      *
-     * @return   request_id
+     * @return                    request_id
+     * @exception  JSONException  Description of the Exception
      */ 
     public int get_request_id() throws JSONException {
         return getInt("request_id");

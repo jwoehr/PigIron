@@ -43,16 +43,19 @@ import com.softwoehr.pigiron.webobj.topview.*;
  * @author     jax
  * @created    December 1, 2008
  */
-public class CheckAuthentication extends FunctionProxy {
+public class QueryAPIFunctionalLevel extends FunctionProxy {
+
+    private InputArgumentArray inArray = null;
+    private OutputArgumentArray outArray = null;
 
     /**
-     *Constructor for the CheckAuthentication object
+     *Constructor for the QueryAPIFunctionalLevel object
      *
      * @param  requestor                   Description of the Parameter
      * @param  response                    Description of the Parameter
      * @exception  org.json.JSONException  Description of the Exception
      */ 
-    public CheckAuthentication(Requestor requestor, Response response) throws org.json.JSONException {
+    public QueryAPIFunctionalLevel(Requestor requestor, Response response) throws org.json.JSONException {
         super(requestor,response);
     }
 
@@ -63,8 +66,8 @@ public class CheckAuthentication extends FunctionProxy {
      * @exception  org.json.JSONException  Description of the Exception
      */ 
     public Response execute() throws org.json.JSONException {
-        com.softwoehr.pigiron.functions.CheckAuthentication pigfunc = new com.softwoehr.pigiron.functions.CheckAuthentication(host.getDnsName(), host.getPortNumber(), user.getUid(), user.getPassword(), "");
-        execute(pigfunc,requestor,response);
+        com.softwoehr.pigiron.functions.QueryAPIFunctionalLevel pigfunc = new com.softwoehr.pigiron.functions.QueryAPIFunctionalLevel(host.getDnsName(), host.getPortNumber(), user.getUid(), user.getPassword(), "");	
+	execute(pigfunc,requestor,response);
         return response;
     }
 }
