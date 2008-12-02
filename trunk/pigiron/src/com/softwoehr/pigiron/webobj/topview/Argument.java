@@ -31,10 +31,14 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
+import java.util.Iterator;
 import com.softwoehr.pigiron.access.VSMParm;
 import com.softwoehr.pigiron.access.VSMInt;
 import com.softwoehr.pigiron.access.VSMString;
 import com.softwoehr.pigiron.access.VSMAsciiZ;
+import com.softwoehr.pigiron.access.VSMStruct;
+import com.softwoehr.pigiron.access.VSMArray;
+import com.softwoehr.pigiron.access.VSMAsciiZArray;
 import com.softwoehr.pigiron.webobj.WebObject;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -77,6 +81,21 @@ public class Argument extends WebObject {
     }
 
     /**
+     *Constructor for the Argument from a WebObject using only
+     * the members named in Argument.names
+     *
+     * @param  anArgument         a like Argument
+     * @exception  JSONException  on JSON err
+     */ 
+    public Argument(String formalName,
+             JSONObject jsonObj) throws JSONException {
+
+        this();
+        setFormalName(formalName);
+        setValue(jsonObj.toString());
+    }
+
+    /**
      * Create with the formal name of the argument and the string value
      *
      * @param  formalName               formal name
@@ -105,7 +124,7 @@ public class Argument extends WebObject {
     }
 
     /**
-     *Constructor for the Argument from a JSONObject using only
+     *Constructor for the Argument from a WebObject using only
      * the members named in Argument.names
      *
      * @param  anArgument         a like Argument
@@ -199,8 +218,8 @@ public class Argument extends WebObject {
      * @throws  JSONException  on JSON err
      */ 
     public static Argument from(VSMString vsmString) throws JSONException {
-        Argument result = new Argument(vsmString.getFormalName(), vsmString.getValue());
-
+        Argument result = new Argument(vsmString.getFormalName(),
+                 vsmString.getValue());
         return result;
     }
 
@@ -212,8 +231,87 @@ public class Argument extends WebObject {
      * @throws  JSONException  on JSON err
      */ 
     public static Argument from(VSMAsciiZ vsmAsciiZ) throws JSONException {
-        Argument result = new Argument(vsmAsciiZ.getFormalName(), vsmAsciiZ.getValue());
+        Argument result = new Argument(vsmAsciiZ.getFormalName(),
+                 vsmAsciiZ.getValue());
+        return result;
+    }
 
+    /**
+     *  Assimilate a VSMStruct as an Argument
+     *
+     * @param  vsmStruct  A VSMStruct instance to be used as an Argument
+     * @return         An Argument created from the type
+     * @throws  JSONException  on JSON err
+     */ 
+    public static Argument from(VSMStruct vsmStruct) throws JSONException {
+        Argument result = null;
+        JSONObject jo = new JSONObject();
+        Iterator <VSMParm> it = vsmStruct.iterator();
+        while (it.hasNext()) {
+            Argument a = Argument.from(it.next());
+            jo.put(a.getFormalName(), a.getValue());
+        }
+        result = new Argument(vsmStruct.getFormalName(), jo);
+        return result;
+    }
+
+    /**
+     *  Assimilate a VSMArray as an Argument
+     *
+     * @param  vsmArray  A VSMArray instance to be used as an Argument
+     * @return         An Argument created from the type
+     * @throws  JSONException  on JSON err
+     */ 
+    public static Argument from(VSMArray vsmArray) throws JSONException {
+        Argument result = from(VSMStruct .class.cast(vsmArray));
+        return result;
+    }
+
+
+    /**
+     *  Assimilate a VSMAsciiZArray as an Argument
+     *
+     * @param  vsmAsciiZArray  A VSMAsciiZArray instance to be used as an Argument
+     * @return         An Argument created from the type
+     * @throws  JSONException  on JSON err
+     */ 
+    public static Argument from(VSMAsciiZArray vsmAsciiZArray) throws JSONException {
+        Argument result = from(VSMStruct .class.cast(vsmAsciiZArray));
+        return result;
+    }
+
+    /**
+     *  Assimilate a VSMParm as an Argument
+     *
+     * @param  vsmParm  A VSMParm instance to be used as an Argument
+     * @return         An Argument created from the type
+     * @throws  JSONException  on JSON err
+     */ 
+    public static Argument from(VSMParm vsmParm) throws JSONException {
+        Argument result = null;
+        if (vsmParm instanceof VSMInt) {
+            result = from(VSMInt .class.cast(vsmParm));
+        } else {
+            if (vsmParm instanceof VSMString) {
+                result = from(VSMString .class.cast(vsmParm));
+            } else {
+                if (vsmParm instanceof VSMAsciiZ) {
+                    result = from(VSMAsciiZ .class.cast(vsmParm));
+                } else {
+                    if (vsmParm instanceof VSMStruct) {
+                        result = from(VSMStruct .class.cast(vsmParm));
+                    } else {
+                        if (vsmParm instanceof VSMArray) {
+                            result = from(VSMArray .class.cast(vsmParm));
+                        } else {
+                            if (vsmParm instanceof VSMAsciiZArray) {
+                                result = from(VSMAsciiZArray .class.cast(vsmParm));
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return result;
     }
 
