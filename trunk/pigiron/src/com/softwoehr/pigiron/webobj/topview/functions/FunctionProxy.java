@@ -31,6 +31,11 @@
  */
 package com.softwoehr.pigiron.webobj.topview.functions;
 
+import com.softwoehr.pigiron.functions.VSMCall;
+import com.softwoehr.pigiron.access.ParameterArray;
+import com.softwoehr.pigiron.access.VSMException;
+import com.softwoehr.pigiron.access.VSMInt4;
+import com.softwoehr.pigiron.bizobj.VsmapiRC;
 import com.softwoehr.pigiron.webobj.topview.*;
 
 /**
@@ -66,10 +71,13 @@ public abstract class FunctionProxy {
     /**
      *Constructor for the FunctionProxy object
      *
-     * @param  requestor  the request to be executed
-     * @param  response   the response to be returned
+     * @param  requestor                   the request to be executed
+     * @param  response                    the response to be returned
+     * @exception  org.json.JSONException  Description of the Exception
      */ 
-    public FunctionProxy(Requestor requestor, Response response) throws org.json.JSONException {
+    public FunctionProxy(Requestor requestor,
+             Response response) throws org.json.JSONException {
+
         assimilate(requestor,response);
     }
 
@@ -89,7 +97,9 @@ public abstract class FunctionProxy {
      * @param  response                    the response to be returned
      * @exception  org.json.JSONException  on JSON err
      */ 
-    public void assimilate(Requestor requestor, Response response) throws org.json.JSONException {
+    public void assimilate(Requestor requestor,
+             Response response) throws org.json.JSONException {
+
         this.requestor = requestor;
         this.response = response;
         this.host = requestor.getHost();
@@ -97,5 +107,39 @@ public abstract class FunctionProxy {
         this.user = requestor.getUser();
     }
 
+    /**
+     *  Description of the Method
+     *
+     * @param  requestor                   Description of the Parameter
+     * @param  response                    Description of the Parameter
+     * @exception  org.json.JSONException  on JSON err
+     */ 
+    public static void execute(VSMCall pigfunc, Requestor requestor, Response response) throws org.json.JSONException {
+        try {
+            Function f = requestor.getFunction();
+            ParameterArray pA = pigfunc.doIt();
+            // /* Debug */ System.err.println(pA.prettyPrintAll());
+            f.put("output_arguments", OutputArgumentArray.from(pA));
+            requestor.setFunction(f);
+            response.setRequestor(requestor);
+            VSMInt4 rc_int4 = VSMInt4 .class.cast(pA.parameterNamed("return_code"));
+            VSMInt4 reason_int4 = VSMInt4 .class.cast(pA.parameterNamed("reason_code"));
+            response.setMessageText(VsmapiRC.prettyPrint(rc_int4.getValue(),
+                     reason_int4.getValue(), pigfunc).replace("\n", " ; "));
+            long rc = rc_int4.getLongValue();
+            if (rc == 0) {
+                response.setResult(Response.Results.SUCCESS.name());
+            } else {
+                response.setResult(Response.Results.FAILURE.name());
+            }
+        } catch (java.io.IOException ex) {
+            response.setResult(Response.Results.FAILURE.name());
+            response.setMessageText(ex.toString());
+        } catch (VSMException ex) {
+            response.setResult(Response.Results.PIGIRON_ERR.name());
+            response.setMessageText(ex.toString());
+        }
+
+    }
 }
 

@@ -85,9 +85,14 @@ public class Engine {
                 if (functionName != null) {
                     Class <? extends FunctionProxy> functionProxy = FunctionTable.get(functionName);
                     // /* Debug */ System.err.println("Class in execute is: " + functionProxy);
-                    Constructor ctor = functionProxy.getConstructor(new Class [] { Requestor .class , Response .class} );
-                    FunctionProxy proxy = FunctionProxy .class.cast(ctor.newInstance(new Object [] { requestor,response} ));
-                    response = proxy.execute();
+                    if (functionProxy != null) {
+                        Constructor ctor = functionProxy.getConstructor(new Class [] { Requestor .class , Response .class});
+                        FunctionProxy proxy = FunctionProxy .class.cast(ctor.newInstance(new Object [] { requestor,response}));
+                        response = proxy.execute();
+                    } else {
+                        response.setResult(Response.Results.PIGIRON_ERR.name());
+                        response.setMessageText("No function found mapping to function name " + functionName + ".");
+                    }
                 } else {
                     response.setResult(Response.Results.JSON_ERR.name());
                     response.setMessageText("No function name found in JSON stream");
@@ -102,7 +107,7 @@ public class Engine {
                 response.setResult(Response.Results.PIGIRON_ERR.name());
                 response.setMessageText("IllegalArgumentException instancing FunctionProxy: " + ex.getMessage());
             } catch (java.lang.reflect.InvocationTargetException ex) {
-		ex.printStackTrace();
+                ex.printStackTrace();
                 response.setResult(Response.Results.PIGIRON_ERR.name());
                 response.setMessageText("InvocationTargetException instancing FunctionProxy: " + ex.getMessage());
             } catch (java.lang.NoSuchMethodException ex) {
