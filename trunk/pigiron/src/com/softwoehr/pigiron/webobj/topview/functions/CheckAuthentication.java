@@ -40,15 +40,24 @@ import com.softwoehr.pigiron.webobj.topview.*;
  * @created    December 1, 2008
  */
 public class CheckAuthentication extends FunctionProxy {
+
+    /**
+     *Constructor for the CheckAuthentication object
+     *
+     * @param  requestor  Description of the Parameter
+     * @param  response   Description of the Parameter
+     */ 
+    public CheckAuthentication(Requestor requestor, Response response) throws org.json.JSONException {
+        super(requestor,response);
+    }
+
     /**
      *  Description of the Method
      *
-     * @param  requestor                   Description of the Parameter
      * @return                             Description of the Return Value
      * @exception  org.json.JSONException  Description of the Exception
      */ 
-    public Response execute(Requestor requestor,
-             Response response) throws org.json.JSONException {
+    public Response execute() throws org.json.JSONException {
         response.setResult(Response.Results.SUCCESS.name());
         return response;
     }
