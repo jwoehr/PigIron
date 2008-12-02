@@ -77,7 +77,7 @@ public class CheckAuthentication extends FunctionProxy {
             response.setRequestor(requestor);
             VSMInt4 rc_int4 = VSMInt4 .class.cast(pA.parameterNamed("return_code"));
             VSMInt4 reason_int4 = VSMInt4 .class.cast(pA.parameterNamed("reason_code"));
-            response.setMessageText(VsmapiRC.prettyPrint(rc_int4.getValue(), reason_int4.getValue(), pigfunc));
+            response.setMessageText(VsmapiRC.prettyPrint(rc_int4.getValue(), reason_int4.getValue(), pigfunc).replace("\n"," ; "));
             long rc = rc_int4.getLongValue();
             if (rc != 0) { response.setResult(Response.Results.FAILURE.name()); }
         } catch (java.io.IOException ex) {
