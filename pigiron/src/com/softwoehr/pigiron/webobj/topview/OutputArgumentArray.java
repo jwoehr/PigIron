@@ -31,6 +31,11 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
+import java.util.Iterator;
+import com.softwoehr.pigiron.access.ParameterArray;
+import com.softwoehr.pigiron.access.VSMParm;
+import com.softwoehr.pigiron.access.VSMInt;
+import com.softwoehr.pigiron.access.VSMString;
 import org.json.JSONException;
 import org.json.JSONArray;
 
@@ -55,6 +60,24 @@ public class OutputArgumentArray extends ArgumentArray {
      */ 
     public OutputArgumentArray(JSONArray array) throws JSONException {
         super(array);
+    }
+ 
+    public static OutputArgumentArray from(ParameterArray pA) throws JSONException {
+        OutputArgumentArray out = new OutputArgumentArray();
+        Iterator <VSMParm> it = pA.iterator();
+        int i = 0;
+        while (it.hasNext()) {
+            VSMParm p = it.next();
+            if (p instanceof VSMInt) {
+                out.put(i++, new Argument(p.getFormalName(), (VSMInt .class.cast(p)).getLongValue()));
+
+            } else {
+                if (p instanceof VSMString) {
+                    out.put(i++, new Argument(p.getFormalName(), (VSMString .class.cast(p)).getValue()));
+                }
+            }
+        }
+        return out;
     }
 }
 
