@@ -31,6 +31,7 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
+import com.softwoehr.pigiron.webobj.WebObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,12 +41,14 @@ import org.json.JSONObject;
  * @author     jax
  * @created    November 30, 2008
  */
-public class Requestor extends JSONObject {
+public class Requestor extends WebObject {
     /**
      *  Names we use for members
      */ 
-    public static final String []names = {"user" ,"host" ,"function"} ;
-
+    static {
+        setNames(new String []{"user" ,"host" ,"function"}
+       );
+    }
     /**
      * Create a default (empty) Requestor
      *
@@ -66,7 +69,7 @@ public class Requestor extends JSONObject {
      * @throws  org.json.JSONException  on JSON err
      */ 
     public Requestor(JSONObject aRequestor) throws JSONException {
-        super(aRequestor,names);
+        super(aRequestor);
     }
 
     /**
@@ -126,8 +129,8 @@ public class Requestor extends JSONObject {
      * @exception  JSONException  on JSON err
      */ 
     public Function getFunction() throws JSONException {
-	String temp = get("function").toString();
-	System.err.println("function is: " + temp);
+        String temp = get("function").toString();
+        System.err.println("function is: " + temp);
         return new Function(get("function").toString());
     }
 

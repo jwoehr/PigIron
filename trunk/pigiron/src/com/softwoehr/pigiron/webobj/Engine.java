@@ -84,11 +84,11 @@ public class Engine {
                 }
             } catch (java.lang.InstantiationException ex) {
                 response.setResult(Response.Results.PIGIRON_ERR.name());
-                response.setMessageText("InstantiationException instancing FunctionProxy instance" + ex.getMessage());
+                response.setMessageText("InstantiationException instancing FunctionProxy: " + ex.getMessage());
             }
 	    catch (java.lang.IllegalAccessException ex) {
                 response.setResult(Response.Results.PIGIRON_ERR.name());
-                response.setMessageText("InstantiationException instancing FunctionProxy instance: " + ex.getMessage());
+                response.setMessageText("IllegalAccessException instancing FunctionProxy: " + ex.getMessage());
             }
         } catch (JSONException ex) {
             jsonErr = ex.getMessage();
