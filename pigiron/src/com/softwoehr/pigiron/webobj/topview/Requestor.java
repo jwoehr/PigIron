@@ -129,8 +129,8 @@ public class Requestor extends WebObject {
      * @exception  JSONException  on JSON err
      */ 
     public Function getFunction() throws JSONException {
-        String temp = get("function").toString();
-        System.err.println("function is: " + temp);
+        // /* Debug */ String temp = get("function").toString();
+        // /* Debug */ System.err.println("function is: " + temp);
         return new Function(get("function").toString());
     }
 

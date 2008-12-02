@@ -34,12 +34,67 @@ package com.softwoehr.pigiron.webobj.topview.functions;
 import com.softwoehr.pigiron.webobj.topview.*;
 
 /**
- *  Description of the Class
+ *  The abstract parent of all our function proxies that take
+ * JSON input and call PigIron VSMAPI functionality.
  *
  * @author     jax
  * @created    December 1, 2008
  */
 public abstract class FunctionProxy {
-    public abstract Response execute(Requestor requestor, Response response) throws org.json.JSONException ;
+
+    /**
+     *  Description of the Field
+     */ 
+    public Host host = null;
+    /**
+     *  Description of the Field
+     */ 
+    public User user = null;
+    /**
+     *  Description of the Field
+     */ 
+    public Response response = null;
+    /**
+     *  Description of the Field
+     */ 
+    public Requestor requestor = null;
+    /**
+     *  Description of the Field
+     */ 
+    public Function function = null;
+
+    /**
+     *Constructor for the FunctionProxy object
+     *
+     * @param  requestor  Description of the Parameter
+     * @param  response   Description of the Parameter
+     */ 
+    public FunctionProxy(Requestor requestor, Response response) throws org.json.JSONException {
+        assimilate(requestor,response);
+    }
+
+    /**
+     *  Description of the Method
+     *
+     * @return                             Description of the Return Value
+     * @exception  org.json.JSONException  Description of the Exception
+     */ 
+    public abstract Response execute() throws org.json.JSONException;
+
+    /**
+     *  Description of the Method
+     *
+     * @param  requestor                   Description of the Parameter
+     * @param  response                    Description of the Parameter
+     * @exception  org.json.JSONException  Description of the Exception
+     */ 
+    public void assimilate(Requestor requestor, Response response) throws org.json.JSONException {
+        this.requestor = requestor;
+        this.response = response;
+        this.host = requestor.getHost();
+        this.function = requestor.getFunction();
+        this.user = requestor.getUser();
+    }
+
 }
 

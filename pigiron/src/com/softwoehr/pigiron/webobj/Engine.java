@@ -31,6 +31,7 @@
  */
 package com.softwoehr.pigiron.webobj;
 
+import java.lang.reflect.Constructor;
 import com.softwoehr.pigiron.webobj.topview.*;
 import com.softwoehr.pigiron.webobj.topview.functions.FunctionProxy;
 import com.softwoehr.pigiron.webobj.topview.functions.FunctionTable;
@@ -71,13 +72,14 @@ public class Engine {
             response = new Response(requestor);
             function = requestor.getFunction();
             functionName = function.get_function_name();
-            System.err.println("Function name in execute is: " + functionName);
+            // /* Debug */ System.err.println("Function name in execute is: " + functionName);
             try {
                 if (functionName != null) {
                     Class <? extends FunctionProxy> functionProxy = FunctionTable.get(functionName);
-                    System.err.println("Class in execute is: " + functionProxy);
-                    response = functionProxy.newInstance().execute(requestor, response);
-
+                    // /* Debug */ System.err.println("Class in execute is: " + functionProxy);
+                    Constructor ctor = functionProxy.getConstructor(new Class [] { Requestor .class , Response .class} );
+                    FunctionProxy proxy = FunctionProxy .class.cast(ctor.newInstance(new Object [] { requestor,response} ));
+                    response = proxy.execute();
                 } else {
                     response.setResult(Response.Results.JSON_ERR.name());
                     response.setMessageText("No function name found in JSON stream");
@@ -85,11 +87,21 @@ public class Engine {
             } catch (java.lang.InstantiationException ex) {
                 response.setResult(Response.Results.PIGIRON_ERR.name());
                 response.setMessageText("InstantiationException instancing FunctionProxy: " + ex.getMessage());
-            }
-	    catch (java.lang.IllegalAccessException ex) {
+            } catch (java.lang.IllegalAccessException ex) {
                 response.setResult(Response.Results.PIGIRON_ERR.name());
                 response.setMessageText("IllegalAccessException instancing FunctionProxy: " + ex.getMessage());
+            } catch (java.lang.IllegalArgumentException ex) {
+                response.setResult(Response.Results.PIGIRON_ERR.name());
+                response.setMessageText("IllegalArgumentException instancing FunctionProxy: " + ex.getMessage());
+            } catch (java.lang.reflect.InvocationTargetException ex) {
+		ex.printStackTrace();
+                response.setResult(Response.Results.PIGIRON_ERR.name());
+                response.setMessageText("InvocationTargetException instancing FunctionProxy: " + ex.getMessage());
+            } catch (java.lang.NoSuchMethodException ex) {
+                response.setResult(Response.Results.PIGIRON_ERR.name());
+                response.setMessageText("NoSuchMethodException instancing FunctionProxy: " + ex.getMessage());
             }
+
         } catch (JSONException ex) {
             jsonErr = ex.getMessage();
             response.setResult(Response.Results.JSON_ERR.name());
