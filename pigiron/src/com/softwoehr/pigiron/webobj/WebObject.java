@@ -81,7 +81,7 @@ public class WebObject extends JSONObject {
    /**
      *Construct a  WebObject from a JSONObject using JSON's constrained copy ctor
      *
-     * @param  webObject                   The object to copy key/vals from
+     * @param  jsonObject                   The object to copy key/vals from
      * @exception  org.json.JSONException  on JSON error
      */ 
     protected WebObject(JSONObject jsonObject) throws org.json.JSONException {
