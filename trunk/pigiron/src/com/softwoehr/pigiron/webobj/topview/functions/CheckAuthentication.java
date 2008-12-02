@@ -70,7 +70,7 @@ public class CheckAuthentication extends FunctionProxy {
         com.softwoehr.pigiron.functions.CheckAuthentication pigfunc = new com.softwoehr.pigiron.functions.CheckAuthentication(host.getDnsName(), host.getPortNumber(), user.getUid(), user.getPassword(), "");
         try {
             ParameterArray pA = pigfunc.doIt();
-            /* Debug */ System.err.println(pA.prettyPrintAll());
+            // /* Debug */ System.err.println(pA.prettyPrintAll());
             Function f = requestor.getFunction();
             f.put("output_arguments", OutputArgumentArray.from(pA));
             requestor.setFunction(f);
