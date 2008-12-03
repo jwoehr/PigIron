@@ -31,19 +31,45 @@
  */
 package com.softwoehr.pigiron.webobj.topview.functions;
 
-import java.util.Hashtable;
+import com.softwoehr.pigiron.access.ParameterArray;
+import com.softwoehr.pigiron.access.VSMException;
+import com.softwoehr.pigiron.access.VSMInt4;
+import com.softwoehr.pigiron.bizobj.VsmapiRC;
+import com.softwoehr.pigiron.webobj.topview.*;
 
-public class FunctionTable {
-     static public final Hashtable<String, Class<? extends FunctionProxy>> functions;
+/**
+ *  Description of the Class
+ *
+ * @author     jax
+ * @created    December 1, 2008
+ */
+public class ImageCPUQuery extends FunctionProxy {
 
-    static {
-	functions = new Hashtable<String, Class<? extends FunctionProxy>>(200);
-	functions.put("CheckAuthentication", CheckAuthentication.class);
-	functions.put("QueryAPIFunctionalLevel", QueryAPIFunctionalLevel.class);
-	functions.put("ImageCPUQuery", ImageCPUQuery.class);
+    /**
+     *Constructor for the ImageCPUQuery object
+     *
+     * @param  requestor                   Description of the Parameter
+     * @param  response                    Description of the Parameter
+     * @exception  org.json.JSONException  Description of the Exception
+     */ 
+    public ImageCPUQuery(Requestor requestor, Response response) throws org.json.JSONException {
+        super(requestor,response);
     }
-    
-    public static Class<? extends FunctionProxy> get(String key) {
-	return functions.get(key);
+
+    /**
+     *  Description of the Method
+     *
+     * @return                             Description of the Return Value
+     * @exception  org.json.JSONException  Description of the Exception
+     */ 
+    public Response execute() throws org.json.JSONException {
+	Argument target_id_arg = inArray != null ? inArray.argumentNamed("target_identifier") : null;
+	System.err.println("inArray : " + inArray);
+	System.err.println("target_id_arg : " + target_id_arg);
+	String target_id = target_id_arg != null ? target_id_arg.getStringValue() : "" ;
+	System.err.println("target_id : " + target_id);
+        com.softwoehr.pigiron.functions.ImageCPUQuery pigfunc = new com.softwoehr.pigiron.functions.ImageCPUQuery(host.getDnsName(), host.getPortNumber(), user.getUid(), user.getPassword(), target_id);
+        execute(pigfunc,requestor,response);
+        return response;
     }
 }

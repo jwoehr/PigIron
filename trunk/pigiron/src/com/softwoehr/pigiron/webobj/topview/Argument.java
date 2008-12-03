@@ -54,7 +54,7 @@ public class Argument extends WebObject {
      *  Names we use for members
      */ 
     static {
-        setNames(new String []{"formalName" ,"value"}
+        setNames(new String []{"formal_name" ,"value"}
        ); 
     }
 
@@ -84,42 +84,41 @@ public class Argument extends WebObject {
      *Constructor for the Argument from a WebObject using only
      * the members named in Argument.names
      *
-     * @param  anArgument         a like Argument
+     * @param formal_name      the PigIron VSMAPI formal parameter name
+     * @param  jsonObj         the object to become the value of the param
      * @exception  JSONException  on JSON err
      */ 
-    public Argument(String formalName,
-             JSONObject jsonObj) throws JSONException {
+    public Argument(String formal_name, JSONObject jsonObj) throws JSONException {
 
         this();
-        setFormalName(formalName);
+        setFormalName(formal_name);
         setValue(jsonObj.toString());
     }
 
     /**
      * Create with the formal name of the argument and the string value
      *
-     * @param  formalName               formal name
+     * @param  formal_name               formal name
      * @param  value                    string value
-     * @exception  JSONException        on JSON err
      * @throws  org.json.JSONException  on JSON err
      */ 
-    public Argument(String formalName, String value) throws JSONException {
+    public Argument(String formal_name, String value) throws JSONException {
         this();
-        setFormalName(formalName);
+        setFormalName(formal_name);
         setValue(value);
     }
 
     /**
      * Create with the formal name of the argument and the numerical value
      *
-     * @param  formalName               formal name
+     * @param  formal_name               formal name
      * @param  value                    numerical value
      * @exception  JSONException        on JSON err
      * @throws  org.json.JSONException  on JSON err
      */ 
-    public Argument(String formalName, long value) throws JSONException {
+    public Argument(String formal_name, long value) throws JSONException {
         this();
-        setFormalName(formalName);
+        setFormalName(formal_name);
         setValue(value);
     }
 
@@ -145,15 +144,15 @@ public class Argument extends WebObject {
     }
 
     /**
-     * Get the value
+     * Get the value if it's a String
      *
      * @return                 the value
      * @throws  JSONException  on JSON err
      */ 
-    public String getValue() throws JSONException {
+    public String getStringValue() throws JSONException {
         return getString("value");
     }
-
+ 
     /**
      * Set the string value
      *
@@ -185,17 +184,17 @@ public class Argument extends WebObject {
      * @throws  JSONException  on JSON err
      */ 
     public String getFormalName() throws JSONException {
-        return getString("formalName");
+        return getString("formal_name");
     }
 
     /**
      * Set the formal name
      *
-     * @param  formalName      the formal name
+     * @param  formal_name      the formal name
      * @throws  JSONException  on JSON err
      */ 
-    public void setFormalName(String formalName) throws JSONException {
-        put("formalName", formalName);
+    public void setFormalName(String formal_name) throws JSONException {
+        put("formal_name", formal_name);
     }
 
     /**
@@ -207,6 +206,8 @@ public class Argument extends WebObject {
      */ 
     public static Argument from(VSMInt vsmInt) throws JSONException {
         Argument result = new Argument(VSMParm .class.cast(vsmInt).getFormalName(), vsmInt.getLongValue());
+                
+
         return result;
     }
 
@@ -218,8 +219,7 @@ public class Argument extends WebObject {
      * @throws  JSONException  on JSON err
      */ 
     public static Argument from(VSMString vsmString) throws JSONException {
-        Argument result = new Argument(vsmString.getFormalName(),
-                 vsmString.getValue());
+        Argument result = new Argument(vsmString.getFormalName(), vsmString.getValue());
         return result;
     }
 
@@ -231,8 +231,7 @@ public class Argument extends WebObject {
      * @throws  JSONException  on JSON err
      */ 
     public static Argument from(VSMAsciiZ vsmAsciiZ) throws JSONException {
-        Argument result = new Argument(vsmAsciiZ.getFormalName(),
-                 vsmAsciiZ.getValue());
+        Argument result = new Argument(vsmAsciiZ.getFormalName(), vsmAsciiZ.getValue());
         return result;
     }
 
@@ -249,7 +248,7 @@ public class Argument extends WebObject {
         Iterator <VSMParm> it = vsmStruct.iterator();
         while (it.hasNext()) {
             Argument a = Argument.from(it.next());
-            jo.put(a.getFormalName(), a.getValue());
+            jo.put(a.getFormalName(), a.getStringValue());
         }
         result = new Argument(vsmStruct.getFormalName(), jo);
         return result;
