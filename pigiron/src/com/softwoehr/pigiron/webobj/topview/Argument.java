@@ -31,17 +31,23 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
-import java.util.Iterator;
-import com.softwoehr.pigiron.access.VSMParm;
-import com.softwoehr.pigiron.access.VSMInt;
-import com.softwoehr.pigiron.access.VSMString;
-import com.softwoehr.pigiron.access.VSMAsciiZ;
-import com.softwoehr.pigiron.access.VSMStruct;
+import com.softwoehr.pigiron.access.CountedStruct;
 import com.softwoehr.pigiron.access.VSMArray;
+import com.softwoehr.pigiron.access.VSMAsciiZ;
 import com.softwoehr.pigiron.access.VSMAsciiZArray;
+import com.softwoehr.pigiron.access.VSMInt;
+import com.softwoehr.pigiron.access.VSMParm;
+import com.softwoehr.pigiron.access.VSMString;
+import com.softwoehr.pigiron.access.VSMStruct;
 import com.softwoehr.pigiron.webobj.WebObject;
+
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 /**
  * Represents an argument to a VSMAPI function
@@ -53,9 +59,9 @@ public class Argument extends WebObject {
     /**
      *  Names we use for members
      */ 
+ 
     static {
-        setNames(new String []{"formal_name" ,"value"}
-       ); 
+        setNames(new String [] { "formal_name" ,"value" } );
     }
 
     /**
@@ -88,7 +94,8 @@ public class Argument extends WebObject {
      * @param  jsonObj         the object to become the value of the param
      * @exception  JSONException  on JSON err
      */ 
-    public Argument(String formal_name, JSONObject jsonObj) throws JSONException {
+    public Argument(String formal_name,
+             JSONObject jsonObj) throws JSONException {
 
         this();
         setFormalName(formal_name);
@@ -150,9 +157,10 @@ public class Argument extends WebObject {
      * @throws  JSONException  on JSON err
      */ 
     public String getStringValue() throws JSONException {
+
         return getString("value");
     }
- 
+
     /**
      * Set the string value
      *
@@ -160,6 +168,7 @@ public class Argument extends WebObject {
      * @throws  JSONException  on JSON err
      */ 
     public void setValue(String value) throws JSONException {
+
         if (value == null) {
             put("value", JSONObject.NULL);
         } else {
@@ -184,6 +193,7 @@ public class Argument extends WebObject {
      * @throws  JSONException  on JSON err
      */ 
     public String getFormalName() throws JSONException {
+
         return getString("formal_name");
     }
 
@@ -205,8 +215,10 @@ public class Argument extends WebObject {
      * @throws  JSONException  on JSON err
      */ 
     public static Argument from(VSMInt vsmInt) throws JSONException {
+
         Argument result = new Argument(VSMParm .class.cast(vsmInt).getFormalName(), vsmInt.getLongValue());
                 
+
 
         return result;
     }
@@ -219,7 +231,11 @@ public class Argument extends WebObject {
      * @throws  JSONException  on JSON err
      */ 
     public static Argument from(VSMString vsmString) throws JSONException {
-        Argument result = new Argument(vsmString.getFormalName(), vsmString.getValue());
+
+        Argument result = new Argument(vsmString.getFormalName(),
+                 vsmString.getValue());
+
+
         return result;
     }
 
@@ -231,7 +247,11 @@ public class Argument extends WebObject {
      * @throws  JSONException  on JSON err
      */ 
     public static Argument from(VSMAsciiZ vsmAsciiZ) throws JSONException {
-        Argument result = new Argument(vsmAsciiZ.getFormalName(), vsmAsciiZ.getValue());
+
+        Argument result = new Argument(vsmAsciiZ.getFormalName(),
+                 vsmAsciiZ.getValue());
+
+
         return result;
     }
 
@@ -243,14 +263,47 @@ public class Argument extends WebObject {
      * @throws  JSONException  on JSON err
      */ 
     public static Argument from(VSMStruct vsmStruct) throws JSONException {
+
         Argument result = null;
         JSONObject jo = new JSONObject();
         Iterator <VSMParm> it = vsmStruct.iterator();
+
         while (it.hasNext()) {
+
             Argument a = Argument.from(it.next());
+
+            // /* Debug */ System.err.println("name: " + a.getFormalName() + " value :" + a.getStringValue());
             jo.put(a.getFormalName(), a.getStringValue());
         }
+
         result = new Argument(vsmStruct.getFormalName(), jo);
+
+        return result;
+    }
+
+    /**
+     *  Assimilate a CountedStruct as an Argument
+     *
+     * @param  countStruct  A CountedStruct instance to be used as an Argument
+     * @return         An Argument created from the type
+     * @throws  JSONException  on JSON err
+     */ 
+    public static Argument from(CountedStruct countStruct) throws JSONException {
+
+        Argument result = null;
+        JSONObject jo = new JSONObject();
+        Iterator <VSMParm> it = countStruct.iterator();
+
+        while (it.hasNext()) {
+
+            Argument a = Argument.from(it.next());
+
+            // /* Debug */ System.err.println("name: " + a.getFormalName() + " value :" + a.getStringValue());
+            jo.put(a.getFormalName(), a.getStringValue());
+        }
+
+        result = new Argument(countStruct.getFormalName(), jo);
+
         return result;
     }
 
@@ -262,10 +315,23 @@ public class Argument extends WebObject {
      * @throws  JSONException  on JSON err
      */ 
     public static Argument from(VSMArray vsmArray) throws JSONException {
-        Argument result = from(VSMStruct .class.cast(vsmArray));
+
+        Argument result = null;
+        JSONObject jo = new JSONObject();
+        Iterator <VSMParm> it = vsmArray.iterator();
+
+        while (it.hasNext()) {
+
+            Argument a = Argument.from(it.next());
+
+            // /* Debug */ System.err.println("name: " + a.getFormalName() + " value :" + a.getStringValue());
+            jo.put(a.getFormalName(), a.getStringValue());
+        }
+
+        result = new Argument(vsmArray.getFormalName(), jo);
+
         return result;
     }
-
 
     /**
      *  Assimilate a VSMAsciiZArray as an Argument
@@ -275,7 +341,21 @@ public class Argument extends WebObject {
      * @throws  JSONException  on JSON err
      */ 
     public static Argument from(VSMAsciiZArray vsmAsciiZArray) throws JSONException {
-        Argument result = from(VSMStruct .class.cast(vsmAsciiZArray));
+
+        Argument result = null;
+        JSONObject jo = new JSONObject();
+        Iterator <VSMParm> it = vsmAsciiZArray.iterator();
+
+        while (it.hasNext()) {
+
+            Argument a = Argument.from(it.next());
+
+            // /* Debug */ System.err.println("name: " + a.getFormalName() + " value :" + a.getStringValue());
+            jo.put(a.getFormalName(), a.getStringValue());
+        }
+
+        result = new Argument(vsmAsciiZArray.getFormalName(), jo);
+
         return result;
     }
 
@@ -287,24 +367,38 @@ public class Argument extends WebObject {
      * @throws  JSONException  on JSON err
      */ 
     public static Argument from(VSMParm vsmParm) throws JSONException {
+
         Argument result = null;
-        if (vsmParm instanceof VSMInt) {
-            result = from(VSMInt .class.cast(vsmParm));
+
+        if (vsmParm instanceof VSMAsciiZArray) {            // /* Debug */ System.err.println("VSMAsciiZArray in Argument from(VSMParm vsmParm)");
+            result = from(VSMAsciiZArray .class.cast(vsmParm));
         } else {
-            if (vsmParm instanceof VSMString) {
-                result = from(VSMString .class.cast(vsmParm));
+
+            if (vsmParm instanceof VSMArray) {                // /* Debug */ System.err.println("VSMArray in Argument from(VSMParm vsmParm)");
+                result = from(VSMArray .class.cast(vsmParm));
             } else {
-                if (vsmParm instanceof VSMAsciiZ) {
-                    result = from(VSMAsciiZ .class.cast(vsmParm));
+
+                if (vsmParm instanceof CountedStruct) {                    // /* Debug */ System.err.println("CountedStruct in Argument from(VSMParm vsmParm)");
+                    result = from(CountedStruct .class.cast(vsmParm));
                 } else {
-                    if (vsmParm instanceof VSMStruct) {
+
+                    if (vsmParm instanceof VSMStruct) {                        // /* Debug */ System.err.println("VSMStruct in Argument from(VSMParm vsmParm)");
                         result = from(VSMStruct .class.cast(vsmParm));
                     } else {
-                        if (vsmParm instanceof VSMArray) {
-                            result = from(VSMArray .class.cast(vsmParm));
+
+                        if (vsmParm instanceof VSMAsciiZ) {                            // /* Debug */ System.err.println("VSMAsciiZ in Argument from(VSMParm vsmParm)");
+                            result = from(VSMAsciiZ .class.cast(vsmParm));
                         } else {
-                            if (vsmParm instanceof VSMAsciiZArray) {
-                                result = from(VSMAsciiZArray .class.cast(vsmParm));
+
+                            if (vsmParm instanceof VSMString) {                                // /* Debug */ System.err.println("VSMString in Argument from(VSMParm vsmParm)");
+                                result = from(VSMString .class.cast(vsmParm));
+                            } else {
+
+                                if (vsmParm instanceof VSMInt) {                                    // /* Debug */ System.err.println("VSMInt in Argument from(VSMParm vsmParm)");
+                                    result = from(VSMInt .class.cast(vsmParm));
+                                } else {
+                                    Logger.getLogger(Argument .class.getName()).log(Level.WARNING, "unrecogized Argument in from(VSMParm)", vsmParm);
+                                }
                             }
                         }
                     }
@@ -321,17 +415,21 @@ public class Argument extends WebObject {
      * @exception  JSONException  Description of the Exception
      */ 
     public static void main(String [] args) throws JSONException {
+
         Argument a = new Argument();
         Argument b = new Argument();
+
         if (args.length > 1) {
             b = new Argument(args[0], args[1]);
         }
+
         Argument c = new Argument("{\"name\":\"iyamanarg\",\"value\":\"Popeye\"}");
         System.out.println("A == " + a);
         System.out.println("B == " + b);
         System.out.println("C == " + c);
     }
 }
+
 /*
  *  End
  */

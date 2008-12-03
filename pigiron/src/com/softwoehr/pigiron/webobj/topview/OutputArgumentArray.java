@@ -32,10 +32,14 @@
 package com.softwoehr.pigiron.webobj.topview;
 
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.softwoehr.pigiron.access.ParameterArray;
 import com.softwoehr.pigiron.access.VSMParm;
 import com.softwoehr.pigiron.access.VSMInt;
 import com.softwoehr.pigiron.access.VSMString;
+
 import org.json.JSONException;
 import org.json.JSONArray;
 
@@ -67,6 +71,15 @@ public class OutputArgumentArray extends ArgumentArray {
         Iterator <VSMParm> it = pA.iterator();
         int i = 0;
         while (it.hasNext()) {
+	    VSMParm p = it.next();
+	    if (p != null) {
+	    Argument a = Argument.from(p);
+	    if (a != null) {
+	    out.put(i++,a);
+	    }else {Logger.getLogger(OutputArgumentArray.class.getName()).log(Level.WARNING, "null Argument in from()", p);}
+	    }else{Logger.getLogger(OutputArgumentArray.class.getName()).log(Level.WARNING, "null VSMParm in from()", p);}
+	    
+	    /*
             VSMParm p = it.next();
             if (p instanceof VSMInt) {
                 out.put(i++, new Argument(p.getFormalName(), (VSMInt .class.cast(p)).getLongValue()));
@@ -75,7 +88,7 @@ public class OutputArgumentArray extends ArgumentArray {
                 if (p instanceof VSMString) {
                     out.put(i++, new Argument(p.getFormalName(), (VSMString .class.cast(p)).getValue()));
                 }
-            }
+            }*/
         }
         return out;
     }

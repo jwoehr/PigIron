@@ -31,9 +31,10 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
-import org.json.JSONException;
-import org.json.JSONArray;
 import com.softwoehr.pigiron.access.ParameterArray;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  * An array of arguments for PigIron VSMAPI functionality.
@@ -79,21 +80,25 @@ public class ArgumentArray extends JSONArray {
      *                             with that name, null if not.
      */ 
     public Argument argumentNamed(String argumentFormalName) {
+
         Argument result = null;
         Argument temp = null;
+
         for (int i = 0; i < length(); i++) {
+
             try {
                 temp = new Argument(optJSONObject(i).toString());
-		System.err.println("Argument is : " + temp);
-		System.err.println("Argument formalName is : " + temp.getFormalName());
-		System.err.flush();
+                // /* Debug */ System.err.println("Argument is : " + temp);
+                // /* Debug */ System.err.println("Argument formalName is : " + temp.getFormalName());
                 if (temp != null && temp.getFormalName().equals(argumentFormalName)) {
                     result = temp;
+
                     break;
                 }
             } catch (JSONException ex) {
             }
         }
+
         return result;
     }
 }
