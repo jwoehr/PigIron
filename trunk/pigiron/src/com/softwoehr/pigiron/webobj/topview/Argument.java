@@ -31,6 +31,8 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
+import java.util.Vector;
+
 import com.softwoehr.pigiron.access.CountedStruct;
 import com.softwoehr.pigiron.access.VSMArray;
 import com.softwoehr.pigiron.access.VSMAsciiZ;
@@ -59,10 +61,33 @@ public class Argument extends WebObject {
     /**
      *  Names we use for members
      */ 
- 
-    static {
-        setNames(new String [] { "formal_name" ,"value" } );
+    
+    /**
+     *  A Vector of the JSON keys (names) that are valid for
+     * a given WebObject extender
+     */ 
+    private static Vector <String> names = setNames(new String []{"formal_name" ,"value"}); 
+    
+    /**
+     *  Get the array of JSON keys (names) that are valid for
+     * a given WebObject extender
+     *
+     * @return    The names
+     */ 
+    public String []getNames() {
+        return names.toArray(new String [names.size()]);
     }
+
+    /**
+     * Identifies whether a JSON key is one of the names a given
+     * WebObject extender uses.
+     *
+     * @param  name  the JSON key
+     * @return true if the key is one the class uses
+     */ 
+     public  boolean isName(String name) {
+	 return isName(name, names);
+     }
 
     /**
      * Create with defaults (empty).

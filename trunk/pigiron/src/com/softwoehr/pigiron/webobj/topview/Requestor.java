@@ -30,7 +30,7 @@
  *  THE POSSIBILITY OF SUCH DAMAGE.
  */
 package com.softwoehr.pigiron.webobj.topview;
-
+import java.util.Vector;
 import com.softwoehr.pigiron.webobj.WebObject;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,13 +42,34 @@ import org.json.JSONObject;
  * @created    November 30, 2008
  */
 public class Requestor extends WebObject {
+
     /**
-     *  Names we use for members
+     *  A Vector of the JSON keys (names) that are valid for
+     * a given WebObject extender
      */ 
-    static {
-        setNames(new String []{"user" ,"host" ,"function"}
-       );
+    private static Vector <String> names = setNames(new String []{"user" ,"host" ,"function"}); 
+    
+    /**
+     *  Get the array of JSON keys (names) that are valid for
+     * a given WebObject extender
+     *
+     * @return    The names
+     */ 
+    public String []getNames() {
+        return names.toArray(new String [names.size()]);
     }
+
+    /**
+     * Identifies whether a JSON key is one of the names a given
+     * WebObject extender uses.
+     *
+     * @param  name  the JSON key
+     * @return true if the key is one the class uses
+     */ 
+     public  boolean isName(String name) {
+	 return isName(name, names);
+     }
+
     /**
      * Create a default (empty) Requestor
      *
@@ -80,7 +101,7 @@ public class Requestor extends WebObject {
      * @throws  org.json.JSONException  on JSON err
      */ 
     public Requestor(JSONObject aRequestor) throws JSONException {
-        super(aRequestor);
+        super(aRequestor, new String []{"user" ,"host" ,"function"});
     }
 
     /**
@@ -120,7 +141,7 @@ public class Requestor extends WebObject {
      * @exception  JSONException  on JSON err
      */ 
     public Host getHost() throws JSONException {
-	/* Debug */ System.out.println("Host in Requestor.getHost: " + getJSONObject("host"));
+	// /* Debug */ System.out.println("Host in Requestor.getHost: " + getJSONObject("host"));
         return new Host(getJSONObject("host"));
     }
 

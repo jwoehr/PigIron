@@ -85,9 +85,8 @@ public abstract class FunctionProxy {
      * @exception  org.json.JSONException  Description of the Exception
      */ 
     public FunctionProxy(Requestor requestor, Response response) throws org.json.JSONException {
-
         assimilate(requestor,response);
-	 /* Debug */ System.err.println("Leaving FunctionProxy(Requestor" + requestor + ", Response " + response + ")");
+	 // /* Debug */ System.err.println("Leaving FunctionProxy(Requestor" + requestor + ", Response " + response + ")");
     }
 
     /**
@@ -131,11 +130,11 @@ public abstract class FunctionProxy {
              Response response) throws org.json.JSONException {
 
         try {
-            /* Debug */ System.err.println("Requestor in FunctionProxy.execute() : " + requestor);
-            /* Debug */ System.err.println("Response in FunctionProxy.execute() : " + response);
+            // /* Debug */ System.err.println("Requestor in FunctionProxy.execute() : " + requestor);
+            // /* Debug */ System.err.println("Response in FunctionProxy.execute() : " + response);
             Function f = requestor.getFunction();
  
-            /* Debug */ System.err.println("Function in FunctionProxy.execute() : " + f);
+            // /* Debug */ System.err.println("Function in FunctionProxy.execute() : " + f);
             ParameterArray pA = pigfunc.doIt();
             // /* Debug */ System.err.println(pA.prettyPrintAll());
             f.put("output_arguments", OutputArgumentArray.from(pA));
