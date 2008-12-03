@@ -68,5 +68,33 @@ public class ArgumentArray extends JSONArray {
     public void put(Argument argument) {
         super.put(argument);
     }
+
+    /**
+     *  Get an Argument from the Array if there's one there with that name.
+     * Return null if not.
+     *
+     * @param  argumentFormalName  Formal name of the VSMAPI parameter sought
+     *                             since this name is embedded in the Argument
+     * @return                     Argument from the Array if there's one there
+     *                             with that name, null if not.
+     */ 
+    public Argument argumentNamed(String argumentFormalName) {
+        Argument result = null;
+        Argument temp = null;
+        for (int i = 0; i < length(); i++) {
+            try {
+                temp = new Argument(optJSONObject(i).toString());
+		System.err.println("Argument is : " + temp);
+		System.err.println("Argument formalName is : " + temp.getFormalName());
+		System.err.flush();
+                if (temp != null && temp.getFormalName().equals(argumentFormalName)) {
+                    result = temp;
+                    break;
+                }
+            } catch (JSONException ex) {
+            }
+        }
+        return result;
+    }
 }
 
