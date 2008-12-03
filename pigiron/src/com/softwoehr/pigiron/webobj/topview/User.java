@@ -90,7 +90,7 @@ public class User extends WebObject {
      * @exception  JSONException  on JSON err
      */ 
     public User(JSONObject anUser) throws JSONException {
-        super(anUser);
+        this(anUser.toString());
     }
 
     /**

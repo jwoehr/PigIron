@@ -89,7 +89,17 @@ public class Function extends WebObject {
      */ 
     public Function(Function function) throws JSONException {
         super(function);
-        // copyFrom(function);
+    }
+    
+    /**
+     * Create a JSON map of a PigIron VSMAPI function
+     * from a like JSONObject using only the members constrained
+     *
+     * @param  function           another instance  as a JSONObject
+     * @exception  JSONException  Description of the Exception
+     */ 
+    public Function(JSONObject jsonObject) throws JSONException {
+        super(jsonObject);
     }
 
     /**

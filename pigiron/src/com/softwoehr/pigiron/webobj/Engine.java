@@ -78,6 +78,7 @@ public class Engine {
         String jsonErr = "";
         try {
             response = new Response(requestor);
+	    // /* Debug */ System.err.println("Response in Response.execute is: " + response);
             function = requestor.getFunction();
             functionName = function.get_function_name();
             // /* Debug */ System.err.println("Function name in execute is: " + functionName);
@@ -128,7 +129,7 @@ public class Engine {
      *  A simple main program for testing the Engine class. It can be tested
      * on any supported function, e.g:<br>
      *
-     * <tt>java -cp dist/pigiron.jar com.softwoehr.pigiron.webobj.Engine '{"function":{"function_name":"CheckAuthentication"},"host":{"dnsName":"mybox.mydomain.com","portNumber":12345},"user":{"uid":"FRED","password":"FOOBAR"}}'</tt>
+     * <tt>java -cp dist/pigiron.jar com.softwoehr.pigiron.webobj.Engine '{"function":{"function_name":"CheckAuthentication"},"host":{"dns_name":"mybox.mydomain.com","port_number":12345},"user":{"uid":"FRED","password":"FOOBAR"}}'</tt>
      *
      * @param  args                        arg0 JSON string of a Requestor
      * @exception  org.json.JSONException  on JSON error

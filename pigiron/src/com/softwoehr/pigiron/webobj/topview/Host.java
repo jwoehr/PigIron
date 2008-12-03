@@ -43,7 +43,7 @@ import org.json.JSONObject;
 public class Host extends WebObject {
 
     static {
-        setNames(new String []{"name" ,"dnsName" ,"ipAddr" ,"portNumber"}
+        setNames(new String []{"name" ,"dns_name" ,"ip_addr" ,"port_number"}
        ); 
     }
 
@@ -61,18 +61,19 @@ public class Host extends WebObject {
      * Instance with hostName name and URI
      *
      * @param  name
-     * @param  dnsName
-     * @param  ipAddr
-     * @param  portNumber
+     * @param  dns_name
+     * @param  ip_addr
+     * @param  port_number
      * @exception  JSONException  Description of the Exception
      * @throws  JSONException
      */ 
-    public Host(String name, String dnsName, String ipAddr, int portNumber) throws JSONException {
+    public Host(String name, String dns_name, String ip_addr, int port_number) throws JSONException {
         super();
+	/* Debug */  System.err.println("Host ctor, dns_name: " + dns_name + " ip_addr : " + ip_addr);
         setName(name);
-        setDnsName(dnsName);
-        setIpAddr(ipAddr);
-        setPortNumber(portNumber);
+        setDnsName(dns_name);
+        setIpAddr(ip_addr);
+        setPortNumber(port_number);
     }
 
     /**
@@ -85,7 +86,20 @@ public class Host extends WebObject {
     public Host(String jsonRepresentation) throws JSONException {
         super(jsonRepresentation);
     }
-
+    
+    /**
+     *Constructor for the Host from a like JSONObject using only
+     * the members constrained
+     *
+     * @param  anHost             a like Host as a JSONObject
+     * @exception  JSONException  on JSON err
+     */ 
+    public Host(JSONObject anHost) throws JSONException {
+	this(anHost.toString());	
+        // super(anHost);
+	// /* Debug */ System.out.println("anHost in Host(JSONObject anHost): " + anHost);
+	// /* Debug */ System.out.println("this in Host(JSONObject anHost): " + this);
+    }
     /**
      *Constructor for the Host from a like WebObject using only
      * the members constrained
@@ -116,7 +130,7 @@ public class Host extends WebObject {
      * @throws  org.json.JSONException  on JSON err
      */ 
     public String getDnsName() throws JSONException {
-        return getString("dnsName");
+        return getString("dns_name");
     }
 
     /**
@@ -127,7 +141,7 @@ public class Host extends WebObject {
      * @throws  org.json.JSONException  on JSON err
      */ 
     public String getIpAddr() throws JSONException {
-        return getString("ipAddr");
+        return getString("ip_addr");
     }
 
     /**
@@ -138,37 +152,37 @@ public class Host extends WebObject {
      * @throws  org.json.JSONException  on JSON err
      */ 
     public int getPortNumber() throws JSONException {
-        return getInt("portNumber");
+        return getInt("port_number");
     }
 
     /**
      * get Dns Name
      *
-     * @param  dnsName
+     * @param  dns_name
      * @throws  JSONException  on JSON err
      */ 
-    public void setDnsName(String dnsName) throws JSONException {
-        put("dnsName", dnsName);
+    public void setDnsName(String dns_name) throws JSONException {
+        put("dns_name", dns_name);
     }
 
     /**
      * set Ip Addr
      *
-     * @param  ipAddr
+     * @param  ip_addr
      * @throws  JSONException  on JSON err
      */ 
-    public void setIpAddr(String ipAddr) throws JSONException {
-        put("ipAddr", ipAddr);
+    public void setIpAddr(String ip_addr) throws JSONException {
+        put("ip_addr", ip_addr);
     }
 
     /**
      * set Port Number
      *
-     * @param  portNumber      The new portNumber value
+     * @param  port_number      The new port_number value
      * @throws  JSONException  on JSON err
      */ 
-    public void setPortNumber(int portNumber) throws JSONException {
-        put("portNumber", portNumber);
+    public void setPortNumber(int port_number) throws JSONException {
+        put("port_number", port_number);
     }
 
     /**

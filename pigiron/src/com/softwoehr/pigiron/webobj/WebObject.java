@@ -86,6 +86,8 @@ public class WebObject extends JSONObject {
      */ 
     protected WebObject(JSONObject jsonObject) throws org.json.JSONException {
         super(jsonObject, getNames());
+	// /* Debug */ System.out.println("WebObject (JSONObject jsonObject) jsonObject: " + jsonObject);
+	// /* Debug */ System.out.println("WebObject (JSONObject jsonObject) this : " + this);
     }
     
     /**

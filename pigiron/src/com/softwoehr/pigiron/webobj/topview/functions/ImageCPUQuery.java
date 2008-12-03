@@ -68,7 +68,10 @@ public class ImageCPUQuery extends FunctionProxy {
 	// /* Debug */ System.err.println("target_id_arg : " + target_id_arg);
 	String target_id = target_id_arg != null ? target_id_arg.getStringValue() : "" ;
 	// /* Debug */ System.err.println("target_id : " + target_id);
+	// /* Debug */ System.err.println("host : " + host);
+	
         com.softwoehr.pigiron.functions.ImageCPUQuery pigfunc = new com.softwoehr.pigiron.functions.ImageCPUQuery(host.getDnsName(), host.getPortNumber(), user.getUid(), user.getPassword(), target_id);
+	// /* Debug */ System.err.println("pigfunc : " + pigfunc);
         execute(pigfunc,requestor,response);
         return response;
     }

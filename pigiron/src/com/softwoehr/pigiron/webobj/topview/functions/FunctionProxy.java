@@ -47,111 +47,117 @@ import com.softwoehr.pigiron.webobj.topview.*;
  */
 public abstract class FunctionProxy {
 
-	/**
-	 *  Target host assimilated from the requestor
-	 */
-	public Host host = null;
-	/**
-	 *  User assimilated from the requestor
-	 */
-	public User user = null;
-	/**
-	 *  Response to be filled in and returned
-	 */
-	public Response response = null;
-	/**
-	 *  Requestor which is also copied into response
-	 */
-	public Requestor requestor = null;
-	/**
-	 *  Function assimilated from the requestor
-	 */
-	public Function function = null;
+    /**
+     *  Target host assimilated from the requestor
+     */ 
+    public Host host = null;
+    /**
+     *  User assimilated from the requestor
+     */ 
+    public User user = null;
+    /**
+     *  Response to be filled in and returned
+     */ 
+    public Response response = null;
+    /**
+     *  Requestor which is also copied into response
+     */ 
+    public Requestor requestor = null;
+    /**
+     *  Function assimilated from the requestor
+     */ 
+    public Function function = null;
 
-	/**
-	 *  InputArgumentArray assimilated from the Function
-	 */
-	public InputArgumentArray inArray = null;
-	/**
-	 *  OutputArgumentArray assimilated from the Function
-	 */
-	public OutputArgumentArray outArray = null;
+    /**
+     *  InputArgumentArray assimilated from the Function
+     */ 
+    public InputArgumentArray inArray = null;
+    /**
+     *  OutputArgumentArray assimilated from the Function
+     */ 
+    public OutputArgumentArray outArray = null;
 
-	/**
-	 *Constructor for the FunctionProxy object
-	 *
-	 * @param  requestor                   the request to be executed
-	 * @param  response                    the response to be returned
-	 * @exception  org.json.JSONException  Description of the Exception
-	 */
-	public FunctionProxy(Requestor requestor,
-			Response response) throws org.json.JSONException {
+    /**
+     *Constructor for the FunctionProxy object
+     *
+     * @param  requestor                   the request to be executed
+     * @param  response                    the response to be returned
+     * @exception  org.json.JSONException  Description of the Exception
+     */ 
+    public FunctionProxy(Requestor requestor, Response response) throws org.json.JSONException {
 
-		assimilate(requestor, response);
-	}
+        assimilate(requestor,response);
+	 /* Debug */ System.err.println("Leaving FunctionProxy(Requestor" + requestor + ", Response " + response + ")");
+    }
 
-	/**
-	 * Execute the request passed in to the ctor
-	 *
-	 * @return                             the Response composed partly by the
-	 * Engine and partly by this FunctionProxy
-	 * @exception  org.json.JSONException  on JSON err
-	 */
-	public abstract Response execute() throws org.json.JSONException;
+    /**
+     * Execute the request passed in to the ctor
+     *
+     * @return                             the Response composed partly by the
+     * Engine and partly by this FunctionProxy
+     * @exception  org.json.JSONException  on JSON err
+     */ 
+    public abstract Response execute() throws org.json.JSONException;
 
-	/**
-	 *  Description of the Method
-	 *
-	 * @param  requestor                   the request to be executed
-	 * @param  response                    the response to be returned
-	 * @exception  org.json.JSONException  on JSON err
-	 */
-	public void assimilate(Requestor requestor,
-			Response response) throws org.json.JSONException {
+    /**
+     *  Description of the Method
+     *
+     * @param  requestor                   the request to be executed
+     * @param  response                    the response to be returned
+     * @exception  org.json.JSONException  on JSON err
+     */ 
+    public void assimilate(Requestor requestor, Response response) throws org.json.JSONException {
+        // /* Debug */ System.err.println("starting assimilate");
+        this.requestor = requestor;
+        this.response = response;
+        host = requestor.getHost();
+	// /* Debug */ System.err.println("got host in assimilate: " + host );
+        function = requestor.getFunction();
+        user = requestor.getUser();
+        inArray = function.get_input_arguments();
+        outArray = function.get_output_arguments();
+        // /* Debug */ System.err.println("Ending assimilate"); 
+    }
 
-		this.requestor = requestor;
-		this.response = response;
-		host = requestor.getHost();
-		function = requestor.getFunction();
-		user = requestor.getUser();
-		inArray = function.get_input_arguments();
-		outArray = function.get_output_arguments();
-	}
+    /**
+     *  Description of the Method
+     *
+     * @param  requestor                   Description of the Parameter
+     * @param  response                    Description of the Parameter
+     * @param  pigfunc                     Description of the Parameter
+     * @exception  org.json.JSONException  on JSON err
+     */ 
+    public static void execute(VSMCall pigfunc, Requestor requestor,
+             Response response) throws org.json.JSONException {
 
-	/**
-	 *  Description of the Method
-	 *
-	 * @param  requestor                   Description of the Parameter
-	 * @param  response                    Description of the Parameter
-	 * @param  pigfunc                     Description of the Parameter
-	 * @exception  org.json.JSONException  on JSON err
-	 */
-	public static void execute(VSMCall pigfunc, Requestor requestor, Response response) throws org.json.JSONException {
-		try {
-			Function f = requestor.getFunction();
-			ParameterArray pA = pigfunc.doIt();
-			// /* Debug */ System.err.println(pA.prettyPrintAll());
-			f.put("output_arguments", OutputArgumentArray.from(pA));
-			requestor.setFunction(f);
-			response.setRequestor(requestor);
-			VSMInt4 rc_int4 = VSMInt4.class.cast(pA.parameterNamed("return_code"));
-			VSMInt4 reason_int4 = VSMInt4.class.cast(pA.parameterNamed("reason_code"));
-			response.setMessageText(VsmapiRC.prettyPrint(rc_int4.getValue(),
-					reason_int4.getValue(), pigfunc).replace("\n", " ; "));
-			long rc = rc_int4.getLongValue();
-			if (rc == 0) {
-				response.setResult(Response.Results.SUCCESS.name());
-			} else {
-				response.setResult(Response.Results.FAILURE.name());
-			}
-		} catch (java.io.IOException ex) {
-			response.setResult(Response.Results.FAILURE.name());
-			response.setMessageText(ex.toString());
-		} catch (VSMException ex) {
-			response.setResult(Response.Results.PIGIRON_ERR.name());
-			response.setMessageText(ex.toString());
-		}
+        try {
+            /* Debug */ System.err.println("Requestor in FunctionProxy.execute() : " + requestor);
+            /* Debug */ System.err.println("Response in FunctionProxy.execute() : " + response);
+            Function f = requestor.getFunction();
+ 
+            /* Debug */ System.err.println("Function in FunctionProxy.execute() : " + f);
+            ParameterArray pA = pigfunc.doIt();
+            // /* Debug */ System.err.println(pA.prettyPrintAll());
+            f.put("output_arguments", OutputArgumentArray.from(pA));
+            requestor.setFunction(f);
+            response.setRequestor(requestor);
+            VSMInt4 rc_int4 = VSMInt4 .class.cast(pA.parameterNamed("return_code"));
+            VSMInt4 reason_int4 = VSMInt4 .class.cast(pA.parameterNamed("reason_code"));
+            response.setMessageText(VsmapiRC.prettyPrint(rc_int4.getValue(), reason_int4.getValue(), pigfunc).replace("\n", " ; "));
+            long rc = rc_int4.getLongValue();
+            if (rc == 0) {
+                response.setResult(Response.Results.SUCCESS.name());
+            } else {
+                response.setResult(Response.Results.FAILURE.name());
+            }
+        } catch (java.io.IOException ex) {
+            response.setResult(Response.Results.FAILURE.name());
+            response.setMessageText(ex.toString());
+        } catch (VSMException ex) {
+            response.setResult(Response.Results.PIGIRON_ERR.name());
+            response.setMessageText(ex.toString());
+        }
 
-	}
+    }
 }
 

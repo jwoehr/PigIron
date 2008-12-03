@@ -89,7 +89,7 @@ public class Response extends WebObject {
     }
 
     /**
-     * Constructor for the Response from a JSONObject using only
+     * Constructor for the Response from a WebObject using only
      * the members named in Response.names
      *
      * @param  aResponse               a requestor object or something like it
@@ -98,7 +98,18 @@ public class Response extends WebObject {
     public Response(WebObject aResponse) throws JSONException {
         super(aResponse);
     }
-
+    
+    /**
+     * Constructor for the Response from a JSONObject using only
+     * the members named in Response.names
+     *
+     * @param  aResponse               a requestor object or something like it
+     * @throws  org.json.JSONException  on JSON err
+     */ 
+    public Response(JSONObject aResponse) throws JSONException {
+        super(aResponse);
+    }
+    
     /**
      *Constructor for the Response from a string of JSON representation
      *

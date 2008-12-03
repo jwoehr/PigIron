@@ -68,6 +68,17 @@ public class Requestor extends WebObject {
      * @exception  JSONException        on JSON err
      * @throws  org.json.JSONException  on JSON err
      */ 
+    public Requestor(Requestor aRequestor) throws JSONException {
+        super(aRequestor);
+    }
+
+    /**
+     * Constructor for the Requestor from a JSONObject using only
+     * the members named in Requestor.names
+     *
+     * @param  aRequestor               a requestor object or something like it
+     * @throws  org.json.JSONException  on JSON err
+     */ 
     public Requestor(JSONObject aRequestor) throws JSONException {
         super(aRequestor);
     }
@@ -89,7 +100,7 @@ public class Requestor extends WebObject {
      * @exception  JSONException  on JSON err
      */ 
     public User getUser() throws JSONException {
-        return new User(get("user").toString());
+        return new User(getJSONObject("user"));
     }
 
     /**
@@ -109,7 +120,8 @@ public class Requestor extends WebObject {
      * @exception  JSONException  on JSON err
      */ 
     public Host getHost() throws JSONException {
-        return new Host(get("host").toString());
+	/* Debug */ System.out.println("Host in Requestor.getHost: " + getJSONObject("host"));
+        return new Host(getJSONObject("host"));
     }
 
     /**
@@ -131,7 +143,8 @@ public class Requestor extends WebObject {
     public Function getFunction() throws JSONException {
         // /* Debug */ String temp = get("function").toString();
         // /* Debug */ System.err.println("function is: " + temp);
-        return new Function(get("function").toString());
+        Function result = new Function(getJSONObject("function"));
+	return result;
     }
 
     /**
