@@ -43,13 +43,7 @@ import org.json.JSONObject;
  * @author     jax
  * @created    November 23, 2008
  */
-public class WebObject extends JSONObject {
-
-    /**
-     *  A Vector of the JSON keys (names) that are valid for
-     * a given WebObject extender
-     */ 
-    protected static Vector <String> names;
+public abstract class WebObject extends JSONObject {
 
     /**
      * Construct an (empty) WebObject
@@ -69,26 +63,45 @@ public class WebObject extends JSONObject {
     }
 
    /**
-     *Construct a  WebObject from a WebObject using JSON's constrained copy ctor
+     *Construct a  WebObject from a WebObject unconstrained copy ctor
      *
      * @param  webObject                   The object to copy key/vals from
      * @exception  org.json.JSONException  on JSON error
      */ 
     protected WebObject(WebObject webObject) throws org.json.JSONException {
-        super(webObject, getNames());
+        super(webObject);
+    }
+    
+    /**
+     *Construct a  WebObject from a WebObject using JSON's constrained copy ctor
+     *
+     * @param  webObject                   The object to copy key/vals from
+     * @exception  org.json.JSONException  on JSON error
+     */ 
+     protected WebObject(WebObject webObject, String [] names) throws org.json.JSONException {
+        super(webObject, names);
     }
 
    /**
-     *Construct a  WebObject from a JSONObject using JSON's constrained copy ctor
+     *Construct a  WebObject from a JSONObject unconstrained copy ctor
      *
      * @param  jsonObject                   The object to copy key/vals from
      * @exception  org.json.JSONException  on JSON error
      */ 
     protected WebObject(JSONObject jsonObject) throws org.json.JSONException {
-        super(jsonObject, getNames());
-	// /* Debug */ System.out.println("WebObject (JSONObject jsonObject) jsonObject: " + jsonObject);
-	// /* Debug */ System.out.println("WebObject (JSONObject jsonObject) this : " + this);
+        super(jsonObject);
     }
+    
+    /**
+     *Construct a  WebObject from a JSONObject constrained copy ctor
+     *
+     * @param  jsonObject                   The object to copy key/vals from
+     * @exception  org.json.JSONException  on JSON error
+     */ 
+    protected WebObject(JSONObject jsonObject, String [] names) throws org.json.JSONException {
+        super(jsonObject, names);
+    }
+    
     
     /**
      *  Sets Vector of the JSON keys (names) that are valid for
@@ -97,32 +110,24 @@ public class WebObject extends JSONObject {
      * @param  someNames The array of JSON keys (names) that are valid for
      * a given WebObject extender
      */ 
-    public static void setNames(String [] someNames) {
-        names = new Vector <String>(someNames.length);
+    public static Vector <String> setNames(String [] someNames) {
+        Vector <String> names = new Vector <String>(someNames.length);
         for (int i = 0; i < someNames.length; i++) {
             names.add(someNames[i]);
         }
+	return names;
     }
 
     /**
-     *  Get the array of JSON keys (names) that are valid for
-     * a given WebObject extender
-     *
-     * @return    The names
-     */ 
-    public static String []getNames() {
-        return names.toArray(new String [names.size()]);
-    }
-
-    /**
-     * Identifies whether a JSON key is one of the names a given
-     * WebObject extender uses.
+     * Identifies whether a JSON key is one of the names given
      *
      * @param  name  the JSON key
-     * @return       true if the key is one the class uses
+     * @param names  the vector of names that 'name' must be a member of
+     * @return       true if the key is a member
      */ 
-    public static boolean isName(String name) {
+    public static boolean isName(String name, Vector <String> names) {
         return names.indexOf(name) != - 1;
     }
+    
 }
 

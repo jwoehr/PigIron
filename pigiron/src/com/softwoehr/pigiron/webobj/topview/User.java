@@ -31,6 +31,8 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
+import java.util.Vector;
+
 import com.softwoehr.pigiron.webobj.WebObject;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,12 +45,32 @@ import org.json.JSONObject;
 public class User extends WebObject {
 
     /**
-     *  Names we use for members
+     *  A Vector of the JSON keys (names) that are valid for
+     * a given WebObject extender
      */ 
-    static {
-        setNames(new String []{"uid" ,"password"}
-       ); 
+    private static Vector <String> names = setNames(new String []{"uid" ,"password"});
+    
+     /**
+     *  Get the array of JSON keys (names) that are valid for
+     * a given WebObject extender
+     *
+     * @return    The names
+     */ 
+    public String []getNames() {
+        return names.toArray(new String [names.size()]);
     }
+    
+    /**
+     * Identifies whether a JSON key is one of the names a given
+     * WebObject extender uses.
+     *
+     * @param  name  the JSON key
+     * @return true if the key is one the class uses
+     */ 
+     public  boolean isName(String name) {
+	 return isName(name, names);
+     }
+
     /**
      * Base ctor
      *

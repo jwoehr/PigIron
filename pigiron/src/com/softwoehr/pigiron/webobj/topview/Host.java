@@ -31,6 +31,8 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
+import java.util.Vector;
+
 import com.softwoehr.pigiron.webobj.WebObject;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,10 +44,33 @@ import org.json.JSONObject;
  */
 public class Host extends WebObject {
 
-    static {
-        setNames(new String []{"name" ,"dns_name" ,"ip_addr" ,"port_number"}
-       ); 
+    /**
+     *  A Vector of the JSON keys (names) that are valid for
+     * a given WebObject extender
+     */ 
+    private Vector <String> names = setNames(new String []{"name" ,"dns_name" ,"ip_addr" ,"port_number"}); 
+    
+    /**
+     *  Get the array of JSON keys (names) that are valid for
+     * a given WebObject extender
+     *
+     * @return    The names
+     */ 
+    public String []getNames() {
+	/* Debug */ System.err.println("Host names array == " + names);
+        return names.toArray(new String [names.size()]);
     }
+
+    /**
+     * Identifies whether a JSON key is one of the names a given
+     * WebObject extender uses.
+     *
+     * @param  name  the JSON key
+     * @return true if the key is one the class uses
+     */ 
+     public  boolean isName(String name) {
+	 return isName(name, names);
+     }
 
     /**
      * Base ctor
@@ -69,7 +94,7 @@ public class Host extends WebObject {
      */ 
     public Host(String name, String dns_name, String ip_addr, int port_number) throws JSONException {
         super();
-	/* Debug */  System.err.println("Host ctor, dns_name: " + dns_name + " ip_addr : " + ip_addr);
+	// /* Debug */  System.err.println("Host ctor, dns_name: " + dns_name + " ip_addr : " + ip_addr);
         setName(name);
         setDnsName(dns_name);
         setIpAddr(ip_addr);
@@ -95,7 +120,9 @@ public class Host extends WebObject {
      * @exception  JSONException  on JSON err
      */ 
     public Host(JSONObject anHost) throws JSONException {
-	this(anHost.toString());	
+	// this(anHost.toString());
+	// super(anHost, getNames());
+	super(anHost, new String [] {"name" ,"dns_name" ,"ip_addr" ,"port_number"});
         // super(anHost);
 	// /* Debug */ System.out.println("anHost in Host(JSONObject anHost): " + anHost);
 	// /* Debug */ System.out.println("this in Host(JSONObject anHost): " + this);
