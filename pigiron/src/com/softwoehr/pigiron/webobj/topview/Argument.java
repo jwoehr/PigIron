@@ -303,7 +303,6 @@ public class Argument extends WebObject {
         Iterator <VSMParm> it = vsmStruct.iterator();
         while (it.hasNext()) {
             Argument a = Argument.from(it.next());
-            // /* Debug */ System.err.println("name: " + a.getFormalName() + " value :" + a.getStringValue());
             jo.put(a.getFormalName(), a);
         }
         result = new Argument(vsmStruct.getFormalName(), jo);
@@ -323,7 +322,6 @@ public class Argument extends WebObject {
         Iterator <VSMParm> it = countStruct.iterator();
         while (it.hasNext()) {
             Argument a = Argument.from(it.next());
-            // /* Debug */ System.err.println("name: " + a.getFormalName() + " value :" + a.getStringValue());
             jo.put(a.getFormalName(), a);
         }
         result = new Argument(countStruct.getFormalName(), jo);
@@ -343,7 +341,6 @@ public class Argument extends WebObject {
         Iterator <VSMParm> it = vsmArray.iterator();
         while (it.hasNext()) {
             Argument a = Argument.from(it.next());
-            // /* Debug */ System.err.println("name: " + a.getFormalName() + " value :" + a.getStringValue());
             jo.put(a.getFormalName(), a);
         }
         result = new Argument(vsmArray.getFormalName(), jo);
@@ -363,7 +360,6 @@ public class Argument extends WebObject {
         Iterator <VSMParm> it = vsmAsciiZArray.iterator();
         while (it.hasNext()) {
             Argument a = Argument.from(it.next());
-            // /* Debug */ System.err.println("name: " + a.getFormalName() + " value :" + a.getStringValue());
             jo.put(a.getFormalName(), a);
         }
         result = new Argument(vsmAsciiZArray.getFormalName(), jo);

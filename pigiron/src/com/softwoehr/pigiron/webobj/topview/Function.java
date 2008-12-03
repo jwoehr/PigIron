@@ -123,7 +123,7 @@ public class Function extends WebObject {
      * @exception  JSONException  Description of the Exception
      */ 
     public Function(JSONObject jsonObject) throws JSONException {
-        super(jsonObject.toString());
+        super(jsonObject, new String []{"function_name" ,"input_arguments" ,"output_arguments" ,"return_code" ,"result_code" ,"request_id"});
     }
 
     /**
