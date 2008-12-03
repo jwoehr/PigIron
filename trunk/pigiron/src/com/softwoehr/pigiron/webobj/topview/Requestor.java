@@ -141,7 +141,6 @@ public class Requestor extends WebObject {
      * @exception  JSONException  on JSON err
      */ 
     public Host getHost() throws JSONException {
-	// /* Debug */ System.out.println("Host in Requestor.getHost: " + getJSONObject("host"));
         return new Host(getJSONObject("host"));
     }
 
@@ -162,8 +161,6 @@ public class Requestor extends WebObject {
      * @exception  JSONException  on JSON err
      */ 
     public Function getFunction() throws JSONException {
-        // /* Debug */ String temp = get("function").toString();
-        // /* Debug */ System.err.println("function is: " + temp);
         Function result = new Function(getJSONObject("function"));
 	return result;
     }

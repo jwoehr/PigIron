@@ -130,7 +130,7 @@ public class Response extends WebObject {
      * @throws  org.json.JSONException  on JSON err
      */ 
     public Response(JSONObject aResponse) throws JSONException {
-        super(aResponse);
+        super(aResponse, new String []{"result" ,"messageText" ,"requestor"});
     }
     
     /**
