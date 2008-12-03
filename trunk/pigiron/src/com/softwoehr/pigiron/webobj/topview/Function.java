@@ -99,7 +99,7 @@ public class Function extends WebObject {
      * @exception  JSONException  Description of the Exception
      */ 
     public Function(JSONObject jsonObject) throws JSONException {
-        super(jsonObject);
+        super(jsonObject.toString());
     }
 
     /**
