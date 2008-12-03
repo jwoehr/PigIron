@@ -64,10 +64,10 @@ public class ImageCPUQuery extends FunctionProxy {
      */ 
     public Response execute() throws org.json.JSONException {
 	Argument target_id_arg = inArray != null ? inArray.argumentNamed("target_identifier") : null;
-	System.err.println("inArray : " + inArray);
-	System.err.println("target_id_arg : " + target_id_arg);
+	// /* Debug */ System.err.println("inArray : " + inArray);
+	// /* Debug */ System.err.println("target_id_arg : " + target_id_arg);
 	String target_id = target_id_arg != null ? target_id_arg.getStringValue() : "" ;
-	System.err.println("target_id : " + target_id);
+	// /* Debug */ System.err.println("target_id : " + target_id);
         com.softwoehr.pigiron.functions.ImageCPUQuery pigfunc = new com.softwoehr.pigiron.functions.ImageCPUQuery(host.getDnsName(), host.getPortNumber(), user.getUid(), user.getPassword(), target_id);
         execute(pigfunc,requestor,response);
         return response;
