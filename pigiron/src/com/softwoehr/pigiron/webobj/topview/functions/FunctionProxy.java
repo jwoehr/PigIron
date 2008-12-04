@@ -85,6 +85,7 @@ public abstract class FunctionProxy {
      * @exception  org.json.JSONException  Description of the Exception
      */ 
     public FunctionProxy(Requestor requestor, Response response) throws org.json.JSONException {
+
         assimilate(requestor,response);
     }
 
@@ -114,6 +115,24 @@ public abstract class FunctionProxy {
         outArray = function.get_output_arguments();
     }
 
+
+    /**
+     *  Gets the host specifier: either the dns name or the ip address. If both
+     * are present, the dns name is picked.
+     *
+     * @return    The hostSpecifier value (either the dns name or the dotted ip address)
+     */ 
+    protected String getHostSpecifier() throws org.json.JSONException {
+        String host_specifier = null;
+        if (host != null) {
+            host_specifier = host.getDnsName();
+            if (host_specifier.equals(null) | host_specifier.equals("")) {
+                host_specifier = host.getIpAddress();
+            }
+        }
+	return host_specifier;
+    }
+
     /**
      *  Description of the Method
      *
@@ -124,7 +143,6 @@ public abstract class FunctionProxy {
      */ 
     public static void execute(VSMCall pigfunc, Requestor requestor,
              Response response) throws org.json.JSONException {
-
         try {
             Function f = requestor.getFunction();
             ParameterArray pA = pigfunc.doIt();
@@ -134,6 +152,7 @@ public abstract class FunctionProxy {
             VSMInt4 rc_int4 = VSMInt4 .class.cast(pA.parameterNamed("return_code"));
             VSMInt4 reason_int4 = VSMInt4 .class.cast(pA.parameterNamed("reason_code"));
             response.setMessageText(VsmapiRC.prettyPrint(rc_int4.getValue(), reason_int4.getValue(), pigfunc).replace("\n", " ; "));
+
             long rc = rc_int4.getLongValue();
             if (rc == 0) {
                 response.setResult(Response.Results.SUCCESS.name());
@@ -147,7 +166,6 @@ public abstract class FunctionProxy {
             response.setResult(Response.Results.PIGIRON_ERR.name());
             response.setMessageText(ex.toString());
         }
-
     }
 }
 
