@@ -132,6 +132,18 @@ public abstract class FunctionProxy {
         }
 	return host_specifier;
     }
+    
+    /**
+     *  Gets the target identifier. Usually we have the extender fetch things from the
+     * input args but this one is so common (all VSMAPI functions but one).
+     *
+     * @return    The Target Identifier value (much-used param)
+     */ 
+    protected String getTargetIdentifier() throws org.json.JSONException {
+	Argument target_id_arg = inArray != null ? inArray.argumentNamed("target_identifier") : null;
+	String target_identifier = target_id_arg != null ? target_id_arg.getStringValue() : "" ;
+	return target_identifier;
+    }
 
     /**
      *  Description of the Method
