@@ -65,12 +65,12 @@ popdef(`x_name')dnl
 pop_divert()dnl
 ')
 
-\\ optional_ctor_params_comments(type, name, instance, t, n, i ...)
-\\ Because the big ctor has to be extendable and must instance vars
-define(`optional_ctor_param_comments',`dnl
+\\ optional_execute_params_comments(type, name, instance, t, n, i ...)
+\\ Because instancing in the execute can have many args.
+define(`optional_execute_param_comments',`dnl
 ifelse(eval($# >= 3), 0, , eval($# == 3), 1, `
-     * @param `$2' instances {@code `$3'}', `
-     * @param `$2' instances {@code `$3'}`'optional_ctor_param_comments(shift(shift(shift($@))))')dnl
+     *   --  `$2' instances {@code `$1'}', `
+     *   --  `$2' instances {@code `$1'}`'optional_execute_param_comments(shift(shift(shift($@))))')dnl
 ')
 
 \\ optional_ctor_params_args(type, name, instance, t, n, i ...)
@@ -78,12 +78,12 @@ ifelse(eval($# >= 3), 0, , eval($# == 3), 1, `
 define(`optional_ctor_param_args',`dnl
 ifelse(eval($# >= 3), 0, , eval($# == 3), 1, `,' ``$1' `$2'', `,' ``$1' `$2'optional_ctor_param_args(shift(shift(shift($@))))')')
 
-\\ optional_ctor_param_instantiations(type, name, instance, t, n, i ...)
-\\ Because the big ctor has to be extendable and must instance vars
-define(`optional_ctor_param_instantiations',`dnl
+\\ optional_execute_param_instantiations(type, name, instance, t, n, i ...)
+\\ Because instancing in the execute can have many args.
+define(`optional_execute_param_instantiations',`dnl
 ifelse(eval($# >= 3), 0, , eval($# == 3), 1, `        set_`$3'`('`$2');
 ',`        set_`$3'`('`$2');`'
-optional_ctor_param_instantiations(shift(shift(shift($@))))')dnl
+optional_execute_param_instantiations(shift(shift(shift($@))))')dnl
 ')
 
 \\ pigfunc_ctors(OPTIONAL type, name, instance, t, n, i ..)
@@ -107,10 +107,10 @@ pushdef(`x_optional_params', `$@')dnl
     }
 
     /**
-     *  Description of the Method
+     * Execute the PigIron VSMAPI call we have set up in this instance.
      *
-     * `@'return                             Description of the Return Value
-     * `@'exception  org.json.JSONException  Description of the Exception
+     * @return                             the response from the call
+     * @exception  org.json.JSONException  on JSON err
      *
      * The PigIron/VSMAPI parameters fed to the instancing within execute`()' are as follows:
      *   --  hostname  VSMAPI Host DNS name
@@ -118,7 +118,8 @@ pushdef(`x_optional_params', `$@')dnl
      *   --  userid userid executing the function`'
      *   --  password the password
      *   --  target_identifier the target of the VSMAPI function`'dnl
-regexp(optional_ctor_param_comments(x_optional_params()),`\(.*\)@param\(.*\)', `\1  --  \2')
+dnl regexp(optional_ctor_param_comments(x_optional_params()),`\(.*\)@param \(.*\)', `\1  --  \2')
+optional_execute_param_comments(x_optional_params())
      */ 
     public Response execute`()' throws org.json.JSONException {
         com.softwoehr.pigiron.functions.myClassName() pigfunc = new com.softwoehr.pigiron.functions.myClassName()
@@ -128,7 +129,7 @@ regexp(optional_ctor_param_comments(x_optional_params()),`\(.*\)@param\(.*\)', `
          `,' user.getUid`()'
          `,' user.getPassword`()'
          `,' getTargetIdentifier`()'
-        dnl \\ do something to bring in extra args
+optional_execute_param_instantiations(x_optional_params)
 	`)'
         execute`(pigfunc,requestor,response)';
         return response;
