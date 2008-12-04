@@ -164,10 +164,10 @@ public abstract class FunctionProxy {
      *
      * @return    The long represented by the named input argument
      */ 
-    public String getInputArgumentLong(String formal_name) throws org.json.JSONException {
+    public long getInputArgumentLong(String formal_name) throws org.json.JSONException {
         Argument argument = getInputArgument(formal_name);
-	String string = argument != null ? argument.getLongValue() : "" ;
-        return string;
+	long along = argument != null ? argument.getLongValue() : -1L ;
+        return along;
     }
      
     /**

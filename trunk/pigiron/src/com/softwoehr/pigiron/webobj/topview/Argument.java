@@ -182,6 +182,16 @@ public class Argument extends WebObject {
     public String getStringValue() throws JSONException {
         return getString("value");
     }
+    
+    /**
+     * Get the value if it's a long
+     *
+     * @return                 the value
+     * @throws  JSONException  on JSON err
+     */ 
+    public long getLongValue() throws JSONException {
+        return getLong("value");
+    }
 
     /**
      * Set the string value
