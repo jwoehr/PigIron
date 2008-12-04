@@ -48,6 +48,7 @@ pushdef(`x_comment', $5)dnl
 push_divert(`package_stream')dnl
 package regexp(x_package(),`\(.*\)\.functions',`\1\.webobj\.functions')`;'
 
+import `com.softwoehr.pigiron.webobj.topview.*';
 
 pop_divert()dnl
 /**
@@ -90,87 +91,59 @@ define(`pigfunc_ctors',`dnl
 push_divert(ctor_stream)dnl
 pushdef(`x_optional_params', `$@')dnl
     /**
-     *  Create an instance of the function call with important fields not instanced.
+     *  Create an instance of the call with empty defaults
      */
     public myClassName()`(') {
     }
 
-    public myClassName()`('Requestor requestor, Response response) throws org.json.JSONException {
-        super(requestor,response);
+    /**
+     *  Create an instance of the function`' proxy with requestor and response instanced.
+     *  It will consume the requestor in execution and return the response suitably modified.
+     * `@'param requestor the requestor spawning the instance execution
+     * `@'param response the response to be modified and returned in the execution
+     */
+    public myClassName()`('Requestor requestor`,' Response response`)' throws org.json.JSONException {
+        super`('requestor`,'response`)';
     }
 
     /**
-     * Create an instance with the variables filled in.
-     * @param hostname  VSMAPI Host DNS name
-     * @param port port VSMAPI Host is listening on
-     * @param userid userid executing the function
-     * @param password the password
-     * @param target_identifier the target of the VSMAPI function`'dnl
-optional_ctor_param_comments(x_optional_params())
-     */
-    public myClassName()`('String hostname, int port, String userid, String password, String target_identifier`'optional_ctor_param_args(x_optional_params)`)' {
-        this`(');
-        setHostname`('hostname);
-        setPort`('port);
-        setUserid`('userid);
-        setPassword`('password);
-        setTarget_identifier`('target_identifier);
-optional_ctor_param_instantiations(x_optional_params())    }
-
+     *  Description of the Method
+     *
+     * `@'return                             Description of the Return Value
+     * `@'exception  org.json.JSONException  Description of the Exception
+     *
+     * The PigIron/VSMAPI parameters fed to the instancing within execute`()' are as follows:
+     *   --  hostname  VSMAPI Host DNS name
+     *   --  port port VSMAPI Host is listening on
+     *   --  userid userid executing the function`'
+     *   --  password the password
+     *   --  target_identifier the target of the VSMAPI function`'dnl
+regexp(optional_ctor_param_comments(x_optional_params()),`\(.*\)@param\(.*\)', `\1  --  \2')
+     */ 
+    public Response execute`()' throws org.json.JSONException {
+        com.softwoehr.pigiron.functions.myClassName() pigfunc = new com.softwoehr.pigiron.functions.myClassName()
+	`('
+           getHostSpecifier`()'
+         `,' host.getPortNumber`()'
+         `,' user.getUid`()'
+         `,' user.getPassword`()'
+         `,' getTargetIdentifier`()'
+        dnl \\ do something to bring in extra args
+	`)'
+        execute`(pigfunc,requestor,response)';
+        return response;
+    }
+       
 popdef(`x_optional_params')dnl
 pop_divert()dnl
 ')
 
 \\ pigfunc_constant(`accessor', `type', `name', `initial_value', `comment')
 define(`pigfunc_constant',`dnl
-push_divert(constant_stream)dnl
-    `/**' $5 `*/'
-    $1 `static final' $2 $3 `=' $4`;'
-
-pop_divert()dnl
 ')
 
 \\ pigfunc_attribute(`accessor', `scope', `type', `name', `initial_value', `set_accessor', `comment')
 define(`pigfunc_attribute',`dnl
-push_divert(attribute_stream)dnl
-pushdef(`x_accessor', ifelse($1, `', `private ', $1 ))dnl
-pushdef(`x_scope', ifelse($2, `', `', $2 ))dnl
-pushdef(`x_type', $3)dnl
-pushdef(`x_name', $4)dnl
-pushdef(`x_initial_value', $5)dnl
-pushdef(`x_set_accessor', ifelse($6, `', `public', $6))dnl
-pushdef(`x_comment', $7)dnl
-pushdef(`x_qualified_name', x_accessor()x_scope()x_type() x_name())dnl
-pushdef(`x_get_accessor_name', ifelse(x_type, `boolean', `is_', `get_')`'x_name())dnl
-    `/**' x_comment() `*/'
-    x_qualified_name() `=' x_initial_value()`;'
-
-push_divert(accessor_stream)dnl
-    `/** Set the value of {@code ' x_name() `}.'
-    ` * @param val The value to set {@code ' x_name() `}.'
-    ` */'
-    x_set_accessor() void `set_'x_name()`('x_type() `val'`) {'
-        x_name() = `val;'
-    `}'
-
-    `/** Get the value of {@code ' x_name() `}.'
-    ` * @return The value of {@code ' x_name() `}.'
-    ` */'
-    public x_type() x_get_accessor_name()`() {'
-        return x_name()`;'
-    `}'
-
-pop_divert()dnl
-popdef(`x_get_accessor_name')dnl
-popdef(`x_qualified_name')dnl
-popdef(`x_comment')dnl
-popdef(`x_set_accessor')dnl
-popdef(`x_initial_value')dnl
-popdef(`x_name')dnl
-popdef(`x_type')dnl
-popdef(`x_scope')dnl
-popdef(`x_acessor')dnl
-pop_divert()dnl
 ')
 
 \\ javadoc_args(arg1, arg2, ... argn)
@@ -181,55 +154,10 @@ ifelse($#, 0, , $#, 1, `
 
 \\ pigfunc_function(`accessor', `scope', `return_type', `return_init_expression', `name', `arguments', `throws' `comment', `function_body')
 define(`pigfunc_function',`dnl
-push_divert(function_stream)dnl
-pushdef(`x_accessor', `$1')dnl
-pushdef(`x_scope', `$2')dnl
-pushdef(`x_return_type', `$3')dnl
-pushdef(`x_return_init_expression', `$4')dnl
-pushdef(`x_name', `$5')dnl
-pushdef(`x_arguments', `$6')dnl
-pushdef(`x_throws', `$7')dnl
-pushdef(`x_comment', `$8')dnl
-pushdef(`x_function_body', `$9')dnl
-    `/**'
-x_comment()`'ifelse(x_return_type(), `void', `', `
-     * @return ')
-    ` */'
-    x_accessor() x_scope() x_return_type() x_name()`('x_arguments()`)'ifelse(`x_throws()',`',`',` throws x_throws()') {
-ifelse(x_return_type(), `void', `', `
-        x_return_type() `result = ' x_return_init_expression()`;'')dnl
-ifelse(x_function_body(), `',`dnl
-        /* ... TODO  */',
-        x_function_body())dnl
-ifelse(x_return_type(), `void', `', `
-        return result;')
-    `}'
-dnl
-popdef(`x_function_body')dnl
-popdef(`x_comment')dnl
-popdef(`x_throws')dnl
-popdef(`x_arguments')dnl
-popdef(`x_name')dnl
-popdef(`x_return_init_expression')dnl
-popdef(`x_return_type')dnl
-popdef(`x_scope')dnl
-popdef(`x_accessor')dnl
-pop_divert()dnl
 ')
 
 \\ Create the override of getFunctionName()
 define(`pigfunc_get_function_name',`dnl
-push_divert(get_function_name_stream)dnl
-    /**
-     * Get the formal name of the VSMAPI function.
-     * @return the formal name of the VSMAPI function.
-     */
-    @Override
-    public String getFunctionName`(') {
-        return FUNCTION_NAME;
-    }
-
-pop_divert()dnl
 ')
 
 \\ Close a class definition
@@ -252,99 +180,22 @@ pop_divert()dnl
 
 \\ pigfunc_compose_input_start()
 define(`pigfunc_compose_input_start',`dnl
-push_divert(`compose_in_stream')dnl
-    /**
-     * Marshall parameters for the VSMAPI function call.
-     * "Input" as in "input to VSMAPI".
-     * @return the composed input ParameterArray
-     * @see #composeOutputArray`(')
-     * @see com.softwoehr.pigiron.access.ParameterArray
-     */
-    protected ParameterArray composeInputArray`(') {
-        VSMString tempString = null;
-        ParameterArray parameterArray = new ParameterArray`('`this'`)';
-        tempString = new VSMString`('getFunctionName`('), getFunctionName`('));
-        parameterArray.add`('new VSMInt4`('tempString.paramLength`('), "function_name_length"));
-        parameterArray.add`('tempString);
-        tempString = new VSMString`('getUserid`('), "authenticated_userid");
-        parameterArray.add`('new VSMInt4`('tempString.paramLength`('), "authenticated_userid_length"));
-        parameterArray.add`('tempString);
-        tempString = new VSMString`('getPassword`('), "password");
-        parameterArray.add`('new VSMInt4`('tempString.paramLength`('), "password_length"));
-        parameterArray.add`('tempString);
-pop_divert()dnl
 ')
 
 \\ pigfunc_compose_input_parm(type, value, formal_name)
 define(`pigfunc_compose_input_parm',`dnl
-push_divert(`compose_in_stream')dnl
-pushdef(`x_type', $1)dnl
-pushdef(`x_value', $2)dnl
-pushdef(`x_formal_name', $3)dnl
-ifelse(x_type(),`CountedString',`dnl
-        tempString = new VSMString`('x_value, "x_formal_name()");
-        parameterArray.add`('new VSMInt4`('tempString.paramLength`('), "x_formal_name()_length"));
-        parameterArray.add`('tempString);',`dnl
-        parameterArray.add`('new x_type()`('x_value(), "x_formal_name()"`)'`)';dnl
-')
-popdef(`x_formal_name')dnl
-popdef(`x_value')dnl
-popdef(`x_type')dnl
-pop_divert()dnl
 ')
 
 \\ pigfunc_compose_optional_input_parm(type, value, formal_name)
 define(`pigfunc_compose_optional_input_parm',`dnl
-push_divert(`compose_in_stream')dnl
-pushdef(`x_type', $1)dnl
-pushdef(`x_value', $2)dnl
-pushdef(`x_formal_name', $3)dnl
-pushdef(`optional_formal_name',`optional_'x_formal_name)dnl
-pigfunc_attribute(`public', `', `boolean', `optional_'x_formal_name, `true', `', `true means optional param will be used in VSMAPI function input')dnl
-        if (`is_'optional_formal_name`(')) { // Only add if optional param is designated in use by `set_'optional_formal_name`'()
-ifelse(x_type(),`CountedString',`dnl
-            tempString = new VSMString`('x_value, "x_formal_name()");
-            parameterArray.add`('new VSMInt4`('tempString.paramLength`('), "x_formal_name()_length"));
-            parameterArray.add`('tempString);',`dnl
-            parameterArray.add`('new x_type()`('x_value(), "x_formal_name()"`)';)
-')
-        }
-popdef(`optional_formal_name')dnl
-popdef(`x_formal_name')dnl
-popdef(`x_value')dnl
-popdef(`x_type')dnl
-pop_divert()dnl
 ')
 
 \\ pigfunc_compose_input_end()
 define(`pigfunc_compose_input_end',`dnl
-push_divert(`compose_in_stream')dnl
-        VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
-        parameterArray.insertElementAt(outputLength, 0);
-        setInParams(parameterArray);
-        return parameterArray;
-    }
-
-pop_divert()dnl
 ')
 
 \\ pigfunc_compose_output_start()
 define(`pigfunc_compose_output_start',`dnl
-push_divert(`compose_out_stream')dnl
-    /**
-     * Marshall parameters for the return of the VSMAPI function call.
-     * "output" as in "output from VSMAPI"
-     * @return the composed output ParameterArray
-     * @see #composeInputArray()
-     * @see com.softwoehr.pigiron.access.ParameterArray
-     */
-    protected ParameterArray composeOutputArray() {
-        ParameterArray parameterArray = new ParameterArray`('`this'`)';
-        parameterArray.add(new VSMInt4(-1, "request_id_immediate"));
-        parameterArray.add(new VSMInt4(-1, "output_length"));
-        parameterArray.add(new VSMInt4(-1, "request_id"));
-        parameterArray.add(new VSMInt4(-1, "return_code"));
-        parameterArray.add(new VSMInt4(-1, "reason_code"));
 pop_divert()dnl
 ')
 
@@ -355,31 +206,10 @@ define(`is_type_named_array',`regexp(`$1',`Array$')')
 
 \\ pigfunc_compose_output_parm(type, value, formal_name)
 define(`pigfunc_compose_output_parm',`dnl
-push_divert(`compose_out_stream')dnl
-pushdef(`x_type', $1)dnl
-pushdef(`x_value', $2)dnl
-pushdef(`x_formal_name', $3)dnl
-ifelse(is_type_named_array(x_type),-1,`dnl
-ifelse(x_type(),`CountedString',`dnl
-        parameterArray.add`('new VSMInt4`('`-1', "x_formal_name()`_length'"`)'`)';
-        parameterArray.add`('new VSMString`('x_value(), "x_formal_name()"));',`dnl
-        parameterArray.add`('new x_type()(x_value(), "x_formal_name()"));')',`dnl
-        parameterArray.add`('x_type()`.modelArray'`('"x_formal_name()"));dnl
-')
-popdef(`x_formal_name')dnl
-popdef(`x_value')dnl
-popdef(`x_type')dnl
-pop_divert()dnl
 ')
 
 \\ pigfunc_compose_output_end()
 define(`pigfunc_compose_output_end',`dnl
-push_divert(`compose_out_stream')dnl
-        setOutParams(parameterArray);
-        return parameterArray;
-    }
-
-pop_divert()dnl
 ')
 
 \\ End definitions
