@@ -186,7 +186,7 @@ public class Argument extends WebObject {
     /**
      * Set the string value
      *
-     * @param  Object           the value
+     * @param  value           the value
      * @throws  JSONException  on JSON err
      */ 
     public void setValue(Object value) throws JSONException {
