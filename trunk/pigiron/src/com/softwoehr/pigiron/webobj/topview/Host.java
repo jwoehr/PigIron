@@ -48,7 +48,7 @@ public class Host extends WebObject {
      *  A Vector of the JSON keys (names) that are valid for
      * a given WebObject extender
      */ 
-    private Vector <String> names = setNames(new String []{"name" ,"dns_name" ,"ip_addr" ,"port_number"}); 
+    private Vector <String> names = setNames(new String []{"name" ,"dns_name" ,"ip_address" ,"port_number"}); 
     
     /**
      *  Get the array of JSON keys (names) that are valid for
@@ -87,17 +87,17 @@ public class Host extends WebObject {
      *
      * @param  name
      * @param  dns_name
-     * @param  ip_addr
+     * @param  ip_address
      * @param  port_number
      * @exception  JSONException  Description of the Exception
      * @throws  JSONException
      */ 
-    public Host(String name, String dns_name, String ip_addr, int port_number) throws JSONException {
+    public Host(String name, String dns_name, String ip_address, int port_number) throws JSONException {
         super();
-	// /* Debug */  System.err.println("Host ctor, dns_name: " + dns_name + " ip_addr : " + ip_addr);
+	// /* Debug */  System.err.println("Host ctor, dns_name: " + dns_name + " ip_address : " + ip_address);
         setName(name);
         setDnsName(dns_name);
-        setIpAddr(ip_addr);
+        setIpAddress(ip_address);
         setPortNumber(port_number);
     }
 
@@ -122,7 +122,7 @@ public class Host extends WebObject {
     public Host(JSONObject anHost) throws JSONException {
 	// this(anHost.toString());
 	// super(anHost, getNames());
-	super(anHost, new String [] {"name" ,"dns_name" ,"ip_addr" ,"port_number"});
+	super(anHost, new String [] {"name" ,"dns_name" ,"ip_address" ,"port_number"});
         // super(anHost);
 	// /* Debug */ System.out.println("anHost in Host(JSONObject anHost): " + anHost);
 	// /* Debug */ System.out.println("this in Host(JSONObject anHost): " + this);
@@ -167,8 +167,8 @@ public class Host extends WebObject {
      * @exception  JSONException        Description of the Exception
      * @throws  org.json.JSONException  on JSON err
      */ 
-    public String getIpAddr() throws JSONException {
-        return getString("ip_addr");
+    public String getIpAddress() throws JSONException {
+        return getString("ip_address");
     }
 
     /**
@@ -195,11 +195,11 @@ public class Host extends WebObject {
     /**
      * set Ip Addr
      *
-     * @param  ip_addr
+     * @param  ip_address
      * @throws  JSONException  on JSON err
      */ 
-    public void setIpAddr(String ip_addr) throws JSONException {
-        put("ip_addr", ip_addr);
+    public void setIpAddress(String ip_address) throws JSONException {
+        put("ip_address", ip_address);
     }
 
     /**
