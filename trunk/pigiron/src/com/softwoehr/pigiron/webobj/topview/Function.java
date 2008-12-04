@@ -109,7 +109,7 @@ public class Function extends WebObject {
      * from another Function object
      *
      * @param  function           another instance whose values are copied to this
-     * @exception  JSONException  Description of the Exception
+     * @exception  JSONException  on JSON err
      */ 
     public Function(Function function) throws JSONException {
         super(function);
@@ -119,8 +119,8 @@ public class Function extends WebObject {
      * Create a JSON map of a PigIron VSMAPI function
      * from a like JSONObject using only the members constrained
      *
-     * @param  function           another instance  as a JSONObject
-     * @exception  JSONException  Description of the Exception
+     * @param  jsonObject          another instance as a JSONObject
+     * @exception  JSONException  on JSON err
      */ 
     public Function(JSONObject jsonObject) throws JSONException {
         super(jsonObject, new String []{"function_name" ,"input_arguments" ,"output_arguments" ,"return_code" ,"result_code" ,"request_id"});
@@ -128,11 +128,10 @@ public class Function extends WebObject {
 
     /**
      * Create a JSON map of a PigIron VSMAPI function
-     * from a JSON String importing only those keyvals we care about.
-     * Silently discards unrecognized key/value pairs.
+     * from a hopefully apropos JSON String. 
      *
      * @param  jsonText           text in JSON that ought to be a Function
-     * @exception  JSONException  Description of the Exception
+     * @exception  JSONException  on JSON err
      */ 
     public Function(String jsonText) throws JSONException {
         super(new JSONObject(jsonText));
@@ -141,7 +140,7 @@ public class Function extends WebObject {
     /**
      * Init some output fields with defaults.
      *
-     * @exception  JSONException  Description of the Exception
+     * @exception  JSONException  on JSON err
      */ 
     private void initDefaults() throws JSONException {
         put("function_name", "");
@@ -156,7 +155,7 @@ public class Function extends WebObject {
      *  Accessor to attributes associated with VSMAPI function
      *
      * @return                    function_name
-     * @exception  JSONException  Description of the Exception
+     * @exception  JSONException  on JSON err
      */ 
     public String get_function_name() throws JSONException {
         return getString("function_name");
@@ -166,7 +165,7 @@ public class Function extends WebObject {
      *  Accessor to attributes associated with VSMAPI function
      *
      * @return                    input_arguments
-     * @exception  JSONException  Description of the Exception
+     * @exception  JSONException  on JSON err
      */ 
     public InputArgumentArray get_input_arguments() throws JSONException {
 	InputArgumentArray result = null;
@@ -180,7 +179,7 @@ public class Function extends WebObject {
      *  Accessor to attributes associated with VSMAPI function
      *
      * @return                    output_arguments
-     * @exception  JSONException  Description of the Exception
+     * @exception  JSONException  on JSON err
      */ 
     public OutputArgumentArray get_output_arguments() throws JSONException {
         OutputArgumentArray result = null;
@@ -194,7 +193,7 @@ public class Function extends WebObject {
      *  Accessor to attributes associated with VSMAPI function
      *
      * @return                    return_code
-     * @exception  JSONException  Description of the Exception
+     * @exception  JSONException  on JSON err
      */ 
     public int get_return_code() throws JSONException {
         return getInt("return_code");
@@ -204,7 +203,7 @@ public class Function extends WebObject {
      *  Accessor to attributes associated with VSMAPI function
      *
      * @return                    result_code
-     * @exception  JSONException  Description of the Exception
+     * @exception  JSONException  on JSON err
      */ 
     public int get_result_code() throws JSONException {
         return getInt("result_code");
@@ -214,7 +213,7 @@ public class Function extends WebObject {
      *  Accessor to attributes associated with VSMAPI function
      *
      * @return                    request_id
-     * @exception  JSONException  Description of the Exception
+     * @exception  JSONException  on JSON err
      */ 
     public int get_request_id() throws JSONException {
         return getInt("request_id");
