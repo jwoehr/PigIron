@@ -63,7 +63,6 @@ public class ImageCPUQuery extends FunctionProxy {
      * @exception  org.json.JSONException  Description of the Exception
      */ 
     public Response execute() throws org.json.JSONException {
-
         com.softwoehr.pigiron.functions.ImageCPUQuery pigfunc = new com.softwoehr.pigiron.functions.ImageCPUQuery(getHostSpecifier(), host.getPortNumber(), user.getUid(), user.getPassword(), getTargetIdentifier());
         execute(pigfunc,requestor,response);
         return response;
