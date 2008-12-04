@@ -86,7 +86,6 @@ public abstract class FunctionProxy {
      */ 
     public FunctionProxy(Requestor requestor, Response response) throws org.json.JSONException {
         assimilate(requestor,response);
-	 // /* Debug */ System.err.println("Leaving FunctionProxy(Requestor" + requestor + ", Response " + response + ")");
     }
 
     /**
@@ -106,16 +105,13 @@ public abstract class FunctionProxy {
      * @exception  org.json.JSONException  on JSON err
      */ 
     public void assimilate(Requestor requestor, Response response) throws org.json.JSONException {
-        // /* Debug */ System.err.println("starting assimilate");
         this.requestor = requestor;
         this.response = response;
         host = requestor.getHost();
-	// /* Debug */ System.err.println("got host in assimilate: " + host );
         function = requestor.getFunction();
         user = requestor.getUser();
         inArray = function.get_input_arguments();
         outArray = function.get_output_arguments();
-        // /* Debug */ System.err.println("Ending assimilate"); 
     }
 
     /**
@@ -130,13 +126,8 @@ public abstract class FunctionProxy {
              Response response) throws org.json.JSONException {
 
         try {
-            // /* Debug */ System.err.println("Requestor in FunctionProxy.execute() : " + requestor);
-            // /* Debug */ System.err.println("Response in FunctionProxy.execute() : " + response);
             Function f = requestor.getFunction();
- 
-            // /* Debug */ System.err.println("Function in FunctionProxy.execute() : " + f);
             ParameterArray pA = pigfunc.doIt();
-            // /* Debug */ System.err.println(pA.prettyPrintAll());
             f.put("output_arguments", OutputArgumentArray.from(pA));
             requestor.setFunction(f);
             response.setRequestor(requestor);
