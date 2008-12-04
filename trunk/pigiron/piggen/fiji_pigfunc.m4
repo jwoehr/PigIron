@@ -1,7 +1,7 @@
 divert(-1)
 changecom(`\\\\')
-\\ pigfunc.m4
-\\   Macros to autogenerate Java code for PigIron parameters
+\\ fiji_pigfunc.m4
+\\   Macros to autogenerate FIJI code for PigIron parameters
 \\   Copyright *C* 1999, 2001, 2008 Jack J. Woehr
 \\   Part of the PigIron Project http://pigiron.sourceforge.net
 \\   jwoehr@softwoehr.com
