@@ -84,8 +84,8 @@ public abstract class FunctionProxy {
      * @param  response                    the response to be returned
      * @exception  org.json.JSONException  Description of the Exception
      */ 
-    public FunctionProxy(Requestor requestor, Response response) throws org.json.JSONException {
-
+    public FunctionProxy(Requestor requestor,
+             Response response) throws org.json.JSONException {
         assimilate(requestor,response);
     }
 
@@ -105,16 +105,19 @@ public abstract class FunctionProxy {
      * @param  response                    the response to be returned
      * @exception  org.json.JSONException  on JSON err
      */ 
-    public void assimilate(Requestor requestor, Response response) throws org.json.JSONException {
+    public void assimilate(Requestor requestor,
+             Response response) throws org.json.JSONException {
+
         this.requestor = requestor;
         this.response = response;
-        host = requestor.getHost();
-        function = requestor.getFunction();
-        user = requestor.getUser();
-        inArray = function.get_input_arguments();
-        outArray = function.get_output_arguments();
+        if (requestor != null) {
+            host = requestor.getHost();
+            function = requestor.getFunction();
+            user = requestor.getUser();
+            inArray = function.get_input_arguments();
+            outArray = function.get_output_arguments();
+        }
     }
-
 
     /**
      *  Gets the host specifier: either the dns name or the ip address. If both
@@ -122,7 +125,7 @@ public abstract class FunctionProxy {
      *
      * @return    The hostSpecifier value (either the dns name or the dotted ip address)
      */ 
-    protected String getHostSpecifier() throws org.json.JSONException {
+    public String getHostSpecifier() throws org.json.JSONException {
         String host_specifier = null;
         if (host != null) {
             host_specifier = host.getDnsName();
@@ -130,19 +133,51 @@ public abstract class FunctionProxy {
                 host_specifier = host.getIpAddress();
             }
         }
-	return host_specifier;
+        return host_specifier;
+    }
+ 
+    /**
+     *  Gets the input argument from the input argument array by formal name.
+     *
+     * @return    Argument encapsulating the named input argument
+     */ 
+    public Argument getInputArgument(String formal_name) throws org.json.JSONException {
+        Argument argument = inArray != null ? inArray.argumentNamed(formal_name) : null;
+        return argument;
     }
     
+    /**
+     *  Gets the string represented by an Argument in the input argument array (assuming
+     * that argument represents a string).
+     *
+     * @return    The string represented by the named input argument
+     */ 
+    public String getInputArgumentString(String formal_name) throws org.json.JSONException {
+        Argument argument = getInputArgument(formal_name);
+	String string = argument != null ? argument.getStringValue() : "" ;
+        return string;
+    }
+    
+    /**
+     *  Gets the long represented by an Argument in the input argument array (assuming
+     * that argument represents a string).
+     *
+     * @return    The long represented by the named input argument
+     */ 
+    public String getInputArgumentLong(String formal_name) throws org.json.JSONException {
+        Argument argument = getInputArgument(formal_name);
+	String string = argument != null ? argument.getLongValue() : "" ;
+        return string;
+    }
+     
     /**
      *  Gets the target identifier. Usually we have the extender fetch things from the
      * input args but this one is so common (all VSMAPI functions but one).
      *
      * @return    The Target Identifier value (much-used param)
      */ 
-    protected String getTargetIdentifier() throws org.json.JSONException {
-	Argument target_id_arg = inArray != null ? inArray.argumentNamed("target_identifier") : null;
-	String target_identifier = target_id_arg != null ? target_id_arg.getStringValue() : "" ;
-	return target_identifier;
+    public String getTargetIdentifier() throws org.json.JSONException {
+	return getInputArgumentString("target_identifier");
     }
 
     /**
@@ -153,8 +188,7 @@ public abstract class FunctionProxy {
      * @param  pigfunc                     Description of the Parameter
      * @exception  org.json.JSONException  on JSON err
      */ 
-    public static void execute(VSMCall pigfunc, Requestor requestor,
-             Response response) throws org.json.JSONException {
+    public static void execute(VSMCall pigfunc, Requestor requestor, Response response) throws org.json.JSONException {
         try {
             Function f = requestor.getFunction();
             ParameterArray pA = pigfunc.doIt();
@@ -163,7 +197,9 @@ public abstract class FunctionProxy {
             response.setRequestor(requestor);
             VSMInt4 rc_int4 = VSMInt4 .class.cast(pA.parameterNamed("return_code"));
             VSMInt4 reason_int4 = VSMInt4 .class.cast(pA.parameterNamed("reason_code"));
-            response.setMessageText(VsmapiRC.prettyPrint(rc_int4.getValue(), reason_int4.getValue(), pigfunc).replace("\n", " ; "));
+            response.setMessageText(VsmapiRC.prettyPrint(rc_int4.getValue(),
+                     reason_int4.getValue(), pigfunc).replace("\n", " ; "));
+
 
             long rc = rc_int4.getLongValue();
             if (rc == 0) {
