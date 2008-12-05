@@ -49,7 +49,7 @@ import java.util.logging.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import org.json.JSONArray;
 
 /**
  * Represents an argument to a VSMAPI function
@@ -123,6 +123,19 @@ public class Argument extends WebObject {
         this();
         setFormalName(formal_name);
         setValue(jsonObj);
+    }
+    
+    /**
+     *Constructor for the Argument from a JSONArray
+     *
+     * @param formal_name      the PigIron VSMAPI formal parameter name
+     * @param  jsonArray        the Array to become the value of the param
+     * @exception  JSONException  on JSON err
+     */ 
+    public Argument(String formal_name, JSONArray jsonArray) throws JSONException {
+        this();
+        setFormalName(formal_name);
+        setValue(jsonArray);
     }
 
     /**
@@ -347,13 +360,14 @@ public class Argument extends WebObject {
      */ 
     public static Argument from(VSMArray vsmArray) throws JSONException {
         Argument result = null;
-        JSONObject jo = new JSONObject();
+        JSONArray ja = new JSONArray();
         Iterator <VSMParm> it = vsmArray.iterator();
+	int i = 0;
         while (it.hasNext()) {
             Argument a = Argument.from(it.next());
-            jo.put(a.getFormalName(), a);
+            ja.put(a);
         }
-        result = new Argument(vsmArray.getFormalName(), jo);
+        result = new Argument(vsmArray.getFormalName(), ja);
         return result;
     }
 
@@ -366,13 +380,14 @@ public class Argument extends WebObject {
      */ 
     public static Argument from(VSMAsciiZArray vsmAsciiZArray) throws JSONException {
         Argument result = null;
-        JSONObject jo = new JSONObject();
+        JSONArray ja = new JSONArray();
         Iterator <VSMParm> it = vsmAsciiZArray.iterator();
+	int i = 0;
         while (it.hasNext()) {
             Argument a = Argument.from(it.next());
-            jo.put(a.getFormalName(), a);
+            ja.put(a);
         }
-        result = new Argument(vsmAsciiZArray.getFormalName(), jo);
+        result = new Argument(vsmAsciiZArray.getFormalName(), ja);
         return result;
     }
 
