@@ -126,7 +126,7 @@ public class FunctionTable {
         // functions.put("SharedMemoryAccessRemoveDM", SharedMemoryAccessRemoveDM.class);
         // functions.put("SharedMemoryCreate", SharedMemoryCreate.class);
         // functions.put("SharedMemoryDelete", SharedMemoryDelete.class);
-        // functions.put("SharedMemoryQuery", SharedMemoryQuery.class);
+        functions.put("SharedMemoryQuery", SharedMemoryQuery.class);
         // functions.put("SharedMemoryReplace", SharedMemoryReplace.class);
         // functions.put("StaticImageChangesActivateDM", StaticImageChangesActivateDM.class);
         // functions.put("StaticImageChangesDeactivateDM", StaticImageChangesDeactivateDM.class);
