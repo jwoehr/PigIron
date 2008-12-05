@@ -53,7 +53,7 @@ import `com.softwoehr.pigiron.webobj.topview.functions.FunctionProxy';
 
 pop_divert()dnl
 /**
- * Proxy function class to bridge JSON to PigIron
+ * Proxy `function' class to bridge JSON to PigIron
  *
  */
 public class x_name() extends FunctionProxy {
@@ -100,10 +100,10 @@ pushdef(`x_optional_params', `$@')dnl
     // public myClassName()`('`)' { super`('`)'; }
 
     /**
-     *  Create an instance of the function`' proxy with requestor and response instanced.
-     *  It will consume the requestor in execution and return the response suitably modified.
-     * `@'param requestor the requestor spawning the instance execution
-     * `@'param response the response to be modified and returned in the execution
+     * Create an instance of the function`' proxy with requestor and response instanced.
+     * It will consume the requestor in execution and return the response suitably modified.
+     * @param requestor the requestor spawning the instance execution
+     * @param response the response to be modified and returned in the execution
      */
     public myClassName()`('Requestor requestor`,' Response response`)' throws org.json.JSONException {
         super`('requestor`,'response`)';
@@ -200,7 +200,6 @@ define(`pigfunc_compose_input_end',`dnl
 
 \\ pigfunc_compose_output_start()
 define(`pigfunc_compose_output_start',`dnl
-pop_divert()dnl
 ')
 
 \\ Recognize that a type ends in the string `Array' and treat
