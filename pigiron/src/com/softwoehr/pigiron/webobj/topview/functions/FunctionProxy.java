@@ -86,6 +86,7 @@ public abstract class FunctionProxy {
      */ 
     public FunctionProxy(Requestor requestor,
              Response response) throws org.json.JSONException {
+
         assimilate(requestor,response);
     }
 
@@ -107,7 +108,6 @@ public abstract class FunctionProxy {
      */ 
     public void assimilate(Requestor requestor,
              Response response) throws org.json.JSONException {
-
         this.requestor = requestor;
         this.response = response;
         if (requestor != null) {
@@ -123,7 +123,8 @@ public abstract class FunctionProxy {
      *  Gets the host specifier: either the dns name or the ip address. If both
      * are present, the dns name is picked.
      *
-     * @return    The hostSpecifier value (either the dns name or the dotted ip address)
+     * @return                             The hostSpecifier value (either the dns name or the dotted ip address)
+     * @exception  org.json.JSONException  Description of the Exception
      */ 
     public String getHostSpecifier() throws org.json.JSONException {
         String host_specifier = null;
@@ -135,49 +136,74 @@ public abstract class FunctionProxy {
         }
         return host_specifier;
     }
- 
+
     /**
      *  Gets the input argument from the input argument array by formal name.
      *
-     * @return    Argument encapsulating the named input argument
+     * @param  formal_name                 Description of the Parameter
+     * @return                             Argument encapsulating the named input argument
+     * @exception  org.json.JSONException  Description of the Exception
      */ 
     public Argument getInputArgument(String formal_name) throws org.json.JSONException {
         Argument argument = inArray != null ? inArray.argumentNamed(formal_name) : null;
         return argument;
     }
-    
+
     /**
      *  Gets the string represented by an Argument in the input argument array (assuming
      * that argument represents a string).
      *
-     * @return    The string represented by the named input argument
+     * @param  formal_name                 Description of the Parameter
+     * @return                             The string represented by the named input argument
+     * @exception  org.json.JSONException  Description of the Exception
      */ 
     public String getInputArgumentString(String formal_name) throws org.json.JSONException {
         Argument argument = getInputArgument(formal_name);
-	String string = argument != null ? argument.getStringValue() : "" ;
+        String string = argument != null ? argument.getStringValue() : "";
         return string;
     }
-    
+
     /**
      *  Gets the long represented by an Argument in the input argument array (assuming
      * that argument represents a string).
      *
-     * @return    The long represented by the named input argument
+     * @param  formal_name                 Description of the Parameter
+     * @return                             The long represented by the named input argument
+     * @exception  org.json.JSONException  Description of the Exception
      */ 
     public long getInputArgumentLong(String formal_name) throws org.json.JSONException {
         Argument argument = getInputArgument(formal_name);
-	long along = argument != null ? argument.getLongValue() : -1L ;
+        long along = argument != null ? argument.getLongValue() : - 1L;
         return along;
     }
-     
+
+
+    /**
+     *  Gets the inputArgumentObject attribute of the FunctionProxy object
+     *
+     * @param  classNameForLookup  Description of the Parameter
+     * @param  formal_name         Description of the Parameter
+     * @return                     The inputArgumentObject value
+     */ 
+    public Object getInputArgumentObject(String classNameForLookup, String formal_name) {
+        Object o = null;
+        // This doesn't work, just a placeholder for compilation until autogen proxy Paramstructs done
+        try {
+            o = Class.forName(classNameForLookup);
+        } catch (java.lang.ClassNotFoundException ex) {
+        }
+        return o;
+    }
+
     /**
      *  Gets the target identifier. Usually we have the extender fetch things from the
      * input args but this one is so common (all VSMAPI functions but one).
      *
-     * @return    The Target Identifier value (much-used param)
+     * @return                             The Target Identifier value (much-used param)
+     * @exception  org.json.JSONException  Description of the Exception
      */ 
     public String getTargetIdentifier() throws org.json.JSONException {
-	return getInputArgumentString("target_identifier");
+        return getInputArgumentString("target_identifier");
     }
 
     /**
