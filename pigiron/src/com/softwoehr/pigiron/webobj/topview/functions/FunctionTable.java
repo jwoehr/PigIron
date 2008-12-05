@@ -33,6 +33,12 @@ package com.softwoehr.pigiron.webobj.topview.functions;
 
 import java.util.Hashtable;
 
+/**
+ * FunctionTable is static representation of mapping between strings found in the function_name field
+ * of the Function JSON object in the Requestor and the proxy functions we use to bind a JSON
+ * request to a PigIron VSMAPI call.
+ *
+ */
 public class FunctionTable {
      static public final Hashtable<String, Class<? extends FunctionProxy>> functions;
 
@@ -154,6 +160,12 @@ public class FunctionTable {
         // functions.put("VMRMMeasurementQuery", VMRMMeasurementQuery.class);
     }
     
+    /**
+     * Get by JSON string name the FunctionProxy class object suitable for newInstance() by Engine
+     * 
+     * @param key the name of the function in PigIron as received by the Engine in a JSON string.
+     * @return class object or null
+     */
     public static Class<? extends FunctionProxy> get(String key) {
 	return functions.get(key);
     }
