@@ -82,7 +82,10 @@ ifelse(eval($# >= 3), 0, , eval($# == 3), 1, `,' ``$1' `$2'', `,' ``$1' `$2'opti
 \\ gen_opt_param_spec(type,name)
 define(`gen_opt_param_spec',`dnl
 ifelse($1,`String',`getInputArgumentString`('"$2"`)'',`dnl
-ifelse($1,`int',`getInputArgumentLong`('"$2"`)'')')')
+ifelse($1,`int',``('int`)'getInputArgumentLong`('"$2"`)'',`dnl
+ifelse($1,`long',`getInputArgumentLong`('"$2"`)'',`dnl
+com.softwoehr.pigiron.access.paramstructs.$1.class.cast`('getInputArgumentObject`('"$1","$2"`)'`)'')')')
+')
 
 \\ optional_execute_param_instantiations(type, name, instance, t, n, i ...)
 \\ Because instancing in the execute can have many args.
