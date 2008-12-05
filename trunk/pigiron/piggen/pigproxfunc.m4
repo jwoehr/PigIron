@@ -80,7 +80,9 @@ define(`optional_ctor_param_args',`dnl
 ifelse(eval($# >= 3), 0, , eval($# == 3), 1, `,' ``$1' `$2'', `,' ``$1' `$2'optional_ctor_param_args(shift(shift(shift($@))))')')
 
 \\ gen_opt_param_spec(type,name)
-define(`gen_opt_param_spec',`getInputArgumentString`('"$2"`)'')
+define(`gen_opt_param_spec',`dnl
+ifelse($1,`String',`getInputArgumentString`('"$2"`)'',`dnl
+ifelse($1,`int',`getInputArgumentLong`('"$2"`)'')')')
 
 \\ optional_execute_param_instantiations(type, name, instance, t, n, i ...)
 \\ Because instancing in the execute can have many args.
