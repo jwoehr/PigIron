@@ -87,8 +87,9 @@ ifelse($1,`int',`getInputArgumentLong`('"$2"`)'')')')
 \\ optional_execute_param_instantiations(type, name, instance, t, n, i ...)
 \\ Because instancing in the execute can have many args.
 define(`optional_execute_param_instantiations',`dnl
-ifelse(eval($# >= 3), 0, , eval($# > 3), 1, `          `,' gen_opt_param_spec($1,$2)
-',`         `,' gen_opt_param_spec($1,$2)`'dnl
+ifelse(eval($# >= 3), 0, , eval($# == 3), 1, `
+         `,' gen_opt_param_spec($1,$2)',`
+         `,' gen_opt_param_spec($1,$2)`'dnl
 optional_execute_param_instantiations(shift(shift(shift($@))))')dnl
 ')
 
@@ -133,7 +134,7 @@ optional_execute_param_comments(x_optional_params())
          `,' host.getPortNumber`()'
          `,' user.getUid`()'
          `,' user.getPassword`()'
-         `,' getTargetIdentifier`()'
+         `,' getTargetIdentifier`()'dnl
 optional_execute_param_instantiations(x_optional_params)
 	`);'
         execute`(pigfunc,requestor,response)';
