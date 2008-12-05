@@ -78,14 +78,11 @@ public class Engine {
         String jsonErr = "";
         try {
             response = new Response(requestor);
-	    // /* Debug */ System.err.println("Response in Response.execute is: " + response);
             function = requestor.getFunction();
             functionName = function.get_function_name();
-            // /* Debug */ System.err.println("Function name in execute is: " + functionName);
             try {
                 if (functionName != null) {
                     Class <? extends FunctionProxy> functionProxy = FunctionTable.get(functionName);
-                    // /* Debug */ System.err.println("Class in execute is: " + functionProxy);
                     if (functionProxy != null) {
                         Constructor ctor = functionProxy.getConstructor(new Class [] { Requestor .class , Response .class});
                         FunctionProxy proxy = FunctionProxy .class.cast(ctor.newInstance(new Object [] { requestor,response}));
