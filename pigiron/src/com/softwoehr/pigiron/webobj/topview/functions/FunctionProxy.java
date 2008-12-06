@@ -177,8 +177,8 @@ public abstract class FunctionProxy {
      */ 
     public long getInputArgumentLong(String formal_name) throws org.json.JSONException {
         Argument argument = getInputArgument(formal_name);
-        long along = argument != null ? argument.getLongValue() : - 1L;
-        return along;
+        long along = argument != null ? argument.getLongValue() : - 1L; // This is the "unspecified" value of VSMInt8 and VSMInt4
+        return along;                                                   // but not of VSMInt1!
     }
 
     /**

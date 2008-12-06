@@ -207,6 +207,26 @@ public class Argument extends WebObject {
     }
 
     /**
+     * Get the value if it's a JSONArray
+     *
+     * @return                 the value
+     * @throws  JSONException  on JSON err
+     */ 
+    public JSONArray getJSONArrayValue() throws JSONException {
+        return getJSONArray("value");
+    }
+
+    /**
+     * Get the value if it's a JSONObject
+     *
+     * @return                 the value
+     * @throws  JSONException  on JSON err
+     */ 
+    public JSONObject getJSONObjectValue() throws JSONException {
+        return 	getJSONObject("value");
+    }
+    
+    /**
      * Set the string value
      *
      * @param  value           the value
