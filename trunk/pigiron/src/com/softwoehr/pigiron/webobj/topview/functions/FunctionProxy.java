@@ -31,12 +31,17 @@
  */
 package com.softwoehr.pigiron.webobj.topview.functions;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.softwoehr.pigiron.functions.VSMCall;
 import com.softwoehr.pigiron.access.ParameterArray;
 import com.softwoehr.pigiron.access.VSMException;
+import com.softwoehr.pigiron.access.VSMParm;
 import com.softwoehr.pigiron.access.VSMInt4;
 import com.softwoehr.pigiron.bizobj.VsmapiRC;
 import com.softwoehr.pigiron.webobj.topview.*;
+import com.softwoehr.pigiron.webobj.topview.paramstructs.ParamProxy;
 
 /**
  *  The abstract parent of all our function proxies that take
@@ -86,7 +91,6 @@ public abstract class FunctionProxy {
      */ 
     public FunctionProxy(Requestor requestor,
              Response response) throws org.json.JSONException {
-
         assimilate(requestor,response);
     }
 
@@ -177,7 +181,23 @@ public abstract class FunctionProxy {
         return along;
     }
 
+    /**
+     *  Gets the inputArgumentObject attribute of the FunctionProxy object
+     *
+     * @param  classNameForLookup  Description of the Parameter
+     * @param  formal_name         Description of the Parameter
+     * @return                     The inputArgumentObject value
 
+    public VSMParm getInputArgumentObject(String classNameForLookup, String formal_name) throws org.json.JSONException {
+        VSMParm o = null;
+        try {
+           o = getInputArgumentObject((Class<? extends ParamProxy>)Class.forName(classNameForLookup), formal_name);
+        } catch (java.lang.ClassNotFoundException ex) {
+	   Logger.getLogger(FunctionProxy.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return o;
+    }     */ 
+ 
     /**
      *  Gets the inputArgumentObject attribute of the FunctionProxy object
      *
@@ -185,12 +205,16 @@ public abstract class FunctionProxy {
      * @param  formal_name         Description of the Parameter
      * @return                     The inputArgumentObject value
      */ 
-    public Object getInputArgumentObject(String classNameForLookup, String formal_name) {
-        Object o = null;
-        // This doesn't work, just a placeholder for compilation until autogen proxy Paramstructs done
-        try {
-            o = Class.forName(classNameForLookup);
-        } catch (java.lang.ClassNotFoundException ex) {
+    public VSMParm getInputArgumentObject(Class <? extends ParamProxy> c, String formal_name) throws org.json.JSONException {
+	VSMParm o = null;
+	try {
+           o = c.newInstance().from(getInputArgument(formal_name));
+	} 
+	catch (java.lang.InstantiationException ex) {
+	   Logger.getLogger(FunctionProxy.class.getName()).log(Level.SEVERE, null, ex);
+        }
+	catch (java.lang.IllegalAccessException ex) {
+	   Logger.getLogger(FunctionProxy.class.getName()).log(Level.SEVERE, null, ex);
         }
         return o;
     }
@@ -215,6 +239,7 @@ public abstract class FunctionProxy {
      * @exception  org.json.JSONException  on JSON err
      */ 
     public static void execute(VSMCall pigfunc, Requestor requestor, Response response) throws org.json.JSONException {
+
         try {
             Function f = requestor.getFunction();
             ParameterArray pA = pigfunc.doIt();
@@ -225,7 +250,6 @@ public abstract class FunctionProxy {
             VSMInt4 reason_int4 = VSMInt4 .class.cast(pA.parameterNamed("reason_code"));
             response.setMessageText(VsmapiRC.prettyPrint(rc_int4.getValue(),
                      reason_int4.getValue(), pigfunc).replace("\n", " ; "));
-
 
             long rc = rc_int4.getLongValue();
             if (rc == 0) {
