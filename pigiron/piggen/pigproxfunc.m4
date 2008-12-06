@@ -84,7 +84,7 @@ define(`gen_opt_param_spec',`dnl
 ifelse($1,`String',`getInputArgumentString`('"$2"`)'',`dnl
 ifelse($1,`int',``('int`)'getInputArgumentLong`('"$2"`)'',`dnl
 ifelse($1,`long',`getInputArgumentLong`('"$2"`)'',`dnl
-com.softwoehr.pigiron.access.paramstructs.$1.class.cast`('getInputArgumentObject`('"$1","$2"`)'`)'')')')
+com.softwoehr.pigiron.access.paramstructs.$1.class.cast`('getInputArgumentObject`('com.softwoehr.pigiron.webobj.topview.paramstructs.$1.class,"$2"`)'`)'')')')dnl
 ')
 
 \\ optional_execute_param_instantiations(type, name, instance, t, n, i ...)
