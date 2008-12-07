@@ -181,29 +181,30 @@ public abstract class FunctionProxy {
         return along;                                                   // but not of VSMInt1!
     }
 
-    /**
-     *  Gets the inputArgumentObject attribute of the FunctionProxy object
-     *
-     * @param  classNameForLookup  Description of the Parameter
-     * @param  formal_name         Description of the Parameter
-     * @return                     The inputArgumentObject value
-
-    public VSMParm getInputArgumentObject(String classNameForLookup, String formal_name) throws org.json.JSONException {
-        VSMParm o = null;
-        try {
-           o = getInputArgumentObject((Class<? extends ParamProxy>)Class.forName(classNameForLookup), formal_name);
-        } catch (java.lang.ClassNotFoundException ex) {
-	   Logger.getLogger(FunctionProxy.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        return o;
-    }     */ 
+//     /**
+//      *  Gets the inputArgumentObject attribute of the FunctionProxy object
+//      *
+//      * @param  classNameForLookup  string name of ParamProxy extender that represents the desired VSMParm result type
+//     * @param  formal_name         Formal name of the parameter in the Input Array
+//     * @return                     The VSMParm represented by the ParamProxy instanced with values from the InputArray
+//      */ 
+//
+//    public VSMParm getInputArgumentObject(String classNameForLookup, String formal_name) throws org.json.JSONException {
+//        VSMParm o = null;
+//        try {
+//           o = getInputArgumentObject((Class<? extends ParamProxy>)Class.forName(classNameForLookup), formal_name);
+//        } catch (java.lang.ClassNotFoundException ex) {
+//	   Logger.getLogger(FunctionProxy.class.getName()).log(Level.SEVERE, null, ex);
+//        } 
+//        return o;
+//    }  
  
     /**
      *  Gets the inputArgumentObject attribute of the FunctionProxy object
      *
-     * @param  classNameForLookup  Description of the Parameter
-     * @param  formal_name         Description of the Parameter
-     * @return                     The inputArgumentObject value
+     * @param  c                   ParamProxy extender that represents the desired VSMParm result type
+     * @param  formal_name         Formal name of the parameter in the Input Array
+     * @return                     The VSMParm represented by the ParamProxy instanced with values from the InputArray
      */ 
     public VSMParm getInputArgumentObject(Class <? extends ParamProxy> c, String formal_name) throws org.json.JSONException {
 	VSMParm o = null;
