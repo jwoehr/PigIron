@@ -34,7 +34,27 @@ package com.softwoehr.pigiron.webobj.topview.paramstructs;
 import com.softwoehr.pigiron.access.VSMParm;
 import com.softwoehr.pigiron.webobj.topview.*;
 
-public abstract class ParamProxy {
-    public abstract VSMParm from(Argument arg);
+/**
+ *  Abstract antecedent of all JSON proxies for PigIron VSMAPI Function classes.
+ *
+ * @author     jax
+ * @created    December 6, 2008
+ */
+public class ParamProxy {
+    /**
+     *Constructor for the ParamProxy extenders instance the object
+     * with defaults suitable for display as sample JSON strings.
+     */ 
+    public ParamProxy() { }
+
+    /**
+     *  Factory for yielding a VSMParm from an Argument. Must be extended
+     * by the individual param proxy classes.
+     *
+     * @param  arg  The Argument containing the description of the VSMParm
+     *              as its value
+     * @return      A new instanced VSMParm represented by the Argument
+     */ 
+    public VSMParm from(Argument arg) { return null; }
 }
 
