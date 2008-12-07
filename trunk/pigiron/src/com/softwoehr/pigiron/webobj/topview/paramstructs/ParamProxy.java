@@ -33,6 +33,7 @@ package com.softwoehr.pigiron.webobj.topview.paramstructs;
 
 import com.softwoehr.pigiron.access.VSMParm;
 import com.softwoehr.pigiron.webobj.topview.*;
+import org.json.JSONException;
 
 /**
  *  Abstract antecedent of all JSON proxies for PigIron VSMAPI Function classes.
@@ -55,6 +56,6 @@ public class ParamProxy {
      *              as its value
      * @return      A new instanced VSMParm represented by the Argument
      */ 
-    public VSMParm from(Argument arg) { return null; }
+    public VSMParm from(Argument arg, String formal_name) throws JSONException { return null; }
 }
 
