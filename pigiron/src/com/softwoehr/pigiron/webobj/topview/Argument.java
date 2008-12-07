@@ -394,7 +394,7 @@ public class Argument extends WebObject {
     /**
      *  Assimilate a VSMAsciiZArray as an Argument
      *
-     * @param  vsmAsciiZArray  A VSMAsciiZArray instance to be used as an Argument
+     * @param  vsmAsciiZArray  A VSMAsciiZArray instance to be used as an argument to a PigIron VSMAPI function
      * @return         An Argument created from the type
      * @throws  JSONException  on JSON err
      */ 
@@ -414,7 +414,7 @@ public class Argument extends WebObject {
     /**
      *  Assimilate a VSMParm as an Argument
      *
-     * @param  vsmParm  A VSMParm instance to be used as an Argument
+     * @param  vsmParm  A VSMParm instance to be used as an argument to a PigIron VSMAPI function
      * @return         An Argument created from the type
      * @throws  JSONException  on JSON err
      */ 

@@ -209,7 +209,7 @@ public abstract class FunctionProxy {
     public VSMParm getInputArgumentObject(Class <? extends ParamProxy> c, String formal_name) throws org.json.JSONException {
 	VSMParm o = null;
 	try {
-           o = c.newInstance().from(getInputArgument(formal_name));
+           o = c.newInstance().from(getInputArgument(formal_name), formal_name);
 	} 
 	catch (java.lang.InstantiationException ex) {
 	   Logger.getLogger(FunctionProxy.class.getName()).log(Level.SEVERE, null, ex);

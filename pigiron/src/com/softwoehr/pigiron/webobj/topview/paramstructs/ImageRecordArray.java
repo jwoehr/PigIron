@@ -33,6 +33,8 @@ package com.softwoehr.pigiron.webobj.topview.paramstructs;
 
 import com.softwoehr.pigiron.access.VSMParm;
 import com.softwoehr.pigiron.webobj.topview.*;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  *  Description of the Class
@@ -44,11 +46,19 @@ public class ImageRecordArray extends ParamProxy {
     /**
      *  Description of the Method
      *
-     * @param  arg  Description of the Parameter
-     * @return      Description of the Return Value
+     * @param  arg                Argument whose value represent the ImageRecordArray
+     * @return                    Instanced 
+     * @exception  JSONException  on JSON err
      */ 
-    public VSMParm from(Argument arg) {
-        return null;
+    public VSMParm from(Argument arg, String formal_name) throws JSONException {
+        com.softwoehr.pigiron.access.paramstructs.ImageRecordArray parm
+	= new com.softwoehr.pigiron.access.paramstructs.ImageRecordArray(formal_name);
+        JSONArray jo = arg.getJSONArrayValue();
+	for (int i = 0; i < jo.length(); i++) {
+	   Argument a = new Argument(jo.opt(i).toString());
+	   parm.add((new ImageRecordStructure()).from(a, a.getFormalName()));
+	}
+        return parm;
     }
 }
 
