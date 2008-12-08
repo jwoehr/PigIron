@@ -47,7 +47,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 
 /**
- *  Description of the Class
+ *  Handles HTTP requests to the PigIron WebObject Engine
  *
  * @author     jax
  * @created    December 8, 2008
@@ -55,12 +55,16 @@ import org.json.JSONException;
 public class EngineDoer {
 
     /**
-     *Constructor for the EngineDoer object
+     *Constructor for the EngineDoer object. Does nothing.
      */ 
     public EngineDoer() { }
 
     /**
-     * Handles the HTTP <code>PUT</code> method.
+     * Handles the HTTP <code>PUT</code> method. Reads and passes the request
+     * document to PigIron's web object support which parses the JSON  and
+     * performs  the JSON request payload and returns JSON response payload.
+     * <br>
+     * {@code doPut} does all the output and closes the Writer.
      *
      * @param  request            servlet request
      * @param  response           servlet response
