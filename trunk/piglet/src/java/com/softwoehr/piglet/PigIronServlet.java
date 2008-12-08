@@ -47,74 +47,36 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 
 /**
- *
+ * Main dispatcher for servlet requests.
  * @author jax
  */
 public class PigIronServlet extends HttpServlet {
 
-    private static Directory directory = new Directory(); { try {
-            directory.put(new DirectoryEntry("requestor", new URI("/piglet/PigIronServlet/topview/requestor")));
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(PigIronServlet .class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
-            Logger.getLogger(PigIronServlet .class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Dispatches the HTTP <code>GET</code> method.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */ 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
-        // response.setContentType("application/json;charset=UTF-8");
-        response.setContentType("text/html;charset=UTF-8");        // makes testing easier
-        PrintWriter out = response.getWriter();
-        String myPathInfo = request.getPathInfo();
-        String myMethod = request.getMethod();
-        try {
-            if (myPathInfo.equals("/topview") | myPathInfo.equals("/topview/")) { 
-                out.println(directory);
-            } else {
-                if (myPathInfo.equals("/topview/requestor") | myPathInfo.equals("/topview/requestor/")) {
-                    try {
-                        out.println(new Requestor().toString(4));
-                    } catch (JSONException ex) {
-                        out.println("JSON problem : " + ex);
-                        Logger.getLogger(Requestor .class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else {
-                    if (myPathInfo.equals("/topview/requestor.xml")) {
-                        response.setContentType("text/xml;charset=UTF-8");
-                        try {
-                            out.println(org.json.XML.toString(new Requestor(),
-                                     "pigiron-requestor"));
 
-                        } catch (JSONException ex) {
-                            out.println("JSON problem : " + ex);
-                            Logger.getLogger(Requestor .class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    } else {
-                        ProofOfConcept.processRequest(request, response, out);
-                    }
-                }
-            }
-        } finally {
-            out.close();
+        String myPathInfo = request.getPathInfo();
+	    if ("/topview/".regionMatches(0,myPathInfo,0,"/topview/".length()) | myPathInfo.equals("/topview")) {
+            new TopviewDoer().doGet(request, response);
+        } else {
+            ProofOfConcept.processRequest(request, response); 
         }
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Dispatches the HTTP <code>POST</code> method.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */ 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
-
 
         // response.setContentType("application/json;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");        // makes testing easier
@@ -126,27 +88,29 @@ public class PigIronServlet extends HttpServlet {
     }
  
     /**
-     * Handles the HTTP <code>PUT</code> method.
+     * Dispatches the HTTP <code>PUT</code> method.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */ 
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+
         String myPathInfo = request.getPathInfo();
         if (myPathInfo.equals("/engine") | myPathInfo.equals("/engine/")) { 
             (new EngineDoer()).doPut(request,response);
-	}
+        }
     }
 
     /**
-     * Handles the HTTP <code>DELETE</code> method.
+     * Dispatches the HTTP <code>DELETE</code> method.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */ 
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+
         // response.setContentType("application/json;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");        // makes testing easier
         PrintWriter out = response.getWriter();
