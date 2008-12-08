@@ -89,10 +89,8 @@ public class EngineDoer {
             com.softwoehr.pigiron.webobj.topview.Response pigiron_response = new Engine().execute(pigiron_requestor);
             out.println(pigiron_response.toString(4));
         } catch (JSONException ex) {
-            out.println("JSON problem : " + ex);
-            out.println("Your input was " + sb.length() + " characters long.");
-            out.println("You sent: \n" + sb.toString());
-            Logger.getLogger(com.softwoehr.pigiron.webobj.topview.Requestor .class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(com.softwoehr.pigiron.webobj.topview.Requestor .class.getName()).log(Level.SEVERE, null, ex);	    
+	    out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"Tell Admin that EngineDoer.doPut() logged a JSONException to default logger.\",\"requestor\":null}");
         }
 
         out.close();
