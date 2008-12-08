@@ -69,6 +69,32 @@ public class ProofOfConcept {
             Logger.getLogger(PigIronServlet .class.getName()).log(Level.SEVERE, null, ex);
 
         }
+	// out.println("Printout of Request" + "<br />");
+	// out.println(request.getAuthType() + "<br />");
+	// out.println(request.getContextPath() + "<br />");
+	// out.println(request.getCookies() + "<br />");
+	// out.println(request.getDateHeader("Last-Modified") + "<br />");
+	// out.println(request.getHeader(String + "<br />");
+	// out.println(request.getHeaderNames() + "<br />");
+	// out.println(request.getHeaders(String + "<br />");
+	// out.println(request.getIntHeader(String + "<br />");
+	// out.println(request.getMethod() + "<br />");
+	// out.println(request.getPathInfo() + "<br />");
+	// out.println(request.getPathTranslated() + "<br />");
+	// out.println(request.getQueryString() + "<br />");
+	// out.println(request.getRemoteUser() + "<br />");
+	// out.println(request.getRequestedSessionId() + "<br />");
+	// out.println(request.getRequestURI() + "<br />");
+	// out.println(request.getRequestURL() + "<br />");
+	// out.println(request.getServletPath() + "<br />");
+	// out.println(request.getSession() + "<br />");
+	// out.println(request.getSession(boolean + "<br />");
+	// out.println(request.getUserPrincipal() + "<br />");
+	// out.println(request.isRequestedSessionIdFromCookie() + "<br />");
+	// // out.println(request.isRequestedSessionIdFromUrl() + "<br />");
+	// out.println(request.isRequestedSessionIdFromURL() + "<br />");
+	// out.println(request.isRequestedSessionIdValid() + "<br />");
+	// out.println(request.isUserInRole(String);
         out.println("Your request was a  " + request.getMethod() + ".");
 	out.println("Your session was a  " + request.getSession() + ".");
         out.println("<p>Pigiron Main says " + com.softwoehr.pigiron.Main.servletString() + "</p>");
