@@ -133,34 +133,10 @@ public class PigIronServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */ 
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
-        response.setContentType("application/json;charset=UTF-8");
-        // response.setContentType("text/html;charset=UTF-8");        // makes testing easier
-        PrintWriter out = response.getWriter();
         String myPathInfo = request.getPathInfo();
-        String myMethod = request.getMethod();
         if (myPathInfo.equals("/engine") | myPathInfo.equals("/engine/")) { 
-            ServletInputStream in = request.getInputStream();
-            StringBuffer sb = new StringBuffer();
-            while (true) {
-		byte [] bytes = new byte [in.available()];
-		int numread = in.read(bytes);
-		if (numread != -1) {
-		    sb.append(new String(bytes,0,numread));
-		}
-		else { break; }
-            }
-            try {
-                com.softwoehr.pigiron.webobj.topview.Requestor pigiron_requestor = new com.softwoehr.pigiron.webobj.topview.Requestor(sb.toString());
-                com.softwoehr.pigiron.webobj.topview.Response pigiron_response = new Engine().execute(pigiron_requestor);
-                out.println(pigiron_response.toString(4));
-            } catch (JSONException ex) {
-                out.println("JSON problem : " + ex);
-		out.println("Your input was " +sb.length() + " characters long.");
-		out.println("You sent: \n" + sb.toString());
-                Logger.getLogger(com.softwoehr.pigiron.webobj.topview.Requestor .class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        out.close();
+            (new EngineDoer()).doPut(request,response);
+	}
     }
 
     /**
