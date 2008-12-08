@@ -47,7 +47,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 
 /**
- *  Description of the Class
+ *  Handles all HTTP requests aimed at /piglet/PigIronServlet/topview or the /piglet/PigIronServlet/topview/** tree
  *
  * @author     jax
  * @created    December 8, 2008
@@ -68,12 +68,12 @@ public class TopviewDoer {
     }
 
     /**
-     *Constructor for the TopviewDoer object
+     *Constructor for the TopviewDoer object. Does nothing.
      */ 
     public TopviewDoer() { }
  
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Handles the HTTP <code>GET</code> method. Composes and writes the document contents.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
