@@ -46,9 +46,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ProofOfConcept {
-    public static void processRequest(HttpServletRequest request, HttpServletResponse response, PrintWriter out) throws ServletException,  IOException {
+    public static void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         response.setContentType("text/html;charset=UTF-8");
-        out = response.getWriter();
+        PrintWriter out = response.getWriter();
         out.println("<html>");
         out.println("<head>");
         out.println("<title>Piglet the PigIron Servlet</title>");
@@ -104,5 +104,6 @@ public class ProofOfConcept {
         out.println("</script>");
         out.println("</body>");
         out.println("</html>");
+	out.close();
     }
 }
