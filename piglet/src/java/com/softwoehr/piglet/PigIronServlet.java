@@ -32,6 +32,7 @@
 package com.softwoehr.piglet;
 
 import com.softwoehr.pigiron.webobj.topview.*;
+import com.softwoehr.pigiron.webobj.Engine;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
@@ -39,6 +40,7 @@ import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,13 +54,10 @@ public class PigIronServlet extends HttpServlet {
 
     private static Directory directory = new Directory(); { try {
             directory.put(new DirectoryEntry("requestor", new URI("/piglet/PigIronServlet/topview/requestor")));
-
         } catch (URISyntaxException ex) {
             Logger.getLogger(PigIronServlet .class.getName()).log(Level.SEVERE, null, ex);
-
         } catch (JSONException ex) {
             Logger.getLogger(PigIronServlet .class.getName()).log(Level.SEVERE, null, ex);
-
         }
     }
 
@@ -70,17 +69,14 @@ public class PigIronServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */ 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
-
         // response.setContentType("application/json;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");        // makes testing easier
         PrintWriter out = response.getWriter();
         String myPathInfo = request.getPathInfo();
         String myMethod = request.getMethod();
         try {
-            if (myPathInfo.equals("/topview") | myPathInfo.equals("/topview/")) {
-                if (myMethod.equals("GET")) {
-                    out.println(directory);
-                }
+            if (myPathInfo.equals("/topview") | myPathInfo.equals("/topview/")) { 
+                out.println(directory);
             } else {
                 if (myPathInfo.equals("/topview/requestor") | myPathInfo.equals("/topview/requestor/")) {
                     try {
@@ -95,6 +91,7 @@ public class PigIronServlet extends HttpServlet {
                         try {
                             out.println(org.json.XML.toString(new Requestor(),
                                      "pigiron-requestor"));
+
                         } catch (JSONException ex) {
                             out.println("JSON problem : " + ex);
                             Logger.getLogger(Requestor .class.getName()).log(Level.SEVERE, null, ex);
@@ -118,6 +115,7 @@ public class PigIronServlet extends HttpServlet {
      */ 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
 
+
         // response.setContentType("application/json;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");        // makes testing easier
         PrintWriter out = response.getWriter();
@@ -135,16 +133,36 @@ public class PigIronServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */ 
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
-
-        // response.setContentType("application/json;charset=UTF-8");
-        response.setContentType("text/html;charset=UTF-8");        // makes testing easier
+        response.setContentType("application/json;charset=UTF-8");
+        // response.setContentType("text/html;charset=UTF-8");        // makes testing easier
         PrintWriter out = response.getWriter();
         String myPathInfo = request.getPathInfo();
         String myMethod = request.getMethod();
-        out.println("PUT Not implemented");
+        if (myPathInfo.equals("/engine") | myPathInfo.equals("/engine/")) { 
+            ServletInputStream in = request.getInputStream();
+            StringBuffer sb = new StringBuffer();
+            while (true) {
+		byte [] bytes = new byte [in.available()];
+		int numread = in.read(bytes);
+		if (numread != -1) {
+		    sb.append(new String(bytes,0,numread));
+		}
+		else { break; }
+            }
+            try {
+                com.softwoehr.pigiron.webobj.topview.Requestor pigiron_requestor = new com.softwoehr.pigiron.webobj.topview.Requestor(sb.toString());
+                com.softwoehr.pigiron.webobj.topview.Response pigiron_response = new Engine().execute(pigiron_requestor);
+                out.println(pigiron_response.toString(4));
+            } catch (JSONException ex) {
+                out.println("JSON problem : " + ex);
+		out.println("Your input was " +sb.length() + " characters long.");
+		out.println("You sent: \n" + sb.toString());
+                Logger.getLogger(com.softwoehr.pigiron.webobj.topview.Requestor .class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         out.close();
     }
- 
+
     /**
      * Handles the HTTP <code>DELETE</code> method.
      * @param request servlet request
@@ -153,7 +171,6 @@ public class PigIronServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */ 
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
-
         // response.setContentType("application/json;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");        // makes testing easier
         PrintWriter out = response.getWriter();
@@ -162,8 +179,7 @@ public class PigIronServlet extends HttpServlet {
         out.println("DELETE Not implemented");
         out.close();
     }
- 
- 
+
     /**
      * Returns a short description of the servlet.
      * @return a String containing servlet description
