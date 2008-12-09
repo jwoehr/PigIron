@@ -45,7 +45,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   "m4 macro processor autogenerates Java source code for PigIron open source class library supporting IBM z/VM mainframe remote administration via VM SMAPI"
   name="description">
   <meta http-equiv="Last-Modified" content=
-  "Fri, 31 Oct 2008 06:51:03 UTC">
+  "Tue, 9 Dec 2008 08:29:07 UTC">
 </head>
 
 <body>
@@ -86,15 +86,20 @@ THE POSSIBILITY OF SUCH DAMAGE.
     custom-coded host-side extensions to VSMAPI (since VSMAPI
     supports custom extension coding).</li>
   </ol>PigGen also generates FIJI source to simplify scripting
-  PigIron via FIJI.<br>
+  PigIron via FIJI. <a href="http://fiji.sourceforge.net/">FIJI the
+  ForthIsh Java Interpreter</a> can be used to drive or test
+  PigIron. The same description files used to generate PigIron's
+  own Java source code embodying VSMAPI function parameters,
+  structures and functions can be interpreted by PigGen to produce
+  FIJI source to make it easier to employ PigIron in a FIJI
+  program, such as some of the test code accompanying PigIron.<br>
   <br>
-  <a href="http://fiji.sourceforge.net/">FIJI the ForthIsh Java
-  Interpreter</a> can be used to drive or test PigIron. The same
-  description files used to generate PigIron's own Java source code
-  embodying VSMAPI function parameters, structures and functions
-  can be interpreted by PigGen to produce FIJI source to make it
-  easier to employ PigIron in a FIJI program, such as some of the
-  test code accompanying PigIron.<br>
+  PigGen also generates Java source for proxy classes used by
+  <a href="about_piglet.html">PigLet the PigIron Servlet</a> to
+  interpret <a href="http://json.org/">JSON</a> strings into
+  PigIron requests and responses. Again, this is from the same
+  description files as those used to generate the other
+  classes.<br>
 
   <p>PigGen is part of <a href="http://pigiron.sourceforge.net">The
   PigIron Project</a></p>
