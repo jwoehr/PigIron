@@ -40,7 +40,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii">
   <meta http-equiv="Last-Modified" content=
-  "Wed, 19 Nov 2008 05:50:57 UTC">
+  "Tue, 9 Dec 2008 08:15:22 UTC">
 </head>
 
 <body>
@@ -76,6 +76,11 @@ THE POSSIBILITY OF SUCH DAMAGE.
         <li><a href="#PigGen_also_generates_FIJI_source_to">PigGen
         also generates FIJI source to simplify scripting PigIron
         via FIJI</a></li>
+
+        <li><a href=
+        "#PigGen_also_generates_proxy_classes_for">PigGen also
+        generates proxy classes for PigLet the PigIron
+        Servlet</a></li>
       </ul>
     </li>
 
@@ -87,6 +92,13 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
         <li><a href="#NOTE_ON_SECURITY">NOTE ON SECURITY (LACK
         THEREOF)</a></li>
+
+        <li style="list-style: none">
+          <ul>
+            <li><a href="#Using_PigIron_and_SSL">Using PigIron and
+            SSL</a></li>
+          </ul>
+        </li>
 
         <li><a href="#Lawyer-B-Gone">Non-Association with
         IBM</a></li>
@@ -110,7 +122,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
         </li>
 
         <li><a href="#PigGen_Generated_Much_of_PigIron">PigGen
-        Generated Much of PigIron Itself</a></li>
+        Generates Much of PigIron Itself</a></li>
 
         <li><a href="#How_PigGen_Works">How PigGen Works</a></li>
 
@@ -150,11 +162,12 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <h2><a name="Overview" id="Overview">Overview of PigIron's
   PigGen</a></h2>
 
-  <p>PigGen read description files and generates Java source code
-  to embody <a href="index.html">PigIron</a>-specific VSMAPI
-  parameter structures and arrays and VSMAPI calls for either
-  native VSMAPI functions or for your own custom VSMAPI host-side
-  functions.</p>
+  <p>PigGen reads description files coded in the <a href=
+  "http://www.gnu.org/software/m4/">Gnu m4</a> macro language and
+  generates from them Java source code for <a href=
+  "index.html">PigIron</a>'s encapsulation of VSMAPI parameter
+  structures and arrays and VSMAPI calls for either native VSMAPI
+  functions or for your own custom VSMAPI host-side functions.</p>
 
   <h3><a name="You_have_two_principal_uses_for_PigGen" id=
   "You_have_two_principal_uses_for_PigGen"></a>You have two
@@ -211,38 +224,64 @@ THE POSSIBILITY OF SUCH DAMAGE.
   "../script/fiji/pigiron_support.fiji">pigiron_support.fiji</a>
   was generated. It is loaded by <a href=
   "../script/fiji/allfunctest.fiji">allfunctest.fiji</a> which
-  effectuates a number of PigIron tests.</p>
+  effectuates a number of PigIron tests.<br></p>
 
-  <h2><a name="Disclaimers" id="Disclaimers">Disclaimers</a></h2>
+  <h3><a name="PigGen_also_generates_proxy_classes_for" id=
+  "PigGen_also_generates_proxy_classes_for"></a>PigGen also
+  generates proxy classes for PigLet the PigIron Servlet<br></h3>
+
+  <p>PigGen also generates most of the "proxy" classes in the
+  packages:<br></p>
 
   <ul>
-    <li>
-      <a name="Open_Source" id="Open_Source">PigIron is open source
-      software</a> and as such comes with NO WARRANTY and NO
-      GUARANTEE.
+    <li style="font-family: monospace;">
+    com.softwoehr.pigiron.webobj.topview.functions</li>
 
-      <ul>
-        <li>Please <a href="./license.txt">view the BSD-style
-        license for the PigIron Class Library</a>.</li>
-      </ul>
-    </li>
+    <li style="font-family: monospace;">
+    com.softwoehr.pigiron.webobj.topview.paramstructs</li>
+  </ul>These classes are used by the <a href=
+  "../../piglet/doc/index.html">PigLet PigIron Servlet</a> to
+  interpret and form JSON requests and responses addressing PigIron
+  functionality.
 
-    <li>
-      <a name="NOTE_ON_SECURITY" id="NOTE_ON_SECURITY">NOTE ON
-      SECURITY (LACK THEREOF)</a>
+  <h2><a name="Disclaimers" id=
+  "Disclaimers">Disclaimers</a></h2><a name="Open_Source" id=
+  "Open_Source">PigIron is open source software</a> and as such
+  comes with NO WARRANTY and NO GUARANTEE.&nbsp; Please <a href=
+  "./license.txt">view the BSD-style license for the PigIron Class
+  Library</a>.
 
-      <ul>
-        <li>Currently there is NO secure sockets implementation.
-        PigIron sends any password info in CLEAR TEXT.</li>
+  <h4><a name="NOTE_ON_SECURITY" id="NOTE_ON_SECURITY">NOTE ON
+  SECURITY&nbsp;</a></h4>
 
-        <li>Use ONLY on a secure LAN behind a firewall.</li>
-      </ul>
-    </li>
+  <h5><a name="Using_PigIron_and_SSL" id=
+  "Using_PigIron_and_SSL"></a>Using PigIron and SSL</h5>
 
-    <li><a name="Lawyer-B-Gone" id="Lawyer-B-Gone">PigIron is not
-    associated</a> with the IBM corporation, which owns most or all
-    of the trademarks mentioned in PigIron documentation.</li>
-  </ul>
+  <p>Pigiron possesses a <span style="font-style: italic;">not
+  fully tested</span> Secure Sockets Layer (SSL)
+  implementation.<br></p>
+
+  <p>To use SSL with PigIron pass <span style=
+  "font-family: monospace;">boolean true</span> to <span style=
+  "font-family: monospace;">VSMCall.doIt(boolean ssl)</span> to
+  indicate SSL mode. <span style="text-decoration: underline;">The
+  argument</span> <span style=
+  "font-family: monospace; text-decoration: underline;">false</span>
+  <span style="text-decoration: underline;">indicates clear text
+  mode, in which case your passwords and data are transmitted over
+  the network in plain text, in which case you should only use
+  PigIron on a secure intranet.</span><br></p>
+
+  <p><span style="font-weight: bold;">Note:</span> Actually you
+  will never call <span style=
+  "font-family: monospace;">VSMCall.doIt(boolean ssl)</span> but
+  instead the override of that function in the PigIron class
+  mapping to the VSMAPI function you're using, i.e., <span style=
+  "font-family: monospace;">CheckAuthentication.doIt(boolean
+  ssl)</span> .&nbsp;<br></p><a name="Lawyer-B-Gone" id=
+  "Lawyer-B-Gone">PigIron is not associated</a> with the IBM
+  corporation, which owns most or all of the trademarks mentioned
+  in PigIron documentation.
 
   <h2><a name="Credits" id="Credits">Credits</a></h2>Thanks to
   <a href="http://www.designedtoat.com">Free Original Clipart at
@@ -286,7 +325,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   </div>
 
   <h3><a name="PigGen_Generated_Much_of_PigIron" id=
-  "PigGen_Generated_Much_of_PigIron">PigGen Generated Much of
+  "PigGen_Generated_Much_of_PigIron">PigGen Generates Much of
   PigIron Itself</a></h3>PigIron as released supports currently 114
   VSMAPI functions and their associated parameter types. All the
   Java source for the individual VSMAPI function classes in
