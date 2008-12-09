@@ -1,6 +1,6 @@
 /**
  * PigIron is an open source Java library implementing the client to
- * IBM ® z/VM ® V5R3.0 an V5R4.0 Systems Management Application
+ * IBM &reg; z/VM &reg; V5R3.0 and V5R4.0 Systems Management Application
  * Programming transactions over TCP/IP sockets (referred to in
  * PigIron documentation as VSMAPI). PigLet is a Servlet which accepts
  * PigIron transaction requests formatted according to JSON and
