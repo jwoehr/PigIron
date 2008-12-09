@@ -34,6 +34,7 @@ package com.softwoehr.piglet;
 import com.softwoehr.pigiron.webobj.topview.*;
 import com.softwoehr.pigiron.webobj.Engine;
 import java.io.IOException;
+// import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -88,6 +89,7 @@ public class TopviewDoer {
         // response.setContentType("application/json;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");        // makes testing easier
         PrintWriter out = response.getWriter();
+	// OutputStream out = response.getOutputStream();
         String myPathInfo = request.getPathInfo();
         String myMethod = request.getMethod();
         try {
