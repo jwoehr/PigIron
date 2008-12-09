@@ -52,8 +52,10 @@ public class Response extends WebObject {
      *  A Vector of the JSON keys (names) that are valid for
      * a given WebObject extender
      */ 
-    private static Vector <String> names = setNames(new String []{"result" ,"messageText" ,"requestor"}); 
-    
+    private static Vector <String> names = setNames(new String []{"result" ,
+            "messageText" ,"requestor"}
+   ); 
+ 
     /**
      *  Get the array of JSON keys (names) that are valid for
      * a given WebObject extender
@@ -71,10 +73,10 @@ public class Response extends WebObject {
      * @param  name  the JSON key
      * @return true if the key is one the class uses
      */ 
-     public  boolean isName(String name) {
-	 return isName(name, names);
-     }
-    
+    public boolean isName(String name) {
+        return isName(name, names);
+    }
+ 
     /** Represents the various semantics of a Response:
      * <ul><br>
      * <li>- success all the way through in making the VSMAPI call;<br></li>
@@ -84,12 +86,7 @@ public class Response extends WebObject {
      * <li>- the value of the Response is at the moment undefined, e.g., in default state before use.</li>
      *</ul>
      */ 
-    public static enum Results {    /** Undefined, the default state of the Response object before it used */ 
-    NO_RESPONSE,    /** Your request succeeded, results returned in the embedded copy of the original Requestor. */ 
-    SUCCESS,    /** Your request failed at the VSMAPI level, results returned in the embedded copy of the original Requestor. */ 
-    FAILURE,    /** Something was wrong with the JSON input provided, see Response.messageText. */ 
-    JSON_ERR,    /** PigIron encountered an error, see Response.messageText. */ 
-    PIGIRON_ERR } ;
+    /** Undefined, the default state of the Response object before it used */ public static enum Results {    /** Your request succeeded, results returned in the embedded copy of the original Requestor. */ NO_RESPONSE,    /** Your request failed at the VSMAPI level, results returned in the embedded copy of the original Requestor. */ SUCCESS,    /** Something was wrong with the JSON input provided, see Response.messageText. */ FAILURE,    /** PigIron encountered an error, see Response.messageText. */ JSON_ERR, PIGIRON_ERR } ;
 
     /**
      * Create a default (empty) Response.
@@ -101,6 +98,39 @@ public class Response extends WebObject {
         initDefaults();
     }
 
+    /**
+     * Create a Response with a default (empty) Requestor but
+     * its string result and messageText instanced.
+     *
+     * @param result        result of an Engine.execute()
+     * @param messageText   message from execution (or err)
+     * @throws  org.json.JSONException  on JSON err
+     * @see com.softwoehr.pigiron.webobj.Engine#execute
+     */ 
+    public Response(String result, String messageText) throws JSONException {
+        this(result,messageText,new Requestor());
+    }
+
+    /**
+     * Create a Response with a Requestor,
+     * its string result, and messageText instanced.
+     *
+     * @param result        result of an Engine.execute()
+     * @param messageText   message from execution (or err)
+     * @param requestor     original Requestor that spawned execution
+     * @throws  org.json.JSONException  on JSON err
+     * @see com.softwoehr.pigiron.webobj.Engine#execute
+     */ 
+    public Response(String result, String messageText,
+             Requestor requestor) throws JSONException {
+
+        super();
+        put("result", result);
+        put("messageText", messageText);
+        put("requestor", requestor);
+    }
+
+ 
     /**
      * Create a Response around a Requestor
      *
@@ -121,7 +151,7 @@ public class Response extends WebObject {
     public Response(WebObject aResponse) throws JSONException {
         super(aResponse);
     }
-    
+ 
     /**
      * Constructor for the Response from a JSONObject using only
      * the members named in Response.names
@@ -130,9 +160,9 @@ public class Response extends WebObject {
      * @throws  org.json.JSONException  on JSON err
      */ 
     public Response(JSONObject aResponse) throws JSONException {
-        super(aResponse, new String []{"result" ,"messageText" ,"requestor"});
+        super(aResponse,new String []{"result","messageText","requestor"} );
     }
-    
+ 
     /**
      *Constructor for the Response from a string of JSON representation
      *
