@@ -20,6 +20,13 @@ alt="" src="images/pig_15.gif"> Servlet</h1>
 "/piglet/PigIronServlet/topview">{"service":"topview","uri":"/piglet/PigIronServlet/topview"}</a>
 
 <hr>
+<form method=POST action="/piglet/PigIronServlet/engine">
+Requestor in JSON to be executed by PigIron:<br>
+<textarea name="requestor" cols="40" rows="6"></textarea> 
+<p><input type=SUBMIT value="submit"></p>
+</form>
+
+<hr>
 <p><a href="http://pigiron.sourceforge.net">The PigIron Project
 http://pigiron.sourceforge.net</a></p>
 </body>
