@@ -22,7 +22,7 @@ alt="" src="images/pig_15.gif"> Servlet</h1>
 <hr>
 <form method=POST action="/piglet/PigIronServlet/engine">
 Requestor in JSON to be executed by PigIron:<br>
-<textarea name="requestor" cols="40" rows="6"></textarea> 
+<textarea name="requestor" wrap="soft" cols="120" rows="10"></textarea> 
 <p><input type=SUBMIT value="submit"></p>
 </form>
 
