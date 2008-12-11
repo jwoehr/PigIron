@@ -71,9 +71,7 @@ public class EngineDoer {
      * @throws  ServletException  if a servlet-specific error occurs
      * @throws  IOException       if an I/O error occurs
      */ 
-    protected void doPut(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
-
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         ServletInputStream in = request.getInputStream();
@@ -87,18 +85,46 @@ public class EngineDoer {
                 break;
             }
         }
-	
         try {
             com.softwoehr.pigiron.webobj.topview.Requestor pigiron_requestor = new com.softwoehr.pigiron.webobj.topview.Requestor(sb.toString());
             com.softwoehr.pigiron.webobj.topview.Response pigiron_response = new Engine().execute(pigiron_requestor);
             out.println(pigiron_response.toString(1));
         } catch (JSONException ex) {
-            Logger.getLogger(com.softwoehr.pigiron.webobj.topview.Requestor .class.getName()).log(Level.SEVERE, null, ex);	    
-	    out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"Tell Admin that EngineDoer.doPut() logged a JSONException to default logger.\",\"requestor\":null}");
+            Logger.getLogger(com.softwoehr.pigiron.webobj.topview.Requestor .class.getName()).log(Level.SEVERE, null, ex);
+            out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"Tell Admin that EngineDoer.doPut() logged a JSONException to default logger.\",\"requestor\":null}");
         }
-
         out.close();
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method. Reads and passes the request
+     * document to PigIron's web object support which parses the JSON  and
+     * performs  the JSON request payload and returns JSON response payload.
+     * <br>
+     * {@code doPut} does all the output and closes the Writer.
+     *
+     * @param  request            servlet request
+     * @param  response           servlet response
+     * @throws  ServletException  if a servlet-specific error occurs
+     * @throws  IOException       if an I/O error occurs
+     */ 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        String in = request.getParameter("requestor");
+        if (in == null) {
+	    response.setContentType("text/html;charset=UTF-8");
+            out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"Empty request was POSTed to PigLet PigIron Servlet.\",\"requestor\":null}"); 
+        } else {
+            try {
+                com.softwoehr.pigiron.webobj.topview.Requestor pigiron_requestor = new com.softwoehr.pigiron.webobj.topview.Requestor(in.toString());
+                com.softwoehr.pigiron.webobj.topview.Response pigiron_response = new Engine().execute(pigiron_requestor);
+                out.println(pigiron_response.toString(1));
+            } catch (JSONException ex) {
+                Logger.getLogger(com.softwoehr.pigiron.webobj.topview.Requestor .class.getName()).log(Level.SEVERE, null, ex);
+                out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"Tell Admin that EngineDoer.doPost() logged a JSONException to default logger.\",\"requestor\":null}");
+            }
+        }
+        out.close();
+    }
 }
-

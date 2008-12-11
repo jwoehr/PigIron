@@ -96,7 +96,7 @@ public class ProofOfConcept {
         // out.println(request.getMethod() + "<br />");
         // out.println(request.getPathInfo() + "<br />");
         // out.println(request.getPathTranslated() + "<br />");
-        // out.println(request.getQueryString() + "<br />");
+         out.println("Query string = " + request.getQueryString() + "<br />");
         // out.println(request.getRemoteUser() + "<br />");
         // out.println(request.getRequestedSessionId() + "<br />");
         // out.println(request.getRequestURI() + "<br />");
