@@ -111,8 +111,8 @@ public class EngineDoer {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String in = request.getParameter("requestor");
-        if (in == null) {
+        String in = request.getParameter("requestor").trim();
+        if (in == null | in.equals("")) {
 	    response.setContentType("text/html;charset=UTF-8");
             out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"Empty request was POSTed to PigLet PigIron Servlet.\",\"requestor\":null}"); 
         } else {
