@@ -45,7 +45,7 @@ import javax.net.ssl.SSLContext;
 
 /**
  * Represents the IP SSL Socket connection to the SMAPI Host.
- * NOT TESTED
+ * NOT FULLY TESTED
  * @see com.softwoehr.pigiron.functions.VSMCall
  * @author jax
  */
@@ -54,7 +54,7 @@ public class SSLSocketConnection extends SocketConnection {
     /**
      * Create a <tt>Connection</tt> ready to <tt>connect</tt> to
      * a hostname and port.
-     * @param hostname the DNS name of the Host
+     * @param hostname the DNS name or dotted IP address of the Host
      * @param port the port to which SMAPI is listening on the Host
      */
     public SSLSocketConnection(String hostname, int port) {
@@ -62,12 +62,12 @@ public class SSLSocketConnection extends SocketConnection {
     }
 
     /**
-     * Establish the connection to the Host VSMAPI, this time as SSL
+     * Establish the connection to the Host VSMAPI using SSL
+     * Instance the input and output streams.
      * @throws UnknownHostException if the hostname can't be found
      * @throws IOException if there is an I/O error in connecting
      */
     public void connect() throws UnknownHostException, IOException {
-        // /* Debug */ System.out.println("Connection.connect ... host and port are " + hostname + port);
         setSocket(SSLSocketFactory.getDefault().createSocket(hostname, port));
         setOutputStream(new DataOutputStream(new BufferedOutputStream(socket.getOutputStream())));
         setInputStream(new DataInputStream(new BufferedInputStream(socket.getInputStream())));
