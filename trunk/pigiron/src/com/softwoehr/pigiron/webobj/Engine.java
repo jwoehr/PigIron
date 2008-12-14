@@ -105,7 +105,6 @@ public class Engine {
                 response.setResult(Response.Results.PIGIRON_ERR.name());
                 response.setMessageText("IllegalArgumentException instancing FunctionProxy: " + ex.getMessage());
             } catch (java.lang.reflect.InvocationTargetException ex) {
-                ex.printStackTrace();
                 response.setResult(Response.Results.PIGIRON_ERR.name());
                 response.setMessageText("InvocationTargetException instancing FunctionProxy: " + ex.getMessage());
             } catch (java.lang.NoSuchMethodException ex) {

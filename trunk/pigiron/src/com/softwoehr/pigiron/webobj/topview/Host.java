@@ -48,7 +48,7 @@ public class Host extends WebObject {
      *  A Vector of the JSON keys (names) that are valid for
      * a given WebObject extender
      */ 
-    private Vector <String> names = setNames(new String []{"name" ,"dns_name" ,"ip_address" ,"port_number"}); 
+    private Vector <String> names = setNames(new String []{"name" ,"dns_name" ,"ip_address" ,"port_number", "ssl"}); 
     
     /**
      *  Get the array of JSON keys (names) that are valid for
@@ -57,7 +57,6 @@ public class Host extends WebObject {
      * @return    The names
      */ 
     public String []getNames() {
-	/* Debug */ System.err.println("Host names array == " + names);
         return names.toArray(new String [names.size()]);
     }
 
@@ -79,7 +78,7 @@ public class Host extends WebObject {
      * @throws  JSONException
      */ 
     public Host() throws JSONException {
-        this("","","", - 1);
+        this("","","", - 1, false);
     }
 
     /**
@@ -92,13 +91,13 @@ public class Host extends WebObject {
      * @exception  JSONException  Description of the Exception
      * @throws  JSONException
      */ 
-    public Host(String name, String dns_name, String ip_address, int port_number) throws JSONException {
+    public Host(String name, String dns_name, String ip_address, int port_number, boolean ssl) throws JSONException {
         super();
-	// /* Debug */  System.err.println("Host ctor, dns_name: " + dns_name + " ip_address : " + ip_address);
         setName(name);
         setDnsName(dns_name);
         setIpAddress(ip_address);
         setPortNumber(port_number);
+	setSSL(ssl);
     }
 
     /**
@@ -116,17 +115,13 @@ public class Host extends WebObject {
      *Constructor for the Host from a like JSONObject using only
      * the members constrained
      *
-     * @param  anHost             a like Host as a JSONObject
+     * @param  aHost             a like Host as a JSONObject
      * @exception  JSONException  on JSON err
      */ 
-    public Host(JSONObject anHost) throws JSONException {
-	// this(anHost.toString());
-	// super(anHost, getNames());
-	super(anHost, new String [] {"name" ,"dns_name" ,"ip_address" ,"port_number"});
-        // super(anHost);
-	// /* Debug */ System.out.println("anHost in Host(JSONObject anHost): " + anHost);
-	// /* Debug */ System.out.println("this in Host(JSONObject anHost): " + this);
+    public Host(JSONObject aHost) throws JSONException {
+	super(aHost, new String [] {"name" ,"dns_name" ,"ip_address" ,"port_number", "ssl"});
     }
+
     /**
      *Constructor for the Host from a like WebObject using only
      * the members constrained
@@ -150,6 +145,18 @@ public class Host extends WebObject {
     }
 
     /**
+     * Host name as represented to a Web application.
+     * May or may not be related to DNS name .. that latter
+     * sort of thing will be found deeper, follow the URI trail.
+     *
+     * @param  name            the name of the name
+     * @throws  JSONException  on JSON err
+     */ 
+    public void setName(String name) throws JSONException {
+        put("name", name);
+    }
+
+    /**
      * get DnsName
      *
      * @return                          Dns Name
@@ -158,6 +165,16 @@ public class Host extends WebObject {
      */ 
     public String getDnsName() throws JSONException {
         return getString("dns_name");
+    }
+
+    /**
+     * get Dns Name
+     *
+     * @param  dns_name
+     * @throws  JSONException  on JSON err
+     */ 
+    public void setDnsName(String dns_name) throws JSONException {
+        put("dns_name", dns_name);
     }
 
     /**
@@ -172,6 +189,16 @@ public class Host extends WebObject {
     }
 
     /**
+     * set Ip Addr
+     *
+     * @param  ip_address
+     * @throws  JSONException  on JSON err
+     */ 
+    public void setIpAddress(String ip_address) throws JSONException {
+        put("ip_address", ip_address);
+    }
+
+    /**
      * get PortNumber
      *
      * @return                          port Number
@@ -182,25 +209,6 @@ public class Host extends WebObject {
         return getInt("port_number");
     }
 
-    /**
-     * get Dns Name
-     *
-     * @param  dns_name
-     * @throws  JSONException  on JSON err
-     */ 
-    public void setDnsName(String dns_name) throws JSONException {
-        put("dns_name", dns_name);
-    }
-
-    /**
-     * set Ip Addr
-     *
-     * @param  ip_address
-     * @throws  JSONException  on JSON err
-     */ 
-    public void setIpAddress(String ip_address) throws JSONException {
-        put("ip_address", ip_address);
-    }
 
     /**
      * set Port Number
@@ -213,15 +221,24 @@ public class Host extends WebObject {
     }
 
     /**
-     * Host name as represented to a Web application.
-     * May or may not be related to DNS name .. that latter
-     * sort of thing will be found deeper, follow the URI trail.
+     * get SSL or no
      *
-     * @param  name            the name of the name
+     * @return                          true if use SSL, false otherwise
+     * @exception  JSONException        Description of the Exception
+     * @throws  org.json.JSONException  on JSON err
+     */ 
+    public boolean getSSL() throws JSONException {
+        return getBoolean("ssl");
+    }
+
+    /**
+     * set SSL or no
+     *
+     * @param  ssl     true if use SSL, false otherwis
      * @throws  JSONException  on JSON err
      */ 
-    public void setName(String name) throws JSONException {
-        put("name", name);
+    public void setSSL(boolean ssl) throws JSONException {
+        put("ssl", ssl);
     }
 }
 
