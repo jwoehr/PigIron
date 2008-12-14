@@ -83,10 +83,11 @@ public class ReturnCode {
 
     /**
      * Add a {@code ReasonCode} to the hash of {@code ReasonCode}s associated
-     * with a given {@code ReturnCode}.
+     * with a given {@code ReturnCode}. This is only done in VsmapiRC static
+     * ctor.
      * @param reason the numerical reason code
      */ 
-    public void addReasonCode(ReasonCode reason) {
+    protected void addReasonCode(ReasonCode reason) {
         reasonCodes.put(reason.getValue(null), reason);
     }
 
@@ -121,8 +122,8 @@ public class ReturnCode {
     }
     
     /**
-     * Get the name of the Return Code, e.g, {@code RS_NONE}
-     * @return the name of the Return Code, e.g, {@code RS_NONE}
+     * Get the name of the Return Code, e.g, {@code RC_OK}
+     * @return the name of the Return Code, e.g, {@code RC_OK}
      */ 
     public String getName() {
         return name;
