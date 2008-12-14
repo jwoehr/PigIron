@@ -52,9 +52,8 @@ public class Response extends WebObject {
      *  A Vector of the JSON keys (names) that are valid for
      * a given WebObject extender
      */ 
-    private static Vector <String> names = setNames(new String []{"result" ,
-            "messageText" ,"requestor"}
-   ); 
+    private static Vector <String> names =
+       setNames(new String []{"result", "messageText", "requestor"}); 
  
     /**
      *  Get the array of JSON keys (names) that are valid for
@@ -86,7 +85,18 @@ public class Response extends WebObject {
      * <li>- the value of the Response is at the moment undefined, e.g., in default state before use.</li>
      *</ul>
      */ 
-    /** Undefined, the default state of the Response object before it used */ public static enum Results {    /** Your request succeeded, results returned in the embedded copy of the original Requestor. */ NO_RESPONSE,    /** Your request failed at the VSMAPI level, results returned in the embedded copy of the original Requestor. */ SUCCESS,    /** Something was wrong with the JSON input provided, see Response.messageText. */ FAILURE,    /** PigIron encountered an error, see Response.messageText. */ JSON_ERR, PIGIRON_ERR } ;
+     public static enum Results {
+	 /** Undefined, the default state of the Response object before it used */
+	 NO_RESPONSE,
+	 /** Your request succeeded, results returned in the embedded copy of the original Requestor. */
+	 SUCCESS,
+	 /** Your request failed at the VSMAPI level, results returned in the embedded copy of the original Requestor. */
+	 FAILURE,
+	 /** Something was wrong with the JSON input provided, see Response.messageText. */
+    	JSON_ERR,
+	/** PigIron encountered an error, see Response.messageText. */
+	PIGIRON_ERR
+     } ;
 
     /**
      * Create a default (empty) Response.

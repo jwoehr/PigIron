@@ -89,8 +89,7 @@ public abstract class FunctionProxy {
      * @param  response                    the response to be returned
      * @exception  org.json.JSONException  Description of the Exception
      */ 
-    public FunctionProxy(Requestor requestor,
-             Response response) throws org.json.JSONException {
+    public FunctionProxy(Requestor requestor, Response response) throws org.json.JSONException {
         assimilate(requestor,response);
     }
 
@@ -110,8 +109,7 @@ public abstract class FunctionProxy {
      * @param  response                    the response to be returned
      * @exception  org.json.JSONException  on JSON err
      */ 
-    public void assimilate(Requestor requestor,
-             Response response) throws org.json.JSONException {
+    public void assimilate(Requestor requestor, Response response) throws org.json.JSONException {
         this.requestor = requestor;
         this.response = response;
         if (requestor != null) {
@@ -177,28 +175,10 @@ public abstract class FunctionProxy {
      */ 
     public long getInputArgumentLong(String formal_name) throws org.json.JSONException {
         Argument argument = getInputArgument(formal_name);
-        long along = argument != null ? argument.getLongValue() : - 1L; // This is the "unspecified" value of VSMInt8 and VSMInt4
-        return along;                                                   // but not of VSMInt1!
+        long along = argument != null ? argument.getLongValue() : - 1L;        // This is the "unspecified" value of VSMInt8 and VSMInt4
+        return along;        // but not of VSMInt1! The whole approach needs some work.
     }
 
-//     /**
-//      *  Gets the inputArgumentObject attribute of the FunctionProxy object
-//      *
-//      * @param  classNameForLookup  string name of ParamProxy extender that represents the desired VSMParm result type
-//     * @param  formal_name         Formal name of the parameter in the Input Array
-//     * @return                     The VSMParm represented by the ParamProxy instanced with values from the InputArray
-//      */ 
-//
-//    public VSMParm getInputArgumentObject(String classNameForLookup, String formal_name) throws org.json.JSONException {
-//        VSMParm o = null;
-//        try {
-//           o = getInputArgumentObject((Class<? extends ParamProxy>)Class.forName(classNameForLookup), formal_name);
-//        } catch (java.lang.ClassNotFoundException ex) {
-//	   Logger.getLogger(FunctionProxy.class.getName()).log(Level.SEVERE, null, ex);
-//        } 
-//        return o;
-//    }  
- 
     /**
      *  Gets the inputArgumentObject attribute of the FunctionProxy object
      *
@@ -206,16 +186,18 @@ public abstract class FunctionProxy {
      * @param  formal_name         Formal name of the parameter in the Input Array
      * @return                     The VSMParm represented by the ParamProxy instanced with values from the InputArray
      */ 
-    public VSMParm getInputArgumentObject(Class <? extends ParamProxy> c, String formal_name) throws org.json.JSONException {
-	VSMParm o = null;
-	try {
-           o = c.newInstance().from(getInputArgument(formal_name), formal_name);
-	} 
-	catch (java.lang.InstantiationException ex) {
-	   Logger.getLogger(FunctionProxy.class.getName()).log(Level.SEVERE, null, ex);
-        }
-	catch (java.lang.IllegalAccessException ex) {
-	   Logger.getLogger(FunctionProxy.class.getName()).log(Level.SEVERE, null, ex);
+    public VSMParm getInputArgumentObject(Class <? extends ParamProxy> c,
+             String formal_name) throws org.json.JSONException {
+        VSMParm o = null;
+        try {
+            o = c.newInstance().from(getInputArgument(formal_name),
+                     formal_name);
+        } catch (java.lang.InstantiationException ex) {
+            Logger.getLogger(FunctionProxy .class.getName()).log(Level.SEVERE,
+                     null, ex);
+        } catch (java.lang.IllegalAccessException ex) {
+            Logger.getLogger(FunctionProxy .class.getName()).log(Level.SEVERE,
+                     null, ex);
         }
         return o;
     }
@@ -232,26 +214,27 @@ public abstract class FunctionProxy {
     }
 
     /**
-     *  Description of the Method
+     *  Execute PigIron VSMAPI functionality as specified by a Requestor.
      *
-     * @param  requestor                   Description of the Parameter
-     * @param  response                    Description of the Parameter
-     * @param  pigfunc                     Description of the Parameter
+     * @param  requestor                   Requestor for VSMAPI functionality
+     * @param  response                    a partially filled-in Response
+     * @param  pigfunc                     The actual PigIron function web created
+     *                                in response to the Requestor specification
      * @exception  org.json.JSONException  on JSON err
      */ 
-    public static void execute(VSMCall pigfunc, Requestor requestor, Response response) throws org.json.JSONException {
-
+    public static void execute(VSMCall pigfunc, Requestor requestor,
+             Response response) throws org.json.JSONException {
+	Host host = requestor.getHost();
+	boolean useSSL = host.getSSL();
         try {
             Function f = requestor.getFunction();
-            ParameterArray pA = pigfunc.doIt();
+            ParameterArray pA = pigfunc.doIt(useSSL);
             f.put("output_arguments", OutputArgumentArray.from(pA));
             requestor.setFunction(f);
             response.setRequestor(requestor);
             VSMInt4 rc_int4 = VSMInt4 .class.cast(pA.parameterNamed("return_code"));
             VSMInt4 reason_int4 = VSMInt4 .class.cast(pA.parameterNamed("reason_code"));
-            response.setMessageText(VsmapiRC.prettyPrint(rc_int4.getValue(),
-                     reason_int4.getValue(), pigfunc).replace("\n", " ; "));
-
+            response.setMessageText(VsmapiRC.prettyPrint(rc_int4.getValue(), reason_int4.getValue(), pigfunc).replace("\n", " ; "));
             long rc = rc_int4.getLongValue();
             if (rc == 0) {
                 response.setResult(Response.Results.SUCCESS.name());
