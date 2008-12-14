@@ -91,7 +91,6 @@ public class ReasonCode {
     public String getMessage(VSMCall function) {
         String result = this.message;
 	if (function != null) {
-	    // /* Debug */ System.out.println(function.toString() + "<=" + function.getClass().toString());
 	    if (reasonCodeOverloads != null) {
 		if (reasonCodeOverloads.containsKey(function.getClass())) {
 		    result = reasonCodeOverloads.get(function.getClass()).message;

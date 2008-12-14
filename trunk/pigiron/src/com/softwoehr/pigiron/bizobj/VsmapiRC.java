@@ -36,24 +36,25 @@ import java.util.HashMap;
 import java.util.Vector;
 
 /**
- * Singleton class with one public static method to interpret a VSMAPI Function
- * return code and reason code. {@code VsmapiRC} returns a {@code ReturnCode}
- * which then can be queried about the {@code ReasonCode} using the ReasonCode
- * as an index into a sparse vector associated with the return code.<br>
- *
+ * This is a singleton class with public static methods usd to interpret a 
+ * a VSMAPIFunction return code and reason code. {@code VsmapiRC} returns a
+ * {@code ReturnCode} which then can be queried about the {@code ReasonCode}
+ * using the reason code integer returned by VSMAPI as an index into a sparse
+ * vector associated with the return code.<br>
+ *<br>
  * However, some Return Code / Result Code pairs are overloaded in the
- * specification to be context-sensitive for the calling VSMAPI function. Thus
+ * specification to be context-sensitive to the calling VSMAPI function. Thus
  * there is an ReasonCodeOverload class and a sparse vector of these associated
- * with certain resason codes instancings for certain return codes.<br>
- *
- * Then Yet Again there is one more wrinkle, the return code whose reason codes
- * in some instances can be indexes into a sparse vector AND ALSO in other cases
- * the reason code is simply a numeric value. For example, for
- * {@code ImageDeactivate}, a Return Code 0 with a non-zero Result Code,
- * the Result Code means the number of seconds within which the Image is
- * deactivated.<br>
- 
- *
+ * with certain resason codes in conjunction with certain return codes.<br>
+ *<br>
+ * Then Yet Again there is one more wrinkle: return codes whose reason codes
+ * in <i>some</i> instances can be indexes into a sparse vector, yet in other cases
+ * the reason code is simply a numeric value.<br>
+ * <br>
+ * For example, for {@code ImageDeactivate}, when a Return Code 0 is associated
+ * with a non-zero Result Code, the Result Code means the number of seconds within
+ * which the Image was deactivated.<br>
+ *<br>
  * So both ReturnCode and ReasonCode must know how to use a VSMCall reference
  * to find the right thing.
  *
@@ -511,6 +512,9 @@ public class VsmapiRC {
         syntaxErrors.put(99, "Non-breaking characters: non-blank, non-null, non-delete, non-line-end, non-carriage return, non-line-feed");
     }
 
+    /** This class is intended as a singleton. */
+    protected VsmapiRC () {}
+    
     /**
      * The singleton instance of VsmapiRC yields a {@code ReturnCode} object
      * for given VSMAPI integer return code. The VSMAPI reason code can then
@@ -528,9 +532,11 @@ public class VsmapiRC {
     }
 
     /**
-     * Return a multiline string interpreting return code and reason code.
+     * Return a multiline string interpreting return code and reason code in
+     * the context of the specific function which yielded that pair.
      * @param rc return code from VSMAPI func
      * @param reason reason code from VSMAPI func
+     * @param function the VSMAPI function to which the rc/reason pair pertains
      * @return a multiline string interpreting return code and reason code
      */
     public static String prettyPrint(int rc, int reason, VSMCall function) {
@@ -557,7 +563,7 @@ public class VsmapiRC {
     }
     
     /**
-     * Demonstrate Return Code and Reason Code explanation
+     * Demonstrate/test Return Code and Reason Code explanation
      * @param argv return_code reason_code
      */
     public static void main(String[] argv) {
