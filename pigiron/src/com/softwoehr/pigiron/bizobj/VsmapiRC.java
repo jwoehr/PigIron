@@ -39,19 +39,20 @@ import java.util.Vector;
  * Singleton class with one public static method to interpret a VSMAPI Function
  * return code and reason code. {@code VsmapiRC} returns a {@code ReturnCode}
  * which then can be queried about the {@code ReasonCode} using the ReasonCode
- * as an index into a sparse vector associated with the return code.
+ * as an index into a sparse vector associated with the return code.<br>
  *
  * However, some Return Code / Result Code pairs are overloaded in the
  * specification to be context-sensitive for the calling VSMAPI function. Thus
  * there is an ReasonCodeOverload class and a sparse vector of these associated
- * with certain resason codes instancings for certain return codes.
+ * with certain resason codes instancings for certain return codes.<br>
  *
  * Then Yet Again there is one more wrinkle, the return code whose reason codes
  * in some instances can be indexes into a sparse vector AND ALSO in other cases
  * the reason code is simply a numeric value. For example, for
  * {@code ImageDeactivate}, a Return Code 0 with a non-zero Result Code,
  * the Result Code means the number of seconds within which the Image is
- * deactivated.
+ * deactivated.<br>
+ 
  *
  * So both ReturnCode and ReasonCode must know how to use a VSMCall reference
  * to find the right thing.
@@ -511,14 +512,18 @@ public class VsmapiRC {
     }
 
     /**
-     * Singleton yields {@code ReturnCode} object for given return code.
-     * Reason code can then be deref'ed using the {@code ReturnCode} object.
+     * The singleton instance of VsmapiRC yields a {@code ReturnCode} object
+     * for given VSMAPI integer return code. The VSMAPI reason code can then
+     * be deref'ed using the {@code ReturnCode} object.
      * @param rc - a VSMAPI Function's return code
      * @return a {@code ReturnCode} object with text and {@code ReasonCode}
      * capability.
      */
     public static ReturnCode returnCode(int rc) {
-        ReturnCode result = getReturnCode(rc);
+        ReturnCode result = rcMap.get(rc);
+        if (result == null) {
+            result = new ReturnCode("RC_UNKNOWN_TO_PIGIRON", rc);
+        }
         return result;
     }
 
@@ -548,19 +553,6 @@ public class VsmapiRC {
         }
         sb.append(reasonCode.getMessage(function));
         result = sb.toString();
-        return result;
-    }
-
-    /**
-     * Interpret the VSMAPI Return Code
-     * @param returnCode the VSMAPI Return Code
-     * @return Object interpreting the VSMAPI Return Code
-     */
-    public static ReturnCode getReturnCode(int returnCode) {
-        ReturnCode result = rcMap.get(returnCode);
-        if (result == null) {
-            result = new ReturnCode("RC_UNKNOWN_TO_PIGIRON", returnCode);
-        }
         return result;
     }
     
