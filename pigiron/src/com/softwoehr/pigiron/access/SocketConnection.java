@@ -57,7 +57,7 @@ public class SocketConnection implements Connection {
     /**
      * Create a <tt>Connection</tt> ready to <tt>connect</tt> to
      * a hostname and port.
-     * @param hostname the DNS name of the Host
+     * @param hostname the DNS name or dotted IP address of the Host
      * @param port the port to which SMAPI is listening on the Host
      */
     public SocketConnection(String hostname, int port) {
@@ -82,23 +82,25 @@ public class SocketConnection implements Connection {
     }
 
     /**
-     * Instance the input stream.
+     * Instance the input stream. This is done automatically in <tt>connect()</tt>.
      * @param inputStream the input stream to assign to this Connection
+     * @see #connect
      */
-    public void setInputStream(DataInputStream inputStream) {
+    protected void setInputStream(DataInputStream inputStream) {
         this.inputStream = inputStream;
     }
 
     /**
-     * Instance the output stream.
+     * Instance the output stream. This is done automatically in <tt>connect()</tt>.
      * @param outputStream the output stream to assign to this Connection
+     * @see #connect
      */
-    public void setOutputStream(DataOutputStream outputStream) {
+    protected void setOutputStream(DataOutputStream outputStream) {
         this.outputStream = outputStream;
     }
 
     /**
-     * Get the name of the Host to which this Connection pertains.
+     * Get the name or dotted IP address of the Host to which this Connection pertains.
      * @return the name of the Host to which this Connection pertains
      */
     public String getHostname() {
@@ -106,8 +108,10 @@ public class SocketConnection implements Connection {
     }
 
     /**
-     * Set the name of the Host to which this Connection pertains.
-     * @param hostname the name of the Host to which this Connection pertains
+     * Set the name or dotted IP address of the Host to which this Connection pertains.
+     * This should only be done before calling <tt>connect()</tt>.
+     * @param hostname the name or dotted IP address of the Host to which this Connection pertains
+     * @see #connect
      */
     public void setHostname(String hostname) {
         this.hostname = hostname;
@@ -123,7 +127,9 @@ public class SocketConnection implements Connection {
 
     /**
      * Set the number of the Host port to which this Connection pertains.
+     * This should only be done before calling <tt>connect()</tt>.
      * @param port the number of the Host port to which this Connection pertains
+     * @see #connect
      */
     public void setPort(int port) {
         this.port = port;
@@ -139,19 +145,19 @@ public class SocketConnection implements Connection {
 
     /**
      * Set the socket to which this Connection pertains.
-     * @param socket the socket to which this Connection pertain
+     * @param socket the socket to which this Connection pertains
      */
     protected void setSocket(Socket socket) {
         this.socket = socket;
     }
 
     /**
-     * Establish the connection to the Host VSMAPI.
+     * Establish the connection to the Host VSMAPI without using SSL.
+     * Instance the input and output streams.
      * @throws UnknownHostException if the hostname can't be found
      * @throws IOException if there is an I/O error in connecting
      */
     public void connect() throws UnknownHostException, IOException {
-        // /* Debug */ System.out.println("Connection.connect ... host and port are " + hostname + port);
         setSocket(new Socket(hostname, port));
         setOutputStream(new DataOutputStream(new BufferedOutputStream(socket.getOutputStream())));
         setInputStream(new DataInputStream(new BufferedInputStream(socket.getInputStream())));

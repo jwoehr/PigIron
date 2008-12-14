@@ -59,26 +59,17 @@ public interface Connection {
     public DataOutputStream getOutputStream();
 
     /**
-     * Instance the input stream.
-     * @param inputStream the input stream to assign to this Connection
-     */
-    public void setInputStream(DataInputStream inputStream);
-
-    /**
-     * Instance the output stream.
-     * @param outputStream the output stream to assign to this Connection
-     */
-    public void setOutputStream(DataOutputStream outputStream);
-
-    /**
-     * Get the name of the Host to which this Connection pertains.
+     * Get the name or dotted IP address of the Host to which this Connection pertains,
+     * whichever was previously provided.
      * @return the name of the Host to which this Connection pertains
      */
     public String getHostname();
 
     /**
-     * Set the name of the Host to which this Connection pertains.
-     * @param hostname the name of the Host to which this Connection pertains
+     * Set the name of the Host or dotted IP address to which this Connection pertains.
+     * This should only be done before calling <tt>connect()</tt>.
+     * @param hostname the name or dotted IP address of the Host to which this Connection pertains
+     * @see #connect
      */
     public void setHostname(String hostname);
 
@@ -89,8 +80,10 @@ public interface Connection {
     public int getPort();
 
     /**
-     * Set the number of the Host port to which this Connection pertains.
+     * Set the number of the Host port to which this Connection pertains. 
+     * This should only be done before calling <tt>connect()</tt>.
      * @param port the number of the Host port to which this Connection pertains
+     * @see #connect
      */
     public void setPort(int port);
 
@@ -101,7 +94,8 @@ public interface Connection {
     public Socket getSocket();
 
     /**
-     * Establish the connection to the Host VSMAPI.
+     * Establish the connection to the Host VSMAPI and instance the
+     * input and output streams.
      * @throws UnknownHostException if the hostname can't be found
      * @throws IOException if there is an I/O error in connecting
      */
