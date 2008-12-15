@@ -47,7 +47,7 @@ public class PrototypeRecordArray extends ParamProxy {
      * @param  arg  Description of the Parameter
      * @return      Description of the Return Value
      */ 
-    public VSMParm from(Argument arg, String formal_name) {
+    public VSMParm from(Argument arg) {
         return null;
     }
 }

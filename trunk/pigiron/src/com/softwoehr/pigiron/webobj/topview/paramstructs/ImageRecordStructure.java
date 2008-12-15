@@ -51,7 +51,8 @@ public class ImageRecordStructure extends ParamProxy {
      * @return                    Instanced 
      * @exception  JSONException  on JSON err
      */ 
-    public VSMParm from(Argument arg, String formal_name) throws JSONException {
+    public VSMParm from(Argument arg) throws JSONException {
+	String formal_name = arg.getFormalName();
         com.softwoehr.pigiron.access.paramstructs.ImageRecordStructure parm
 	= new com.softwoehr.pigiron.access.paramstructs.ImageRecordStructure(formal_name);
         JSONObject jo = arg.getJSONObjectValue();
