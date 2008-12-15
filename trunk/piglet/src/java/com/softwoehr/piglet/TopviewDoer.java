@@ -59,14 +59,21 @@ public class TopviewDoer {
     static {
         directory = new Directory();
         try {
-            directory.put(new DirectoryEntry("requestor",
-                     new URI("/piglet/PigIronServlet/topview/requestor")));
-
+            directory.put(new DirectoryEntry("argument",
+                     new URI("/piglet/PigIronServlet/topview/argument")));
+		     
             directory.put(new DirectoryEntry("host",
                      new URI("/piglet/PigIronServlet/topview/host")));
 
+            directory.put(new DirectoryEntry("requestor",
+                     new URI("/piglet/PigIronServlet/topview/requestor")));
+
+            directory.put(new DirectoryEntry("response",
+                     new URI("/piglet/PigIronServlet/topview/response")));
+
             directory.put(new DirectoryEntry("user",
                      new URI("/piglet/PigIronServlet/topview/user")));
+
         } catch (URISyntaxException ex) {
             Logger.getLogger(PigIronServlet.class.getName()).log(Level.SEVERE,
                      null, ex);
@@ -108,11 +115,12 @@ public class TopviewDoer {
                     try {
                         out.println(new Requestor().toString(1));
                     } catch (JSONException ex) {
-                        out.println("JSON problem : " + ex);
+                        out.println("{\"JSON_ERR\":\"" + ex + "\"}");
                         Logger.getLogger(Requestor.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
-                    if (myPathInfo.equals("/topview/requestor.xml")) {
+		    /*
+                    if (myPathInfo.equals("/topview/responsequestor.xml")) {
                         response.setContentType("text/xml;charset=UTF-8");
                         try {
                             out.println(org.json.XML.toString(new Requestor(), "pigiron-requestor"));
@@ -120,35 +128,45 @@ public class TopviewDoer {
                             out.println("{\"result\":\"JSON_ERR\",\"messageText\":\"" + ex + "\",\"requestor\":null}");
                             Logger.getLogger(Requestor.class.getName()).log(Level.SEVERE, null, ex);
                         }
+			*/
+                    if (myPathInfo.equals("/topview/response")) {
+                        try {
+                           out.println(new Response().toString(1));
+                        } catch (JSONException ex) {
+                           out.println("{\"JSON_ERR\":\"" + ex + "\"}");
+                           Logger.getLogger(Response.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     } else {
                         if (myPathInfo.equals("/topview/host")) {
-                            response.setContentType("text/html;charset=UTF-8");
                             try {
                                 out.println(new Host().toString(1));
                             } catch (JSONException ex) {
-                                out.println("{\"result\":\"JSON_ERR\",\"messageText\":\"" + ex + "\",\"host\":null}");
+                                out.println("{\"JSON_ERR\":\"" + ex + "\"}");
                                 Logger.getLogger(Host.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         } else {
                             if (myPathInfo.equals("/topview/user")) {
-                                response.setContentType("text/html;charset=UTF-8");
                                 try {
                                     out.println(new User().toString(1));
                                 } catch (JSONException ex) {
-                                    out.println("{\"result\":\"JSON_ERR\",\"messageText\":\"" + ex + "\",\"host\":null}");
+                                    out.println("{\"JSON_ERR\":\"" + ex + "\"}");
                                     Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                             } else {
-                                try {
-                                    out.println(new Response("PIGLET_ERR", "Unknown topview path \"" + myPathInfo + "\""));
-                                } catch (JSONException ex) {
-                                    out.println("{\"result\":\"JSON_ERR\",\"messageText\":\"Error reporting unknown topview path \\\"" + myPathInfo + "\\\" was " + ex + "\",\"requestor\":null}");
-                                    Logger.getLogger(TopviewDoer.class.getName()).log(Level.SEVERE, null, ex);
+				if (myPathInfo.equals("/topview/argument")) {
+                                    try {
+                                        out.println(new Argument().toString(1));
+                                    } catch (JSONException ex) {
+                                        out.println("{\"JSON_ERR\":\"" + ex + "\"}");
+                                        Logger.getLogger(Argument.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                } else {
+                                      out.println("{\"PIGLET_ERR\":\"Unknown topview path " + myPathInfo + "\"}");
                                 }
                             }
                         }
                     }
-                }
+		}
             }
         } finally {
             out.close();
