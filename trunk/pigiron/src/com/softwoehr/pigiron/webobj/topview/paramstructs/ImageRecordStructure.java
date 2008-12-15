@@ -32,10 +32,13 @@
 package com.softwoehr.pigiron.webobj.topview.paramstructs;
 
 import com.softwoehr.pigiron.access.VSMParm;
+import com.softwoehr.pigiron.access.VSMString;
 import com.softwoehr.pigiron.webobj.topview.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import javax.annotation.Generated;
 
 /**
  *  Description of the Class
@@ -43,6 +46,7 @@ import org.json.JSONObject;
  * @author     jax
  * @created    December 6, 2008
  */
+ @Generated(value = {"ImageRecordStructure"})
 public class ImageRecordStructure extends ParamProxy {
     /**
      *  Description of the Method
@@ -54,9 +58,7 @@ public class ImageRecordStructure extends ParamProxy {
     public VSMParm from(Argument arg) throws JSONException {
 	String formal_name = arg.getFormalName();
         com.softwoehr.pigiron.access.paramstructs.ImageRecordStructure parm
-	= new com.softwoehr.pigiron.access.paramstructs.ImageRecordStructure(formal_name);
-        JSONObject jo = arg.getJSONObjectValue();
-	// ... 
+	= new com.softwoehr.pigiron.access.paramstructs.ImageRecordStructure(new VSMString(arg.getStringValue()), arg.getFormalName());
         return parm;
     }
 }
