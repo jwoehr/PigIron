@@ -56,6 +56,6 @@ public class ParamProxy {
      *              as its value
      * @return      A new instanced VSMParm represented by the Argument
      */ 
-    public VSMParm from(Argument arg, String formal_name) throws JSONException { return null; }
+    public VSMParm from(Argument arg) throws JSONException { return null; }
 }
 

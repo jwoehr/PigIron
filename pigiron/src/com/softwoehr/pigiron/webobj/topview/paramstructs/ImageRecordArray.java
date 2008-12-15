@@ -50,13 +50,14 @@ public class ImageRecordArray extends ParamProxy {
      * @return                    Instanced 
      * @exception  JSONException  on JSON err
      */ 
-    public VSMParm from(Argument arg, String formal_name) throws JSONException {
+    public VSMParm from(Argument arg) throws JSONException {
+	String formal_name = arg.getFormalName();
         com.softwoehr.pigiron.access.paramstructs.ImageRecordArray parm
 	= new com.softwoehr.pigiron.access.paramstructs.ImageRecordArray(formal_name);
         JSONArray jo = arg.getJSONArrayValue();
 	for (int i = 0; i < jo.length(); i++) {
 	   Argument a = new Argument(jo.opt(i).toString());
-	   parm.add((new ImageRecordStructure()).from(a, a.getFormalName()));
+	   parm.add((new ImageRecordStructure()).from(a));
 	}
         return parm;
     }
