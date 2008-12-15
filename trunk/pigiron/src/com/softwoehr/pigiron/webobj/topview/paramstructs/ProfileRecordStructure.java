@@ -32,32 +32,33 @@
 package com.softwoehr.pigiron.webobj.topview.paramstructs;
 
 import com.softwoehr.pigiron.access.VSMParm;
+import com.softwoehr.pigiron.access.VSMString;
 import com.softwoehr.pigiron.webobj.topview.*;
-
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
+
+import javax.annotation.Generated;
+
 /**
  *  Description of the Class
  *
  * @author     jax
  * @created    December 6, 2008
  */
-public class ProfileRecordArray extends ParamProxy {
+ @Generated(value = {"ProfileRecordStructure"})
+public class ProfileRecordStructure extends ParamProxy {
     /**
      *  Description of the Method
      *
-     * @param  arg  Description of the Parameter
-     * @return      Description of the Return Value
+     * @param  arg                Argument whose value represent the ProfileRecordStructure
+     * @return                    Instanced 
+     * @exception  JSONException  on JSON err
      */ 
     public VSMParm from(Argument arg) throws JSONException {
-      	String formal_name = arg.getFormalName();
-        com.softwoehr.pigiron.access.paramstructs.ProfileRecordArray parm
-	= new com.softwoehr.pigiron.access.paramstructs.ProfileRecordArray(formal_name);
-        JSONArray jo = arg.getJSONArrayValue();
-	for (int i = 0; i < jo.length(); i++) {
-	   Argument a = new Argument(jo.opt(i).toString());
-	   parm.add((new ProfileRecordStructure()).from(a));
-	}
+	String formal_name = arg.getFormalName();
+        com.softwoehr.pigiron.access.paramstructs.ProfileRecordStructure parm
+	= new com.softwoehr.pigiron.access.paramstructs.ProfileRecordStructure(new VSMString(arg.getStringValue()), arg.getFormalName());
         return parm;
     }
 }
