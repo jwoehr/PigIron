@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE MODE SYSTEM "xmode.dtd">
 <!-- Edit mode for JEdit for m4 macro language -->
-<!-- Add to ~/.jedit/modes/catalog as follows: -->
+<!-- Add to ~/.jedit/modes/catalog as follows:  -->
 <!-- <MODE NAME="m4" FILE="m4.xml" FILE_NAME_GLOB="*.m4" /> -->
 <MODE>
 <PROPS>
@@ -11,9 +11,9 @@
 	</PROPS>
 	<RULES IGNORE_CASE="FALSE" HIGHLIGHT_DIGITS="TRUE">
 	<EOL_SPAN_REGEXP AT_WHITESPACE_END="FALSE" HASH_CHAR="d" TYPE="COMMENT1">dnl(?=(\s)|($))</EOL_SPAN_REGEXP>
-	<MARK_FOLLOWING TYPE="KEYWORD2" AT_WORD_START="TRUE">$</MARK_FOLLOWING>
-	<SEQ TYPE="KEYWORD2">`</SEQ>
-	<SEQ TYPE="KEYWORD2">'</SEQ>
+	<MARK_FOLLOWING TYPE="KEYWORD2">$</MARK_FOLLOWING>
+	<SEQ TYPE="KEYWORD1">`</SEQ>
+	<SEQ TYPE="KEYWORD1">'</SEQ>
 	<SEQ TYPE="OPERATOR">(</SEQ>
 	<SEQ TYPE="OPERATOR">)</SEQ>
         <SEQ_REGEXP TYPE="KEYWORD1" HASH_CHAR="b" AT_WORD_START="TRUE">builtin(?=(($)|((\()|(\s))))</SEQ_REGEXP>
