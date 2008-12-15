@@ -1,5 +1,5 @@
 include(`pigfunc.m4')dnl \\ image_IPL_query_DM.m4
-function_namespace(`Image_IPL_Query_DM' )dnl
+function_namespace(`Image_IPL_Query_DM')dnl
 pigfunc_start()dnl \\ function_namespace(`function_formal_name', `significant_parameter_formal_name')
 pigfunc_import(`java.io.IOException')dnl
 pigfunc_import(`com.softwoehr.pigiron.access.*')dnl \\ function_classname and function_formal_name bound in namespace
