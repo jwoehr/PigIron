@@ -59,12 +59,20 @@ public class TopviewDoer {
     static {
         directory = new Directory();
         try {
-            directory.put(new DirectoryEntry("requestor", new URI("/piglet/PigIronServlet/topview/requestor")));
-            directory.put(new DirectoryEntry("host", new URI("/piglet/PigIronServlet/topview/host")));
+            directory.put(new DirectoryEntry("requestor",
+                     new URI("/piglet/PigIronServlet/topview/requestor")));
+
+            directory.put(new DirectoryEntry("host",
+                     new URI("/piglet/PigIronServlet/topview/host")));
+
+            directory.put(new DirectoryEntry("user",
+                     new URI("/piglet/PigIronServlet/topview/user")));
         } catch (URISyntaxException ex) {
-            Logger.getLogger(PigIronServlet .class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PigIronServlet.class.getName()).log(Level.SEVERE,
+                     null, ex);
         } catch (JSONException ex) {
-            Logger.getLogger(PigIronServlet .class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PigIronServlet.class.getName()).log(Level.SEVERE,
+                     null, ex);
         }
     }
 
@@ -80,19 +88,25 @@ public class TopviewDoer {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */ 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
-        // response.setContentType("application/json;charset=UTF-8");
-        response.setContentType("text/html;charset=UTF-8");        // makes testing easier
+    protected void doGet(HttpServletRequest request,
+             HttpServletResponse response) throws ServletException,  IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        // response.setContentType("text/html;charset=UTF-8");        // makes testing easier
         PrintWriter out = response.getWriter();
         String myPathInfo = request.getPathInfo();
         String myMethod = request.getMethod();
         try {
             if (myPathInfo.equals("/topview") | myPathInfo.equals("/topview/")) { 
-                out.println(directory);
+		try {
+                   out.println(directory.toString(1));
+		 } catch (JSONException ex) {
+                    out.println("JSON problem : " + ex);
+                    Logger.getLogger(Directory.class.getName()).log(Level.SEVERE, null, ex);
+                 }
             } else {
                 if (myPathInfo.equals("/topview/requestor")) {
                     try {
-                        out.println(new Requestor().toString(4));
+                        out.println(new Requestor().toString(1));
                     } catch (JSONException ex) {
                         out.println("JSON problem : " + ex);
                         Logger.getLogger(Requestor.class.getName()).log(Level.SEVERE, null, ex);
@@ -101,8 +115,7 @@ public class TopviewDoer {
                     if (myPathInfo.equals("/topview/requestor.xml")) {
                         response.setContentType("text/xml;charset=UTF-8");
                         try {
-                            out.println(org.json.XML.toString(new Requestor(),
-                                     "pigiron-requestor"));
+                            out.println(org.json.XML.toString(new Requestor(), "pigiron-requestor"));
                         } catch (JSONException ex) {
                             out.println("{\"result\":\"JSON_ERR\",\"messageText\":\"" + ex + "\",\"requestor\":null}");
                             Logger.getLogger(Requestor.class.getName()).log(Level.SEVERE, null, ex);
@@ -111,17 +124,27 @@ public class TopviewDoer {
                         if (myPathInfo.equals("/topview/host")) {
                             response.setContentType("text/html;charset=UTF-8");
                             try {
-                                out.println(new Host().toString(4));
+                                out.println(new Host().toString(1));
                             } catch (JSONException ex) {
                                 out.println("{\"result\":\"JSON_ERR\",\"messageText\":\"" + ex + "\",\"host\":null}");
                                 Logger.getLogger(Host.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         } else {
-                            try {
-                                out.println(new Response("PIGLET_ERR", "Unknown topview path \"" + myPathInfo + "\""));
-                            } catch (JSONException ex) {
-                                out.println("{\"result\":\"JSON_ERR\",\"messageText\":\"Error reporting unknown topview path \\\"" + myPathInfo + "\\\" was " + ex + "\",\"requestor\":null}");
-                                Logger.getLogger(TopviewDoer.class.getName()).log(Level.SEVERE, null, ex);
+                            if (myPathInfo.equals("/topview/user")) {
+                                response.setContentType("text/html;charset=UTF-8");
+                                try {
+                                    out.println(new User().toString(1));
+                                } catch (JSONException ex) {
+                                    out.println("{\"result\":\"JSON_ERR\",\"messageText\":\"" + ex + "\",\"host\":null}");
+                                    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            } else {
+                                try {
+                                    out.println(new Response("PIGLET_ERR", "Unknown topview path \"" + myPathInfo + "\""));
+                                } catch (JSONException ex) {
+                                    out.println("{\"result\":\"JSON_ERR\",\"messageText\":\"Error reporting unknown topview path \\\"" + myPathInfo + "\\\" was " + ex + "\",\"requestor\":null}");
+                                    Logger.getLogger(TopviewDoer.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             }
                         }
                     }
@@ -139,7 +162,8 @@ public class TopviewDoer {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */ 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+    protected void doPost(HttpServletRequest request,
+             HttpServletResponse response) throws ServletException,  IOException {
         // response.setContentType("application/json;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");        // makes testing easier
         PrintWriter out = response.getWriter();
@@ -158,8 +182,7 @@ public class TopviewDoer {
      * @throws  ServletException  if a servlet-specific error occurs
      * @throws  IOException       if an I/O error occurs
      */ 
-    protected void doPut(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         ServletInputStream in = request.getInputStream();
@@ -176,7 +199,7 @@ public class TopviewDoer {
         try {
             com.softwoehr.pigiron.webobj.topview.Requestor pigiron_requestor = new com.softwoehr.pigiron.webobj.topview.Requestor(sb.toString());
             com.softwoehr.pigiron.webobj.topview.Response pigiron_response = new Engine().execute(pigiron_requestor);
-            out.println(pigiron_response.toString(4));
+            out.println(pigiron_response);
         } catch (JSONException ex) {
             Logger.getLogger(com.softwoehr.pigiron.webobj.topview.Requestor.class.getName()).log(Level.SEVERE, null, ex);
             out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"TopviewDoer.doPut() logged a JSONException to default logger.\",\"requestor\":null}");
@@ -191,8 +214,7 @@ public class TopviewDoer {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */ 
-    protected void doDelete(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         // response.setContentType("application/json;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");        // makes testing easier
         PrintWriter out = response.getWriter();
