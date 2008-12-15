@@ -63,7 +63,7 @@ public class EngineDoer {
      * Handles the HTTP <code>PUT</code> method. Reads and passes the request
      * document to PigIron's web object support which parses the JSON  and
      * performs  the JSON request payload and returns JSON response payload.
-     * <br>
+     * <br><br>
      * {@code doPut} does all the output and closes the Writer.
      *
      * @param  request            servlet request
@@ -100,8 +100,8 @@ public class EngineDoer {
      * Handles the HTTP <code>POST</code> method. Reads and passes the request
      * document to PigIron's web object support which parses the JSON  and
      * performs  the JSON request payload and returns JSON response payload.
-     * <br>
-     * {@code doPut} does all the output and closes the Writer.
+     * <br><br>
+     * {@code doPost} does all the output and closes the Writer.
      *
      * @param  request            servlet request
      * @param  response           servlet response
