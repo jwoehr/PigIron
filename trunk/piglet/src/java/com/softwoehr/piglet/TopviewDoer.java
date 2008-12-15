@@ -178,8 +178,8 @@ public class TopviewDoer {
             com.softwoehr.pigiron.webobj.topview.Response pigiron_response = new Engine().execute(pigiron_requestor);
             out.println(pigiron_response.toString(4));
         } catch (JSONException ex) {
-            Logger.getLogger(com.softwoehr.pigiron.webobj.topview.Requestor .class.getName()).log(Level.SEVERE, null, ex);
-            out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"Tell Admin that EngineDoer.doPut() logged a JSONException to default logger.\",\"requestor\":null}");
+            Logger.getLogger(com.softwoehr.pigiron.webobj.topview.Requestor.class.getName()).log(Level.SEVERE, null, ex);
+            out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"TopviewDoer.doPut() logged a JSONException to default logger.\",\"requestor\":null}");
         }
         out.close();
     }
