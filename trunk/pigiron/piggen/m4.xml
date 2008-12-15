@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE MODE SYSTEM "xmode.dtd">
 <!-- Edit mode for JEdit for m4 macro language -->
-<!-- Add to ~.jedit/modes/catalog as follows:  -->
+<!-- Add to ~/.jedit/modes/catalog as follows: -->
 <!-- <MODE NAME="m4" FILE="m4.xml" FILE_NAME_GLOB="*.m4" /> -->
 <MODE>
 <PROPS>
