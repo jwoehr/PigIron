@@ -1,0 +1,14 @@
+\ create a server socket to receive asynchronous subscription notifications \
+\ see http://publib.boulder.ibm.com/infocenter/zvm/v5r4/topic/com.ibm.zvm.v54.dmse6/cslane.htm#cane2 \
+
+value myServerSocket
+java.net.ServerSocket class new ( 55555 Long>intparam , )  to myServerSocket
+myServerSocket " Server socket: " . . cr
+myServerSocket isBound ( ) " Socket bound: " . . cr
+myServerSocket isClosed ( ) " Socket closed: " . . cr
+myServerSocket setSoTimeout ( 0 Long>intparam , ) drop
+myServerSocket getSoTimeout ( ) " Socket timeout: " . . cr
+value mySocket
+myServerSocket accept ( ) to mySocket
+
+\ to be continued ... \

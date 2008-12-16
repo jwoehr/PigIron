@@ -1,0 +1,513 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for OpenBSD (vers 1 September 2005), see www.w3.org">
+  <!--
+Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+PO Box 51, Golden, Colorado 80402-0051 USA
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+    * Redistributions of source code must retain the above copyright
+        notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+        notice, this list of conditions and the following disclaimer
+        in the documentation and/or other materials provided with the
+        distribution.
+    * Neither the name of the PigIron Project nor the names of its
+        contributors may be used to endorse or promote products derived
+        from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGE.
+-->
+  <meta content="text/html; charset=us-ascii" http-equiv=
+  "Content-Type">
+
+  <title>PigLet the PigIron Servlet</title>
+  <meta content="Jack J. Woehr" name="author">
+  <meta content=
+  "Servlet serves up PigIron Java Class Library mainframe administration functionality to web application writers."
+  name="description">
+  <meta http-equiv="Last-Modified" content=
+  "Tue, 16 Dec 2008 21:14:53 UTC">
+</head>
+
+<body>
+  <h1><a name="Image_of_piglet" id=
+  "Image_of_piglet"></a><img style="width: 123px; height: 123px;"
+  alt="Piglet, the PigIron Servlet" title=
+  "Piglet, the PigIron Servlet" src="images/pig_18.gif" align=
+  "middle">PigLet Servlet of the PigIron Java Class Library for
+  VSMAPI Programming</h1><tt>Copyright (c) 2008, Jack J. Woehr
+  jwoehr@softwoehr.com PO Box 51, Golden, Colorado 80402-0051 USA
+  All rights reserved.</tt><br>
+
+  <h2><a name="Contents" id="Contents"></a>Contents</h2>
+
+  <ul>
+    <li><a href="#Purpose">Purpose</a></li>
+
+    <li><a href="#Disclaimers">Disclaimers</a></li>
+
+    <li><a href="license.txt">License</a></li>
+
+    <li>
+      <a href="#Building_PigLet">Building PigLet</a>
+
+      <ul>
+        <li><a href=
+        "#BuildingPiglet.Requirements">Requirements</a></li>
+
+        <li><a href="#BuildingPigLet.Building">Building</a></li>
+
+        <li><a href="#BuildingPigLet.Some_Difficulties">Some
+        Difficulties</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a href="#Launching_PigLet">Launching PigLet</a>
+
+      <ul>
+        <li><a href=
+        "LaunchingPiglet.Requirements">Requirements</a></li>
+
+        <li><a href="#LaunchingPigLet.Launching">Launching</a></li>
+
+        <li><a href="#Sample_Web_Application">Sample Web
+        Application</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a href="#Using_PigLet_in_Web_Applications">Using PigLet in
+      Web Applications</a>
+
+      <ul>
+        <li><a href="#Example_JSON_strings">Example JSON
+        strings</a></li>
+      </ul>
+    </li>
+
+    <li><a href="#Getting_Help">Getting Help</a><br></li>
+  </ul>
+
+  <h2><a name="Purpose" id="Purpose"></a>Purpose</h2>
+
+  <p><a href="http://pigiron.sourceforge.net/">PigIron</a> is an
+  open source Java library implementing the client to <a href=
+  "http://publib.boulder.ibm.com/infocenter/zvm/v5r4/index.jsp?topic=/com.ibm.zvm.v54.dmse6/hcsl8b30.htm">
+  IBM &reg; z/VM &reg; V5R3.0 an V5R4.0 Systems Management
+  Application Programming</a> transactions over TCP/IP sockets
+  (referred to in PigIron documentation as <i>VSMAPI</i>). PigLet
+  is a Servlet which accepts PigIron transaction requests formatted
+  according to <a href="http://www.json.org/">JSON</a> and returns
+  in JSON format the results of the execution of the requests.</p>
+
+  <p><span style="font-weight: bold;">PigLet</span> is the <a href=
+  "http://pigiron.sourceforge.net/">PigIron</a> Servlet. PigLet is
+  not a user-oriented web application; it's the data server side of
+  a web application. It does, however, offer a simple web
+  application user interface which allows you to type in <a href=
+  "http://json.org/">JSON</a> strings which are interpreted by
+  PigLet and executed using PigIron.<br></p>
+
+  <p>PigLet ...<br></p>
+
+  <ul>
+    <li>Serves up PigIron's VSMAPI functionality to web
+    applications.
+
+      <ul>
+        <li>Includes a sample web application.<br></li>
+      </ul>
+    </li>
+
+    <li>Written in Java.</li>
+
+    <li>Runs in <a href="http://tomcat.apache.org/">Apache
+    Tomcat</a>.<br></li>
+
+    <li>Simple <a href=
+    "http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a>
+    metaphor.</li>
+
+    <li>Uses <a href="http://json.org/">JSON</a> as its data
+    interchange format.</li>
+
+    <li>BSD-style license (Free Open Source, No Warranty).</li>
+  </ul>
+
+  <h2><a name="Disclaimers" id="Disclaimers"></a>Disclaimers</h2>
+
+  <ul>
+    <li>PigIron is Open Source software and as such carries no
+    warranty or guarantee whatsoever. Please read <a href=
+    "../overview.html#License">the License</a> below.</li>
+
+    <li>The <a href="http://pigiron.sourceforge.net/">The PigIron
+    Project</a> is not associated with the <a href=
+    "http://www.ibm.com/">International Business Machines
+    Corporation (IBM)</a>, purveyors of fine mainframes and
+    mainframe operating systems, especially the <a href=
+    "http://www.ibm.com/systems/z/">System Z hardware platform</a>
+    and the <a href="http://www.vm.ibm.com/">z/VM Operating
+    System</a>.</li>
+
+    <li>PigIron is under development and will certainly undergo
+    changes in its scope, code, documentation, implementation and
+    programming interfaces.</li>
+
+    <li><b>SECURITY (OR LACK OF)</b>: Pigiron code supports Secure
+    Sockets Layer (SSL) in ts TCP/IP communications. To use SSL,
+    invoke the <big><span style=
+    "font-family: monospace;">doIt(boolean ssl)</span></big> method
+    of any PigIron VSMAPI function with the boolean flag set to
+    <big><span style="font-family: monospace;">true</span></big>.
+    <b>IF YOU DO NOT USE SSL, THEN ONLY USE PIGIRON ON A SECURE
+    INTRANET BEHIND A FIREWALL.</b></li>
+  </ul>
+
+  <h2><a name="Building_PigLet" id="Building_PigLet"></a>Building
+  PigLet</h2>
+
+  <h3><a name="BuildingPiglet.Requirements" id=
+  "BuildingPiglet.Requirements"></a>Requirements</h3>
+
+  <ul>
+    <li><a href="http://java.sun.com/">Java JDK</a></li>
+
+    <li><a href="http://tomcat.apache.org/">Apache Tomcat
+    6.0.18</a> or later.<br></li>
+  </ul>
+
+  <h3><a name="BuildingPigLet.Building" id=
+  "BuildingPigLet.Building"></a>Building</h3>
+
+  <ul>
+    <li>Unpack the <span style=
+    "font-family: monospace;">pigiron</span> and <span style=
+    "font-family: monospace;">piglet</span> directories side by
+    side.</li>
+
+    <li style="font-family: monospace;">cd pigiron; ant clean;
+    ant</li>
+
+    <li style="font-family: monospace;">cd ../piglet; ant clean;
+    ant</li>
+  </ul>
+
+  <h4><a name="Output" id="Output"></a>Output</h4>The output is
+  <span style="font-family: monospace;">piglet.war</span> in the
+  <span style="font-family: monospace;">piglet/dist</span>
+  directory.<br>
+
+  <h3><a name="BuildingPigLet.Some_Difficulties" id=
+  "BuildingPigLet.Some_Difficulties"></a>Some
+  Difficulties</h3>PigLet was started as a NetBeans project, but
+  PigIron and PigLet diverged from NetBeans.<br>
+  <br>
+  NetBeans creates a number of build and build-related files:<br>
+
+  <ul style="font-family: monospace;">
+    <li>piglet/build.xml</li>
+
+    <li>piglet/nbproject/build-impl.xml</li>
+
+    <li>piglet/nbproject/project.properties</li>
+
+    <li>piglet/nbproject/private/private.properties</li>
+  </ul>
+
+  <p>The private.properties file is where the classpath for the
+  J2EE platform resides. Here is an example, taken from the
+  author's build machine, of private.properties :</p>
+
+  <div style="margin-left: 40px;">
+    <span style=
+    "font-family: monospace;">j2ee.platform.classpath=/home/jax/src/Apache/Tomcat/apache-tomcat-6.0.18/lib/annotations-api.jar:/home/jax/src/Apache/Tomcat/apache-tomcat-6.0.18/lib/catalina-ant.jar:/home/jax/src/Apache/Tomcat/apache-tomcat-6.0.18/lib/catalina-ha.jar:/home/jax/src/Apache/Tomcat/apache-tomca</span><br>
+
+    <span style=
+    "font-family: monospace;">t-6.0.18/lib/catalina-tribes.jar:/home/jax/src/Apache/Tomcat/apache-tomcat-6.0.18/lib/catalina.jar:/home/jax/src/Apache/Tomcat/apache-tomcat-6.0.18/lib/el-api.jar:/home/jax/src/Apache/Tomcat/apache-tomcat-6.0.18/lib/jasper-el.jar:/home/jax/src/Apache/Tomcat/apache-tomcat-6.0.</span><br>
+
+    <span style=
+    "font-family: monospace;">18/lib/jasper.jar:/home/jax/src/Apache/Tomcat/apache-tomcat-6.0.18/lib/jsp-api.jar:/home/jax/src/Apache/Tomcat/apache-tomcat-6.0.18/lib/servlet-api.jar:/home/jax/src/Apache/Tomcat/apache-tomcat-6.0.18/lib/tomcat-coyote.jar:/home/jax/src/Apache/Tomcat/apache-tomcat-6.0.18/lib/</span><br>
+
+    <span style=
+    "font-family: monospace;">tomcat-dbcp.jar:/home/jax/src/Apache/Tomcat/apache-tomcat-6.0.18/lib/tomcat-i18n-es.jar:/home/jax/src/Apache/Tomcat/apache-tomcat-6.0.18/lib/tomcat-i18n-fr.jar:/home/jax/src/Apache/Tomcat/apache-tomcat-6.0.18/lib/tomcat-i18n-ja.jar:/home/jax/src/Apache/Tomcat/apache-tomcat-6.</span><br>
+
+    <span style=
+    "font-family: monospace;">0.18/bin/tomcat-juli.jar</span><br>
+    <span style=
+    "font-family: monospace;">j2ee.server.instance=tomcat60:home=/home/jax/src/Apache/Tomcat/apache-tomcat-6.0.18</span><br>
+    </div>
+
+  <p>Your choices for the build are something like:<br></p>
+
+  <ul>
+    <li>Set up NetBeans for J2EE development and let the build use
+    your own private.properties file.</li>
+
+    <li>Create the directory piglet/nbproject/private and create an
+    appropriate private.properties therein.</li>
+
+    <li>Pass the values for <span style=
+    "font-family: monospace;">j2ee.platform.classpath</span> and
+    <span style=
+    "font-family: monospace;">j2ee.server.instance</span> as
+    <span style="font-family: monospace;">-D</span> variables to
+    the <span style="font-family: monospace;">ant</span> command
+    when you invoke it.<span style=
+    "font-family: monospace;"><br></span></li>
+  </ul>
+
+  <h2><a name="Launching_PigLet" id=
+  "Launching_PigLet"></a>Launching PigLet</h2>
+
+  <h3><a name="LaunchingPiglet.Requirements" id=
+  "LaunchingPiglet.Requirements"></a>Requirements</h3>
+
+  <ul>
+    <li>PigLet runs under <a href=
+    "http://tomcat.apache.org/">Apache Tomcat 0.6.18</a> or
+    later.</li>
+
+    <li>PigLet has <span style=
+    "font-family: monospace;">pigiron.jar</span> embedded in
+    <span style="font-family: monospace;">piglet.war</span> already
+    so setting up PigIron separately is not necessary.<br></li>
+  </ul>
+
+  <h3><a name="LaunchingPigLet.Launching" id=
+  "LaunchingPigLet.Launching"></a>Launching</h3>It is assumed you
+  know how to (build,) install and run Tomcat.<br>
+
+  <ol>
+    <li>Start Tomcat</li>
+
+    <li>Go in your browser to the Manager application</li>
+
+    <li>Deploy <a href="#Output"><span style=
+    "font-family: monospace;">piglet.war</span></a><br></li>
+  </ol>
+
+  <h2><a name="Sample_Web_Application" id=
+  "Sample_Web_Application"></a>Sample Web Application<br></h2>In
+  addition to the JSONized data server, PigLet offers a sample web
+  application user interface which allows you to type in <a href=
+  "http://json.org/">JSON</a> strings which are interpreted by
+  PigLet and executed using PigIron. Go to the welcome page, i.e..,
+  http://yourhost.yourdomain.com/piglet/<br>
+  <br>
+  <a name="PigLet_web_application_user_interface" id=
+  "PigLet_web_application_user_interface"></a><img style=
+  "width: 1676px; height: 752px;" alt=
+  "PigLet web application user interface" title=
+  "PigLet web application user interface" src=
+  "images/PigLet_screenshot.jpg"><br>
+
+  <h2><a name="Using_PigLet_in_Web_Applications" id=
+  "Using_PigLet_in_Web_Applications"></a>Using PigLet in Web
+  Applications</h2>Using HTTP you can POST or PUT requests to
+  PigLet in JSON format. The requests are in the form of either<br>
+
+  <ul>
+    <li>an individual <big><span style=
+    "font-family: monospace;">Requestor</span></big></li>
+
+    <li>a JSON array of <big><span style=
+    "font-family: monospace;">Requestor</span></big>s</li>
+  </ul>In the <a href=
+  "#PigLet_web_application_user_interface">illustration above</a>,
+  PigLet's sample web application is ready to send an array of
+  Requestors.<br>
+  <br>
+  The response to a POST or PUT of a Requestor is a document of
+  Content Type "application/json;charset=UTF-8".<br>
+  <br>
+  The basic requestor elements can be displayed by accessing PigLet
+  URLs found in a "directory" in JSON format at the "topview" URL
+  "/piglet/PigIronServlet/topview"<br>
+
+  <ul>
+    <li>Requestor</li>
+
+    <li>Response</li>
+
+    <li>Host</li>
+
+    <li>User</li>
+
+    <li>Function</li>
+
+    <li>Argument</li>
+  </ul>The metaphor for the Function is that input arguments to
+  VSMAPI functionality are represented under their formal names.
+  The <big><span style=
+  "font-family: monospace;">input_arguments</span></big> array
+  member of the <big><span style=
+  "font-family: monospace;">function</span></big> JSON object is a
+  collection of (possibly nested) objects with two members:<br>
+
+  <ul>
+    <li style="font-family: monospace;"><big>formal_name</big></li>
+
+    <li style="font-family: monospace;"><big>value</big></li>
+  </ul>In the <a href=
+  "#PigLet_web_application_user_interface">illustration above</a>,
+  <big><span style=
+  "font-family: monospace;">SharedMemoryQuery</span></big>
+  needs<br>
+
+  <ol>
+    <li>the name of an image with authorization to make the query
+
+      <ul>
+        <li>that image name is passed in the <big><span style=
+        "font-family: monospace;">input_arguments</span></big>
+        array member <big><span style=
+        "font-family: monospace;">target_identifier</span></big></li>
+      </ul>
+    </li>
+
+    <li>the name of a shared memory segment to examine, or "*" for
+    all segments (as in the illustration above)
+
+      <ul>
+        <li>that name is passed in the <big><span style=
+        "font-family: monospace;">input_arguments</span></big>
+        array member <big><span style=
+        "font-family: monospace;">memory_segment_name</span></big></li>
+      </ul>
+    </li>
+  </ol>The resulting input argument array for <big><span style=
+  "font-family: monospace;">SharedMemoryQuery</span></big> ends up
+  looking like this:<br>
+  <br>
+
+  <div style="margin-left: 40px;">
+    <big><span style=
+    "font-family: monospace;">[{"formal_name":"target_identifier","value":"FRED"},{"formal_name":"memory_segment_name","value":"*"}]</span></big><br>
+    </div><br>
+  Everything works this way, using the same formal names used in
+  <a href=
+  "http://publib.boulder.ibm.com/infocenter/zvm/v5r4/index.jsp?topic=/com.ibm.zvm.v54.dmse6/hcsl8b30.htm">
+  IBM's VSMAPI documentation</a> to describe the parameters,
+  nesting objects and arrays as deeply as necessary.<br>
+
+  <ul>
+    <li>Note that there is one silly divergence in naming from this
+    simple scheme. In one single instance, IBM VSMAPI development
+    happened to name two similar but different parameter types with
+    the same name: <big><span style=
+    "font-family: monospace;">cpu_info_array</span></big> (for
+    VSMAPI functions <big><span style=
+    "font-family: monospace;">Image_Active_Configuration_Query</span></big>
+    and&nbsp; <big><span style=
+    "font-family: monospace;">Image_CPU_Query</span></big>.
+    Therefore, PigIron and PigLet refer to the ascending chain of
+    parameter types as follows:
+
+      <ul style="font-family: monospace;">
+        <li>
+          <big>Image_Active_Configuration_Query</big>
+
+          <ul>
+            <li><big>cpu_info_structure</big></li>
+
+            <li><big>cpu_info_counted_structure</big></li>
+
+            <li><big>cpu_info_array</big></li>
+          </ul>
+        </li>
+
+        <li>
+          <big>Image_CPU_Query</big>
+
+          <ul>
+            <li><big>cpu_info2_structure</big></li>
+
+            <li><big>cpu_info2_counted_structure</big></li>
+
+            <li><big>cpu_info2_array</big></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>Currently this is the only wrinkle of that sort in
+  PigIron.<br>
+
+  <h3><a name="Example_JSON_strings" id=
+  "Example_JSON_strings"></a>Example JSON strings</h3>In the
+  illustration above, four requestors are in an array. They are as
+  follows:<br>
+  <br>
+
+  <div style="margin-left: 40px;">
+    <small><span style="font-family: monospace;">[</span><br style=
+    "font-family: monospace;">
+    <span style=
+    "font-family: monospace;">{"function":{"function_name":"CheckAuthentication"},"host":{"dns_name":"MYZBOX","port_number":12346,"ssl":true},"user":{"uid":"FRED","password":"FOOBAR"}},</span><br style="font-family: monospace;">
+
+    <span style=
+    "font-family: monospace;">{"function":{"function_name":"ImageCPUQuery","input_arguments":[{"formal_name":"target_identifier","value":"FRED"}]},"host":{"dns_name":"MYZBOX","port_number":12346,"ssl":true},"user":{"uid":"FRED","password":"FOOBAR"}},</span><br style="font-family: monospace;">
+
+    <span style=
+    "font-family: monospace;">{"function":{"function_name":"SharedMemoryQuery","input_arguments":[{"formal_name":"target_identifier","value":"FRED"},{"formal_name":"memory_segment_name","value":"*"}]},"host":{"dns_name":"MYZBOX","port_number":12346,"ssl":true},"user":{"uid":"FRED","password":"FOOBAR</span><span style="font-family: monospace;">"}},</span><br style="font-family: monospace;">
+
+    <span style=
+    "font-family: monospace;">{"function":{"function_name":"QueryAPIFunctionalLevel","input_arguments":[{"target_identifier":"foo"}]},"host":{"dns_name":"MYZBOX","port_number":12346,"ssl":true},"user":{"uid":"FRED","password":"FOOBAR"}}</span><br style="font-family: monospace;">
+
+    <span style="font-family: monospace;">]</span></small><br>
+  </div><br>
+  Actually, the Requestor for <big><span style=
+  "font-family: monospace;">QueryAPIFunctionalLevel</span></big>
+  above is incorrect!<br>
+  <br>
+
+  <div style="margin-left: 40px;">
+    <span style=
+    "font-family: monospace;">{"target_identifier":"foo"}</span><br>
+    </div><br>
+  should actually be<br>
+  <br>
+
+  <div style="margin-left: 40px;">
+    <span style=
+    "font-family: monospace;">{"formal_name":"target_identifier","value":"foo"}</span>
+  </div><br>
+  but as you might guess, <big><span style=
+  "font-family: monospace;">QueryAPIFunctionalLevel</span></big>
+  does not appear to check that argument.
+
+  <h2><a name="Getting_Help" id="Getting_Help"></a>Getting
+  Help</h2>Please use the <a href=
+  "https://sourceforge.net/forum/forum.php?forum_id=852409">help
+  forum</a> or <a href=
+  "mailing%20listhttps://sourceforge.net/mailarchive/forum.php?forum_name=pigiron-user">
+  mailing list</a> to get help on PigIron and PigLet.<br>
+  <br>
+  <hr style="width: 100%; height: 2px;">
+  <span style="font-style: italic;">Thanks to</span> <a style=
+  "font-style: italic;" href="http://www.designedtoat.com/">Free
+  Original Clipart at Designed to a T</a><span style=
+  "font-style: italic;">&nbsp;for the</span> <a style=
+  "font-style: italic;" href="#Image_of_piglet">pig image</a>
+  <hr style="width: 100%; height: 2px;">
+</body>
+</html>

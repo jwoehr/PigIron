@@ -1,0 +1,1187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for OpenBSD (vers 1 September 2005), see www.w3.org">
+  <!--
+Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+PO Box 51, Golden, Colorado 80402-0051 USA
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+    * Redistributions of source code must retain the above copyright
+        notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+        notice, this list of conditions and the following disclaimer
+        in the documentation and/or other materials provided with the
+        distribution.
+    * Neither the name of the PigIron Project nor the names of its
+        contributors may be used to endorse or promote products derived
+        from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+  <title>PigGen Autogenerator</title>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=us-ascii">
+  <meta http-equiv="Last-Modified" content=
+  "Tue, 16 Dec 2008 22:27:42 UTC">
+</head>
+
+<body>
+  <h1><a name="Image_of_noble_porcine" id=
+  "Image_of_noble_porcine"></a><img title="Image of noble porcine"
+  alt="Image of noble porcine" src=
+  "pigiron.sourceforge.net/images/pig_15.gif" style=
+  "width: 157px; height: 116px;" align="middle">PigGen
+  AutoGenerator for <a href="index.html">PigIron</a></h1>
+
+  <p><tt>Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com PO
+  Box 51, Golden, Colorado 80402-0051 USA All rights
+  reserved.</tt></p>
+
+  <p>[ <a href="./index.html">Back to PigIron Index</a> ] [
+  <a href="http://pigiron.sourceforge.net">PigIron Home Page</a> ]
+  [ <a href="http://sourceforge.net/projects/pigiron">Download
+  PigIron</a> ]</p>
+
+  <h2>Contents</h2>
+
+  <ul>
+    <li>
+      <a href="#Overview">Overview of PigIron's PigGen</a>
+
+      <ul>
+        <li><a href="#Principal_uses_for_PigGen">Principal uses for
+        PigGen</a></li>
+
+        <li><a href="#The_Development_Model">The Development
+        Model</a></li>
+
+        <li><a href="#PigGen_also_generates_FIJI_source_to">PigGen
+        also generates FIJI source to simplify scripting PigIron
+        via FIJI</a></li>
+
+        <li><a href=
+        "#PigGen_also_generates_proxy_classes_for">PigGen also
+        generates proxy classes for PigLet the PigIron
+        Servlet</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a href="#Disclaimers">Disclaimers</a>
+
+      <ul>
+        <li><a href="#Open_Source">Open Source</a></li>
+
+        <li>
+          <a href="#NOTE_ON_SECURITY">NOTE ON SECURITY (LACK
+          THEREOF)</a>
+
+          <ul>
+            <li><a href="#Using_PigIron_and_SSL">Using PigIron and
+            SSL</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#Lawyer-B-Gone">Non-Association with
+        IBM</a></li>
+      </ul>
+    </li>
+
+    <li><a href="#Credits">Credits</a></li>
+
+    <li>
+      <a href="#Specification">Specification</a>
+
+      <ul>
+        <li>
+          <a href="#Why_PigGen">Why PigGen</a>
+
+          <ul>
+            <li><a href=
+            "#Interesting_Conversational_Snippet_on">Interesting
+            Conversational Snippet on the Why of PigGen</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#PigGen_Generated_Much_of_PigIron">PigGen
+        Generates Much of PigIron Itself</a></li>
+
+        <li><a href="#How_PigGen_Works">How PigGen Works</a></li>
+
+        <li>
+          <a href="#Invocation">Invocation</a>
+
+          <ul>
+            <li><a href="#Compiling_one_file">Compiling one file to
+            Java source cod</a><a href=
+            "#Compiling_one_file">e</a><br></li>
+
+            <li><a href=
+            "#Compiling_all_PigIrons_own_description_files">Compiling
+            all PigIron's own description files to Java source
+            code</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#Description_Files">Description Files</a>
+
+          <ul>
+            <li><a href="#Easy_m4">Easy m4</a></li>
+
+            <li><a href="#Description_File_Coding">Description File
+            Coding</a></li>
+
+            <li><a href="#Traps">Traps</a><br></li>
+          </ul>
+        </li>
+
+        <li><a href="#Macro_Reference">Macro Reference</a></li>
+      </ul>
+    </li>
+
+    <li><a href="#Caveats">Caveats</a></li>
+  </ul>
+
+  <h2><a name="Overview" id="Overview">Overview of PigIron's
+  PigGen</a></h2>
+
+  <p>PigGen reads description files coded in the <a href=
+  "http://www.gnu.org/software/m4/">Gnu m4</a> macro language and
+  generates from them Java source code for <a href=
+  "index.html">PigIron</a>'s encapsulation of VSMAPI parameter
+  structures and arrays and VSMAPI calls for either native VSMAPI
+  functions or for your own custom VSMAPI host-side functions.</p>
+
+  <h3><a name="Principal_uses_for_PigGen" id=
+  "Principal_uses_for_PigGen"></a>Principal uses for PigGen</h3>
+
+  <ol>
+    <li>You can extend PigIron as IBM adds new VSMAPI APIs (along
+    with their complement of parameter structures and arrays)
+    without your having to understand PigIron's Java source code
+    intimately.</li>
+
+    <li>You can extend PigIron with calls to support your own
+    custom REXX-coded host-side extensions to VSMAPI (since VSMAPI
+    on the host side supports <a href=
+    "http://publib.boulder.ibm.com/infocenter/zvm/v5r4/topic/com.ibm.zvm.v54.dmse6/tailor.htm#tailor">
+    custom API creation</a>).</li>
+  </ol>
+
+  <h3><a name="The_Development_Model" id=
+  "The_Development_Model"></a>The Development Model</h3>
+
+  <p>VSMAPI and PigIron are extendable together:</p>
+
+  <ol>
+    <li>Write a new host VSMAPI routine.</li>
+
+    <li>Write a PigGen description file for PigIron.</li>
+
+    <li>Compile the description file to Java source code using
+    PigGen.</li>
+
+    <li>Compile the Java source code generated by PigGen from the
+    description file into a PigIron class.<br></li>
+
+    <li>Test your host routine by using your new class in
+    PigIron.</li>
+  </ol>
+
+  <h3><a name="PigGen_also_generates_FIJI_source_to" id=
+  "PigGen_also_generates_FIJI_source_to"></a>PigGen also generates
+  FIJI source to simplify scripting PigIron via FIJI</h3><a href=
+  "http://fiji.sourceforge.net/">FIJI the ForthIsh Java
+  Interpreter</a> can be used to drive or test PigIron. The same
+  description files used to generate PigIron's own Java source code
+  embodying VSMAPI function parameters, structures and functions
+  can be interpreted by PigGen to produce FIJI source to make it
+  easier to employ PigIron in a FIJI program, such as some of the
+  test code accompanying PigIron.
+
+  <p>The directory <a href="../script/fiji">pigiron/script/fiji</a>
+  contains the FIJI support for PigIron. Using PigGen as <a href=
+  "#autogeneration_of_FIJI_helper_code">described below</a> the
+  file <a href=
+  "../script/fiji/pigiron_support.fiji">pigiron_support.fiji</a>
+  was generated. It is loaded by <a href=
+  "../script/fiji/allfunctest.fiji">allfunctest.fiji</a> which
+  effectuates a number of PigIron tests.<br></p>
+
+  <h3><a name="PigGen_also_generates_proxy_classes_for" id=
+  "PigGen_also_generates_proxy_classes_for"></a>PigGen also
+  generates proxy classes for PigLet the PigIron Servlet<br></h3>
+
+  <p>PigGen also generates most of the "proxy" classes in the
+  packages:<br></p>
+
+  <ul>
+    <li style="font-family: monospace;">
+    com.softwoehr.pigiron.webobj.topview.functions</li>
+
+    <li style="font-family: monospace;">
+    com.softwoehr.pigiron.webobj.topview.paramstructs</li>
+  </ul>These classes are used by the <a href=
+  "../../piglet/doc/index.html">PigLet PigIron Servlet</a> to
+  interpret and form JSON requests and responses addressing PigIron
+  functionality.
+
+  <h2><a name="Disclaimers" id=
+  "Disclaimers">Disclaimers</a></h2><a name="Open_Source" id=
+  "Open_Source">PigIron is open source software</a> and as such
+  comes with NO WARRANTY and NO GUARANTEE.&nbsp; Please <a href=
+  "./license.txt">view the BSD-style license for the PigIron Class
+  Library</a>.
+
+  <h4><a name="NOTE_ON_SECURITY" id="NOTE_ON_SECURITY">NOTE ON
+  SECURITY&nbsp;</a></h4>
+
+  <h5><a name="Using_PigIron_and_SSL" id=
+  "Using_PigIron_and_SSL"></a>Using PigIron and SSL</h5>
+
+  <p>Pigiron possesses a <span style="font-style: italic;">not
+  fully tested</span> Secure Sockets Layer (SSL)
+  implementation.<br></p>
+
+  <p>To use SSL with PigIron pass <span style=
+  "font-family: monospace;">boolean true</span> to <span style=
+  "font-family: monospace;">VSMCall.doIt(boolean ssl)</span> to
+  indicate SSL mode. <span style="text-decoration: underline;">The
+  argument</span> <span style=
+  "font-family: monospace; text-decoration: underline;">false</span>
+  <span style="text-decoration: underline;">indicates clear text
+  mode, in which case your passwords and data are transmitted over
+  the network in plain text, in which case you should only use
+  PigIron on a secure intranet.</span><br></p>
+
+  <p><span style="font-weight: bold;">Note:</span> Actually you
+  will never call <span style=
+  "font-family: monospace;">VSMCall.doIt(boolean ssl)</span> but
+  instead the override of that function in the PigIron class
+  mapping to the VSMAPI function you're using, i.e., <span style=
+  "font-family: monospace;">CheckAuthentication.doIt(boolean
+  ssl)</span> .&nbsp;<br></p><a name="Lawyer-B-Gone" id=
+  "Lawyer-B-Gone">PigIron is not associated</a> with the IBM
+  corporation, which owns most or all of the trademarks mentioned
+  in PigIron documentation.
+
+  <h2><a name="Credits" id="Credits">Credits</a></h2>Thanks to
+  <a href="http://www.designedtoat.com">Free Original Clipart at
+  Designed to a T</a> for the <a href="#Image_of_noble_porcine">pig
+  image</a>!
+
+  <h2><a name="Specification" id=
+  "Specification">Specification</a></h2>
+
+  <h3><a name="Why_PigGen" id="Why_PigGen"></a>Why PigGen</h3>
+
+  <p>VSMAPI is extensible on the Host by Rexx programming. You may
+  wish at sometime to extend PigIron's class library support to
+  support functions you and your team members have coded on the
+  Host. Supporting a new VSMAPI function in PigIron requires Java
+  classes which implement the function and its parameters. PigGen
+  is a macro language which will author these classes for you from
+  a description file. You do not even have to know Java beyond
+  knowing how to compile everything after PigGen has autogenerated
+  your code.<br></p>
+
+  <div style="margin-left: 40px;">
+    <h3><a name="Interesting_Conversational_Snippet_on" id=
+    "Interesting_Conversational_Snippet_on"></a>Interesting
+    Conversational Snippet on the Why of PigGen</h3><span style=
+    "font-family: monospace;">(10:08:15) Dave Jones: looking at
+    class VSMCall....this is beginning to make
+    sense..</span><br style="font-family: monospace;">
+    <span style="font-family: monospace;">(10:09:46) Uncle Jax:
+    Right, that's the base from which all funct calls are extended.
+    Class commonality. But DESIGN PATTERN COMMONALITY e.g., each
+    VSMAPI FUnction class layout of composeInput() and
+    composeOutput() is not subject to inheritance factoring .. the
+    commonality is more easily expressed in m4
+    macros.</span><br style="font-family: monospace;">
+    <span style="font-family: monospace;">(10:10:03) Dave Jones:
+    OK</span><br style="font-family: monospace;">
+    <span style="font-family: monospace;">(10:10:18) Uncle Jax:
+    Makes up for Java not having templates like C++ does.</span>
+  </div>
+
+  <h3><a name="PigGen_Generated_Much_of_PigIron" id=
+  "PigGen_Generated_Much_of_PigIron">PigGen Generates Much of
+  PigIron Itself</a></h3>PigIron as released supports currently 114
+  VSMAPI functions and their associated parameter types. All the
+  Java source for the individual VSMAPI function classes in
+  <span style=
+  "font-family: monospace;">pigiron/src/com/softwoehr/pigiron/functions</span>
+  and their parameter types in <span style=
+  "font-family: monospace;">pigiron/src/com/softwoehr/pigiron/access/parmfiles</span>
+  was generated by PigGen from the description files in
+  <span style="font-family: monospace;">pigiron/piggen/funcfiles</span>
+  and <span style=
+  "font-family: monospace;">pigiron/piggen/paramfiles</span> .
+  Additionally, test bindings for ObjectRexx and FIJI, and also
+  PigIron proxy classes which interpret JSON strings in terms of
+  PigIron functionality were autogenerated by PigGen from the same
+  description files used to generated the VSMAPI function classes
+  themselves.<br>
+
+  <h3><a name="How_PigGen_Works" id="How_PigGen_Works">How PigGen
+  Works</a></h3>
+
+  <p>PigGen is a library of macros written in the <a href=
+  "http://www.gnu.org/software/m4/">Gnu m4</a> macro language.
+  These macros allow you to create new VSMAPI parameter structures
+  and arrays, and new VSMAPI function calls.</p>
+
+  <p>PigGen is implemented in a few macro files:</p>
+
+  <ul>
+    <li><tt>pigiron/piggen/pigsty.m4</tt> ... common macros shared
+    by other macro files</li>
+
+    <li><tt>pigiron/piggen/pigstruct.m4</tt> ... macros to define
+    parameter structures</li>
+
+    <li><tt>pigiron/piggen/pigarray.m4</tt> ... macros to define
+    arrays of parameter structures</li>
+
+    <li><tt>pigiron/piggen/pigfunc.m4</tt> ... macros to define
+    functions</li>
+  </ul>There are also a few shell scripts which invoke m4 and carry
+  out the workflow for applying these macros to description
+  files:<br>
+
+  <ul>
+    <li><span style="font-family: monospace;">gen-all.sh</span> ...
+    generate from all the description files in a directory<br></li>
+
+    <li><span style="font-family: monospace;">piggen.sh</span> ...
+    generate from one description file<br></li>
+  </ul>In the case of <a name="autogeneration_of_FIJI_helper_code"
+  id="autogeneration_of_FIJI_helper_code"></a>autogeneration of
+  <a href="#PigGen_also_generates_FIJI_source_to">FIJI helper
+  code</a> for running or testing PigIron's Java classes, there are
+  files parallel to those used for Java generation:<br>
+
+  <ul>
+    <li><tt>pigiron/piggen/pigsty.m4</tt> ... FIJI autogeneration
+    also uses these common macros</li>
+
+    <li><tt>pigiron/piggen/fiji_pigstruct.m4</tt> ... macros to
+    define parameter structures</li>
+
+    <li><tt>pigiron/piggen/fiji_pigarray.m4</tt> ... macros to
+    define arrays of parameter structures</li>
+
+    <li><tt>pigiron/piggen/fiji_pigfunc.m4</tt> ... macros to
+    define functions</li>
+
+    <li>
+      <span style="font-family: monospace;">gen-fiji.sh</span> ...
+      shell script to process two directories, one for function
+      files, one for parameter files, into one massive FIJI source
+      file.
+
+      <ul>
+        <li>This turned out to be the easiest way to do testing!
+
+          <ul>
+            <li>See <span style=
+            "font-family: monospace;">pigiron/script/fiji/allfunctest.fiji</span>
+            and associated files for examples using FIJI with
+            PigIron<br></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3><a name="Invocation" id="Invocation">Invocation</a></h3>
+
+  <p>PigGen as run by the shell files provided runs from its own
+  directory, <tt>pigiron/piggen/</tt> and compiles <a href=
+  "#Description_Files">description files</a> written in PigGen
+  macros into Java source code for PigIron itself and also,
+  optionally, into FIJI source code bindings to be used for
+  scripting PigIron from FIJI.<br></p>
+
+  <h4><a name="Compiling_one_file" id=
+  "Compiling_one_file"></a>Compiling one file to Java source
+  code<br></h4>
+
+  <blockquote style="font-family: monospace;">
+    cd <i>piggen_dir</i> ; ./piggen.sh
+    <i>macroized_description_file output_directory</i>
+  </blockquote>E.g, assuming you have unpacked the archive
+  <tt>pigiron-</tt><i>release_num</i><tt>.zip</tt> into
+  <tt>/usr/local/src/</tt> and have made your own directories, one
+  for custom source in <tt>/usr/local/work/mysrc/</tt> and one for
+  java code waiting to be compiled in
+  <tt>/usr/local/work/myjava/</tt> :
+
+  <blockquote>
+    <tt>cd /usr/local/src/pigiron/piggen ; ./piggen.sh
+    /usr/local/work/mysrc/my_custom_struct.m4
+    /usr/local/wrk/myjava</tt>
+  </blockquote>You will then wish to copy the resulting Java file
+  describing your struct or array or function to a directory where
+  it will be compiled into PigIron, either to PigIron's own
+  directories for this sort of thing (<a href=
+  "../src/com/softwoehr/pigiron/access/paramstructs/"><span style=
+  "font-family: monospace;">pigiron/src/com/softwoehr/pigiron/access/paramstructs</span></a>
+  for structures and arrays or <a style="font-family: monospace;"
+  href=
+  "../src/com/softwoehr/pigiron/functions">pigiron/src/com/softwoehr/pigiron/functions</a>
+  for functions) or to your own directory which you add to
+  PigIron.<br>
+
+  <h4><a name="Compiling_all_PigIrons_own_description_files" id=
+  "Compiling_all_PigIrons_own_description_files"></a>Compiling all
+  PigIron's own description files to Java source code</h4>
+
+  <p>The script <span style=
+  "font-family: monospace;">pigiron/piggen/gen-all.sh</span>
+  generates all PigIron's own description files to Java source code
+  in the <span style="font-family: monospace;">build</span>
+  directory.<br></p>
+
+  <p>There is also a relevant target in <span style=
+  "font-family: monospace;">pigiron/build.xml</span> which
+  <span style="font-family: monospace;">ant -p</span> will
+  reveal:<br></p>
+
+  <div style="margin-left: 40px;">
+    <span style=
+    "font-family: monospace;">pigiron-autogen&nbsp;&nbsp;
+    Autogenerates all PigIron-provided paramstructs and functions
+    from PigGen description files</span><br>
+  </div><br>
+  Autogeneration takes place in the <span style=
+  "font-family: monospace;">pigiron/build</span> directory. The
+  files are not automatically copied to the package directories.
+  You do this by hand to prevent accidental overwrites during
+  development.<br>
+
+  <h4>Compiling all PigIron's own description files to Java source
+  code for the JSON proxy bindings used by PigLet</h4>The script
+  <span style=
+  "font-family: monospace;">pigiron/piggen/gen-all-proxy.sh.sh</span>
+  generates all PigIron's own description files to Java source code
+  in the <span style="font-family: monospace;">build</span>
+  directory.<br>
+
+  <h3><a name="Description_Files" id=
+  "Description_Files">Description Files</a></h3>
+
+  <p>PigGen description files describe VSMAPI structures, arrays
+  and functions. From the description, PigGen writes Java class
+  source code. You then move the source code to the correct
+  directory and compile it as part of a recompile of the PigIron
+  project. After this process is complete, PigIron is able to call
+  your custom-coded VSMAPI functions. All PigIron representation of
+  highlevel VSMAPI structures, arrays and functions were authored
+  using PigGen (except for a very few at the start of coding the
+  project which we have left in their original source form).</p>
+
+  <p><b>Note:</b> The full PigGen description source for the
+  applicable components of the PigIron class library is included
+  with PigIron, along with a target in the master
+  <tt>build.xml</tt> file for building them. However, generating
+  the Java source from the PigGen description files is <u>not</u>
+  part of the typical PigIron build process. Instead, PigIron's own
+  VSMAPI classes were regenerated after the latest modifications of
+  the description files and checked in themselves as Java source
+  code in
+  <tt>pigiron/src/com/softwoehr/pigiron/access/paramstructs/</tt>
+  (for structures and arrays) and
+  <tt>pigiron/src/com/softwoehr/pigiron/functions/</tt> (for
+  functions). The proxy classes should be generated to or moved to
+  reside in
+  <tt>pigiron/src/com/softwoehr/pigiron/webobj/topview/paramstructs/</tt>
+  and
+  <tt>pigiron/src/com/softwoehr/pigiron/webobj/topview/functions/</tt>
+  after you autogenerate them.</p>
+
+  <p>PigGen description files are written in the <a href=
+  "http://www.gnu.org/software/m4/">Gnu m4</a> macro language. To
+  successfully write a PigGen description file you must follow both
+  the rules of m4 and the rules of PigGen. m4 syntax is notoriously
+  difficult, but you are only required to understand a small subset
+  of the rules and mostly just follow directions and examples.</p>
+
+  <h4><a name="Easy_m4" id="Easy_m4"></a>Easy m4</h4>
+
+  <ul>
+    <li>To quote something against macro expansion in m4, you lead
+    it with backtick (<tt>`</tt>) and trail it with single-quote
+    (<tt>'</tt>), e.g., <tt>doNotExpandMe(`this quoted
+    string')</tt> .
+
+      <ul>
+        <li>Yes, it's weird, but it's been that way since the
+        1970's, and besides, it works as a
+        not-in-the-way-of-normal-text syntax for quotation.</li>
+
+        <li>Corrollary: stay away from backtick (<tt>`</tt>) and
+        single-quote (<tt>'</tt>) in your PigGen description files
+        except for m4 quotation purposes.
+
+          <ul>
+            <li>It's possible to use those characters in text, see
+            m4's builtin <span style=
+            "font-family: monospace;">changequote</span>
+            macro.<br></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+
+    <li>m4 macros take their arguments <tt>(`in', `parentheses',
+    `like', `these')</tt> with comma separation.</li>
+
+    <li>An argument in some circumstances may be unquoted, but if
+    quoted, leading space before the backtick (<tt>`</tt>) in an
+    argument is ignored while trailing space is included in the
+    expansion.</li>
+
+    <li>Everything in a macro file is expanded or passed on to the
+    output stream, hence the ubiquitous use of m4's <tt>dnl</tt>
+    macro which discards all subsequent text on a line <u>and the
+    next newline also</u>.</li>
+
+    <li>Macros that have no arguments don't need their <tt>()</tt>
+    to expand, but if there is any ambiguity when a macro abuts
+    non-macro text, you can use <tt>()</tt> to disambiguate.</li>
+  </ul>
+
+  <p>m4 is designed to let you process any text, but there are
+  limitations in the use to which PigGen puts m4. This means that
+  you do not really need to know much more about m4 than we have
+  stated above to use PigGen, given that there are over one hundred
+  examples of description file coding included with PigGen.</p>
+
+  <h4><a name="Description_File_Coding" id=
+  "Description_File_Coding"></a>Description File Coding</h4>
+
+  <ul>
+    <li>The description file must be complete and correct to
+    generate correct Java code.</li>
+
+    <li>Each line of the description file should usually end with
+    the <tt>dnl</tt> macro.
+
+      <ul>
+        <li>The exception is when you are entering inline text such
+        as your own custom-coded function or text comment.</li>
+      </ul>
+    </li>
+
+    <li>On the first line in your description file
+    <tt>include()</tt> the appropriate PigGen .m4 file.
+
+      <ul>
+        <li>To define a VSMAPI structure:
+        <tt>include(`pigstruct.m4')</tt></li>
+
+        <li>To define an array of VSMAPI structures:
+        <tt>include(`pigarray.m4')</tt></li>
+
+        <li>To define a VSMAPI function:
+        <tt>include(`pigfunc.m4')</tt></li>
+      </ul>
+    </li>
+
+    <li>On the second line in your description file use the
+    appropriate namespace opener.
+
+      <ul>
+        <li>For struct or array type use a <a href=
+        "#macroref.pigsty.param_namespaceentity"><tt>param_namespace()</tt></a>
+        statement.</li>
+
+        <li>For a function use a <a href=
+        "#macroref.pigsty.function_namespacefunction_formal_name"><tt>
+        function_namespace(</tt><tt>)</tt></a> statement.</li>
+      </ul>
+    </li>
+
+    <li>The last line of your file should be a <a href=
+    "#macroref.pigsty.param_namespace_end"><tt>param_namespace_end()</tt></a>
+    or <a href=
+    "#macroref.function_namespace_end"><tt>function_namespace_end()</tt></a>
+    statement as appropriate.<br></li>
+
+    <li>Names used for members and functions should always be of
+    one of the form <tt>lcase_lcase[[_lcase] ..]</tt> .</li>
+
+    <li>When you name an extant (defined in some other description
+    file) structure type or array type in describing a new
+    structure type, you always name it in conventional class name
+    format (initial capital) because that is what it becomes in
+    Java and that is how it must be referenced.<br></li>
+    <!-- li></li>
+      <li></li>
+      <li></li>
+      <li></li -->
+  </ul>
+
+  <h4><a name="Traps" id="Traps"></a>Traps</h4>
+
+  <ul>
+    <li>Avoid using "tick" or "backtick" in any text you provide to
+    a macro except in their normal m4 role as delimiters.<br></li>
+
+    <li>Avoid trailing spaces in macro arguments, e.g,
+    <big><span style="font-family: monospace;">foo( `bar'
+    )</span></big> ... note there is a trailing space between the
+    "tick" and the right-parenthesis.
+
+      <ul>
+        <li>m4 ignores leading space before the "backtick" that
+        introduces an argument but preserves trailing spaces as
+        part of the expansion.</li>
+      </ul>
+    </li>
+
+    <li>Avoid underquoting items which resemble m4 macros such as
+
+      <ul>
+        <li>Java names which are macro names in m4
+
+          <ul>
+            <li>You can put the backtick-tick pair of quotes right
+            after a name to prevent its expansion as an m4 macro
+
+              <ul>
+                <li>E.g., <big><span style=
+                "font-family: monospace;">somename`'</span></big><br>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+        <li>Java function calls which might be interpreted as m4
+        because of parentheses
+
+          <ul>
+            <li>You can quote the parentheses to avoid them being
+            mistaken for m4 definition invocation
+
+              <ul>
+                <li>E.g., <big><span style=
+                "font-family: monospace;">somename`('arg1,
+                arg2`)'</span></big><br></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3><a name="Macro_Reference" id="Macro_Reference">Macro
+  Reference</a></h3>
+
+  <p>Macros are listed here by <tt>include</tt> file, in order in
+  which they normally appear in a description file. These are only
+  the most important macros, the ones you are most likely to use in
+  describing host-side VSMAPI functions to PigGen and the ones
+  which will most likely not be substantially altered in PigIron.
+  For examples of usage, see the description files provided which
+  were used to generate PigIron classes.<br></p>
+
+  <p>Only the macros from the macro files which generate the
+  PigIron function and parameter classes are documented here.
+  Autogeneration of<br></p>
+
+  <ul>
+    <li>FIJI bindings</li>
+
+    <li>proxies for JSON interpretation</li>
+  </ul>takes place using the same description files without
+  change.<br>
+  <br>
+  The bottom line is: If you write a description file that works
+  for PigGen autogeneration of function and parameter classes, it
+  will also work for FIJI bindings and for the proxies classes used
+  for JSON interpretation.
+
+  <h4><tt>pigsty.m4</tt></h4>
+
+  <table border="1" cellpadding="4">
+    <thead>
+      <tr>
+        <th>macro</th>
+
+        <th>description</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td><tt><a name="macroref.pigsty.param_namespace" id=
+        "macroref.pigsty.param_namespaceentity"></a>param_namespace(`entity',
+        `associated_function')</tt></td>
+
+        <td>
+          Opens a parameter namespace in which certain names
+          conventional to the construction of parameter description
+          files are pre-defined on the basis of the entity name and
+          associated function name.<br>
+
+          <ul>
+            <li><span style=
+            "font-family: monospace;">entity</span>&nbsp; is the
+            stem of the entity under definition, e.g., <span style=
+            "font-family: monospace;">failing</span> which is the
+            stem of <span style=
+            "font-family: monospace;">failing_structure</span> ,
+            <span style=
+            "font-family: monospace;">failing_structure_counted</span>
+            , etc.<br></li>
+
+            <li><tt>associated_function</tt> is the VSMAPI Function
+            for which this parameter is being defined</li>
+          </ul><tt>param_namespace</tt> should be called right
+          after the include macro at the top of a description file.
+          It must be matched by a <tt>param_namespace_end()</tt> at
+          the very end of the same description file.
+        </td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigsty.param_namespace_end" id=
+        "macroref.pigsty.param_namespace_end"></a>param_namespace_end()</tt></td>
+
+        <td>Closes a parameter namespace. This is useful if you
+        generate from multiple description files concatenated
+        together as is done in autogenerating FIJI source, since
+        this macro discards several definitions conventional to the
+        construction of parameter description files and unclutters
+        the macro space.<br></td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigsty.function_namespace" id=
+        "macroref.pigsty.function_namespacefunction_formal_name"></a>function_namespace(`function_formal_name',
+        `significant_parameter_formal_name')</tt></td>
+
+        <td>Opens a namespace in which certain names conventional
+        to the construction of function description files are
+        pre-defined on the basis of the function name and
+        associated signficant parameter name.</td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.function_namespace_end" id=
+        "macroref.function_namespace_end"></a>function_namespace_end()</tt></td>
+
+        <td>Closes a namespace and drops the conventional name
+        definitions instanced by <tt>function_namespace</tt> .</td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigsty.javaize" id=
+        "macroref.pigsty.javaizeformal_name"></a>javaize(`formal_name')</tt></td>
+
+        <td>Javaizes (or "camel cases") a formal name of the form
+        <span style="font-family: monospace;">formal_name</span> to
+        <span style="font-family: monospace;">FormalName</span>
+        etc.<br></td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigsty.javaize_lc" id=
+        "macroref.pigsty.javaize_lcformal_name"></a>javaize_lc(`formal_name')</tt></td>
+
+        <td>Javaizes (or "camel cases") a formal name of the form
+        <span style="font-family: monospace;">formal_name</span> to
+        <span style="font-family: monospace;">formalName</span>
+        etc. with the initial letter in lower case.<br></td>
+      </tr>
+
+      <tr>
+        <td style="vertical-align: top;"><span style=
+        "font-family: monospace;"><a name="member_name" id=
+        "member_nametype_formal_name"></a>member_name(`type_formal_name')</span><br>
+        </td>
+
+        <td style="vertical-align: top;">Converts a formal name of
+        a VSMAPI type used as an attribute of some VSMAPI entity
+        into the sort of Java-style (Camelized) notation used in
+        PigIron.<br></td>
+      </tr>
+
+      <tr>
+        <td style="vertical-align: top;"><a style=
+        "font-family: monospace;" name="member_getter" id=
+        "member_gettermember_formal_name"></a><span style=
+        "font-family: monospace;">member_getter(`member_formal_name')</span><br>
+        </td>
+
+        <td style="vertical-align: top;">Generates the name of Java
+        getter function for a VSMAPI type used as an attribute of
+        some VSMAPI entity. Used to generate the name for
+        declaration and for execution.<br></td>
+      </tr>
+
+      <tr>
+        <td style="vertical-align: top;"><span style=
+        "font-family: monospace;"><a name="member_setter" id=
+        "member_settermember_formal_name"></a>member_setter(`member_formal_name')</span><br>
+        </td>
+
+        <td style="vertical-align: top;">Generates the name of Java
+        setter function for a VSMAPI type used as an attribute of
+        some VSMAPI entity. Used to generate the name for
+        declaration and for execution.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4><tt>pigarray.m4</tt></h4>
+
+  <table border="1" cellpadding="4">
+    <thead>
+      <tr>
+        <th>macro</th>
+
+        <th>description</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td><tt><a name="macroref.pigarray.pigparm_import" id=
+        "macroref.pigarray.pigparm_importimport_name"></a>pigparm_import(`import_name')</tt></td>
+
+        <td>Conveys an imported class specification to
+        Java.<br></td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigarray.pigparm_classname" id=
+        "macroref.pigarray.pigparm_classnameextendspackage"></a>pigparm_class(`name',`extends',`package',`comment')</tt></td>
+
+        <td>Declares a class to Java representing a VSMAPI array
+        type and commences its definition.<br></td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigarray.pigparm_constant" id=
+        "macroref.pigarray.pigparm_constant"></a>pigparm_constant(`accessor',
+        `type', `name', `initial_value',
+        `comment')&nbsp;<br></tt></td>
+
+        <td>Creates a constant value as a static public final
+        member of your PigIron VSMAPI array class.</td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigarray.pigparm_attribute" id=
+        "macroref.pigarray.pigparm_attribute"></a>pigparm_attribute(`accessor',
+        `scope', `type', `name', `initial_value', `set_accessor',
+        `comment')<br></tt></td>
+
+        <td>Creates a mutable attribute with setters and
+        getters.<br></td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigarray.pigparm_ctors" id=
+        "macroref.pigarray.pigparm_ctors"></a>pigparm_ctors()</tt></td>
+
+        <td>Generates the basic constructor code for your PigIron
+        VSMAPI array class.<br></td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigarray.pigparm_function" id=
+        "macroref.pigarray.pigparm_function"></a>pigparm_function(`accessor',
+        `scope', `return_type', `return_init_expression', `name',
+        `arguments', `throws' `comment', `function_body')</tt></td>
+
+        <td>Generates a function to your specification allowing you
+        to inline Java code in the PigGen description
+        file.<br></td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigarray.pigparm_endclass" id=
+        "macroref.pigarray.pigparm_endclass"></a>pigparm_endclass</tt></td>
+
+        <td>Completes and closes the definition of the Java
+        class.<br></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4><tt>pigstruct.m4</tt></h4>
+
+  <table border="1" cellpadding="4">
+    <thead>
+      <tr>
+        <th>macro</th>
+
+        <th>description</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td><tt><a name="macroref.pigstruct.pigparm_import" id=
+        "macroref.pigstruct.pigparm_importimport_name"></a>pigparm_import(`import_name')</tt></td>
+
+        <td>Conveys an imported class specification to
+        Java.<br></td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigstruct.pigparm_class" id=
+        "macroref.pigstruct.pigparm_classnameextendspackage"></a>pigparm_class(`name',`extends',`package',`comment')</tt></td>
+
+        <td>Declares a class to Java representing a VSMAPI struct
+        type and commences its definition.</td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigstruct.pigparm_constant" id=
+        "macroref.pigstruct.pigparm_constant"></a>pigparm_constant(`accessor',`type',
+        `name', `initial_value', `comment')</tt></td>
+
+        <td>Creates a constant value as a static public final
+        member of your PigIron VSMAPI struct class.</td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigstruct.pigparm_attribute" id=
+        "macroref.pigstruct.pigparm_attribute"></a>pigparm_attribute(`accessor',
+        `scope', `type', `name', `initial_value', `set_accessor',
+        `comment')</tt></td>
+
+        <td>Creates a mutable attribute with setters and
+        getters.</td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigstruct.pigparm_ctors" id=
+        "macroref.pigstruct.pigparm_ctors"></a>pigparm_ctors()</tt></td>
+
+        <td>Generates the basic constructor code for your PigIron
+        VSMAPI struct class.</td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigstruct.pigparm_function" id=
+        "macroref.pigstruct.pigparm_function"></a>pigparm_function(`accessor',
+        `scope', `return_type', `return_init_expression', `name',
+        `arguments', `comment', `function_body')</tt></td>
+
+        <td>Generates a function to your specification allowing you
+        to inline Java code in the PigGen description file.</td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigstruct.pigparm_endclass" id=
+        "macroref.pigstruct.pigparm_endclass"></a>pigparm_endclass</tt></td>
+
+        <td>Completes and closes the definition of the Java
+        class.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4><tt>pigfunc.m4</tt></h4>
+
+  <table border="1" cellpadding="4">
+    <thead>
+      <tr>
+        <th>macro</th>
+
+        <th>description</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td><tt><a name="macroref.pigfunc.pigfunc_import" id=
+        "macroref.pigfunc.pigfunc_importimport_name"></a>pigfunc_import(`import_name')</tt></td>
+
+        <td>Conveys an imported class specification to
+        Java.<br></td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigfunc.pigfunc_class" id=
+        "macroref.pigfunc.pigfunc_classnameextendspackage"></a>pigfunc_class(`name',`extends',`package',`function_name',`comment')</tt></td>
+
+        <td>Opens the definition of the PigIron function class
+        which will support the calling the corresponding API on the
+        VSMAPI host.<br></td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigfunc.pigfunc_ctors" id=
+        "macroref.pigfunc.pigfunc_ctors"></a>pigfunc_ctors(OPTIONAL
+        type, name, instance, t, n, i ..)</tt></td>
+
+        <td>Generates the basic constructor code for your PigIron
+        VSMAPI function with optional attributes to be set in the
+        ctor.<br></td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigfunc.pigfunc_constant" id=
+        "macroref.pigfunc.pigfunc_constant"></a>pigfunc_constant(`accessor',
+        `type', `name', `initial_value', `comment')</tt></td>
+
+        <td>Creates a constant value as a static public final
+        member of your PigIron VSMAPI function class.</td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigfunc.pigfunc_attribute" id=
+        "macroref.pigfunc.pigfunc_attribute"></a>pigfunc_attribute(`accessor',
+        `scope', `type', `name', `initial_value', `set_accessor',
+        `comment')</tt></td>
+
+        <td>Creates a mutable attribute with setters and
+        getters.</td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigfunc.pigfunc_function" id=
+        "macroref.pigfunc.pigfunc_function"></a>pigfunc_function(`accessor',
+        `scope', `return_type', `return_init_expression', `name',
+        `arguments', `throws' `comment', `function_body')</tt></td>
+
+        <td>Generates a function to your specification allowing you
+        to inline Java code in the PigGen description file.</td>
+      </tr>
+
+      <tr>
+        <td><tt><a name=
+        "macroref.pigfunc.pigfunc_compose_input_start" id=
+        "macroref.pigfunc.pigfunc_compose_input_start"></a>pigfunc_compose_input_start()</tt></td>
+
+        <td>Begins the section in which the composition of input
+        (PigIron -&gt; VSMAPI) is defined.<br></td>
+      </tr>
+
+      <tr>
+        <td><tt><a name=
+        "macroref.pigfunc.pigfunc_compose_input_parm" id=
+        "macroref.pigfunc.pigfunc_compose_input_parmtype_value"></a>pigfunc_compose_input_parm(type,</tt><tt>value,
+        formal_name)</tt></td>
+
+        <td>Adds an input parameter to the composition of input
+        (PigIron -&gt; VSMAPI).</td>
+      </tr>
+
+      <tr>
+        <td><tt><a name=
+        "macroref.pigfunc.pigfunc_compose_input_end" id=
+        "macroref.pigfunc.pigfunc_compose_input_end"></a>pigfunc_compose_input_end()</tt></td>
+
+        <td>Ends the section in which the composition of input
+        (PigIron -&gt; VSMAPI) is defined.<br></td>
+      </tr>
+
+      <tr>
+        <td><tt><a name=
+        "macroref.pigfunc.pigfunc_compose_output_start" id=
+        "macroref.pigfunc.pigfunc_compose_output_start"></a>pigfunc_compose_output_start()</tt></td>
+
+        <td>Begins the section in which the composition of output
+        (VSMAPI -&gt;&nbsp;PigIron) is defined.</td>
+      </tr>
+
+      <tr>
+        <td><tt><a name=
+        "macroref.pigfunc.pigfunc_compose_output_parm" id=
+        "macroref.pigfunc.pigfunc_compose_output_parm"></a>pigfunc_compose_output_parm(type,
+        value, formal_name)</tt></td>
+
+        <td>Adds an output parameter to the composition of output
+        (VSMAPI -&gt;&nbsp;PigIron).</td>
+      </tr>
+
+      <tr>
+        <td><tt><a name=
+        "macroref.pigfunc.pigfunc_compose_output_end" id=
+        "macroref.pigfunc.pigfunc_compose_output_end"></a>pigfunc_compose_output_end()</tt></td>
+
+        <td>Ends the section in which the composition of output
+        (VSMAPI -&gt;&nbsp;PigIron) is defined.</td>
+      </tr>
+
+      <tr>
+        <td><tt><a name="macroref.pigfunc.pigfunc_endclass" id=
+        "macroref.pigfunc.pigfunc_endclass"></a>pigfunc_endclass()</tt></td>
+
+        <td>Completes and closes the definition of the Java
+        class.</td>
+      </tr>
+    </tbody>
+  </table><br>
+  <hr>
+
+  <h2><a name="Caveats" id="Caveats"></a>Caveats<br></h2>There are
+  a number of instances in which PigGen performs less than ideally.
+  All are within tolerance, but should be noted to avoid
+  surprises.<br>
+
+  <ul>
+    <li>Array generation via <span style="font-family: monospace;">
+      pigarray.m4</span> makes the assumption that the focus of the
+      array is a <span style=
+      "font-family: monospace;">CountedStruct</span> type. This is
+      not always the case, and superfluous code is generated for
+      imaginary <span style=
+      "font-family: monospace;">CountedStruct</span> types for
+      those Arrays which do not contain a <span style=
+      "font-family: monospace;">CountedStruct</span> type. Since
+      the non-existent type is invoked only by reflection, the code
+      compiles and does no harm unless the useless function calling
+      the non-existent type is invoked explicitly in your code.
+
+      <ul>
+        <li>Workaround: don't call the superfluous functions.</li>
+      </ul>
+    </li>
+
+    <li>PigGen's structure and array description syntax is a model
+    of the aesthetics of autogeneration; the function syntax less
+    beautiful. There are many coding possibilities that might occur
+    to you when you generation your own function files that are
+    allowed by PigGen's complex syntax for functions. Most of them
+    you will never want nor need. I apologize for the complexity
+    which allows for flexibility and avoids having to hand-modify
+    generated files.</li>
+  </ul>
+  <hr>
+
+  <p><a href="http://pigiron.sourceforge.net">The PigIron
+  Project</a></p>
+  <hr>
+</body>
+</html>

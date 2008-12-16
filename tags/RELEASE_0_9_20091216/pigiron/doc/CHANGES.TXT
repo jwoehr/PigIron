@@ -1,0 +1,271 @@
+Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+PO Box 51, Golden, Colorado 80402-0051 USA
+All rights reserved.
+
+This is the PigIron project. PigIron is a Java class library implementing
+the client specification for the IBM z/VM Virtual Machine Operating System
+Systems Management Application Programming Interface (sometimes called VSMAPI).
+
+http://pigiron.sourceforge.net
+
+Please read the file license.txt which is the NO WARRANTY license under which the
+PigIron open source project is coded, released and distributed. license.txt is
+to be found in the same directory as this README.TXT file.
+
+CHANGES
+-------
+2008-12-?? 0.9 -- Even more testing and PigLet, the PigIron Servlet
+
+    * Testing and additional documentation.
+    * PigLet
+        * Many additions to webobj to support PigLet, the PigIron Servlet.
+	    * Autogeneration of JSON proxies for PigIron VSMAPI functions.
+    * Bugs fixed
+        * Result code for QueryAPIFunctionalLevel wasn't being interpreted.
+        * Discovered that the typename "cpu_info_structure" is overloaded as
+          of 5.4 and the version of that family of types created for
+          ImageActiveConfigurationQuery had to be supplemented with another
+          version (called CpuInfo2Structure, CpuInfo2StructureCounted,
+          CpuInfo2Array in PigIron).
+	* Some description files had trailing spaces in m4 which
+	  made certain things work oddly.
+        * Changed file_name to file_spec in return params of
+          VMRM_Measurement_Query because 5.4 made that one change
+    
+2008-11-17 0.8 -- More Testing More Testing More Testing
+
+    * Testing
+        * Mostly using FIJI ForthIsh Java Interpreter for testing now
+            * http://fiji.sourceforge.net
+        * Much more test coverage
+        * Bugs found and fixed (two or three)
+            * Discovered and completed incomplete PigGen parameter descriptions
+            * No actual code bugs discovered!
+    * Build
+        * Generate the md5 sums at release time
+    * Features
+        * Added a simple TCP asynchronous subscriber to DM notifications
+    * Return Codes / Reason Codes
+        * Straightened out the threefoldness of the RetC/ReasC/Function
+          matrix. Now all messages associated with RCs and reason codes
+          should be correct.
+    * SSL Support added
+        * Needs testing.
+    * Web Objects
+        * Clarified JSON model somewhat
+
+2008-10-12 0.7 -- Testing Testing Testing
+
+    * More Testing
+        * See file doc/VSMAPI_functions.txt for list of test coverage
+        * Testing lately has been wrestling with DIRMAINT and 5.4 install :)
+
+    * Bug Fix
+        * Null ptr bug in VSMAsciiZ
+        * The functions which use VSMAsciiZ aren't yet tested, getting 5.4 up.
+
+2008-09-30 0.6 -- Genuinely "alpha" now due to more testing!
+
+    * Testing
+        * More script/oorexx/functest testing scripts
+        * script/oorexx/functest provides a preliminary complete
+          ObjectRexx interface to PigIron VSMAPI functions -- see docs
+    * Bug Fixes
+        * Some of the more complex functions had incorrect description files
+    * Support for z/VM V5R4.0 Systems Management Application Programming
+        - See http://publib.boulder.ibm.com/infocenter/zvm/v5r4/topic/com.ibm.zvm.v54.dmse6/hcsl8b30.htm
+        * Added 5.4 Error Codes
+        * Additional Functions for 5.4
+            * Image_CPU_Define
+            * Image_CPU_Define_DM
+            * Image_CPU_Delete
+            * Image_CPU_Delete_DM
+            * Image_CPU_Query
+            * Image_CPU_Query_DM
+            * Image_CPU_Set_Maximum_DM
+            * Profile_Create_DM
+            * Profile_Delete_DM
+            * Profile_Lock_DM
+            * Profile_Query_DM
+            * Profile_Replace_DM
+            * Profile_Unlock_DM
+            * Virtual_Network_LAN_Access
+            * Virtual_Network_LAN_Access_Query
+    * General Maintenance
+        * Autogenerate the previously hand-coded classes:
+            * CheckAuthentication.java
+            * ImageActiveConfigurationQuery.java
+            * ImageQueryActivateTime.java
+            * ImageStatusQuery.java
+            * NameListQuery.java
+            * QueryAPIFunctionalLevel.java
+            * CpuInfoArray.java
+            * CpuInfoStruct.java
+            * CpuInfoStructCounted.java
+            * DeviceInfoArray.java
+            * DeviceInfoStruct.java
+            * DeviceInfoStructCounted.java
+            * NameArray.java
+            * NameStruct.java
+
+2008-09-12 0.5 -- About "alpha" but NOT FULLY TESTED!!!
+
+    * More VSMAPI functions
+    * Added VSMAPI error code interpretation
+    * More work on Web objects
+    * More testing
+    * Started using ObjectRexx (http://sourforge.net/projects/oorexx)
+      scripting for testing.
+
+Functions additionally supported in this release complete
+the 99 functions provided with VSMAPI 5.3:
+
+    * Asynchronous_Notification_Disable_DM
+    * Asynchronous_Notification_Enable_DM
+    * Asynchronous_Notification_Query_DM
+    * Directory_Manager_Local_Tag_Define_DM
+    * Directory_Manager_Local_Tag_Delete_DM
+    * Directory_Manager_Local_Tag_Query_DM
+    * Directory_Manager_Local_Tag_Set_DM
+    * Directory_Manager_Search_DM
+    * Directory_Manager_Task_Cancel_DM
+    * Image_Create_DM
+    * Image_Delete_DM
+    * Image_Device_Dedicate_DM
+    * Image_Device_Undedicate_DM
+    * Image_Disk_Create_DM
+    * Image_Disk_Copy_DM
+    * Image_Disk_Delete_DM
+    * Image_Disk_Share_DM
+    * Image_Disk_Unshare_DM
+    * Image_IPL_Delete_DM
+    * Image_IPL_Query_DM
+    * Image_IPL_Set_DM
+    * Image_Lock_DM
+    * Image_Name_Query_DM
+    * Image_Password_Set_DM
+    * Image_Query_DM
+    * Image_Replace_DM
+    * Image_SCSI_Characteristics_Define_DM
+    * Image_SCSI_Characteristics_Query_DM
+    * Image_Unlock_DM
+    * Image_Volume_Space_Define_DM
+    * Image_Volume_Space_Query_DM
+    * Image_Volume_Space_Remove_DM
+    * Name_List_Remove
+    * Prototype_Create_DM
+    * Prototype_Delete_DM
+    * Prototype_Name_Query_DM
+    * Prototype_Query_DM
+    * Prototype_Replace_DM
+    * Query_Asynchronous_Operation_DM
+    * Query_Directory_Manager_Level_DM
+    * Shared_Memory_Access_Add_DM
+    * Shared_Memory_Access_Query_DM
+    * Shared_Memory_Access_Remove_DM
+    * Static_Image_Changes_Activate_DM
+    * Static_Image_Changes_Deactivate_DM
+    * Static_Image_Changes_Immediate_DM
+    * Virtual_Channel_Connection_Create_DM
+    * Virtual_Channel_Connection_Delete_DM
+    * Virtual_Network_Adapter_Connect_LAN_DM
+    * Virtual_Network_Adapter_Connect_Vswitch_DM
+    * Virtual_Network_Adapter_Disconnect_DM
+
+2008-09-01 0.4 -- release more functionality and beginning of business objects
+and web objects
+
+Added JSON source to the tree. It's small and freely licensed and easier
+for a preliminary implementation of web objects.
+
+Added the directory pigiron/script for scripts to run PigIron. There's one
+example there from FIJI the ForthIsh Java Interpreter http://fiji.sourceforge.net
+
+Functions additionally supported in this release:
+
+    * Image_Activate
+    * Image_Deactivate
+    * Image_Device_Dedicate
+    * Image_Device_Reset
+    * Image_Device_Undedicate
+    * Shared_Memory_Create
+    * Shared_Memory_Delete
+    * Shared_Memory_Replace
+    * Virtual_Channel_Connection_Create
+    * Virtual_Channel_Connection_Delete
+    * Virtual_Network_Adapter_Connect_LAN
+    * Virtual_Network_Adapter_Connect_Vswitch
+    * Virtual_Network_Adapter_Create
+    * Virtual_Network_Adapter_Create_DM
+    * Virtual_Network_Adapter_Delete
+    * Virtual_Network_Adapter_Delete_DM
+    * Virtual_Network_Adapter_Disconnect
+    * Virtual_Network_LAN_Create
+    * Virtual_Network_LAN_Delete
+    * Virtual_Network_LAN_Query
+    * Virtual_Network_Vswitch_Create
+    * Virtual_Network_Vswitch_Delete
+    * Virtual_Network_Vswitch_Query
+    * Virtual_Network_Vswitch_Set
+    * VMRM_Measurement_Query
+    * VMRM_Configuration_Update
+    * VMRM_Configuration_Query
+
+This completes (if I've counted correctly!) all the non-DM VSMAPI calls,
+though NOT ALL HAVE BEEN TESTED.
+
+Many fixes and small changes to PigGen and the style of description files.
+
+2008-08-27 0.3 -- release more functionality and improved autogenerator.
+
+Functions additionally supported in this release:
+
+    * Authorization_List_Add
+    * Authorization_List_Query
+    * Authorization_List_Remove
+    * Image_Disk_Copy
+    * Image_Disk_Create
+    * Image_Disk_Delete
+    * Image_Disk_Share
+    * Image_Disk_Unshare
+    * Image_Volume_Add
+    * Image_Volume_Delete
+    * Name_List_Add
+    * Name_List_Destroy
+    * Virtual_Network_Adapter_Query
+
+Made a design change: VSMAPI Structure classnames etc are going to use the
+string (appropriately cased) "structure" not "struct". This is an inconsistency
+with the earlier code but the advantage in autogeneration of observing this
+convention is overwhelming.
+
+More documentation. More on the plan of development.
+
+A start on a framework for business objects.
+
+2008-08-20 0.2 -- release more functionality and release autogenerator.
+Very incomplete docs, but good javadocs.
+
+The piggen autogenerator generates Java code for VSMAPI parms and funcs
+from m4 specs. It is good and sound though there are some limitations
+in the present implementation, e.g., the Java names of VSMAPI Array types
+must actually end in the string "Array" for them to be correctly handled
+by the function autogenerator.
+
+Functions additionally supported in this release:
+    * Query_API_Functional_Level
+    * Shared_Memory_Query
+
+2008-08-17 0.1 -- release of proof of concept. Parameter composition, decomposition,
+marshalling and transmission work, along with a small set of VSMAPI function
+calls:
+    * Image_Active_Configuration_Query
+    * Image_Query_Activate_Time
+    * Check_Authentication
+    * Image_Status_Query
+    * Name_List_Query
+
+It's easy enough to code the calls and their parameters. I'm only releasing this
+in its unfinished form so folks can see and comment.
+
+== End ==
