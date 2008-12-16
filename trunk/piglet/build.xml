@@ -63,4 +63,11 @@
     nbproject/build-impl.xml file. 
 
     -->
+
+    <!-- PigLet special targets -->
+
+    <target description="Build a release" name="release">                                                                                                                                                                                                                           
+        <ant antfile="nbproject/release.xml" target="all"/>                                                                                                                                                                                                                         
+    </target>
+
 </project>
