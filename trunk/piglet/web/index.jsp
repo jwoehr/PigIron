@@ -21,11 +21,15 @@ alt="" src="images/pig_15.gif"> Servlet</h1>
 
 <hr>
 <form method=POST action="/piglet/PigIronServlet/engine">
-Requestor in JSON to be executed by PigIron:<br>
-<textarea name="requestor" wrap="soft" cols="120" rows="4"></textarea> 
-<p><input type=SUBMIT value="submit"></p>
+<br>
+<textarea name="requestor" wrap="soft" cols="120" rows="20"></textarea> 
+<p><input type=SUBMIT value="Submit a Requestor in JSON or a JSON Array of Requestors in JSON"></p>
 </form>
-
+<!-- <br/><br/>
+<FORM METHOD=POST ENCTYPE="multipart/form-data" ACTION="/piglet/PigIronServlet/engine">
+File containing a JSON array of Requestors to upload: <INPUT TYPE=FILE NAME="requestors"><BR>
+<INPUT TYPE=SUBMIT VALUE="Submit a Requestor in JSON or a JSON Array of Requestors in JSON">
+</FORM> -->
 <hr>
 <p><a href="http://pigiron.sourceforge.net">The PigIron Project
 http://pigiron.sourceforge.net</a></p>
