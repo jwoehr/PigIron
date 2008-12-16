@@ -14,7 +14,7 @@ to be found in the same directory as this README.TXT file.
 
 CHANGES
 -------
-2008-12-?? 0.9 -- Even more testing and PigLet, the PigIron Servlet
+2008-12-16 0.9 -- Even more testing and PigLet, the PigIron Servlet
 
     * Testing and additional documentation.
     * PigLet
