@@ -44,7 +44,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   "Servlet serves up PigIron Java Class Library mainframe administration functionality to web application writers."
   name="description">
   <meta http-equiv="Last-Modified" content=
-  "Tue, 16 Dec 2008 00:53:01 UTC">
+  "Tue, 16 Dec 2008 21:14:53 UTC">
 </head>
 
 <body>
@@ -93,6 +93,11 @@ THE POSSIBILITY OF SUCH DAMAGE.
         Application</a></li>
       </ul>
     </li>
+
+    <li><a href="#Using_PigLet_in_Web_Applications">Using PigLet in
+    Web Applications</a></li>
+
+    <li>Getting Help<br></li>
   </ul>
 
   <h2><a name="Purpose" id="Purpose"></a>Purpose</h2>
@@ -302,10 +307,143 @@ THE POSSIBILITY OF SUCH DAMAGE.
   PigLet and executed using PigIron. It's on the welcome page,
   e.g., http://yourhost.yourdomain.com/piglet/<br>
   <br>
-  <img style="width: 900px; height: 540px;" alt=
+  <img style="width: 1676px; height: 752px;" alt=
   "PigLet web application user interface" title=
   "PigLet web application user interface" src=
   "images/PigLet_screenshot.jpg"><br>
+
+  <h2><a name="Using_PigLet_in_Web_Applications" id=
+  "Using_PigLet_in_Web_Applications"></a>Using PigLet in Web
+  Applications</h2>Using HTTP you can POST or PUT requests to
+  PigLet in JSON format. The requests are in the form of either<br>
+
+  <ul>
+    <li>an individual <big><span style=
+    "font-family: monospace;">Requestor</span></big></li>
+
+    <li>a JSON array of <big><span style=
+    "font-family: monospace;">Requestor</span></big>s</li>
+  </ul>In the illustration above, PigLet's simple web application
+  is ready to send an array of Requestors.<br>
+  <br>
+  The response to a POST or PUT of a Requestor is a document of
+  Content Type "application/json;charset=UTF-8".<br>
+  <br>
+  The basic requestor elements can be displayed by accessing PigLet
+  URLs found in a "directory" in JSON format at the "topview" URL
+  "/piglet/PigIronServlet/topview"<br>
+
+  <ul>
+    <li>Requestor</li>
+
+    <li>Response</li>
+
+    <li>Host</li>
+
+    <li>User</li>
+
+    <li>Function</li>
+
+    <li>Argument</li>
+  </ul>The metaphor for the Function is that input arguments to
+  VSMAPI functionality are represented under their formal names.
+  The <big><span style=
+  "font-family: monospace;">input_arguments</span></big> array
+  member of the <big><span style=
+  "font-family: monospace;">function</span></big> JSON object is a
+  collection of (possibly nested) objects with two members:<br>
+
+  <ul>
+    <li style="font-family: monospace;"><big>formal_name</big></li>
+
+    <li style="font-family: monospace;"><big>value</big></li>
+  </ul>In the illustration above, <big><span style=
+  "font-family: monospace;">SharedMemoryQuery</span></big>
+  needs<br>
+
+  <ol>
+    <li>the name of an image with authorization to make the query
+
+      <ul>
+        <li>that image name is passed in the <big><span style=
+        "font-family: monospace;">input_arguments</span></big>
+        array member <big><span style=
+        "font-family: monospace;">target_identifier</span></big></li>
+      </ul>
+    </li>
+
+    <li>the name of a shared memory segment to examine, or "*" for
+    all segments (as in the illustration above)
+
+      <ul>
+        <li>that name is passed in the <big><span style=
+        "font-family: monospace;">input_arguments</span></big>
+        array member <big><span style=
+        "font-family: monospace;">memory_segment_name</span></big></li>
+      </ul>
+    </li>
+  </ol>The resulting input argument array for <big><span style=
+  "font-family: monospace;">SharedMemoryQuery</span></big> ends up
+  looking like this:<br>
+  <br>
+
+  <div style="margin-left: 40px;">
+    <big><span style=
+    "font-family: monospace;">[{"formal_name":"target_identifier","value":"FRED"},{"formal_name":"memory_segment_name","value":"*"}]</span></big><br>
+    </div><br>
+  Everything works this way, using the same formal names used in
+  <a href=
+  "http://publib.boulder.ibm.com/infocenter/zvm/v5r4/index.jsp?topic=/com.ibm.zvm.v54.dmse6/hcsl8b30.htm">
+  IBM's VSMAPI documentation</a> to describe the parameters,
+  nesting objects and arrays as deeply as necessary.<br>
+
+  <ul>
+    <li>Note that there is one silly divergence in naming from this
+    simple scheme. In one single instance, IBM VSMAPI development
+    happened to name two similar but different parameter types with
+    the same name: <big><span style=
+    "font-family: monospace;">cpu_info_array</span></big> (for
+    VSMAPI functions <big><span style=
+    "font-family: monospace;">Image_Active_Configuration_Query</span></big>
+    and&nbsp; <big><span style=
+    "font-family: monospace;">Image_CPU_Query</span></big>.
+    Therefore, PigIron and PigLet refer to the ascending chain of
+    parameter types as follows:
+
+      <ul>
+        <li>Image_Active_Configuration_Query
+
+          <ul>
+            <li>cpu_info_structure</li>
+
+            <li>cpu_info_counted_structure</li>
+
+            <li>cpu_info_array</li>
+          </ul>
+        </li>
+
+        <li>Image_CPU_Query
+
+          <ul>
+            <li>cpu_info2_structure</li>
+
+            <li>cpu_info2_counted_structure</li>
+
+            <li>cpu_info2_array</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>Currently this is the only wrinkle of that sort in
+  PigIron.<br>
+
+  <h2><a name="Getting_Help" id="Getting_Help"></a>Getting
+  Help</h2>Please use the <a href=
+  "https://sourceforge.net/forum/forum.php?forum_id=852409">help
+  forum</a> or <a href=
+  "mailing%20listhttps://sourceforge.net/mailarchive/forum.php?forum_name=pigiron-user">
+  mailing list</a> to get help on PigIron and PigLet.<br>
+  <br>
   <hr style="width: 100%; height: 2px;">
   <span style="font-style: italic;">Thanks to</span> <a style=
   "font-style: italic;" href="http://www.designedtoat.com/">Free
