@@ -103,7 +103,7 @@ public class EngineDoer {
                         out.println(pigiron_response.toString(1));
                     }
                 } catch (JSONException ex) {
-                    out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"EngineDoer.doPut() executing a requestor array logged a JSONException to default logger.\",\"requestor\":null}");
+                    out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"EngineDoer.doPut() executing a requestor array logged a JSONException to default logger -- " + ex.getMessage() + "\",\"requestor\":null}");
                 }
             } else {
                 try {
@@ -112,7 +112,7 @@ public class EngineDoer {
                     out.println(pigiron_response.toString(1));
                 } catch (JSONException ey) {
                     Logger.getLogger(com.softwoehr.pigiron.webobj.topview.Requestor .class.getName()).log(Level.SEVERE, null, ey);
-                    out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"EngineDoer.doPut() executing a single requestor logged a JSONException to default logger.\",\"requestor\":null}");
+                    out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"EngineDoer.doPut() executing a single requestor logged a JSONException to default logger -- " + ey.getMessage() + "\",\"requestor\":null}");
                 }
             }
         }
@@ -152,7 +152,7 @@ public class EngineDoer {
                             out.println(pigiron_response.toString(1));
                         }
                     } catch (JSONException ex) {
-                        out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"EngineDoer.doPost() executing a requestor array logged a JSONException to default logger.\",\"requestor\":null}");
+                        out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"EngineDoer.doPost() executing a requestor array logged a JSONException to default logger -- " + ex.getMessage() + "\",\"requestor\":null}");
                     }
                 } else {
                     try {
@@ -161,9 +161,7 @@ public class EngineDoer {
                         out.println(pigiron_response.toString(1));
                     } catch (JSONException ey) {
                         Logger.getLogger(com.softwoehr.pigiron.webobj.topview.Requestor .class.getName()).log(Level.SEVERE, null, ey);
-                                
-
-                        out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"EngineDoer.doPost() executing a single requestor logged a JSONException to default logger.\",\"requestor\":null}");
+                        out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"EngineDoer.doPost() executing a single requestor logged a JSONException to default logger -- " + ey.getMessage() + "\",\"requestor\":null}");
                     }
                 }
             }
