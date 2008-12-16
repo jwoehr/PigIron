@@ -89,15 +89,22 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
         <li><a href="#LaunchingPigLet.Launching">Launching</a></li>
 
-        <li><a href="#Simple_Web_Application">Simple Web
+        <li><a href="#Sample_Web_Application">Sample Web
         Application</a></li>
       </ul>
     </li>
 
-    <li><a href="#Using_PigLet_in_Web_Applications">Using PigLet in
-    Web Applications</a></li>
+    <li>
+      <a href="#Using_PigLet_in_Web_Applications">Using PigLet in
+      Web Applications</a>
 
-    <li>Getting Help<br></li>
+      <ul>
+        <li><a href="#Example_JSON_strings">Example JSON
+        strings</a></li>
+      </ul>
+    </li>
+
+    <li><a href="#Getting_Help">Getting Help</a><br></li>
   </ul>
 
   <h2><a name="Purpose" id="Purpose"></a>Purpose</h2>
@@ -127,7 +134,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
     applications.
 
       <ul>
-        <li>Includes a simple web application.<br></li>
+        <li>Includes a sample web application.<br></li>
       </ul>
     </li>
 
@@ -183,7 +190,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   "BuildingPiglet.Requirements"></a>Requirements</h3>
 
   <ul>
-    <li>JDK</li>
+    <li><a href="http://java.sun.com/">Java JDK</a></li>
 
     <li><a href="http://tomcat.apache.org/">Apache Tomcat
     6.0.18</a> or later.<br></li>
@@ -299,15 +306,17 @@ THE POSSIBILITY OF SUCH DAMAGE.
     "font-family: monospace;">piglet.war</span></a><br></li>
   </ol>
 
-  <h2><a name="Simple_Web_Application" id=
-  "Simple_Web_Application"></a>Simple Web Application<br></h2>In
-  addition to the JSONized data server, PigLet offers a simple web
+  <h2><a name="Sample_Web_Application" id=
+  "Sample_Web_Application"></a>Sample Web Application<br></h2>In
+  addition to the JSONized data server, PigLet offers a sample web
   application user interface which allows you to type in <a href=
   "http://json.org/">JSON</a> strings which are interpreted by
-  PigLet and executed using PigIron. It's on the welcome page,
-  e.g., http://yourhost.yourdomain.com/piglet/<br>
+  PigLet and executed using PigIron. Go to the welcome page, i.e..,
+  http://yourhost.yourdomain.com/piglet/<br>
   <br>
-  <img style="width: 1676px; height: 752px;" alt=
+  <a name="PigLet_web_application_user_interface" id=
+  "PigLet_web_application_user_interface"></a><img style=
+  "width: 1676px; height: 752px;" alt=
   "PigLet web application user interface" title=
   "PigLet web application user interface" src=
   "images/PigLet_screenshot.jpg"><br>
@@ -323,8 +332,10 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
     <li>a JSON array of <big><span style=
     "font-family: monospace;">Requestor</span></big>s</li>
-  </ul>In the illustration above, PigLet's simple web application
-  is ready to send an array of Requestors.<br>
+  </ul>In the <a href=
+  "#PigLet_web_application_user_interface">illustration above</a>,
+  PigLet's sample web application is ready to send an array of
+  Requestors.<br>
   <br>
   The response to a POST or PUT of a Requestor is a document of
   Content Type "application/json;charset=UTF-8".<br>
@@ -357,7 +368,9 @@ THE POSSIBILITY OF SUCH DAMAGE.
     <li style="font-family: monospace;"><big>formal_name</big></li>
 
     <li style="font-family: monospace;"><big>value</big></li>
-  </ul>In the illustration above, <big><span style=
+  </ul>In the <a href=
+  "#PigLet_web_application_user_interface">illustration above</a>,
+  <big><span style=
   "font-family: monospace;">SharedMemoryQuery</span></big>
   needs<br>
 
@@ -410,32 +423,77 @@ THE POSSIBILITY OF SUCH DAMAGE.
     Therefore, PigIron and PigLet refer to the ascending chain of
     parameter types as follows:
 
-      <ul>
-        <li>Image_Active_Configuration_Query
+      <ul style="font-family: monospace;">
+        <li>
+          <big>Image_Active_Configuration_Query</big>
 
           <ul>
-            <li>cpu_info_structure</li>
+            <li><big>cpu_info_structure</big></li>
 
-            <li>cpu_info_counted_structure</li>
+            <li><big>cpu_info_counted_structure</big></li>
 
-            <li>cpu_info_array</li>
+            <li><big>cpu_info_array</big></li>
           </ul>
         </li>
 
-        <li>Image_CPU_Query
+        <li>
+          <big>Image_CPU_Query</big>
 
           <ul>
-            <li>cpu_info2_structure</li>
+            <li><big>cpu_info2_structure</big></li>
 
-            <li>cpu_info2_counted_structure</li>
+            <li><big>cpu_info2_counted_structure</big></li>
 
-            <li>cpu_info2_array</li>
+            <li><big>cpu_info2_array</big></li>
           </ul>
         </li>
       </ul>
     </li>
   </ul>Currently this is the only wrinkle of that sort in
   PigIron.<br>
+
+  <h3><a name="Example_JSON_strings" id=
+  "Example_JSON_strings"></a>Example JSON strings</h3>In the
+  illustration above, four requestors are in an array. They are as
+  follows:<br>
+  <br>
+
+  <div style="margin-left: 40px;">
+    <small><span style="font-family: monospace;">[</span><br style=
+    "font-family: monospace;">
+    <span style=
+    "font-family: monospace;">{"function":{"function_name":"CheckAuthentication"},"host":{"dns_name":"MYZBOX","port_number":12346,"ssl":true},"user":{"uid":"FRED","password":"FOOBAR"}},</span><br style="font-family: monospace;">
+
+    <span style=
+    "font-family: monospace;">{"function":{"function_name":"ImageCPUQuery","input_arguments":[{"formal_name":"target_identifier","value":"FRED"}]},"host":{"dns_name":"MYZBOX","port_number":12346,"ssl":true},"user":{"uid":"FRED","password":"FOOBAR"}},</span><br style="font-family: monospace;">
+
+    <span style=
+    "font-family: monospace;">{"function":{"function_name":"SharedMemoryQuery","input_arguments":[{"formal_name":"target_identifier","value":"FRED"},{"formal_name":"memory_segment_name","value":"*"}]},"host":{"dns_name":"MYZBOX","port_number":12346,"ssl":true},"user":{"uid":"FRED","password":"FOOBAR</span><span style="font-family: monospace;">"}},</span><br style="font-family: monospace;">
+
+    <span style=
+    "font-family: monospace;">{"function":{"function_name":"QueryAPIFunctionalLevel","input_arguments":[{"target_identifier":"foo"}]},"host":{"dns_name":"MYZBOX","port_number":12346,"ssl":true},"user":{"uid":"FRED","password":"FOOBAR"}}</span><br style="font-family: monospace;">
+
+    <span style="font-family: monospace;">]</span></small><br>
+  </div><br>
+  Actually, the Requestor for <big><span style=
+  "font-family: monospace;">QueryAPIFunctionalLevel</span></big>
+  above is incorrect!<br>
+  <br>
+
+  <div style="margin-left: 40px;">
+    <span style=
+    "font-family: monospace;">{"target_identifier":"foo"}</span><br>
+    </div><br>
+  should actually be<br>
+  <br>
+
+  <div style="margin-left: 40px;">
+    <span style=
+    "font-family: monospace;">{"formal_name":"target_identifier","value":"foo"}</span>
+  </div><br>
+  but as you might guess, <big><span style=
+  "font-family: monospace;">QueryAPIFunctionalLevel</span></big>
+  does not appear to check that argument.
 
   <h2><a name="Getting_Help" id="Getting_Help"></a>Getting
   Help</h2>Please use the <a href=
