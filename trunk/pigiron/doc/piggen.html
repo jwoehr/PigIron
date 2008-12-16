@@ -40,7 +40,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii">
   <meta http-equiv="Last-Modified" content=
-  "Tue, 16 Dec 2008 02:10:48 UTC">
+  "Tue, 16 Dec 2008 22:27:42 UTC">
 </head>
 
 <body>
@@ -646,10 +646,14 @@ THE POSSIBILITY OF SUCH DAMAGE.
   <h4><a name="Traps" id="Traps"></a>Traps</h4>
 
   <ul>
+    <li>Avoid using "tick" or "backtick" in any text you provide to
+    a macro except in their normal m4 role as delimiters.<br></li>
+
     <li>Avoid trailing spaces in macro arguments, e.g,
     <big><span style="font-family: monospace;">foo( `bar'
     )</span></big> ... note there is a trailing space between the
     "tick" and the right-parenthesis.
+
       <ul>
         <li>m4 ignores leading space before the "backtick" that
         introduces an argument but preserves trailing spaces as
@@ -657,14 +661,15 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </ul>
     </li>
 
-    <li>Avoid underquoting items which resemble m4 macros such
-    as
+    <li>Avoid underquoting items which resemble m4 macros such as
+
       <ul>
         <li>Java names which are macro names in m4
+
           <ul>
             <li>You can put the backtick-tick pair of quotes right
-            after a name to prevent its expansion as an m4
-            macro
+            after a name to prevent its expansion as an m4 macro
+
               <ul>
                 <li>E.g., <big><span style=
                 "font-family: monospace;">somename`'</span></big><br>
@@ -676,9 +681,11 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
         <li>Java function calls which might be interpreted as m4
         because of parentheses
+
           <ul>
             <li>You can quote the parentheses to avoid them being
             mistaken for m4 definition invocation
+
               <ul>
                 <li>E.g., <big><span style=
                 "font-family: monospace;">somename`('arg1,
@@ -698,8 +705,9 @@ THE POSSIBILITY OF SUCH DAMAGE.
   which they normally appear in a description file. These are only
   the most important macros, the ones you are most likely to use in
   describing host-side VSMAPI functions to PigGen and the ones
-  which will most likely not be substantially altered in
-  PigIron.<br></p>
+  which will most likely not be substantially altered in PigIron.
+  For examples of usage, see the description files provided which
+  were used to generate PigIron classes.<br></p>
 
   <p>Only the macros from the macro files which generate the
   PigIron function and parameter classes are documented here.
@@ -730,7 +738,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
     <tbody>
       <tr>
-        <td><tt><a name="macroref.pigsty.param_namespaceentity" id=
+        <td><tt><a name="macroref.pigsty.param_namespace" id=
         "macroref.pigsty.param_namespaceentity"></a>param_namespace(`entity',
         `associated_function')</tt></td>
 
@@ -773,10 +781,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </tr>
 
       <tr>
-        <td><tt><a name=
-        "macroref.pigsty.function_namespacefunction_formal_name"
-        id="macroref.pigsty.function_namespacefunction_formal_name">
-        </a>function_namespace(`function_formal_name',
+        <td><tt><a name="macroref.pigsty.function_namespace" id=
+        "macroref.pigsty.function_namespacefunction_formal_name"></a>function_namespace(`function_formal_name',
         `significant_parameter_formal_name')</tt></td>
 
         <td>Opens a namespace in which certain names conventional
@@ -794,7 +800,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </tr>
 
       <tr>
-        <td><tt><a name="macroref.pigsty.javaizeformal_name" id=
+        <td><tt><a name="macroref.pigsty.javaize" id=
         "macroref.pigsty.javaizeformal_name"></a>javaize(`formal_name')</tt></td>
 
         <td>Javaizes (or "camel cases") a formal name of the form
@@ -804,7 +810,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </tr>
 
       <tr>
-        <td><tt><a name="macroref.pigsty.javaize_lcformal_name" id=
+        <td><tt><a name="macroref.pigsty.javaize_lc" id=
         "macroref.pigsty.javaize_lcformal_name"></a>javaize_lc(`formal_name')</tt></td>
 
         <td>Javaizes (or "camel cases") a formal name of the form
@@ -815,8 +821,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
       <tr>
         <td style="vertical-align: top;"><span style=
-        "font-family: monospace;"><a name=
-        "member_nametype_formal_name" id=
+        "font-family: monospace;"><a name="member_name" id=
         "member_nametype_formal_name"></a>member_name(`type_formal_name')</span><br>
         </td>
 
@@ -828,8 +833,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
       <tr>
         <td style="vertical-align: top;"><a style=
-        "font-family: monospace;" name=
-        "member_gettermember_formal_name" id=
+        "font-family: monospace;" name="member_getter" id=
         "member_gettermember_formal_name"></a><span style=
         "font-family: monospace;">member_getter(`member_formal_name')</span><br>
         </td>
@@ -842,8 +846,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
       <tr>
         <td style="vertical-align: top;"><span style=
-        "font-family: monospace;"><a name=
-        "member_settermember_formal_name" id=
+        "font-family: monospace;"><a name="member_setter" id=
         "member_settermember_formal_name"></a>member_setter(`member_formal_name')</span><br>
         </td>
 
@@ -868,8 +871,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
     <tbody>
       <tr>
-        <td><tt><a name=
-        "macroref.pigarray.pigparm_importimport_name" id=
+        <td><tt><a name="macroref.pigarray.pigparm_import" id=
         "macroref.pigarray.pigparm_importimport_name"></a>pigparm_import(`import_name')</tt></td>
 
         <td>Conveys an imported class specification to
@@ -877,8 +879,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </tr>
 
       <tr>
-        <td><tt><a name=
-        "macroref.pigarray.pigparm_classnameextendspackage" id=
+        <td><tt><a name="macroref.pigarray.pigparm_classname" id=
         "macroref.pigarray.pigparm_classnameextendspackage"></a>pigparm_class(`name',`extends',`package',`comment')</tt></td>
 
         <td>Declares a class to Java representing a VSMAPI array
@@ -886,28 +887,38 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </tr>
 
       <tr>
-        <td><tt>pigparm_constant(`accessor',</tt></td>
+        <td><tt><a name="macroref.pigarray.pigparm_constant" id=
+        "macroref.pigarray.pigparm_constant"></a>pigparm_constant(`accessor',
+        `type', `name', `initial_value',
+        `comment')&nbsp;<br></tt></td>
 
         <td>Creates a constant value as a static public final
         member of your PigIron VSMAPI array class.</td>
       </tr>
 
       <tr>
-        <td><tt>pigparm_attribute(`accessor',</tt></td>
+        <td><tt><a name="macroref.pigarray.pigparm_attribute" id=
+        "macroref.pigarray.pigparm_attribute"></a>pigparm_attribute(`accessor',
+        `scope', `type', `name', `initial_value', `set_accessor',
+        `comment')<br></tt></td>
 
         <td>Creates a mutable attribute with setters and
         getters.<br></td>
       </tr>
 
       <tr>
-        <td><tt>pigparm_ctors()</tt></td>
+        <td><tt><a name="macroref.pigarray.pigparm_ctors" id=
+        "macroref.pigarray.pigparm_ctors"></a>pigparm_ctors()</tt></td>
 
         <td>Generates the basic constructor code for your PigIron
         VSMAPI array class.<br></td>
       </tr>
 
       <tr>
-        <td><tt>pigparm_function(`accessor',</tt></td>
+        <td><tt><a name="macroref.pigarray.pigparm_function" id=
+        "macroref.pigarray.pigparm_function"></a>pigparm_function(`accessor',
+        `scope', `return_type', `return_init_expression', `name',
+        `arguments', `throws' `comment', `function_body')</tt></td>
 
         <td>Generates a function to your specification allowing you
         to inline Java code in the PigGen description
@@ -937,8 +948,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
     <tbody>
       <tr>
-        <td><tt><a name=
-        "macroref.pigstruct.pigparm_importimport_name" id=
+        <td><tt><a name="macroref.pigstruct.pigparm_import" id=
         "macroref.pigstruct.pigparm_importimport_name"></a>pigparm_import(`import_name')</tt></td>
 
         <td>Conveys an imported class specification to
@@ -946,8 +956,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </tr>
 
       <tr>
-        <td><tt><a name=
-        "macroref.pigstruct.pigparm_classnameextendspackage" id=
+        <td><tt><a name="macroref.pigstruct.pigparm_class" id=
         "macroref.pigstruct.pigparm_classnameextendspackage"></a>pigparm_class(`name',`extends',`package',`comment')</tt></td>
 
         <td>Declares a class to Java representing a VSMAPI struct
@@ -956,28 +965,36 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
       <tr>
         <td><tt><a name="macroref.pigstruct.pigparm_constant" id=
-        "macroref.pigstruct.pigparm_constant"></a>pigparm_constant(`accessor',</tt></td>
+        "macroref.pigstruct.pigparm_constant"></a>pigparm_constant(`accessor',`type',
+        `name', `initial_value', `comment')</tt></td>
 
         <td>Creates a constant value as a static public final
         member of your PigIron VSMAPI struct class.</td>
       </tr>
 
       <tr>
-        <td><tt>pigparm_attribute(`accessor',</tt></td>
+        <td><tt><a name="macroref.pigstruct.pigparm_attribute" id=
+        "macroref.pigstruct.pigparm_attribute"></a>pigparm_attribute(`accessor',
+        `scope', `type', `name', `initial_value', `set_accessor',
+        `comment')</tt></td>
 
         <td>Creates a mutable attribute with setters and
         getters.</td>
       </tr>
 
       <tr>
-        <td><tt>pigparm_ctors()</tt></td>
+        <td><tt><a name="macroref.pigstruct.pigparm_ctors" id=
+        "macroref.pigstruct.pigparm_ctors"></a>pigparm_ctors()</tt></td>
 
         <td>Generates the basic constructor code for your PigIron
         VSMAPI struct class.</td>
       </tr>
 
       <tr>
-        <td><tt>pigparm_function(`accessor',</tt></td>
+        <td><tt><a name="macroref.pigstruct.pigparm_function" id=
+        "macroref.pigstruct.pigparm_function"></a>pigparm_function(`accessor',
+        `scope', `return_type', `return_init_expression', `name',
+        `arguments', `comment', `function_body')</tt></td>
 
         <td>Generates a function to your specification allowing you
         to inline Java code in the PigGen description file.</td>
@@ -1006,8 +1023,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
     <tbody>
       <tr>
-        <td><tt><a name=
-        "macroref.pigfunc.pigfunc_importimport_name" id=
+        <td><tt><a name="macroref.pigfunc.pigfunc_import" id=
         "macroref.pigfunc.pigfunc_importimport_name"></a>pigfunc_import(`import_name')</tt></td>
 
         <td>Conveys an imported class specification to
@@ -1015,8 +1031,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </tr>
 
       <tr>
-        <td><tt><a name=
-        "macroref.pigfunc.pigfunc_classnameextendspackage" id=
+        <td><tt><a name="macroref.pigfunc.pigfunc_class" id=
         "macroref.pigfunc.pigfunc_classnameextendspackage"></a>pigfunc_class(`name',`extends',`package',`function_name',`comment')</tt></td>
 
         <td>Opens the definition of the PigIron function class
@@ -1025,27 +1040,39 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </tr>
 
       <tr>
-        <td><tt>pigfunc_ctors(OPTIONAL</tt></td>
+        <td><tt><a name="macroref.pigfunc.pigfunc_ctors" id=
+        "macroref.pigfunc.pigfunc_ctors"></a>pigfunc_ctors(OPTIONAL
+        type, name, instance, t, n, i ..)</tt></td>
 
-        <td><br></td>
+        <td>Generates the basic constructor code for your PigIron
+        VSMAPI function with optional attributes to be set in the
+        ctor.<br></td>
       </tr>
 
       <tr>
-        <td><tt>pigfunc_constant(`accessor',</tt></td>
+        <td><tt><a name="macroref.pigfunc.pigfunc_constant" id=
+        "macroref.pigfunc.pigfunc_constant"></a>pigfunc_constant(`accessor',
+        `type', `name', `initial_value', `comment')</tt></td>
 
         <td>Creates a constant value as a static public final
         member of your PigIron VSMAPI function class.</td>
       </tr>
 
       <tr>
-        <td><tt>pigfunc_attribute(`accessor',</tt></td>
+        <td><tt><a name="macroref.pigfunc.pigfunc_attribute" id=
+        "macroref.pigfunc.pigfunc_attribute"></a>pigfunc_attribute(`accessor',
+        `scope', `type', `name', `initial_value', `set_accessor',
+        `comment')</tt></td>
 
         <td>Creates a mutable attribute with setters and
         getters.</td>
       </tr>
 
       <tr>
-        <td><tt>pigfunc_function(`accessor',</tt></td>
+        <td><tt><a name="macroref.pigfunc.pigfunc_function" id=
+        "macroref.pigfunc.pigfunc_function"></a>pigfunc_function(`accessor',
+        `scope', `return_type', `return_init_expression', `name',
+        `arguments', `throws' `comment', `function_body')</tt></td>
 
         <td>Generates a function to your specification allowing you
         to inline Java code in the PigGen description file.</td>
@@ -1056,26 +1083,18 @@ THE POSSIBILITY OF SUCH DAMAGE.
         "macroref.pigfunc.pigfunc_compose_input_start" id=
         "macroref.pigfunc.pigfunc_compose_input_start"></a>pigfunc_compose_input_start()</tt></td>
 
-        <td><br></td>
+        <td>Begins the section in which the composition of input
+        (PigIron -&gt; VSMAPI) is defined.<br></td>
       </tr>
 
       <tr>
         <td><tt><a name=
-        "macroref.pigfunc.pigfunc_compose_input_parmtype_value" id=
+        "macroref.pigfunc.pigfunc_compose_input_parm" id=
         "macroref.pigfunc.pigfunc_compose_input_parmtype_value"></a>pigfunc_compose_input_parm(type,</tt><tt>value,
         formal_name)</tt></td>
 
-        <td><br></td>
-      </tr>
-
-      <tr>
-        <td><tt><a name=
-        "macroref.pigfunc.pigfunc_compose_optional_input_parmtype"
-        id=
-        "macroref.pigfunc.pigfunc_compose_optional_input_parmtype"></a>pigfunc_compose_optional_input_parm(type,
-        value, formal_name)</tt></td>
-
-        <td><br></td>
+        <td>Adds an input parameter to the composition of input
+        (PigIron -&gt; VSMAPI).</td>
       </tr>
 
       <tr>
@@ -1083,7 +1102,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
         "macroref.pigfunc.pigfunc_compose_input_end" id=
         "macroref.pigfunc.pigfunc_compose_input_end"></a>pigfunc_compose_input_end()</tt></td>
 
-        <td><br></td>
+        <td>Ends the section in which the composition of input
+        (PigIron -&gt; VSMAPI) is defined.<br></td>
       </tr>
 
       <tr>
@@ -1091,13 +1111,18 @@ THE POSSIBILITY OF SUCH DAMAGE.
         "macroref.pigfunc.pigfunc_compose_output_start" id=
         "macroref.pigfunc.pigfunc_compose_output_start"></a>pigfunc_compose_output_start()</tt></td>
 
-        <td><br></td>
+        <td>Begins the section in which the composition of output
+        (VSMAPI -&gt;&nbsp;PigIron) is defined.</td>
       </tr>
 
       <tr>
-        <td><tt>pigfunc_compose_output_parm(type,</tt></td>
+        <td><tt><a name=
+        "macroref.pigfunc.pigfunc_compose_output_parm" id=
+        "macroref.pigfunc.pigfunc_compose_output_parm"></a>pigfunc_compose_output_parm(type,
+        value, formal_name)</tt></td>
 
-        <td><br></td>
+        <td>Adds an output parameter to the composition of output
+        (VSMAPI -&gt;&nbsp;PigIron).</td>
       </tr>
 
       <tr>
@@ -1105,7 +1130,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
         "macroref.pigfunc.pigfunc_compose_output_end" id=
         "macroref.pigfunc.pigfunc_compose_output_end"></a>pigfunc_compose_output_end()</tt></td>
 
-        <td><br></td>
+        <td>Ends the section in which the composition of output
+        (VSMAPI -&gt;&nbsp;PigIron) is defined.</td>
       </tr>
 
       <tr>
