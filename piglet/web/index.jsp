@@ -10,10 +10,10 @@
 <meta name="generator" content="HTML Tidy, see www.w3.org">
 <meta http-equiv="Content-Type" content=
 "text/html; charset=UTF-8">
-<title>Piglet the PigIron Servlet</title>
+<title>PigLet the PigIron Servlet</title>
 </head>
 <body>
-<h1>Piglet <img alt="" src="images/pig_18.gif"> the PigIron <img
+<h1>PigLet <img alt="" src="images/pig_18.gif"> the PigIron <img
 alt="" src="images/pig_15.gif"> Servlet</h1>
 
 <a href=
