@@ -14,9 +14,12 @@ to be found in the same directory as this README.TXT file.
 
 CHANGES
 -------
-2008-??-?? 0.9 -- Even more testing
+2008-12-?? 0.9 -- Even more testing and PigLet, the PigIron Servlet
 
-    * Testing
+    * Testing and additional documentation.
+    * PigLet
+        * Many additions to webobj to support PigLet, the PigIron Servlet.
+	    * Autogeneration of JSON proxies for PigIron VSMAPI functions.
     * Bugs fixed
         * Result code for QueryAPIFunctionalLevel wasn't being interpreted.
         * Discovered that the typename "cpu_info_structure" is overloaded as
@@ -24,10 +27,10 @@ CHANGES
           ImageActiveConfigurationQuery had to be supplemented with another
           version (called CpuInfo2Structure, CpuInfo2StructureCounted,
           CpuInfo2Array in PigIron).
-    * Features
+	* Some description files had trailing spaces in m4 which
+	  made certain things work oddly.
         * Changed file_name to file_spec in return params of
           VMRM_Measurement_Query because 5.4 made that one change
-    * More on web objects
     
 2008-11-17 0.8 -- More Testing More Testing More Testing
 
