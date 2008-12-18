@@ -74,7 +74,8 @@ public class EngineDoer {
      * @throws  ServletException  if a servlet-specific error occurs
      * @throws  IOException       if an I/O error occurs
      */ 
-    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+    protected void doPut(HttpServletRequest request,
+             HttpServletResponse response) throws ServletException,  IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         ServletInputStream in = request.getInputStream();
@@ -92,7 +93,7 @@ public class EngineDoer {
             out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"Empty PUT to PigLet PigIron Servlet.\",\"requestor\":null}"); 
         } else {
             String inString = sb.toString();
-	    com.softwoehr.pigiron.webobj.topview.Requestor pigiron_requestor = null;
+            com.softwoehr.pigiron.webobj.topview.Requestor pigiron_requestor = null;
             com.softwoehr.pigiron.webobj.topview.Response pigiron_response = null;
             if (inString.startsWith("[")) {
                 try {
@@ -131,7 +132,8 @@ public class EngineDoer {
      * @throws  ServletException  if a servlet-specific error occurs
      * @throws  IOException       if an I/O error occurs
      */ 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+    protected void doPost(HttpServletRequest request,
+             HttpServletResponse response) throws ServletException,  IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String in = null;
@@ -141,15 +143,19 @@ public class EngineDoer {
         if (map.containsKey("requestor")) {
             in = request.getParameter("requestor").trim();
             if (in == null | in.equals("")) {
-                out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"Empty single request was POSTed to PigLet PigIron Servlet.\",\"requestor\":null}"); 
+                out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"Empty single request was POSTed to PigLet PigIron Servlet.\",\"requestor\":null}");
             } else {
                 if (in.startsWith("[")) {
                     try {
                         JSONArray requestors = new JSONArray(in);
-                        for (int i = 0; i < requestors.length(); i++) {
-                            pigiron_requestor = new com.softwoehr.pigiron.webobj.topview.Requestor(requestors.getString(i));
-                            pigiron_response = new Engine().execute(pigiron_requestor);
-                            out.println(pigiron_response.toString(1));
+                        if (requestors.length() > 0) {
+                            for (int i = 0; i < requestors.length(); i++) {
+                                pigiron_requestor = new com.softwoehr.pigiron.webobj.topview.Requestor(requestors.getString(i));
+                                pigiron_response = new Engine().execute(pigiron_requestor);
+                                out.println(pigiron_response.toString(1));
+                            }
+                        } else {
+                            out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"Empty request array was POSTed to PigLet PigIron Servlet.\",\"requestor\":null}"); 
                         }
                     } catch (JSONException ex) {
                         out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"EngineDoer.doPost() executing a requestor array logged a JSONException to default logger -- " + ex.getMessage() + "\",\"requestor\":null}");
@@ -166,7 +172,7 @@ public class EngineDoer {
                 }
             }
         } else {
-            out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"Empty request was POSTed to PigLet PigIron Servlet.\",\"requestor\":null}"); 
+            out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"Empty request was POSTed to PigLet PigIron Servlet.\",\"requestor\":null}");
         }
         out.close();
     }
