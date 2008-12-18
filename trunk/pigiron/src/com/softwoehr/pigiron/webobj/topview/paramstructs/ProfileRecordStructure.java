@@ -38,7 +38,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.annotation.Generated;
+// Too bleeding edge in terms of JDK
+// import javax.annotation.Generated;
 
 /**
  *  Description of the Class
@@ -46,7 +47,7 @@ import javax.annotation.Generated;
  * @author     jax
  * @created    December 6, 2008
  */
- @Generated(value = {"ProfileRecordStructure"})
+// @Generated(value = {"ProfileRecordStructure"})
 public class ProfileRecordStructure extends ParamProxy {
     /**
      *  Description of the Method
