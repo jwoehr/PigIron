@@ -74,8 +74,7 @@ public class EngineDoer {
      * @throws  ServletException  if a servlet-specific error occurs
      * @throws  IOException       if an I/O error occurs
      */ 
-    protected void doPut(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         ServletInputStream in = request.getInputStream();
@@ -98,10 +97,14 @@ public class EngineDoer {
             if (inString.startsWith("[")) {
                 try {
                     JSONArray requestors = new JSONArray(inString);
-                    for (int i = 0; i < requestors.length(); i++) {
-                        pigiron_requestor = new com.softwoehr.pigiron.webobj.topview.Requestor(requestors.getString(i));
-                        pigiron_response = new Engine().execute(pigiron_requestor);
-                        out.println(pigiron_response.toString(1));
+                    if (requestors.length() > 0) {
+                        for (int i = 0; i < requestors.length(); i++) {
+                            pigiron_requestor = new com.softwoehr.pigiron.webobj.topview.Requestor(requestors.getString(i));
+                            pigiron_response = new Engine().execute(pigiron_requestor);
+                            out.println(pigiron_response.toString(1));
+                        }
+                    } else {
+                        out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"Empty request array was PUT to PigLet PigIron Servlet.\",\"requestor\":null}"); 
                     }
                 } catch (JSONException ex) {
                     out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"EngineDoer.doPut() executing a requestor array logged a JSONException to default logger -- " + ex.getMessage() + "\",\"requestor\":null}");
@@ -132,8 +135,7 @@ public class EngineDoer {
      * @throws  ServletException  if a servlet-specific error occurs
      * @throws  IOException       if an I/O error occurs
      */ 
-    protected void doPost(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String in = null;
