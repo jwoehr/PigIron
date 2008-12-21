@@ -13,27 +13,16 @@
 <title>PigLet the PigIron Servlet</title>
 </head>
 <body>
-<h1>PigLet <img alt="" src="images/pig_18.gif"> the PigIron <img
-alt="" src="images/pig_15.gif"> Servlet</h1>
+<h1>PigLet <img alt="the PigIron PigLet" title="the PigIron PigLet" src="images/pig_18.gif"> the PigIron <img
+alt="the PigIron Pig" title="the PigIron Pig" src="images/pig_15.gif"> Servlet</h1>
+<ul>
+<li><a href="/piglet/builder.html">PigLet VSMAPI Builder</li></a></li>
+<li><a href=
+"/piglet/PigIronServlet/topview">{"service":"topview","uri":"/piglet/PigIronServlet/topview"}</a></li>
+</ul>
 
-<a href=
-"/piglet/PigIronServlet/topview">{"service":"topview","uri":"/piglet/PigIronServlet/topview"}</a>
-
-<hr>
-<form method=POST action="/piglet/PigIronServlet/engine">
-<br>
-<textarea name="requestor" wrap="soft" cols="200" rows="20"></textarea> 
-<p><input type=SUBMIT value="Submit a Requestor in JSON or a JSON Array of Requestors in JSON"></p>
-</form>
-<!-- <br/><br/>
-<FORM METHOD=POST ENCTYPE="multipart/form-data" ACTION="/piglet/PigIronServlet/engine">
-File containing a JSON array of Requestors to upload: <INPUT TYPE=FILE NAME="requestors"><BR>
-<INPUT TYPE=SUBMIT VALUE="Submit a Requestor in JSON or a JSON Array of Requestors in JSON">
-</FORM> -->
 <hr>
 <p><a href="http://pigiron.sourceforge.net">The PigIron Project
 http://pigiron.sourceforge.net</a></p>
 </body>
 </html>
-
-
