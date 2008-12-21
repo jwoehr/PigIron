@@ -71,7 +71,6 @@ public class PigIronServlet extends HttpServlet {
      */ 
     protected void doGet(HttpServletRequest request,
              HttpServletResponse response) throws ServletException,  IOException {
-
         String myPathInfo = request.getPathInfo();
         if ("/topview/".regionMatches(0, myPathInfo, 0,
                  "/topview/".length()) | myPathInfo.equals("/topview")) {
@@ -91,7 +90,6 @@ public class PigIronServlet extends HttpServlet {
      */ 
     protected void doPost(HttpServletRequest request,
              HttpServletResponse response) throws ServletException,  IOException {
-
         String myPathInfo = request.getPathInfo();
         if (myPathInfo.equals("/engine") | myPathInfo.equals("/engine/")) {
             (new EngineDoer()).doPost(request, response);
@@ -118,7 +116,6 @@ public class PigIronServlet extends HttpServlet {
      */ 
     protected void doPut(HttpServletRequest request,
              HttpServletResponse response) throws ServletException,  IOException {
-
         String myPathInfo = request.getPathInfo();
         if (myPathInfo.equals("/engine") | myPathInfo.equals("/engine/")) {
             (new EngineDoer()).doPut(request, response);
@@ -145,14 +142,12 @@ public class PigIronServlet extends HttpServlet {
      */ 
     protected void doDelete(HttpServletRequest request,
              HttpServletResponse response) throws ServletException,  IOException {
-
-        // response.setContentType("application/json;charset=UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
-        // makes testing easier
+        response.setContentType("application/json;charset=UTF-8");
+        // response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String myPathInfo = request.getPathInfo();
         String myMethod = request.getMethod();
-        out.println("DELETE Not implemented");
+	out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"DELETE Not implemented\",\"requestor\":null}");
         out.close();
     }
 
@@ -164,5 +159,6 @@ public class PigIronServlet extends HttpServlet {
     public String getServletInfo() {
         return "PigLet the PigIron Servlet: {\"uri\":\"http://pigiron.sourceforge.net\"}";
     }
+
 }
 
