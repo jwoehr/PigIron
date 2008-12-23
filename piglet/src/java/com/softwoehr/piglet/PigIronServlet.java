@@ -77,10 +77,10 @@ public class PigIronServlet extends HttpServlet {
                      "/topview/".length()) | myPathInfo.equals("/topview")) {
                 new TopviewDoer().doGet(request, response);
             } else {
-                ProofOfConcept.processRequest(request, response);
+                 badRequest(request, response);
             }
         } else {
-            ProofOfConcept.processRequest(request, response);
+             badRequest(request, response);
         }
     }
 
@@ -164,6 +164,11 @@ public class PigIronServlet extends HttpServlet {
      */ 
     public String getServletInfo() {
         return "PigLet the PigIron Servlet: {\"uri\":\"http://pigiron.sourceforge.net\"}";
+    }
+    
+    /** Return an error from PigIron Servlet for bad requests */ 
+    private void badRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+	response.sendError(response.SC_NOT_FOUND, "PigIronServlet does not understand the request " + request.getPathInfo());
     }
 }
 
