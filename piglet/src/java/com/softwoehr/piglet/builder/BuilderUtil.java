@@ -45,9 +45,9 @@ import org.json.JSONException;
 public class BuilderUtil {
 
     /**
-     *  Sets the defaultHost attribute of the BuilderUtil class
+     *  Sets the defaultHost attribute of the Builder in the caller's Session
      *
-     * @param  request  The new defaultHost value
+     * @param  request  The http request
      * @param  host     The new defaultHost value
      */ 
     public static void setDefaultHost(HttpServletRequest request, Host host) {
@@ -55,14 +55,33 @@ public class BuilderUtil {
     }
 
     /**
-     *  Gets the defaultHost attribute of the BuilderUtil class
+     *  Gets the defaultHost attribute of the Builder in the caller's Session
      *
-     * @param  request  Description of the Parameter
+     * @param  request  The http request
      * @return          The defaultHost value
      */ 
     public static Host getDefaultHost(HttpServletRequest request) {
-        return Host .class.cast(request.getSession(true).getAttribute("default_host"));
+        return Host.class.cast(request.getSession(true).getAttribute("default_host"));
+    }
+    
+    /**
+     *  Sets the defaultUser attribute of the Builder in the caller's Session
+     *
+     * @param  request  The http request
+     * @param  User     The new defaultUser value
+     */ 
+    public static void setDefaultUser(HttpServletRequest request, User user) {
+        request.getSession(true).setAttribute("default_User", user);
     }
 
+    /**
+     *  Gets the defaultUser attribute of the Builder in the caller's Session
+     *
+     * @param  request The http request
+     * @return         The defaultUser value
+     */ 
+    public static User getDefaultUser(HttpServletRequest request) {
+        return User.class.cast(request.getSession(true).getAttribute("default_User"));
+    }
 }
 
