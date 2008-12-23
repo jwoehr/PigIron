@@ -70,20 +70,16 @@ public class BuilderServlet extends HttpServlet {
      * @throws  IOException       if an I/O error occurs
      */ 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+
         String myPathInfo = request.getPathInfo();
         if (myPathInfo != null) {
             if ("/topview/".regionMatches(0, myPathInfo, 0, "/topview/".length()) | myPathInfo.equals("/topview")) {
                 new TopviewDoer().doGet(request, response);
             } else {
-                ProofOfConcept.processRequest(request, response);
+                badRequest(request, response);
             }
         } else {
-            response.setContentType("text/html;charset=UTF-8");
-            PrintWriter out = response.getWriter();
-            myPathInfo = request.getPathInfo();
-            String myMethod = request.getMethod();
-            out.println("Builder Servlet testing");
-            out.close();
+            badRequest(request, response);
         }
     }
 
@@ -96,6 +92,7 @@ public class BuilderServlet extends HttpServlet {
      * @throws  IOException       if an I/O error occurs
      */ 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+
         String myPathInfo = request.getPathInfo();
         if (myPathInfo.equals("/engine") | myPathInfo.equals("/engine/")) {
             (new EngineDoer()).doPost(request, response);
@@ -121,6 +118,7 @@ public class BuilderServlet extends HttpServlet {
      * @throws  IOException       if an I/O error occurs
      */ 
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+
         String myPathInfo = request.getPathInfo();
         if (myPathInfo.equals("/engine") | myPathInfo.equals("/engine/")) {
             (new EngineDoer()).doPut(request, response);
@@ -146,6 +144,7 @@ public class BuilderServlet extends HttpServlet {
      * @throws  IOException       if an I/O error occurs
      */ 
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+
         response.setContentType("application/json;charset=UTF-8");
         // response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -161,7 +160,12 @@ public class BuilderServlet extends HttpServlet {
      * @return    a String containing servlet description
      */ 
     public String getServletInfo() {
-        return "PigLet the PigIron Servlet: {\"uri\":\"http://pigiron.sourceforge.net\"}";
+        return "Builder Servlet for PigIron: {\"uri\":\"http://pigiron.sourceforge.net\"}";
+    }
+ 
+    /** Return an error from Builder Servlet for bad requests */ 
+    private void badRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+	response.sendError(response.SC_NOT_FOUND, "BuilderServlet does not understand the request " + request.getPathInfo());  
     }
 }
 
