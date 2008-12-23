@@ -10,6 +10,10 @@
         <servlet-name>PigIronServlet</servlet-name>
         <servlet-class>com.softwoehr.piglet.PigIronServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BuilderServlet</servlet-name>
+        <servlet-class>com.softwoehr.piglet.BuilderServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PigIronServlet</servlet-name>
         <url-pattern>/PigIronServlet</url-pattern>
@@ -17,6 +21,14 @@
     <servlet-mapping>
         <servlet-name>PigIronServlet</servlet-name>
         <url-pattern>/PigIronServlet/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuilderServlet</servlet-name>
+        <url-pattern>/BuilderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuilderServlet</servlet-name>
+        <url-pattern>/BuilderServlet/*</url-pattern>	
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -52,12 +52,12 @@ import org.json.JSONException;
  * @author     jax
  * @created    December 8, 2008
  */
-public class PigIronServlet extends HttpServlet {
+public class BuilderServlet extends HttpServlet {
 
     /**
      * Constructor for the HttpServlet object does nothing.
      */ 
-    public PigIronServlet() {
+    public BuilderServlet() {
         super();
     }
 
@@ -69,18 +69,21 @@ public class PigIronServlet extends HttpServlet {
      * @throws  ServletException  if a servlet-specific error occurs
      * @throws  IOException       if an I/O error occurs
      */ 
-    protected void doGet(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         String myPathInfo = request.getPathInfo();
         if (myPathInfo != null) {
-            if ("/topview/".regionMatches(0, myPathInfo, 0,
-                     "/topview/".length()) | myPathInfo.equals("/topview")) {
+            if ("/topview/".regionMatches(0, myPathInfo, 0, "/topview/".length()) | myPathInfo.equals("/topview")) {
                 new TopviewDoer().doGet(request, response);
             } else {
                 ProofOfConcept.processRequest(request, response);
             }
         } else {
-            ProofOfConcept.processRequest(request, response);
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            myPathInfo = request.getPathInfo();
+            String myMethod = request.getMethod();
+            out.println("Builder Servlet testing");
+            out.close();
         }
     }
 
@@ -92,8 +95,7 @@ public class PigIronServlet extends HttpServlet {
      * @throws  ServletException  if a servlet-specific error occurs
      * @throws  IOException       if an I/O error occurs
      */ 
-    protected void doPost(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         String myPathInfo = request.getPathInfo();
         if (myPathInfo.equals("/engine") | myPathInfo.equals("/engine/")) {
             (new EngineDoer()).doPost(request, response);
@@ -101,12 +103,11 @@ public class PigIronServlet extends HttpServlet {
             response.setContentType("application/json;charset=UTF-8");
             PrintWriter out = response.getWriter();
             try {
-                out.println(new Response("PIGLET_ERR", "Unknown POST target \"" + myPathInfo + "\""));
+                out.println(new Response("PIGLET_ERR",
+                         "Unknown POST target \"" + myPathInfo + "\""));
             } catch (JSONException ex) {
                 out.println("{\"result\":\"JSON_ERR\",\"messageText\":\"Error reporting unknown PUT target\\\"" + myPathInfo + "\\\" was " + ex + "\",\"requestor\":null}");
-                Logger.getLogger(Requestor .class.getName()).log(Level.SEVERE,
-                         null, ex);
-
+                Logger.getLogger(Requestor .class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -119,8 +120,7 @@ public class PigIronServlet extends HttpServlet {
      * @throws  ServletException  if a servlet-specific error occurs
      * @throws  IOException       if an I/O error occurs
      */ 
-    protected void doPut(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         String myPathInfo = request.getPathInfo();
         if (myPathInfo.equals("/engine") | myPathInfo.equals("/engine/")) {
             (new EngineDoer()).doPut(request, response);
@@ -128,12 +128,11 @@ public class PigIronServlet extends HttpServlet {
             response.setContentType("application/json;charset=UTF-8");
             PrintWriter out = response.getWriter();
             try {
-                out.println(new Response("PIGLET_ERR", "Unknown PUT target \"" + myPathInfo + "\""));
+                out.println(new Response("PIGLET_ERR",
+                         "Unknown PUT target \"" + myPathInfo + "\""));
             } catch (JSONException ex) {
                 out.println("{\"result\":\"JSON_ERR\",\"messageText\":\"Error reporting unknown PUT target\\\"" + myPathInfo + "\\\" was " + ex + "\",\"requestor\":null}");
-                Logger.getLogger(Requestor .class.getName()).log(Level.SEVERE,
-                         null, ex);
-
+                Logger.getLogger(Requestor .class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -146,8 +145,7 @@ public class PigIronServlet extends HttpServlet {
      * @throws  ServletException  if a servlet-specific error occurs
      * @throws  IOException       if an I/O error occurs
      */ 
-    protected void doDelete(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         response.setContentType("application/json;charset=UTF-8");
         // response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
