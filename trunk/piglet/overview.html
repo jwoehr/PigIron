@@ -43,16 +43,20 @@ THE POSSIBILITY OF SUCH DAMAGE.
 <h1>PigLet Servlet of the PigIron Java Class Library for VSMAPI
 Programming</h1>
 <h2>Purpose</h2>
-<p><a href="http://pigiron.sourceforge.net/">PigIron</a> is an open
+PigLet is a Servlet which accepts PigIron
+transaction requests formatted according to <a
+ href="http://www.json.org/">JSON</a> and returns in JSON format the
+results of the execution of the requests. <a
+ href="http://pigiron.sourceforge.net/">PigIron</a> is an open
 source Java library implementing the client to <a
  href="http://publib.boulder.ibm.com/infocenter/zvm/v5r4/index.jsp?topic=/com.ibm.zvm.v54.dmse6/hcsl8b30.htm">
 IBM &#174; z/VM &#174; V5R3.0 an V5R4.0 Systems Management Application Programming</a>
 transactions over TCP/IP sockets (referred to in PigIron documentation
-as <i>VSMAPI</i>). PigLet is a Servlet which accepts PigIron
-transaction requests formatted according to <a
- href="http://www.json.org">JSON</a> and returns in JSON format the
-results of the execution of the requests.<br>
-</p>
+as <i>VSMAPI</i>).<br>
+<br>
+PigLet is intended to support the web applications which need VSMAPI
+support. PigLet itself features a web application which allows users to
+perform VSMAPI operations.<br>
 <h2>Disclaimers</h2>
 <ul>
   <li>PigIron is Open Source software and as such carries no warranty

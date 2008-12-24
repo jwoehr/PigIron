@@ -47,7 +47,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 
 /**
- * Main dispatcher for servlet requests.
+ * The PigLet servlet which accepts JSON input and makes PigIron VSMAPI
+ * calls and returns JSON-formatted responses. The class itself actually
+ * serves as the dispatcher to various other classes which perform most
+ * of the functionality.
  *
  * @author     jax
  * @created    December 8, 2008

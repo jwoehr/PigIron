@@ -39,7 +39,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 
 /**
- * Deals with setting and getting the default Host
+ * Static methods used by the Builder web application.
  *
  * @author     jax
  * @created    December 23, 2008
@@ -101,7 +101,15 @@ public class BuilderUtil {
 	}
         return user;
     }
-    
+
+    /**
+     * Flatten an array of String to a single String. Needed
+     * because HttpServletRequest.getParameterMap() returns
+     * paramaters as array of String.
+     *
+     * @param stringArray that which needs flattening
+     * @return the flattened String
+     */
     public static String flatten (String [] stringArray) {
 	StringBuffer sb = new StringBuffer();
 	for (int i = 0; i <stringArray.length; i++) {

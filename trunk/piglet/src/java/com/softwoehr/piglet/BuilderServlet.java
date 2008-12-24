@@ -48,7 +48,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 
 /**
- * Main dispatcher for servlet requests.
+ * Main dispatcher for servlet requests to the Builder, a web application
+ * based on the PigLet PigIron Servlet.
  *
  * @author     jax
  * @created    December 8, 2008
