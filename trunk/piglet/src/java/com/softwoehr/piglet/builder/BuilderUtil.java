@@ -105,7 +105,7 @@ public class BuilderUtil {
     /**
      * Flatten an array of String to a single String. Needed
      * because HttpServletRequest.getParameterMap() returns
-     * paramaters as array of String.
+     * each parameter as an array of String.
      *
      * @param stringArray that which needs flattening
      * @return the flattened String
