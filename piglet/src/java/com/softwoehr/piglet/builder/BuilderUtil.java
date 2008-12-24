@@ -29,9 +29,11 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  *  THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.softwoehr.piglet;
+package com.softwoehr.piglet.builder;
 
 import com.softwoehr.pigiron.webobj.topview.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
@@ -61,9 +63,17 @@ public class BuilderUtil {
      * @return          The defaultHost value
      */ 
     public static Host getDefaultHost(HttpServletRequest request) {
-        return Host.class.cast(request.getSession(true).getAttribute("default_host"));
+	Host host = null;
+	Object obj = request.getSession(true).getAttribute("default_host");
+	try {
+	    host = obj != null ? Host.class.cast(obj) : new Host();
+	}
+	catch (org.json.JSONException ex) {
+	    Logger.getLogger(BuilderUtil.class.getName()).log(Level.SEVERE, null, ex);
+	}
+        return host;
     }
-    
+
     /**
      *  Sets the defaultUser attribute of the Builder in the caller's Session
      *
@@ -71,7 +81,7 @@ public class BuilderUtil {
      * @param  User     The new defaultUser value
      */ 
     public static void setDefaultUser(HttpServletRequest request, User user) {
-        request.getSession(true).setAttribute("default_User", user);
+        request.getSession(true).setAttribute("default_user", user);
     }
 
     /**
@@ -81,7 +91,15 @@ public class BuilderUtil {
      * @return         The defaultUser value
      */ 
     public static User getDefaultUser(HttpServletRequest request) {
-        return User.class.cast(request.getSession(true).getAttribute("default_User"));
+	User user = null;
+	Object obj = request.getSession(true).getAttribute("default_user");
+	try {
+	    user  = obj != null ? User.class.cast(obj) : new User();
+	 }
+	catch (org.json.JSONException ex) {
+	    Logger.getLogger(BuilderUtil.class.getName()).log(Level.SEVERE, null, ex);
+	}
+        return user;
     }
 }
 

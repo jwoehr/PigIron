@@ -33,6 +33,7 @@ package com.softwoehr.piglet;
 
 import com.softwoehr.pigiron.webobj.topview.*;
 import com.softwoehr.pigiron.webobj.Engine;
+import com.softwoehr.piglet.builder.DefaultUser;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
@@ -73,8 +74,8 @@ public class BuilderServlet extends HttpServlet {
 
         String myPathInfo = request.getPathInfo();
         if (myPathInfo != null) {
-            if ("/topview/".regionMatches(0, myPathInfo, 0, "/topview/".length()) | myPathInfo.equals("/topview")) {
-                new TopviewDoer().doGet(request, response);
+            if (myPathInfo.equals("/default_user")) {
+                new DefaultUser().doGet(request, response);
             } else {
                 badRequest(request, response);
             }
