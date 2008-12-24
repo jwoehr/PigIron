@@ -55,8 +55,24 @@ transactions over TCP/IP sockets (referred to in PigIron documentation
 as <i>VSMAPI</i>).<br>
 <br>
 PigLet is intended to support the web applications which need VSMAPI
-support. PigLet itself features a web application which allows users to
+support. PigLet itself features a web application called Builder which
+allows users to
 perform VSMAPI operations.<br>
+<br>
+As written and configured in PigLet's web.xml :<br>
+<ul>
+  <li>The base URL is <span style="font-family: monospace;">http://</span><span
+ style="font-style: italic;">hostname</span><span
+ style="font-family: monospace;">/piglet</span></li>
+  <li>The URL for PigLet PigIron VSMAPI JSON-format transactions is <span
+ style="font-family: monospace;">http://</span><span
+ style="font-style: italic;">hostname</span><span
+ style="font-family: monospace;">/piglet/PigIronServlet/engine</span></li>
+  <li>The Builder web application is found at <span
+ style="font-family: monospace;">http://</span><span
+ style="font-style: italic;">hostname</span><span
+ style="font-family: monospace;">/piglet/builder.html</span></li>
+</ul>
 <h2>Disclaimers</h2>
 <ul>
   <li>PigIron is Open Source software and as such carries no warranty
