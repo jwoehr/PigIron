@@ -51,7 +51,7 @@ import java.util.Map;
 
 public class DefaultUser {
     /**
-     * Constructor for the HttpServlet object does nothing.
+     * Constructor does nothing.
      */ 
     public DefaultUser() {
     }
@@ -98,12 +98,13 @@ public class DefaultUser {
 	response.getWriter().close();
     }
 
-    public void printForm (HttpServletRequest request,
+    public void printForm(HttpServletRequest request,
              HttpServletResponse response) throws ServletException,  IOException {
 	String uid = null;
 	User currentDefaultUser = BuilderUtil.getDefaultUser(request);
 	try {
 	    uid = currentDefaultUser == null ? "_userid_" : currentDefaultUser.getUid();
+	    uid = currentDefaultUser == null ? "_userid_" : currentDefaultUser.toString();
 	}
 	catch (org.json.JSONException ex) {
 	    Logger.getLogger(DefaultUser.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,7 +113,7 @@ public class DefaultUser {
         PrintWriter out = response.getWriter();
 	out.println("<http><body>");
 	out.println("<form method=\"post\" action=\"/piglet/BuilderServlet/default_user\">");
-      	out.println("<input type=\"text\"  name=\"uid\">" + uid + "</input>");
+      	out.println("<input type=\"text\"  name=\"uid\" value = \"" + uid + "\"/>");
         out.println("<p><input value=\"Submit\" type=\"submit\"></p>");
         out.println("</form></body></http>");
     }
