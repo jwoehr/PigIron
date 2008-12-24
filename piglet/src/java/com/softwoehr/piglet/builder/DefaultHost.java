@@ -49,16 +49,16 @@ import java.util.Map;
  * @created    December 23, 2008
  */
 
-public class DefaultUser {
+public class DefaultHost {
     /**
      * Constructor does nothing.
      */ 
-    public DefaultUser() { }
+    public DefaultHost() { }
 
     /**
-     * Performs the HTTP <code>GET</code> method for Default User, including
-     * closing the PrintWriter. Gets the default User into a form for setting
-     * the default user.
+     * Performs the HTTP <code>GET</code> method for Default Host, including
+     * closing the PrintWriter. Gets the default Host into a form for setting
+     * the default host.
      *
      * @param  request            servlet request
      * @param  response           servlet response
@@ -71,8 +71,8 @@ public class DefaultUser {
     }
 
     /**
-     * Performs the HTTP <code>POST</code> method. Sets the default User from
-     * form data and then gets it into a form for setting the default user from
+     * Performs the HTTP <code>POST</code> method. Sets the default Host from
+     * form data and then gets it into a form for setting the default host from
      * form data.
      *
      * @param  request            servlet request
@@ -82,27 +82,35 @@ public class DefaultUser {
      */ 
     public void doPost(HttpServletRequest request,
              HttpServletResponse response) throws ServletException,  IOException {
-
-        User user = BuilderUtil.getDefaultUser(request);
+        Host host = BuilderUtil.getDefaultHost(request);
         Map map = request.getParameterMap();
         try {
-            if (map.containsKey("uid")) {
-                user.setUid(BuilderUtil.flatten((String []) map.get("uid")));
+            if (map.containsKey("name")) {
+                host.setName(BuilderUtil.flatten((String []) map.get("name")));
             }
-            if (map.containsKey("password")) {
-                user.setPassword(BuilderUtil.flatten((String []) map.get("password")));
+            if (map.containsKey("dns_name")) {
+                host.setDnsName(BuilderUtil.flatten((String []) map.get("dns_name")));
             }
+	    if (map.containsKey("ip_address")) {
+		host.setIpAddress(BuilderUtil.flatten((String []) map.get("ip_address")));
+	    }
+	    if (map.containsKey("port_number")) {
+		host.setPortNumber(Integer.valueOf(BuilderUtil.flatten((String []) map.get("port_number"))).intValue());
+	    }
+	    if (map.containsKey("ssl")) {
+		host.setSSL(true);
+	    }
         } catch (org.json.JSONException ex) {
-            Logger.getLogger(DefaultUser .class.getName()).log(Level.SEVERE,
+            Logger.getLogger(DefaultHost .class.getName()).log(Level.SEVERE,
                      null, ex);
         }
-        BuilderUtil.setDefaultUser(request, user);
+        BuilderUtil.setDefaultHost(request, host);
         printForm(request, response);
         response.getWriter().close();
     }
 
     /**
-     *  Compose the form for setting the default User who is used for VSMAPI
+     *  Compose the form for setting the default Host who is used for VSMAPI
      * calls unless overridden.
      *
      * @param  request               The servlet request
@@ -111,24 +119,36 @@ public class DefaultUser {
      * @throws  IOException       if an I/O error occurs
      */ 
     public void printForm(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
-        String uid = null;
-	String password = null;
-        User currentDefaultUser = BuilderUtil.getDefaultUser(request);
+        String name = null;
+	String dns_name = null;
+	String ip_address = null;
+	int port_number = -1;
+	boolean ssl = false;
+        Host currentDefaultHost = BuilderUtil.getDefaultHost(request);
         try {
-            uid = currentDefaultUser == null ? "_userid_" : currentDefaultUser.getUid();
-	    password = currentDefaultUser == null ? "_password_" : currentDefaultUser.getPassword();
+            name = currentDefaultHost == null ? "_name_" : currentDefaultHost.getName();
+	    dns_name = currentDefaultHost == null ? "_dns_name_" : currentDefaultHost.getDnsName();
+	    ip_address = currentDefaultHost == null ? "_ip_address_" : currentDefaultHost.getIpAddress();
+	    port_number = currentDefaultHost == null ? -1 : currentDefaultHost.getPortNumber();
+	    ssl = currentDefaultHost == null ? false : currentDefaultHost.getSSL();
         } catch (org.json.JSONException ex) {
-            Logger.getLogger(DefaultUser .class.getName()).log(Level.SEVERE,
+            Logger.getLogger(DefaultHost .class.getName()).log(Level.SEVERE,
                      null, ex);
         }
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<http><body><h1>Set Default User</h1>");
-        out.println("<form method=\"post\" action=\"/piglet/BuilderServlet/default_user\">");
-        out.println("<input type=\"text\"  name=\"uid\" value = \"" + uid + "\"/>");
-	out.println("User ID<br>");
-	out.println("<input type=\"password\"  name=\"password\" value = \"" + password+ "\"/>");
-	out.println("Password<br>");
+        out.println("<http><body><h1>Set Default Host</h1>");
+        out.println("<form method=\"post\" action=\"/piglet/BuilderServlet/default_host\">");
+        out.println("<input type=\"text\"  name=\"name\" value = \"" + name + "\"/>");
+	out.println("Host Name (only used symbolically)<br>");
+	out.println("<input type=\"text\"  name=\"dns_name\" value = \"" + dns_name+ "\"/>");
+	out.println("DNS Name (actual lookup name, if present IP Address not necessary)<br>");
+	out.println("<input type=\"text\"  name=\"ip_address\" value = \"" + ip_address+ "\"/>");
+	out.println("IP Address (dotted, not checked if DNS name is present)<br>");
+	out.println("<input type=\"text\"  name=\"port_number\" value = \"" + port_number+ "\"/>");
+	out.println("Port Number<br>");
+	out.println("<input type=\"checkbox\"  name=\"ssl\"" + (ssl ? "checked" : "") + "\"/>");
+	out.println("Use SSL<br>");
         out.println("<p><input value=\"Submit\" type=\"submit\"></p>");
         out.println("</form></body></http>");
     }
