@@ -112,18 +112,23 @@ public class DefaultUser {
      */ 
     public void printForm(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         String uid = null;
+	String password = null;
         User currentDefaultUser = BuilderUtil.getDefaultUser(request);
         try {
             uid = currentDefaultUser == null ? "_userid_" : currentDefaultUser.getUid();
+	    password = currentDefaultUser == null ? "_userid_" : currentDefaultUser.getPassword();
         } catch (org.json.JSONException ex) {
             Logger.getLogger(DefaultUser .class.getName()).log(Level.SEVERE,
                      null, ex);
         }
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<http><body>");
+        out.println("<http><body><h1>Set Default User</h1>");
         out.println("<form method=\"post\" action=\"/piglet/BuilderServlet/default_user\">");
         out.println("<input type=\"text\"  name=\"uid\" value = \"" + uid + "\"/>");
+	out.println("User ID<br>");
+	out.println("<input type=\"password\"  name=\"password\" value = \"" + password+ "\"/>");
+	out.println("Password<br>");
         out.println("<p><input value=\"Submit\" type=\"submit\"></p>");
         out.println("</form></body></http>");
     }
