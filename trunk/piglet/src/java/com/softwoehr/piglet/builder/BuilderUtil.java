@@ -45,6 +45,9 @@ import org.json.JSONException;
  * @created    December 23, 2008
  */
 public class BuilderUtil {
+    
+    /** Class has only static members */
+    private BuilderUtil() {}
 
     /**
      *  Sets the defaultHost attribute of the Builder in the caller's Session
