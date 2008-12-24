@@ -87,8 +87,8 @@ public class DefaultUser {
 	User user = BuilderUtil.getDefaultUser(request);
 	Map map = request.getParameterMap();
 	try {
-            if (map.containsKey("uid")) {user.setUid(map.get("uid").toString());}
-	    if (map.containsKey("password")) {user.setPassword(map.get("password").toString());}
+            if (map.containsKey("uid")) {user.setUid(BuilderUtil.flatten((String[])map.get("uid")));}
+	    if (map.containsKey("password")) {user.setPassword(BuilderUtil.flatten((String[])map.get("password")));}
 	}
 	catch (org.json.JSONException ex) {
 	    Logger.getLogger(DefaultUser.class.getName()).log(Level.SEVERE, null, ex);
@@ -104,7 +104,6 @@ public class DefaultUser {
 	User currentDefaultUser = BuilderUtil.getDefaultUser(request);
 	try {
 	    uid = currentDefaultUser == null ? "_userid_" : currentDefaultUser.getUid();
-	    uid = currentDefaultUser == null ? "_userid_" : currentDefaultUser.toString();
 	}
 	catch (org.json.JSONException ex) {
 	    Logger.getLogger(DefaultUser.class.getName()).log(Level.SEVERE, null, ex);
