@@ -93,8 +93,9 @@ public class BuilderUtil {
     public static User getDefaultUser(HttpServletRequest request) {
 	User user = null;
 	Object obj = request.getSession(true).getAttribute("default_user");
+	/* Debug */ if (obj != null) {System.out.println(obj.toString());}
 	try {
-	    user  = obj != null ? User.class.cast(obj) : new User();
+	    user = obj != null ? User.class.cast(obj) : new User();
 	 }
 	catch (org.json.JSONException ex) {
 	    Logger.getLogger(BuilderUtil.class.getName()).log(Level.SEVERE, null, ex);
