@@ -112,26 +112,112 @@ public class Builder {
      * @throws  IOException       if an I/O error occurs
      */ 
     public void printForm(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
-        /*
+        String uid = null;
+	String password = null;
         String name = null;
         String dns_name = null;
         String ip_address = null;
         int port_number = - 1;
         boolean ssl = false;
-        Host currentBuilder = BuilderUtil.getBuilder(request);
+        User currentUser = BuilderUtil.getDefaultUser(request);
+	Host currentHost = BuilderUtil.getDefaultHost(request);
+	
         try {
-        name = currentBuilder == null ? "_name_" : currentBuilder.getName();
-        dns_name = currentBuilder == null ? "_dns_name_" : currentBuilder.getDnsName();
-        ip_address = currentBuilder == null ? "_ip_address_" : currentBuilder.getIpAddress();
-        port_number = currentBuilder == null ? - 1 : currentBuilder.getPortNumber();
-        ssl = currentBuilder == null ? false : currentBuilder.getSSL();
+        uid = currentUser == null ? "_userid_" : currentUser.getUid();
+        password = currentUser == null ? "_password_" : currentUser.getPassword();
+        name = currentHost == null ? "_name_" : currentHost.getName();
+        dns_name = currentHost == null ? "_dns_name_" : currentHost.getDnsName();
+        ip_address = currentHost == null ? "_ip_address_" : currentHost.getIpAddress();
+        port_number = currentHost == null ? - 1 : currentHost.getPortNumber();
+        ssl = currentHost == null ? false : currentHost.getSSL();
         } catch (org.json.JSONException ex) {
-        Logger.getLogger(Builder .class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null, ex);
         }
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<http><body><h1>Set Default Host</h1>");
-        out.println("<form method=\"post\" action=\"/piglet/BuilderServlet/default_host\">");
+	out.println("<http><body><h1>Build a VSMAPI Call</h1>");
+        out.println("<form method=\"post\" action=\"/piglet/BuilderServlet\">");
+        out.println("<table style=\"text-align: left; width: 100%;\" border=\"0\" cellpadding=\"2\"");
+        out.println(" cellspacing=\"2\">");
+        out.println("  <tbody>");
+        out.println("    <tr>");
+        out.println("      <th style=\"vertical-align: middle;\">User<br>");
+        out.println("      </th>");
+        out.println("      <th style=\"vertical-align: middle;\">Host<br>");
+        out.println("      </th>");
+        out.println("    </tr>");
+        out.println("    <tr>");
+        out.println("      <td style=\"vertical-align: middle;\">");
+        out.println("      <table style=\"text-align: left; width: 100%;\" border=\"0\"");
+        out.println(" cellpadding=\"2\" cellspacing=\"2\">");
+        out.println("        <tbody>");
+        out.println("          <tr>");
+        out.println("            <td style=\"vertical-align: middle;\">");
+	out.println("<input type=\"text\"  name=\"uid\" value = \"" + uid + "\"/>");
+	out.println("User ID<br>");
+        out.println("            </td>");
+        out.println("          </tr>");
+        out.println("         <tr>");
+        out.println("            <td style=\"vertical-align: middle;\">");
+	out.println("<input type=\"password\"  name=\"password\" value = \"" + password+ "\"/>");
+	out.println("Password<br>");	
+        out.println("            </td>");
+        out.println("          </tr>");
+        out.println("        </tbody>");
+        out.println("      </table>");
+        out.println("     <br>");
+        out.println("      </td>");
+        out.println("      <td style=\"vertical-align: middle;\">");
+        out.println("      <table style=\"text-align: left; width: 100%;\" border=\"0\"");
+        out.println(" cellpadding=\"2\" cellspacing=\"2\">");
+        out.println("        <tbody>");
+        out.println("          <tr>");
+        out.println("            <td style=\"vertical-align: middle;\">");
+        out.println("<input type=\"text\"  name=\"name\" value = \"" + name + "\"/>");
+        out.println("Host Name (only used symbolically)<br>");
+        out.println("            </td>");
+        out.println("          </tr>");
+        out.println("          <tr>");
+        out.println("            <td style=\"vertical-align: middle;\">");
+        out.println("<input type=\"text\"  name=\"dns_name\" value = \"" + dns_name + "\"/>");
+        out.println("DNS Name (lookup name -- if present, <tt>IP Address</tt> field is ignored)<br>");
+        out.println("            </td>");
+        out.println("          </tr>");
+        out.println("          <tr>");
+        out.println("            <td style=\"vertical-align: middle;\">");
+        out.println("<input type=\"text\"  name=\"ip_address\" value = \"" + ip_address + "\"/>");
+        out.println("IP Address (ignored if <tt>DNS Name</tt> is present)<br>");
+        out.println("            </td>");
+        out.println("          </tr>");
+        out.println("          <tr>");
+        out.println("            <td style=\"vertical-align: middle;\">"); 
+	out.println("<input type=\"text\"  name=\"port_number\" value = \"" + port_number + "\"/>");
+        out.println("Port Number<br>");
+        out.println("            </td>");
+        out.println("          </tr>");
+        out.println("          <tr>");
+        out.println("            <td style=\"vertical-align: middle;\">");
+        out.println("<input type=\"checkbox\"  name=\"ssl\"" + (ssl ? "checked" : "") + "\"/>");
+        out.println("Use SSL<br>");
+        out.println("            </td>");
+        out.println("          </tr>");
+        out.println("        </tbody>");
+        out.println("      </table>");
+        out.println("      <br>");
+        out.println("      </td>");
+        out.println("    </tr>");
+        out.println("  </tbody>");
+        out.println("</table>");
+	
+	/*
+        out.println("<http><body><h1>Build a VSMAPI Call</h1>");
+        out.println("<form method=\"post\" action=\"/piglet/BuilderServlet\">");
+        out.println("<b>User</b><br />");
+        out.println("<input type=\"text\"  name=\"uid\" value = \"" + uid + "\"/>");
+	out.println("User ID<br>");
+	out.println("<input type=\"password\"  name=\"password\" value = \"" + password+ "\"/>");
+	out.println("Password<br>");
+	out.println("<b>Host</b><br />");
         out.println("<input type=\"text\"  name=\"name\" value = \"" + name + "\"/>");
         out.println("Host Name (only used symbolically)<br>");
         out.println("<input type=\"text\"  name=\"dns_name\" value = \"" + dns_name + "\"/>");
@@ -142,9 +228,17 @@ public class Builder {
         out.println("Port Number<br>");
         out.println("<input type=\"checkbox\"  name=\"ssl\"" + (ssl ? "checked" : "") + "\"/>");
         out.println("Use SSL<br>");
-        out.println("<p><input value=\"Submit\" type=\"submit\"></p>");
+	*/
+	
+	out.println("<hr /><br>");
+	out.println("<b>Select Function</b><br />");
+	out.println("<SELECT NAME=\"function\">");
+        out.println("   <OPTION VALUE=\"CheckAuthentication\">CheckAuthentication");
+        out.println("   <OPTION VALUE=\"QueryAPIFunctionalLevel\">QueryAPIFunctionalLevel");
+        out.println("</SELECT>");
+        out.println("<input value=\"Execute or prompt for missing parameters\" type=\"submit\">");
         out.println("</form></body></http>");
-         */ 
+
     }
 }
 
