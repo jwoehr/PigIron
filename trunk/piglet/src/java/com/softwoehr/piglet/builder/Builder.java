@@ -43,22 +43,21 @@ import java.util.logging.Logger;
 import java.util.Map;
 
 /**
- * Deals with setting and getting the default Host
+ * Does the primary work of the Builder web application.
  *
  * @author     jax
  * @created    December 23, 2008
  */
 
-public class DefaultUser {
+public class Builder {
     /**
      * Constructor does nothing.
      */ 
-    public DefaultUser() { }
+    public Builder() { }
 
     /**
-     * Performs the HTTP <code>GET</code> method for Default User, including
-     * closing the PrintWriter. Gets the default User into a form for setting
-     * the default user.
+     * Performs the HTTP <code>GET</code> method for Builder, including
+     * closing the PrintWriter.
      *
      * @param  request            servlet request
      * @param  response           servlet response
@@ -71,9 +70,8 @@ public class DefaultUser {
     }
 
     /**
-     * Performs the HTTP <code>POST</code> method. Sets the default User from
-     * form data and then gets it into a form for setting the default user from
-     * form data.
+     * Performs the HTTP <code>POST</code> method, including closing
+     * the PrintWriter.
      *
      * @param  request            servlet request
      * @param  response           servlet response
@@ -82,49 +80,31 @@ public class DefaultUser {
      */ 
     public void doPost(HttpServletRequest request,
              HttpServletResponse response) throws ServletException,  IOException {
-
-        User user = BuilderUtil.getDefaultUser(request);
-        Map map = request.getParameterMap();
-        try {
-            if (map.containsKey("uid")) {
-                user.setUid(BuilderUtil.flatten((String []) map.get("uid")));
-            } else {
-		user.setUid("");
-	    }
-            if (map.containsKey("password")) {
-                user.setPassword(BuilderUtil.flatten((String []) map.get("password")));
-            } else {
-		user.setPassword("");
-	    }
-        } catch (org.json.JSONException ex) {
-            Logger.getLogger(DefaultUser .class.getName()).log(Level.SEVERE,
-                     null, ex);
-        }
-        BuilderUtil.setDefaultUser(request, user);
-        printForm(request, response);
-        response.getWriter().close();
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<http><body>doPost() not implemented in Builder.java</body></http>"); 
+	out.close();
     }
     
     /**
-     * Performs the HTTP <code>GET</code> method for Default User, including
-     * closing the PrintWriter. Gets the default User into a form for setting
-     * the default user.
+     * Dispatches the HTTP <code>PUT</code> method.
      *
      * @param  request            servlet request
      * @param  response           servlet response
      * @throws  ServletException  if a servlet-specific error occurs
      * @throws  IOException       if an I/O error occurs
      */ 
-    public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
-        response.setContentType("text/html;charset=UTF-8");
+    public void doPut(HttpServletRequest request,
+             HttpServletResponse response) throws ServletException,  IOException {
+	response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<http><body>doPut() not implemented in DefaultUser.java</body></http>"); 
+        out.println("<http><body>doPut() not implemented in Builder.java</body></http>"); 
 	out.close();
     }
-    
+
     /**
-     *  Compose the form for setting the default User who is used for VSMAPI
-     * calls unless overridden. Does not close the output writer.
+     *  Compose the form for setting the default Host who is used for VSMAPI
+     * calls unless overridden.
      *
      * @param  request               The servlet request
      * @param  response              The servlet response
@@ -132,26 +112,39 @@ public class DefaultUser {
      * @throws  IOException       if an I/O error occurs
      */ 
     public void printForm(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
-        String uid = null;
-	String password = null;
-        User currentDefaultUser = BuilderUtil.getDefaultUser(request);
+        /*
+        String name = null;
+        String dns_name = null;
+        String ip_address = null;
+        int port_number = - 1;
+        boolean ssl = false;
+        Host currentBuilder = BuilderUtil.getBuilder(request);
         try {
-            uid = currentDefaultUser == null ? "_userid_" : currentDefaultUser.getUid();
-	    password = currentDefaultUser == null ? "_password_" : currentDefaultUser.getPassword();
+        name = currentBuilder == null ? "_name_" : currentBuilder.getName();
+        dns_name = currentBuilder == null ? "_dns_name_" : currentBuilder.getDnsName();
+        ip_address = currentBuilder == null ? "_ip_address_" : currentBuilder.getIpAddress();
+        port_number = currentBuilder == null ? - 1 : currentBuilder.getPortNumber();
+        ssl = currentBuilder == null ? false : currentBuilder.getSSL();
         } catch (org.json.JSONException ex) {
-            Logger.getLogger(DefaultUser .class.getName()).log(Level.SEVERE,
-                     null, ex);
+        Logger.getLogger(Builder .class.getName()).log(Level.SEVERE, null, ex);
         }
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<http><body><h1>Set Default User</h1>");
-        out.println("<form method=\"post\" action=\"/piglet/BuilderServlet/default_user\">");
-        out.println("<input type=\"text\"  name=\"uid\" value = \"" + uid + "\"/>");
-	out.println("User ID<br>");
-	out.println("<input type=\"password\"  name=\"password\" value = \"" + password+ "\"/>");
-	out.println("Password<br>");
+        out.println("<http><body><h1>Set Default Host</h1>");
+        out.println("<form method=\"post\" action=\"/piglet/BuilderServlet/default_host\">");
+        out.println("<input type=\"text\"  name=\"name\" value = \"" + name + "\"/>");
+        out.println("Host Name (only used symbolically)<br>");
+        out.println("<input type=\"text\"  name=\"dns_name\" value = \"" + dns_name + "\"/>");
+        out.println("DNS Name (lookup name -- if present, <tt>IP Address</tt> field is ignored)<br>");
+        out.println("<input type=\"text\"  name=\"ip_address\" value = \"" + ip_address + "\"/>");
+        out.println("IP Address (ignored if <tt>DNS Name</tt> is present)<br>");
+        out.println("<input type=\"text\"  name=\"port_number\" value = \"" + port_number + "\"/>");
+        out.println("Port Number<br>");
+        out.println("<input type=\"checkbox\"  name=\"ssl\"" + (ssl ? "checked" : "") + "\"/>");
+        out.println("Use SSL<br>");
         out.println("<p><input value=\"Submit\" type=\"submit\"></p>");
         out.println("</form></body></http>");
+         */ 
     }
 }
 
