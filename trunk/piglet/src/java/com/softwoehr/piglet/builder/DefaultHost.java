@@ -142,9 +142,9 @@ public class DefaultHost {
         out.println("<input type=\"text\"  name=\"name\" value = \"" + name + "\"/>");
 	out.println("Host Name (only used symbolically)<br>");
 	out.println("<input type=\"text\"  name=\"dns_name\" value = \"" + dns_name+ "\"/>");
-	out.println("DNS Name (lookup name, if present IP Address is ignored)<br>");
+	out.println("DNS Name (lookup name -- if present, <tt>IP Address</tt> field is ignored)<br>");
 	out.println("<input type=\"text\"  name=\"ip_address\" value = \"" + ip_address+ "\"/>");
-	out.println("IP Address (ignored if DNS name is present)<br>");
+	out.println("IP Address (ignored if <tt>DNS Name</tt> is present)<br>");
 	out.println("<input type=\"text\"  name=\"port_number\" value = \"" + port_number+ "\"/>");
 	out.println("Port Number<br>");
 	out.println("<input type=\"checkbox\"  name=\"ssl\"" + (ssl ? "checked" : "") + "\"/>");
