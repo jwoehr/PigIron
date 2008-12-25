@@ -16,7 +16,7 @@
 <h1>PigLet <img alt="the PigIron PigLet" title="the PigIron PigLet" src="images/pig_18.gif"> the PigIron <img
 alt="the PigIron Pig" title="the PigIron Pig" src="images/pig_15.gif"> Servlet</h1>
 <ul>
-<li><a href="/piglet/builder.html">PigLet VSMAPI Builder</li></a></li>
+<li><a href="/piglet/builder.html">PigLet VSMAPI Builder</a></li>
 <li><a href=
 "/piglet/PigIronServlet/topview">{"service":"topview","uri":"/piglet/PigIronServlet/topview"}</a></li>
 </ul>
