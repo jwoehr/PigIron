@@ -117,7 +117,7 @@ public class TopviewDoer {
                     }
                 } else {
                     /*
-                    if (myPathInfo.equals("/topview/responsequestor.xml")) {
+                    if (myPathInfo.equals("/topview/requestor.xml")) {
                     response.setContentType("text/xml;charset=UTF-8");
                     try {
                     out.println(org.json.XML.toString(new Requestor(), "pigiron-requestor"));
