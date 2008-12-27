@@ -87,6 +87,7 @@ public class TopviewDoer {
  
     /**
      * Handles the HTTP <code>GET</code> method. Composes and writes the document contents.
+     * Closes the writer.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -181,6 +182,7 @@ public class TopviewDoer {
 
     /**
      * Handles the HTTP <code>POST</code> method.
+     * Closes the writer.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -200,6 +202,7 @@ public class TopviewDoer {
 
     /**
      * Handles the HTTP <code>PUT</code> method.
+     * Closes the writer.
      *
      * @param  request            servlet request
      * @param  response           servlet response
@@ -233,6 +236,7 @@ public class TopviewDoer {
 
     /**
      * Handles the HTTP <code>DELETE</code> method.
+     * Closes the writer.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
