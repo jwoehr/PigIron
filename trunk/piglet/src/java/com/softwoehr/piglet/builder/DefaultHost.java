@@ -86,16 +86,16 @@ public class DefaultHost {
         Map map = request.getParameterMap();
         try {
             if (map.containsKey("name")) {
-                host.setName(BuilderUtil.flatten((String []) map.get("name")));
+                host.setName(request.getParameter("name"));
             }
             if (map.containsKey("dns_name")) {
-                host.setDnsName(BuilderUtil.flatten((String []) map.get("dns_name")));
+                host.setDnsName(request.getParameter("dns_name"));
             }
 	    if (map.containsKey("ip_address")) {
-		host.setIpAddress(BuilderUtil.flatten((String []) map.get("ip_address")));
+		host.setIpAddress(request.getParameter("ip_address"));
 	    }
 	    if (map.containsKey("port_number")) {
-		host.setPortNumber(Integer.valueOf(BuilderUtil.flatten((String []) map.get("port_number"))).intValue());
+		host.setPortNumber(Integer.valueOf(request.getParameter("port_number")).intValue());
 	    }
 	    if (map.containsKey("ssl")) {
 		host.setSSL(true);

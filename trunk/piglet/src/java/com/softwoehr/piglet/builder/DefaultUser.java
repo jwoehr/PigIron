@@ -87,12 +87,12 @@ public class DefaultUser {
         Map map = request.getParameterMap();
         try {
             if (map.containsKey("uid")) {
-                user.setUid(BuilderUtil.flatten((String []) map.get("uid")));
+                user.setUid(request.getParameter("uid"));
             } else {
 		user.setUid("");
 	    }
             if (map.containsKey("password")) {
-                user.setPassword(BuilderUtil.flatten((String []) map.get("password")));
+                user.setPassword(request.getParameter("password"));
             } else {
 		user.setPassword("");
 	    }
