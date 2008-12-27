@@ -82,7 +82,11 @@ public class Builder {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<http><body>doPost() not implemented in Builder.java</body></http>"); 
+        // out.println("<http><body>doPost() not implemented in Builder.java</body></http>");
+	out.println("<http><body>");
+	out.println("piglet.buildcall.state   == " + request.getParameter("piglet.buildcall.state") + "<br/>"); 
+	out.println("piglet.buildcall.vsmcall == " + request.getParameter("piglet.buildcall.vsmcall") + "<br/>");
+	out.println("</body></http>");
         out.close();
     }
  
@@ -210,11 +214,12 @@ public class Builder {
         out.println("</table>");
         out.println("<hr /><br>");
         out.println("<b>Select Function</b><br />");
-        out.println("<SELECT NAME=\"function\">");
+        out.println("<SELECT NAME=\"piglet.buildcall.vsmcall\">");
         out.println("   <OPTION VALUE=\"CheckAuthentication\">CheckAuthentication");
         out.println("   <OPTION VALUE=\"QueryAPIFunctionalLevel\">QueryAPIFunctionalLevel");
         out.println("</SELECT>");
-        out.println("<input value=\"Execute or prompt for missing parameters\" type=\"submit\">");
+        out.println("<input value=\"Next\" type=\"submit\">");
+	out.println("<INPUT TYPE=HIDDEN NAME=\"piglet.buildcall.state\" value=\"select_vsmcall\">");
         out.println("</form></body></http>");
     }
 }
