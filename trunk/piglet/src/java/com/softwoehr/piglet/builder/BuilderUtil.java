@@ -113,6 +113,7 @@ public class BuilderUtil {
      * @param stringArray that which needs flattening
      * @return the flattened String
      */
+     /* // Really not necessary in view of ServletRequest.getParameter(String).
     public static String flatten (String [] stringArray) {
 	StringBuffer sb = new StringBuffer();
 	for (int i = 0; i <stringArray.length; i++) {
@@ -120,5 +121,6 @@ public class BuilderUtil {
 	}
 	return sb.toString();
     }
+    */
 }
 
