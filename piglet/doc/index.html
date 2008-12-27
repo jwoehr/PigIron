@@ -44,7 +44,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   "Servlet serves up PigIron Java Class Library mainframe administration functionality to web application writers."
   name="description">
   <meta http-equiv="Last-Modified" content=
-  "Fri, 26 Dec 2008 03:51:44 UTC">
+  "Sat, 27 Dec 2008 07:14:25 UTC">
 </head>
 
 <body>
@@ -111,10 +111,9 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
   <p><span style="font-weight: bold;">PigLet</span> is the <a href=
   "http://pigiron.sourceforge.net/">PigIron</a> Servlet. PigLet is
-  not a user-oriented web application; it's the data server side of
-  a web application. It does, however, offer the Builder web
-  application as a user interface to&nbsp; PigLet and PigIron
-  functionality.<br></p>
+  primarily the data server side of a web application. It does,
+  however, offer also the Builder web application as a user
+  interface to PigLet / PigIron functionality.<br></p>
 
   <p><a href="http://pigiron.sourceforge.net/">PigIron</a> is an
   open source Java library implementing the client to <a href=
@@ -151,7 +150,33 @@ THE POSSIBILITY OF SUCH DAMAGE.
     interchange format.</li>
 
     <li>BSD-style license (Free Open Source, No Warranty).</li>
-  </ul>
+  </ul>While PigIron base functionality can be accessed directly
+  either<br>
+
+  <ul>
+    <li>via Java coding</li>
+
+    <li>via passing requestors in the form of JSON strings to the
+    <span style="font-family: monospace;">static void main()</span>
+    of <span style=
+    "font-family: monospace;">com.softwoehr.pigiron.webobj.Engine</span>
+
+      <ul>
+        <li>E.g., <span style="font-family: monospace;">java -cp
+        pigiron.jar com.softwoehr.pigiron.webobj.Engine
+        '{"function":{"function_name":"QueryAPIFunctionalLevel","input_arguments":[{"target_identifier":"foo"}]},"host":{"dns_name":"MYZVMBOX","port_number":12345,"ssl":false},"user":{"uid":"FRED","password":"FOOBAR"}}'</span><br>
+        </li>
+      </ul>
+    </li>
+  </ul>using <span style="text-decoration: underline;">PigLet
+  instead allows PigIron functionality to be delegated to a web
+  application you can run behind a firewall</span> on a server
+  which has access to a z/VM host not visible outside your internal
+  net. Since VSMAPI and PigIron can be extended by custom coding (a
+  Rexx script on the host, a description file on the PigIron side),
+  this means that <span style="text-decoration: underline;">you can
+  use PigLet to offer web access to virtually any z/VM
+  functionality you care to support in this manner</span>.
 
   <h2><a name="Disclaimers" id="Disclaimers"></a>Disclaimers</h2>
 
@@ -506,7 +531,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   </div><br>
   but as you might guess, <big><span style=
   "font-family: monospace;">QueryAPIFunctionalLevel</span></big>
-  does not appear to check that argument.
+  does not appear check that argument.
 
   <h2><a name="Getting_Help" id="Getting_Help"></a>Getting
   Help</h2>Please use the <a href=
