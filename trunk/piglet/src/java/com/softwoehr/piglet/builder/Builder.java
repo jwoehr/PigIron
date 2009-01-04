@@ -82,13 +82,6 @@ public class Builder {
      * @throws  IOException       if an I/O error occurs
      */ 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
-        // response.setContentType("text/html;charset=UTF-8");
-        // PrintWriter out = response.getWriter();
-        // out.println("<http><body>");
-        // out.println("piglet.buildcall.state   == " + request.getParameter("piglet.buildcall.state") + "<br/>");
-        // out.println("piglet.buildcall.vsmcall == " + request.getParameter("piglet.buildcall.vsmcall") + "<br/>");
-        // out.println("</body></http>");
-        // out.close();
         String vsmcall_name = request.getParameter("piglet.buildcall.vsmcall");
         try {
             Class c = Class.forName("com.softwoehr.piglet.builder.functions." + vsmcall_name);
