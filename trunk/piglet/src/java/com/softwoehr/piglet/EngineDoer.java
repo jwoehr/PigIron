@@ -107,6 +107,7 @@ public class EngineDoer {
                         out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"Empty request array was PUT to PigLet PigIron Servlet.\",\"requestor\":null}"); 
                     }
                 } catch (JSONException ex) {
+		    Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
                     out.println("{\"result\":\"PIGLET_ERR\",\"messageText\":\"EngineDoer.doPut() executing a requestor array logged a JSONException to default logger -- " + ex.getMessage() + "\",\"requestor\":null}");
                 }
             } else {

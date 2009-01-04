@@ -34,6 +34,7 @@ package com.softwoehr.piglet.builder;
 import com.softwoehr.pigiron.webobj.topview.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
 import org.json.JSONException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -72,7 +73,8 @@ public class Builder {
 
     /**
      * Performs the HTTP <code>POST</code> method, including closing
-     * the PrintWriter.
+     * the PrintWriter (actually closed by the builder.function VSMCall building
+     * methods to which it is dispatched).
      *
      * @param  request            servlet request
      * @param  response           servlet response
@@ -80,15 +82,65 @@ public class Builder {
      * @throws  IOException       if an I/O error occurs
      */ 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        // out.println("<http><body>doPost() not implemented in Builder.java</body></http>");
-	out.println("<http><body>");
-	out.println("piglet.buildcall.state   == " + request.getParameter("piglet.buildcall.state") + "<br/>"); 
-	out.println("piglet.buildcall.vsmcall == " + request.getParameter("piglet.buildcall.vsmcall") + "<br/>");
-	out.println("</body></http>");
-        out.close();
-    }
+        // response.setContentType("text/html;charset=UTF-8");
+        // PrintWriter out = response.getWriter();
+        // out.println("<http><body>");
+        // out.println("piglet.buildcall.state   == " + request.getParameter("piglet.buildcall.state") + "<br/>");
+        // out.println("piglet.buildcall.vsmcall == " + request.getParameter("piglet.buildcall.vsmcall") + "<br/>");
+        // out.println("</body></http>");
+        // out.close();
+        String vsmcall_name = request.getParameter("piglet.buildcall.vsmcall");
+        try {
+            Class c = Class.forName("com.softwoehr.piglet.builder.functions." + vsmcall_name);
+            Method m = c.getMethod("doPost", new Class [] { HttpServletRequest .class , HttpServletResponse .class} );
+            m.invoke(c.newInstance(), new Object [] { request,response} );
+        } catch (java.lang.ClassNotFoundException ex) {
+            Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null,
+                     ex);
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<http><body>");
+            out.println("Error in finding builder class " + ex.getMessage());
+            out.println("</body></http>");
+            out.close();
+        } catch (java.lang.NoSuchMethodException ex) {
+            Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null,
+                     ex);
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<http><body>");
+            out.println("Error in finding builder class " + ex.getMessage());
+            out.println("</body></http>");
+            out.close();
+        } catch (java.lang.InstantiationException ex) {
+            Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null,
+                     ex);
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<http><body>");
+            out.println("Error in finding builder class " + ex.getMessage());
+            out.println("</body></http>");
+            out.close();
+        } catch (java.lang.IllegalAccessException ex) {
+            Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null,
+                     ex);
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<http><body>");
+            out.println("Error in finding builder class " + ex.getMessage());
+            out.println("</body></http>");
+            out.close();
+        } catch (java.lang.reflect.InvocationTargetException ex) {
+            Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null,
+                     ex);
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<http><body>");
+            out.println("Error in finding builder class " + ex.getMessage());
+            out.println("</body></http>");
+            out.close();
+        }
+    } 
  
     /**
      * Dispatches the HTTP <code>PUT</code> method.
@@ -219,7 +271,7 @@ public class Builder {
         out.println("   <OPTION VALUE=\"QueryAPIFunctionalLevel\">QueryAPIFunctionalLevel");
         out.println("</SELECT>");
         out.println("<input value=\"Next\" type=\"submit\">");
-	out.println("<INPUT TYPE=HIDDEN NAME=\"piglet.buildcall.state\" value=\"select_vsmcall\">");
+        out.println("<INPUT TYPE=HIDDEN NAME=\"piglet.buildcall.state\" value=\"select_vsmcall\">");
         out.println("</form></body></http>");
     }
 }
