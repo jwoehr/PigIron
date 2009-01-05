@@ -39,6 +39,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 import com.softwoehr.piglet.builder.BuilderUtil;
+import org.json.JSONException;
 
 /**
  *  Description of the Class
@@ -51,7 +52,7 @@ public class CheckAuthentication {
      * Constructor does nothing.
      */ 
     public CheckAuthentication() { }
-    
+ 
     /**
      *  State machine for posts to CheckAuthentication from the call builder
      *
@@ -60,8 +61,7 @@ public class CheckAuthentication {
      * @throws  ServletException  if a servlet-specific error occurs
      * @throws  IOException       if an I/O error occurs
      */ 
-    public void doPost(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         String state = request.getParameter("piglet.buildcall.state");
         if (state.equals("select_vsmcall")) {
             select_vsmcall(request, response);
@@ -69,14 +69,13 @@ public class CheckAuthentication {
             if (state.equals("do_it")) {
                 do_it(request, response);
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,
-                         "Unknown state : " + state);
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Unknown state : " + state);
             }
         }
     }
 
     /**
-    * Handles the {@code select_vsmcall } state of the CheckAuthentication call builder.
+     * Handles the {@code select_vsmcall } state of the CheckAuthentication call builder.
      * This is the state when the user has just chosen the call name
      *
      * @param  request            servlet request
@@ -84,25 +83,24 @@ public class CheckAuthentication {
      * @throws  ServletException  if a servlet-specific error occurs
      * @throws  IOException       if an I/O error occurs
      */ 
-    public void select_vsmcall(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
+    public void select_vsmcall(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<http><body>");
-	out.println("<h1>CheckAuthentication</h1>");
-	out.println("<form method=\"post\" action=\"/piglet/BuilderServlet\">");
-	BuilderUtil.printBuilderUserHostHeader(request, response, out);
-	out.println("<hr /><br />");
-	out.println("<i>No further parameters needed</i><br /><br />");
-	out.println("<input value=\"Do it!\" type=\"submit\">");
-	out.println("<INPUT TYPE=HIDDEN NAME=\"piglet.buildcall.vsmcall\" value=\"CheckAuthentication\">");
-	out.println("<INPUT TYPE=HIDDEN NAME=\"piglet.buildcall.state\" value=\"do_it\">");
+        out.println("<h1>CheckAuthentication</h1>");
+        out.println("<form method=\"post\" action=\"/piglet/BuilderServlet\">");
+        BuilderUtil.printBuilderUserHostHeader(request, response, out);
+        out.println("<hr /><br />");
+        out.println("<i>No further parameters needed</i><br /><br />");
+        out.println("<input value=\"Do it!\" type=\"submit\">");
+        out.println("<INPUT TYPE=HIDDEN NAME=\"piglet.buildcall.vsmcall\" value=\"CheckAuthentication\">");
+        out.println("<INPUT TYPE=HIDDEN NAME=\"piglet.buildcall.state\" value=\"do_it\">");
         out.println("</form></body></http>");
         out.close();
     }
 
     /**
-    * Handles the {@code do_it } state of the CheckAuthentication call builder.
+     * Handles the {@code do_it } state of the CheckAuthentication call builder.
      * This is the state when the user has click-confirmed executing the call.
      *
      * @param  request            servlet request
@@ -110,12 +108,29 @@ public class CheckAuthentication {
      * @throws  ServletException  if a servlet-specific error occurs
      * @throws  IOException       if an I/O error occurs
      */ 
-    public void do_it(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.println("<http><body>CheckAuthentication.do_it()</body></http>");
-        out.close();
+    public void do_it(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+        try {
+            com.softwoehr.pigiron.webobj.topview.Response pigiron_response = new com.softwoehr.pigiron.webobj.topview.Response();
+            com.softwoehr.pigiron.webobj.topview.Requestor pigiron_requestor = new com.softwoehr.pigiron.webobj.topview.Requestor();
+            com.softwoehr.pigiron.webobj.topview.User user = BuilderUtil.fromUserHeader(request, response);
+            com.softwoehr.pigiron.webobj.topview.Host host = BuilderUtil.fromHostHeader(request, response);
+            pigiron_requestor.setUser(user);
+	    pigiron_requestor.setHost(host);com.softwoehr.pigiron.webobj.topview.Function function =
+	    	new com.softwoehr.pigiron.webobj.topview.Function
+		(
+		"CheckAuthentication"
+		, new com.softwoehr.pigiron.webobj.topview.InputArgumentArray()
+		, new com.softwoehr.pigiron.webobj.topview.OutputArgumentArray()
+		);
+	    pigiron_requestor.setFunction(function);
+	    pigiron_response = new com.softwoehr.pigiron.webobj.Engine().execute(pigiron_requestor);
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<http><body>" + pigiron_response.toString(1) + "</body></http>");
+            out.close();
+        } catch (JSONException ex) {
+	    Logger.getLogger(CheckAuthentication.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
 

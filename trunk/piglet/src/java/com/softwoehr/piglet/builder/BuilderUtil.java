@@ -111,6 +111,52 @@ public class BuilderUtil {
     }
 
     /**
+     *  Description of the Method
+     *
+     * @param  request                     Description of the Parameter
+     * @param  response                    Description of the Parameter
+     * @return                             Description of the Return Value
+     * @exception  org.json.JSONException  Description of the Exception
+     */ 
+    public static User fromUserHeader(HttpServletRequest request, HttpServletResponse response) throws org.json.JSONException {
+        User user = new User();
+        String uid = request.getParameter("uid");
+        String password = request.getParameter("password");
+        user.setUid(uid);
+        user.setPassword(password);
+        return user;
+    }
+
+    /**
+     *  Description of the Method
+     *
+     * @param  request                     Description of the Parameter
+     * @param  response                    Description of the Parameter
+     * @return                             Description of the Return Value
+     * @exception  org.json.JSONException  Description of the Exception
+     */ 
+    public static Host fromHostHeader(HttpServletRequest request, HttpServletResponse response) throws org.json.JSONException {
+        Host host = new Host();
+        String name = request.getParameter("name");
+        String dns_name = request.getParameter("dns_name");
+        String ip_address = request.getParameter("ip_address");
+        String string_port_number = request.getParameter("port_number");
+        int port_number = - 1;
+        try {
+            port_number = string_port_number == null ? - 1 : Integer.valueOf(string_port_number).intValue();
+        } catch (NumberFormatException ex) {
+            port_number = - 1;
+        }
+        boolean ssl = request.getParameter("ssl") == null ? false : true;
+        host.setName(name);
+        host.setDnsName(dns_name);
+        host.setIpAddress(ip_address);
+        host.setPortNumber(port_number);
+        host.setSSL(ssl);
+        return host;
+    }
+
+    /**
      *  Print to an extent writer the portion of the view pertaining to the
      * User and Host for the VSMAPI call. Does not print the HTML header.
      * Doesn't create the form. Just fetches session data and displays it
@@ -118,29 +164,34 @@ public class BuilderUtil {
      *
      * @param  request            servlet request
      * @param  response           servlet response
-     * @param  out                print writer for the servlet's output 
+     * @param  out                print writer for the servlet's output
      * @throws  ServletException  if a servlet-specific error occurs
      * @throws  IOException       if an I/O error occurs
      */ 
-    public static void printBuilderUserHostHeader(HttpServletRequest request, HttpServletResponse response, PrintWriter out) throws ServletException, 
-         IOException {
-        String uid = null;
-        String password = null;
-        String name = null;
-        String dns_name = null;
-        String ip_address = null;
+    public static void printBuilderUserHostHeader(HttpServletRequest request, HttpServletResponse response, PrintWriter out) throws ServletException, IOException {
+        String uid = request.getParameter("uid");
+        String password = request.getParameter("password");
+        String name = request.getParameter("name");
+        String dns_name = request.getParameter("dns_name");
+        String ip_address = request.getParameter("ip_address");
+        String string_port_number = request.getParameter("port_number");
         int port_number = - 1;
-        boolean ssl = false;
-        User currentUser = BuilderUtil.getDefaultUser(request);
-        Host currentHost = BuilderUtil.getDefaultHost(request);
         try {
-            uid = currentUser == null ? "_userid_" : currentUser.getUid();
-            password = currentUser == null ? "_password_" : currentUser.getPassword();
-            name = currentHost == null ? "_name_" : currentHost.getName();
-            dns_name = currentHost == null ? "_dns_name_" : currentHost.getDnsName();
-            ip_address = currentHost == null ? "_ip_address_" : currentHost.getIpAddress();
-            port_number = currentHost == null ? - 1 : currentHost.getPortNumber();
-            ssl = currentHost == null ? false : currentHost.getSSL();
+            port_number = string_port_number == null ? - 1 : Integer.valueOf(string_port_number).intValue();
+        } catch (NumberFormatException ex) {
+            port_number = - 1;
+        }
+        boolean ssl = false;
+        User defaultUser = BuilderUtil.getDefaultUser(request);
+        Host defaultHost = BuilderUtil.getDefaultHost(request);
+        try {
+            uid = uid != null ? uid : (defaultUser == null ? "_userid_" : defaultUser.getUid());
+            password = password != null ? password : (defaultUser == null ? "_password_" : defaultUser.getPassword());
+            name = name != null ? name : (defaultHost == null ? "_name_" : defaultHost.getName());
+            dns_name = dns_name != null ? dns_name : (defaultHost == null ? "_dns_name_" : defaultHost.getDnsName());
+            ip_address = ip_address != null ? ip_address : (defaultHost == null ? "_ip_address_" : defaultHost.getIpAddress());
+            port_number = port_number != - 1 ? port_number : (defaultHost == null ? - 1 : defaultHost.getPortNumber());
+            ssl = request.getParameter("ssl") == null ? (defaultHost == null ? false : defaultHost.getSSL()) : true;
         } catch (org.json.JSONException ex) {
             Logger.getLogger(Builder .class.getName()).log(Level.SEVERE, null, ex);
         }
