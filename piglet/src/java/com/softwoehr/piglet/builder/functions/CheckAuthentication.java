@@ -38,6 +38,7 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
+import com.softwoehr.piglet.builder.BuilderUtil;
 
 /**
  *  Description of the Class
@@ -75,7 +76,7 @@ public class CheckAuthentication {
     }
 
     /**
-     * Handles the select_vsmcall state of the CheckAuthentication call builder.
+    * Handles the {@code select_vsmcall } state of the CheckAuthentication call builder.
      * This is the state when the user has just chosen the call name
      *
      * @param  request            servlet request
@@ -87,12 +88,21 @@ public class CheckAuthentication {
              HttpServletResponse response) throws ServletException,  IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<http><body>CheckAuthentication.select_vsmcall()</body></http>");
+        out.println("<http><body>");
+	out.println("<h1>CheckAuthentication</h1>");
+	out.println("<form method=\"post\" action=\"/piglet/BuilderServlet\">");
+	BuilderUtil.printBuilderUserHostHeader(request, response, out);
+	out.println("<hr /><br />");
+	out.println("<i>No further parameters needed</i><br /><br />");
+	out.println("<input value=\"Do it!\" type=\"submit\">");
+	out.println("<INPUT TYPE=HIDDEN NAME=\"piglet.buildcall.vsmcall\" value=\"CheckAuthentication\">");
+	out.println("<INPUT TYPE=HIDDEN NAME=\"piglet.buildcall.state\" value=\"do_it\">");
+        out.println("</form></body></http>");
         out.close();
     }
 
     /**
-     * Handles the do_it state of the CheckAuthentication call builder.
+    * Handles the {@code do_it } state of the CheckAuthentication call builder.
      * This is the state when the user has click-confirmed executing the call.
      *
      * @param  request            servlet request
