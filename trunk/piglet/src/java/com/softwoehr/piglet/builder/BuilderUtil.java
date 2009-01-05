@@ -32,6 +32,9 @@
 package com.softwoehr.piglet.builder;
 
 import com.softwoehr.pigiron.webobj.topview.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -45,12 +48,14 @@ import org.json.JSONException;
  * @created    December 23, 2008
  */
 public class BuilderUtil {
-    
-    /** Class has only static members */
-    private BuilderUtil() {}
 
     /**
-     *  Sets the defaultHost attribute of the Builder in the caller's Session
+     * Class has only static members
+     */ 
+    private BuilderUtil() { }
+
+    /**
+     *  Sets the default_host attribute of the Builder in the caller's Session
      *
      * @param  request  The http request
      * @param  host     The new defaultHost value
@@ -60,67 +65,167 @@ public class BuilderUtil {
     }
 
     /**
-     *  Gets the defaultHost attribute of the Builder in the caller's Session
+     *  Gets the default_host attribute of the Builder in the caller's Session
      *
      * @param  request  The http request
      * @return          The defaultHost value
      */ 
     public static Host getDefaultHost(HttpServletRequest request) {
-	Host host = null;
-	Object obj = request.getSession(true).getAttribute("default_host");
-	try {
-	    host = obj != null ? Host.class.cast(obj) : new Host();
-	}
-	catch (org.json.JSONException ex) {
-	    Logger.getLogger(BuilderUtil.class.getName()).log(Level.SEVERE, null, ex);
-	}
+        Host host = null;
+        Object obj = request.getSession(true).getAttribute("default_host");
+        try {
+            host = obj != null ? Host .class.cast(obj) : new Host();
+        } catch (org.json.JSONException ex) {
+            Logger.getLogger(BuilderUtil .class.getName()).log(Level.SEVERE,
+                     null, ex);
+        }
         return host;
     }
 
     /**
-     *  Sets the defaultUser attribute of the Builder in the caller's Session
+     *  Sets the default_user attribute of the Builder in the caller's Session
      *
      * @param  request  The http request
-     * @param  User     The new defaultUser value
+     * @param  user     The new defaultUser value
      */ 
     public static void setDefaultUser(HttpServletRequest request, User user) {
         request.getSession(true).setAttribute("default_user", user);
     }
 
     /**
-     *  Gets the defaultUser attribute of the Builder in the caller's Session
+     *  Gets the default_user attribute of the Builder in the caller's Session
      *
-     * @param  request The http request
-     * @return         The defaultUser value
+     * @param  request  The http request
+     * @return          The defaultUser value
      */ 
     public static User getDefaultUser(HttpServletRequest request) {
-	User user = null;
-	Object obj = request.getSession(true).getAttribute("default_user");
-	try {
-	    user = obj != null ? User.class.cast(obj) : new User();
-	 }
-	catch (org.json.JSONException ex) {
-	    Logger.getLogger(BuilderUtil.class.getName()).log(Level.SEVERE, null, ex);
-	}
+        User user = null;
+        Object obj = request.getSession(true).getAttribute("default_user");
+        try {
+            user = obj != null ? User .class.cast(obj) : new User();
+        } catch (org.json.JSONException ex) {
+            Logger.getLogger(BuilderUtil .class.getName()).log(Level.SEVERE,
+                     null, ex);
+        }
         return user;
     }
 
     /**
-     * Flatten an array of String to a single String. Needed
-     * because HttpServletRequest.getParameterMap() returns
-     * each parameter as an array of String.
+     *  Print to an extent writer the portion of the view pertaining to the
+     * User and Host for the VSMAPI call. Does not print the HTML header.
+     * Doesn't create the form. Just fetches session data and displays it
+     * in the edit widgets.
      *
-     * @param stringArray that which needs flattening
-     * @return the flattened String
-     */
-     /* // Really not necessary in view of ServletRequest.getParameter(String).
-    public static String flatten (String [] stringArray) {
-	StringBuffer sb = new StringBuffer();
-	for (int i = 0; i <stringArray.length; i++) {
-	    sb.append(stringArray[i]);
-	}
-	return sb.toString();
+     * @param  request            servlet request
+     * @param  response           servlet response
+     * @param  out                print writer for the servlet's output 
+     * @throws  ServletException  if a servlet-specific error occurs
+     * @throws  IOException       if an I/O error occurs
+     */ 
+    public static void printBuilderUserHostHeader(HttpServletRequest request, HttpServletResponse response, PrintWriter out) throws ServletException, 
+         IOException {
+        String uid = null;
+        String password = null;
+        String name = null;
+        String dns_name = null;
+        String ip_address = null;
+        int port_number = - 1;
+        boolean ssl = false;
+        User currentUser = BuilderUtil.getDefaultUser(request);
+        Host currentHost = BuilderUtil.getDefaultHost(request);
+        try {
+            uid = currentUser == null ? "_userid_" : currentUser.getUid();
+            password = currentUser == null ? "_password_" : currentUser.getPassword();
+            name = currentHost == null ? "_name_" : currentHost.getName();
+            dns_name = currentHost == null ? "_dns_name_" : currentHost.getDnsName();
+            ip_address = currentHost == null ? "_ip_address_" : currentHost.getIpAddress();
+            port_number = currentHost == null ? - 1 : currentHost.getPortNumber();
+            ssl = currentHost == null ? false : currentHost.getSSL();
+        } catch (org.json.JSONException ex) {
+            Logger.getLogger(Builder .class.getName()).log(Level.SEVERE, null, ex);
+        }
+        out.println("<table style=\"text-align: left; width: 100%;\" border=\"0\" cellpadding=\"2\"");
+        out.println(" cellspacing=\"2\">");
+        out.println("  <tbody>");
+        out.println("    <tr>");
+        out.println("      <th style=\"vertical-align: top;\">User<br>");
+        out.println("      </th>");
+        out.println("      <th style=\"vertical-align: top;\">Host<br>");
+        out.println("      </th>");
+        out.println("    </tr>");
+        out.println("    <tr>");
+        out.println("      <td style=\"vertical-align: top;\">");
+        out.println("      <table style=\"text-align: left; width: 100%;\" border=\"0\"");
+        out.println(" cellpadding=\"2\" cellspacing=\"2\">");
+        out.println("        <tbody>");
+        out.println("          <tr>");
+        out.println("            <td style=\"vertical-align: top;\">");
+        out.println("<input type=\"text\"  name=\"uid\" value = \"" + uid + "\"/>");
+        out.println("User ID<br>");
+        out.println("            </td>");
+        out.println("          </tr>");
+        out.println("         <tr>");
+        out.println("            <td style=\"vertical-align: top;\">");
+        out.println("<input type=\"password\"  name=\"password\" value = \"" + password + "\"/>");
+        out.println("Password<br>");
+        out.println("            </td>");
+        out.println("          </tr>");
+        out.println("        </tbody>");
+        out.println("      </table>");
+        out.println("     <br>");
+        out.println("      </td>");
+        out.println("      <td style=\"vertical-align: top;\">");
+        out.println("      <table style=\"text-align: left; width: 100%;\" border=\"0\"");
+        out.println(" cellpadding=\"2\" cellspacing=\"2\">");
+        out.println("        <tbody>");
+        out.println("          <tr>");
+        out.println("            <td style=\"vertical-align: top;\">");
+        out.println("<input type=\"text\"  name=\"name\" value = \"" + name + "\"/>");
+        out.println("Host Name (only used symbolically)<br>");
+        out.println("            </td>");
+        out.println("          </tr>");
+        out.println("          <tr>");
+        out.println("            <td style=\"vertical-align: top;\">");
+        out.println("<input type=\"text\"  name=\"dns_name\" value = \"" + dns_name + "\"/>");
+        out.println("DNS Name (lookup name -- if present, <tt>IP Address</tt> field is ignored)<br>");
+        out.println("            </td>");
+        out.println("          </tr>");
+        out.println("          <tr>");
+        out.println("            <td style=\"vertical-align: top;\">");
+        out.println("<input type=\"text\"  name=\"ip_address\" value = \"" + ip_address + "\"/>");
+        out.println("IP Address (ignored if <tt>DNS Name</tt> is present)<br>");
+        out.println("            </td>");
+        out.println("          </tr>");
+        out.println("          <tr>");
+        out.println("            <td style=\"vertical-align: top;\">");
+        out.println("<input type=\"text\"  name=\"port_number\" value = \"" + port_number + "\"/>");
+        out.println("Port Number<br>");
+        out.println("            </td>");
+        out.println("          </tr>");
+        out.println("          <tr>");
+        out.println("            <td style=\"vertical-align: top;\">");
+        out.println("<input type=\"checkbox\"  name=\"ssl\"" + (ssl ? "checked" : "") + "\"/>");
+        out.println("Use SSL<br>");
+        out.println("            </td>");
+        out.println("          </tr>");
+        out.println("        </tbody>");
+        out.println("      </table>");
+        out.println("      <br>");
+        out.println("      </td>");
+        out.println("    </tr>");
+        out.println("  </tbody>");
+        out.println("</table>");
     }
-    */
+
+    /*
+     *  // Really not necessary in view of ServletRequest.getParameter(String).
+     *  public static String flatten (String [] stringArray) {
+     *  StringBuffer sb = new StringBuffer();
+     *  for (int i = 0; i <stringArray.length; i++) {
+     *  sb.append(stringArray[i]);
+     *  }
+     *  return sb.toString();
+     *  }
+     */ 
 }
 
