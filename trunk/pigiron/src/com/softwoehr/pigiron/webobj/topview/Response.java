@@ -54,7 +54,7 @@ public class Response extends WebObject {
      */ 
     private static Vector <String> names =
        setNames(new String []{"result", "messageText", "requestor"}); 
- 
+
     /**
      *  Get the array of JSON keys (names) that are valid for
      * a given WebObject extender
@@ -75,7 +75,7 @@ public class Response extends WebObject {
     public boolean isName(String name) {
         return isName(name, names);
     }
- 
+
     /** Represents the various semantics of a Response:
      * <ul><br>
      * <li>- success all the way through in making the VSMAPI call;<br></li>
@@ -133,14 +133,12 @@ public class Response extends WebObject {
      */ 
     public Response(String result, String messageText,
              Requestor requestor) throws JSONException {
-
         super();
         put("result", result);
         put("messageText", messageText);
         put("requestor", requestor);
     }
 
- 
     /**
      * Create a Response around a Requestor
      *
@@ -161,7 +159,7 @@ public class Response extends WebObject {
     public Response(WebObject aResponse) throws JSONException {
         super(aResponse);
     }
- 
+
     /**
      * Constructor for the Response from a JSONObject using only
      * the members named in Response.names
@@ -172,7 +170,7 @@ public class Response extends WebObject {
     public Response(JSONObject aResponse) throws JSONException {
         super(aResponse,new String []{"result","messageText","requestor"} );
     }
- 
+
     /**
      *Constructor for the Response from a string of JSON representation
      *
@@ -226,7 +224,7 @@ public class Response extends WebObject {
     public void setMessageText(String messageText) throws JSONException {
         put("messageText", messageText);
     }
- 
+
     /**
      *  Gets a copy of the requestor attribute of the Response object.
      * This is the copy of the original Requestor that let to the Response
@@ -248,7 +246,7 @@ public class Response extends WebObject {
     public void setRequestor(Requestor requestor) throws JSONException {
         put("requestor", requestor);
     }
- 
+
     /**
      *  Init the fields to a "no-news" default.
      *
@@ -258,6 +256,20 @@ public class Response extends WebObject {
         put("result", Results.NO_RESPONSE);
         put("messageText", "");
         put("requestor", new Requestor());
+    }
+    
+   /**
+     * Returns the contents of the object as HTML for display in a web app
+     * @return HTML content suitable for inclusion in an extant HTML body
+     * section, including a trailing {@code &lt;br&gt;}.
+     */
+    public String toHTML() throws JSONException {
+        StringBuffer sb = new StringBuffer();
+	sb.append("<b>Result:</b> " + get("result") + "<br />");
+	sb.append("<b>Message text:</b> " + get("messageText") + "<br />");
+	OutputArgumentArray output = getRequestor().getFunction().get_output_arguments();
+	sb.append("<b>Returns:</b> " + output.toString(1)  + "<br />");
+        return sb.toString();
     }
 }
 
