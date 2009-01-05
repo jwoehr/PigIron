@@ -126,7 +126,11 @@ public class CheckAuthentication {
 	    pigiron_response = new com.softwoehr.pigiron.webobj.Engine().execute(pigiron_requestor);
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
-            out.println("<http><body>" + pigiron_response.toString(1) + "</body></http>");
+            // out.println("<http><body>" + pigiron_response.toString(1) + "</body></http>");
+	    out.println("<http><body>");
+	    out.println("<h1>CheckAuthentication</h1>");
+	    out.println(pigiron_response.toHTML());
+	    out.println("</body></http>");
             out.close();
         } catch (JSONException ex) {
 	    Logger.getLogger(CheckAuthentication.class.getName()).log(Level.SEVERE, null, ex);

@@ -32,7 +32,7 @@
 package com.softwoehr.pigiron.webobj;
 
 import java.util.Vector;
-
+import java.util.Iterator;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -62,7 +62,7 @@ public abstract class WebObject extends JSONObject {
         super(jsonText);
     }
 
-   /**
+    /**
      *Construct a  WebObject from a WebObject unconstrained copy ctor
      *
      * @param  webObject                   The object to copy key/vals from
@@ -71,18 +71,18 @@ public abstract class WebObject extends JSONObject {
     protected WebObject(WebObject webObject) throws org.json.JSONException {
         super(webObject);
     }
-    
+ 
     /**
      *Construct a  WebObject from a WebObject using JSON's constrained copy ctor
      *
      * @param  webObject                   The object to copy key/vals from
      * @exception  org.json.JSONException  on JSON error
      */ 
-     protected WebObject(WebObject webObject, String [] names) throws org.json.JSONException {
-        super(webObject, names);
+    protected WebObject(WebObject webObject, String [] names) throws org.json.JSONException {
+        super(webObject,names);
     }
 
-   /**
+    /**
      *Construct a  WebObject from a JSONObject unconstrained copy ctor
      *
      * @param  jsonObject                   The object to copy key/vals from
@@ -91,7 +91,7 @@ public abstract class WebObject extends JSONObject {
     protected WebObject(JSONObject jsonObject) throws org.json.JSONException {
         super(jsonObject);
     }
-    
+ 
     /**
      *Construct a  WebObject from a JSONObject constrained copy ctor
      *
@@ -99,10 +99,10 @@ public abstract class WebObject extends JSONObject {
      * @exception  org.json.JSONException  on JSON error
      */ 
     protected WebObject(JSONObject jsonObject, String [] names) throws org.json.JSONException {
-        super(jsonObject, names);
+        super(jsonObject,names);
     }
-    
-    
+ 
+ 
     /**
      *  Sets Vector of the JSON keys (names) that are valid for
      * a given WebObject extender.
@@ -115,7 +115,7 @@ public abstract class WebObject extends JSONObject {
         for (int i = 0; i < someNames.length; i++) {
             names.add(someNames[i]);
         }
-	return names;
+        return names;
     }
 
     /**
@@ -128,6 +128,20 @@ public abstract class WebObject extends JSONObject {
     public static boolean isName(String name, Vector <String> names) {
         return names.indexOf(name) != - 1;
     }
-    
+
+    /**
+     * Returns the contents of the object as HTML for display in a web app
+     * @return HTML content suitable for inclusion in an extant HTML body
+     * section, including a trailing {@code &lt;br&gt;}.
+     */
+    public String toHTML() throws JSONException {
+        StringBuffer sb = new StringBuffer();
+        Iterator it = keys();
+        while (it.hasNext()) {
+            String key = it.next().toString();
+            sb.append("<b>" + key + ":</b> " + get(key).toString() + "<br />");
+        } 
+        return sb.toString();
+    }
 }
 
