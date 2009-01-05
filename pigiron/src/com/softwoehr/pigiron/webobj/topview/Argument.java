@@ -99,7 +99,21 @@ public class Argument extends WebObject {
         super();
         initDefaults();
     }
-
+    
+    /**
+     *Constructor for the Argument from a JSONObject that
+     * one supposes to be an Argument instance.
+     *
+     * @param  jsonObject argument as JSONObject
+     * @exception  JSONException   on JSON err
+     * @throws  JSONException      on JSON err
+     */ 
+    public Argument(JSONObject jsonObject) throws JSONException {
+        this();
+	setFormalName(jsonObject.get("formal_name").toString());
+	setValue(jsonObject.get("value"));
+    }
+    
     /**
      *Constructor for the Argument from a string of JSON representation
      *
@@ -419,39 +433,29 @@ public class Argument extends WebObject {
      * @throws  JSONException  on JSON err
      */ 
     public static Argument from(VSMParm vsmParm) throws JSONException {
-
         Argument result = null;
-
         if (vsmParm instanceof VSMAsciiZArray) {            // /* Debug */ System.err.println("VSMAsciiZArray in Argument from(VSMParm vsmParm)");
             result = from(VSMAsciiZArray .class.cast(vsmParm));
         } else {
-
             if (vsmParm instanceof VSMArray) {                // /* Debug */ System.err.println("VSMArray in Argument from(VSMParm vsmParm)");
                 result = from(VSMArray .class.cast(vsmParm));
             } else {
-
                 if (vsmParm instanceof CountedStruct) {                    // /* Debug */ System.err.println("CountedStruct in Argument from(VSMParm vsmParm)");
                     result = from(CountedStruct .class.cast(vsmParm));
                 } else {
-
                     if (vsmParm instanceof VSMStruct) {                        // /* Debug */ System.err.println("VSMStruct in Argument from(VSMParm vsmParm)");
                         result = from(VSMStruct .class.cast(vsmParm));
                     } else {
-
                         if (vsmParm instanceof VSMAsciiZ) {                            // /* Debug */ System.err.println("VSMAsciiZ in Argument from(VSMParm vsmParm)");
                             result = from(VSMAsciiZ .class.cast(vsmParm));
                         } else {
-
                             if (vsmParm instanceof VSMString) {                                // /* Debug */ System.err.println("VSMString in Argument from(VSMParm vsmParm)");
                                 result = from(VSMString .class.cast(vsmParm));
                             } else {
-
                                 if (vsmParm instanceof VSMInt) {                                    // /* Debug */ System.err.println("VSMInt in Argument from(VSMParm vsmParm)");
                                     result = from(VSMInt .class.cast(vsmParm));
                                 } else {
                                     Logger.getLogger(Argument .class.getName()).log(Level.WARNING, "unrecogized Argument in from(VSMParm)", vsmParm);
-                                            
-
                                 }
                             }
                         }
@@ -463,20 +467,30 @@ public class Argument extends WebObject {
     }
 
     /**
+     * Returns the contents of the object as HTML with no enclosing markup.
+     * The caller provides enclosing markup, if any.
+     * @return HTML content suitable for inclusion in an extant HTML body
+     * section, with <b>no</b> leading nor trailing {@code &lt;br&nbsp;/&gt;}
+     * though there can be internal {@code &lt;br&nbsp;/&gt;}'s. .
+     */
+    public String toHTML() throws JSONException {
+        StringBuffer sb = new StringBuffer();
+        sb.append(getFormalName() + ": " + getStringValue().toString());
+        return sb.toString();
+    }
+    
+    /**
      *  The main program for the Argument class
      *
      * @param  args               two strings to pretend to be formal name and value.
      * @exception  JSONException  Description of the Exception
      */ 
     public static void main(String [] args) throws JSONException {
-
         Argument a = new Argument();
         Argument b = new Argument();
-
         if (args.length > 1) {
             b = new Argument(args[0], args[1]);
         }
-
         Argument c = new Argument("{\"name\":\"iyamanarg\",\"value\":\"Popeye\"}");
         System.out.println("A == " + a);
         System.out.println("B == " + b);

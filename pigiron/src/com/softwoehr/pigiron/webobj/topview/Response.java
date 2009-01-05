@@ -268,7 +268,7 @@ public class Response extends WebObject {
 	sb.append("<b>Result:</b> " + get("result") + "<br />");
 	sb.append("<b>Message text:</b> " + get("messageText") + "<br />");
 	OutputArgumentArray output = getRequestor().getFunction().get_output_arguments();
-	sb.append("<b>Returns:</b> " + output.toString(1)  + "<br />");
+	sb.append("<b>Returns:</b><ul> " + output.toHTML() + "</ul>");
         return sb.toString();
     }
 }
