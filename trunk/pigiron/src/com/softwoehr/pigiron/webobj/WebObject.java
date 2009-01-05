@@ -130,16 +130,18 @@ public abstract class WebObject extends JSONObject {
     }
 
     /**
-     * Returns the contents of the object as HTML for display in a web app
+     * Returns the contents of the object as HTML with no enclosing markup.
+     * The caller provides enclosing markup, if any.
      * @return HTML content suitable for inclusion in an extant HTML body
-     * section, including a trailing {@code &lt;br&gt;}.
+     * section, with <b>no</b> leading nor trailing {@code &lt;br&nbsp;/&gt;}
+     * though there can be internal {@code &lt;br&nbsp;/&gt;}'s. .
      */
     public String toHTML() throws JSONException {
         StringBuffer sb = new StringBuffer();
         Iterator it = keys();
         while (it.hasNext()) {
             String key = it.next().toString();
-            sb.append("<b>" + key + ":</b> " + get(key).toString() + "<br />");
+            sb.append("<b>" + key + ":</b> " + get(key).toString());
         } 
         return sb.toString();
     }

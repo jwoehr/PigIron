@@ -31,8 +31,10 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import com.softwoehr.pigiron.access.ParameterArray;
-
+import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -80,26 +82,41 @@ public class ArgumentArray extends JSONArray {
      *                             with that name, null if not.
      */ 
     public Argument argumentNamed(String argumentFormalName) {
-
         Argument result = null;
         Argument temp = null;
-
         for (int i = 0; i < length(); i++) {
-
             try {
                 temp = new Argument(optJSONObject(i).toString());
                 // /* Debug */ System.err.println("Argument is : " + temp);
                 // /* Debug */ System.err.println("Argument formalName is : " + temp.getFormalName());
                 if (temp != null && temp.getFormalName().equals(argumentFormalName)) {
                     result = temp;
-
                     break;
                 }
             } catch (JSONException ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,
+                         null, ex);
             }
         }
-
         return result;
+    }
+
+    /**
+     * Returns the contents of the object as HTML with list item markup surrounding
+     * each element.
+     * The caller provides enclosing markup, if any.
+     * @return HTML content suitable for inclusion in an extant HTML body
+     * section, with <b>no</b> leading nor trailing {@code &lt;br&nbsp;/&gt;}
+     * though there can be internal {@code &lt;br&nbsp;/&gt;}'s. .
+     */
+    public String toHTML() throws JSONException {
+        StringBuffer sb = new StringBuffer();
+	for (int i = 0; i < length(); i++) {
+	    sb.append("<li>");
+	    sb.append((new Argument(JSONObject.class.cast(get(i)))).toHTML());
+	    sb.append("</li>");
+	}
+        return sb.toString();
     }
 }
 
