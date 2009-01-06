@@ -375,13 +375,13 @@ public class Argument extends WebObject {
      */ 
     public static Argument from(VSMStruct vsmStruct) throws JSONException {
         Argument result = null;
-        JSONObject jo = new JSONObject();
+        JSONArray ja = new JSONArray();
         Iterator <VSMParm> it = vsmStruct.iterator();
         while (it.hasNext()) {
             Argument a = Argument.from(it.next());
-            jo.put(a.getFormalName(), a);
+            ja.put(a);
         }
-        result = new Argument(vsmStruct.getFormalName(), jo);
+        result = new Argument(vsmStruct.getFormalName(), ja);
         return result;
     }
 
@@ -394,13 +394,13 @@ public class Argument extends WebObject {
      */ 
     public static Argument from(CountedStruct countStruct) throws JSONException {
         Argument result = null;
-        JSONObject jo = new JSONObject();
+	JSONArray ja = new JSONArray();
         Iterator <VSMParm> it = countStruct.iterator();
         while (it.hasNext()) {
             Argument a = Argument.from(it.next());
-            jo.put(a.getFormalName(), a);
+            ja.put(a);
         }
-        result = new Argument(countStruct.getFormalName(), jo);
+        result = new Argument(countStruct.getFormalName(), ja);
         return result;
     }
 
