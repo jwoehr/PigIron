@@ -196,7 +196,9 @@ public class Builder {
         out.println("</SELECT>");
         out.println("<input value=\"Next\" type=\"submit\">");
         out.println("<INPUT TYPE=HIDDEN NAME=\"piglet.buildcall.state\" value=\"select_vsmcall\">");
-        out.println("</form></body></http>");
+        out.println("</form>");
+	BuilderUtil.printTrailer(request, response, out);
+	out.println("</body></http>");
     }
 }
 

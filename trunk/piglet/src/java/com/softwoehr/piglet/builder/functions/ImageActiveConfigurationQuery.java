@@ -94,6 +94,7 @@ public class ImageActiveConfigurationQuery {
         out.println("<input type=\"text\"  name=\"target_identifier\" value = \"\"/>");
         out.println("Target Identifier<br>");
         BuilderUtil.printDoItButtonPanel(request, response, out);
+	BuilderUtil.printTrailer(request, response, out);
         out.println("</form></body></http>");
         out.close();
     }
@@ -156,6 +157,7 @@ public class ImageActiveConfigurationQuery {
 	    Logger.getLogger(ImageActiveConfigurationQuery.class.getName()).log(Level.SEVERE, null, ex);
 	    out.println("\n Error logged processing ImageActiveConfigurationQuery.do_it: " + ex);
         } finally {
+	    BuilderUtil.printTrailer(request, response, out);
 	    out.println("</body></http>");
             out.close();
 	}
