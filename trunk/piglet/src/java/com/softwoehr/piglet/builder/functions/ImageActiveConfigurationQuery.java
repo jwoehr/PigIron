@@ -47,120 +47,19 @@ import org.json.JSONException;
  * @author     jax
  * @created    January 5, 2009
  */
-public class ImageActiveConfigurationQuery {
+public class ImageActiveConfigurationQuery  extends BuilderFunctionProxy {
     /**
      * Constructor does nothing.
      */ 
-    public ImageActiveConfigurationQuery() { }
- 
-    /**
-     *  State machine for posts to ImageActiveConfigurationQuery from the call builder
+    public ImageActiveConfigurationQuery() { super(); }
+    
+        /**
+     *  Gets the parameters array for the BuilderFunctionProxy object
      *
-     * @param  request            servlet request
-     * @param  response           servlet response
-     * @throws  ServletException  if a servlet-specific error occurs
-     * @throws  IOException       if an I/O error occurs
+     * @return    The parameters that need form building and filling in
      */ 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
-        String state = request.getParameter("piglet.buildcall.state");
-        if (state.equals("select_vsmcall")) {
-            select_vsmcall(request, response);
-        } else {
-            if (state.equals("do_it")) {
-                do_it(request, response);
-            } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Unknown state : " + state);
-            }
-        }
-    }
-
-    /**
-     * Handles the {@code select_vsmcall } state of the ImageActiveConfigurationQuery call builder.
-     * This is the state when the user has just chosen the call name
-     *
-     * @param  request            servlet request
-     * @param  response           servlet response
-     * @throws  ServletException  if a servlet-specific error occurs
-     * @throws  IOException       if an I/O error occurs
-     */ 
-    public void select_vsmcall(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.println("<http><body>");
-        out.println("<h1>ImageActiveConfigurationQuery</h1>");
-        out.println("<form method=\"post\" action=\"/piglet/BuilderServlet\">");
-        BuilderUtil.printBuilderUserHostHeader(request, response, out);
-        out.println("<hr /><br />");
-        out.println("<input type=\"text\"  name=\"target_identifier\" value = \"\"/>");
-        out.println("Target Identifier<br>");
-        BuilderUtil.printDoItButtonPanel(request, response, out);
-	BuilderUtil.printTrailer(request, response, out);
-        out.println("</form></body></http>");
-        out.close();
-    }
-
-    /**
-     * Handles the {@code do_it } state of the ImageActiveConfigurationQuery call builder.
-     * This is the state when the user has click-confirmed executing the call.
-     *
-     * @param  request            servlet request
-     * @param  response           servlet response
-     * @throws  ServletException  if a servlet-specific error occurs
-     * @throws  IOException       if an I/O error occurs
-     */ 
-    public void do_it(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
-	response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            com.softwoehr.pigiron.webobj.topview.Response pigiron_response = new com.softwoehr.pigiron.webobj.topview.Response();
-            com.softwoehr.pigiron.webobj.topview.Requestor pigiron_requestor = new com.softwoehr.pigiron.webobj.topview.Requestor();
-            com.softwoehr.pigiron.webobj.topview.User user = BuilderUtil.fromUserHeader(request, response);
-            com.softwoehr.pigiron.webobj.topview.Host host = BuilderUtil.fromHostHeader(request, response);
-            com.softwoehr.pigiron.webobj.topview.InputArgumentArray inArray = new com.softwoehr.pigiron.webobj.topview.InputArgumentArray();
-	    inArray.put(new com.softwoehr.pigiron.webobj.topview.Argument("target_identifier", request.getParameter("target_identifier")));
-    	    pigiron_requestor.setUser(user);
-	    pigiron_requestor.setHost(host);com.softwoehr.pigiron.webobj.topview.Function function =
-	    	new com.softwoehr.pigiron.webobj.topview.Function
-		(
-		"ImageActiveConfigurationQuery"
-		, inArray
-		, new com.softwoehr.pigiron.webobj.topview.OutputArgumentArray()
-		);
-	    pigiron_requestor.setFunction(function);	    
-	    out.println("<http><body>");
-	    out.println("<h1>ImageActiveConfigurationQuery</h1>");
-	    String buttonPressed = request.getParameter("button_pressed");
-	    if (buttonPressed == null) {
-		Logger.getLogger(ImageActiveConfigurationQuery.class.getName()).log(Level.SEVERE, "Null button press received by " + this.getClass().getName() + ".do_it()");
-		out.println("Oops, got a null button press.");
-	    } else {
-		if (buttonPressed.equals("Do it!")) {
-		    pigiron_response = new com.softwoehr.pigiron.webobj.Engine().execute(pigiron_requestor);
-		    out.println(pigiron_response.toHTML());
-		} else {
-		    if (buttonPressed.equals("Show JSON")) {
-			out.println("<form method=\"post\" action=\"/piglet/BuilderServlet\">");
-			BuilderUtil.printBuilderUserHostHeader(request, response, out);
-			out.println("<hr /><br />");
-			String target_identifier = request.getParameter("target_identifier");
-			out.println("<input type=\"text\" name=\"target_identifier\" value = \"" + (target_identifier == null ? new String() : target_identifier) + "\" />");
-			out.println("Target Identifier<br />");
-			BuilderUtil.printDoItButtonPanel(request, response, out);
-			out.println("<p><tt>" + pigiron_requestor.toString(1).replaceAll("\040", "&nbsp;").replaceAll("\n", "<br />") + "</tt></p>");
-		    } else {
-			Logger.getLogger(ImageActiveConfigurationQuery.class.getName()).log(Level.SEVERE, "Unknown button press \"" + buttonPressed + "\" received by " + this.getClass().getName() + ".do_it()");
-			out.println("Oops, got an unknown  button press: " + buttonPressed);
-		    }
-		}
-	    }
-	} catch (JSONException ex) {
-	    Logger.getLogger(ImageActiveConfigurationQuery.class.getName()).log(Level.SEVERE, null, ex);
-	    out.println("\n Error logged processing ImageActiveConfigurationQuery.do_it: " + ex);
-        } finally {
-	    BuilderUtil.printTrailer(request, response, out);
-	    out.println("</body></http>");
-            out.close();
-	}
+    public Parameter []getParameters() {
+        return new Parameter []{ new Parameter("target_identifier", "", "Active image to query about") } ;
     }
 }
 
