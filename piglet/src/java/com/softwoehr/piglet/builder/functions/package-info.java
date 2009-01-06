@@ -6,4 +6,4 @@
  * <tt>com.softwoehr.piglet</tt> is the base of the servlet code.
  *
  */
-package com.softwoehr.piglet.builder;
+package com.softwoehr.piglet.builder.functions;
