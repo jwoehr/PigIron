@@ -114,7 +114,7 @@ public class ArgumentArray extends JSONArray {
 	for (int i = 0; i < length(); i++) {
 	    sb.append("<li>");
 	    sb.append((new Argument(JSONObject.class.cast(get(i)))).toHTML());
-	    sb.append("</li>");
+	    sb.append("</li>\n");
 	}
         return sb.toString();
     }
