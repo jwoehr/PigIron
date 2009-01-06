@@ -37,8 +37,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * A class to represent PigIron VSMAPI Function execution
- * from start to finish.
+ * A class to represent those elements of PigIron VSMAPI Function execution
+ * which can be represented as JSONObject.
  *
  * @author     jax
  * @created    November 23, 2008

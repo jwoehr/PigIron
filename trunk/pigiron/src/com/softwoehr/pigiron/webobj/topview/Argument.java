@@ -229,7 +229,17 @@ public class Argument extends WebObject {
     public JSONArray getJSONArrayValue() throws JSONException {
         return getJSONArray("value");
     }
+    
+    /**
+     * Get the value if it's a JSONArray or null if not
+     *
+     * @return                 the value as a JSONArray or null if no dice
+     */ 
+    public JSONArray optJSONArrayValue() {
+        return optJSONArray("value");
+    }
 
+    
     /**
      * Get the value if it's a JSONObject
      *
@@ -238,6 +248,15 @@ public class Argument extends WebObject {
      */ 
     public JSONObject getJSONObjectValue() throws JSONException {
         return 	getJSONObject("value");
+    }
+    
+    /**
+     * Get the value if it's a JSONObject or null if not
+     *
+     * @return                 the value as a JSONObject or null if no dice
+     */ 
+    public JSONObject optJSONObjectValue() {
+        return 	optJSONObject("value");
     }
     
     /**
@@ -475,7 +494,23 @@ public class Argument extends WebObject {
      */
     public String toHTML() throws JSONException {
         StringBuffer sb = new StringBuffer();
-        sb.append("<tt>" + getFormalName() + "</tt>: " + getStringValue().toString());
+        sb.append("<tt>" + getFormalName() + "</tt>: ");
+	JSONArray ja = optJSONArrayValue();
+	if (ja == null) { // it's not a JSONArray
+	    JSONObject jo = optJSONObjectValue();
+	    if (jo == null) { // it's not a JSONObject
+		sb.append(getStringValue().toString());
+	    } else { // it's a JSONObject
+		sb.append("<blockquote>");
+		// sb.append(new Argument(jo).toHTML());
+		sb.append(getStringValue().toString());
+		sb.append("</blockquote>\n");
+	    }
+	} else { // it's a JSONArray
+	    sb.append("<ul>\n");
+	    sb.append(new ArgumentArray(ja).toHTML());
+	    sb.append("</ul>\n");
+	}
         return sb.toString();
     }
     

@@ -110,6 +110,8 @@ public class ImageActiveConfigurationQuery {
      * @throws  IOException       if an I/O error occurs
      */ 
     public void do_it(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+	response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         try {
             com.softwoehr.pigiron.webobj.topview.Response pigiron_response = new com.softwoehr.pigiron.webobj.topview.Response();
             com.softwoehr.pigiron.webobj.topview.Requestor pigiron_requestor = new com.softwoehr.pigiron.webobj.topview.Requestor();
@@ -127,17 +129,17 @@ public class ImageActiveConfigurationQuery {
 		);
 	    pigiron_requestor.setFunction(function);
 	    pigiron_response = new com.softwoehr.pigiron.webobj.Engine().execute(pigiron_requestor);
-            response.setContentType("text/html;charset=UTF-8");
-            PrintWriter out = response.getWriter();
-            // out.println("<http><body>" + pigiron_response.toString(1) + "</body></http>");
 	    out.println("<http><body>");
 	    out.println("<h1>ImageActiveConfigurationQuery</h1>");
 	    out.println(pigiron_response.toHTML());
-	    out.println("</body></http>");
-            out.close();
         } catch (JSONException ex) {
 	    Logger.getLogger(ImageActiveConfigurationQuery.class.getName()).log(Level.SEVERE, null, ex);
+	    out.println("\n Error logged processing ImageActiveConfigurationQuery.do_it: " + ex);
         }
+	finally {
+	    out.println("</body></http>");
+            out.close();
+	}
     }
 }
 
