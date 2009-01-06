@@ -286,6 +286,21 @@ public class BuilderUtil {
         out.println("<INPUT TYPE=HIDDEN NAME=\"piglet.buildcall.state\" value=\"do_it\">");
     }
     
+    /**
+     *  Print to an extent writer a little trailer with pretty piggy.
+     * Doesn't create the form. 
+     *
+     * @param  request            servlet request
+     * @param  response           servlet response
+     * @param  out                print writer for the servlet's output
+     * @throws  ServletException  if a servlet-specific error occurs
+     * @throws  IOException       if an I/O error occurs
+     */ 
+    public static void printTrailer(HttpServletRequest request, HttpServletResponse response, PrintWriter out) throws ServletException, IOException {
+        out.println("<br />");
+	out.println("<img src=\"images/pig_15.gif\" align=\"center\">");
+    }
+
     /*
      *  // Really not necessary in view of ServletRequest.getParameter(String).
      *  public static String flatten (String [] stringArray) {
