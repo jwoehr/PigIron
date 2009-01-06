@@ -17,6 +17,8 @@ CHANGES
 2009-01-?? 0.9.5 -- Web Application
     * Various mods under com.softwoehr.pigiron.webobj to make
       PigLet, the PigIron Servlet's Builder web app work better.
+      Significantly, the conversion of VSMStruct-like arguments
+      to JSON is now a JSONArray.
 
 2008-12-16 0.9 -- Even more testing and PigLet, the PigIron Servlet
 
