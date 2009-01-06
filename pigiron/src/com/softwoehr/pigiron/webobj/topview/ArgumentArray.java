@@ -87,8 +87,6 @@ public class ArgumentArray extends JSONArray {
         for (int i = 0; i < length(); i++) {
             try {
                 temp = new Argument(optJSONObject(i).toString());
-                // /* Debug */ System.err.println("Argument is : " + temp);
-                // /* Debug */ System.err.println("Argument formalName is : " + temp.getFormalName());
                 if (temp != null && temp.getFormalName().equals(argumentFormalName)) {
                     result = temp;
                     break;

@@ -36,7 +36,7 @@ import com.softwoehr.pigiron.webobj.topview.*;
 import org.json.JSONException;
 
 /**
- *  Abstract antecedent of all JSON proxies for PigIron VSMAPI Function classes.
+ *  Abstract antecedent of all JSON proxies for PigIron VSMAPI Parameter classes.
  *
  * @author     jax
  * @created    December 6, 2008
