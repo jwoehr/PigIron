@@ -191,6 +191,7 @@ public class Builder {
         out.println("<b>Select Function</b><br />");
         out.println("<SELECT NAME=\"piglet.buildcall.vsmcall\">");
         out.println("   <OPTION VALUE=\"CheckAuthentication\">CheckAuthentication");
+	out.println("   <OPTION VALUE=\"ImageActiveConfigurationQuery\">ImageActiveConfigurationQuery");
         out.println("   <OPTION VALUE=\"QueryAPIFunctionalLevel\">QueryAPIFunctionalLevel");
         out.println("</SELECT>");
         out.println("<input value=\"Next\" type=\"submit\">");
