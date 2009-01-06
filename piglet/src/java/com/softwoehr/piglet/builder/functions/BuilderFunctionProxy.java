@@ -68,7 +68,6 @@ public class BuilderFunctionProxy {
      */ 
     public void doPost(HttpServletRequest request,
              HttpServletResponse response) throws ServletException,  IOException {
-
         String state = request.getParameter("piglet.buildcall.state");
         if (state.equals("select_vsmcall")) {
             select_vsmcall(request, response);
@@ -78,13 +77,12 @@ public class BuilderFunctionProxy {
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,
                          "Unknown state : " + state);
-
             }
         }
     }
 
     /**
-     *  Description of the Class
+     *  Represents a VSMAPI param that needs to be used in the form.
      *
      * @author     jax
      * @created    January 6, 2009
@@ -94,9 +92,9 @@ public class BuilderFunctionProxy {
         /**
          *Constructor for the Parameter object
          *
-         * @param  name         Description of the Parameter
-         * @param  value        Description of the Parameter
-         * @param  description  Description of the Parameter
+         * @param  name         formal name of param
+         * @param  value        default value of param
+         * @param  description  description to appear on form
          */ 
         public Parameter(String name, String value, String description) {
             this.name = name;
@@ -105,15 +103,15 @@ public class BuilderFunctionProxy {
         }
 
         /**
-         *  Description of the Field
+         *  formal name of param
          */ 
         public String name;
         /**
-         *  Description of the Field
+         *  default value of param
          */ 
         public String value;
         /**
-         *  Description of the Field
+         *  description to appear on form
          */ 
         public String description;
     }
@@ -121,7 +119,7 @@ public class BuilderFunctionProxy {
     /**
      *  Gets the parameters we need to fill in forms to get for the VSMAPI call
      *
-     * @return    The parameters value
+     * @return    The parameters array with all the params to draw in the form
      */ 
     public Parameter []getParameters() {
         return new Parameter []{} ;

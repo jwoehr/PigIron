@@ -54,9 +54,9 @@ public class QueryAPIFunctionalLevel extends BuilderFunctionProxy {
     public QueryAPIFunctionalLevel() { super();}
     
     /**
-     *  Gets the parameters attribute of the BuilderFunctionProxy object
+     *  Gets the parameters array for the BuilderFunctionProxy object
      *
-     * @return    The parameters value
+     * @return    The parameters that need form building and filling in
      */ 
     public Parameter []getParameters() {
         return new Parameter []{ new Parameter("target_identifier", "", "does not really matter") } ;
