@@ -265,10 +265,10 @@ public class Response extends WebObject {
      */
     public String toHTML() throws JSONException {
         StringBuffer sb = new StringBuffer();
-	sb.append("<b>Result:</b> " + get("result") + "<br />");
-	sb.append("<b>Message text:</b> " + get("messageText") + "<br />");
+	sb.append("<b>Result:</b> " + get("result") + "<br />\n");
+	sb.append("<b>Message text:</b> " + get("messageText") + "<br />\n");
 	OutputArgumentArray output = getRequestor().getFunction().get_output_arguments();
-	sb.append("<b>Returns:</b><ul> " + output.toHTML() + "</ul>");
+	sb.append("<b>Returns:</b>\n<ul>\n" + output.toHTML() + "</ul>\n");
         return sb.toString();
     }
 }

@@ -475,7 +475,7 @@ public class Argument extends WebObject {
      */
     public String toHTML() throws JSONException {
         StringBuffer sb = new StringBuffer();
-        sb.append(getFormalName() + ": " + getStringValue().toString());
+        sb.append("<tt>" + getFormalName() + "</tt>: " + getStringValue().toString());
         return sb.toString();
     }
     
