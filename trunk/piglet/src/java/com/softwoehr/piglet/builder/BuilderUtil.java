@@ -268,6 +268,24 @@ public class BuilderUtil {
         out.println("</table>");
     }
 
+    /**
+     *  Print to an extent writer the portion of the view pertaining to the
+     * the Do It! and Show JSON buttons along with setting the hidden fields.
+     * Doesn't create the form. 
+     *
+     * @param  request            servlet request
+     * @param  response           servlet response
+     * @param  out                print writer for the servlet's output
+     * @throws  ServletException  if a servlet-specific error occurs
+     * @throws  IOException       if an I/O error occurs
+     */ 
+    public static void printDoItButtonPanel(HttpServletRequest request, HttpServletResponse response, PrintWriter out) throws ServletException, IOException {
+	out.println("<input name=\"button_pressed\" value=\"Do it!\" type=\"submit\">");
+	out.println("<input name=\"button_pressed\" value=\"Show JSON\" type=\"submit\">");
+        out.println("<INPUT TYPE=HIDDEN NAME=\"piglet.buildcall.vsmcall\" value=\"" + request.getParameter("piglet.buildcall.vsmcall") + "\">");
+        out.println("<INPUT TYPE=HIDDEN NAME=\"piglet.buildcall.state\" value=\"do_it\">");
+    }
+    
     /*
      *  // Really not necessary in view of ServletRequest.getParameter(String).
      *  public static String flatten (String [] stringArray) {

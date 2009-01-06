@@ -93,9 +93,7 @@ public class ImageActiveConfigurationQuery {
         out.println("<hr /><br />");
         out.println("<input type=\"text\"  name=\"target_identifier\" value = \"\"/>");
         out.println("Target Identifier<br>");
-        out.println("<input value=\"Do it!\" type=\"submit\">");
-        out.println("<INPUT TYPE=HIDDEN NAME=\"piglet.buildcall.vsmcall\" value=\"ImageActiveConfigurationQuery\">");
-        out.println("<INPUT TYPE=HIDDEN NAME=\"piglet.buildcall.state\" value=\"do_it\">");
+        BuilderUtil.printDoItButtonPanel(request, response, out);
         out.println("</form></body></http>");
         out.close();
     }
@@ -127,16 +125,37 @@ public class ImageActiveConfigurationQuery {
 		, inArray
 		, new com.softwoehr.pigiron.webobj.topview.OutputArgumentArray()
 		);
-	    pigiron_requestor.setFunction(function);
-	    pigiron_response = new com.softwoehr.pigiron.webobj.Engine().execute(pigiron_requestor);
+	    pigiron_requestor.setFunction(function);	    
 	    out.println("<http><body>");
 	    out.println("<h1>ImageActiveConfigurationQuery</h1>");
-	    out.println(pigiron_response.toHTML());
-        } catch (JSONException ex) {
+	    String buttonPressed = request.getParameter("button_pressed");
+	    if (buttonPressed == null) {
+		Logger.getLogger(ImageActiveConfigurationQuery.class.getName()).log(Level.SEVERE, "Null button press received by " + this.getClass().getName() + ".do_it()");
+		out.println("Oops, got a null button press.");
+	    } else {
+		if (buttonPressed.equals("Do it!")) {
+		    pigiron_response = new com.softwoehr.pigiron.webobj.Engine().execute(pigiron_requestor);
+		    out.println(pigiron_response.toHTML());
+		} else {
+		    if (buttonPressed.equals("Show JSON")) {
+			out.println("<form method=\"post\" action=\"/piglet/BuilderServlet\">");
+			BuilderUtil.printBuilderUserHostHeader(request, response, out);
+			out.println("<hr /><br />");
+			String target_identifier = request.getParameter("target_identifier");
+			out.println("<input type=\"text\" name=\"target_identifier\" value = \"" + (target_identifier == null ? new String() : target_identifier) + "\" />");
+			out.println("Target Identifier<br />");
+			BuilderUtil.printDoItButtonPanel(request, response, out);
+			out.println("<p><tt>" + pigiron_requestor.toString(1).replaceAll("\040", "&nbsp;").replaceAll("\n", "<br />") + "</tt></p>");
+		    } else {
+			Logger.getLogger(ImageActiveConfigurationQuery.class.getName()).log(Level.SEVERE, "Unknown button press \"" + buttonPressed + "\" received by " + this.getClass().getName() + ".do_it()");
+			out.println("Oops, got an unknown  button press: " + buttonPressed);
+		    }
+		}
+	    }
+	} catch (JSONException ex) {
 	    Logger.getLogger(ImageActiveConfigurationQuery.class.getName()).log(Level.SEVERE, null, ex);
 	    out.println("\n Error logged processing ImageActiveConfigurationQuery.do_it: " + ex);
-        }
-	finally {
+        } finally {
 	    out.println("</body></http>");
             out.close();
 	}
