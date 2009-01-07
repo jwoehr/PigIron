@@ -297,7 +297,6 @@ public class BuilderUtil {
      * @throws  IOException       if an I/O error occurs
      */ 
     public static void printTrailer(HttpServletRequest request, HttpServletResponse response, PrintWriter out) throws ServletException, IOException {
-        out.println("<br />");
 	out.println("<img src=\"images/pig_15.gif\" align=\"center\">");
     }
 
