@@ -224,10 +224,11 @@ public class BuilderFunctionProxy {
                         printFormFields(request, response, out);
                         BuilderUtil.printDoItButtonPanel(request, response,
                                  out);
+			out.println("</form>");
                         out.println("<p><tt>" + pigiron_requestor.toString(1).replaceAll("\040", "&nbsp;").replaceAll("\n", "<br />") + "</tt></p>");
                     } else {
                         Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Unknown button press \"" + buttonPressed + "\" received by " + this.getClass().getName() + ".do_it()");
-                        out.println("Oops, got an unknown  button press: " + buttonPressed);
+                        out.println("Oops, got an unknown button press: " + buttonPressed);
                     }
                 }
             }
