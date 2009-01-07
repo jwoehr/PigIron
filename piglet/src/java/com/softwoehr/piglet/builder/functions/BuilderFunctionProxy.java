@@ -142,7 +142,7 @@ public class BuilderFunctionProxy {
         for (int i = 0; i < parameters.length; i++) {
             Parameter p = parameters[i];
             out.println("<input type=\"text\"  name=\"" + p.name + "\" value = \"" + (map.containsKey(p.name) ? request.getParameter(p.name) : p.value) + "\"/>");
-            out.println(p.description + "<br>");
+            out.println("<b><tt>" + p.name + "</b></tt> " + p.description + "<br>");
         }
         out.println("<INPUT TYPE=HIDDEN NAME=\"piglet.buildcall.vsmcall\" value=\"" + vsmcall + "\">");
     }
@@ -161,7 +161,7 @@ public class BuilderFunctionProxy {
         String vsmcall = request.getParameter("piglet.buildcall.vsmcall");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<http><body>");
+        out.println("<html><head><title></title></head><body>");
         out.println("<h1>" + vsmcall + "</h1>");
         out.println("<form method=\"post\" action=\"/piglet/BuilderServlet\">");
         BuilderUtil.printBuilderUserHostHeader(request, response, out);
@@ -170,7 +170,7 @@ public class BuilderFunctionProxy {
         BuilderUtil.printDoItButtonPanel(request, response, out);
         out.println("</form>");
         BuilderUtil.printTrailer(request, response, out);
-        out.println("</body></http>");
+        out.println("</body></html>");
         out.close();
     }
 
@@ -204,7 +204,7 @@ public class BuilderFunctionProxy {
             com.softwoehr.pigiron.webobj.topview.Function function = new com.softwoehr.pigiron.webobj.topview.Function ( 
             vsmcall, inArray, new com.softwoehr.pigiron.webobj.topview.OutputArgumentArray() );
             pigiron_requestor.setFunction(function);
-            out.println("<http><body>");
+            out.println("<html><head><title></title></head><body>");
             out.println("<h1>" + vsmcall + "</h1>");
             String buttonPressed = request.getParameter("button_pressed");
             if (buttonPressed == null) {
@@ -238,7 +238,7 @@ public class BuilderFunctionProxy {
             out.println("\n Error logged processing " + vsmcall + ".do_it: " + ex);
         } finally {
             BuilderUtil.printTrailer(request, response, out);
-            out.println("</body></http>");
+            out.println("</body></html>");
             out.close();
         }
     }

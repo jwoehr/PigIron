@@ -122,7 +122,7 @@ public class DefaultHost {
     public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<http><body>doPut() not implemented in DefaultHost.java</body></http>"); 
+        out.println("<html><head><title></title></head><body>doPut() not implemented in DefaultHost.java</body></html>"); 
 	out.close();
     }
 
@@ -154,7 +154,7 @@ public class DefaultHost {
         }
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<http><body><h1>Set Default Host</h1>");
+        out.println("<html><head><title></title></head><body><h1>Set Default Host</h1>");
         out.println("<form method=\"post\" action=\"/piglet/BuilderServlet/default_host\">");
         out.println("<input type=\"text\"  name=\"name\" value = \"" + name + "\"/>");
 	out.println("Host Name (only used symbolically)<br>");
@@ -167,7 +167,7 @@ public class DefaultHost {
 	out.println("<input type=\"checkbox\"  name=\"ssl\"" + (ssl ? "checked" : "") + "\"/>");
 	out.println("Use SSL<br>");
         out.println("<p><input value=\"Submit\" type=\"submit\"></p>");
-        out.println("</form></body></http>");
+        out.println("</form></body></html>");
     }
 }
 
