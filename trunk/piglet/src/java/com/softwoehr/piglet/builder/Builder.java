@@ -92,45 +92,45 @@ public class Builder {
                      ex);
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
-            out.println("<http><body>");
+            out.println("<html><head><title></title></head><body>");
             out.println("Error in finding builder class " + ex.getMessage());
-            out.println("</body></http>");
+            out.println("</body></html>");
             out.close();
         } catch (java.lang.NoSuchMethodException ex) {
             Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null,
                      ex);
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
-            out.println("<http><body>");
+            out.println("<html><head><title></title></head><body>");
             out.println("Error in finding builder class " + ex.getMessage());
-            out.println("</body></http>");
+            out.println("</body></html>");
             out.close();
         } catch (java.lang.InstantiationException ex) {
             Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null,
                      ex);
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
-            out.println("<http><body>");
+            out.println("<html><head><title></title></head><body>");
             out.println("Error in finding builder class " + ex.getMessage());
-            out.println("</body></http>");
+            out.println("</body></html>");
             out.close();
         } catch (java.lang.IllegalAccessException ex) {
             Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null,
                      ex);
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
-            out.println("<http><body>");
+            out.println("<html><head><title></title></head><body>");
             out.println("Error in finding builder class " + ex.getMessage());
-            out.println("</body></http>");
+            out.println("</body></html>");
             out.close();
         } catch (java.lang.reflect.InvocationTargetException ex) {
             Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null,
                      ex);
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
-            out.println("<http><body>");
+            out.println("<html><head><title></title></head><body>");
             out.println("Error in finding builder class " + ex.getMessage());
-            out.println("</body></http>");
+            out.println("</body></html>");
             out.close();
         }
     } 
@@ -146,7 +146,7 @@ public class Builder {
     public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<http><body>doPut() not implemented in Builder.java</body></http>"); 
+        out.println("<html><head><title></title></head><body>doPut() not implemented in Builder.java</body></html>"); 
         out.close();
     }
 
@@ -184,7 +184,7 @@ public class Builder {
         }
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<http><body><h1>Build a VSMAPI Call</h1>");
+        out.println("<html><head><title></title></head><body><h1>Build a VSMAPI Call</h1>");
         out.println("<form method=\"post\" action=\"/piglet/BuilderServlet\">");
 	BuilderUtil.printBuilderUserHostHeader(request, response, out);
         out.println("<hr /><br>");
@@ -198,7 +198,7 @@ public class Builder {
         out.println("<INPUT TYPE=HIDDEN NAME=\"piglet.buildcall.state\" value=\"select_vsmcall\">");
         out.println("</form>");
 	BuilderUtil.printTrailer(request, response, out);
-	out.println("</body></http>");
+	out.println("</body></html>");
     }
 }
 

@@ -255,7 +255,7 @@ public class BuilderUtil {
         out.println("          </tr>");
         out.println("          <tr>");
         out.println("            <td style=\"vertical-align: top;\">");
-        out.println("<input type=\"checkbox\"  name=\"ssl\"" + (ssl ? "checked" : "") + "\"/>");
+        out.println("<input type=\"checkbox\"  name=\"ssl\" " + (ssl ? "checked " : "") + "/>");
         out.println("Use SSL<br>");
         out.println("            </td>");
         out.println("          </tr>");
@@ -297,7 +297,7 @@ public class BuilderUtil {
      * @throws  IOException       if an I/O error occurs
      */ 
     public static void printTrailer(HttpServletRequest request, HttpServletResponse response, PrintWriter out) throws ServletException, IOException {
-	out.println("<img src=\"images/pig_15.gif\" align=\"center\">");
+	out.println("<img src=\"images/pig_15.gif\" alt=\"The noble porcine\" align=\"center\">");
     }
 
     /*
