@@ -8,7 +8,7 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 /**
  * <tt>function_formal_name</tt> VSMAPI Function
  */')dnl
-pigfunc_attribute(`private', `', `String', `memorySegmentName', `"*"', `', `The name of the memory segment to delete')dnl
+pigfunc_attribute(`private', `', `String', member_name(`memory_segment_name'), `"*"', `', `The name of the memory segment to delete')dnl
 pigfunc_ctors(`String', `memory_segment_name', member_name(`memory_segment_name'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl

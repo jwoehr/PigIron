@@ -10,7 +10,7 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',`fu
  *
  */')dnl
 dnl
-pigfunc_attribute(`private', `', `String', `name',   `"*"', `', `The name to be destroyed from the list specified in target_identifier.')dnl
+pigfunc_attribute(`private', `', `String', member_name(`name'),   `"*"', `', `The name to be destroyed from the list specified in target_identifier.')dnl
 pigfunc_ctors(`String', `name', `name')dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl

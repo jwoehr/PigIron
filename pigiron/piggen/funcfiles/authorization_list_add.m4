@@ -10,13 +10,13 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',`fu
  *
  */')dnl
 dnl
-pigfunc_attribute(`private', `', `String', `for_id', `""', `', `Virtual image or list of virtual images for which target_identifier will be authorized to perform the designated function')dnl
-pigfunc_attribute(`private', `', `String', `function_id', `""', `', `specifies the name of the function(s) in the "Function(s)" field of the authorization file record(s) being queried')dnl
-pigfunc_ctors(`String', `for_id', `for_id', String, `function_id', `function_id')dnl
+pigfunc_attribute(`private', `', `String', member_name(`for_id'), `""', `', `Virtual image or list of virtual images for which target_identifier will be authorized to perform the designated function')dnl
+pigfunc_attribute(`private', `', `String', member_name(`function_id'), `""', `', `specifies the name of the function(s) in the "Function(s)" field of the authorization file record(s) being queried')dnl
+pigfunc_ctors(`String', `for_id',  member_name(`for_id'), String, `function_id',  member_name(`function_id'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`CountedString', `get_for_id()', `for_id')dnl
-pigfunc_compose_input_parm(`CountedString', `get_function_id()', `function_id')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`for_id')`()', `for_id')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`function_id')`()', `function_id')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl

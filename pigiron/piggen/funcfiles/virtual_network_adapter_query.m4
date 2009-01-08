@@ -10,7 +10,7 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
  * <tt>function_formal_name</tt> VSMAPI Function
  * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
  */')dnl
-pigfunc_attribute(`private', `', `String', `imageDeviceNumber', `"*"', `', `The virtual device address of the adapter')dnl
+pigfunc_attribute(`private', `', `String', member_name(image_device_number), `"*"', `', `The virtual device address of the adapter')dnl
 pigfunc_ctors(`String', `image_device_number', `imageDeviceNumber')dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
