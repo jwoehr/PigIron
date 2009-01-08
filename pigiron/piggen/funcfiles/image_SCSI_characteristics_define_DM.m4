@@ -12,10 +12,10 @@ pigfunc_constant(`public', `int', `SCP_DATA_TYPE_UNSPECIFIED', `0', `Unspecified
 pigfunc_constant(`public', `int', `SCP_DATA_TYPE_DELETE', `1', `delete the SCP_data for the image')dnl
 pigfunc_constant(`public', `int', `SCP_DATA_TYPE_EBCDIC', `2', `EBCDIC (codepage 924) data')dnl
 pigfunc_constant(`public', `int', `SCP_DATA_TYPE_HEX', `3', `UTF-8 encoded hex data')dnl
-pigfunc_attribute(`private', `', `String',  member_name(`boot_program'), `""', `', `The boot program number`,' or the keyword "DELETE" to delete the existing boot program number. If null`,' the boot program number will be unchanged.')dnl
-pigfunc_attribute(`private', `', `String',  member_name(`BR_LBA'), `""', `', `The logical-block address of the boot record`,' or the keyword "DELETE" to delete the existing logical-block address. If null`,' the logical-block address will be unchanged.')dnl
-pigfunc_attribute(`private', `', `String',  member_name(`LUN'), `""', `', `The logical unit number`,' or the keyword "DELETE" to delete the existing logical unit number. If null`,' the logical unit number will be unchanged.')dnl
-pigfunc_attribute(`private', `', `String',  member_name(`port_name'), `""', `', `The port name`,' or the keyword "DELETE" to delete the existing port name. If null`,' the port name will be unchanged.')dnl
+pigfunc_attribute(`private', `', `String',  member_name(`boot_program'), `""', `', `The boot program number``,'' or the keyword "DELETE" to delete the existing boot program number. If null``,'' the boot program number will be unchanged.')dnl
+pigfunc_attribute(`private', `', `String',  member_name(`BR_LBA'), `""', `', `The logical-block address of the boot record``,'' or the keyword "DELETE" to delete the existing logical-block address. If null``,'' the logical-block address will be unchanged.')dnl
+pigfunc_attribute(`private', `', `String',  member_name(`LUN'), `""', `', `The logical unit number``,'' or the keyword "DELETE" to delete the existing logical unit number. If null``,'' the logical unit number will be unchanged.')dnl
+pigfunc_attribute(`private', `', `String',  member_name(`port_name'), `""', `', `The port name``,'' or the keyword "DELETE" to delete the existing port name. If null``,'' the port name will be unchanged.')dnl
 pigfunc_attribute(`private', `', `int', member_name(`SCP_data_type'), `0', `', `The type of data specified in the SCP_data parameter')dnl
 pigfunc_attribute(`private', `', `String',  member_name(`SCP_data'), `""', `', `The SCP data')dnl
 pigfunc_ctors(`String', `boot_program', member_name(`boot_program'),
@@ -35,7 +35,7 @@ pigfunc_compose_input_parm(`CountedString', member_getter(`SCP_data')`()', `SCP_
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl
-pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException`,' VSMException', `dnl
+pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException``,'' VSMException', `dnl
      * You can execute the VSMAPI call from {@code main()}, try it
      * with no args to see the usage message.
      * @param argv array of commandline args

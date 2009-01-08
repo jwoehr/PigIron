@@ -86,12 +86,19 @@ push_divert(ctor_stream)dnl
      * @return    The parameters that need form building and filling in
      */ 
     public Parameter [] getParameters() {
-        return new Parameter []{dnl    
+        return new Parameter [] {
+            new Parameter("target_identifier", "", "Target of operation")dnl
 pop_divert()dnl
 ')
 
 \\ pigfunc_constant(`accessor', `type', `name', `initial_value', `comment')
-define(`pigfunc_constant',`')
+define(`pigfunc_constant',`dnl
+push_divert(constant_stream)dnl
+    `/**' $5 `*/'
+    $1 `static final' $2 $3 `=' $4`;'
+
+pop_divert()dnl
+')
 
 \\ pigfunc_attribute(`accessor', `scope', `type', `name', `initial_value', `set_accessor', `comment')
 define(`pigfunc_attribute',`dnl
@@ -102,10 +109,10 @@ pushdef(`x_type', $3)dnl
 pushdef(`x_name', $4)dnl
 pushdef(`x_initial_value', $5)dnl
 pushdef(`x_set_accessor', ifelse($6, `', `public', $6))dnl
-pushdef(`x_comment', $7)dnl
+pushdef(`x_comment', translit($7,`"'`'))dnl
 pushdef(`x_qualified_name', x_accessor()x_scope()x_type() x_name())dnl
 pushdef(`x_get_accessor_name', ifelse(x_type, `boolean', `is_', `get_')`'x_name())dnl
-ifelse(mynotfirstparameter(),`true',``,'',define(`mynotfirstparameter',`true'))
+`,'
             new Parameter("x_name()", x_initial_value(), "x_comment()")dnl
 popdef(`x_get_accessor_name')dnl
 popdef(`x_qualified_name')dnl

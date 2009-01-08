@@ -90,7 +90,7 @@ public class BuilderFunctionProxy {
     public class Parameter {
 
         /**
-         *Constructor for the Parameter object
+         *Constructor for the Parameter object using three Strings
          *
          * @param  name         formal name of param
          * @param  value        default value of param
@@ -99,6 +99,19 @@ public class BuilderFunctionProxy {
         public Parameter(String name, String value, String description) {
             this.name = name;
             this.value = value;
+            this.description = description;
+        }
+	
+        /**
+         *Constructor for the Parameter object using two Strings and an int
+         *
+         * @param  name         formal name of param
+         * @param  value        default value of param
+         * @param  description  description to appear on form
+         */ 
+        public Parameter(String name, int value, String description) {
+            this.name = name;
+            this.value = Integer.toString(value);
             this.description = description;
         }
 

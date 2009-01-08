@@ -18,7 +18,7 @@ pigfunc_constant(`public', `int', `COMMUNICATION_TYPE_UDP', `2', `UDP')dnl
 pigfunc_attribute(`private', `', `int', member_name(`entity_type'), `0', `', `The entity type for which notifications will be sent.')dnl
 pigfunc_attribute(`private', `', `int', member_name(`communication_type'), `0', `', `The communication used for notifications')dnl
 pigfunc_attribute(`private', `', `int', member_name(`port_number'), `-1', `', `The port number of the socket that will receive the notifications')dnl
-pigfunc_attribute(`private', `', `String', member_name(`ip_address'), `"*"', `', `he IPV4 dotted-decimal IP address of the socket that will receive the notifications.')dnl
+pigfunc_attribute(`private', `', `String', member_name(`ip_address'), `"*"', `', `The IPV4 dotted-decimal IP address of the socket that will receive the notifications.')dnl
 pigfunc_attribute(`private', `', `int', member_name(`encoding'), `0', `', `The encoding of the notification data string')dnl
 pigfunc_attribute(`private', `', `String', member_name(`subscriber_data'), `""', `', `Anything the subscriber wishes to receive along with the notifications')dnl
 pigfunc_ctors(`int', `entity_type', member_name(`entity_type'),

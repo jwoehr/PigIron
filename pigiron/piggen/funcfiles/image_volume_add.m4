@@ -16,7 +16,7 @@ pigfunc_attribute(`private', `', `String', `member_name(`system_config_name')', 
 pigfunc_attribute(`private', `', `String', `member_name(`system_config_type')',    `"*"', `', `File type of system configuration file - default is "CONFIG"')dnl
 pigfunc_attribute(`private', `', `String', `member_name(`parm_disk_owner')',       `"*"', `', `Owner of the parm disk - default is "MAINT"')dnl
 pigfunc_attribute(`private', `', `String', `member_name(`parm_disk_number')',      `"*"', `', `Number of the parm disk as defined in the VSMWORK1 directory')dnl
-pigfunc_attribute(`private', `', `String', `member_name(`parm_disk_password')',    `"*"', `', `Multiwrite password for the parm disk - default is "`,'"')dnl
+pigfunc_attribute(`private', `', `String', `member_name(`parm_disk_password')',    `"*"', `', `Multiwrite password for the parm disk - default is "``,''"')dnl
 pigfunc_attribute(`private', `', `String', `member_name(`alt_system_config_name')',`"*"', `', `File name of the  alternative system configuration file')dnl
 pigfunc_attribute(`private', `', `String', `member_name(`alt_system_config_type')',`"*"', `', `File type of the alternative system configuration file')dnl
 pigfunc_attribute(`private', `', `String', `member_name(`alt_parm_disk_owner')',   `"*"', `', `Owner of the alternative parm disk')dnl
