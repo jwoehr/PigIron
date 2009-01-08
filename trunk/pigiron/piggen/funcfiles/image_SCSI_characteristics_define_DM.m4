@@ -35,7 +35,7 @@ pigfunc_compose_input_parm(`CountedString', member_getter(`SCP_data')`()', `SCP_
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl
-pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException``,'' VSMException', `dnl
+pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException`,' VSMException', `dnl
      * You can execute the VSMAPI call from {@code main()}, try it
      * with no args to see the usage message.
      * @param argv array of commandline args

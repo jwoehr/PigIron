@@ -203,8 +203,6 @@ public class Builder {
         out.println("   <OPTION VALUE=\"DirectoryManagerLocalTagSetDM\">DirectoryManagerLocalTagSetDM");
         out.println("   <OPTION VALUE=\"DirectoryManagerSearchDM\">DirectoryManagerSearchDM");
         out.println("   <OPTION VALUE=\"DirectoryManagerTaskCancelDM\">DirectoryManagerTaskCancelDM");
-        out.println("   <OPTION VALUE=\"FunctionProxy\">FunctionProxy");
-        out.println("   <OPTION VALUE=\"FunctionTable\">FunctionTable");
         out.println("   <OPTION VALUE=\"ImageActivate\">ImageActivate");
         out.println("   <OPTION VALUE=\"ImageActiveConfigurationQuery\">ImageActiveConfigurationQuery");
         out.println("   <OPTION VALUE=\"ImageCPUDefine\">ImageCPUDefine");
