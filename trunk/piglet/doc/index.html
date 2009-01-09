@@ -44,7 +44,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   "Servlet serves up PigIron Java Class Library mainframe administration functionality to web application writers."
   name="description">
   <meta http-equiv="Last-Modified" content=
-  "Sat, 27 Dec 2008 07:14:25 UTC">
+  "Fri, 9 Jan 2009 08:04:03 UTC">
 </head>
 
 <body>
@@ -89,8 +89,17 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
         <li><a href="#LaunchingPigLet.Launching">Launching</a></li>
 
-        <li><a href="#Builder_Web_Application">Builder Web
-        Application</a></li>
+        <li>
+          <a href="#Builder_Web_Application">Builder Web
+          Application</a>
+
+          <ul>
+            <li><small><a href=
+            "#Current_limitations_of_the_PigLet">Current
+            limitations of the PigLet Builder Web
+            Application</a></small></li>
+          </ul>
+        </li>
       </ul>
     </li>
 
@@ -331,35 +340,83 @@ THE POSSIBILITY OF SUCH DAMAGE.
     "font-family: monospace;">piglet.war</span></a><br></li>
   </ol>
 
-  <h2><a name="Builder_Web_Application" id=
-  "Builder_Web_Application"></a>Builder Web Application<br></h2>In
+  <h3><a name="Builder_Web_Application" id=
+  "Builder_Web_Application"></a>Builder Web Application<br></h3>In
   addition to the JSONized data server, PigLet offers the Builder
   web application. The Builder is a user interface to PigLet
-  Servlet which allows you to:<br>
+  PigIron Servlet.<br>
+  <br>
+  Using the Builder:<br>
 
   <ul>
-    <li>type in <a href="http://json.org/">JSON</a> strings which
-    are interpreted by PigLet and executed using PigIron <a name=
-    "Piglet_Input_Window" id="Piglet_Input_Window"></a><a href=
-    "images/PigLet_Input_Window.jpg"><img alt="" src=
-    "images/PigLet_Input_Window.jpg" style=
-    "border: 2px solid ; width: 160px; height: 100px;" align=
-    "middle"></a></li>
+    <li>You can type in <a href="http://json.org/">JSON</a> strings
+    into the PigLet Input Window. <a name="Piglet_Input_Window"
+      id="Piglet_Input_Window"></a><a href=
+      "images/PigLet_Input_Window.jpg"><img alt="" src=
+      "images/PigLet_Input_Window.jpg" style=
+      "border: 2px solid ; width: 160px; height: 100px;" align=
+      "middle"></a> These strings are then interpreted by PigLet
+      and executed using PigIron.<br>
 
-    <li>build calls via forms and execute them using PigIron
-    <a name="PigLet_Call_Builder" id=
+      <ul>
+        <li>These JSON strings can be either
+
+          <ul>
+            <li>an individual Requestor, or</li>
+
+            <li>an Array of Requestors &gt;
+
+              <ul>
+                <li>See <a href="#Example_JSON_strings">Example
+                JSON strings</a> below.<br></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>You can build calls via forms and execute them using
+    PigIron <a name="PigLet_Call_Builder" id=
     "PigLet_Call_Builder"></a><a href=
     "images/PigLet_Build_Call.jpg"><img alt="PigLet Call Builder"
     title="PigLet Call Builder" src="images/PigLet_Build_Call.jpg"
     style="border: 2px solid ; width: 160px; height: 100px;" align=
     "middle"></a><br></li>
 
-    <li>create composite operations made of multiple PigIron VSMAPI
-    calls via PigLet.</li>
+    <li>You can create composite operations made of multiple
+    PigIron VSMAPI calls via PigLet (<span style=
+    "font-style: italic;">not yet finished</span>).<br></li>
   </ul>Go to the welcome page, i.e..,
   http://yourhost.yourdomain.com/piglet/ and follow the links to
-  the Builder. The Builder<br>
-  <br>
+  the Builder, which is mostly self-explanatory. Choose a call from
+  the "Select Function" list and fill in the form. Follow the
+  buttons such as "Next" until you can see and click "Do it!". Your
+  call will then be run and the results displayed. If you chose the
+  "Display JSON" button the JSON notation for the call you are
+  building will be displayed, suitable for saving as text and/or
+  pasting into the PigLet Input Window if you should wish to do
+  so.<br>
+
+  <h4><a name="Current_limitations_of_the_PigLet" id=
+  "Current_limitations_of_the_PigLet"></a>Current limitations of
+  the PigLet Builder Web Application</h4>
+
+  <ul>
+    <li>Symbolic constants which PigIron recognizes at the code
+    level aren't recogized in the web application.</li>
+
+    <li>It's neither obvious nor easy to fill out the form for
+    certain VSMAPI 5.4 calls which use structures as input
+    parameters</li>
+
+    <li>If you choose "Display JSON", the JSON notation for the
+    call you are building will be <span style=
+    "text-decoration: underline;">displayed in full, including the
+    password</span>.<br></li>
+  </ul>
 
   <h2><a name="Using_PigLet_in_Web_Applications" id=
   "Using_PigLet_in_Web_Applications"></a>Using PigLet in your own
@@ -383,7 +440,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   URLs found in a "directory" in JSON format at the "topview" URL
   "/piglet/PigIronServlet/topview"<br>
 
-  <ul>
+  <ul style="font-family: monospace;">
     <li>Requestor</li>
 
     <li>Response</li>
@@ -395,6 +452,10 @@ THE POSSIBILITY OF SUCH DAMAGE.
     <li>Function</li>
 
     <li>Argument</li>
+
+    <li>Input Argument Array</li>
+
+    <li>Output Argument Array<br></li>
   </ul>The metaphor for the Function is that input arguments to
   VSMAPI functionality are represented under their formal names.
   The <big><span style=
@@ -529,7 +590,9 @@ THE POSSIBILITY OF SUCH DAMAGE.
     <span style=
     "font-family: monospace;">{"formal_name":"target_identifier","value":"foo"}</span>
   </div><br>
-  but as you might guess, <big><span style=
+  but <a href=
+  "http://publib.boulder.ibm.com/infocenter/zvm/v5r4/topic/com.ibm.zvm.v54.dmse6/qapifl.htm#qapifl">
+  VSMAPI documentation notwithstanding</a>, <big><span style=
   "font-family: monospace;">QueryAPIFunctionalLevel</span></big>
   does not appear check that argument.
 
