@@ -14,7 +14,7 @@ to be found in the same directory as this README.TXT file.
 
 CHANGES
 -------
-2009-01-?? 0.9.5 -- Web Application
+2009-01-?? 0.9.5 -- PigLet Builder Web Application
     * Various mods under com.softwoehr.pigiron.webobj to make
       PigLet, the PigIron Servlet's Builder web app work better.
       Significantly, the conversion of VSMStruct-like arguments
