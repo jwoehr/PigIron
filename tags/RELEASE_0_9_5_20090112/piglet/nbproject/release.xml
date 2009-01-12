@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="piglet-release" default="all" basedir="..">
+    <!-- tstamp>
+        <format pattern="EEEE yyyy-MM-dd HH:mm:ss.SS z Z" property="release.packaging.start"/>
+    </tstamp -->
+    <target name="init-release">
+        <property file="nbproject/project.properties"/>
+        <property file="nbproject/release.properties"/>
+        <property name="release.name" value="piglet-${piglet.release.version}"/>
+        <property name="war.name" value="piglet.war"/>
+        <property name="war.release.name" value="piglet-${piglet.release.version}.war"/>
+        <property name="srczip.name" value="${release.name}-src.zip"/>
+        <property name="srczip.fullpathname" value="${dist.dir}/${srczip.name}"/>
+        <property name="doczip.name" value="${release.name}-doc.zip"/>
+        <property name="doczip.fullpathname" value="${dist.dir}/${doczip.name}"/>
+        <property name="allzip.name" value="${release.name}-all.zip"/>
+        <property name="allzip.fullpathname" value="${dist.dir}/${allzip.name}"/>
+    </target>
+    <target depends="init-release" description="Zip all the sources for PigLet" name="zip-source">
+        <zip compress="true" destfile="${srczip.fullpathname}" basedir="${basedir}" excludes="*/**">
+            <zipfileset dir="web" prefix="${release.name}/web"/>
+            <zipfileset dir="src" prefix="${release.name}/src"/>
+            <zipfileset dir="nbproject" excludes="private/**" prefix="${release.name}/nbproject"/>
+            <zipfileset dir="." includes="README.txt,CHANGES.TXT,license.txt,build.xml,overview.html" prefix="${release.name}"/>
+        </zip>
+    </target>
+    <target depends="init-release" description="Zip all the docs for PigLet" name="zip-documentation">
+        <zip compress="true" destfile="${doczip.fullpathname}" basedir="${basedir}" excludes="*/**">
+            <zipfileset dir="doc" prefix="${release.name}/doc"/>
+            <zipfileset dir="${dist.javadoc.dir}" prefix="${release.name}/javadoc"/>
+        </zip>
+    </target>
+    <target depends="zip-source,zip-documentation" description="Zip sources, doc, and war for PigLet in to one zip" name="zip-all">
+        <copy file="${dist.dir}/${war.name}" tofile="${dist.dir}/${war.release.name}"/>
+        <zip compress="false" destfile="${allzip.fullpathname}" basedir="${dist.dir}" includes="${srczip.name},${doczip.name},${war.release.name}"/>
+    </target>
+    <target depends="zip-all" description="generate md5sum files for the release archives" name="sumfiles">
+        <checksum format="MD5SUM" file="${srczip.fullpathname}" todir="${dist.dir}" fileext=".md5sum"/>
+        <checksum format="MD5SUM" file="${doczip.fullpathname}" todir="${dist.dir}" fileext=".md5sum"/>
+        <checksum format="MD5SUM" file="${allzip.fullpathname}" todir="${dist.dir}" fileext=".md5sum"/>
+    </target>
+    <target name="all" depends="sumfiles">
+    </target>
+</project>

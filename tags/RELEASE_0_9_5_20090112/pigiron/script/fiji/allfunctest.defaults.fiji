@@ -1,0 +1,36 @@
+\ defaults for allfunctest.fiji as value assignments \
+java.lang.String class new ( ) to authorizationlistquery.targetid
+" *" to authorizationlistquery.forid
+" *" to authorizationlistquery.functionid
+" IPL" to directorymanagersearchdm.searchpattern
+" BBBB" to imageactivate.targetid
+my.target to imagecpudefine.targetid
+" FA" to imagecpudefine.cpuid
+ImageCPUDefine.CPU_TYPE_CP to imagecpudefine.cputype
+" BBBB" to imagecreatedm.imagenametocreate
+" CMS"  to imagecreatedm.prototypename
+" FARQUHAR" to imagecreatedm.intialpassword
+" 123456" to imagecreatedm.accountnumber
+" CCCC" to imagecreatedm.noprototype.imagenametocreate
+java.lang.String class new ( ) to imagecreatedm.noprototype.prototypename
+java.lang.String class new ( ) to imagecreatedm.noprototype.intialpassword
+java.lang.String class new ( ) to imagecreatedm.noprototype.accountnumber
+\ " USER CCCC FARQUHAR 32M 512M G" to imagecreatedm.noprototype.alltheotherargs \
+imageactivate.targetid to imagedeactivate.targetid
+" WITHIN 20" to imagedeactivate.forcetime
+imagecreatedm.imagenametocreate to imagedeletedm.imagetodelete
+" 36TB33T5" to imagepasswordsetdm.newpassword
+imagecreatedm.imagenametocreate to imagelockdm.targettolock
+java.lang.String class new ( ) to imagelockdm.devicetolock
+" PIGTEST" to prototypecreatedm.prototypetocreate
+prototypecreatedm.prototypetocreate to prototypedeletedm.prototypetodelete
+' *' to prototypequerydm.prototypetoquery
+" CMSPIPES" to sharedmemoryaccessquerydm.memorysegmentname
+" MYLANOWN" to virtualnetworklanaccessquery.lanowner
+" MYLAN" to virtualnetworklanaccessquery.lanname
+" MYLANOWN" to virtualnetworklanquery.lanowner
+" MYLAN" to virtualnetworklanquery.lanname
+" MYSWITCH" to virtualnetworkvswitchquery.switchname
+" JACK" to authorizationlistadd.targetid
+" JACK" to authorizationlistadd.forid
+" Fembot_Race" to authorizationlistadd.functionid

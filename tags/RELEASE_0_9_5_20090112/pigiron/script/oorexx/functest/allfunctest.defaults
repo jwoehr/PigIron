@@ -1,0 +1,21 @@
+directorymanagersearchdm.searchpattern IPL
+imageactivate.targetid BBBB
+imagedeactivate.targetid BBBB
+imagedeactivate.forcetime WITHIN_20
+imagedeletedm.imagetodelete BBBB
+sharedmemoryaccessquerydm.memorysegmentname CMSPIPES
+imagecreatedm.imagenametocreate "BBBB"
+imagecreatedm.prototypename "CMS"
+imagecreatedm.intialpassword "FARQUHAR"
+imagecreatedm.accountnumber "123456"
+imagecreatedm.noprototype.imagenametocreate "CCCC"
+imagecreatedm.noprototype.prototypename "\"
+imagecreatedm.noprototype.intialpassword "\"
+imagecreatedm.noprototype.accountnumber "\"
+imagecreatedm.noprototype.alltheotherargs USER_CCCC_FARQUHAR_32M_512M_G ACCOUNT_W00F IPL_CMS MACHINE_ESA CONSOLE_001F_3215
+prototypequerydm.prototypetoquery '*'
+virtualnetworklanaccessquery.lanowner MYLANOWN
+virtualnetworklanaccessquery.lanname MYLAN
+virtualnetworklanquery.lanowner MYLANOWN
+virtualnetworklanquery.lanname MYLAN
+virtualnetworkvswitchquery.switchname MYSWITCH

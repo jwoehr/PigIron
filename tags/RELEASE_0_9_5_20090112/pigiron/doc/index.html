@@ -1,0 +1,1231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for OpenBSD (vers 1 September 2005), see www.w3.org">
+  <!--
+Copyright (c) 2008, 2009 Jack J. Woehr jwoehr@softwoehr.com
+PO Box 51, Golden, Colorado 80402-0051 USA
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+    * Redistributions of source code must retain the above copyright
+        notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+        notice, this list of conditions and the following disclaimer
+        in the documentation and/or other materials provided with the
+        distribution.
+    * Neither the name of the PigIron Project nor the names of its
+        contributors may be used to endorse or promote products derived
+        from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+  <title>PigIron Open Source Java Class Library for VSMAPI</title>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=us-ascii">
+  <meta http-equiv="Last-Modified" content=
+  "Fri, 26 Dec 2008 20:50:19 UTC">
+</head>
+
+<body>
+  <h1><a name="Image_of_noble_porcine" id=
+  "Image_of_noble_porcine"></a><img title="Image of noble porcine"
+  alt="Image of noble porcine" src=
+  "pigiron.sourceforge.net/images/pig_15.gif" style=
+  "width: 157px; height: 116px;" align="middle">PigIron Open Source
+  Java Class Library for VSMAPI</h1>
+
+  <p><tt>Copyright (c) 2008, 2009 Jack J. Woehr <a href=
+  "mailto:jwoehr@softwoehr.com">jwoehr@softwoehr.com</a> PO Box 51,
+  Golden, Colorado 80402-0051 USA All rights reserved.</tt></p>This
+  is code and user documentation. If you want navigation, here are
+  some<br>
+
+  <h2>Quick External Links</h2>
+
+  <ul>
+    <li><a href="http://pigiron.sourceforge.net/">Home Page of the
+    PigIron Open Source Java Class Library for VSMAPI</a></li>
+
+    <li>
+      <a href="http://sourceforge.net/projects/pigiron">Project
+      Page of the PigIron Open Source Java Class Library for
+      VSMAPI</a>
+
+      <ul>
+        <li><a href=
+        "https://sourceforge.net/project/platformdownload.php?group_id=235734">
+        Download PigIron</a></li>
+
+        <li style="font-weight: bold;"><a href=
+        "https://sourceforge.net/mail/?group_id=235734">Mailing
+        Lists</a></li>
+
+        <li style="font-weight: bold;"><a href=
+        "https://sourceforge.net/forum/?group_id=235734">Discussion
+        Forums</a></li>
+
+        <li><a href=
+        "https://sourceforge.net/tracker2/?group_id=235734">Issue
+        Tracker</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a name="IBM_VSMAPI_Documentation" id=
+      "IBM_VSMAPI_Documentation"></a><a href=
+      "http://www.ibm.com">IBM</a> VSMAPI Documentation
+      <span style="font-style: italic;">(Note: The PigIron
+      Project</span> <i>is not associated</i> <span style=
+      "font-style: italic;">with the IBM Corporation.)</span>
+
+      <ul>
+        <li><a href=
+        "http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm">
+        z/VM V5R3</a></li>
+
+        <li><a href=
+        "http://publib.boulder.ibm.com/infocenter/zvm/v5r4/topic/com.ibm.zvm.v54.dmse6/hcsl8b30.htm">
+        z/VM V5R4</a></li>
+      </ul>
+    </li>
+
+    <li>Open Source Software used in conjunction with PigIron
+    development
+
+      <ul>
+        <li>All of the following are used in developing PigIron
+        itself
+
+          <ul>
+            <li>None of these are necessary merely to use
+            PigIron!</li>
+          </ul>
+        </li>
+
+        <li><a href="http://fiji.sourceforge.net/">FIJI ForthIsh
+        Java Interpreter</a> used in scripting and testing
+        PigIron</li>
+
+        <li><a href="http://www.gnu.org/software/m4/">GNU m4</a>
+        used by <a href="piggen.html">PigGen</a> to autogenerate
+        Java code for new PigIron classes</li>
+
+        <li>
+          <a href="http://www.oorexx.org">Open ObjectRexx</a> can
+          be used to script and test PigIron
+
+          <ul>
+            <li><a href=
+            "http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>
+            is the bridge to Java from Open ObjectRexx<br></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>Now, onwards to the <span style="font-weight: bold;">code
+  and user documentation</span> for PigIron:
+
+  <h2>Contents</h2>
+
+  <ul>
+    <li>
+      <a href="#Overview">Overview</a>
+
+      <ul>
+        <li>
+          <a href="#NOTE_ON_SECURITY">NOTE ON SECURITY (AND LACK
+          THEREOF)</a>
+
+          <ul>
+            <li><small><a href="#Using_PigIron_and_SSL">Using
+            PigIron and SSL</a></small></li>
+          </ul>
+        </li>
+
+        <li><a href="#Getting_PigIron">Getting PigIron</a></li>
+
+        <li><a href="#Viewing_Javadoc_for_PigIron">Viewing Javadoc
+        for PigIron</a></li>
+
+        <li><a href="#View_License_for_PigIron">View License for
+        PigIron</a></li>
+      </ul>
+    </li>
+
+    <li><a href="#Installation">Installation</a><br></li>
+
+    <li>
+      <a href="#Specification">Specification</a>
+
+      <ul>
+        <li>
+          <a href="#Current_Level_of_Support">Level of Support</a>
+
+          <ul>
+            <li><small><a href="index.html#Java_level">Java
+            level</a></small></li>
+
+            <li><small><a href="#Testing_Coverage">Testing
+            Coverage</a></small></li>
+          </ul>
+        </li>
+
+        <li><a href="#Planned_Development">Planned
+        Development</a></li>
+      </ul>
+    </li>
+
+    <li><a href="#Theory_of_PigIron">Theory of PigIron</a></li>
+
+    <li>
+      <a href="#Building_PigIron">Building PigIron</a>
+
+      <ul>
+        <li><a href="#To_build">To build</a></li>
+
+        <li><a href="#Why_wont_it_build">Why won't it
+        build?</a><br></li>
+      </ul>
+    </li>
+
+    <li>
+      <a href="#Using_PigIron">Using PigIron</a>
+
+      <ul>
+        <li><a href="#Example_CheckAuthentication">Example:
+        <span style=
+        "font-family: monospace;">CheckAuthentication</span></a></li>
+
+        <li><a href="#Using_PigIron.Security_Note">Security
+        Note</a></li>
+
+        <li><a href="#Using_the_simple_TCP_subscriber_to">Using the
+        simple TCP subscriber to Directory Manager async
+        notifications</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a href="#Architecture">Architecture</a>
+
+      <ul>
+        <li>
+          <a href="#External_libraries">External libraries</a>
+
+          <ul>
+            <li><a href="#JSON"><small>JSON</small></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <span style="font-weight: bold;">Other PigIron Local
+      Documents</span>
+
+      <ul>
+        <li>
+          <a href="./piggen.html">PigGen Autogenerator</a> writes
+          Java code for VSMAPI Functions and Parameters.
+
+          <ul>
+            <li>Enables you to extend your local PigIron
+            installation to support custom-coded VSMAPI functions
+            without knowing Java.</li>
+          </ul>
+        </li>
+
+        <li><a href="../javadoc/index.html">PigIron
+        Javadocs</a></li>
+
+        <li><a href="pigiron.sourceforge.net/index.html">PigIron's
+        SourceForge website documents</a><br></li>
+
+        <li>Text Documents
+
+          <ul>
+            <li><a href="APIList.txt">APIList.txt</a> is a list of
+            System Management APIs.<br></li>
+
+            <li><a href="CHANGES.TXT">CHANGES.TXT</a> is the
+            generalized change description for releases.<br></li>
+
+            <li><a href="INSTALL.TXT">INSTALL.TXT</a> is a simple
+            explanation of installation.<br></li>
+
+            <li><a href="README.TXT">README.TXT</a> should
+            obviously be read first!<br></li>
+
+            <li><a href="spec.txt">spec.txt</a> is an early
+            document describing the intent of the project.<br></li>
+
+            <li><a href=
+            "VSMAPI_functions.txt">VSMAPI_functions.txt</a> is a
+            list of all the PigIron VSMAPI function classes with
+            asterisk <span style="font-family: monospace;">*</span>
+            next to each one that has been tested.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2><a name="Overview" id="Overview">Overview</a></h2>
+
+  <p>PigIron implements in Java the client side of the <a href=
+  "http://www.ibm.com">IBM</a> &reg; <a href=
+  "http://www.vm.ibm.com">z/VM &reg; Virtual Machine Operating
+  System</a>'s <a href=
+  "http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm">
+  Systems Management Application Programming Interface</a> (which
+  we call for short <span style=
+  "font-weight: bold;">VSMAPI</span>).<br></p>
+
+  <p>The classes and programming model are intended:</p>
+
+  <ul>
+    <li>to be reliable</li>
+
+    <li>to be easy to use and program</li>
+
+    <li>to support both VSMAPI Functions and end-user custom
+    functions
+
+      <ul>
+        <li>with of course support on the host side which allows
+        insertion of custom functions in the VSMAPI server</li>
+      </ul>
+    </li>
+
+    <li>to support scripting via <a href=
+    "http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>
+    on top of <a href="http://sourceforge.net/projects/oorexx">Open
+    ObjectRexx</a> to run the PigIron Java classes.</li>
+
+    <li>to support the development of higher-level libraries such
+    as packaging PigIron functionality in GUI widgets and Web
+    objects<br></li>
+
+    <li>to support development of GUI and Web applications in terms
+    of such GUI widgets and Web objects</li>
+  </ul>
+
+  <p><i>Note: PigIron is not associated with the IBM corporation,
+  which owns most or all of the trademarks mentioned in PigIron
+  documentation.<br></i><span style="font-style: italic;">Note: The
+  present document assumes understanding of <a href=
+  "#IBM_VSMAPI_Documentation">VSMAPI</a> and exerts itself</span>
+  not <span style="font-style: italic;">to explain
+  VSMAPI.<br></span></p>
+
+  <h3><a name="NOTE_ON_SECURITY" id="NOTE_ON_SECURITY">NOTE ON
+  SECURITY (AND LACK THEREOF)</a></h3>
+
+  <h4><a name="Using_PigIron_and_SSL" id=
+  "Using_PigIron_and_SSL"></a>Using PigIron and SSL</h4>
+
+  <p>Pigiron possesses a <span style="font-style: italic;">not
+  fully tested</span> Secure Sockets Layer (SSL)
+  implementation.<br></p>
+
+  <p>To use SSL with PigIron pass <span style=
+  "font-family: monospace;">boolean true</span> to <span style=
+  "font-family: monospace;">VSMCall.doIt(boolean ssl)</span> to
+  indicate SSL mode. <span style="text-decoration: underline;">The
+  argument</span> <span style=
+  "font-family: monospace; text-decoration: underline;">false</span>
+  <span style="text-decoration: underline;">indicates clear text
+  mode, in which case your passwords and data are transmitted over
+  the network in plain text, in which case you should only use
+  PigIron on a secure intranet.</span><br></p>
+
+  <p><span style="font-weight: bold;">Note:</span> Actually you
+  will never call <span style=
+  "font-family: monospace;">VSMCall.doIt(boolean ssl)</span> but
+  instead the override of that function in the PigIron class
+  mapping to the VSMAPI function you're using, i.e., <span style=
+  "font-family: monospace;">CheckAuthentication.doIt(boolean
+  ssl)</span> .&nbsp;<br></p>
+
+  <h3><a name="Getting_PigIron" id="Getting_PigIron">Getting
+  PigIron</a></h3>
+
+  <p>Please visit <a href=
+  "http://sourceforge.net/projects/pigiron/">PigIron on Source
+  Forge</a> to download source, executable code and
+  documentation.<br></p>
+
+  <ul>
+    <li>
+      <big><span style=
+      "font-family: monospace;">pigiron-{release_number}-all.zip</span></big>
+      (e.g., <big><span style=
+      "font-family: monospace;">pigiron-0.5-all.zip</span></big>)
+      contains source, executable code and documentation.
+
+      <ul>
+        <li><big><span style=
+        "font-family: monospace;">pigiron</span><span style=
+        "font-family: monospace;">-{release_number}.jar</span></big>
+        is the executable code.<br></li>
+      </ul>
+    </li>
+
+    <li><big><span style=
+    "font-family: monospace;">pigiron-{release_number}-src.zip</span></big>
+    (e.g., <big><span style=
+    "font-family: monospace;">pigiron-0.5-src.zip</span></big>)
+    contains the source code only.<br></li>
+
+    <li><big><span style=
+    "font-family: monospace;">pigiron-{release_number}-doc.zip</span></big>
+    (e.g., <big><span style=
+    "font-family: monospace;">pigiron-0.5-doc.zip</span></big>)
+    contains documentation only (this and other documentation as
+    well as javadocs for the code itself).</li>
+
+    <li><big><span style=
+    "font-family: monospace;">md5sum</span></big> files are
+    provided for each of the <big style=
+    "font-family: monospace;">.zip</big> files on the download
+    site.<br></li>
+  </ul>
+
+  <h3><a name="Viewing_Javadoc_for_PigIron" id=
+  "Viewing_Javadoc_for_PigIron">Viewing Javadoc for
+  PigIron</a></h3>
+
+  <p><a href="../javadoc/index.html">View Javadoc documentation for
+  PigIron</a></p>
+
+  <h3><a name="View_License_for_PigIron" id=
+  "View_License_for_PigIron">View License for PigIron</a></h3>
+
+  <p><a href="./license.txt">View the BSD-style license for the
+  PigIron Class Library</a>.</p>
+
+  <h2><a name="Installation" id=
+  "Installation"></a>Installation</h2>
+
+  <ul>
+    <li>You may install the PigIron jar anywhere. <span style=
+    "font-family: monospace;">pigiron-{release_number}.jar</span>
+    (e.g., <span style=
+    "font-family: monospace;">pigiron-0.5.jar</span>) contains the
+    executable code.
+
+      <ul>
+        <li>Put this jar file in your classpath to use
+        PigIron.</li>
+      </ul>
+    </li>
+
+    <li>You may unpack the PigIron source anywhere.
+
+      <ul>
+        <li>See <a href="#Building_PigIron">Building
+        PigIron</a><br></li>
+      </ul>
+    </li>
+
+    <li>To use the ObjectRexx interface:
+
+      <ul>
+        <li>Install <a href=
+        "http://sourceforge.net/projects/oorexx">Open
+        ObjectRexx</a></li>
+
+        <li>Install <a href=
+        "http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a></li>
+
+        <li>Put <span style=
+        "font-family: monospace;">/pigiron/script/oorexx/functest</span>
+        in your <span style=
+        "font-family: monospace;">PATH</span></li>
+
+        <li>Put <span style=
+        "font-family: monospace;">pigiron.jar</span> in your
+        <span style="font-family: monospace;">CLASSPATH</span> so
+        that BSF4Rexx can access PigIron classes.</li>
+      </ul>
+    </li>
+
+    <li>To use the FIJI interface:
+
+      <ul>
+        <li>Download and install <a href=
+        "http://fiji.sourceforge.net/">FIJI the ForthIsh Java
+        Interpreter</a> placing its <big><span style=
+        "font-family: monospace;">.jar</span></big> file
+        appropriately.</li>
+
+        <li>Put <span style=
+        "font-family: monospace;">pigiron.jar</span> in your
+        <span style="font-family: monospace;">CLASSPATH</span> as
+        well as the FIJI <big><span style=
+        "font-family: monospace;">.jar</span></big> so that FIJI
+        can access PigIron classes.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2><a name="Specification" id=
+  "Specification">Specification</a></h2>PigIron is an open source
+  Java class library which implements the client side of the IBM
+  z/VM Virtual Machine Operating System Systems Management
+  Application Programming Interface (sometimes called VSMAPI). It
+  includes Java implementations of<br>
+
+  <ul>
+    <li>all 99 VSMAPI 5.3 functions</li>
+
+    <li>all 15 additional VSMAPI 5.4 functions</li>
+
+    <li>a simple TCP subscriber to Directory Manager async
+    notifications as described in the VSMAPI documentation for
+    <a href=
+    "http://publib.boulder.ibm.com/infocenter/zvm/v5r4/index.jsp?topic=/com.ibm.zvm.v54.dmse6/cslane.htm">
+    Asynchronous_Notification_Enable_DM</a>.</li>
+  </ul>
+
+  <p><a href="#IBM_VSMAPI_Documentation">More information about
+  VSMAPI</a></p>
+
+  <h3><a name="Current_Level_of_Support" id=
+  "Current_Level_of_Support">Level of Support</a></h3>
+
+  <ul>
+    <li>PigIron currently supports the z/VM V5R3 / V5R4 level of
+    VSMAPI which uses TCP sockets as its communication mechanism.
+
+      <ul>
+        <li>V5R4 is an almost perfect superset of V5R3
+
+          <ul>
+            <li>Added functions in V5R4</li>
+
+            <li>Added return codes and reason codes in V5R4</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div style="margin-left: 4em;">
+        <ul>
+          <li>One set of return codes and reason codes code present
+          in 5.3 has enhanced technical error messages in V5R4 but
+          it its harmless to the V5R3 user.<br></li>
+        </ul>
+      </div>
+    </li>
+
+    <li>PigIron does <span style=
+    "text-decoration: underline;">not</span> support the older z/VM
+    V5R2 and earlier levels of VSMAPI which used RPC instead of TCP
+    sockets as its communication mechanism.</li>
+  </ul>
+
+  <h4><a name="Java_level" id="Java_level"></a>Java
+  level</h4>PigIron currently supports Java 5 and above. There is
+  currently no plan to support earlier Java versions.
+
+  <h4><a name="Testing_Coverage" id="Testing_Coverage"></a>Testing
+  Coverage<br></h4>
+
+  <p>PigIron is at the present time incompletely tested. If you
+  understand the problem domain, the provisioning of z/VM
+  environments, you will understand how complicated it is to set up
+  a testing environment!<br></p>
+
+  <ul>
+    <li>Some <span style=
+    "font-family: monospace;">com.softwoehr.pigiron.functions
+    classes</span> have a <span style=
+    "font-family: monospace;">main()</span> that can be used for
+    testing.</li>
+
+    <li>The scripts contained in <span style=
+    "font-family: monospace;">scripts/oorexx/functest</span> use
+    <a href=
+    "http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>
+    on top of <a href="http://sourceforge.net/projects/oorexx">Open
+    ObjectRexx</a> to run the PigIron Java classes.<br>
+
+      <ul>
+        <li>The test set is currently complete in terms of matching
+        test scripts to VSMAPI functions
+
+          <ul>
+            <li>The earlier testing coverage is found by:
+
+              <ul>
+                <li>Examining in detail the test cases in
+                <big><a style="font-family: monospace;" href=
+                "../script/oorexx/functest/allfunctest.rex">script/oorexx/functest/allfunctest.rex</a></big></li>
+
+                <li>Checking the simple summary in <big><a style=
+                "font-family: monospace;" href=
+                "VSMAPI_functions.txt">doc/VSMAPI_functions.txt</a></big></li>
+              </ul>
+            </li>
+
+            <li>Not all the tests have been exercised (extensive
+            setup required on host)
+
+              <ul>
+                <li>This is in progress<br></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+
+    <li>Work is proceding on <a href=
+    "http://fiji.sourceforge.net/">FIJI</a> scripting, which is
+    found in <big><a style="font-family: monospace;" href=
+    "../script/fiji">script/fiji</a></big>.
+
+      <ul>
+        <li>The directory <big><a style="font-family: monospace;"
+        href="../script/fiji">pigiron/script/fiji</a></big>
+        contains the FIJI support for PigIron.</li>
+
+        <li>Using PigGen as described in the <a href=
+        "piggen.html">PigGen documentation</a>, the file
+        <big><a style="font-family: monospace;" href=
+        "../script/fiji/pigiron_support.fiji">pigiron_support.fiji</a></big>
+        was autogenerated.</li>
+
+        <li>It is loaded by <big><a style="font-family: monospace;"
+        href=
+        "../script/fiji/allfunctest.fiji">allfunctest.fiji</a></big>
+        which effectuates a number of PigIron tests.</li>
+
+        <li>Another file <a href=
+        "../script/fiji/access_support.fiji"><big><span style=
+        "font-family: monospace;">access_support.fiji</span></big></a>
+        adds more support for <big><span style=
+        "font-family: monospace;">com.softwoehr.pigiron.access.*</span></big>
+        classes.</li>
+
+        <li><big style=
+        "font-family: monospace;">allfunctest.fiji</big> is beyond
+        the level of <big><span style=
+        "font-family: monospace;">allfunctest.rex</span></big> and
+        it currently proceeding<br></li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3><a name="Planned_Development" id=
+  "Planned_Development">Planned Development</a></h3>
+
+  <p>The development plan will undergo change. Here's a current
+  snapshot of the plan:</p>
+
+  <ol>
+    <li>Implement the Access and Functions class library. (DONE)
+
+      <ul>
+        <li>parameter creation</li>
+
+        <li>parameter marshalling</li>
+
+        <li>communication with VSMAPI host</li>
+      </ul>
+    </li>
+
+    <li>Implement VSMAPI Functions in terms of the access class
+    library. (DONE)
+
+      <ol>
+        <li>Support z/VM V5R3 and V5R4 (DONE)</li>
+
+        <li>Support for Secure Socket Layer communications
+        (DONE)</li>
+
+        <li>Support user-defined custom functions (DONE EXCEPT
+        EXAMPLES)
+
+          <ul>
+            <li>Provide Rexx examples of custom VSMAPI extensions
+            on the VSMAPI host itself (TODO)</li>
+
+            <li>PigGen autogenerator allows user to extend PigIron
+            to support such custom extensions without knowing Java
+            (DONE)</li>
+          </ul>
+        </li>
+      </ol>
+    </li>
+
+    <li><a href=
+    "http://sourceforge.net/projects/oorexx">ObjectRexx</a> bridge
+    to PigIron Java via <a href=
+    "http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>
+    (IN PROGRESS)</li>
+
+    <li>Testing via <a href="http://fiji.sourceforge.net/">FIJI
+    ForthIsh Java Interpreter</a> (IN PROGRESS)<br></li>
+
+    <li>Create Business Objects based on the Access and Functions
+    class library (IN PROGRESS)</li>
+
+    <li>Create Web objects leveraging (chuckle!) Business Objects
+    (MATURING)</li>
+
+    <li>Create the <a href=
+    "pigiron.sourceforge.net/about_piglet.html">Piglet PigIron Java
+    Servlet</a> that serves up the Web objects (DONE)</li>
+
+    <li>Create PigLet Builder Web management app based on the
+    Piglet PigIron Java Servlet (IN PROGRESS)</li>
+
+    <li>There is some talk of a standalone GUI (WIBNI) or UI.
+
+      <ul>
+        <li>Currently experimenting with a preliminary <a href=
+        "http://sourceforge.net/projects/javacurses/">JCurses</a>-based
+        character-mode UI
+
+          <ul>
+            <li>not checked in yet<br></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ol>
+
+  <h2><a name="Theory_of_PigIron" id="Theory_of_PigIron"></a>Theory
+  of PigIron</h2>PigIron implements a recursive descent parser to
+  parse VSMAPI output parameter streams which can be composed of
+  variably sized arrays of variably sized parameters (including
+  arrays). Each parameter knows how to parse itself, including
+  invoking self-parsing on any component parameters where the
+  current instance is a struct or array type.<br>
+  <br>
+  The code is optimized for ease of understanding and development.
+  The addition of the autogenerator <a href=
+  "piggen.html">PigGen</a> insures that little or no time is spent
+  debugging Java.<br>
+
+  <ul>
+    <li>
+      <span style=
+      "font-family: monospace;">com.softwoehr.pigiron.access</span>
+      is definitions of the four basic VSMAPI parameter types.
+
+      <ul style="font-family: monospace;">
+        <li>int</li>
+
+        <li>string</li>
+
+        <li>structure</li>
+
+        <li>array</li>
+      </ul>
+
+      <ul>
+        <li>All parameter types extend the classes representing
+        these base types.
+
+          <ul>
+            <li>Types you define to be used with your custom host
+            VMSAPI functions will also extend the classes
+            representing the base types.</li>
+          </ul>
+        </li>
+
+        <li>Additionally to the four (4) VSMAPI native types, there
+        is the type <span style="font-family: monospace;">counted
+        struct</span> added to PigIron for convenience.</li>
+
+        <li><a href="piggen.html">PigGen</a> has the concept of a
+        <span style="font-family: monospace;">counted string</span>
+        which is autogenerator sytax for a paired instances of
+        count-and-string in the generated Java code.</li>
+
+        <li>VSMAPI 5.4 introduces new type wrinkles which are
+        supported in PigIron
+
+          <ul>
+            <li>New basic types that did not exist in 5.3:
+
+              <ul>
+                <li style="font-family: monospace;">
+                com.softwoehr.pigiron.access.VSMAsciiZ</li>
+
+                <li style="font-family: monospace;">
+                com.softwoehr.pigiron.access.VSMAsciiZArray</li>
+              </ul>
+            </li>
+
+            <li>Overloading of names that were unique in 5.3
+
+              <ul>
+                <li>
+                  <span style=
+                  "font-family: monospace;">cpu_info_struct</span>
+
+                  <ul>
+                    <li style="font-family: monospace;">
+                    ImageActiveConfigurationQuery</li>
+
+                    <li style="font-family: monospace;">
+                    ImageCPUQuery</li>
+                  </ul>
+                </li>
+
+                <li>Fixed this by augmenting <span style=
+                "font-family: monospace;">com.softwoehr.access.paramstructs.CpuInfo*.java</span>
+                with <span style=
+                "font-family: monospace;">com.softwoehr.access.paramstructs.CpuInfo2*.java</span></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <span style=
+      "font-family: monospace;">com.softwoehr.pigiron.access.paramstructs</span>
+      are the classes representing specific structure and array
+      types denoted in the documentation for VSMAPI functions.
+
+      <ul>
+        <li>Types you define for your custom functions will reside
+        where you wish them to.</li>
+
+        <li>The Java source for all but a few classes in
+        <span style=
+        "font-family: monospace;">com.softwoehr.pigiron.access.paramstructs</span>
+        were autogenerated by <a href="piggen.html">PigGen</a>.
+
+          <ul>
+            <li>The PigGen description files used to autogenerate
+            these functions reside in <span style=
+            "font-family: monospace;">pigiron/piggen/parmfiles</span>
+            .<br></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <span style=
+      "font-family: monospace;">com.softwoehr.pigiron.bizobj</span>
+      are classes to encapsulate the simple function calls in
+      parameter constraint and error-checking forms.
+
+      <ul>
+        <li><span style=
+        "font-family: monospace;">com.softwoehr.pigiron.bizobj.constraint</span>
+        classes implement parameter constraints.<br></li>
+      </ul>
+
+      <ul>
+        <li>VSMAPI return codes are interpreted by the singleton
+        <span style=
+        "font-family: monospace;">com.softwoehr.pigiron.bizobj.VsmapiRC</span>
+        .</li>
+      </ul>
+    </li>
+
+    <li>
+      <span style=
+      "font-family: monospace;">com.softwoehr.pigiron.functions</span>
+      is where VSMAPI native functions supported by PigIron are
+      found.
+
+      <ul>
+        <li>The Java source for all but a few classes in
+        <span style=
+        "font-family: monospace;">com.softwoehr.pigiron.access.paramstructs</span>
+        were autogenerated by <a href=
+        "piggen.html">PigGen</a>.</li>
+      </ul>
+
+      <ul>
+        <li>The PigGen description files used to autogenerate these
+        functions reside in <span style=
+        "font-family: monospace;">pigiron/piggen/funcfiles</span>
+        .<br></li>
+      </ul>
+    </li>
+
+    <li><span style=
+    "font-family: monospace;">com.softwoehr.pigiron.webobj</span>
+    are classes which represent PigIron constructs in <a href=
+    "http://json.org/">JSON</a> data interchange format.</li>
+
+    <li>PigIron structures and functions contain the definition of
+    constants relevant to their parameters.</li>
+  </ul>
+
+  <p>PigIron's class library represention of VSMAPI functions in
+  <span style=
+  "font-family: monospace;">com.softwoehr.pigiron.functions</span>
+  manages communications and parameter marshalling and
+  unmarshalling and provides accessors to input and output
+  parameters. However, no validity check is performed on input
+  parameters. Validity checks are reserved for the later
+  development in <span style=
+  "font-family: monospace;">com.softwoehr.pigiron.bizobj</span>
+  which will offer phat wrappers around the <span style=
+  "font-family: monospace;">com.softwoehr.pigiron.functions</span>
+  .<br></p>
+
+  <h2><a name="Building_PigIron" id="Building_PigIron"></a>Building
+  PigIron</h2>
+
+  <h3><a name="To_build" id="To_build"></a>To build</h3>
+
+  <ul>
+    <li>Unzip the source zip archive <span style=
+    "font-family: monospace;">pigiron-{release_number}-src.zip</span>
+    (e.g., <span style=
+    "font-family: monospace;">pigiron-0.5-src.zip</span>)</li>
+
+    <li>Execute <a href="http://ant.apache.org/"><span style=
+    "font-family: monospace;">ant</span></a> with no arguments in
+    the top level of the unpacked <span style=
+    "font-family: monospace;">pigiron</span> source tree to build
+    everything.</li>
+
+    <li>Execute <span style="font-family: monospace;">ant
+    release</span> to build the release archives once you have
+    built everything.</li>
+  </ul>
+
+  <h3><a name="Why_wont_it_build" id="Why_wont_it_build"></a>Why
+  won't it build?</h3>You may experience build problems with simply
+  typing <span style="font-family: monospace;">ant</span> . Try
+  specific targets:<br>
+
+  <ul style="font-family: monospace;">
+    <li>ant jar</li>
+
+    <li>ant javadoc</li>
+
+    <li>ant release</li>
+  </ul>PigIron was originally developed using the NetBeans IDE.
+  NetBeans wrote the build files <span style=
+  "font-family: monospace;">pigiron/nbproject/build-impl.xml</span>
+  and <span style=
+  "font-family: monospace;">pigiron/build.xml</span> of which the
+  latter the IDE allows the user to modify and the former was
+  expected to remain unchanged except by the IDE.<br>
+
+  <ul>
+    <li>Left unchanged<br>
+
+      <ul>
+        <li><span style=
+        "font-family: monospace;">pigiron/nbproject/</span><span style="font-family: monospace;">build-impl.xml</span>
+        is still the way NetBeans left it when the author and
+        NetBeans decided on a trial separation.</li>
+      </ul>
+    </li>
+
+    <li>Modified
+
+      <ul>
+        <li><span style=
+        "font-family: monospace;">pigiron/</span><span style=
+        "font-family: monospace;">build.xml</span> as targets have
+        been added</li>
+
+        <li style="font-family: monospace;">
+        pigiron/nbproject/project.properties</li>
+      </ul>
+    </li>
+
+    <li>Added
+
+      <ul>
+        <li><span style=
+        "font-family: monospace;">pigiron/nbproject/release.xml</span>
+        builds a release<br></li>
+
+        <li><span style=
+        "font-family: monospace;">pigiron/nbproject/release.properties</span>
+        has props for the build release<br></li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2><a name="Using_PigIron" id="Using_PigIron"></a>Using
+  PigIron</h2>PigIron maps VSMAPI functions to classes.<br>
+  <br>
+  To call a VSMAPI function:<br>
+
+  <ol>
+    <li>You will need an instance of the appropriate PigIron VSMAPI
+    function class found in <span style="font-family: monospace;">
+      com.softwoehr.pigiron.functions</span> .
+
+      <ul>
+        <li>E.g., <span style=
+        "font-family: monospace;">com.softwoehr.pigiron.functions.CheckAuthentication</span>
+        which maps to the VSMAPI function <span style=
+        "font-family: monospace;">Check_Authentication.</span></li>
+      </ul>
+    </li>
+
+    <li>Use the class's major constructor which takes all the
+    arguments the VSMAPI function needs
+
+      <ul>
+        <li>Where the arguments are of the simple VSMAPI types like
+        VSMInt4 and VSMString, construct appropriate
+        instances.</li>
+
+        <li>Where the arguments are of the complex parameter types
+        mapped to classes in <span style=
+        "font-family: monospace;">com.softwoehr.pigiron.access.paramstructs</span>,
+        construct appropriate instances of same.</li>
+      </ul>
+
+      <div style="margin-left: 2em;">
+        <ul>
+          <li>The most complicated cases involve those VSMAPI
+          functions which take Arrays of Structs or Arrays of
+          simple types.
+
+            <ol>
+              <li>Construct the appropriate Array type (again found
+              in <span style=
+              "font-family: monospace;">com.softwoehr.pigiron.access.paramstructs</span>)<br>
+              </li>
+
+              <li>Construct the Struct or simple type instances one
+              at a time</li>
+
+              <li>Populate the Array type with the Struct or simple
+              type instances as you create them.</li>
+            </ol>
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <li>Call the <span style="font-family: monospace;">doIt(boolean
+    ssl)</span> method of the PigIron VSMAPI function class.
+
+      <ul>
+        <li>
+          <span style="font-family: monospace;">doIt(boolean
+          ssl)</span> returns the type <span style=
+          "font-family: monospace;">com.softwoehr.pigiron.access.ParameterArray</span>
+          which you examine for the results of the VSMAPI function
+          call.
+
+          <ul>
+            <li><span style=
+            "font-family: monospace;">&nbsp;</span><span style=
+            "font-family: monospace;">ParameterArray.</span><span style="font-family: monospace;">prettyPrintAll()</span>
+            dumps the results to an informative multiline
+            <span style=
+            "font-family: monospace;">java.lang.String</span>
+            .</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ol>
+
+  <h4><a name="Example_CheckAuthentication" id=
+  "Example_CheckAuthentication"></a>Example: <span style=
+  "font-family: monospace;">CheckAuthentication</span><br></h4>The
+  simplest example is <span style=
+  "font-family: monospace;">CheckAuthentication</span> as called in
+  <span style=
+  "font-family: monospace;">CheckAuthentication.main()</span>:<br>
+  <br>
+
+  <div style="margin-left: 40px;">
+    &nbsp;&nbsp; <span style=
+    "font-family: monospace;">/**</span><br style=
+    "font-family: monospace;">
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;
+    * You can execute the VSMAPI call from {@code main()}, try
+    it</span><br style="font-family: monospace;">
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;
+    * with no args to see the usage message.</span><br style=
+    "font-family: monospace;">
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;
+    * @param argv array of commandline args</span><br style=
+    "font-family: monospace;">
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;
+    * @throws IOException on comm error</span><br style=
+    "font-family: monospace;">
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;
+    * @throws VSMException on internal Pigiron param marshalling
+    error</span><br style="font-family: monospace;">
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;
+    */</span><br style="font-family: monospace;">
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp; public
+    static void main(String[] argv) throws IOException,
+    VSMException {</span><br style="font-family: monospace;">
+    <br style="font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    CheckAuthentication instance = null;</span><br style=
+    "font-family: monospace;">
+    <br style="font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    if (argv.length != 5) {</span><br style=
+    "font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    System.out.println("usage: args are:\ninetaddr port user pw
+    target_id");</span><br style="font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    System.exit(1);</span><br style="font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    }</span><br style="font-family: monospace;">
+    <br style="font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    System.out.println("Args are: " + argv[0] + " " + argv[1] + " "
+    + argv[2] + " " + argv[3] + " " + argv[4]);</span><br style=
+    "font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    instance = new CheckAuthentication(argv[0],
+    Integer.valueOf(argv[1]).intValue(), argv[2], argv[3],
+    argv[4]);</span><br style="font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br style="font-family: monospace;">
+
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    ParameterArray pA = instance.doIt();</span><br style=
+    "font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    System.out.println("Returns from call to " +
+    instance.getFunctionName() + ":");</span><br style=
+    "font-family: monospace;">
+    <span style=
+    "font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    System.out.println(pA.prettyPrintAll());</span><br style=
+    "font-family: monospace;">
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp;
+    }<br></span>
+  </div>
+
+  <p><a name="Using_PigIron.Security_Note" id=
+  "Using_PigIron.Security_Note"></a><span style=
+  "font-weight: bold;">Security Note:</span> The <span style=
+  "font-family: monospace;">main()</span> methods to the source
+  code do not currently use SSL. They were designed for only for
+  early testing of the code. Do not call <span style=
+  "font-family: monospace;">main()</span> methods of PigIron
+  outside a secure intranet!<br></p>
+
+  <h3><a name="Using_the_simple_TCP_subscriber_to" id=
+  "Using_the_simple_TCP_subscriber_to"></a>Using the simple TCP
+  subscriber to Directory Manager async notifications</h3>Using the
+  simple TCP subscriber to Directory Manager async notifications is
+  usually as easy as calling <a href=
+  "../javadoc/com/softwoehr/pigiron/access/AsynchronousSubscriber.html">
+  <span style=
+  "font-family: monospace;">com.softwoehr.pigiron.access.AsynchronousSubscriber.main()</span></a>
+  .
+
+  <h2><a name="Architecture" id=
+  "Architecture"></a>Architecture</h2>
+
+  <h3><a name="Project_Setup" id="Project_Setup"></a>Project
+  Setup</h3>PigIron was created as a <a href=
+  "http://netbeans.org">NetBeans</a> project (NetBeans 6.1) but is
+  no longer being maintained as one ... <span style=
+  "font-style: italic;">see my blog entry</span> <a href=
+  "http://dobbscodetalk.com/index.php?option=com_content&amp;task=view&amp;id=831&amp;Itemid=29">
+  What Price Simplicity?</a> <span style="font-style: italic;">for
+  more insight</span>.<br>
+  <br>
+  The <a href="http://ant.apache.org">Ant</a> files used to build
+  the project can be executed from the command line.<br>
+  <br>
+  Easiest is to <a href=
+  "http://sourceforge.net/cvs/?group_id=235734">check out PigIron
+  source code</a> and issue the command <big><span style=
+  "font-family: monospace;">ant release</span></big> . Look in the
+  directories <big><span style=
+  "font-family: monospace;">build</span></big> and
+  <big><span style="font-family: monospace;">dist</span></big> for
+  the results.<br>
+
+  <h3><a name="External_libraries" id=
+  "External_libraries"></a>External libraries</h3>
+
+  <h4><a name="JSON" id="JSON"></a>JSON</h4>In trying to keep this
+  project simple and avoid complex builds, remote artifacts, and
+  other impediments of clarity and coding ease, the only
+  non-PigIron library code outside and above the JDK that PigIron
+  uses is <a href="http://json.org">JSON</a> for data interchange
+  Web objects. The JSON code is checked directly into the PigIron
+  tree (<a href="../src/org/json/"><span style=
+  "font-family: monospace;">pigiron/src/org/json</span></a>) and
+  built along with PigIron since it is small and may need
+  enhancement and maintenance for PigIron. Doing it this way made
+  the build simpler and avoids external dependencies.<br>
+  <br>
+  JSON is used under <a href="http://www.json.org/license.html">the
+  JSON license</a>:
+
+  <p style="margin-left: 40px; font-style: italic;" align="left">
+  Copyright (c) 2002 JSON.org</p>
+
+  <p style="margin-left: 40px; font-style: italic;">Permission is
+  hereby granted, free of charge, to any person obtaining a copy of
+  this software and associated documentation files (the
+  "Software"), to deal in the Software without restriction,
+  including without limitation the rights to use, copy, modify,
+  merge, publish, distribute, sublicense, and/or sell copies of the
+  Software, and to permit persons to whom the Software is furnished
+  to do so, subject to the following conditions:</p>
+
+  <p style="margin-left: 40px; font-style: italic;">The above
+  copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.</p>
+
+  <p style="margin-left: 40px; font-style: italic;">The Software
+  shall be used for Good, not Evil.</p>
+
+  <p style="margin-left: 40px;"><span style=
+  "font-style: italic;">THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
+  WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+  LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+  PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+  OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</span></p>
+  <hr style="width: 100%; height: 2px;">
+  <i>Fairmount, Colorado, autumn 2008</i>
+</body>
+</html>
