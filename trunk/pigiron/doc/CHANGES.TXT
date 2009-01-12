@@ -1,4 +1,4 @@
-Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+Copyright (c) 2009, Jack J. Woehr jwoehr@softwoehr.com
 PO Box 51, Golden, Colorado 80402-0051 USA
 All rights reserved.
 
@@ -10,11 +10,11 @@ http://pigiron.sourceforge.net
 
 Please read the file license.txt which is the NO WARRANTY license under which the
 PigIron open source project is coded, released and distributed. license.txt is
-to be found in the same directory as this README.TXT file.
+to be found in the same directory as this CHANGES.TXT file.
 
 CHANGES
 -------
-2009-01-?? 0.9.5 -- PigLet Builder Web Application
+2009-01-12 0.9.5 -- PigLet Builder Web Application
     * Various mods under com.softwoehr.pigiron.webobj to make
       PigLet, the PigIron Servlet's Builder web app work better.
       Significantly, the conversion of VSMStruct-like arguments
