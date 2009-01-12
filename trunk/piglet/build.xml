@@ -12,9 +12,9 @@
     before and after some main targets. They are: 
 
       -pre-init:                 called before initialization of project properties 
-
+-->
 <!-- property name="javadoc.additionalparam" value="-link ../pigiron/doc/javadoc"/ -->
-
+<!--
       -post-init:                called after initialization of project properties 
       -pre-compile:              called before javac compilation 
       -post-compile:             called after javac compilation 
