@@ -99,6 +99,8 @@ public class DefaultHost {
 	    }
 	    if (map.containsKey("ssl")) {
 		host.setSSL(true);
+	    } else {
+		host.setSSL(false);
 	    }
         } catch (org.json.JSONException ex) {
             Logger.getLogger(DefaultHost .class.getName()).log(Level.SEVERE,
