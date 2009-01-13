@@ -68,7 +68,7 @@ public class DefaultHost {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
 	response.setContentType("text/html;charset=UTF-8");
 	PrintWriter out = response.getWriter();
-	out.println("<html><head><title></title></head><body><h1>Set Default Host</h1>");
+	out.println("<html><head><title>Set Default Host</title></head><body><h1>Set Default Host</h1>");
         printForm(request, response, out);
 	out.println("</body></html>");
         out.close();
@@ -113,7 +113,7 @@ public class DefaultHost {
         BuilderUtil.setDefaultHost(request, host);
 	response.setContentType("text/html;charset=UTF-8");
 	PrintWriter out = response.getWriter();
-	out.println("<html><head><title></title></head><body><h1>Set Default Host</h1>");
+	out.println("<html><head><title>Set Default Host</title></head><body><h1>Set Default Host</h1>");
         printForm(request, response, out);
 	out.println("<p><b>Default host set.</b></p>");
 	out.println("</body></html>");
@@ -133,7 +133,7 @@ public class DefaultHost {
     public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<html><head><title></title></head><body>doPut() not implemented in DefaultHost.java</body></html>"); 
+        out.println("<html><head><title>doPut() not implemented in DefaultHost.java</title></head><body>doPut() not implemented in DefaultHost.java</body></html>"); 
 	out.close();
     }
 

@@ -68,7 +68,7 @@ public class DefaultUser {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<html><head><title></title></head><body><h1>Set Default User</h1>");
+        out.println("<html><head><title>Set Default User</title></head><body><h1>Set Default User</h1>");
         printForm(request, response, out);
 	out.println("</body></html>");
         out.close();
@@ -106,7 +106,7 @@ public class DefaultUser {
         BuilderUtil.setDefaultUser(request, user);
 	response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<html><head><title></title></head><body><h1>Set Default User</h1>");
+        out.println("<html><head><title>Set Default User</title></head><body><h1>Set Default User</h1>");
         printForm(request, response, out);
 	out.println("<p><b>Default user set.</b></p>");
 	out.println("</body></html>");
@@ -126,7 +126,7 @@ public class DefaultUser {
     public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<html><head><title></title></head><body>doPut() not implemented in DefaultUser.java</body></http>"); 
+        out.println("<html><head><title>doPut() not implemented in DefaultUser.java</title></head><body>doPut() not implemented in DefaultUser.java</body></http>"); 
 	out.close();
     }
     
