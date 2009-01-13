@@ -66,8 +66,12 @@ public class DefaultHost {
      * @throws  IOException       if an I/O error occurs
      */ 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
-        printForm(request, response);
-        response.getWriter().close();
+	response.setContentType("text/html;charset=UTF-8");
+	PrintWriter out = response.getWriter();
+	out.println("<html><head><title></title></head><body><h1>Set Default Host</h1>");
+        printForm(request, response, out);
+	out.println("</body></html>");
+        out.close();
     }
 
     /**
@@ -107,8 +111,13 @@ public class DefaultHost {
                      null, ex);
         }
         BuilderUtil.setDefaultHost(request, host);
-        printForm(request, response);
-        response.getWriter().close();
+	response.setContentType("text/html;charset=UTF-8");
+	PrintWriter out = response.getWriter();
+	out.println("<html><head><title></title></head><body><h1>Set Default Host</h1>");
+        printForm(request, response, out);
+	out.println("<p><b>Default host set.</b></p>");
+	out.println("</body></html>");
+        out.close();
     }
 
     /**
@@ -137,7 +146,7 @@ public class DefaultHost {
      * @throws  ServletException  if a servlet-specific error occurs
      * @throws  IOException       if an I/O error occurs
      */ 
-    public void printForm(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+    public void printForm(HttpServletRequest request, HttpServletResponse response, PrintWriter out) throws ServletException,  IOException {
         String name = null;
 	String dns_name = null;
 	String ip_address = null;
@@ -154,9 +163,6 @@ public class DefaultHost {
             Logger.getLogger(DefaultHost .class.getName()).log(Level.SEVERE,
                      null, ex);
         }
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.println("<html><head><title></title></head><body><h1>Set Default Host</h1>");
         out.println("<form method=\"post\" action=\"/piglet/BuilderServlet/default_host\">");
         out.println("<input type=\"text\"  name=\"name\" value = \"" + name + "\"/>");
 	out.println("Host Name (only used symbolically)<br>");
@@ -169,7 +175,7 @@ public class DefaultHost {
 	out.println("<input type=\"checkbox\"  name=\"ssl\"" + (ssl ? "checked" : "") + "\"/>");
 	out.println("Use SSL<br>");
         out.println("<p><input value=\"Submit\" type=\"submit\"></p>");
-        out.println("</form></body></html>");
+        out.println("</form>");
     }
 }
 

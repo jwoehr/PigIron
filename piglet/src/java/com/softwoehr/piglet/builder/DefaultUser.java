@@ -66,8 +66,12 @@ public class DefaultUser {
      * @throws  IOException       if an I/O error occurs
      */ 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
-        printForm(request, response);
-        response.getWriter().close();
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<html><head><title></title></head><body><h1>Set Default User</h1>");
+        printForm(request, response, out);
+	out.println("</body></html>");
+        out.close();
     }
 
     /**
@@ -82,7 +86,6 @@ public class DefaultUser {
      */ 
     public void doPost(HttpServletRequest request,
              HttpServletResponse response) throws ServletException,  IOException {
-
         User user = BuilderUtil.getDefaultUser(request);
         Map map = request.getParameterMap();
         try {
@@ -101,8 +104,13 @@ public class DefaultUser {
                      null, ex);
         }
         BuilderUtil.setDefaultUser(request, user);
-        printForm(request, response);
-        response.getWriter().close();
+	response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<html><head><title></title></head><body><h1>Set Default User</h1>");
+        printForm(request, response, out);
+	out.println("<p><b>Default user set.</b></p>");
+	out.println("</body></html>");
+        out.close();
     }
     
     /**
@@ -131,7 +139,7 @@ public class DefaultUser {
      * @throws  ServletException  if a servlet-specific error occurs
      * @throws  IOException       if an I/O error occurs
      */ 
-    public void printForm(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+    public void printForm(HttpServletRequest request, HttpServletResponse response, PrintWriter out) throws ServletException,  IOException {
         String uid = null;
 	String password = null;
         User currentDefaultUser = BuilderUtil.getDefaultUser(request);
@@ -142,16 +150,13 @@ public class DefaultUser {
             Logger.getLogger(DefaultUser .class.getName()).log(Level.SEVERE,
                      null, ex);
         }
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.println("<html><head><title></title></head><body><h1>Set Default User</h1>");
         out.println("<form method=\"post\" action=\"/piglet/BuilderServlet/default_user\">");
         out.println("<input type=\"text\"  name=\"uid\" value = \"" + uid + "\"/>");
 	out.println("User ID<br>");
 	out.println("<input type=\"password\"  name=\"password\" value = \"" + password+ "\"/>");
 	out.println("Password<br>");
         out.println("<p><input value=\"Submit\" type=\"submit\"></p>");
-        out.println("</form></body></html>");
+        out.println("</form>");
     }
 }
 
