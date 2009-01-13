@@ -58,7 +58,7 @@ public class DefaultUser {
     /**
      * Performs the HTTP <code>GET</code> method for Default User, including
      * closing the PrintWriter. Gets the default User into a form for setting
-     * the default user.
+     * the default user. Closes writer.
      *
      * @param  request            servlet request
      * @param  response           servlet response
@@ -70,14 +70,14 @@ public class DefaultUser {
         PrintWriter out = response.getWriter();
         out.println("<html><head><title>Set Default User</title></head><body><h1>Set Default User</h1>");
         printForm(request, response, out);
-	out.println("</body></html>");
+        out.println("</body></html>");
         out.close();
     }
 
     /**
      * Performs the HTTP <code>POST</code> method. Sets the default User from
      * form data and then gets it into a form for setting the default user from
-     * form data.
+     * form data. Closes writer.
      *
      * @param  request            servlet request
      * @param  response           servlet response
@@ -86,33 +86,62 @@ public class DefaultUser {
      */ 
     public void doPost(HttpServletRequest request,
              HttpServletResponse response) throws ServletException,  IOException {
+	String whatIDid = null;
         User user = BuilderUtil.getDefaultUser(request);
         Map map = request.getParameterMap();
-        try {
-            if (map.containsKey("uid")) {
-                user.setUid(request.getParameter("uid"));
+        if (map.containsKey("submit")) {
+            if (request.getParameter("submit").equals("Submit")) {
+		whatIDid = "set";
+                try {
+                    if (map.containsKey("uid")) {
+                        user.setUid(request.getParameter("uid"));
+                    } else {
+                        user.setUid("");
+                    }
+                    if (map.containsKey("password")) {
+                        user.setPassword(request.getParameter("password"));
+                    } else {
+                        user.setPassword("");
+                    }
+                } catch (org.json.JSONException ex) {
+                    Logger.getLogger(DefaultUser .class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else {
-		user.setUid("");
-	    }
-            if (map.containsKey("password")) {
-                user.setPassword(request.getParameter("password"));
-            } else {
-		user.setPassword("");
-	    }
-        } catch (org.json.JSONException ex) {
-            Logger.getLogger(DefaultUser .class.getName()).log(Level.SEVERE,
-                     null, ex);
+		whatIDid = "cleared";
+                try {
+                    if (request.getParameter("submit").equals("Clear")) {
+                        user.setUid(""); user.setPassword("");
+                    } else {
+                        Logger.getLogger(DefaultUser .class.getName()).log(Level.SEVERE, "Weird submit button press: " + request.getParameter("submit"));
+                        user.setUid(""); user.setPassword("");
+                    }
+                } catch (org.json.JSONException ex) {
+                    Logger.getLogger(DefaultUser .class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            BuilderUtil.setDefaultUser(request, user);
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<html><head><title>Set Default User</title></head><body><h1>Set Default User</h1>");
+            printForm(request, response, out);
+            out.println("<p><b>Default user " + whatIDid + ".</b></p>");
+            out.println("</body></html>");
+            out.close();
+        } else {
+            Logger.getLogger(DefaultUser .class.getName()).log(Level.SEVERE, "Received a post without a submit button press.");
+            try { user.setUid(""); user.setPassword(""); } catch (org.json.JSONException ex) {
+                Logger.getLogger(DefaultUser .class.getName()).log(Level.SEVERE, null, ex);
+            }
+            BuilderUtil.setDefaultUser(request, user);
+            PrintWriter out = response.getWriter();
+            out.println("<html><head><title>Set Default User</title></head><body><h1>Set Default User</h1>");
+            printForm(request, response, out);
+            out.println("<p><b>Received a post without a submit button press!? Logged error.</b></p>");
+            out.println("</body></html>");
+            out.close(); 
         }
-        BuilderUtil.setDefaultUser(request, user);
-	response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.println("<html><head><title>Set Default User</title></head><body><h1>Set Default User</h1>");
-        printForm(request, response, out);
-	out.println("<p><b>Default user set.</b></p>");
-	out.println("</body></html>");
-        out.close();
     }
-    
+ 
     /**
      * Performs the HTTP <code>GET</code> method for Default User, including
      * closing the PrintWriter. Gets the default User into a form for setting
@@ -127,9 +156,9 @@ public class DefaultUser {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<html><head><title>doPut() not implemented in DefaultUser.java</title></head><body>doPut() not implemented in DefaultUser.java</body></http>"); 
-	out.close();
+        out.close();
     }
-    
+ 
     /**
      *  Compose the form for setting the default User who is used for VSMAPI
      * calls unless overridden. Does not close the output writer.
@@ -139,23 +168,24 @@ public class DefaultUser {
      * @throws  ServletException  if a servlet-specific error occurs
      * @throws  IOException       if an I/O error occurs
      */ 
-    public void printForm(HttpServletRequest request, HttpServletResponse response, PrintWriter out) throws ServletException,  IOException {
+    public void printForm(HttpServletRequest request, HttpServletResponse response, PrintWriter out) throws ServletException, IOException {
         String uid = null;
-	String password = null;
+        String password = null;
         User currentDefaultUser = BuilderUtil.getDefaultUser(request);
         try {
             uid = currentDefaultUser == null ? "_userid_" : currentDefaultUser.getUid();
-	    password = currentDefaultUser == null ? "_password_" : currentDefaultUser.getPassword();
+            password = currentDefaultUser == null ? "_password_" : currentDefaultUser.getPassword();
         } catch (org.json.JSONException ex) {
             Logger.getLogger(DefaultUser .class.getName()).log(Level.SEVERE,
                      null, ex);
         }
         out.println("<form method=\"post\" action=\"/piglet/BuilderServlet/default_user\">");
         out.println("<input type=\"text\"  name=\"uid\" value = \"" + uid + "\"/>");
-	out.println("User ID<br>");
-	out.println("<input type=\"password\"  name=\"password\" value = \"" + password+ "\"/>");
-	out.println("Password<br>");
-        out.println("<p><input value=\"Submit\" type=\"submit\"></p>");
+        out.println("User ID<br>");
+        out.println("<input type=\"password\"  name=\"password\" value = \"" + password + "\"/>");
+        out.println("Password<br>");
+        out.println("<p><input name=\"submit\" value=\"Submit\" type=\"submit\">");
+	out.println("<input name=\"submit\" value=\"Clear\" type=\"submit\"></p>");
         out.println("</form>");
     }
 }
