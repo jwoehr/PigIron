@@ -18,6 +18,9 @@ to be found in the same directory as this CHANGES.TXT file.
 
 CHANGES
 -------
+2009-??-?? 0.9.6 -- Cleanup and Testing
+    * Builder now can clear a Default Host or Default User.
+
 2009-01-12 0.9.5 -- PigLet Builder Web Application
     * The PigLet Builder Web Application now works.
     * Many minor fixes.
