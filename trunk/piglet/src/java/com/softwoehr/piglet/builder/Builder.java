@@ -67,14 +67,17 @@ public class Builder {
      */ 
     public void doGet(HttpServletRequest request,
              HttpServletResponse response) throws ServletException,  IOException {
-        printForm(request, response);
-        response.getWriter().close();
+	response.setContentType("text/html;charset=UTF-8");
+	PrintWriter out = response.getWriter();
+	out.println("<html><head><title>Build a VSMAPI Call</title></head><body><h1>Build a VSMAPI Call</h1>");
+        printForm(request, response, out);
+	out.println("</body></html>");
+        out.close();
     }
 
     /**
      * Performs the HTTP <code>POST</code> method, including closing
-     * the PrintWriter (actually closed by the builder.function VSMCall building
-     * methods to which it is dispatched).
+     * the PrintWriter.
      *
      * @param  request            servlet request
      * @param  response           servlet response
@@ -160,7 +163,7 @@ public class Builder {
      * @throws  IOException       if an I/O error occurs
      */ 
     public void printForm(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
+             HttpServletResponse response, PrintWriter out) throws ServletException,  IOException {
         String uid = null;
         String password = null;
         String name = null;
@@ -182,9 +185,6 @@ public class Builder {
             Logger.getLogger(Builder .class.getName()).log(Level.SEVERE, null,
                      ex);
         }
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.println("<html><head><title></title></head><body><h1>Build a VSMAPI Call</h1>");
         out.println("<form method=\"post\" action=\"/piglet/BuilderServlet\">");
 	BuilderUtil.printBuilderUserHostHeader(request, response, out);
         out.println("<hr /><br>");
@@ -309,7 +309,6 @@ public class Builder {
         out.println("<INPUT TYPE=HIDDEN NAME=\"piglet.buildcall.state\" value=\"select_vsmcall\">");
         out.println("</form>");
 	BuilderUtil.printTrailer(request, response, out);
-	out.println("</body></html>");
     }
 }
 
