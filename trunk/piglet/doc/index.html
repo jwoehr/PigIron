@@ -45,6 +45,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
   name="description">
   <meta http-equiv="Last-Modified" content=
   "Fri, 9 Jan 2009 14:57:07 UTC">
+  <meta http-equiv="Last-Modified" content=
+  "Sat, 17 Jan 2009 17:57:21 UTC">
 </head>
 
 <body>
@@ -306,8 +308,32 @@ THE POSSIBILITY OF SUCH DAMAGE.
     "font-family: monospace;">j2ee.server.instance</span> as
     <span style="font-family: monospace;">-D</span> variables to
     the <span style="font-family: monospace;">ant</span> command
-    when you invoke it.<span style=
-    "font-family: monospace;"><br></span></li>
+    when you invoke it.</li>
+  </ul><a name="The_run_target_in_build.xml_" id=
+  "The_run_target_in_build.xml_"></a>The <span style=
+  "font-family: monospace;">run</span> target in <span style=
+  "font-family: monospace;">build.xml</span> deploys (re-deploys)
+  PigLet to your Tomcat installation. The <span style=
+  "font-family: monospace;">run</span> target depends on:<br>
+
+  <ul>
+    <li>the presence of <span style=
+    "font-family: monospace;">catalina-ant.jar</span> in your
+    <span style="font-family: monospace;">$ANT_HOME/lib</span>
+    directory</li>
+
+    <li>the setting of the Ant property <span style=
+    "font-family: monospace;">${tomcat.url}</span>
+
+      <ul>
+        <li>You can set it on the Ant command line, e.g.:
+
+          <ul style="font-family: monospace;">
+            <li>ant -Dtomcat.url='http://localhost'</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
 
   <h2><a name="Launching_PigLet" id=
@@ -337,7 +363,15 @@ THE POSSIBILITY OF SUCH DAMAGE.
     <li>Go in your browser to the Manager application</li>
 
     <li>Deploy <a href="#Output"><span style=
-    "font-family: monospace;">piglet.war</span></a><br></li>
+    "font-family: monospace;">piglet.war</span></a>
+
+      <ul>
+        <li>You can use <a href="#The_run_target_in_build.xml_">the
+        <span style="font-family: monospace;">run</span> target in
+        <span style="font-family: monospace;">build.xml</span></a>
+        to deploy PigLet.<br></li>
+      </ul>
+    </li>
   </ol>
 
   <h3><a name="Builder_Web_Application" id=
@@ -364,7 +398,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
           <ul>
             <li>an individual Requestor, or</li>
 
-            <li>an Array of Requestors &gt;
+            <li>an Array of Requestors
 
               <ul>
                 <li>See <a href="#Example_JSON_strings">Example
@@ -381,10 +415,10 @@ THE POSSIBILITY OF SUCH DAMAGE.
     <li>You can build calls via forms and execute them using
     PigIron <a name="PigLet_Call_Builder" id=
     "PigLet_Call_Builder"></a><a href=
-    "images/PigLet_Build_Call.jpg"><img alt="PigLet Call Builder"
-    title="PigLet Call Builder" src="images/PigLet_Build_Call.jpg"
-    style="border: 2px solid ; width: 160px; height: 100px;" align=
-    "middle"></a><br></li>
+    "images/PigLet_Build_Call.jpg"><img style=
+    "border: 2px solid ; width: 160px; height: 100px;" src=
+    "images/PigLet_Build_Call.jpg" title="PigLet Call Builder" alt=
+    "PigLet Call Builder" align="middle"></a><br></li>
 
     <li>You can create composite operations made of multiple
     PigIron VSMAPI calls via PigLet (<span style=
