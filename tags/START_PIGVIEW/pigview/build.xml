@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="pigview" default="build" basedir=".">
+    <description>
+    pigview build file.  This is used to package up your project as a jar,
+    if you want to distribute it.  This isn't needed for normal operation.
+  </description>
+    <property name="outdir" location="war" />
+
+  <!-- set classpath -->
+    <path id="compilation.class.path">
+        <pathelement path="${java.class.path}"/>
+        <pathelement location="/usr/local/work/jax/Java/gwt-linux-0.0.0/gwt-user.jar"/>
+    <!-- Additional dependencies (such as junit) go here -->
+    </path>
+
+    <path id="gwtc.class.path">
+        <pathelement location="src"/>
+        <pathelement location="war/WEB-INF/classes"/>
+        <pathelement path="${compilation.class.path}"/>
+        <pathelement location="/usr/local/work/jax/Java/gwt-linux-0.0.0/gwt-dev-linux.jar"/>
+    <!-- Additional dependencies (such as junit) go here -->
+    </path>
+
+    <property name="piglet.dir" location="${basedir}/../piglet" />
+    <property name="piglet.pigview.dir" location="${piglet.dir}/web/pigview" />
+    
+    <!-- target name="test-project-classpath">
+    	<echo message="Project classpath is ${project.class.path}"/>
+    </target -->
+    
+  <!-- TODO:  
+   1. revisit this once GWT supports shared dir as a first-clas citizen
+   2. For a 1.4 server, split this so that the server side code is compiled
+   with a target=1.4 build rule -->
+    <target name="javac" description="Compile project to WEB-INF/classes">
+        <mkdir dir="war/WEB-INF/classes"/>
+        <javac srcdir="src:test"
+                destdir="war/WEB-INF/classes"
+                includes="**"
+                debug="true"
+                debuglevel="lines,vars,source"
+                source="1.5"
+                target="1.5"
+                nowarn="true"
+                encoding="utf-8">
+            <classpath refid="compilation.class.path"/>
+        </javac>
+    </target>
+
+    <target name="deploy" depends="gwtc" description="Copy output to the war folder">
+        <mkdir dir="war/WEB-INF/lib" />
+        <copy todir="war/WEB-INF/lib" file="/usr/local/work/jax/Java/gwt-linux-0.0.0/gwt-servlet.jar" />
+        <mkdir dir="war/com.softwoehr.pigview.Main" />
+        <copy todir="war/com.softwoehr.pigview.Main">
+            <fileset dir="com.softwoehr.pigview.Main"/>
+        </copy>
+        <mkdir dir="war/com.softwoehr.pigview.Main-aux" />
+        <copy todir="war/com.softwoehr.pigview.Main-aux" failonerror="false">
+            <fileset dir="com.softwoehr.pigview.Main-aux"/>
+        </copy>
+    </target>
+
+    <!-- target name="piglet" depends="deploy" description="Copy output to PigLet's web folder" -->
+    <target name="piglet" description="Copy output to PigLet's web folder">
+        <delete dir="${piglet.pigview.dir}" failonerror="false" />
+        <mkdir dir="${piglet.pigview.dir}" />
+        <copy todir="${piglet.pigview.dir}">
+            <fileset dir="${basedir}/war">
+                <include name="**/*"/>
+		<exclude name="WEB-INF/**"/>
+            </fileset>
+        </copy>
+    </target>
+
+  <!-- can add additional arguments like -logLevel INFO or -style PRETTY -->
+    <target name="gwtc" depends="javac" description="Compile to JavaScript">
+        <java failonerror="true" fork="true"
+                classname="com.google.gwt.dev.GWTCompiler">
+            <classpath> <!-- refid="gwtc.class.path"/ -->
+                <pathelement location="src"/>
+                <pathelement location="war/WEB-INF/classes"/>
+                <pathelement path="${project.class.path}"/>
+                <pathelement location="/usr/local/work/jax/Java/gwt-linux-0.0.0/gwt-dev-linux.jar"/>
+                <pathelement location="/usr/local/work/jax/Java/gwt-linux-0.0.0/gwt-user.jar"/>
+            </classpath>
+     <!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
+            <jvmarg value="-Xmx256M"/>
+            <arg value="com.softwoehr.pigview.Main"/>
+        </java>
+    </target>
+
+  <!-- can add additional arguments like -logLevel INFO -->
+    <target name="shell" depends="javac" description="Run the deployed app in GWT hosted mode">
+        <java failonerror="true" fork="true"
+                classname="com.google.gwt.dev.GWTHosted">
+            <classpath>
+                <pathelement location="src"/>
+                <pathelement location="/usr/local/work/jax/Java/gwt-linux-0.0.0/gwt-dev-linux.jar"/>
+                <pathelement path="${java.class.path}/"/>
+                <pathelement path="/usr/local/work/jax/Java/gwt-linux-0.0.0/gwt-user.jar"/>
+            </classpath>
+            <jvmarg value="-Xmx256M"/>
+
+            <arg value="-startupUrl"/>
+            <arg value="Main.html"/>
+            <arg value="com.softwoehr.pigview.Main"/>
+        </java>
+    </target>
+
+    <target name="build" depends="javac, gwtc, deploy" description="Build this project" />
+
+    <target name="clean" description="Cleans this project's intermediate and output files">
+    <!-- uncomment if the WEB-INF/classes dir only contains GWT output -->
+        <delete dir="war/WEB-INF/classes" failonerror="false" />
+        <delete dir="war/WEB-INF/lib" failonerror="false" />
+        <delete dir="com.softwoehr.pigview.Main" failonerror="false" />
+        <delete dir="com.softwoehr.pigview.Main-aux" failonerror="false" />
+        <delete dir="war/com.softwoehr.pigview.Main" failonerror="false" />
+        <delete dir="war/com.softwoehr.pigview.Main-aux" failonerror="false" />
+    </target>
+
+</project>
