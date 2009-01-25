@@ -29,35 +29,12 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  *  THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.softwoehr.pigview.client;
+package com.softwoehr.pigview.client.panels;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
-import com.google.gwt.core.client.EntryPoint;
-// import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.DecoratedTabPanel;
-import com.softwoehr.pigview.client.panels.*;
-
-/**
- * Entry point classes define <code>onModuleLoad()</code>.
- */
-public class Main implements EntryPoint {
-
-    /**
-     * This is the entry point method.
-     */
-    public void onModuleLoad() {
-
-        BuilderPanel builderPanel = new BuilderPanel();
-	InputPanel inputPanel = new InputPanel();
-	ComposerPanel composerPanel = new ComposerPanel();
-	PreferencesPanel preferencesPanel = new PreferencesPanel();
-	DecoratedTabPanel dtp = new DecoratedTabPanel();
-	dtp.add(builderPanel, "Build a VSMAPI call");
-	dtp.add(composerPanel, "Compose complex operations");
-        dtp.add(inputPanel, "Input JSON");
-	dtp.add(preferencesPanel, "Preferences");
-        dtp.selectTab(0);
-	dtp.setSize("100%","100%");
-        RootPanel.get().add(dtp);
+public class PreferencesPanel extends VerticalPanel {
+    
+    public PreferencesPanel() {
+	super();
     }
 }

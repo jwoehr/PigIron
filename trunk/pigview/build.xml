@@ -34,7 +34,8 @@
    with a target=1.4 build rule -->
     <target name="javac" description="Compile project to WEB-INF/classes">
         <mkdir dir="war/WEB-INF/classes"/>
-        <javac srcdir="src:test"
+        <!-- javac srcdir="src:test" -->
+        <javac srcdir="src"
                 destdir="war/WEB-INF/classes"
                 includes="**"
                 debug="true"
@@ -50,14 +51,6 @@
     <target name="deploy" depends="gwtc" description="Copy output to the war folder">
         <mkdir dir="war/WEB-INF/lib" />
         <copy todir="war/WEB-INF/lib" file="/usr/local/work/jax/Java/gwt-linux-0.0.0/gwt-servlet.jar" />
-        <mkdir dir="war/com.softwoehr.pigview.Main" />
-        <copy todir="war/com.softwoehr.pigview.Main">
-            <fileset dir="com.softwoehr.pigview.Main"/>
-        </copy>
-        <mkdir dir="war/com.softwoehr.pigview.Main-aux" />
-        <copy todir="war/com.softwoehr.pigview.Main-aux" failonerror="false">
-            <fileset dir="com.softwoehr.pigview.Main-aux"/>
-        </copy>
     </target>
 
     <!-- target name="piglet" depends="deploy" description="Copy output to PigLet's web folder" -->
@@ -75,7 +68,7 @@
   <!-- can add additional arguments like -logLevel INFO or -style PRETTY -->
     <target name="gwtc" depends="javac" description="Compile to JavaScript">
         <java failonerror="true" fork="true"
-                classname="com.google.gwt.dev.GWTCompiler">
+                classname="com.google.gwt.dev.Compiler">
             <classpath> <!-- refid="gwtc.class.path"/ -->
                 <pathelement location="src"/>
                 <pathelement location="war/WEB-INF/classes"/>
