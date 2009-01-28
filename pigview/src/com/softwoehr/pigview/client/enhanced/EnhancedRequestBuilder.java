@@ -31,6 +31,7 @@
  */
 package com.softwoehr.pigview.client.enhanced;
 
+import com.google.gwt.http.client.URL;
 import com.google.gwt.http.client.*;
 
 /**
@@ -69,22 +70,6 @@ public class EnhancedRequestBuilder {
     /**
      *  Description of the Method
      *
-     * @param  parameter  Description of the Parameter
-     * @return            Description of the Return Value
-     */ 
-    public String normalizeParameter(String parameter) {
-        String result = parameter;
-	result = result.replace("\n", "%20");
-        result = result.replace(" ", "%20");
-        result = result.replace("\"", "%22");
-        result = result.replace("&", "%26");
-        result = result.replace("?", "%3F");
-        return result;
-    }
-
-    /**
-     *  Description of the Method
-     *
      * @return                                                  Description of the Return Value
      * @exception  com.google.gwt.http.client.RequestException  Description of the Exception
      */ 
@@ -92,7 +77,7 @@ public class EnhancedRequestBuilder {
         if (! parameters.equals("?")) {
             url = url + parameters;
         }
-        requestBuilder = new RequestBuilder(httpMethod, url);
+        requestBuilder = new RequestBuilder(httpMethod, URL.encode(url));
         requestBuilder.setCallback(requestCallback);
         return requestBuilder.send();
     }
@@ -104,9 +89,9 @@ public class EnhancedRequestBuilder {
      */ 
     public void appendParameter(String parameter) {
         if (parameters.equals("?")) {
-            parameters += normalizeParameter(parameter);
+            parameters += parameter;
         } else {
-            parameters += ("&" + normalizeParameter(parameter));
+            parameters += "&" + parameter;
         }
     }
 
