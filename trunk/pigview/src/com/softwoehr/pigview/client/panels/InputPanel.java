@@ -112,7 +112,12 @@ public class InputPanel extends VerticalPanel implements RequestCallback {
                     infoDialog.setText(ex.getMessage());
                     infoDialog.center();
                     infoDialog.show();
-                }
+                } catch (java.lang.NullPointerException ex) { 
+		    // com.google.gwt.http.client.URL throws this on null input
+                    infoDialog.setText(ex.getMessage());  
+                    infoDialog.center();
+                    infoDialog.show();
+		}
             }
         } );
         clearButton.addClickListener (new ClickListener() {
