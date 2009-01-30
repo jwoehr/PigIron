@@ -34,6 +34,7 @@ package com.softwoehr.pigview.client.panels;
 import com.google.gwt.http.client.*;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TextArea;
@@ -102,17 +103,19 @@ public class InputPanel extends VerticalPanel implements RequestCallback {
         textArea.setVisibleLines(30);
         submitButton.addClickListener (new ClickListener() {
             public void onClick(Widget sender) {
-                buildRequest("http://localhost:8080/piglet/PigIronServlet/engine", textArea.getText().trim());
+		buildRequest("/piglet/PigIronServlet/engine", textArea.getText().trim());
                 try {
                     request = requestBuilder.send();
 		    infoDialog.setText(SENDING_PIGIRON_REQUEST);
                     infoDialog.center();
                     infoDialog.show();
-                } catch (com.google.gwt.http.client.RequestException ex) {
+                }
+		catch (com.google.gwt.http.client.RequestException ex) {
                     infoDialog.setText(ex.getMessage());
                     infoDialog.center();
                     infoDialog.show();
-                } catch (java.lang.NullPointerException ex) { 
+                } 
+		catch (java.lang.NullPointerException ex) { 
 		    // com.google.gwt.http.client.URL throws this on null input
                     infoDialog.setText(ex.getMessage());  
                     infoDialog.center();
