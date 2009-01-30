@@ -1,0 +1,5 @@
+2009-01-?? : 0.9.6
+
+	* PigView JSON Input now uses PUT instead of POST
+
+2009-01-25 : 0.9.5 First release
