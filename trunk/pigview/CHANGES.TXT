@@ -1,3 +1,23 @@
+Copyright (c) 2009, Jack J. Woehr jwoehr@softwoehr.com
+PO Box 51, Golden, Colorado 80402-0051 USA
+All rights reserved.
+
+This is the PigIron project. PigIron is a Java class library implementing
+the client specification for the IBM z/VM Virtual Machine Operating System
+Systems Management Application Programming Interface (sometimes called VSMAPI).
+
+http://pigiron.sourceforge.net
+
+Please read the file license.txt which is the NO WARRANTY license under which the
+PigIron open source project is coded, released and distributed. license.txt is
+to be found in the same directory as this CHANGES.TXT file.
+
+PigView is the Web 2.0 operations navigator coded on top of PigLet, the PigIron servlet.
+
+This document is the PigView change log.
+
+CHANGES
+-------
 2009-01-?? : 0.9.6
 
 	* PigView JSON Input now uses PUT instead of POST
