@@ -44,15 +44,11 @@ public class EnhancedRequestBuilder {
 
     private RequestCallback requestCallback = null;
     private RequestBuilder requestBuilder = null;
-    /**
-     *  Description of the Field
-     */ 
-    public RequestBuilder.Method httpMethod = null;
-    /**
-     *  Description of the Field
-     */ 
-    public String url = "";
+    private String httpMethodString = null;
+    private RequestBuilder.Method httpMethod = null;
+    private String url = "";
     private String parameters = "?";
+    private String requestData = "";
 
     /**
      *Constructor for the EnhancedRequestBuilder object
@@ -68,17 +64,63 @@ public class EnhancedRequestBuilder {
     }
 
     /**
+     *Constructor for the EnhancedRequestBuilder object
+     *
+     * @param  url               Description of the Parameter
+     * @param  requestCallback   Description of the Parameter
+     * @param  httpMethodString  Description of the Parameter
+     */ 
+    public EnhancedRequestBuilder(String httpMethodString, java.lang.String url, RequestCallback requestCallback) {
+        this.url = url;
+        this.httpMethodString = httpMethodString;
+        this.requestCallback = requestCallback;
+    }
+
+    /**
      *  Description of the Method
      *
      * @return                                                  Description of the Return Value
      * @exception  com.google.gwt.http.client.RequestException  Description of the Exception
      */ 
     public Request send() throws com.google.gwt.http.client.RequestException {
+        Request result = null;
+        if (httpMethodString != null) {
+            result = sendMethodString();
+        } else {
+            if (httpMethod != null) {
+                result = sendMethod();
+            } else {
+                // Some error or exception
+            }
+        }
+        return result;
+    }
+
+    /**
+     *  Description of the Method
+     *
+     * @return                                                  Description of the Return Value
+     * @exception  com.google.gwt.http.client.RequestException  Description of the Exception
+     */ 
+    public Request sendMethod() throws com.google.gwt.http.client.RequestException {
         if (! parameters.equals("?")) {
             url = url + parameters;
         }
-        requestBuilder = new RequestBuilder(httpMethod, URL.encode(url));
+        requestBuilder = new EnhancedRequestBuilderSub(httpMethod, URL.encode(url));
         requestBuilder.setCallback(requestCallback);
+        return requestBuilder.send();
+    }
+
+    /**
+     *  Description of the Method
+     *
+     * @return                                                  Description of the Return Value
+     * @exception  com.google.gwt.http.client.RequestException  Description of the Exception
+     */ 
+    public Request sendMethodString() throws com.google.gwt.http.client.RequestException {
+        requestBuilder = new EnhancedRequestBuilderSub(httpMethodString, URL.encode(url));
+        requestBuilder.setCallback(requestCallback);
+        requestBuilder.setRequestData(requestData);
         return requestBuilder.send();
     }
 
@@ -96,6 +138,15 @@ public class EnhancedRequestBuilder {
     }
 
     /**
+     *  Sets the requestData attribute of the EnhancedRequestBuilder object
+     *
+     * @param  requestData  The new requestData value
+     */ 
+    public void setRequestData(String requestData) {
+        this.requestData = requestData;
+    }
+
+    /**
      *  Description of the Method
      *
      * @param  parameter  Description of the Parameter
@@ -105,5 +156,35 @@ public class EnhancedRequestBuilder {
         appendParameter(paramName + "=" + parameter);
     }
 
+    /**
+     *  Description of the Class
+     *
+     * @author     jax
+     * @created    January 30, 2009
+     */ 
+    private class EnhancedRequestBuilderSub extends RequestBuilder {
+
+        /**
+         *Constructor for the EnhancedRequestBuilderSub object
+         *
+         * @param  httpMethod       Description of the Parameter
+         * @param  url              Description of the Parameter
+         */ 
+        public EnhancedRequestBuilderSub(RequestBuilder.Method httpMethod,
+                 java.lang.String url) {
+            super(httpMethod,url);
+        }
+
+        /**
+         *Constructor for the EnhancedRequestBuilder object
+         *
+         * @param  url               Description of the Parameter
+         * @param  httpMethodString  Description of the Parameter
+         */ 
+        protected EnhancedRequestBuilderSub(String httpMethodString,
+                 java.lang.String url) {
+            super(httpMethodString,url);
+        }
+    }
 }
 
