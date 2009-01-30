@@ -151,8 +151,10 @@ public class InputPanel extends VerticalPanel implements RequestCallback {
      * @param  requestor  Description of the Parameter
      */ 
     public void buildRequest(String url, String requestor) {
-        requestBuilder = new EnhancedRequestBuilder(RequestBuilder.POST, url, this);
-        requestBuilder.appendParameter("requestor", requestor);
+        // requestBuilder = new EnhancedRequestBuilder(RequestBuilder.POST, url, this);
+	requestBuilder = new EnhancedRequestBuilder("PUT", url, this);
+        // requestBuilder.appendParameter("requestor", requestor);
+	requestBuilder.setRequestData(requestor);
     }
 }
 
