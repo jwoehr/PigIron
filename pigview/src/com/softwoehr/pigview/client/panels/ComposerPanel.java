@@ -30,11 +30,42 @@
  *  THE POSSIBILITY OF SUCH DAMAGE.
  */
 package com.softwoehr.pigview.client.panels;
+
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class ComposerPanel extends VerticalPanel {
-    
+
+/**
+ *  Description of the Class
+ *
+ * @author     jax
+ * @created    January 30, 2009
+ */
+public class ComposerPanel extends PigViewBasicPanel {
+    private Image mainframeImage = null;
+
+    /**
+     *Constructor for the ComposerPanel object
+     */ 
     public ComposerPanel() {
-	super();
+        super();
+    }
+
+    /**
+     *  Description of the Method
+     */ 
+    public void initWidgets() {
+        super.initWidgets();
+        mainframeImage = new Image("images/mainframe.png");
+    }
+
+    /**
+     *  Description of the Method
+     */ 
+    public void initPanel() {
+        setWidth("100%");
+        setHorizontalAlignment(ALIGN_CENTER);
+        add(mainframeImage);
     }
 }
+
