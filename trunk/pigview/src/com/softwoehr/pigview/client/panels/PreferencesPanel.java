@@ -31,6 +31,8 @@
  */
 package com.softwoehr.pigview.client.panels;
 
+// import com.google.gwt.user.client.Cookies;
+
 /**
  *  Description of the Class
  *
