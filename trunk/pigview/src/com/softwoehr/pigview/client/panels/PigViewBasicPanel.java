@@ -31,76 +31,91 @@
  */
 package com.softwoehr.pigview.client.panels;
 
+import com.google.gwt.http.client.*;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
+
+import com.softwoehr.pigview.client.enhanced.*;
+import com.softwoehr.pigview.client.panels.widgets.*;
+
 /**
  *  Description of the Class
  *
  * @author     jax
  * @created    January 30, 2009
  */
-public class PreferencesPanel extends PigViewBasicPanel {
+public class PigViewBasicPanel extends VerticalPanel {
 
     /**
-     *Constructor for the PreferencesPanel object
+     *  Description of the Field
      */ 
-    public PreferencesPanel() {
+    protected static final String COMMUNICATING_WITH_SERVER = "Communicating with the server.";
+    /**
+     *  Description of the Field
+     */ 
+    protected static final String HTTP_FAILURE = "HTTP failure";
+    /**
+     *  Description of the Field
+     */ 
+    protected static final String CLEAR = "Clear";
+    /**
+     *  Description of the Field
+     */ 
+    protected static final String SUBMIT = "Submit";
+    /**
+     *  Description of the Field
+     */ 
+    protected static final String RESET = "Reset";
+    /**
+     *  Description of the Field
+     */ 
+    protected EnhancedRequestBuilder requestBuilder = null;
+    /**
+     *  Description of the Field
+     */ 
+    protected final Button submitButton = new Button(SUBMIT);
+    /**
+     *  Description of the Field
+     */ 
+    protected final Button resetButton = new Button(RESET);
+    /**
+     *  Description of the Field
+     */ 
+    protected final InfoDialog infoDialog = new InfoDialog();
+    /**
+     *  Description of the Field
+     */ 
+    protected Request request = null;
+
+    /**
+     *Constructor for the PigViewBasicPanel object
+     */ 
+    public PigViewBasicPanel() {
         super();
-        /*
-         *  initWidgets();
-         *  initPanel();
-         */ 
+        initWidgets();
+        initPanel();
     }
 
     /**
      *  Description of the Method
      */ 
     protected void initWidgets() {
-        super.initWidgets();
-        /*
-         *  submitButton.addClickListener (new ClickListener() {
-         *  public void onClick(Widget sender) {
-         *  buildRequest("/piglet/PigIronServlet/engine", textArea.getText().trim());
-         *  try {
-         *  request = requestBuilder.send();
-         *  infoDialog.setText(SENDING_PIGIRON_REQUEST);
-         *  infoDialog.center();
-         *  infoDialog.show();
-         *  }
-         *  catch (com.google.gwt.http.client.RequestException ex) {
-         *  infoDialog.setText(ex.getMessage());
-         *  infoDialog.center();
-         *  infoDialog.show();
-         *  }
-         *  catch (java.lang.NullPointerException ex) {
-         *  / com.google.gwt.http.client.URL throws this on null input
-         *  infoDialog.setText(ex.getMessage());
-         *  infoDialog.center();
-         *  infoDialog.show();
-         *  }
-         *  }
-         *  } );
-         *  resetButton.addClickListener (new ClickListener() {
-         *  public void onClick(Widget sender) {
-         *  / textArea.clear();
-         *  textArea.setText("");
-         *  }
-         *  } );
-         */ 
     }
 
     /**
      *  Description of the Method
      */ 
-    public void initPanel() {
-        super.initPanel();
-        /*
-         *  setWidth("100%");
-         *  setHorizontalAlignment(ALIGN_CENTER);
-         *  HorizontalPanel buttonPanel = new HorizontalPanel();
-         *  buttonPanel.add(submitButton);
-         *  buttonPanel.add(resetButton);
-         *  add(textArea);
-         *  add(buttonPanel);
-         */ 
+    protected void initPanel() {
+        setWidth("100%");
+        setHorizontalAlignment(ALIGN_CENTER);
+        HorizontalPanel buttonPanel = new HorizontalPanel();
+        buttonPanel.add(submitButton);
+        buttonPanel.add(resetButton);
+        add(buttonPanel);
     }
+
 }
 
