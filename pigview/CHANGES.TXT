@@ -18,8 +18,4 @@ This document is the PigView change log.
 
 CHANGES
 -------
-2009-01-?? : 0.9.6
-
-	* PigView JSON Input now uses PUT instead of POST
-
-2009-01-25 : 0.9.5 First release
+2009-01-?? : First Release
