@@ -47,14 +47,14 @@ public class Main implements EntryPoint {
      */
     public void onModuleLoad() {
 
-        BuilderPanel builderPanel = new BuilderPanel();
+        // BuilderPanel builderPanel = new BuilderPanel();
 	InputPanel inputPanel = new InputPanel();
 	ComposerPanel composerPanel = new ComposerPanel();
 	PreferencesPanel preferencesPanel = new PreferencesPanel();
 	DecoratedTabPanel dtp = new DecoratedTabPanel();
-	dtp.add(builderPanel, "Build a VSMAPI call");
-	dtp.add(composerPanel, "Compose complex operations");
-        dtp.add(inputPanel, "Input JSON");
+	// dtp.add(builderPanel, "Build a VSMAPI call");
+	dtp.add(composerPanel, "Composer");
+        dtp.add(inputPanel, "JSON Window");
 	dtp.add(preferencesPanel, "Preferences");
         dtp.selectTab(0);
 	dtp.setSize("100%","100%");
