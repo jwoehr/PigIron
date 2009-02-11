@@ -29,37 +29,43 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  *  THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.softwoehr.pigview.client;
+package com.softwoehr.pigview.client.panels;
 
-import com.google.gwt.core.client.EntryPoint;
-// import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.DecoratedTabPanel;
-import com.softwoehr.pigview.client.panels.*;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.VerticalPanel;
+
 
 /**
- * Entry point classes define <code>onModuleLoad()</code>.
+ *  Description of the Class
+ *
+ * @author     jax
+ * @created    January 30, 2009
  */
-public class Main implements EntryPoint {
+public class NavigatorPanel extends PigViewBasicPanel {
+    private Image mainframeImage = null;
 
     /**
-     * This is the entry point method.
-     */
-    public void onModuleLoad() {
+     *Constructor for the NavigatorPanel object
+     */ 
+    public NavigatorPanel() {
+        super();
+    }
 
-        // BuilderPanel builderPanel = new BuilderPanel();
-	NavigatorPanel navigatorPanel = new NavigatorPanel();
-	ComposerPanel composerPanel = new ComposerPanel();
-	InputPanel inputPanel = new InputPanel();
-	PreferencesPanel preferencesPanel = new PreferencesPanel();
-	DecoratedTabPanel dtp = new DecoratedTabPanel();
-	// dtp.add(builderPanel, "Build a VSMAPI call");
-	dtp.add(navigatorPanel, "Navigator");
-	dtp.add(composerPanel, "Composer");
-        dtp.add(inputPanel, "JSON Input");
-	dtp.add(preferencesPanel, "Preferences");
-        dtp.selectTab(0);
-	dtp.setSize("100%","100%");
-        RootPanel.get().add(dtp);
+    /**
+     *  Description of the Method
+     */ 
+    public void initWidgets() {
+        super.initWidgets();
+        mainframeImage = new Image("images/mainframe.png");
+    }
+
+    /**
+     *  Description of the Method
+     */ 
+    public void initPanel() {
+        setWidth("100%");
+        setHorizontalAlignment(ALIGN_CENTER);
+        add(mainframeImage);
     }
 }
+
