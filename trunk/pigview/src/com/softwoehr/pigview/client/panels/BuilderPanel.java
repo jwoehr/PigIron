@@ -41,76 +41,105 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.Window;
 import com.softwoehr.pigview.client.enhanced.*;
 
+/**
+ *  The Builder lives in this panel on the builder tab.
+ *
+ * @author     jax
+ * @created    February 13, 2009
+ */
+public class BuilderPanel extends VerticalPanel {
+    /*
+     *  implements ClickListener , RequestCallback
+     */ 
 
-public class BuilderPanel extends VerticalPanel /*   implements ClickListener , RequestCallback  */ {
-    
     private EnhancedRequestBuilder requestBuilder = null;
     private Image img = null;
-    
-/*     private Button button = null;
- 
-    public final DialogBox dialogBox = new DialogBox();
-    private String dialogBoxText = "PigView calls PigLet calls PigIron";
-    private final Button closeButton = new Button("close"); */
-    
-    /* 
-    public void onError(Request request, java.lang.Throwable exception) { Window.alert("HTTP failure"); }
-    public void onResponseReceived(Request request, Response response) { dialogBox.setText("PigLet PigIron Engine responds:\n" + response.getText()); dialogBox.show();}
-     */
-     
+
+    /*
+     *  private Button button = null;
+     *  public final DialogBox dialogBox = new DialogBox();
+     *  private String dialogBoxText = "PigView calls PigLet calls PigIron";
+     *  private final Button closeButton = new Button("close");
+     */ 
+    /*
+     *  public void onError(Request request, java.lang.Throwable exception) { Window.alert("HTTP failure"); }
+     *  public void onResponseReceived(Request request, Response response) { dialogBox.setText("PigLet PigIron Engine responds:\n" + response.getText()); dialogBox.show();}
+     */ 
+    /**
+     *Constructor for the BuilderPanel object
+     */ 
     public BuilderPanel() {
-	super();
-	initWidgets();
-	initRequestBuilder();
-	initPanel();
-	/* initDialogPanel(); */
+        super();
+        initWidgets();
+        // initRequestBuilder();
+        initPanel();
+        /*
+         *  initDialogPanel();
+         */ 
     }
-    
-    public void initRequestBuilder() {
-    }
-    
+
+    /**
+     *  Description of the Method
+     */ 
+    /*  public void initRequestBuilder() {
+    } */ 
+
+    /**
+     *  Create all widgets to be used in the initial view.
+     */ 
     public void initWidgets() {
-	img = new Image("images/pig_15.gif");
-	/* button = new Button("Click me");
-        // We can add style names
-        button.addStyleName("pc-template-btn");
-        // or we can set an id on a specific element for styling */
+        img = new Image("images/pig_15.gif");
+        /*
+         *  button = new Button("Click me");
+         *  / We can add style names
+         *  button.addStyleName("pc-template-btn");
+         *  / or we can set an id on a specific element for styling
+         */ 
         img.getElement().setId("pc-template-img");
-	/* dialogBox.setAnimationEnabled(true); */
+        /*
+         *  dialogBox.setAnimationEnabled(true);
+         */ 
     }
-    
+
+    /**
+     *  Layout the panel for the initial view.
+     */ 
     public void initPanel() {
-	setWidth("100%");
-	setHorizontalAlignment(BuilderPanel.ALIGN_CENTER);
-	add(img);
-	/* add(button); */
+        setWidth("100%");
+        setHorizontalAlignment(BuilderPanel.ALIGN_CENTER);
+        add(img);
+        /*
+         *  add(button);
+         */ 
     }
-/* 	
-    public void initDialogPanel() {
-        VerticalPanel dialogVPanel = new VerticalPanel();
-        dialogVPanel.setWidth("100%");
-        dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
-        dialogVPanel.add(closeButton);
-        closeButton.addClickListener(new ClickListener() {
-            public void onClick(Widget sender) {
-                dialogBox.hide();
-            }
-        } );
-        dialogBox.setWidget(dialogVPanel);
-        button.addClickListener(this);
-    } */
-/* 
-     public void onClick(Widget sender) {
-        final String dialogBoxText = "Sending PigIron request to the server.";
-        dialogBox.setText(dialogBoxText);
-        dialogBox.center();
-        dialogBox.show();
-	try {
-        requestBuilder.send();
-	}
-	catch (com.google.gwt.http.client.RequestException ex) {
-	    dialogBox.setText(ex.getMessage());
-	}
-    }
-     */
+    /*
+     *  public void initDialogPanel() {
+     *  VerticalPanel dialogVPanel = new VerticalPanel();
+     *  dialogVPanel.setWidth("100%");
+     *  dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
+     *  dialogVPanel.add(closeButton);
+     *  closeButton.addClickListener(new ClickListener() {
+     *  public void onClick(Widget sender) {
+     *  dialogBox.hide();
+     *  }
+     *  } );
+     *  dialogBox.setWidget(dialogVPanel);
+     *  button.addClickListener(this);
+     *  }
+     */ 
+    /*
+     *  public void onClick(Widget sender) {
+     *  final String dialogBoxText = "Sending PigIron request to the server.";
+     *  dialogBox.setText(dialogBoxText);
+     *  dialogBox.center();
+     *  dialogBox.show();
+     *  try {
+     *  requestBuilder.send();
+     *  }
+     *  catch (com.google.gwt.http.client.RequestException ex) {
+     *  dialogBox.setText(ex.getMessage());
+     *  }
+     *  }
+     */ 
 }
+

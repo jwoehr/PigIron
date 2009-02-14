@@ -34,7 +34,7 @@ package com.softwoehr.pigview.client.panels;
 // import com.google.gwt.user.client.Cookies;
 
 /**
- *  Description of the Class
+ *  Set prefs in this prefs panel on the prefs tab.
  *
  * @author     jax
  * @created    January 30, 2009
@@ -53,7 +53,7 @@ public class PreferencesPanel extends PigViewBasicPanel {
     }
 
     /**
-     *  Description of the Method
+     *  Create all widgets to be used in the initial view.
      */ 
     protected void initWidgets() {
         super.initWidgets();
@@ -90,7 +90,7 @@ public class PreferencesPanel extends PigViewBasicPanel {
     }
 
     /**
-     *  Description of the Method
+     *  Layout the panel for the initial view.
      */ 
     public void initPanel() {
         super.initPanel();

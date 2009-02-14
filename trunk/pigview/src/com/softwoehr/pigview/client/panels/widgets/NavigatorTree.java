@@ -29,43 +29,57 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  *  THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.softwoehr.pigview.client.panels;
+package com.softwoehr.pigview.client.panels.widgets;
 
+// import com.google.gwt.user.client.ui.Button;
+// import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.VerticalPanel;
-
+import com.google.gwt.user.client.ui.Tree;
+import com.google.gwt.user.client.ui.TreeItem;
+// import com.google.gwt.user.client.ui.Widget;
+import com.softwoehr.pigview.client.enhanced.*;
 
 /**
- *  The composer lives in this panel on the composer tab.
+ * Represents the tree view of the navigator
  *
  * @author     jax
- * @created    January 30, 2009
+ * @created    February 13, 2009
  */
-public class ComposerPanel extends PigViewBasicPanel {
-    private Image mainframeImage = null;
-
+public class NavigatorTree extends Tree {
+    private Image mainframeImage = new Image("images/mainframe.png");
+    private final InfoDialog infoDialog = new InfoDialog();
+    private TreeItem root = null;
+ 
     /**
-     *Constructor for the ComposerPanel object
+     *Constructor for the NavigatorTree object
      */ 
-    public ComposerPanel() {
+    public NavigatorTree() {
         super();
+        initItems();
     }
 
     /**
-     *  Create all widgets to be used in the initial view.
+     *  Init the tree's contents.
      */ 
-    public void initWidgets() {
-        super.initWidgets();
+    public void initItems() {
         mainframeImage = new Image("images/mainframe.png");
-    }
-
-    /**
-     *  Layout the panel for the initial view.
-     */ 
-    public void initPanel() {
-        setWidth("100%");
-        setHorizontalAlignment(ALIGN_CENTER);
-        add(mainframeImage);
+        mainframeImage.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                infoDialog.setText("Adding host not implemented yet.");
+                infoDialog.center();
+                infoDialog.show();
+            }
+        } );
+        root = new TreeItem(mainframeImage);
+        root.addItem("Click the mainframe image to add a New host");
+        addItem(root);
+        /*
+         *  TreeItem root = new TreeItem("Hosts");
+         *  root.addItem(new Image("images/mainframe.png"));
+         *  addItem(root);
+         */ 
     }
 }
 
