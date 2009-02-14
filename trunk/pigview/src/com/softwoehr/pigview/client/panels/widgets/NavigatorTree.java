@@ -67,7 +67,7 @@ public class NavigatorTree extends Tree {
         mainframeImage = new Image("images/mainframe.png");
         mainframeImage.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
-                addHostDialog.setText("Adding host not implemented yet.");
+                addHostDialog.setText("Add Host to View");
                 addHostDialog.center();
                 addHostDialog.show();
             }

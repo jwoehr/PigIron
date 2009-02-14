@@ -31,12 +31,17 @@
  */
 package com.softwoehr.pigview.client.panels.widgets;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+
 import com.softwoehr.pigview.client.enhanced.*;
 
 /**
@@ -46,14 +51,22 @@ import com.softwoehr.pigview.client.enhanced.*;
  * @created    February 13, 2009
  */
 public class AddHostDialog extends DialogBox {
-    /*
-     *  implements ClickListener
-     */ 
 
+    private final HorizontalPanel buttonHPanel = new HorizontalPanel();
+    private final HorizontalPanel hostNameHPanel = new HorizontalPanel();
+    private final HorizontalPanel hostAddressHPanel = new HorizontalPanel();
+    private final VerticalPanel dialogVPanel = new VerticalPanel();
+ 
+    private final TextBox displayNameTextBox = new TextBox();
+    private final TextBox dnsNameTextBox = new TextBox();
+    private final TextBox ipAddrTextBox = new TextBox();
+    private final TextBox portNumberTextBox = new TextBox();
+    private final CheckBox useSSLCheckBox = new CheckBox();
+ 
     private final Button addButton = new Button("Add");
     private final Button clearButton = new Button("Clear");
     private final Button cancelButton = new Button("Cancel");
-
+ 
     /**
      *Constructor for the AddHostDialog object
      */ 
@@ -73,17 +86,27 @@ public class AddHostDialog extends DialogBox {
     /**
      *  Description of the Method
      */ 
-    public void initDialogPanel() {
-        VerticalPanel dialogVPanel = new VerticalPanel();
-        HorizontalPanel dialogHPanel = new HorizontalPanel();
+    public void initDialogPanel() { 
         dialogVPanel.setWidth("100%");
         dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
-        dialogHPanel.add(addButton);
-        dialogHPanel.add(clearButton);
-        dialogHPanel.add(cancelButton);
-        dialogVPanel.add(dialogHPanel);
-        cancelButton.addClickListener (new ClickListener() {
-            public void onClick(Widget sender) {
+        hostNameHPanel.add(new Label("Display name "));
+        hostNameHPanel.add(displayNameTextBox);
+        hostNameHPanel.add(new Label("DNS name "));
+        hostNameHPanel.add(dnsNameTextBox);
+        hostAddressHPanel.add(new Label("IP Address (ignored if DNS Name is present) "));
+        hostAddressHPanel.add(ipAddrTextBox);
+        hostAddressHPanel.add(new Label("Port number "));
+        hostAddressHPanel.add(portNumberTextBox);
+        hostAddressHPanel.add(new Label("Use SSL "));
+        hostAddressHPanel.add(useSSLCheckBox);
+        buttonHPanel.add(addButton);
+        buttonHPanel.add(clearButton);
+        buttonHPanel.add(cancelButton);
+        dialogVPanel.add(hostNameHPanel);
+        dialogVPanel.add(hostAddressHPanel);
+        dialogVPanel.add(buttonHPanel);
+        cancelButton.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
                 hide();
             }
         } );
