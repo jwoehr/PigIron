@@ -67,11 +67,14 @@ public class AddHostDialog extends DialogBox {
     private final Button clearButton = new Button("Clear");
     private final Button cancelButton = new Button("Cancel");
  
+    private final NavigatorTree associatedNavigatorTree;
+ 
     /**
      *Constructor for the AddHostDialog object
      */ 
-    public AddHostDialog() {
+    public AddHostDialog(NavigatorTree associatedNavigatorTree) {
         super();
+        this.associatedNavigatorTree = associatedNavigatorTree;
         initWidgets();
         initDialogPanel();
     }
@@ -81,6 +84,18 @@ public class AddHostDialog extends DialogBox {
      */ 
     public void initWidgets() {
         setAnimationEnabled(true);
+        addButton.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                associatedNavigatorTree.setSelectedItem(associatedNavigatorTree.addHost(displayNameTextBox.getText()));
+                associatedNavigatorTree.ensureSelectedItemVisible();
+                hide();
+            }
+        } );
+        cancelButton.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                hide();
+            }
+        } );
     }
 
     /**
@@ -105,11 +120,6 @@ public class AddHostDialog extends DialogBox {
         dialogVPanel.add(hostNameHPanel);
         dialogVPanel.add(hostAddressHPanel);
         dialogVPanel.add(buttonHPanel);
-        cancelButton.addClickHandler(new ClickHandler() {
-            public void onClick(ClickEvent event) {
-                hide();
-            }
-        } );
         setWidget(dialogVPanel);
     }
 }

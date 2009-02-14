@@ -49,7 +49,7 @@ import com.softwoehr.pigview.client.enhanced.*;
  */
 public class NavigatorTree extends Tree {
     private Image mainframeImage = new Image("images/mainframe.png");
-    private final AddHostDialog addHostDialog = new AddHostDialog();
+    private final AddHostDialog addHostDialog = new AddHostDialog(this);
     private TreeItem root = null;
  
     /**
@@ -80,6 +80,10 @@ public class NavigatorTree extends Tree {
          *  root.addItem(new Image("images/mainframe.png"));
          *  addItem(root);
          */ 
+    }
+    
+    public TreeItem addHost (String displayName) {
+	return root.addItem(displayName);
     }
 }
 
