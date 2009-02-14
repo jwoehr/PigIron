@@ -31,55 +31,63 @@
  */
 package com.softwoehr.pigview.client.panels.widgets;
 
-// import com.google.gwt.user.client.ui.Button;
-// import com.google.gwt.user.client.ui.ClickListener;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Tree;
-import com.google.gwt.user.client.ui.TreeItem;
-// import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.softwoehr.pigview.client.enhanced.*;
 
 /**
- * Represents the tree view of the navigator
+ *  Description of the Class
  *
  * @author     jax
  * @created    February 13, 2009
  */
-public class NavigatorTree extends Tree {
-    private Image mainframeImage = new Image("images/mainframe.png");
-    private final AddHostDialog addHostDialog = new AddHostDialog();
-    private TreeItem root = null;
- 
-    /**
-     *Constructor for the NavigatorTree object
+public class AddHostDialog extends DialogBox {
+    /*
+     *  implements ClickListener
      */ 
-    public NavigatorTree() {
+
+    private final Button addButton = new Button("Add");
+    private final Button clearButton = new Button("Clear");
+    private final Button cancelButton = new Button("Cancel");
+
+    /**
+     *Constructor for the AddHostDialog object
+     */ 
+    public AddHostDialog() {
         super();
-        initItems();
+        initWidgets();
+        initDialogPanel();
     }
 
     /**
-     *  Init the tree's contents.
+     *  Description of the Method
      */ 
-    public void initItems() {
-        mainframeImage = new Image("images/mainframe.png");
-        mainframeImage.addClickHandler(new ClickHandler() {
-            public void onClick(ClickEvent event) {
-                addHostDialog.setText("Adding host not implemented yet.");
-                addHostDialog.center();
-                addHostDialog.show();
+    public void initWidgets() {
+        setAnimationEnabled(true);
+    }
+
+    /**
+     *  Description of the Method
+     */ 
+    public void initDialogPanel() {
+        VerticalPanel dialogVPanel = new VerticalPanel();
+        HorizontalPanel dialogHPanel = new HorizontalPanel();
+        dialogVPanel.setWidth("100%");
+        dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
+        dialogHPanel.add(addButton);
+        dialogHPanel.add(clearButton);
+        dialogHPanel.add(cancelButton);
+        dialogVPanel.add(dialogHPanel);
+        cancelButton.addClickListener (new ClickListener() {
+            public void onClick(Widget sender) {
+                hide();
             }
         } );
-        root = new TreeItem(mainframeImage);
-        root.addItem("Click the mainframe image to add a New host");
-        addItem(root);
-        /*
-         *  TreeItem root = new TreeItem("Hosts");
-         *  root.addItem(new Image("images/mainframe.png"));
-         *  addItem(root);
-         */ 
+        setWidget(dialogVPanel);
     }
 }
 
