@@ -42,7 +42,7 @@ import com.softwoehr.pigview.client.enhanced.*;
 import com.softwoehr.pigview.client.panels.widgets.*;
 
 /**
- *  Description of the Class
+ *  Superclass of all PigView panels that live in the tabbed notebook
  *
  * @author     jax
  * @created    January 30, 2009
@@ -100,13 +100,13 @@ public class PigViewBasicPanel extends VerticalPanel {
     }
 
     /**
-     *  Description of the Method
+     *  Create all widgets to be used in the initial view.
      */ 
     protected void initWidgets() {
     }
 
     /**
-     *  Description of the Method
+     * Layout the panel for the initial view.
      */ 
     protected void initPanel() {
         setWidth("100%");

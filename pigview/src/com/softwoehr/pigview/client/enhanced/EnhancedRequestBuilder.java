@@ -35,7 +35,7 @@ import com.google.gwt.http.client.URL;
 import com.google.gwt.http.client.*;
 
 /**
- *  Description of the Class
+ *  An extension of the request builder in GWT which is insufficient.
  *
  * @author     jax
  * @created    January 19, 2009
