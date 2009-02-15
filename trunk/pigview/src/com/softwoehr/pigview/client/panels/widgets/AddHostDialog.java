@@ -53,8 +53,8 @@ import com.softwoehr.pigview.client.enhanced.*;
 public class AddHostDialog extends DialogBox {
 
     private final HorizontalPanel buttonHPanel = new HorizontalPanel();
-    private final HorizontalPanel hostNameHPanel = new HorizontalPanel();
-    private final HorizontalPanel hostAddressHPanel = new HorizontalPanel();
+    // private final HorizontalPanel hostNameHPanel = new HorizontalPanel();
+    // private final HorizontalPanel hostAddressHPanel = new HorizontalPanel();
     private final VerticalPanel dialogVPanel = new VerticalPanel();
  
     private final TextBox displayNameTextBox = new TextBox();
@@ -103,8 +103,18 @@ public class AddHostDialog extends DialogBox {
      */ 
     public void initDialogPanel() { 
         dialogVPanel.setWidth("100%");
-        dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
-        hostNameHPanel.add(new Label("Display name "));
+        dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_LEFT);
+        dialogVPanel.add(new Label("Display name "));
+        dialogVPanel.add(displayNameTextBox);
+        dialogVPanel.add(new Label("DNS name "));
+        dialogVPanel.add(dnsNameTextBox);
+        dialogVPanel.add(new Label("IP Address (ignored if DNS Name is present) "));
+        dialogVPanel.add(ipAddrTextBox);
+        dialogVPanel.add(new Label("Port number "));
+        dialogVPanel.add(portNumberTextBox);
+        dialogVPanel.add(new Label("Use SSL "));
+        dialogVPanel.add(useSSLCheckBox);
+/* 	hostNameHPanel.add(new Label("Display name "));
         hostNameHPanel.add(displayNameTextBox);
         hostNameHPanel.add(new Label("DNS name "));
         hostNameHPanel.add(dnsNameTextBox);
@@ -114,11 +124,13 @@ public class AddHostDialog extends DialogBox {
         hostAddressHPanel.add(portNumberTextBox);
         hostAddressHPanel.add(new Label("Use SSL "));
         hostAddressHPanel.add(useSSLCheckBox);
-        buttonHPanel.add(addButton);
+ */
+        buttonHPanel.setHorizontalAlignment(buttonHPanel.ALIGN_CENTER);
+	buttonHPanel.add(addButton);
         buttonHPanel.add(clearButton);
         buttonHPanel.add(cancelButton);
-        dialogVPanel.add(hostNameHPanel);
-        dialogVPanel.add(hostAddressHPanel);
+        // dialogVPanel.add(hostNameHPanel);
+        // dialogVPanel.add(hostAddressHPanel);
         dialogVPanel.add(buttonHPanel);
         setWidget(dialogVPanel);
     }
