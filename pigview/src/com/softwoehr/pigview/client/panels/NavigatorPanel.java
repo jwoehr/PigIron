@@ -33,13 +33,16 @@ package com.softwoehr.pigview.client.panels;
 
 import com.softwoehr.pigview.client.panels.widgets.NavigatorTree;
 
+import com.google.gwt.user.client.ui.VerticalPanel;
+
+
 /**
  *  The navigator lives in this panel on the nav tab.
  *
  * @author     jax
  * @created    January 30, 2009
  */
-public class NavigatorPanel extends PigViewBasicPanel {
+public class NavigatorPanel extends VerticalPanel {
     private NavigatorTree navigatorTree = null;
     private NavigatorCompositePanel navigatorCompositePanel = null;
 
@@ -53,14 +56,15 @@ public class NavigatorPanel extends PigViewBasicPanel {
     public NavigatorPanel(NavigatorCompositePanel navigatorCompositePanel) {
         super();
 	this.navigatorCompositePanel = navigatorCompositePanel;
+	initWidgets();
+	initPanel();
     }
 
     /**
      *  Create all widgets to be used in the initial view.
      */ 
     public void initWidgets() {
-        super.initWidgets();
-        initTree();
+	navigatorTree = new NavigatorTree(this);
     }
 
     /**
@@ -71,12 +75,13 @@ public class NavigatorPanel extends PigViewBasicPanel {
         setHorizontalAlignment(ALIGN_LEFT);
         add(navigatorTree);
     }
-
-    /**
-     *  Description of the Method
-     */ 
-    private void initTree() {
-	navigatorTree = new NavigatorTree();
+    
+    public NavigatorTree getNavigatorTree() {
+	return navigatorTree;
+    }
+    
+    public void hostDetailsView(String displayName) {
+	navigatorCompositePanel.hostDetailsView(displayName);
     }
 }
 

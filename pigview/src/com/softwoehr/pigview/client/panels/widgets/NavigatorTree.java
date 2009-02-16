@@ -36,10 +36,12 @@ package com.softwoehr.pigview.client.panels.widgets;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 // import com.google.gwt.user.client.ui.Widget;
 import com.softwoehr.pigview.client.enhanced.*;
+import com.softwoehr.pigview.client.panels.NavigatorPanel;
 
 // import java.util.Collection;
 import java.util.Iterator;
@@ -53,13 +55,15 @@ import java.util.Iterator;
 public class NavigatorTree extends Tree {
     private Image mainframeImage = new Image("images/mainframe.png");
     private final AddHostDialog addHostDialog = new AddHostDialog(this);
+    private final NavigatorPanel navigatorPanel;
     private TreeItem root = null;
 
     /**
      *Constructor for the NavigatorTree object
      */ 
-    public NavigatorTree() {
+    public NavigatorTree(NavigatorPanel navigatorPanel) {
         super();
+        this.navigatorPanel = navigatorPanel;
         initItems();
     }
 
@@ -83,25 +87,15 @@ public class NavigatorTree extends Tree {
     /**
      *  Adds a feature to the Host attribute of the NavigatorTree object
      *
-     * @param  displayName  The feature to be added to the Host attribute
-     * @return              Description of the Return Value
-     */ 
-    public TreeItem addHost(String displayName) {
-        return root.addItem(displayName);
-    }
-
-    /**
-     *  Adds a feature to the Host attribute of the NavigatorTree object
-     *
      * @param  dialog  The feature to be added to the Host attribute
      */ 
     public void addHost(AddHostDialog dialog) {
         String displayName = dialog.getDisplayName();
         PersistenceManager.persist("host.DisplayName." + displayName, displayName);
-	PersistenceManager.setHostProperty(displayName, "DnsName", dialog.getDnsName());
-	PersistenceManager.setHostProperty(displayName, "IpAddr", dialog.getIpAddr());
-	PersistenceManager.setHostProperty(displayName, "PortNumber", dialog.getPortNumber());
-	PersistenceManager.setHostProperty(displayName, "UseSSL", dialog.getUseSSL() ? "true" : "false");
+        PersistenceManager.setHostProperty(displayName, "DnsName", dialog.getDnsName());
+        PersistenceManager.setHostProperty(displayName, "IpAddr", dialog.getIpAddr());
+        PersistenceManager.setHostProperty(displayName, "PortNumber", dialog.getPortNumber());
+        PersistenceManager.setHostProperty(displayName, "UseSSL", dialog.getUseSSL() ? "true" : "false");
         rebuildTree();
         setSelectedItem(findHostInTree(displayName));
         ensureSelectedItemVisible();
@@ -135,8 +129,14 @@ public class NavigatorTree extends Tree {
         root = new TreeItem(mainframeImage);
         root.addItem("Click the mainframe image to add a New host");
         while (hostNamesIterator.hasNext()) {
-            root.addItem(hostNamesIterator.next().toString());
-        }
+            final Label l = new Label(hostNamesIterator.next().toString());
+            l.addClickHandler(new ClickHandler() {
+                public void onClick(ClickEvent event) {
+                    navigatorPanel.hostDetailsView(l.getText());
+                }
+            } );
+            root.addItem(new TreeItem(l));
+        } 
         addItem(root);
     }
 }
