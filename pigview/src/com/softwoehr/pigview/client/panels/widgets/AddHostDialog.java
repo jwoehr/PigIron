@@ -110,15 +110,15 @@ public class AddHostDialog extends DialogBox {
     public void initDialogPanel() {
         dialogTopPanel.setWidth("100%");
         dialogTopPanel.setHorizontalAlignment(VerticalPanel.ALIGN_LEFT);
-        dialogTopPanel.add(new Label("Display name "));
+        dialogTopPanel.add(new Label("Display name:"));
         dialogTopPanel.add(displayNameTextBox);
-        dialogTopPanel.add(new Label("DNS name "));
+        dialogTopPanel.add(new Label("DNS name:"));
         dialogTopPanel.add(dnsNameTextBox);
-        dialogTopPanel.add(new Label("IP Address (ignored if DNS Name is present) "));
+        dialogTopPanel.add(new Label("IP Address (ignored if DNS Name is present):"));
         dialogTopPanel.add(ipAddrTextBox);
-        dialogTopPanel.add(new Label("Port number "));
+        dialogTopPanel.add(new Label("Port number:"));
         dialogTopPanel.add(portNumberTextBox);
-        dialogTopPanel.add(new Label("Use SSL "));
+        dialogTopPanel.add(new Label("Use SSL:"));
         dialogTopPanel.add(useSSLCheckBox);
         buttonHPanel.setHorizontalAlignment(buttonHPanel.ALIGN_CENTER);
         buttonHPanel.add(addButton);
