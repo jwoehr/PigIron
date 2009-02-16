@@ -33,8 +33,10 @@ package com.softwoehr.pigview.client.enhanced;
 
 import com.google.gwt.http.client.*;
 import com.google.gwt.user.client.Cookies;
+import java.util.Collection;
 import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  *  Static methods to persist data in some fashion. Current implementation is cookies,
@@ -99,5 +101,22 @@ public class PersistenceManager {
         Cookies.removeCookie(PREFIX + name);
     }
 
+    /**
+     *  Description of the Method
+     *
+     * @return    Description of the Return Value
+     */ 
+    public static Collection hostNames() {
+        HashSet hostNameCollection = new HashSet();
+        Iterator it = Cookies.getCookieNames().iterator();
+	String radix = PREFIX + "host.DisplayName.";
+        while (it.hasNext()) {
+            String cookieName = it.next().toString();
+            if (cookieName.startsWith(radix)) {
+                hostNameCollection.add(Cookies.getCookie(cookieName));
+            }
+        }
+        return hostNameCollection;
+    }
 }
 

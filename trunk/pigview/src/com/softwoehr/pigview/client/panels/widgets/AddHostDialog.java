@@ -149,9 +149,16 @@ public class AddHostDialog extends DialogBox {
     protected void addHost() {
         String text = displayNameTextBox.getText();
         if (text != null & ! text.equals("")) {
-            associatedNavigatorTree.setSelectedItem(associatedNavigatorTree.addHost(displayNameTextBox.getText()));
-            associatedNavigatorTree.ensureSelectedItemVisible();
+            // associatedNavigatorTree.setSelectedItem(associatedNavigatorTree.addHost(displayNameTextBox.getText()));
+            // associatedNavigatorTree.ensureSelectedItemVisible();
+	    associatedNavigatorTree.addHost(this);
         }
     }
+    
+    public String getDisplayName () { return displayNameTextBox.getText(); }
+    public String getDnsName () { return dnsNameTextBox.getText(); }
+    public String getIpAddr () { return ipAddrTextBox.getText(); }
+    public String getPortNumber () { return portNumberTextBox.getText(); }
+    public boolean getUseSSL () { return useSSLCheckBox.getValue(); }
 }
 
