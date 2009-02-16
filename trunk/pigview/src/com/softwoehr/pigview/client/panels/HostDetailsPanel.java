@@ -46,6 +46,7 @@ public class HostDetailsPanel extends VerticalPanel {
     private NavigatorTree navigatorTree = null;
     private NavigatorCompositePanel navigatorCompositePanel = null;
     private HostPropertiesPanel hostPropertiesPanel = null;
+    private HostExplorerPanel hostExplorerPanel = null;
 
     /**
      *Constructor for the HostDetailsPanel object
@@ -78,6 +79,15 @@ public class HostDetailsPanel extends VerticalPanel {
         setHorizontalAlignment(ALIGN_LEFT);
 	setVerticalAlignment(ALIGN_TOP);
         add(hostPropertiesPanel);
+    }
+    
+    public void hostApiLevelExplorerView(String displayName) {
+	if (hostExplorerPanel != null) {
+	    remove(hostExplorerPanel);
+	}
+	hostExplorerPanel = new HostApiLevelExplorerPanel(displayName, navigatorTree, this);
+	add(hostExplorerPanel);
+	hostExplorerPanel.doIt(null);
     }
 }
 
