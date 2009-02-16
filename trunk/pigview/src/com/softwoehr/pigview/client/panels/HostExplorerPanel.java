@@ -31,6 +31,9 @@
  */
 package com.softwoehr.pigview.client.panels;
 
+import com.softwoehr.pigview.client.enhanced.*;
+import com.softwoehr.pigview.client.panels.widgets.*;
+
 import com.softwoehr.pigview.client.panels.widgets.NavigatorTree;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -43,10 +46,14 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * @created    January 30, 2009
  */
 public class HostExplorerPanel extends VerticalPanel {
-    private String displayName = null;
-    private NavigatorTree navigatorTree = null;
-    private HostDetailsPanel hostDetailsPanel = null;
-
+    
+    protected String displayName = null;
+    protected NavigatorTree navigatorTree = null;
+    protected HostDetailsPanel hostDetailsPanel = null;
+    protected EnhancedRequestBuilder requestBuilder = null;
+    protected final InfoDialog infoDialog = new InfoDialog();
+    protected static final String HTTP_FAILURE = "HTTP failure";
+    
     /**
      *Constructor for the HostExplorerPanel object
      */ 

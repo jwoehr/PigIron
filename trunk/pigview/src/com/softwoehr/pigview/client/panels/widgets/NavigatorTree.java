@@ -92,7 +92,7 @@ public class NavigatorTree extends Tree {
      * @param  dialog  The feature to be added to the Host attribute
      */ 
     public void addHost(AddHostDialog dialog) {
-        saveHost(dialog.getDisplayName(), dialog.getDnsName(), dialog.getIpAddr(), dialog.getPortNumber(), dialog.getUseSSL());
+        saveHost(dialog.getDisplayName(), dialog.getDnsName(), dialog.getIpAddr(), dialog.getPortNumber(), dialog.getUid(), dialog.getPassword(), dialog.getUseSSL());
     }
 
     /**
@@ -104,11 +104,13 @@ public class NavigatorTree extends Tree {
      * @param  portNumber   Description of the Parameter
      * @param  useSSL       Description of the Parameter
      */ 
-    public void saveHost(String displayName, String dnsName, String ipAddr, String portNumber, boolean useSSL) {
+    public void saveHost(String displayName, String dnsName, String ipAddr, String portNumber, String uid, String password, boolean useSSL) {
         PersistenceManager.persist("host.DisplayName." + displayName, displayName);
         PersistenceManager.setHostProperty(displayName, "DnsName", dnsName);
         PersistenceManager.setHostProperty(displayName, "IpAddr", ipAddr);
         PersistenceManager.setHostProperty(displayName, "PortNumber", portNumber);
+	PersistenceManager.setHostProperty(displayName, "Uid", uid);
+	PersistenceManager.setHostProperty(displayName, "Password", password);
         PersistenceManager.setHostProperty(displayName, "UseSSL", useSSL ? "true" : "false");
         rebuildTree();
         setSelectedItem(findHostInTree(displayName));
@@ -125,7 +127,9 @@ public class NavigatorTree extends Tree {
         PersistenceManager.removeHostProperty(displayName, "DnsName");
         PersistenceManager.removeHostProperty(displayName, "IpAddr");
         PersistenceManager.removeHostProperty(displayName, "PortNumber");
-        PersistenceManager.removeHostProperty(displayName, "UseSSL");
+        PersistenceManager.removeHostProperty(displayName, "Uid");
+	PersistenceManager.removeHostProperty(displayName, "Password");
+	PersistenceManager.removeHostProperty(displayName, "UseSSL");
         rebuildTree();
         setSelectedItem(null);
         navigatorPanel.dropHostDetailsView();
