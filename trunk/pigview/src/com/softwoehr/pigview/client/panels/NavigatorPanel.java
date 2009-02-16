@@ -35,7 +35,6 @@ import com.softwoehr.pigview.client.panels.widgets.NavigatorTree;
 
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-
 /**
  *  The navigator tree lives in this panel on the composite panel on the nav tab.
  *
@@ -52,40 +51,65 @@ public class NavigatorPanel extends VerticalPanel {
     public NavigatorPanel() {
         super();
     }
-    
+
+    /**
+     *Constructor for the NavigatorPanel object
+     *
+     * @param  navigatorCompositePanel  Description of the Parameter
+     */ 
     public NavigatorPanel(NavigatorCompositePanel navigatorCompositePanel) {
         super();
-	this.navigatorCompositePanel = navigatorCompositePanel;
-	initWidgets();
-	initPanel();
+        this.navigatorCompositePanel = navigatorCompositePanel;
+        initWidgets();
+        initPanel();
     }
 
     /**
      *  Create all widgets to be used in the initial view.
      */ 
     public void initWidgets() {
-	navigatorTree = new NavigatorTree(this);
+        navigatorTree = new NavigatorTree(this);
     }
 
     /**
      *  Layout the panel for the initial view.
      */ 
     public void initPanel() {
-        setSize("100%","100%");
+        setSize("100%", "100%");
         setHorizontalAlignment(ALIGN_LEFT);
         add(navigatorTree);
     }
-    
+
+    /**
+     *  Gets the navigatorTree attribute of the NavigatorPanel object
+     *
+     * @return    The navigatorTree value
+     */ 
     public NavigatorTree getNavigatorTree() {
-	return navigatorTree;
+        return navigatorTree;
     }
-    
+
+    /**
+     *  Description of the Method
+     *
+     * @param  displayName  Description of the Parameter
+     */ 
     public void hostDetailsView(String displayName) {
-	navigatorCompositePanel.hostDetailsView(displayName);
+        navigatorCompositePanel.hostDetailsView(displayName);
     }
-    
+
+    /**
+     *  Description of the Method
+     */ 
     public void dropHostDetailsView() {
-	navigatorCompositePanel.dropHostDetailsView();
+        navigatorCompositePanel.dropHostDetailsView();
+    }
+
+    /**
+     *  Description of the Method
+     */ 
+    public void hostApiLevelExplorerView(String displayName) {
+        navigatorCompositePanel.hostApiLevelExplorerView(displayName);
     }
 }
 

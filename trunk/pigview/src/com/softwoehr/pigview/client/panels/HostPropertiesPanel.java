@@ -118,11 +118,11 @@ public class HostPropertiesPanel extends VerticalPanel {
      */ 
     public void initPanel() {
         clear();
-        // setSize("100%", "100%");
-	// setHorizontalAlignment(ALIGN_LEFT);
-	// setVerticalAlignment(ALIGN_TOP);
-        // textVPanel.setHorizontalAlignment(ALIGN_LEFT);
-        // textVPanel.setVerticalAlignment(ALIGN_TOP);
+        setSize("100%", "100%");
+	setHorizontalAlignment(ALIGN_LEFT);
+	setVerticalAlignment(ALIGN_TOP);
+        textVPanel.setHorizontalAlignment(ALIGN_LEFT);
+        textVPanel.setVerticalAlignment(ALIGN_TOP);
 	HorizontalPanel tempH = new HorizontalPanel();
         tempH.add(displayNameTextBox);
 	tempH.add(new Label("Display name"));
