@@ -75,6 +75,7 @@ public class HostDetailsPanel extends VerticalPanel {
     public void initPanel() {
         setSize("100%","100%");
         setHorizontalAlignment(ALIGN_LEFT);
+	setVerticalAlignment(ALIGN_TOP);
         add(hostPropertiesPanel);
     }
 }

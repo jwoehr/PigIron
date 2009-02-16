@@ -34,7 +34,11 @@ package com.softwoehr.pigview.client.panels;
 import com.softwoehr.pigview.client.panels.widgets.NavigatorTree;
 import com.softwoehr.pigview.client.enhanced.*;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -53,7 +57,9 @@ public class HostPropertiesPanel extends VerticalPanel {
     private final TextBox ipAddrTextBox = new TextBox();
     private final TextBox portNumberTextBox = new TextBox();
     private final CheckBox useSSLCheckBox = new CheckBox();
-
+    private final Button saveButton = new Button("Save");
+    private final Button restoreButton = new Button("Restore");
+    private final HorizontalPanel buttonHPanel = new HorizontalPanel();
     /**
      *Constructor for the HostPropertiesPanel object
      */ 
@@ -83,8 +89,17 @@ public class HostPropertiesPanel extends VerticalPanel {
         dnsNameTextBox.setText(PersistenceManager.getHostProperty(displayName, "DnsName"));
         ipAddrTextBox.setText(PersistenceManager.getHostProperty(displayName, "IpAddr"));
         portNumberTextBox.setText(PersistenceManager.getHostProperty(displayName, "PortNumber"));
-        useSSLCheckBox.setValue(PersistenceManager.getHostProperty(displayName,
-                 "PortNumber").equals("true") ? true : false);
+        useSSLCheckBox.setValue(PersistenceManager.getHostProperty(displayName, "UseSSL").equals("true") ? true : false);
+	saveButton.addClickHandler (new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                saveHostProperties();
+            }
+        } );
+        restoreButton.addClickHandler (new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                restoreHostProperties();
+            }
+        } );
     }
 
     /**
@@ -93,7 +108,8 @@ public class HostPropertiesPanel extends VerticalPanel {
     public void initPanel() {
         clear();
         setSize("100%", "100%");
-        setHorizontalAlignment(VerticalPanel.ALIGN_LEFT);
+        setHorizontalAlignment(ALIGN_LEFT);
+	setVerticalAlignment(ALIGN_TOP);
         add(new Label("Display name:"));
         add(displayNameTextBox);
         add(new Label("DNS name:"));
@@ -104,6 +120,13 @@ public class HostPropertiesPanel extends VerticalPanel {
         add(portNumberTextBox);
         add(new Label("Use SSL:"));
         add(useSSLCheckBox);
+	buttonHPanel.setHorizontalAlignment(buttonHPanel.ALIGN_CENTER);
+        buttonHPanel.add(saveButton);
+        buttonHPanel.add(restoreButton);
+        add(buttonHPanel);
     }
+    
+    public void saveHostProperties() {}
+    public void restoreHostProperties() {}
 }
 
