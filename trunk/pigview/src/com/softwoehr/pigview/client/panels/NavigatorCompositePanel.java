@@ -43,6 +43,7 @@ import com.softwoehr.pigview.client.panels.NavigatorPanel;
 public class NavigatorCompositePanel extends HorizontalPanel {
     
     private NavigatorPanel navigatorPanel = null;
+    private HostDetailsPanel hostDetailsPanel = null;
     
     /**
      *Constructor for the NavigatorCompositePanel object
@@ -67,6 +68,14 @@ public class NavigatorCompositePanel extends HorizontalPanel {
         setSize("100%","100%");
         setHorizontalAlignment(ALIGN_LEFT);
         add(navigatorPanel);
+    }
+    
+    public void hostDetailsView(String displayName) {
+	if (hostDetailsPanel != null) {
+	    remove(hostDetailsPanel);
+	}
+	hostDetailsPanel = new HostDetailsPanel(displayName, navigatorPanel.getNavigatorTree(), this); 
+	add(hostDetailsPanel);
     }
 }
 
