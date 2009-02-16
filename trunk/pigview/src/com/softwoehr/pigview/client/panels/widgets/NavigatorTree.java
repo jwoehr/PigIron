@@ -165,13 +165,20 @@ public class NavigatorTree extends Tree {
         root.addItem("Click the mainframe image to add a New host");
         while (hostNamesIterator.hasNext()) {
             final Label l = new Label(hostNamesIterator.next().toString());
+	    final TreeItem t = new TreeItem(l);
             l.addClickHandler (new ClickHandler() {
                 public void onClick(ClickEvent event) {
                     // l.setStyleName("gwt-TreeItem-selected");
+		    TreeItem parent = t.getParentItem();
+		    int childCount = parent.getChildCount();
+		    for(int i = 0; i < childCount; i++) {
+			parent.getChild(i).removeStyleName("gwt-TreeItem-selected");
+		    }
+		    t.setStyleName("gwt-TreeItem-selected");
                     navigatorPanel.hostDetailsView(l.getText());
                 }
             } );
-            root.addItem(new TreeItem(l));
+	    root.addItem(t);
         }
         addItem(root);
     }
