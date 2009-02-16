@@ -31,10 +31,17 @@
  */
 package com.softwoehr.pigview.client.panels;
 
-import com.softwoehr.pigview.client.panels.widgets.NavigatorTree;
+import com.softwoehr.pigview.client.enhanced.*;
+import com.softwoehr.pigview.client.panels.widgets.*;
 
+import com.google.gwt.http.client.Request;
+import com.google.gwt.http.client.RequestCallback;
+import com.google.gwt.http.client.Response;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.Window;
+
+import com.softwoehr.pigview.client.enhanced.*;
 
 /**
  *  The Host Explorer Panel is the bottom panel of the right side of the
@@ -44,7 +51,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * @author     jax
  * @created    January 30, 2009
  */
-public class HostApiLevelExplorerPanel extends HostExplorerPanel {
+public class HostApiLevelExplorerPanel extends HostExplorerPanel implements RequestCallback {
 
     /**
      *Constructor for the HostExplorerPanel object
@@ -52,16 +59,16 @@ public class HostApiLevelExplorerPanel extends HostExplorerPanel {
     protected HostApiLevelExplorerPanel() {
         super();
     }
-    
+ 
     public HostApiLevelExplorerPanel(String displayName, NavigatorTree navigatorTree, HostDetailsPanel hostDetailsPanel) {
-        super(displayName, navigatorTree, hostDetailsPanel);
+        super(displayName,navigatorTree,hostDetailsPanel);
     }
 
     /**
      *  Create all widgets to be used in the initial view.
      */ 
     public void initWidgets() {
-	
+ 
     }
 
     /**
@@ -70,11 +77,76 @@ public class HostApiLevelExplorerPanel extends HostExplorerPanel {
     public void initPanel() {
         setSize("100%","100%");
         setHorizontalAlignment(ALIGN_LEFT);
-	setVerticalAlignment(ALIGN_TOP);
+        setVerticalAlignment(ALIGN_TOP);
+    }
+ 
+    public void doIt(Object [] objects) {
+        try {
+            buildRequest().send();
+        } catch (com.google.gwt.http.client.RequestException ex) {
+            infoDialog.setText(ex.getMessage());
+            infoDialog.center();
+            infoDialog.show();
+        } catch (java.lang.NullPointerException ex) { 
+            // com.google.gwt.http.client.URL throws this on null input
+            infoDialog.setText(ex.getMessage()); 
+            infoDialog.center();
+            infoDialog.show();
+        }
+    }
+ 
+    /**
+     *  Description of the Method
+     *
+     */ 
+    public EnhancedRequestBuilder buildRequest() {
+        boolean useSSL = PersistenceManager.getHostProperty(displayName, "UseSSL").equals("true") ? true : false;
+        return EnhancedRequestBuilder.buildRequest("/piglet/PigIronServlet/engine", EnhancedRequestBuilder.Methods.PUT, jsonRequest(), this);
+    }
+ 
+    /**
+     *  Description of the Method
+     *
+     * @param  request    Description of the Parameter
+     * @param  exception  Description of the Parameter
+     */ 
+    public void onError(Request request, java.lang.Throwable exception) {
+        Window.alert(HTTP_FAILURE);
+    }
+
+    /**
+     *  Description of the Method
+     *
+     * @param  request   Description of the Parameter
+     * @param  response  Description of the Parameter
+     */ 
+    public void onResponseReceived(Request request, Response response) {
+        add(new Label(response.getText()));
     }
     
-    public void doIt(Object[] objects) {
-	add(new Label("doIt() not fully implemented yet."));
+    public String jsonRequest() {
+        String dnsName = PersistenceManager.getHostProperty(displayName, "DnsName");
+        String ipAddr = PersistenceManager.getHostProperty(displayName, "IpAddr");
+        String portNumber = PersistenceManager.getHostProperty(displayName, "PortNumber");
+        String useSSL = PersistenceManager.getHostProperty(displayName, "UseSSL");
+	String uid = PersistenceManager.getHostProperty(displayName, "Uid");
+	String password = PersistenceManager.getHostProperty(displayName, "Password");
+	StringBuffer sb = new StringBuffer("{\"function\": {\"function_name\": \"QueryAPIFunctionalLevel\", \"input_arguments\": [{ \"formal_name\": \"target_identifier\", \"value\": \"\" }], \"output_arguments\": [], \"request_id\": -1, \"result_code\": -1, \"return_code\": -1 }, \"host\": { \"dns_name\": \"");
+	sb.append(dnsName);
+	sb.append("\", \"ip_address\": \"");
+	sb.append(ipAddr);
+	sb.append("\", \"name\": \"");
+	sb.append(displayName);
+	sb.append("\", \"port_number\": ");
+	sb.append(portNumber);
+	sb.append(", \"ssl\": ");
+	sb.append(useSSL);
+	sb.append("}, \"user\": { \"password\": \"");
+	sb.append(password);
+	sb.append("\", \"uid\": \"");
+	sb.append(uid);
+	sb.append("\" } }");
+	return sb.toString();
     }
 }
 

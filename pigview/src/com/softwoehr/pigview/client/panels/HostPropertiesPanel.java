@@ -41,6 +41,7 @@ import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
@@ -57,6 +58,8 @@ public class HostPropertiesPanel extends VerticalPanel {
     private final TextBox dnsNameTextBox = new TextBox();
     private final TextBox ipAddrTextBox = new TextBox();
     private final TextBox portNumberTextBox = new TextBox();
+    private final TextBox uidTextBox = new TextBox();
+    private final TextBox passwordTextBox = new PasswordTextBox();
     private final CheckBox useSSLCheckBox = new CheckBox();
     private final Button saveButton = new Button("Save");
     private final Button restoreButton = new Button("Restore");
@@ -77,9 +80,7 @@ public class HostPropertiesPanel extends VerticalPanel {
      * @param  navigatorTree  Description of the Parameter
      * @param  displayName    Description of the Parameter
      */ 
-    public HostPropertiesPanel(String displayName,
-             NavigatorTree navigatorTree) {
-
+    public HostPropertiesPanel(String displayName, NavigatorTree navigatorTree) {
         super();
         this.displayName = displayName;
         this.navigatorTree = navigatorTree;
@@ -95,6 +96,8 @@ public class HostPropertiesPanel extends VerticalPanel {
         dnsNameTextBox.setText(PersistenceManager.getHostProperty(displayName, "DnsName"));
         ipAddrTextBox.setText(PersistenceManager.getHostProperty(displayName, "IpAddr"));
         portNumberTextBox.setText(PersistenceManager.getHostProperty(displayName, "PortNumber"));
+	uidTextBox.setText(PersistenceManager.getHostProperty(displayName, "Uid"));
+	passwordTextBox.setText(PersistenceManager.getHostProperty(displayName, "Password"));
         useSSLCheckBox.setValue(PersistenceManager.getHostProperty(displayName, "UseSSL").equals("true") ? true : false);
         saveButton.addClickHandler (new ClickHandler() {
             public void onClick(ClickEvent event) {
@@ -140,6 +143,14 @@ public class HostPropertiesPanel extends VerticalPanel {
 	tempH.add(new Label("Port number"));
 	textVPanel.add(tempH);
 	tempH = new HorizontalPanel();
+	tempH.add(uidTextBox);
+	tempH.add(new Label("User name"));
+	textVPanel.add(tempH);
+	tempH = new HorizontalPanel();
+	tempH.add(passwordTextBox);
+	tempH.add(new Label("Password"));
+	textVPanel.add(tempH);
+	tempH = new HorizontalPanel();
         tempH.add(useSSLCheckBox);
 	tempH.add(new Label("Use SSL"));
 	textVPanel.add(tempH);
@@ -155,8 +166,16 @@ public class HostPropertiesPanel extends VerticalPanel {
      *  Description of the Method
      */ 
     public void saveHostProperties() {
-        navigatorTree.saveHost(displayNameTextBox.getText(),
-                 dnsNameTextBox.getText(), ipAddrTextBox.getText(), portNumberTextBox.getText(), useSSLCheckBox.getValue());
+        navigatorTree.saveHost
+		(
+		displayNameTextBox.getText()
+		, dnsNameTextBox.getText()
+		, ipAddrTextBox.getText()
+		, portNumberTextBox.getText()
+		, uidTextBox.getText()
+		, passwordTextBox.getText()
+		, useSSLCheckBox.getValue()
+		);
 
     }
 
@@ -168,6 +187,8 @@ public class HostPropertiesPanel extends VerticalPanel {
         dnsNameTextBox.setText(PersistenceManager.getHostProperty(displayName, "DnsName"));
         ipAddrTextBox.setText(PersistenceManager.getHostProperty(displayName, "IpAddr"));
         portNumberTextBox.setText(PersistenceManager.getHostProperty(displayName, "PortNumber"));
+	uidTextBox.setText(PersistenceManager.getHostProperty(displayName, "Uid"));
+	passwordTextBox.setText(PersistenceManager.getHostProperty(displayName, "Password"));
         useSSLCheckBox.setValue(PersistenceManager.getHostProperty(displayName, "UseSSL").equals("true") ? true : false);
     }
 

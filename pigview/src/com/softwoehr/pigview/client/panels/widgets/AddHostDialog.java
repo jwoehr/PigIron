@@ -39,6 +39,7 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -61,6 +62,8 @@ public class AddHostDialog extends DialogBox {
     private final TextBox dnsNameTextBox = new TextBox();
     private final TextBox ipAddrTextBox = new TextBox();
     private final TextBox portNumberTextBox = new TextBox();
+    private final TextBox uidTextBox = new TextBox();
+    private final TextBox passwordTextBox = new PasswordTextBox();
     private final CheckBox useSSLCheckBox = new CheckBox();
 
     private final Button addButton = new Button("Add");
@@ -118,6 +121,10 @@ public class AddHostDialog extends DialogBox {
         dialogTopPanel.add(ipAddrTextBox);
         dialogTopPanel.add(new Label("Port number:"));
         dialogTopPanel.add(portNumberTextBox);
+	dialogTopPanel.add(new Label("User id:"));
+	dialogTopPanel.add(uidTextBox);
+	dialogTopPanel.add(new Label("Password (stored in plaintext in a cookie in your browser):"));
+	dialogTopPanel.add(passwordTextBox );
         dialogTopPanel.add(new Label("Use SSL:"));
         dialogTopPanel.add(useSSLCheckBox);
         buttonHPanel.setHorizontalAlignment(buttonHPanel.ALIGN_CENTER);
@@ -140,6 +147,8 @@ public class AddHostDialog extends DialogBox {
         dnsNameTextBox.setText("");
         ipAddrTextBox.setText("");
         portNumberTextBox.setText("");
+	uidTextBox.setText("");
+	passwordTextBox.setText("");
         useSSLCheckBox.setValue(false);
     }
 
@@ -159,6 +168,8 @@ public class AddHostDialog extends DialogBox {
     public String getDnsName () { return dnsNameTextBox.getText(); }
     public String getIpAddr () { return ipAddrTextBox.getText(); }
     public String getPortNumber () { return portNumberTextBox.getText(); }
+    public String getUid () { return uidTextBox.getText(); }
+    public String getPassword () { return passwordTextBox.getText(); }
     public boolean getUseSSL () { return useSSLCheckBox.getValue(); }
 }
 

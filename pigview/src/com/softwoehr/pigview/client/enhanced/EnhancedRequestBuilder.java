@@ -41,6 +41,8 @@ import com.google.gwt.http.client.*;
  * @created    January 19, 2009
  */
 public class EnhancedRequestBuilder {
+ 
+    public static enum Methods { POST, PUT } ;
 
     private RequestCallback requestCallback = null;
     private RequestBuilder requestBuilder = null;
@@ -185,6 +187,30 @@ public class EnhancedRequestBuilder {
                  java.lang.String url) {
             super(httpMethodString,url);
         }
+    }
+ 
+    /**
+     *  Description of the Method
+     *
+     * @param  url        Description of the Parameter
+     * @param  requestor  Description of the Parameter
+     */ 
+    public static EnhancedRequestBuilder buildRequest(String url, Methods method, String requestor, RequestCallback requestCallback) {
+
+        EnhancedRequestBuilder requestBuilder = null;
+        if (method == Methods.POST) {
+            requestBuilder = new EnhancedRequestBuilder(RequestBuilder.POST, url, requestCallback);
+            requestBuilder.appendParameter("requestor", requestor);
+        } else {
+            if (method == Methods.PUT) {
+                requestBuilder = new EnhancedRequestBuilder("PUT", url, requestCallback);
+                requestBuilder.setRequestData(requestor);
+            }
+	    else {
+		// some weird error here
+	    }
+        }
+        return requestBuilder;
     }
 }
 
