@@ -31,12 +31,6 @@
  */
 package com.softwoehr.pigview.client.panels;
 
-// import com.google.gwt.user.client.ui.CheckBox;
-// import com.google.gwt.user.client.ui.Image;
-// import com.google.gwt.user.client.ui.Tree;
-// import com.google.gwt.user.client.ui.TreeItem;
-// import com.google.gwt.user.client.ui.VerticalPanel;
-
 import com.softwoehr.pigview.client.panels.widgets.NavigatorTree;
 
 /**
@@ -46,7 +40,6 @@ import com.softwoehr.pigview.client.panels.widgets.NavigatorTree;
  * @created    January 30, 2009
  */
 public class NavigatorPanel extends PigViewBasicPanel {
-    // private Image mainframeImage = null;
     private NavigatorTree navigatorTree = null;
 
     /**
@@ -61,7 +54,6 @@ public class NavigatorPanel extends PigViewBasicPanel {
      */ 
     public void initWidgets() {
         super.initWidgets();
-        // mainframeImage = new Image("images/mainframe.png");
         initTree();
     }
 
@@ -69,9 +61,8 @@ public class NavigatorPanel extends PigViewBasicPanel {
      *  Layout the panel for the initial view.
      */ 
     public void initPanel() {
-        setWidth("100%");
+        setSize("100%","100%");
         setHorizontalAlignment(ALIGN_LEFT);
-        // add(mainframeImage);
         add(navigatorTree);
     }
 
@@ -80,16 +71,6 @@ public class NavigatorPanel extends PigViewBasicPanel {
      */ 
     private void initTree() {
 	navigatorTree = new NavigatorTree();
-	
-        /* TreeItem root = new TreeItem("root");
-        root.addItem("item0");
-        root.addItem("item1");
-        root.addItem("item2");
-        // Add a CheckBox to the tree
-        TreeItem item = new TreeItem(new CheckBox("item3"));
-        root.addItem(item);
-        tree = new Tree();
-        tree.addItem(root); */
     }
 }
 
