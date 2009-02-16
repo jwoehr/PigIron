@@ -93,5 +93,9 @@ public class NavigatorCompositePanel extends HorizontalPanel {
             hostDetailsPanel = null;
         }
     }
+    
+    public void hostApiLevelExplorerView(String displayName) {
+	hostDetailsPanel.hostApiLevelExplorerView(displayName);
+    }
 }
 
