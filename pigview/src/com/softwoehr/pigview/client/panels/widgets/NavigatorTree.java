@@ -178,9 +178,34 @@ public class NavigatorTree extends Tree {
                     navigatorPanel.hostDetailsView(l.getText());
                 }
             } );
+	    addOperations(t);
 	    root.addItem(t);
         }
         addItem(root);
     }
+    
+   /**                                                                                                                                                                                                                                                                             
+     *  Adds a feature to the Operations attribute of the NavigatorTree object                                                                                                                                                                                                      
+     *                                                                                                                                                                                                                                                                              
+     * @param  treeItem  The feature to be added to the Operations attribute                                                                                                                                                                                                        
+     */                                                                                                                                                                                                                                                                             
+    public void addOperations(TreeItem treeItem) {                                                                                                                                                                                                                                  
+        /*                                                                                                                                                                                                                                                                          
+         *  Vector<String> operations = new Vector<String>();                                                                                                                                                                                                                       
+         *  Iterator<String> it = operations.iterator();                                                                                                                                                                                                                            
+         */                                                                                                                                                                                                                                                                         
+        /*                                                                                                                                                                                                                                                                          
+         *  final                                                                                                                                                                                                                                                                   
+         */                                                                                                                                                                                                                                                                         
+        Label l = new Label("Images");                                                                                                                                                                                                                                              
+        /*                                                                                                                                                                                                                                                                          
+         *  final                                                                                                                                                                                                                                                                   
+         */                                                                                                                                                                                                                                                                         
+        TreeItem t = new TreeItem(l);                                                                                                                                                                                                                                               
+        treeItem.addItem(t);                                                                                                                                                                                                                                                        
+        l = new Label("API Level");                                                                                                                                                                                                                                                 
+        t = new TreeItem(l);                                                                                                                                                                                                                                                        
+        treeItem.addItem(t);                                                                                                                                                                                                                                                        
+    }  
 }
 
