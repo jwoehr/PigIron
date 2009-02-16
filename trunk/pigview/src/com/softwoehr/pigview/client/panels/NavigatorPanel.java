@@ -83,5 +83,9 @@ public class NavigatorPanel extends VerticalPanel {
     public void hostDetailsView(String displayName) {
 	navigatorCompositePanel.hostDetailsView(displayName);
     }
+    
+    public void dropHostDetailsView() {
+	navigatorCompositePanel.dropHostDetailsView();
+    }
 }
 

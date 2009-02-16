@@ -101,6 +101,17 @@ public class NavigatorTree extends Tree {
         ensureSelectedItemVisible();
     }
 
+    public void deleteHost(String displayName) {
+        PersistenceManager.remove("host.DisplayName." + displayName);
+	PersistenceManager.removeHostProperty(displayName, "DnsName");
+	PersistenceManager.removeHostProperty(displayName, "IpAddr");
+	PersistenceManager.removeHostProperty(displayName, "PortNumber");
+	PersistenceManager.removeHostProperty(displayName, "UseSSL");
+	rebuildTree();
+        setSelectedItem(null);
+	navigatorPanel.dropHostDetailsView();
+    }
+    
     /**
      *  Description of the Method
      *
