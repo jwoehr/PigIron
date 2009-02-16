@@ -50,7 +50,8 @@ public class PersistenceManager {
     /**
      *  Prefix on cookies set by persistence management
      */ 
-    public static final String PREFIX = "PigView:";
+    public static final String PREFIX = "PigView.";
+
     /**
      *  2030-01-01 is as close to forever as we need to go now.
      */ 
