@@ -67,6 +67,7 @@ public class NavigatorCompositePanel extends HorizontalPanel {
     public void initPanel() {
         setSize("100%", "100%");
         setHorizontalAlignment(ALIGN_LEFT);
+	setVerticalAlignment(ALIGN_TOP);
         add(navigatorPanel);
     }
 
