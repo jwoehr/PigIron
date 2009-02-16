@@ -29,37 +29,44 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  *  THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.softwoehr.pigview.client;
+package com.softwoehr.pigview.client.panels;
 
-import com.google.gwt.core.client.EntryPoint;
-// import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.DecoratedTabPanel;
-import com.softwoehr.pigview.client.panels.*;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.softwoehr.pigview.client.panels.NavigatorPanel;
 
 /**
- * Entry point classes define <code>onModuleLoad()</code>.
+ *  The navigator lives in this panel on the nav tab.
+ *
+ * @author     jax
+ * @created    January 30, 2009
  */
-public class Main implements EntryPoint {
+public class NavigatorCompositePanel extends HorizontalPanel {
+    
+    private NavigatorPanel navigatorPanel = null;
+    
+    /**
+     *Constructor for the NavigatorCompositePanel object
+     */ 
+    public NavigatorCompositePanel() {
+        super();
+	initWidgets();
+	initPanel();
+    }
 
     /**
-     * This is the entry point method.
-     */
-    public void onModuleLoad() {
+     *  Create all widgets to be used in the initial view.
+     */ 
+    public void initWidgets() {
+        navigatorPanel = new NavigatorPanel();
+    }
 
-        // BuilderPanel builderPanel = new BuilderPanel();
-	NavigatorCompositePanel navigatorCompositePanel = new NavigatorCompositePanel();
-	ComposerPanel composerPanel = new ComposerPanel();
-	InputPanel inputPanel = new InputPanel();
-	PreferencesPanel preferencesPanel = new PreferencesPanel();
-	DecoratedTabPanel dtp = new DecoratedTabPanel();
-	// dtp.add(builderPanel, "Build a VSMAPI call");
-	dtp.add(navigatorCompositePanel, "Navigator");
-	dtp.add(composerPanel, "Composer");
-        dtp.add(inputPanel, "JSON Input");
-	dtp.add(preferencesPanel, "Preferences");
-        dtp.selectTab(0);
-	dtp.setSize("100%","100%");
-        RootPanel.get().add(dtp);
+    /**
+     *  Layout the panel for the initial view.
+     */ 
+    public void initPanel() {
+        setSize("100%","100%");
+        setHorizontalAlignment(ALIGN_LEFT);
+        add(navigatorPanel);
     }
 }
+
