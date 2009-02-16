@@ -31,8 +31,8 @@
  */
 package com.softwoehr.pigview.client.panels;
 
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.softwoehr.pigview.client.panels.NavigatorPanel;
+import com.softwoehr.pigview.client.panels.widgets.NavigatorTree;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  *  The navigator lives in this panel on the nav tab.
@@ -40,15 +40,24 @@ import com.softwoehr.pigview.client.panels.NavigatorPanel;
  * @author     jax
  * @created    January 30, 2009
  */
-public class NavigatorCompositePanel extends HorizontalPanel {
-    
-    private NavigatorPanel navigatorPanel = null;
-    
+public class HostDetailsPanel extends VerticalPanel {
+    private String displayName = null;
+    private NavigatorTree navigatorTree = null;
+    private NavigatorCompositePanel navigatorCompositePanel = null;
+    private HostPropertiesPanel hostPropertiesPanel = null;
+
     /**
-     *Constructor for the NavigatorCompositePanel object
+     *Constructor for the HostDetailsPanel object
      */ 
-    public NavigatorCompositePanel() {
+    protected HostDetailsPanel() {
         super();
+    }
+    
+    public HostDetailsPanel(String displayName, NavigatorTree navigatorTree, NavigatorCompositePanel navigatorCompositePanel) {
+        super();
+	this.displayName = displayName;
+	this.navigatorTree = navigatorTree;
+	this.navigatorCompositePanel = navigatorCompositePanel;
 	initWidgets();
 	initPanel();
     }
@@ -57,7 +66,7 @@ public class NavigatorCompositePanel extends HorizontalPanel {
      *  Create all widgets to be used in the initial view.
      */ 
     public void initWidgets() {
-        navigatorPanel = new NavigatorPanel(this);
+	hostPropertiesPanel = new HostPropertiesPanel(displayName, navigatorTree); 
     }
 
     /**
@@ -66,7 +75,7 @@ public class NavigatorCompositePanel extends HorizontalPanel {
     public void initPanel() {
         setSize("100%","100%");
         setHorizontalAlignment(ALIGN_LEFT);
-        add(navigatorPanel);
+        add(hostPropertiesPanel);
     }
 }
 

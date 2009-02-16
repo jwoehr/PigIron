@@ -118,5 +118,26 @@ public class PersistenceManager {
         }
         return hostNameCollection;
     }
+
+    /**
+     *  Gets the host's named property
+     *
+     * @param  displayName   display name of host
+     * @param  propertyName  name of persistent property
+     * @return               The host property value
+     */ 
+    public static String getHostProperty(String displayName, String propertyName) {
+        return fetch("host." + displayName + "." + propertyName);
+    }
+ 
+    /**
+     *  Sets the host's named property
+     *
+     * @param  displayName   display name of host
+     * @param  propertyName  name of persistent property
+     */ 
+    public static void setHostProperty(String displayName, String propertyName, String value) {
+        persist("host." + displayName + "." + propertyName, value);
+    }
 }
 

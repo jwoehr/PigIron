@@ -68,7 +68,7 @@ public class NavigatorTree extends Tree {
      */ 
     public void initItems() {
         mainframeImage = new Image("images/mainframe.png");
-        mainframeImage.addClickHandler (new ClickHandler() {
+        mainframeImage.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
                 addHostDialog.setHTML("<center>Add Host to View</center>");
                 addHostDialog.center();
@@ -97,20 +97,13 @@ public class NavigatorTree extends Tree {
      */ 
     public void addHost(AddHostDialog dialog) {
         String displayName = dialog.getDisplayName();
-        PersistenceManager.persist("host.DisplayName." + displayName,
-                 displayName);
-
-        String radix = "host." + displayName;
-        PersistenceManager.persist(radix + ".DnsName", dialog.getDnsName());
-        PersistenceManager.persist(radix + ".IpAddr", dialog.getIpAddr());
-        PersistenceManager.persist(radix + ".PortNumber",
-                 dialog.getPortNumber());
-
-        PersistenceManager.persist(radix + ".UseSSL",
-                 dialog.getUseSSL() ? "true" : "false");
-
+        PersistenceManager.persist("host.DisplayName." + displayName, displayName);
+	PersistenceManager.setHostProperty(displayName, "DnsName", dialog.getDnsName());
+	PersistenceManager.setHostProperty(displayName, "IpAddr", dialog.getIpAddr());
+	PersistenceManager.setHostProperty(displayName, "PortNumber", dialog.getPortNumber());
+	PersistenceManager.setHostProperty(displayName, "UseSSL", dialog.getUseSSL() ? "true" : "false");
         rebuildTree();
-        setSelectedItem(findHost(displayName));
+        setSelectedItem(findHostInTree(displayName));
         ensureSelectedItemVisible();
     }
 
@@ -120,7 +113,7 @@ public class NavigatorTree extends Tree {
      * @param  displayName  Description of the Parameter
      * @return              Description of the Return Value
      */ 
-    public TreeItem findHost(String displayName) {
+    public TreeItem findHostInTree(String displayName) {
         TreeItem result = null;
         for (int i = 0; i < root.getChildCount(); i++) {
             TreeItem found = root.getChild(i);
@@ -130,7 +123,7 @@ public class NavigatorTree extends Tree {
                 break;
             }
         }
-	return result;
+        return result;
     }
 
     /**
