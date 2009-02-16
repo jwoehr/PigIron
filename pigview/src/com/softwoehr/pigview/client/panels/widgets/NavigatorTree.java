@@ -41,6 +41,9 @@ import com.google.gwt.user.client.ui.TreeItem;
 // import com.google.gwt.user.client.ui.Widget;
 import com.softwoehr.pigview.client.enhanced.*;
 
+// import java.util.Collection;
+import java.util.Iterator;
+
 /**
  * Represents the tree view of the navigator
  *
@@ -51,7 +54,7 @@ public class NavigatorTree extends Tree {
     private Image mainframeImage = new Image("images/mainframe.png");
     private final AddHostDialog addHostDialog = new AddHostDialog(this);
     private TreeItem root = null;
- 
+
     /**
      *Constructor for the NavigatorTree object
      */ 
@@ -65,25 +68,83 @@ public class NavigatorTree extends Tree {
      */ 
     public void initItems() {
         mainframeImage = new Image("images/mainframe.png");
-        mainframeImage.addClickHandler(new ClickHandler() {
+        mainframeImage.addClickHandler (new ClickHandler() {
             public void onClick(ClickEvent event) {
                 addHostDialog.setHTML("<center>Add Host to View</center>");
                 addHostDialog.center();
                 addHostDialog.show();
             }
         } );
+        rebuildTree();
+        setSelectedItem(getItem(0));
+        ensureSelectedItemVisible();
+    }
+
+    /**
+     *  Adds a feature to the Host attribute of the NavigatorTree object
+     *
+     * @param  displayName  The feature to be added to the Host attribute
+     * @return              Description of the Return Value
+     */ 
+    public TreeItem addHost(String displayName) {
+        return root.addItem(displayName);
+    }
+
+    /**
+     *  Adds a feature to the Host attribute of the NavigatorTree object
+     *
+     * @param  dialog  The feature to be added to the Host attribute
+     */ 
+    public void addHost(AddHostDialog dialog) {
+        String displayName = dialog.getDisplayName();
+        PersistenceManager.persist("host.DisplayName." + displayName,
+                 displayName);
+
+        String radix = "host." + displayName;
+        PersistenceManager.persist(radix + ".DnsName", dialog.getDnsName());
+        PersistenceManager.persist(radix + ".IpAddr", dialog.getIpAddr());
+        PersistenceManager.persist(radix + ".PortNumber",
+                 dialog.getPortNumber());
+
+        PersistenceManager.persist(radix + ".UseSSL",
+                 dialog.getUseSSL() ? "true" : "false");
+
+        rebuildTree();
+        setSelectedItem(findHost(displayName));
+        ensureSelectedItemVisible();
+    }
+
+    /**
+     *  Description of the Method
+     *
+     * @param  displayName  Description of the Parameter
+     * @return              Description of the Return Value
+     */ 
+    public TreeItem findHost(String displayName) {
+        TreeItem result = null;
+        for (int i = 0; i < root.getChildCount(); i++) {
+            TreeItem found = root.getChild(i);
+            String text = found.getText();
+            if (text != null & text.equals(displayName)) {
+                result = found;
+                break;
+            }
+        }
+	return result;
+    }
+
+    /**
+     *  Description of the Method
+     */ 
+    public void rebuildTree() {
+        clear();
+        Iterator hostNamesIterator = PersistenceManager.hostNames().iterator();
         root = new TreeItem(mainframeImage);
         root.addItem("Click the mainframe image to add a New host");
+        while (hostNamesIterator.hasNext()) {
+            root.addItem(hostNamesIterator.next().toString());
+        }
         addItem(root);
-        /*
-         *  TreeItem root = new TreeItem("Hosts");
-         *  root.addItem(new Image("images/mainframe.png"));
-         *  addItem(root);
-         */ 
-    }
-    
-    public TreeItem addHost (String displayName) {
-	return root.addItem(displayName);
     }
 }
 
