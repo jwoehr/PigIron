@@ -60,6 +60,8 @@ public class NavigatorTree extends Tree {
 
     /**
      *Constructor for the NavigatorTree object
+     *
+     * @param  navigatorPanel  Description of the Parameter
      */ 
     public NavigatorTree(NavigatorPanel navigatorPanel) {
         super();
@@ -72,7 +74,7 @@ public class NavigatorTree extends Tree {
      */ 
     public void initItems() {
         mainframeImage = new Image("images/mainframe.png");
-        mainframeImage.addClickHandler(new ClickHandler() {
+        mainframeImage.addClickHandler (new ClickHandler() {
             public void onClick(ClickEvent event) {
                 addHostDialog.setHTML("<center>Add Host to View</center>");
                 addHostDialog.center();
@@ -90,28 +92,50 @@ public class NavigatorTree extends Tree {
      * @param  dialog  The feature to be added to the Host attribute
      */ 
     public void addHost(AddHostDialog dialog) {
-        String displayName = dialog.getDisplayName();
-        PersistenceManager.persist("host.DisplayName." + displayName, displayName);
-        PersistenceManager.setHostProperty(displayName, "DnsName", dialog.getDnsName());
-        PersistenceManager.setHostProperty(displayName, "IpAddr", dialog.getIpAddr());
-        PersistenceManager.setHostProperty(displayName, "PortNumber", dialog.getPortNumber());
-        PersistenceManager.setHostProperty(displayName, "UseSSL", dialog.getUseSSL() ? "true" : "false");
+        saveHost(dialog.getDisplayName(), dialog.getDnsName(),
+                 dialog.getIpAddr(), dialog.getPortNumber(), dialog.getUseSSL());
+    }
+
+    /**
+     *  Description of the Method
+     *
+     * @param  displayName  Description of the Parameter
+     * @param  dnsName      Description of the Parameter
+     * @param  ipAddr       Description of the Parameter
+     * @param  portNumber   Description of the Parameter
+     * @param  useSSL       Description of the Parameter
+     */ 
+    public void saveHost(String displayName, String dnsName, String ipAddr,
+             String portNumber, boolean useSSL) {
+        PersistenceManager.persist("host.DisplayName." + displayName,
+                 displayName);
+        PersistenceManager.setHostProperty(displayName, "DnsName", dnsName);
+        PersistenceManager.setHostProperty(displayName, "IpAddr", ipAddr);
+        PersistenceManager.setHostProperty(displayName, "PortNumber",
+                 portNumber);
+        PersistenceManager.setHostProperty(displayName, "UseSSL",
+                 useSSL ? "true" : "false");
         rebuildTree();
         setSelectedItem(findHostInTree(displayName));
         ensureSelectedItemVisible();
     }
 
+    /**
+     *  Description of the Method
+     *
+     * @param  displayName  Description of the Parameter
+     */ 
     public void deleteHost(String displayName) {
         PersistenceManager.remove("host.DisplayName." + displayName);
-	PersistenceManager.removeHostProperty(displayName, "DnsName");
-	PersistenceManager.removeHostProperty(displayName, "IpAddr");
-	PersistenceManager.removeHostProperty(displayName, "PortNumber");
-	PersistenceManager.removeHostProperty(displayName, "UseSSL");
-	rebuildTree();
+        PersistenceManager.removeHostProperty(displayName, "DnsName");
+        PersistenceManager.removeHostProperty(displayName, "IpAddr");
+        PersistenceManager.removeHostProperty(displayName, "PortNumber");
+        PersistenceManager.removeHostProperty(displayName, "UseSSL");
+        rebuildTree();
         setSelectedItem(null);
-	navigatorPanel.dropHostDetailsView();
+        navigatorPanel.dropHostDetailsView();
     }
-    
+
     /**
      *  Description of the Method
      *
@@ -141,14 +165,14 @@ public class NavigatorTree extends Tree {
         root.addItem("Click the mainframe image to add a New host");
         while (hostNamesIterator.hasNext()) {
             final Label l = new Label(hostNamesIterator.next().toString());
-            l.addClickHandler(new ClickHandler() {
+            l.addClickHandler (new ClickHandler() {
                 public void onClick(ClickEvent event) {
-		    // l.setStyleName("gwt-TreeItem-selected");
+                    // l.setStyleName("gwt-TreeItem-selected");
                     navigatorPanel.hostDetailsView(l.getText());
                 }
             } );
             root.addItem(new TreeItem(l));
-        } 
+        }
         addItem(root);
     }
 }
