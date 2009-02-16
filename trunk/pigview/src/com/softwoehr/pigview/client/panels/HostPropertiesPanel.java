@@ -61,6 +61,7 @@ public class HostPropertiesPanel extends VerticalPanel {
     private final Button saveButton = new Button("Save");
     private final Button restoreButton = new Button("Restore");
     private final Button deleteButton = new Button("Delete");
+    private final VerticalPanel textVPanel = new VerticalPanel();
     private final HorizontalPanel buttonHPanel = new HorizontalPanel();
 
     /**
@@ -117,23 +118,36 @@ public class HostPropertiesPanel extends VerticalPanel {
      */ 
     public void initPanel() {
         clear();
-        setSize("100%", "100%");
-        setHorizontalAlignment(ALIGN_LEFT);
-        setVerticalAlignment(ALIGN_TOP);
-        add(new Label("Display name:"));
-        add(displayNameTextBox);
-        add(new Label("DNS name:"));
-        add(dnsNameTextBox);
-        add(new Label("IP Address (ignored if DNS Name is present):"));
-        add(ipAddrTextBox);
-        add(new Label("Port number:"));
-        add(portNumberTextBox);
-        add(new Label("Use SSL:"));
-        add(useSSLCheckBox);
+        // setSize("100%", "100%");
+	// setHorizontalAlignment(ALIGN_LEFT);
+	// setVerticalAlignment(ALIGN_TOP);
+        // textVPanel.setHorizontalAlignment(ALIGN_LEFT);
+        // textVPanel.setVerticalAlignment(ALIGN_TOP);
+	HorizontalPanel tempH = new HorizontalPanel();
+        tempH.add(displayNameTextBox);
+	tempH.add(new Label("Display name"));
+	textVPanel.add(tempH);
+	tempH = new HorizontalPanel();
+        tempH.add(dnsNameTextBox);
+	tempH.add(new Label("DNS name"));
+	textVPanel.add(tempH);
+	tempH = new HorizontalPanel();
+        tempH.add(ipAddrTextBox);
+	tempH.add(new Label("IP Address (ignored if DNS Name is present)"));
+	textVPanel.add(tempH);
+	tempH = new HorizontalPanel();
+        tempH.add(portNumberTextBox);
+	tempH.add(new Label("Port number"));
+	textVPanel.add(tempH);
+	tempH = new HorizontalPanel();
+        tempH.add(useSSLCheckBox);
+	tempH.add(new Label("Use SSL"));
+	textVPanel.add(tempH);
         buttonHPanel.setHorizontalAlignment(buttonHPanel.ALIGN_CENTER);
         buttonHPanel.add(saveButton);
         buttonHPanel.add(restoreButton);
         buttonHPanel.add(deleteButton);
+	add(textVPanel);
         add(buttonHPanel);
     }
 
