@@ -53,24 +53,26 @@ import com.softwoehr.pigview.client.enhanced.*;
 public class AddHostDialog extends DialogBox {
 
     private final HorizontalPanel buttonHPanel = new HorizontalPanel();
-    // private final HorizontalPanel hostNameHPanel = new HorizontalPanel();
-    // private final HorizontalPanel hostAddressHPanel = new HorizontalPanel();
     private final VerticalPanel dialogVPanel = new VerticalPanel();
- 
+    private final VerticalPanel dialogTopPanel = new VerticalPanel();
+    private final VerticalPanel dialogBottomPanel = new VerticalPanel();
+
     private final TextBox displayNameTextBox = new TextBox();
     private final TextBox dnsNameTextBox = new TextBox();
     private final TextBox ipAddrTextBox = new TextBox();
     private final TextBox portNumberTextBox = new TextBox();
     private final CheckBox useSSLCheckBox = new CheckBox();
- 
+
     private final Button addButton = new Button("Add");
     private final Button clearButton = new Button("Clear");
     private final Button cancelButton = new Button("Cancel");
- 
+
     private final NavigatorTree associatedNavigatorTree;
- 
+
     /**
      *Constructor for the AddHostDialog object
+     *
+     * @param  associatedNavigatorTree  Description of the Parameter
      */ 
     public AddHostDialog(NavigatorTree associatedNavigatorTree) {
         super();
@@ -80,18 +82,22 @@ public class AddHostDialog extends DialogBox {
     }
 
     /**
-     *  Description of the Method
+     *  Create and set up the widgets used in the dialog.
      */ 
     public void initWidgets() {
         setAnimationEnabled(true);
-        addButton.addClickHandler(new ClickHandler() {
+        addButton.addClickHandler (new ClickHandler() {
             public void onClick(ClickEvent event) {
-                associatedNavigatorTree.setSelectedItem(associatedNavigatorTree.addHost(displayNameTextBox.getText()));
-                associatedNavigatorTree.ensureSelectedItemVisible();
+                addHost();
                 hide();
             }
         } );
-        cancelButton.addClickHandler(new ClickHandler() {
+        clearButton.addClickHandler (new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                clearDialog();
+            }
+        } );
+        cancelButton.addClickHandler (new ClickHandler() {
             public void onClick(ClickEvent event) {
                 hide();
             }
@@ -99,40 +105,53 @@ public class AddHostDialog extends DialogBox {
     }
 
     /**
-     *  Description of the Method
+     *  Layout the dialog panel.
      */ 
-    public void initDialogPanel() { 
-        dialogVPanel.setWidth("100%");
-        dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_LEFT);
-        dialogVPanel.add(new Label("Display name "));
-        dialogVPanel.add(displayNameTextBox);
-        dialogVPanel.add(new Label("DNS name "));
-        dialogVPanel.add(dnsNameTextBox);
-        dialogVPanel.add(new Label("IP Address (ignored if DNS Name is present) "));
-        dialogVPanel.add(ipAddrTextBox);
-        dialogVPanel.add(new Label("Port number "));
-        dialogVPanel.add(portNumberTextBox);
-        dialogVPanel.add(new Label("Use SSL "));
-        dialogVPanel.add(useSSLCheckBox);
-/* 	hostNameHPanel.add(new Label("Display name "));
-        hostNameHPanel.add(displayNameTextBox);
-        hostNameHPanel.add(new Label("DNS name "));
-        hostNameHPanel.add(dnsNameTextBox);
-        hostAddressHPanel.add(new Label("IP Address (ignored if DNS Name is present) "));
-        hostAddressHPanel.add(ipAddrTextBox);
-        hostAddressHPanel.add(new Label("Port number "));
-        hostAddressHPanel.add(portNumberTextBox);
-        hostAddressHPanel.add(new Label("Use SSL "));
-        hostAddressHPanel.add(useSSLCheckBox);
- */
+    public void initDialogPanel() {
+        dialogTopPanel.setWidth("100%");
+        dialogTopPanel.setHorizontalAlignment(VerticalPanel.ALIGN_LEFT);
+        dialogTopPanel.add(new Label("Display name "));
+        dialogTopPanel.add(displayNameTextBox);
+        dialogTopPanel.add(new Label("DNS name "));
+        dialogTopPanel.add(dnsNameTextBox);
+        dialogTopPanel.add(new Label("IP Address (ignored if DNS Name is present) "));
+        dialogTopPanel.add(ipAddrTextBox);
+        dialogTopPanel.add(new Label("Port number "));
+        dialogTopPanel.add(portNumberTextBox);
+        dialogTopPanel.add(new Label("Use SSL "));
+        dialogTopPanel.add(useSSLCheckBox);
         buttonHPanel.setHorizontalAlignment(buttonHPanel.ALIGN_CENTER);
-	buttonHPanel.add(addButton);
+        buttonHPanel.add(addButton);
         buttonHPanel.add(clearButton);
         buttonHPanel.add(cancelButton);
-        // dialogVPanel.add(hostNameHPanel);
-        // dialogVPanel.add(hostAddressHPanel);
-        dialogVPanel.add(buttonHPanel);
+        dialogBottomPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
+        dialogBottomPanel.add(buttonHPanel);
+	dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
+        dialogVPanel.add(dialogTopPanel);
+        dialogVPanel.add(dialogBottomPanel);
         setWidget(dialogVPanel);
+    }
+
+    /**
+     *  Blank the fields of the dialog.
+     */ 
+    protected void clearDialog() {
+        displayNameTextBox.setText("");
+        dnsNameTextBox.setText("");
+        ipAddrTextBox.setText("");
+        portNumberTextBox.setText("");
+        useSSLCheckBox.setValue(false);
+    }
+
+    /**
+     *  Adds Host to the tree from the contents of the dialog.
+     */ 
+    protected void addHost() {
+        String text = displayNameTextBox.getText();
+        if (text != null & ! text.equals("")) {
+            associatedNavigatorTree.setSelectedItem(associatedNavigatorTree.addHost(displayNameTextBox.getText()));
+            associatedNavigatorTree.ensureSelectedItemVisible();
+        }
     }
 }
 
