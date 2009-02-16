@@ -54,7 +54,7 @@ public class PersistenceManager {
     /**
      *  2030-01-01 is as close to forever as we need to go now.
      */ 
-    public static final Date FOREVER = new Date(2030, 1, 1);
+    public static final Date FOREVER = new Date(2018, 1, 1);
 
     /**
      * Constructor for the PersistenceManager object is not used.
@@ -131,13 +131,23 @@ public class PersistenceManager {
     }
  
     /**
-     *  Sets the host's named property
+     *  Sets the host's persistent property
      *
      * @param  displayName   display name of host
      * @param  propertyName  name of persistent property
      */ 
     public static void setHostProperty(String displayName, String propertyName, String value) {
         persist("host." + displayName + "." + propertyName, value);
+    }
+    
+    /**
+     *  Remove the host's persistent property
+     *
+     * @param  displayName   display name of host
+     * @param  propertyName  name of persistent property
+     */ 
+    public static void removeHostProperty(String displayName, String propertyName) {
+        remove("host." + displayName + "." + propertyName);
     }
 }
 

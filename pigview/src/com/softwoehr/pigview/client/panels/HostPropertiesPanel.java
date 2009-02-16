@@ -59,6 +59,7 @@ public class HostPropertiesPanel extends VerticalPanel {
     private final CheckBox useSSLCheckBox = new CheckBox();
     private final Button saveButton = new Button("Save");
     private final Button restoreButton = new Button("Restore");
+    private final Button deleteButton = new Button("Delete");
     private final HorizontalPanel buttonHPanel = new HorizontalPanel();
     /**
      *Constructor for the HostPropertiesPanel object
@@ -100,6 +101,11 @@ public class HostPropertiesPanel extends VerticalPanel {
                 restoreHostProperties();
             }
         } );
+	deleteButton.addClickHandler (new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                deleteHost();
+            }
+        } );
     }
 
     /**
@@ -123,10 +129,14 @@ public class HostPropertiesPanel extends VerticalPanel {
 	buttonHPanel.setHorizontalAlignment(buttonHPanel.ALIGN_CENTER);
         buttonHPanel.add(saveButton);
         buttonHPanel.add(restoreButton);
+	 buttonHPanel.add(deleteButton);
         add(buttonHPanel);
     }
     
     public void saveHostProperties() {}
     public void restoreHostProperties() {}
+    public void deleteHost() {
+	navigatorTree.deleteHost(displayName);
+    }
 }
 
