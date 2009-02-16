@@ -44,7 +44,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- *  The navigator lives in this panel on the nav tab.
+ *  Host properties panel is one panel of the host details panel on the
+ *  right side of the navigator composite panel on the nav tab.
  *
  * @author     jax
  * @created    January 30, 2009

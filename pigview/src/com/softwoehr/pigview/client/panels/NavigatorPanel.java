@@ -37,7 +37,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 
 /**
- *  The navigator lives in this panel on the nav tab.
+ *  The navigator tree lives in this panel on the composite panel on the nav tab.
  *
  * @author     jax
  * @created    January 30, 2009

@@ -41,7 +41,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * @author     jax
  * @created    January 30, 2009
  */
-public class ComposerPanel extends PigViewBasicPanel {
+public class ComposerPanel extends VerticalPanel {
     private Image mainframeImage = null;
 
     /**
@@ -49,13 +49,14 @@ public class ComposerPanel extends PigViewBasicPanel {
      */ 
     public ComposerPanel() {
         super();
+	initWidgets();
+        initPanel();
     }
 
     /**
      *  Create all widgets to be used in the initial view.
      */ 
     public void initWidgets() {
-        super.initWidgets();
         mainframeImage = new Image("images/mainframe.png");
     }
 
