@@ -61,6 +61,7 @@ public class HostPropertiesPanel extends VerticalPanel {
     private final Button restoreButton = new Button("Restore");
     private final Button deleteButton = new Button("Delete");
     private final HorizontalPanel buttonHPanel = new HorizontalPanel();
+
     /**
      *Constructor for the HostPropertiesPanel object
      */ 
@@ -74,9 +75,11 @@ public class HostPropertiesPanel extends VerticalPanel {
      * @param  navigatorTree  Description of the Parameter
      * @param  displayName    Description of the Parameter
      */ 
-    public HostPropertiesPanel(String displayName, NavigatorTree navigatorTree) {
+    public HostPropertiesPanel(String displayName,
+             NavigatorTree navigatorTree) {
+
         super();
-	this.displayName = displayName;
+        this.displayName = displayName;
         this.navigatorTree = navigatorTree;
         initWidgets();
         initPanel();
@@ -91,7 +94,7 @@ public class HostPropertiesPanel extends VerticalPanel {
         ipAddrTextBox.setText(PersistenceManager.getHostProperty(displayName, "IpAddr"));
         portNumberTextBox.setText(PersistenceManager.getHostProperty(displayName, "PortNumber"));
         useSSLCheckBox.setValue(PersistenceManager.getHostProperty(displayName, "UseSSL").equals("true") ? true : false);
-	saveButton.addClickHandler (new ClickHandler() {
+        saveButton.addClickHandler (new ClickHandler() {
             public void onClick(ClickEvent event) {
                 saveHostProperties();
             }
@@ -101,7 +104,7 @@ public class HostPropertiesPanel extends VerticalPanel {
                 restoreHostProperties();
             }
         } );
-	deleteButton.addClickHandler (new ClickHandler() {
+        deleteButton.addClickHandler (new ClickHandler() {
             public void onClick(ClickEvent event) {
                 deleteHost();
             }
@@ -115,7 +118,7 @@ public class HostPropertiesPanel extends VerticalPanel {
         clear();
         setSize("100%", "100%");
         setHorizontalAlignment(ALIGN_LEFT);
-	setVerticalAlignment(ALIGN_TOP);
+        setVerticalAlignment(ALIGN_TOP);
         add(new Label("Display name:"));
         add(displayNameTextBox);
         add(new Label("DNS name:"));
@@ -126,17 +129,38 @@ public class HostPropertiesPanel extends VerticalPanel {
         add(portNumberTextBox);
         add(new Label("Use SSL:"));
         add(useSSLCheckBox);
-	buttonHPanel.setHorizontalAlignment(buttonHPanel.ALIGN_CENTER);
+        buttonHPanel.setHorizontalAlignment(buttonHPanel.ALIGN_CENTER);
         buttonHPanel.add(saveButton);
         buttonHPanel.add(restoreButton);
-	 buttonHPanel.add(deleteButton);
+        buttonHPanel.add(deleteButton);
         add(buttonHPanel);
     }
-    
-    public void saveHostProperties() {}
-    public void restoreHostProperties() {}
+
+    /**
+     *  Description of the Method
+     */ 
+    public void saveHostProperties() {
+        navigatorTree.saveHost(displayNameTextBox.getText(),
+                 dnsNameTextBox.getText(), ipAddrTextBox.getText(), portNumberTextBox.getText(), useSSLCheckBox.getValue());
+
+    }
+
+    /**
+     *  Description of the Method
+     */ 
+    public void restoreHostProperties() {
+        displayNameTextBox.setText(PersistenceManager.fetch("host.DisplayName." + displayName));
+        dnsNameTextBox.setText(PersistenceManager.getHostProperty(displayName, "DnsName"));
+        ipAddrTextBox.setText(PersistenceManager.getHostProperty(displayName, "IpAddr"));
+        portNumberTextBox.setText(PersistenceManager.getHostProperty(displayName, "PortNumber"));
+        useSSLCheckBox.setValue(PersistenceManager.getHostProperty(displayName, "UseSSL").equals("true") ? true : false);
+    }
+
+    /**
+     *  Description of the Method
+     */ 
     public void deleteHost() {
-	navigatorTree.deleteHost(displayName);
+        navigatorTree.deleteHost(displayName);
     }
 }
 
