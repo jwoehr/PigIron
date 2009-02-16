@@ -31,7 +31,8 @@
  */
 package com.softwoehr.pigview.client.panels;
 
-// import com.google.gwt.user.client.Cookies;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  *  Set prefs in this prefs panel on the prefs tab.
@@ -39,70 +40,33 @@ package com.softwoehr.pigview.client.panels;
  * @author     jax
  * @created    January 30, 2009
  */
-public class PreferencesPanel extends PigViewBasicPanel {
+public class PreferencesPanel extends VerticalPanel {
+    private Image mainframeImage = null;
 
     /**
      *Constructor for the PreferencesPanel object
      */ 
     public PreferencesPanel() {
         super();
-        /*
-         *  initWidgets();
-         *  initPanel();
-         */ 
+        initWidgets();
+        initPanel();
     }
 
     /**
      *  Create all widgets to be used in the initial view.
      */ 
-    protected void initWidgets() {
-        super.initWidgets();
-        /*
-         *  submitButton.addClickListener (new ClickListener() {
-         *  public void onClick(Widget sender) {
-         *  buildRequest("/piglet/PigIronServlet/engine", textArea.getText().trim());
-         *  try {
-         *  request = requestBuilder.send();
-         *  infoDialog.setText(SENDING_PIGIRON_REQUEST);
-         *  infoDialog.center();
-         *  infoDialog.show();
-         *  }
-         *  catch (com.google.gwt.http.client.RequestException ex) {
-         *  infoDialog.setText(ex.getMessage());
-         *  infoDialog.center();
-         *  infoDialog.show();
-         *  }
-         *  catch (java.lang.NullPointerException ex) {
-         *  / com.google.gwt.http.client.URL throws this on null input
-         *  infoDialog.setText(ex.getMessage());
-         *  infoDialog.center();
-         *  infoDialog.show();
-         *  }
-         *  }
-         *  } );
-         *  resetButton.addClickListener (new ClickListener() {
-         *  public void onClick(Widget sender) {
-         *  / textArea.clear();
-         *  textArea.setText("");
-         *  }
-         *  } );
-         */ 
+    public void initWidgets() {
+        mainframeImage = new Image("images/mainframe.png");
     }
 
     /**
      *  Layout the panel for the initial view.
      */ 
     public void initPanel() {
-        super.initPanel();
-        /*
-         *  setWidth("100%");
-         *  setHorizontalAlignment(ALIGN_CENTER);
-         *  HorizontalPanel buttonPanel = new HorizontalPanel();
-         *  buttonPanel.add(submitButton);
-         *  buttonPanel.add(resetButton);
-         *  add(textArea);
-         *  add(buttonPanel);
-         */ 
+        setWidth("100%");
+        setHorizontalAlignment(ALIGN_CENTER);
+        add(mainframeImage);
     }
+
 }
 
