@@ -132,6 +132,7 @@ public class NavigatorTree extends Tree {
             final Label l = new Label(hostNamesIterator.next().toString());
             l.addClickHandler(new ClickHandler() {
                 public void onClick(ClickEvent event) {
+		    // l.setStyleName("gwt-TreeItem-selected");
                     navigatorPanel.hostDetailsView(l.getText());
                 }
             } );
