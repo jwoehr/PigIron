@@ -41,12 +41,18 @@ import com.softwoehr.pigview.client.panels.widgets.NavigatorTree;
  */
 public class NavigatorPanel extends PigViewBasicPanel {
     private NavigatorTree navigatorTree = null;
+    private NavigatorCompositePanel navigatorCompositePanel = null;
 
     /**
      *Constructor for the NavigatorPanel object
      */ 
     public NavigatorPanel() {
         super();
+    }
+    
+    public NavigatorPanel(NavigatorCompositePanel navigatorCompositePanel) {
+        super();
+	this.navigatorCompositePanel = navigatorCompositePanel;
     }
 
     /**
