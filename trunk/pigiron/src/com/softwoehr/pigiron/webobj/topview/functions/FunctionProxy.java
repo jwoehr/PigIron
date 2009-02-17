@@ -228,11 +228,16 @@ public abstract class FunctionProxy {
         try {
             Function f = requestor.getFunction();
             ParameterArray pA = pigfunc.doIt(useSSL);
-            f.put("output_arguments", OutputArgumentArray.from(pA));
-            requestor.setFunction(f);
-            response.setRequestor(requestor);
+	    OutputArgumentArray outputArgumentArray = OutputArgumentArray.from(pA);
+            f.put("output_arguments", outputArgumentArray);
             VSMInt4 rc_int4 = VSMInt4 .class.cast(pA.parameterNamed("return_code"));
             VSMInt4 reason_int4 = VSMInt4 .class.cast(pA.parameterNamed("reason_code"));
+	    VSMInt4 request_id_int4 = VSMInt4 .class.cast(pA.parameterNamed("request_id"));
+	    f.put("return_code", rc_int4.getValue());
+	    f.put("result_code", reason_int4.getValue());
+	    f.put("request_id", request_id_int4.getValue());
+	    requestor.setFunction(f);
+            response.setRequestor(requestor);
             response.setMessageText(VsmapiRC.prettyPrint(rc_int4.getValue(), reason_int4.getValue(), pigfunc).replace("\n", " ; "));
             long rc = rc_int4.getLongValue();
             if (rc == 0) {

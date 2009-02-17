@@ -125,7 +125,19 @@ public class HostCheckAuthenticationExplorerPanel extends HostExplorerPanel impl
      */ 
     public void onResponseReceived(Request request, Response response) {
 	infoDialog.hide();
-        add(new Label(response.getText()));
+	Label l = new Label();
+	ResponseParser responseParser = ResponseParser.parse(response.getText());
+	if (responseParser.getReturnCode() == 0.0 & responseParser.getResultCode() == 0.0) {
+	    l.setText("The user id has been successfully authenticated.");
+	}
+	else {
+	    // l.setText("There was an error in checking authentication, the Result is " + responseParser.getResult() + ", the Return code is " + responseParser.getReturnCode() + ", the Result code is " + responseParser.getResultCode()  + " and the message is: " + responseParser.getMessageText());
+	    l.setText("There was an error in checking authentication, the message is: " + responseParser.getMessageText());
+	}	    
+        add(l);
+	/* Label x = new Label(response.getText());
+	Label y = new Label(responseParser.getReturnCodeNumber().toString());
+	add(x); add(y); */
     }
  
     public String jsonRequest() {
