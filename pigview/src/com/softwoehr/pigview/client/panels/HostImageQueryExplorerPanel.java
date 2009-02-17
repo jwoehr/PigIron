@@ -176,7 +176,9 @@ public class HostImageQueryExplorerPanel extends HostExplorerPanel implements Re
         String useSSL = PersistenceManager.getHostProperty(displayName, "UseSSL");
         String uid = PersistenceManager.getHostProperty(displayName, "Uid");
         String password = PersistenceManager.getHostProperty(displayName, "Password");
-        StringBuffer sb = new StringBuffer("{\"function\": {\"function_name\": \"ImageNameQueryDM\", \"input_arguments\": [{ \"formal_name\": \"target_identifier\", \"value\": \"*\" }], \"output_arguments\": [], \"request_id\": -1, \"reason_code\": -1, \"return_code\": -1 }, \"host\": { \"dns_name\": \"");
+        StringBuffer sb = new StringBuffer("{\"function\": {\"function_name\": \"ImageNameQueryDM\", \"input_arguments\": [{ \"formal_name\": \"target_identifier\", \"value\": \"");
+	sb.append(uid);
+	sb.append("\" }], \"output_arguments\": [], \"request_id\": -1, \"reason_code\": -1, \"return_code\": -1 }, \"host\": { \"dns_name\": \"");
         sb.append(dnsName);
         sb.append("\", \"ip_address\": \"");
         sb.append(ipAddr);
