@@ -59,8 +59,17 @@ public class HostCheckAuthenticationExplorerPanel extends HostExplorerPanel impl
     protected HostCheckAuthenticationExplorerPanel() {
         super();
     }
- 
-    public HostCheckAuthenticationExplorerPanel(String displayName, NavigatorTree navigatorTree, HostDetailsPanel hostDetailsPanel) {
+
+    /**
+     *Constructor for the HostCheckAuthenticationExplorerPanel object
+     *
+     * @param  displayName       Description of the Parameter
+     * @param  navigatorTree     Description of the Parameter
+     * @param  hostDetailsPanel  Description of the Parameter
+     */ 
+    public HostCheckAuthenticationExplorerPanel(String displayName,
+             NavigatorTree navigatorTree, HostDetailsPanel hostDetailsPanel) {
+
         super(displayName,navigatorTree,hostDetailsPanel);
     }
 
@@ -74,11 +83,16 @@ public class HostCheckAuthenticationExplorerPanel extends HostExplorerPanel impl
      *  Layout the panel for the initial view.
      */ 
     public void initPanel() {
-        setSize("100%","100%");
+        setSize("100%", "100%");
         setHorizontalAlignment(ALIGN_LEFT);
         setVerticalAlignment(ALIGN_TOP);
     }
- 
+
+    /**
+     *  Description of the Method
+     *
+     * @param  objects  Description of the Parameter
+     */ 
     public void doIt(Object [] objects) {
         infoDialog.setText(SENDING_PIGIRON_REQUEST);
         infoDialog.center();
@@ -89,23 +103,28 @@ public class HostCheckAuthenticationExplorerPanel extends HostExplorerPanel impl
             infoDialog.setText(ex.getMessage());
             infoDialog.center();
             infoDialog.show();
-        } catch (java.lang.NullPointerException ex) { 
+        } catch (java.lang.NullPointerException ex) {
             // com.google.gwt.http.client.URL throws this on null input
-            infoDialog.setText(ex.getMessage()); 
+            infoDialog.setText(ex.getMessage());
             infoDialog.center();
             infoDialog.show();
         }
     }
- 
+
     /**
      *  Description of the Method
      *
+     * @return    Description of the Return Value
      */ 
     public EnhancedRequestBuilder buildRequest() {
-        boolean useSSL = PersistenceManager.getHostProperty(displayName, "UseSSL").equals("true") ? true : false;
+        boolean useSSL = PersistenceManager.getHostProperty(displayName,
+                 "UseSSL").equals("true") ? true : false;
+
         return EnhancedRequestBuilder.buildRequest("/piglet/PigIronServlet/engine", EnhancedRequestBuilder.Methods.PUT, jsonRequest(), this);
+                
+
     }
- 
+
     /**
      *  Description of the Method
      *
@@ -113,7 +132,7 @@ public class HostCheckAuthenticationExplorerPanel extends HostExplorerPanel impl
      * @param  exception  Description of the Parameter
      */ 
     public void onError(Request request, java.lang.Throwable exception) {
-	infoDialog.hide();
+        infoDialog.hide();
         Window.alert(HTTP_FAILURE);
     }
 
@@ -124,30 +143,36 @@ public class HostCheckAuthenticationExplorerPanel extends HostExplorerPanel impl
      * @param  response  Description of the Parameter
      */ 
     public void onResponseReceived(Request request, Response response) {
-	infoDialog.hide();
-	Label l = new Label();
-	ResponseParser responseParser = ResponseParser.parse(response.getText());
-	if (responseParser.getReturnCode() == 0.0 & responseParser.getResultCode() == 0.0) {
-	    l.setText("The user id has been successfully authenticated.");
-	}
-	else {
-	    // l.setText("There was an error in checking authentication, the Result is " + responseParser.getResult() + ", the Return code is " + responseParser.getReturnCode() + ", the Result code is " + responseParser.getResultCode()  + " and the message is: " + responseParser.getMessageText());
-	    l.setText("There was an error in checking authentication, the message is: " + responseParser.getMessageText());
-	}	    
+        infoDialog.hide();
+        Label l = new Label();
+        ResponseParser responseParser = ResponseParser.parse(response.getText());
+        if (responseParser.getReturnCode() == 0.0 & responseParser.getReasonCode() == 0.0) {
+            l.setText("The user id has been successfully authenticated.");
+        } else {
+            // l.setText("There was an error in checking authentication, the Result is " + responseParser.getResult() + ", the Return code is " + responseParser.getReturnCode() + ", the Reason code is " + responseParser.getReasonCode()  + " and the message is: " + responseParser.getMessageText());
+            l.setText("There was an error in checking authentication, the message is: " + responseParser.getMessageText());
+        }
         add(l);
-	/* Label x = new Label(response.getText());
-	Label y = new Label(responseParser.getReturnCodeNumber().toString());
-	add(x); add(y); */
+        /*
+         *  Label x = new Label(response.getText());
+         *  Label y = new Label(responseParser.getReturnCodeNumber().toString());
+         *  add(x); add(y);
+         */ 
     }
- 
+
+    /**
+     *  Description of the Method
+     *
+     * @return    Description of the Return Value
+     */ 
     public String jsonRequest() {
         String dnsName = PersistenceManager.getHostProperty(displayName, "DnsName");
         String ipAddr = PersistenceManager.getHostProperty(displayName, "IpAddr");
         String portNumber = PersistenceManager.getHostProperty(displayName, "PortNumber");
         String useSSL = PersistenceManager.getHostProperty(displayName, "UseSSL");
         String uid = PersistenceManager.getHostProperty(displayName, "Uid");
-        String password = PersistenceManager.getHostProperty(displayName,"Password");
-        StringBuffer sb = new StringBuffer("{\"function\": {\"function_name\": \"CheckAuthentication\", \"input_arguments\": [{ \"formal_name\": \"target_identifier\", \"value\": \"\" }], \"output_arguments\": [], \"request_id\": -1, \"result_code\": -1, \"return_code\": -1 }, \"host\": { \"dns_name\": \"");
+        String password = PersistenceManager.getHostProperty(displayName, "Password");
+        StringBuffer sb = new StringBuffer("{\"function\": {\"function_name\": \"CheckAuthentication\", \"input_arguments\": [{ \"formal_name\": \"target_identifier\", \"value\": \"\" }], \"output_arguments\": [], \"request_id\": -1, \"reason_code\": -1, \"return_code\": -1 }, \"host\": { \"dns_name\": \"");
         sb.append(dnsName);
         sb.append("\", \"ip_address\": \"");
         sb.append(ipAddr);
