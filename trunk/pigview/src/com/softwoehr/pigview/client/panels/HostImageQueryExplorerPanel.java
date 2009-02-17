@@ -37,6 +37,7 @@ import com.softwoehr.pigview.client.panels.widgets.*;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.Response;
+import com.google.gwt.json.client.*;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.Window;
@@ -47,29 +48,29 @@ import com.softwoehr.pigview.client.enhanced.*;
  *  The Host Explorer Panel is the bottom panel of the right side of the
  * navigator composite panel on the nav tab. It provides extended info,
  * operations and extended navigation. This explorer shows the results
- * of a query for the API level.
+ * of a query for all the images on the host.
  *
  * @author     jax
  * @created    January 30, 2009
  */
-public class HostApiLevelExplorerPanel extends HostExplorerPanel implements RequestCallback {
+public class HostImageQueryExplorerPanel extends HostExplorerPanel implements RequestCallback {
 
     /**
      *Constructor for the HostExplorerPanel object
      */ 
-    protected HostApiLevelExplorerPanel() {
+    protected HostImageQueryExplorerPanel() {
         super();
     }
 
     /**
-     *Constructor for the HostApiLevelExplorerPanel object
+     *Constructor for the HostImageQueryExplorerPanel object
      *
      * @param  displayName       Display name of the Host to query
      * @param  navigatorTree     Navigator tree associated with the Navigator
      * composite panel that parents this panel's Host details parent
      * @param  hostDetailsPanel  Host details parent
      */ 
-    public HostApiLevelExplorerPanel(String displayName,
+    public HostImageQueryExplorerPanel(String displayName,
              NavigatorTree navigatorTree, HostDetailsPanel hostDetailsPanel) {
         super(displayName,navigatorTree,hostDetailsPanel);
     }
@@ -105,8 +106,7 @@ public class HostApiLevelExplorerPanel extends HostExplorerPanel implements Requ
      * @see #doIt
      */
     public EnhancedRequestBuilder buildRequest() {
-        boolean useSSL = PersistenceManager.getHostProperty(displayName,
-                 "UseSSL").equals("true") ? true : false;
+        boolean useSSL = PersistenceManager.getHostProperty(displayName, "UseSSL").equals("true") ? true : false;
         return EnhancedRequestBuilder.buildRequest("/piglet/PigIronServlet/engine", EnhancedRequestBuilder.Methods.PUT, jsonRequest(), this);
     }
 
@@ -129,32 +129,39 @@ public class HostApiLevelExplorerPanel extends HostExplorerPanel implements Requ
      */ 
     public void onResponseReceived(Request request, Response response) {
         infoDialog.hide();
+        Label l = null;
         ResponseParser responseParser = ResponseParser.parse(response.getText());
-        Label l = new Label();
-        StringBuffer sb = new StringBuffer();
-	int reasonCode = -1;
-        if (responseParser.getResult().equals("SUCCESS")) {
-            sb.append("API functional level is ");
-            reasonCode = new Double(responseParser.getReasonCode()).intValue();
-            switch (reasonCode) {
-                case 0 :
-                    sb.append("5.3.");
-                    break;
-                case 540 :
-                    sb.append("5.4.");
-                    break;
-                default:
-                    sb.append("unknown.");
-            }
+        if (responseParser.getReturnCode() == 0.0 & responseParser.getReasonCode() == 0.0) {
+	    JSONArray imageRecordArray = responseParser.getOutputArgumentArrayNamed("image_record_array");
+	    if (imageRecordArray != null) {
+		JSONValue imageRecordValue = null;
+		JSONObject imageRecordObject = null;
+		for (int i = 0; i <  imageRecordArray.size(); i++) {
+		    imageRecordValue = imageRecordArray.get(i);
+		    if (imageRecordValue != null) {
+			imageRecordObject = imageRecordValue.isObject();
+			if (imageRecordObject != null) {
+			    JSONValue imageValue = imageRecordObject.get("image_record");
+			    if (imageValue != null) {
+				JSONString imageString = imageValue.isString();
+				l = new Label();
+				l.setText(imageString.stringValue());
+				add(l);
+			    }
+			}
+		    }
+		}
+	    }
+	    else {
+		l = new Label();
+		l.setText("No images found.");
+		add(l);
+	    }
         } else {
-            sb.append("There was an error in querying API functional level, the message is: ");
-            sb.append(responseParser.getMessageText());
+	    l = new Label();
+            l.setText("There was an error querying images, the message is: " + responseParser.getMessageText());
+	    add(l);
         }
-	/* sb.append(" Reason code was ");
-	sb.append(reasonCode + " ");
-	sb.append(response.getText()); */
-        l.setText(sb.toString());
-        add(l);
     }
 
     /**
@@ -163,13 +170,13 @@ public class HostApiLevelExplorerPanel extends HostExplorerPanel implements Requ
      * @return    Description of the Return Value
      */ 
     public String jsonRequest() {
-        String dnsName = PersistenceManager.getHostProperty(displayName,"DnsName");
+        String dnsName = PersistenceManager.getHostProperty(displayName, "DnsName");
         String ipAddr = PersistenceManager.getHostProperty(displayName, "IpAddr");
-        String portNumber = PersistenceManager.getHostProperty(displayName,"PortNumber");
+        String portNumber = PersistenceManager.getHostProperty(displayName, "PortNumber");
         String useSSL = PersistenceManager.getHostProperty(displayName, "UseSSL");
         String uid = PersistenceManager.getHostProperty(displayName, "Uid");
         String password = PersistenceManager.getHostProperty(displayName, "Password");
-        StringBuffer sb = new StringBuffer("{\"function\": {\"function_name\": \"QueryAPIFunctionalLevel\", \"input_arguments\": [{ \"formal_name\": \"target_identifier\", \"value\": \"\" }], \"output_arguments\": [], \"request_id\": -1, \"reason_code\": -1, \"return_code\": -1 }, \"host\": { \"dns_name\": \"");
+        StringBuffer sb = new StringBuffer("{\"function\": {\"function_name\": \"ImageNameQueryDM\", \"input_arguments\": [{ \"formal_name\": \"target_identifier\", \"value\": \"*\" }], \"output_arguments\": [], \"request_id\": -1, \"reason_code\": -1, \"return_code\": -1 }, \"host\": { \"dns_name\": \"");
         sb.append(dnsName);
         sb.append("\", \"ip_address\": \"");
         sb.append(ipAddr);

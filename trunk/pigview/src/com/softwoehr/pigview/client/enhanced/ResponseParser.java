@@ -226,10 +226,10 @@ public class ResponseParser {
     }
 
     /**
-     *  Gets the outputArgumentValueNamed attribute of the ResponseParser object
+     *  Gets the output argument named by the formal name as a JSON Value
      *
-     * @param  formalName  Description of the Parameter
-     * @return             The outputArgumentValueNamed value
+     * @param  formalName  sought output argument
+     * @return             The output argument as a JSON value or null
      */ 
     public JSONValue getOutputArgumentValueNamed(String formalName) {
         JSONValue outputArgumentValue = null;
@@ -257,6 +257,22 @@ public class ResponseParser {
             }
         }
         return outputArgumentValue;
+    }
+
+    /**
+     *  Gets the output argument named by the formal name as a JSON Value
+     * as a JSON array if it really is an array, or null.
+     *
+     * @param  formalName  sought output argument that is an array
+     * @return             The output argument as a JSON array or null
+     */ 
+    public JSONArray getOutputArgumentArrayNamed(String formalName) {
+	JSONArray outputArgumentArray = null;
+	JSONValue outputArgumentValue = getOutputArgumentValueNamed(formalName);
+	if (outputArgumentValue != null) {
+	    outputArgumentArray = outputArgumentValue.isArray();
+	}
+	return outputArgumentArray;
     }
 
     /**

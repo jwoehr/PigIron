@@ -45,7 +45,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * @author     jax
  * @created    January 30, 2009
  */
-public class HostExplorerPanel extends VerticalPanel {
+public abstract class HostExplorerPanel extends VerticalPanel {
     
     protected String displayName = null;
     protected NavigatorTree navigatorTree = null;
@@ -65,9 +65,10 @@ public class HostExplorerPanel extends VerticalPanel {
     /**
      *Constructor for the HostExplorerPanel object
      *
-     * @param  displayName       Description of the Parameter
-     * @param  navigatorTree     Description of the Parameter
-     * @param  hostDetailsPanel  Description of the Parameter
+     ** @param  displayName       Display name of the Host to query
+     * @param  navigatorTree     Navigator tree associated with the Navigator
+     * composite panel that parents this panel's Host details parent
+     * @param  hostDetailsPanel  Host details parent
      */ 
     public HostExplorerPanel(String displayName, NavigatorTree navigatorTree,
              HostDetailsPanel hostDetailsPanel) {
@@ -95,11 +96,34 @@ public class HostExplorerPanel extends VerticalPanel {
     }
 
     /**
-     *  Description of the Method
+     *  Run the JSON request and thus build the panel in the callback.
      *
-     * @param  objects  Description of the Parameter
+     * @param  objects any additional parameters to provide to the operation
      */ 
     public void doIt(Object [] objects) {
+	infoDialog.setText(SENDING_PIGIRON_REQUEST);
+        infoDialog.center();
+        infoDialog.show();
+        try {
+            buildRequest().send();
+        } catch (com.google.gwt.http.client.RequestException ex) {
+            infoDialog.setText(ex.getMessage());
+            infoDialog.center();
+            infoDialog.show();
+        } catch (java.lang.NullPointerException ex) {
+            // com.google.gwt.http.client.URL throws this on null input
+            infoDialog.setText(ex.getMessage());
+            infoDialog.center();
+            infoDialog.show();
+        }
     }
-}
 
+   /**
+     *  Formulate the request to be executed in doIt()
+     *
+     * @return    an EnhancedRequestBuilder embodying the request
+     * @see #doIt
+     */
+    public abstract EnhancedRequestBuilder buildRequest();
+
+}
