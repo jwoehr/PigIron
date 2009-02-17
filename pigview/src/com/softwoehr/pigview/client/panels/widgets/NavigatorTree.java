@@ -94,8 +94,6 @@ public class NavigatorTree extends Tree {
     public void addHost(AddHostDialog dialog) {
         saveHost(dialog.getDisplayName(), dialog.getDnsName(), dialog.getIpAddr(), dialog.getPortNumber(), dialog.getUid(),
          dialog.getPassword(), dialog.getUseSSL());
-
-
     }
 
     /**
@@ -117,7 +115,6 @@ public class NavigatorTree extends Tree {
         PersistenceManager.setHostProperty(displayName, "Uid", uid);
         PersistenceManager.setHostProperty(displayName, "Password", password);
         PersistenceManager.setHostProperty(displayName, "UseSSL", useSSL ? "true" : "false");
-
         rebuildTree();
         setSelectedItem(findHostInTree(displayName));
         ensureSelectedItemVisible();
