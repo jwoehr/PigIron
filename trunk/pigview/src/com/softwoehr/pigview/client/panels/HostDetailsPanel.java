@@ -82,7 +82,7 @@ public class HostDetailsPanel extends VerticalPanel {
         setVerticalAlignment(ALIGN_TOP);
         add(hostPropertiesPanel);
     }
- 
+
     public void hostApiLevelExplorerView(String displayName) {
         if (hostExplorerPanel != null) {
             remove(hostExplorerPanel);
@@ -91,7 +91,7 @@ public class HostDetailsPanel extends VerticalPanel {
         add(hostExplorerPanel);
         hostExplorerPanel.doIt(null);
     }
- 
+
     /**
      *  Description of the Method
      *
@@ -102,6 +102,20 @@ public class HostDetailsPanel extends VerticalPanel {
             remove(hostExplorerPanel);
         }
         hostExplorerPanel = new HostCheckAuthenticationExplorerPanel(displayName, navigatorTree, this);
+	add(hostExplorerPanel);
+        hostExplorerPanel.doIt(null);
+    }
+
+    /**
+     *  Description of the Method
+     *
+     * @param  displayName  Description of the Parameter
+     */ 
+    public void hostImageQueryExplorerView(String displayName) {
+	if (hostExplorerPanel != null) {
+            remove(hostExplorerPanel);
+        }
+        hostExplorerPanel = new HostImageQueryExplorerPanel(displayName, navigatorTree, this);
 	add(hostExplorerPanel);
         hostExplorerPanel.doIt(null);
     }
