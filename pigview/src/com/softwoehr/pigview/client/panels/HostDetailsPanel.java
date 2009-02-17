@@ -54,21 +54,23 @@ public class HostDetailsPanel extends VerticalPanel {
     protected HostDetailsPanel() {
         super();
     }
-    
-    public HostDetailsPanel(String displayName, NavigatorTree navigatorTree, NavigatorCompositePanel navigatorCompositePanel) {
+ 
+    public HostDetailsPanel(String displayName, NavigatorTree navigatorTree,
+             NavigatorCompositePanel navigatorCompositePanel) {
+
         super();
-	this.displayName = displayName;
-	this.navigatorTree = navigatorTree;
-	this.navigatorCompositePanel = navigatorCompositePanel;
-	initWidgets();
-	initPanel();
+        this.displayName = displayName;
+        this.navigatorTree = navigatorTree;
+        this.navigatorCompositePanel = navigatorCompositePanel;
+        initWidgets();
+        initPanel();
     }
 
     /**
      *  Create all widgets to be used in the initial view.
      */ 
     public void initWidgets() {
-	hostPropertiesPanel = new HostPropertiesPanel(displayName, navigatorTree); 
+        hostPropertiesPanel = new HostPropertiesPanel(displayName, navigatorTree);
     }
 
     /**
@@ -77,17 +79,31 @@ public class HostDetailsPanel extends VerticalPanel {
     public void initPanel() {
         setSize("100%","100%");
         setHorizontalAlignment(ALIGN_LEFT);
-	setVerticalAlignment(ALIGN_TOP);
+        setVerticalAlignment(ALIGN_TOP);
         add(hostPropertiesPanel);
     }
-    
+ 
     public void hostApiLevelExplorerView(String displayName) {
+        if (hostExplorerPanel != null) {
+            remove(hostExplorerPanel);
+        }
+        hostExplorerPanel = new HostApiLevelExplorerPanel(displayName, navigatorTree, this);
+        add(hostExplorerPanel);
+        hostExplorerPanel.doIt(null);
+    }
+ 
+    /**
+     *  Description of the Method
+     *
+     * @param  displayName  Description of the Parameter
+     */ 
+    public void hostCheckAuthenticationExplorerView(String displayName) {
 	if (hostExplorerPanel != null) {
-	    remove(hostExplorerPanel);
-	}
-	hostExplorerPanel = new HostApiLevelExplorerPanel(displayName, navigatorTree, this);
+            remove(hostExplorerPanel);
+        }
+        hostExplorerPanel = new HostCheckAuthenticationExplorerPanel(displayName, navigatorTree, this);
 	add(hostExplorerPanel);
-	hostExplorerPanel.doIt(null);
+        hostExplorerPanel.doIt(null);
     }
 }
 

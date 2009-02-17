@@ -67,7 +67,7 @@ public class NavigatorCompositePanel extends HorizontalPanel {
     public void initPanel() {
         setSize("100%", "100%");
         setHorizontalAlignment(ALIGN_LEFT);
-	setVerticalAlignment(ALIGN_TOP);
+        setVerticalAlignment(ALIGN_TOP);
         add(navigatorPanel);
     }
 
@@ -80,8 +80,7 @@ public class NavigatorCompositePanel extends HorizontalPanel {
         if (hostDetailsPanel != null) {
             remove(hostDetailsPanel);
         }
-        hostDetailsPanel = new HostDetailsPanel(displayName,
-                 navigatorPanel.getNavigatorTree(), this);
+        hostDetailsPanel = new HostDetailsPanel(displayName, navigatorPanel.getNavigatorTree(), this);
         add(hostDetailsPanel);
     }
 
@@ -94,9 +93,23 @@ public class NavigatorCompositePanel extends HorizontalPanel {
             hostDetailsPanel = null;
         }
     }
-    
+
+    /**
+     *  Description of the Method
+     *
+     * @param  displayName  Description of the Parameter
+     */ 
     public void hostApiLevelExplorerView(String displayName) {
-	hostDetailsPanel.hostApiLevelExplorerView(displayName);
+        hostDetailsPanel.hostApiLevelExplorerView(displayName);
+    }
+
+    /**
+     *  Description of the Method
+     *
+     * @param  displayName  Description of the Parameter
+     */ 
+    public void hostCheckAuthenticationExplorerView(String displayName) {
+        hostDetailsPanel.hostCheckAuthenticationExplorerView(displayName);
     }
 }
 

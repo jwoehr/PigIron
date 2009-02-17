@@ -107,9 +107,20 @@ public class NavigatorPanel extends VerticalPanel {
 
     /**
      *  Description of the Method
+     *
+     * @param  displayName  Description of the Parameter
      */ 
     public void hostApiLevelExplorerView(String displayName) {
         navigatorCompositePanel.hostApiLevelExplorerView(displayName);
+    }
+
+    /**
+     *  Description of the Method
+     *
+     * @param  displayName  Description of the Parameter
+     */ 
+    public void hostCheckAuthenticationExplorerView(String displayName) {
+        navigatorCompositePanel.hostCheckAuthenticationExplorerView(displayName);
     }
 }
 

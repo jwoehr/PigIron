@@ -74,7 +74,7 @@ public class NavigatorTree extends Tree {
      */ 
     public void initItems() {
         mainframeImage = new Image("images/mainframe.png");
-        mainframeImage.addClickHandler(new ClickHandler() {
+        mainframeImage.addClickHandler (new ClickHandler() {
             public void onClick(ClickEvent event) {
                 addHostDialog.setHTML("<center>Add Host to View</center>");
                 addHostDialog.center();
@@ -92,7 +92,10 @@ public class NavigatorTree extends Tree {
      * @param  dialog  The feature to be added to the Host attribute
      */ 
     public void addHost(AddHostDialog dialog) {
-        saveHost(dialog.getDisplayName(), dialog.getDnsName(), dialog.getIpAddr(), dialog.getPortNumber(), dialog.getUid(), dialog.getPassword(), dialog.getUseSSL());
+        saveHost(dialog.getDisplayName(), dialog.getDnsName(), dialog.getIpAddr(), dialog.getPortNumber(), dialog.getUid(),
+         dialog.getPassword(), dialog.getUseSSL());
+
+
     }
 
     /**
@@ -103,15 +106,18 @@ public class NavigatorTree extends Tree {
      * @param  ipAddr       Description of the Parameter
      * @param  portNumber   Description of the Parameter
      * @param  useSSL       Description of the Parameter
+     * @param  uid          Description of the Parameter
+     * @param  password     Description of the Parameter
      */ 
     public void saveHost(String displayName, String dnsName, String ipAddr, String portNumber, String uid, String password, boolean useSSL) {
         PersistenceManager.persist("host.DisplayName." + displayName, displayName);
         PersistenceManager.setHostProperty(displayName, "DnsName", dnsName);
         PersistenceManager.setHostProperty(displayName, "IpAddr", ipAddr);
         PersistenceManager.setHostProperty(displayName, "PortNumber", portNumber);
-	PersistenceManager.setHostProperty(displayName, "Uid", uid);
-	PersistenceManager.setHostProperty(displayName, "Password", password);
+        PersistenceManager.setHostProperty(displayName, "Uid", uid);
+        PersistenceManager.setHostProperty(displayName, "Password", password);
         PersistenceManager.setHostProperty(displayName, "UseSSL", useSSL ? "true" : "false");
+
         rebuildTree();
         setSelectedItem(findHostInTree(displayName));
         ensureSelectedItemVisible();
@@ -128,8 +134,8 @@ public class NavigatorTree extends Tree {
         PersistenceManager.removeHostProperty(displayName, "IpAddr");
         PersistenceManager.removeHostProperty(displayName, "PortNumber");
         PersistenceManager.removeHostProperty(displayName, "Uid");
-	PersistenceManager.removeHostProperty(displayName, "Password");
-	PersistenceManager.removeHostProperty(displayName, "UseSSL");
+        PersistenceManager.removeHostProperty(displayName, "Password");
+        PersistenceManager.removeHostProperty(displayName, "UseSSL");
         rebuildTree();
         setSelectedItem(null);
         navigatorPanel.dropHostDetailsView();
@@ -165,7 +171,7 @@ public class NavigatorTree extends Tree {
         while (hostNamesIterator.hasNext()) {
             final Label l = new Label(hostNamesIterator.next().toString());
             final TreeItem t = new TreeItem(l);
-            l.addClickHandler(new ClickHandler() {
+            l.addClickHandler (new ClickHandler() {
                 public void onClick(ClickEvent event) {
                     TreeItem parent = t.getParentItem();
                     int childCount = parent.getChildCount();
@@ -182,19 +188,26 @@ public class NavigatorTree extends Tree {
         }
         addItem(root);
     }
- 
+
     /**
      *  Adds a feature to the Operations attribute of the NavigatorTree object
      *
      * @param  treeItem  The feature to be added to the Operations attribute
      */ 
-    public void addOperations(TreeItem treeItem) { 
-/*         Label l = new Label("Images"); 
-        TreeItem t = new TreeItem(l); 
-        treeItem.addItem(t);  */
-        final Label l = new Label("API Level"); 
+    public void addOperations(TreeItem treeItem) {
+        addAPILevelOperation(treeItem);
+	addCheckAuthenticationLevelOperation(treeItem);
+    }
+
+    /**
+     *  Adds a feature to the APILevelOperation attribute of the NavigatorTree object
+     *
+     * @param  treeItem  The feature to be added to the APILevelOperation attribute
+     */ 
+    public void addAPILevelOperation(TreeItem treeItem) {
+        final Label l = new Label("API Level");
         final TreeItem t = new TreeItem(l);
-        l.addClickHandler(new ClickHandler() {
+        l.addClickHandler (new ClickHandler() {
             public void onClick(ClickEvent event) {
                 TreeItem parent = t.getParentItem();
                 int childCount = parent.getChildCount();
@@ -203,10 +216,36 @@ public class NavigatorTree extends Tree {
                 }
                 t.setStyleName("gwt-TreeItem-selected");
                 t.setSelected(true);
-                navigatorPanel.hostApiLevelExplorerView(((Label)parent.getWidget()).getText());
+		/* Cheesy way of getting display name of host */
+		/* which its the key to the Cookie database   */
+		/* from the label of the tree parent (== host)*/ 
+                navigatorPanel.hostApiLevelExplorerView(((Label) parent.getWidget()).getText());
             }
         } );
         treeItem.addItem(t);
-    } 
+    }
+
+    /**
+     *  Adds a feature to the CheckAuthenticationLevelOperation attribute of the NavigatorTree object
+     *
+     * @param  treeItem  The feature to be added to the CheckAuthenticationLevelOperation attribute
+     */ 
+    public void addCheckAuthenticationLevelOperation(TreeItem treeItem) {
+        final Label l = new Label("Check Authentication");
+        final TreeItem t = new TreeItem(l);
+        l.addClickHandler (new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                TreeItem parent = t.getParentItem();
+                int childCount = parent.getChildCount();
+                for (int i = 0; i < childCount; i++) {
+                    parent.getChild(i).removeStyleName("gwt-TreeItem-selected");
+                }
+                t.setStyleName("gwt-TreeItem-selected");
+                t.setSelected(true);
+                navigatorPanel.hostCheckAuthenticationExplorerView(((Label) parent.getWidget()).getText());
+            }
+        } );
+        treeItem.addItem(t);
+    }
 }
 

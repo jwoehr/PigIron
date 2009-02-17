@@ -83,7 +83,6 @@ public class HostExplorerPanel extends VerticalPanel {
      *  Create all widgets to be used in the initial view.
      */ 
     public void initWidgets() {
-
     }
 
     /**
