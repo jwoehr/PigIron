@@ -81,6 +81,9 @@ public class HostApiLevelExplorerPanel extends HostExplorerPanel implements Requ
     }
  
     public void doIt(Object [] objects) {
+        infoDialog.setText(SENDING_PIGIRON_REQUEST);
+        infoDialog.center();
+        infoDialog.show();
         try {
             buildRequest().send();
         } catch (com.google.gwt.http.client.RequestException ex) {
@@ -111,6 +114,7 @@ public class HostApiLevelExplorerPanel extends HostExplorerPanel implements Requ
      * @param  exception  Description of the Parameter
      */ 
     public void onError(Request request, java.lang.Throwable exception) {
+	infoDialog.hide();
         Window.alert(HTTP_FAILURE);
     }
 
@@ -121,32 +125,33 @@ public class HostApiLevelExplorerPanel extends HostExplorerPanel implements Requ
      * @param  response  Description of the Parameter
      */ 
     public void onResponseReceived(Request request, Response response) {
+	infoDialog.hide();
         add(new Label(response.getText()));
     }
-    
+ 
     public String jsonRequest() {
         String dnsName = PersistenceManager.getHostProperty(displayName, "DnsName");
         String ipAddr = PersistenceManager.getHostProperty(displayName, "IpAddr");
         String portNumber = PersistenceManager.getHostProperty(displayName, "PortNumber");
         String useSSL = PersistenceManager.getHostProperty(displayName, "UseSSL");
-	String uid = PersistenceManager.getHostProperty(displayName, "Uid");
-	String password = PersistenceManager.getHostProperty(displayName, "Password");
-	StringBuffer sb = new StringBuffer("{\"function\": {\"function_name\": \"QueryAPIFunctionalLevel\", \"input_arguments\": [{ \"formal_name\": \"target_identifier\", \"value\": \"\" }], \"output_arguments\": [], \"request_id\": -1, \"result_code\": -1, \"return_code\": -1 }, \"host\": { \"dns_name\": \"");
-	sb.append(dnsName);
-	sb.append("\", \"ip_address\": \"");
-	sb.append(ipAddr);
-	sb.append("\", \"name\": \"");
-	sb.append(displayName);
-	sb.append("\", \"port_number\": ");
-	sb.append(portNumber);
-	sb.append(", \"ssl\": ");
-	sb.append(useSSL);
-	sb.append("}, \"user\": { \"password\": \"");
-	sb.append(password);
-	sb.append("\", \"uid\": \"");
-	sb.append(uid);
-	sb.append("\" } }");
-	return sb.toString();
+        String uid = PersistenceManager.getHostProperty(displayName, "Uid");
+        String password = PersistenceManager.getHostProperty(displayName,"Password");
+        StringBuffer sb = new StringBuffer("{\"function\": {\"function_name\": \"QueryAPIFunctionalLevel\", \"input_arguments\": [{ \"formal_name\": \"target_identifier\", \"value\": \"\" }], \"output_arguments\": [], \"request_id\": -1, \"result_code\": -1, \"return_code\": -1 }, \"host\": { \"dns_name\": \"");
+        sb.append(dnsName);
+        sb.append("\", \"ip_address\": \"");
+        sb.append(ipAddr);
+        sb.append("\", \"name\": \"");
+        sb.append(displayName);
+        sb.append("\", \"port_number\": ");
+        sb.append(portNumber);
+        sb.append(", \"ssl\": ");
+        sb.append(useSSL);
+        sb.append("}, \"user\": { \"password\": \"");
+        sb.append(password);
+        sb.append("\", \"uid\": \"");
+        sb.append(uid);
+        sb.append("\" } }");
+        return sb.toString();
     }
 }
 
