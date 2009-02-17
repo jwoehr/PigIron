@@ -193,7 +193,8 @@ public class NavigatorTree extends Tree {
      */ 
     public void addOperations(TreeItem treeItem) {
         addAPILevelOperation(treeItem);
-	addCheckAuthenticationLevelOperation(treeItem);
+	addCheckAuthenticationOperation(treeItem);
+	addImageQueryOperation(treeItem);
     }
 
     /**
@@ -223,11 +224,11 @@ public class NavigatorTree extends Tree {
     }
 
     /**
-     *  Adds a feature to the CheckAuthenticationLevelOperation attribute of the NavigatorTree object
+     *  Adds a feature to the CheckAuthenticationOperation attribute of the NavigatorTree object
      *
-     * @param  treeItem  The feature to be added to the CheckAuthenticationLevelOperation attribute
+     * @param  treeItem  The feature to be added to the CheckAuthenticationOperation attribute
      */ 
-    public void addCheckAuthenticationLevelOperation(TreeItem treeItem) {
+    public void addCheckAuthenticationOperation(TreeItem treeItem) {
         final Label l = new Label("Check Authentication");
         final TreeItem t = new TreeItem(l);
         l.addClickHandler (new ClickHandler() {
@@ -240,6 +241,29 @@ public class NavigatorTree extends Tree {
                 t.setStyleName("gwt-TreeItem-selected");
                 t.setSelected(true);
                 navigatorPanel.hostCheckAuthenticationExplorerView(((Label) parent.getWidget()).getText());
+            }
+        } );
+        treeItem.addItem(t);
+    }
+    
+   /**
+     *  Adds a feature to the ImageQueryOperation attribute of the NavigatorTree object
+     *
+     * @param  treeItem  The feature to be added to the ImageQueryOperation attribute
+     */ 
+    public void addImageQueryOperation(TreeItem treeItem) {
+        final Label l = new Label("Images");
+        final TreeItem t = new TreeItem(l);
+        l.addClickHandler (new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                TreeItem parent = t.getParentItem();
+                int childCount = parent.getChildCount();
+                for (int i = 0; i < childCount; i++) {
+                    parent.getChild(i).removeStyleName("gwt-TreeItem-selected");
+                }
+                t.setStyleName("gwt-TreeItem-selected");
+                t.setSelected(true);
+                navigatorPanel.hostImageQueryExplorerView(((Label) parent.getWidget()).getText());
             }
         } );
         treeItem.addItem(t);

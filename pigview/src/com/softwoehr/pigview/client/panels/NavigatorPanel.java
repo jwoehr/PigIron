@@ -122,5 +122,14 @@ public class NavigatorPanel extends VerticalPanel {
     public void hostCheckAuthenticationExplorerView(String displayName) {
         navigatorCompositePanel.hostCheckAuthenticationExplorerView(displayName);
     }
+    
+    /**
+     *  Description of the Method
+     *
+     * @param  displayName  Description of the Parameter
+     */ 
+    public void hostImageQueryExplorerView(String displayName) {
+        navigatorCompositePanel.hostImageQueryExplorerView(displayName);
+    }
 }
 

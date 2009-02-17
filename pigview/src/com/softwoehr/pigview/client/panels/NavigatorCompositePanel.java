@@ -111,5 +111,14 @@ public class NavigatorCompositePanel extends HorizontalPanel {
     public void hostCheckAuthenticationExplorerView(String displayName) {
         hostDetailsPanel.hostCheckAuthenticationExplorerView(displayName);
     }
+
+    /**
+     *  Description of the Method
+     *
+     * @param  displayName  Description of the Parameter
+     */ 
+    public void hostImageQueryExplorerView(String displayName) {
+        hostDetailsPanel.hostImageQueryExplorerView(displayName);
+    }
 }
 
