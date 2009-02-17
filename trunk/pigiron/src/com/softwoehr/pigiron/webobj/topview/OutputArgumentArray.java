@@ -66,6 +66,13 @@ public class OutputArgumentArray extends ArgumentArray {
         super(array);
     }
  
+    /** Factory method to create an OutputArgumentArray from a ParameterArray,
+     * i.e., one returned from a PigIron VSMAPI call.
+     *
+     * @param pA the parameter array returned from a PigIron VSMAPI call
+     * @return the new JSON-formatted OutputArgumentArray
+     * @exception  JSONException  on JSON err
+     */ 
     public static OutputArgumentArray from(ParameterArray pA) throws JSONException {
         OutputArgumentArray out = new OutputArgumentArray();
         Iterator <VSMParm> it = pA.iterator();
