@@ -234,7 +234,7 @@ public abstract class FunctionProxy {
             VSMInt4 reason_int4 = VSMInt4 .class.cast(pA.parameterNamed("reason_code"));
 	    VSMInt4 request_id_int4 = VSMInt4 .class.cast(pA.parameterNamed("request_id"));
 	    f.put("return_code", rc_int4.getValue());
-	    f.put("result_code", reason_int4.getValue());
+	    f.put("reason_code", reason_int4.getValue());
 	    f.put("request_id", request_id_int4.getValue());
 	    requestor.setFunction(f);
             response.setRequestor(requestor);

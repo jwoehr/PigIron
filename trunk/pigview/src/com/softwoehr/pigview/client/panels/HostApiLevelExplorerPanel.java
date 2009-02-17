@@ -59,8 +59,16 @@ public class HostApiLevelExplorerPanel extends HostExplorerPanel implements Requ
     protected HostApiLevelExplorerPanel() {
         super();
     }
- 
-    public HostApiLevelExplorerPanel(String displayName, NavigatorTree navigatorTree, HostDetailsPanel hostDetailsPanel) {
+
+    /**
+     *Constructor for the HostApiLevelExplorerPanel object
+     *
+     * @param  displayName       Description of the Parameter
+     * @param  navigatorTree     Description of the Parameter
+     * @param  hostDetailsPanel  Description of the Parameter
+     */ 
+    public HostApiLevelExplorerPanel(String displayName,
+             NavigatorTree navigatorTree, HostDetailsPanel hostDetailsPanel) {
         super(displayName,navigatorTree,hostDetailsPanel);
     }
 
@@ -68,18 +76,22 @@ public class HostApiLevelExplorerPanel extends HostExplorerPanel implements Requ
      *  Create all widgets to be used in the initial view.
      */ 
     public void initWidgets() {
- 
     }
 
     /**
      *  Layout the panel for the initial view.
      */ 
     public void initPanel() {
-        setSize("100%","100%");
+        setSize("100%", "100%");
         setHorizontalAlignment(ALIGN_LEFT);
         setVerticalAlignment(ALIGN_TOP);
     }
- 
+
+    /**
+     *  Description of the Method
+     *
+     * @param  objects  Description of the Parameter
+     */ 
     public void doIt(Object [] objects) {
         infoDialog.setText(SENDING_PIGIRON_REQUEST);
         infoDialog.center();
@@ -90,23 +102,25 @@ public class HostApiLevelExplorerPanel extends HostExplorerPanel implements Requ
             infoDialog.setText(ex.getMessage());
             infoDialog.center();
             infoDialog.show();
-        } catch (java.lang.NullPointerException ex) { 
+        } catch (java.lang.NullPointerException ex) {
             // com.google.gwt.http.client.URL throws this on null input
-            infoDialog.setText(ex.getMessage()); 
+            infoDialog.setText(ex.getMessage());
             infoDialog.center();
             infoDialog.show();
         }
     }
- 
+
     /**
      *  Description of the Method
      *
+     * @return    Description of the Return Value
      */ 
     public EnhancedRequestBuilder buildRequest() {
-        boolean useSSL = PersistenceManager.getHostProperty(displayName, "UseSSL").equals("true") ? true : false;
+        boolean useSSL = PersistenceManager.getHostProperty(displayName,
+                 "UseSSL").equals("true") ? true : false;
         return EnhancedRequestBuilder.buildRequest("/piglet/PigIronServlet/engine", EnhancedRequestBuilder.Methods.PUT, jsonRequest(), this);
     }
- 
+
     /**
      *  Description of the Method
      *
@@ -114,7 +128,7 @@ public class HostApiLevelExplorerPanel extends HostExplorerPanel implements Requ
      * @param  exception  Description of the Parameter
      */ 
     public void onError(Request request, java.lang.Throwable exception) {
-	infoDialog.hide();
+        infoDialog.hide();
         Window.alert(HTTP_FAILURE);
     }
 
@@ -125,18 +139,48 @@ public class HostApiLevelExplorerPanel extends HostExplorerPanel implements Requ
      * @param  response  Description of the Parameter
      */ 
     public void onResponseReceived(Request request, Response response) {
-	infoDialog.hide();
-        add(new Label(response.getText()));
+        infoDialog.hide();
+        ResponseParser responseParser = ResponseParser.parse(response.getText());
+        Label l = new Label();
+        StringBuffer sb = new StringBuffer();
+	int reasonCode = -1;
+        if (responseParser.getResult().equals("SUCCESS")) {
+            sb.append("API functional level is ");
+            reasonCode = new Double(responseParser.getReasonCode()).intValue();
+            switch (reasonCode) {
+                case 0 :
+                    sb.append("5.3.");
+                    break;
+                case 540 :
+                    sb.append("5.4.");
+                    break;
+                default:
+                    sb.append("unknown.");
+            }
+        } else {
+            sb.append("There was an error in querying API functional level, the message is: ");
+            sb.append(responseParser.getMessageText());
+        }
+	/* sb.append(" Reason code was ");
+	sb.append(reasonCode + " ");
+	sb.append(response.getText()); */
+        l.setText(sb.toString());
+        add(l);
     }
- 
+
+    /**
+     *  Description of the Method
+     *
+     * @return    Description of the Return Value
+     */ 
     public String jsonRequest() {
-        String dnsName = PersistenceManager.getHostProperty(displayName, "DnsName");
+        String dnsName = PersistenceManager.getHostProperty(displayName,"DnsName");
         String ipAddr = PersistenceManager.getHostProperty(displayName, "IpAddr");
-        String portNumber = PersistenceManager.getHostProperty(displayName, "PortNumber");
+        String portNumber = PersistenceManager.getHostProperty(displayName,"PortNumber");
         String useSSL = PersistenceManager.getHostProperty(displayName, "UseSSL");
         String uid = PersistenceManager.getHostProperty(displayName, "Uid");
-        String password = PersistenceManager.getHostProperty(displayName,"Password");
-        StringBuffer sb = new StringBuffer("{\"function\": {\"function_name\": \"QueryAPIFunctionalLevel\", \"input_arguments\": [{ \"formal_name\": \"target_identifier\", \"value\": \"\" }], \"output_arguments\": [], \"request_id\": -1, \"result_code\": -1, \"return_code\": -1 }, \"host\": { \"dns_name\": \"");
+        String password = PersistenceManager.getHostProperty(displayName, "Password");
+        StringBuffer sb = new StringBuffer("{\"function\": {\"function_name\": \"QueryAPIFunctionalLevel\", \"input_arguments\": [{ \"formal_name\": \"target_identifier\", \"value\": \"\" }], \"output_arguments\": [], \"request_id\": -1, \"reason_code\": -1, \"return_code\": -1 }, \"host\": { \"dns_name\": \"");
         sb.append(dnsName);
         sb.append("\", \"ip_address\": \"");
         sb.append(ipAddr);

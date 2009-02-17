@@ -175,20 +175,20 @@ public class ResponseParser {
     }
 
     /**
-     *  Gets the resultCodeNumber attribute of the ResponseParser object
+     *  Gets the reasonCodeNumber attribute of the ResponseParser object
      *
-     * @return    The resultCodeNumber value
+     * @return    The reasonCodeNumber value
      */ 
-    public JSONNumber getResultCodeNumber() {
-        JSONNumber resultCodeNumber = null;
+    public JSONNumber getReasonCodeNumber() {
+        JSONNumber reasonCodeNumber = null;
         JSONObject functionObject = getFunctionObject();
         if (functionObject != null) {
-            JSONValue resultCodeValue = functionObject.get("return_code");
-            if (resultCodeValue != null) {
-                resultCodeNumber = resultCodeValue.isNumber();
+            JSONValue reasonCodeValue = functionObject.get("reason_code");
+            if (reasonCodeValue != null) {
+                reasonCodeNumber = reasonCodeValue.isNumber();
             }
         }
-        return resultCodeNumber;
+        return reasonCodeNumber;
     }
 
     /**
@@ -274,26 +274,31 @@ public class ResponseParser {
     }
 
     /**
-     *  Gets the resultCodeNumber attribute of the ResponseParser object
+     *  Gets the reasonCodeNumber attribute of the ResponseParser object
      *
-     * @return    The resultCode
+     * @return    The reasonCode
      */ 
-    public double getResultCode() {
-        double resultCode = - 1;
-        JSONNumber resultCodeNumber = getResultCodeNumber();
-        if (resultCodeNumber != null) {
-            resultCode = resultCodeNumber.doubleValue();
+    public double getReasonCode() {
+        double reasonCode = - 1;
+        JSONNumber reasonCodeNumber = getReasonCodeNumber();
+        if (reasonCodeNumber != null) {
+            reasonCode = reasonCodeNumber.doubleValue();
         }
-        return resultCode;
+        return reasonCode;
     }
-    
+
+    /**
+     *  Gets the result attribute of the ResponseParser object
+     *
+     * @return    The result value
+     */ 
     public String getResult() {
-	String result = null;
-	JSONString resultString = getResultString();
-	if (resultString != null) {
-	    result = resultString.stringValue();
-	}
-	return result;
+        String result = null;
+        JSONString resultString = getResultString();
+        if (resultString != null) {
+            result = resultString.stringValue();
+        }
+        return result;
     }
 }
 

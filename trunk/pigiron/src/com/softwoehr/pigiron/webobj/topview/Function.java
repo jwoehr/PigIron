@@ -53,7 +53,7 @@ public class Function extends WebObject {
      *  A Vector of the JSON keys (names) that are valid for
      * a given WebObject extender
      */ 
-    private static Vector <String> names = setNames(new String []{"function_name" ,"input_arguments" ,"output_arguments" ,"return_code" ,"result_code" ,"request_id"});
+    private static Vector <String> names = setNames(new String []{"function_name" ,"input_arguments" ,"output_arguments" ,"return_code" ,"reason_code" ,"request_id"});
   
     /**
      *  Get the array of JSON keys (names) that are valid for
@@ -123,7 +123,7 @@ public class Function extends WebObject {
      * @exception  JSONException  on JSON err
      */ 
     public Function(JSONObject jsonObject) throws JSONException {
-        super(jsonObject, new String []{"function_name" ,"input_arguments" ,"output_arguments" ,"return_code" ,"result_code" ,"request_id"});
+        super(jsonObject, new String []{"function_name" ,"input_arguments" ,"output_arguments" ,"return_code" ,"reason_code" ,"request_id"});
     }
 
     /**
@@ -147,7 +147,7 @@ public class Function extends WebObject {
         put("input_arguments", new InputArgumentArray());
         put("output_arguments", new OutputArgumentArray());
         put("return_code", - 1);
-        put("result_code", - 1);
+        put("reason_code", - 1);
         put("request_id", - 1);
     }
 
@@ -202,11 +202,11 @@ public class Function extends WebObject {
     /**
      *  Accessor to attributes associated with VSMAPI function
      *
-     * @return                    result_code
+     * @return                    reason_code
      * @exception  JSONException  on JSON err
      */ 
-    public int get_result_code() throws JSONException {
-        return getInt("result_code");
+    public int get_reason_code() throws JSONException {
+        return getInt("reason_code");
     }
 
     /**
