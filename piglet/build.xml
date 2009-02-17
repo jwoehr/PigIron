@@ -69,8 +69,12 @@
 
     <!-- PigLet special targets -->
 
-    <target description="Build a release" name="release">                                                                                                                                                                                                                           
-        <ant antfile="nbproject/release.xml" target="all"/>                                                                                                                                                                                                                         
+    <target description="Build a release" name="release">
+        <ant antfile="nbproject/release.xml" target="all"/>
+    </target>
+
+    <target description="One extra cleaning step .. delete the PigView directory" name="-post-clean">
+        <delete dir="${basedir}/web/pigview"/>
     </target>
 
 </project>
