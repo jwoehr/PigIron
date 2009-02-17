@@ -52,8 +52,9 @@ public class HostExplorerPanel extends VerticalPanel {
     protected HostDetailsPanel hostDetailsPanel = null;
     protected EnhancedRequestBuilder requestBuilder = null;
     protected final InfoDialog infoDialog = new InfoDialog();
-    protected static final String HTTP_FAILURE = "HTTP failure";
-    
+    protected final static String SENDING_PIGIRON_REQUEST = "Sending PigIron request to the server.";
+    protected final static String HTTP_FAILURE = "HTTP failure";
+
     /**
      *Constructor for the HostExplorerPanel object
      */ 
