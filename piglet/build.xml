@@ -69,6 +69,8 @@
 
     <!-- PigLet special targets -->
 
+    <target name="build" depends="default" description="Alias for the default target of PigLet build.xml"></target>
+    
     <target description="Build a release" name="release">
         <ant antfile="nbproject/release.xml" target="all"/>
     </target>

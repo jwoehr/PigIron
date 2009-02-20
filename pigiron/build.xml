@@ -70,6 +70,7 @@
  <!-- ======================= -->
  <!-- Pigiron Special Targets -->
  <!-- ======================= -->
+    <target name="build" depends="default" description="Alias for the default target of the pigiron build.xml"/>
     <target depends="init" description="Autogenerate all PigIron-provided paramstructs that have m4 description files" name="-pigiron-parmgen">
         <property value="${basedir}/${build.dir}/parmgen" name="build.parmgen.dir"/>
         <mkdir dir="${build.parmgen.dir}"/>
