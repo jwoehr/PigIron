@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="pigiron-master-build" default="all" basedir=".">
+
+    <description>
+    The PigIron Project
+    Open Source Client, Servlet and Web 2.0 Navigator for IBM z/VM SMAPI
+    Copyright *C* 2008,2009
+    Jack J. Woehr
+    PO Box 51 Golden, Colorado 80402 USA
+    http://pigiron.sourceforge.net
+    http://www.softwoehr.com
+    
+    No Warranty No Guarantte Open Source.
+    Please read the file license.txt.
+    
+    =========================
+    PigIron master build file
+    =========================
+    
+    PigIron was conceived in three parts,pigiron, piglet and pigview.
+    Each has its own Ant build.xml. This is overall build.xml file
+    which juggles targets from the individual projects.
+    </description>
+
+    <property location="${basedir}/../pigiron" name="pigiron.dir"></property>
+    <property location="${basedir}/../piglet" name="piglet.dir"></property>
+    <property location="${basedir}/../pigview" name="pigview.dir"></property>
+
+    <target name="all" depends="build,distrib"
+            description="Build and package all components for deployment and distribution"></target>
+
+    <target name="build" depends="pigiron,pigview,piglet" description="Build PigIron, PigView and PigLet"/>
+
+    <target name="pigiron" description="Build PigIron Open Source Java client for IBM z/VM SMAPI">
+        <ant dir="${pigiron.dir}" inheritall="true" inheritrefs="true" target="build"/>
+
+    </target>
+
+    <target name="pigview" description="Build the PigView Web 2.0 Navigator and insert it in PigLet web dir hierarchy for inclusion in PigLet .war file">
+        <ant dir="${pigview.dir}" inheritall="true" inheritrefs="true" target="build"/>
+        <ant dir="${pigview.dir}" inheritall="true" inheritrefs="true" target="piglet"/>
+    </target>
+
+    <target name="piglet" description="Build the PigLet PigIron Servlet and its .war file">
+        <ant dir="${piglet.dir}" inheritall="true" inheritrefs="true" target="build"/>
+    </target>
+
+    <target name="clean" description="Cleans this project's intermediate and output files">
+        <ant dir="${pigiron.dir}" inheritall="true" inheritrefs="true" target="clean"/>
+        <ant dir="${piglet.dir}" inheritall="true" inheritrefs="true" target="clean"/>
+        <ant dir="${pigview.dir}" inheritall="true" inheritrefs="true" target="clean"/>
+    </target>
+
+    <target name="distrib">
+        <fail message="Not implemented yet."></fail>
+    </target>
+
+</project>
