@@ -10,7 +10,7 @@
     http://pigiron.sourceforge.net
     http://www.softwoehr.com
     
-    No Warranty No Guarantte Open Source.
+    No Warranty No Guarantee Open Source.
     Please read the file license.txt.
     
     =========================
@@ -25,15 +25,18 @@
     <property location="${basedir}/../pigiron" name="pigiron.dir"></property>
     <property location="${basedir}/../piglet" name="piglet.dir"></property>
     <property location="${basedir}/../pigview" name="pigview.dir"></property>
+    <property location="${basedir}/../dist" name="dist.dir"></property>
+    <property location="${dist.dir}/javadoc" name="javadoc.dir"></property>
+    <property location="${pigiron.dir}/src" name="pigiron.java.src.dir"></property>
+    <property location="${piglet.dir}/src/java" name="piglet.java.src.dir"></property>
+    <property location="${pigview.dir}/src" name="pigview.java.src.dir"></property>
 
-    <target name="all" depends="build,distrib"
-            description="Build and package all components for deployment and distribution"></target>
+    <target name="all" depends="build,javadocs,distrib" description="Build and package all components for deployment and distribution"/>
 
     <target name="build" depends="pigiron,pigview,piglet" description="Build PigIron, PigView and PigLet"/>
 
     <target name="pigiron" description="Build PigIron Open Source Java client for IBM z/VM SMAPI">
         <ant dir="${pigiron.dir}" inheritall="true" inheritrefs="true" target="build"/>
-
     </target>
 
     <target name="pigview" description="Build the PigView Web 2.0 Navigator and insert it in PigLet web dir hierarchy for inclusion in PigLet .war file">
@@ -45,10 +48,25 @@
         <ant dir="${piglet.dir}" inheritall="true" inheritrefs="true" target="build"/>
     </target>
 
-    <target name="clean" description="Cleans this project's intermediate and output files">
+    <target name="clean" depends="clean-distdir" description="Cleans the overall project's intermediate and output files">
         <ant dir="${pigiron.dir}" inheritall="true" inheritrefs="true" target="clean"/>
         <ant dir="${piglet.dir}" inheritall="true" inheritrefs="true" target="clean"/>
         <ant dir="${pigview.dir}" inheritall="true" inheritrefs="true" target="clean"/>
+    </target>
+
+    <target name="clean-distdir" description="Cleans the overall project's build dirs">
+        <delete dir="${dist.dir}"/>
+    </target>
+
+    <target name="javadocs" description="Generate composite javadocs for all PigIron projects">
+        <mkdir dir="${javadoc.dir}"/>
+        <javadoc destdir="${javadoc.dir}">
+            <sourcefiles>
+                <fileset dir="${pigiron.java.src.dir}" defaultexcludes="yes"/>
+                <fileset dir="${piglet.java.src.dir}" defaultexcludes="yes"/>
+                <fileset dir="${pigview.java.src.dir}" defaultexcludes="yes"/>
+            </sourcefiles>
+        </javadoc>
     </target>
 
     <target name="distrib">
