@@ -26,7 +26,8 @@
     <property location="${basedir}/../piglet" name="piglet.dir"></property>
     <property location="${basedir}/../pigview" name="pigview.dir"></property>
     <property location="${basedir}/../dist" name="dist.dir"></property>
-    <property location="${dist.dir}/javadoc" name="javadoc.dir"></property>
+    <property location="${basedir}/../dist/doc" name="doc.dir"></property>
+    <property location="${doc.dir}/javadoc" name="javadoc.dir"></property>
     <property location="${pigiron.dir}/src" name="pigiron.java.src.dir"></property>
     <property location="${piglet.dir}/src/java" name="piglet.java.src.dir"></property>
     <property location="${pigview.dir}/src" name="pigview.java.src.dir"></property>
