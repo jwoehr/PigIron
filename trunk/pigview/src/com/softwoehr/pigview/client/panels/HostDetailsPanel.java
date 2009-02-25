@@ -36,7 +36,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  *  The Host Details Panel is the right panel of the navigator composite panel
- * on the nav tab.
+ * on the nav tab. The top of this rightmost panel is the host properties and
+ * the bottom is the explorer view. 
  *
  * @author     jax
  * @created    January 30, 2009

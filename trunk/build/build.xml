@@ -37,22 +37,22 @@
     <target name="build" depends="pigiron,pigview,piglet" description="Build PigIron, PigView and PigLet"/>
 
     <target name="pigiron" description="Build PigIron Open Source Java client for IBM z/VM SMAPI">
-        <ant dir="${pigiron.dir}" inheritall="true" inheritrefs="true" target="build"/>
+        <ant dir="${pigiron.dir}" inheritall="false" inheritrefs="false" target="build"/>
     </target>
 
     <target name="pigview" description="Build the PigView Web 2.0 Navigator and insert it in PigLet web dir hierarchy for inclusion in PigLet .war file">
-        <ant dir="${pigview.dir}" inheritall="true" inheritrefs="true" target="build"/>
-        <ant dir="${pigview.dir}" inheritall="true" inheritrefs="true" target="piglet"/>
+        <ant dir="${pigview.dir}" inheritall="false" inheritrefs="false" target="build"/>
+        <ant dir="${pigview.dir}" inheritall="false" inheritrefs="false" target="piglet"/>
     </target>
 
     <target name="piglet" description="Build the PigLet PigIron Servlet and its .war file">
-        <ant dir="${piglet.dir}" inheritall="true" inheritrefs="true" target="build"/>
+        <ant dir="${piglet.dir}" inheritall="false" inheritrefs="false" target="build"/>
     </target>
 
     <target name="clean" depends="clean-distdir" description="Cleans the overall project's intermediate and output files">
-        <ant dir="${pigiron.dir}" inheritall="true" inheritrefs="true" target="clean"/>
-        <ant dir="${piglet.dir}" inheritall="true" inheritrefs="true" target="clean"/>
-        <ant dir="${pigview.dir}" inheritall="true" inheritrefs="true" target="clean"/>
+        <ant dir="${pigiron.dir}" inheritall="false" inheritrefs="false" target="clean"/>
+        <ant dir="${piglet.dir}" inheritall="false" inheritrefs="false" target="clean"/>
+        <ant dir="${pigview.dir}" inheritall="false" inheritrefs="false" target="clean"/>
     </target>
 
     <target name="clean-distdir" description="Cleans the overall project's build dirs">
