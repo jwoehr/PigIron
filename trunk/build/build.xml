@@ -31,6 +31,8 @@
     <property location="${pigiron.dir}/src" name="pigiron.java.src.dir"></property>
     <property location="${piglet.dir}/src/java" name="piglet.java.src.dir"></property>
     <property location="${pigview.dir}/src" name="pigview.java.src.dir"></property>
+    <property location="${pigiron.dir}/dist" name="pigiron.dist.dir"></property>
+    <property location="${piglet.dir}/dist" name="piglet.dist.dir"></property>
 
     <target name="all" depends="build,javadocs,distrib" description="Build and package all components for deployment and distribution"/>
 
@@ -70,8 +72,21 @@
         </javadoc>
     </target>
 
-    <target name="distrib">
-        <fail message="Not implemented yet."></fail>
+    <!-- ~~~~~~~~~~~~ -->
+    <!-- Distribution -->
+    <!-- ~~~~~~~~~~~~ -->
+
+    <target name="distrib" depends="-distrib-copy,-distrib-zip" description="Builds a distribution for all PigIron projects as one archive">
+        <fail message="Not fully implemented yet."></fail>
+    </target>
+
+    <target name="-distrib-copy">
+        <copy file="${pigiron.dist.dir}/pigiron.jar" todir="${dist.dir}"/>
+        <copy file="${piglet.dist.dir}/piglet.war" todir="${dist.dir}"/>
+    </target>
+
+    <target name="-distrib-zip">
+        <zip basedir="${dist.dir}" destfile="${dist.dir}/pigiron-all.zip" includes="doc/**,*.war,*.jar"/>
     </target>
 
 </project>
