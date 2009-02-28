@@ -101,20 +101,14 @@ public abstract class HostExplorerPanel extends VerticalPanel {
      * @param  objects any additional parameters to provide to the operation
      */ 
     public void doIt(Object [] objects) {
-	infoDialog.setText(SENDING_PIGIRON_REQUEST);
-        infoDialog.center();
-        infoDialog.show();
+	infoDialog.say(SENDING_PIGIRON_REQUEST);
         try {
             buildRequest().send();
         } catch (com.google.gwt.http.client.RequestException ex) {
-            infoDialog.setText(ex.getMessage());
-            infoDialog.center();
-            infoDialog.show();
+            infoDialog.say(ex.getMessage());
         } catch (java.lang.NullPointerException ex) {
             // com.google.gwt.http.client.URL throws this on null input
-            infoDialog.setText(ex.getMessage());
-            infoDialog.center();
-            infoDialog.show();
+            infoDialog.say(ex.getMessage());
         }
     }
 

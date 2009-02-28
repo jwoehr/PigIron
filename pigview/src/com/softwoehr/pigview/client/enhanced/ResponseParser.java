@@ -219,7 +219,7 @@ public class ResponseParser {
         if (functionObject != null) {
             JSONValue outputArgumentsValue = functionObject.get("output_arguments");
             if (outputArgumentsValue != null) {
-                outputArgumentsArray = outputArgumentsArray.isArray();
+                outputArgumentsArray = outputArgumentsValue.isArray();
             }
         }
         return outputArgumentsArray;
@@ -267,12 +267,12 @@ public class ResponseParser {
      * @return             The output argument as a JSON array or null
      */ 
     public JSONArray getOutputArgumentArrayNamed(String formalName) {
-	JSONArray outputArgumentArray = null;
-	JSONValue outputArgumentValue = getOutputArgumentValueNamed(formalName);
-	if (outputArgumentValue != null) {
-	    outputArgumentArray = outputArgumentValue.isArray();
-	}
-	return outputArgumentArray;
+        JSONArray outputArgumentArray = null;
+        JSONValue outputArgumentValue = getOutputArgumentValueNamed(formalName);
+        if (outputArgumentValue != null) {
+            outputArgumentArray = outputArgumentValue.isArray();
+        }
+        return outputArgumentArray;
     }
 
     /**
@@ -313,6 +313,36 @@ public class ResponseParser {
         JSONString resultString = getResultString();
         if (resultString != null) {
             result = resultString.stringValue();
+        }
+        return result;
+    }
+
+    /**
+     *  Gets the arrayMemberValueFormallyNamed attribute of the ResponseParser class
+     *
+     * @param  jsonArray   Description of the Parameter
+     * @param  formalName  Description of the Parameter
+     * @return             The arrayMemberValueFormallyNamed value
+     */ 
+    public static JSONValue getArrayMemberValueFormallyNamed(JSONArray jsonArray, String formalName) {
+        JSONValue result = null;
+        JSONValue item = null;
+        JSONObject member = null;
+        for (int i = 0; i < jsonArray.size(); i++) {
+            item = jsonArray.get(i);
+            member = item.isObject();
+            if (member != null) {
+                JSONValue aFormalNameValue = member.get("formal_name");
+                if (aFormalNameValue != null) {
+                    JSONString aFormalNameString = aFormalNameValue.isString();
+                    if (aFormalNameString != null) {
+                        if (aFormalNameString.stringValue().equals(formalName)) {
+                            result = member.get("value");
+                            break;
+                        }
+                    }
+                }
+            }
         }
         return result;
     }

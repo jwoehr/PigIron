@@ -38,31 +38,57 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.softwoehr.pigview.client.enhanced.*;
 
+/**
+ *  Description of the Class
+ *
+ * @author     jax
+ * @created    February 27, 2009
+ */
+public class InfoDialog extends DialogBox {
 
-public class InfoDialog extends DialogBox /* implements ClickListener */ {
-    
     private final Button closeButton = new Button("Close");
 
+    /**
+     *Constructor for the InfoDialog object
+     */ 
     public InfoDialog() {
-	super();
-	initWidgets();
-	initDialogPanel();
+        super();
+        initWidgets();
+        initDialogPanel();
     }
-    
+
+    /**
+     *  Description of the Method
+     */ 
     public void initWidgets() {
-	setAnimationEnabled(true);
+        setAnimationEnabled(true);
     }
-    
+
+    /**
+     *  Description of the Method
+     */ 
     public void initDialogPanel() {
         VerticalPanel dialogVPanel = new VerticalPanel();
         dialogVPanel.setWidth("100%");
         dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
         dialogVPanel.add(closeButton);
-        closeButton.addClickListener(new ClickListener() {
+        closeButton.addClickListener (new ClickListener() {
             public void onClick(Widget sender) {
                 hide();
             }
         } );
         setWidget(dialogVPanel);
-    }    
+    }
+
+    /**
+     *  Quick show-the-message-now.
+     *
+     * @param  messageText  Message to display
+     */ 
+    public void say(String messageText) {
+        setText(messageText);
+        center();
+        show();
+    }
 }
+

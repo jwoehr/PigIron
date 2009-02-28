@@ -77,7 +77,7 @@
     <!-- ~~~~~~~~~~~~ -->
 
     <target name="distrib" depends="-distrib-copy,-distrib-zip" description="Builds a distribution for all PigIron projects as one archive">
-        <fail message="Not fully implemented yet."></fail>
+        <echo message="Remember that distrib is not a fully implemented target yet."/>
     </target>
 
     <target name="-distrib-copy">

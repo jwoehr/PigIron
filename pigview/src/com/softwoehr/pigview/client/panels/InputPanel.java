@@ -90,9 +90,7 @@ public class InputPanel extends VerticalPanel implements RequestCallback {
      * @param  response  Description of the Parameter
      */ 
     public void onResponseReceived(Request request, Response response) {
-        infoDialog.setText(response.getText());
-        infoDialog.center();
-        infoDialog.show();
+        infoDialog.say(response.getText());
     }
 
     /**
@@ -106,20 +104,14 @@ public class InputPanel extends VerticalPanel implements RequestCallback {
 		buildRequest("/piglet/PigIronServlet/engine", textArea.getText().trim());
                 try {
                     request = requestBuilder.send();
-		    infoDialog.setText(SENDING_PIGIRON_REQUEST);
-                    infoDialog.center();
-                    infoDialog.show();
+		    infoDialog.say(SENDING_PIGIRON_REQUEST);
                 }
 		catch (com.google.gwt.http.client.RequestException ex) {
-                    infoDialog.setText(ex.getMessage());
-                    infoDialog.center();
-                    infoDialog.show();
+                    infoDialog.say(ex.getMessage());
                 } 
 		catch (java.lang.NullPointerException ex) { 
 		    // com.google.gwt.http.client.URL throws this on null input
-                    infoDialog.setText(ex.getMessage());  
-                    infoDialog.center();
-                    infoDialog.show();
+                    infoDialog.say(ex.getMessage());  
 		}
             }
         } );
