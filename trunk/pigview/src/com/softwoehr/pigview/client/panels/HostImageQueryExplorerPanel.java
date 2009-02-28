@@ -128,35 +128,53 @@ public class HostImageQueryExplorerPanel extends HostExplorerPanel implements Re
      */ 
     public void onResponseReceived(Request request, Response response) {
         infoDialog.hide();
-        Label l = null;
+        Label l = new Label();
+        l.setText("I don't know what happened.");
         ResponseParser responseParser = ResponseParser.parse(response.getText());
         if (responseParser.getReturnCode() == 0.0 & responseParser.getReasonCode() == 0.0) {
-            JSONArray imageNameArray = responseParser.getOutputArgumentArrayNamed("image_name_array");
-            if (imageNameArray != null) {
-                JSONValue imageNameStructureValue = null;
-                JSONObject imageNameStructureObject = null;
-                for (int i = 0; i < imageNameArray.size(); i++) {
-                    imageNameStructureValue = imageNameArray.get(i);
-                    if (imageNameStructureValue != null) {
-                        imageNameStructureObject = imageNameStructureValue.isObject();
-                        if (imageNameStructureObject != null) {
-                            JSONValue imageNameValue = imageNameStructureObject.get("image_name");
-                            if (imageNameValue != null) {
-                                JSONString imageNameString = imageNameValue.isString();
-                                l = new Label();
-                                l.setText(imageNameString.stringValue());
-                                add(l);
+            if (responseParser.getOutputArgumentsArray() == null) {
+                l.setText("Couldn't get output arguments array.");
+                add(l);
+            } else {
+                if (responseParser.getOutputArgumentValueNamed("image_name_array") == null) {
+                    l.setText("Couldn't get output argument value named image_name_array.");
+                    add(l);
+                } else {
+                    if (responseParser.getOutputArgumentArrayNamed("image_name_array") == null) {
+                        l.setText("Couldn't get output argument array named image_name_array.");
+                        add(l);
+                    } else {
+                        JSONArray imageNameArray = responseParser.getOutputArgumentArrayNamed("image_name_array");
+                        if (imageNameArray != null) {
+                            JSONValue imageNameStructureValue = null;
+                            JSONObject imageNameStructureObject = null;
+                            for (int i = 0; i < imageNameArray.size(); i++) {
+                                imageNameStructureValue = imageNameArray.get(i);
+                                if (imageNameStructureValue != null) {
+                                    imageNameStructureObject = imageNameStructureValue.isObject();
+                                    if (imageNameStructureObject != null) {
+                                        JSONValue imageNameStructArrayValue = imageNameStructureObject.get("value");
+                                        if (imageNameStructArrayValue != null) {
+					    JSONArray imageNameStructArray = imageNameStructArrayValue.isArray();
+                                            JSONValue imageNameValue = ResponseParser.getArrayMemberValueFormallyNamed(imageNameStructArray, "image_name");
+                                            if (imageNameValue != null) {
+                                                JSONString imageNameString = imageNameValue.isString();
+                                                l = new Label();
+                                                l.setText(imageNameString.stringValue());
+                                                add(l);
+                                            }
+                                        }
+                                    }
+                                }
                             }
+                        } else {
+                            l.setText("No images found.");
+                            add(l);
                         }
                     }
                 }
-            } else {
-                l = new Label();
-                l.setText("No images found.");
-                add(l);
             }
         } else {
-            l = new Label();
             l.setText("There was an error querying images, the message is: " + responseParser.getMessageText());
             add(l);
         }
