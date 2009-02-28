@@ -70,8 +70,7 @@ public class HostImageQueryExplorerPanel extends HostExplorerPanel implements Re
      * composite panel that parents this panel's Host details parent
      * @param  hostDetailsPanel  Host details parent
      */ 
-    public HostImageQueryExplorerPanel(String displayName,
-             NavigatorTree navigatorTree, HostDetailsPanel hostDetailsPanel) {
+    public HostImageQueryExplorerPanel(String displayName, NavigatorTree navigatorTree, HostDetailsPanel hostDetailsPanel) {
         super(displayName,navigatorTree,hostDetailsPanel);
     }
 
@@ -96,15 +95,15 @@ public class HostImageQueryExplorerPanel extends HostExplorerPanel implements Re
      * @param  objects any additional parameters to provide to the operation
      */ 
     public void doIt(Object [] objects) {
-	super.doIt(objects);
+        super.doIt(objects);
     }
 
-   /**
+    /**
      *  Formulate the request to be executed in doIt()
      *
      * @return    an EnhancedRequestBuilder embodying the request
      * @see #doIt
-     */
+     */ 
     public EnhancedRequestBuilder buildRequest() {
         boolean useSSL = PersistenceManager.getHostProperty(displayName, "UseSSL").equals("true") ? true : false;
         return EnhancedRequestBuilder.buildRequest("/piglet/PigIronServlet/engine", EnhancedRequestBuilder.Methods.PUT, jsonRequest(), this);
@@ -132,35 +131,34 @@ public class HostImageQueryExplorerPanel extends HostExplorerPanel implements Re
         Label l = null;
         ResponseParser responseParser = ResponseParser.parse(response.getText());
         if (responseParser.getReturnCode() == 0.0 & responseParser.getReasonCode() == 0.0) {
-	    JSONArray imageRecordArray = responseParser.getOutputArgumentArrayNamed("image_record_array");
-	    if (imageRecordArray != null) {
-		JSONValue imageRecordValue = null;
-		JSONObject imageRecordObject = null;
-		for (int i = 0; i <  imageRecordArray.size(); i++) {
-		    imageRecordValue = imageRecordArray.get(i);
-		    if (imageRecordValue != null) {
-			imageRecordObject = imageRecordValue.isObject();
-			if (imageRecordObject != null) {
-			    JSONValue imageValue = imageRecordObject.get("image_record");
-			    if (imageValue != null) {
-				JSONString imageString = imageValue.isString();
-				l = new Label();
-				l.setText(imageString.stringValue());
-				add(l);
-			    }
-			}
-		    }
-		}
-	    }
-	    else {
-		l = new Label();
-		l.setText("No images found.");
-		add(l);
-	    }
+            JSONArray imageNameArray = responseParser.getOutputArgumentArrayNamed("image_name_array");
+            if (imageNameArray != null) {
+                JSONValue imageNameStructureValue = null;
+                JSONObject imageNameStructureObject = null;
+                for (int i = 0; i < imageNameArray.size(); i++) {
+                    imageNameStructureValue = imageNameArray.get(i);
+                    if (imageNameStructureValue != null) {
+                        imageNameStructureObject = imageNameStructureValue.isObject();
+                        if (imageNameStructureObject != null) {
+                            JSONValue imageNameValue = imageNameStructureObject.get("image_name");
+                            if (imageNameValue != null) {
+                                JSONString imageNameString = imageNameValue.isString();
+                                l = new Label();
+                                l.setText(imageNameString.stringValue());
+                                add(l);
+                            }
+                        }
+                    }
+                }
+            } else {
+                l = new Label();
+                l.setText("No images found.");
+                add(l);
+            }
         } else {
-	    l = new Label();
+            l = new Label();
             l.setText("There was an error querying images, the message is: " + responseParser.getMessageText());
-	    add(l);
+            add(l);
         }
     }
 
@@ -177,8 +175,8 @@ public class HostImageQueryExplorerPanel extends HostExplorerPanel implements Re
         String uid = PersistenceManager.getHostProperty(displayName, "Uid");
         String password = PersistenceManager.getHostProperty(displayName, "Password");
         StringBuffer sb = new StringBuffer("{\"function\": {\"function_name\": \"ImageNameQueryDM\", \"input_arguments\": [{ \"formal_name\": \"target_identifier\", \"value\": \"");
-	sb.append(uid);
-	sb.append("\" }], \"output_arguments\": [], \"request_id\": -1, \"reason_code\": -1, \"return_code\": -1 }, \"host\": { \"dns_name\": \"");
+        sb.append(uid);
+        sb.append("\" }], \"output_arguments\": [], \"request_id\": -1, \"reason_code\": -1, \"return_code\": -1 }, \"host\": { \"dns_name\": \"");
         sb.append(dnsName);
         sb.append("\", \"ip_address\": \"");
         sb.append(ipAddr);
@@ -196,4 +194,3 @@ public class HostImageQueryExplorerPanel extends HostExplorerPanel implements Re
         return sb.toString();
     }
 }
-
