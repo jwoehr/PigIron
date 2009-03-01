@@ -401,7 +401,7 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_SharedMemoryQuery_2
     testing_VMRMMeasurementQuery
     testing_VirtualNetworkAdapterQuery
-    testing_DirectoryManagerSearchDM
+\    testing_DirectoryManagerSearchDM \ \ bug at pigiron level! \
     testing_SharedMemoryAccessQueryDM
     testing_VirtualNetworkLANAccessQuery
     testing_VirtualNetworkLANQuery
