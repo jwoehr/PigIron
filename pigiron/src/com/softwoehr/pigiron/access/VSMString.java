@@ -121,6 +121,7 @@ public class VSMString implements VSMParm {
      * @throws java.io.IOException on comm error
      */
     public void read(DataInputStream in, int length) throws IOException {
+	// /* Debug */ System.err.println("About to read a string of length " + length);
         byte[] bytes = new byte[length];
         in.readFully(bytes);
         setValue(new String(bytes));
