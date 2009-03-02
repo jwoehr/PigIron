@@ -32,7 +32,11 @@
     <property location="${piglet.dir}/src/java" name="piglet.java.src.dir"></property>
     <property location="${pigview.dir}/src" name="pigview.java.src.dir"></property>
     <property location="${pigiron.dir}/dist" name="pigiron.dist.dir"></property>
+    <property location="${pigiron.dir}/piggen" name="pigiron.piggen.dir"></property>
+    <property location="${pigiron.dir}/script" name="pigiron.script.dir"></property>
+    <property location="${pigiron.dir}/src" name="pigiron.src.dir"></property>
     <property location="${piglet.dir}/dist" name="piglet.dist.dir"></property>
+    <property file="${basedir}/release.properties"/>
 
     <target name="all" depends="build,javadocs,distrib" description="Build and package all components for deployment and distribution"/>
 
@@ -89,4 +93,14 @@
         <zip basedir="${dist.dir}" destfile="${dist.dir}/pigiron-all.zip" includes="doc/**,*.war,*.jar"/>
     </target>
 
+   <!-- target depends="init-release" description="Zip all binaries and sources for PigIron" name="zip-all" -->
+   <!-- target description="Zip all binaries and sources for PigIron" name="zip-all">
+        <zip compress="true" destfile="${srczip.fullpathname}" basedir="${basedir}" excludes="*/**">
+            <zipfileset dir="${pigiron.dir}/piggen" prefix="${release.name}/piggen"/>
+            <zipfileset dir="script" prefix="${release.name}/script"/>
+            <zipfileset dir="src" prefix="${release.name}/src"/>
+            <zipfileset dir="nbproject" excludes="private/**" prefix="${release.name}/nbproject"/>
+            <zipfileset dir="." includes="README.txt,CHANGES.TXT,license.txt,build.xml,overview.html" prefix="${release.name}"/>
+        </zip>
+    </target -->
 </project>
