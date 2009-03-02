@@ -210,6 +210,7 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
                 member.read(in, -1);
             }
             myNewContents.add(member);
+	    length -= member.paramLength();
         }
         // Convert 'this' into the new struct we have read in.
         setValue(myNewContents);

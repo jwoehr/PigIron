@@ -401,7 +401,7 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_SharedMemoryQuery_2
     testing_VMRMMeasurementQuery
     testing_VirtualNetworkAdapterQuery
-\    testing_DirectoryManagerSearchDM \ \ bug at pigiron level! \
+\    testing_DirectoryManagerSearchDM \ \ bug at vsmapi level! \
     testing_SharedMemoryAccessQueryDM
     testing_VirtualNetworkLANAccessQuery
     testing_VirtualNetworkLANQuery
@@ -434,7 +434,7 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     query_no_proto_ipl_statement \ See what happened \
     testing_ImageDeleteDM_1
     testing_ImageDeleteDM_2
-    testing_ImagePasswordSetDM
+\    testing_ImagePasswordSetDM \ \ This messes things up because, d'oh, it changes the password \
     testing_AuthorizationListQuery1 \ just take a look \
     testing_AuthorizationListAdd    \ add an entry \
     testing_AuthorizationListQuery2 \ See if you can find that entry \
