@@ -59,14 +59,15 @@
         <ant dir="${piglet.dir}" inheritall="false" inheritrefs="false" target="build"/>
     </target>
 
-    <target name="clean" depends="clean-distdir" description="Cleans the overall project's intermediate and output files">
+    <target name="clean" depends="clean-distdirs" description="Cleans the overall project's intermediate and output files">
         <ant dir="${pigiron.dir}" inheritall="false" inheritrefs="false" target="clean"/>
         <ant dir="${piglet.dir}" inheritall="false" inheritrefs="false" target="clean"/>
         <ant dir="${pigview.dir}" inheritall="false" inheritrefs="false" target="clean"/>
     </target>
 
-    <target name="clean-distdir" description="Cleans the overall project's build dirs">
+    <target name="clean-distdirs" description="Cleans the overall project's build dirs">
         <delete dir="${dist.dir}"/>
+	<delete dir="${javadoc.dir}"/>
     </target>
 
     <target name="javadocs" description="Generate composite javadocs for all PigIron projects">
