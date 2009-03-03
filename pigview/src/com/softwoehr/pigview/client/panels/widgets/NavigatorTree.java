@@ -61,7 +61,7 @@ public class NavigatorTree extends Tree {
     /**
      *Constructor for the NavigatorTree object
      *
-     * @param  navigatorPanel  Description of the Parameter
+     * @param  navigatorPanel  associated NavigatorPanel on which tree resides
      */ 
     public NavigatorTree(NavigatorPanel navigatorPanel) {
         super();
@@ -87,9 +87,9 @@ public class NavigatorTree extends Tree {
     }
 
     /**
-     *  Adds a feature to the Host attribute of the NavigatorTree object
+     *  Add a Host to the NavigatorTree from a filled-in AddHostDialog
      *
-     * @param  dialog  The feature to be added to the Host attribute
+     * @param  dialog  The filled-in AddHostDialog that has the info for new Host
      */ 
     public void addHost(AddHostDialog dialog) {
         saveHost(dialog.getDisplayName(), dialog.getDnsName(), dialog.getIpAddr(), dialog.getPortNumber(), dialog.getUid(),
@@ -121,9 +121,9 @@ public class NavigatorTree extends Tree {
     }
 
     /**
-     *  Description of the Method
+     *  Remove a Host from the tree and from persistence.
      *
-     * @param  displayName  Description of the Parameter
+     * @param  displayName  Display name of the host to delete, that's the key
      */ 
     public void deleteHost(String displayName) {
         PersistenceManager.remove("host.DisplayName." + displayName);
@@ -139,10 +139,10 @@ public class NavigatorTree extends Tree {
     }
 
     /**
-     *  Description of the Method
+     *  Find a host in the tree using the display name as the key
      *
-     * @param  displayName  Description of the Parameter
-     * @return              Description of the Return Value
+     * @param  displayName  host display name in tree
+     * @return              The item or null if not found
      */ 
     public TreeItem findHostInTree(String displayName) {
         TreeItem result = null;
@@ -158,7 +158,7 @@ public class NavigatorTree extends Tree {
     }
 
     /**
-     *  Description of the Method
+     *  Build the tree from persistent information
      */ 
     public void rebuildTree() {
         clear();
@@ -171,11 +171,11 @@ public class NavigatorTree extends Tree {
             l.addClickHandler (new ClickHandler() {
                 public void onClick(ClickEvent event) {
                     TreeItem parent = t.getParentItem();
-                    int childCount = parent.getChildCount();
+                    /* int childCount = parent.getChildCount();
                     for (int i = 0; i < childCount; i++) {
                         parent.getChild(i).removeStyleName("gwt-TreeItem-selected");
                     }
-                    t.setStyleName("gwt-TreeItem-selected");
+                    t.setStyleName("gwt-TreeItem-selected"); */
                     t.setSelected(true);
                     navigatorPanel.hostDetailsView(l.getText());
                 }
@@ -187,7 +187,7 @@ public class NavigatorTree extends Tree {
     }
 
     /**
-     *  Adds a feature to the Operations attribute of the NavigatorTree object
+     *  Adds an Operation to the Operations node of the NavigatorTree object.
      *
      * @param  treeItem  The feature to be added to the Operations attribute
      */ 
@@ -198,9 +198,10 @@ public class NavigatorTree extends Tree {
     }
 
     /**
-     *  Adds a feature to the APILevelOperation attribute of the NavigatorTree object
+     *  Adds the APILevel Operation  to a node,
+     *  normally to the Operations node of the NavigatorTree object.
      *
-     * @param  treeItem  The feature to be added to the APILevelOperation attribute
+     * @param  treeItem  The node to which should be added the operation
      */ 
     public void addAPILevelOperation(TreeItem treeItem) {
         final Label l = new Label("API Level");
@@ -208,11 +209,11 @@ public class NavigatorTree extends Tree {
         l.addClickHandler (new ClickHandler() {
             public void onClick(ClickEvent event) {
                 TreeItem parent = t.getParentItem();
-                int childCount = parent.getChildCount();
+                /* int childCount = parent.getChildCount();
                 for (int i = 0; i < childCount; i++) {
                     parent.getChild(i).removeStyleName("gwt-TreeItem-selected");
                 }
-                t.setStyleName("gwt-TreeItem-selected");
+                t.setStyleName("gwt-TreeItem-selected"); */
                 t.setSelected(true);
 		/* Cheesy way of getting display name of host */
 		/* which its the key to the Cookie database   */
@@ -224,9 +225,10 @@ public class NavigatorTree extends Tree {
     }
 
     /**
-     *  Adds a feature to the CheckAuthenticationOperation attribute of the NavigatorTree object
+     *  Adds the CheckAuthentication Operation to a node,
+     *  normally to the Operations node of the NavigatorTree object.
      *
-     * @param  treeItem  The feature to be added to the CheckAuthenticationOperation attribute
+     * @param  treeItem  The node to which should be added the operation
      */ 
     public void addCheckAuthenticationOperation(TreeItem treeItem) {
         final Label l = new Label("Check Authentication");
@@ -234,11 +236,11 @@ public class NavigatorTree extends Tree {
         l.addClickHandler (new ClickHandler() {
             public void onClick(ClickEvent event) {
                 TreeItem parent = t.getParentItem();
-                int childCount = parent.getChildCount();
+                /* int childCount = parent.getChildCount();
                 for (int i = 0; i < childCount; i++) {
                     parent.getChild(i).removeStyleName("gwt-TreeItem-selected");
                 }
-                t.setStyleName("gwt-TreeItem-selected");
+                t.setStyleName("gwt-TreeItem-selected"); */
                 t.setSelected(true);
                 navigatorPanel.hostCheckAuthenticationExplorerView(((Label) parent.getWidget()).getText());
             }
@@ -247,9 +249,10 @@ public class NavigatorTree extends Tree {
     }
     
    /**
-     *  Adds a feature to the ImageQueryOperation attribute of the NavigatorTree object
+     *  Adds the ImageQuery Operation  to a node,
+     *  normally to the Operations node of the NavigatorTree object.
      *
-     * @param  treeItem  The feature to be added to the ImageQueryOperation attribute
+     * @param  treeItem  The node to which should be added the operation
      */ 
     public void addImageQueryOperation(TreeItem treeItem) {
         final Label l = new Label("Images");
@@ -257,11 +260,11 @@ public class NavigatorTree extends Tree {
         l.addClickHandler (new ClickHandler() {
             public void onClick(ClickEvent event) {
                 TreeItem parent = t.getParentItem();
-                int childCount = parent.getChildCount();
+                /* int childCount = parent.getChildCount();
                 for (int i = 0; i < childCount; i++) {
                     parent.getChild(i).removeStyleName("gwt-TreeItem-selected");
                 }
-                t.setStyleName("gwt-TreeItem-selected");
+                t.setStyleName("gwt-TreeItem-selected"); */
                 t.setSelected(true);
                 navigatorPanel.hostImageQueryExplorerView(((Label) parent.getWidget()).getText());
             }
