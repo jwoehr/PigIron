@@ -11,7 +11,7 @@
     http://www.softwoehr.com
     
     No Warranty No Guarantee Open Source.
-    Please read the file license.txt.
+    Please run 'ant license' to read the file license.txt.
     
     =========================
     PigIron master build file
@@ -103,4 +103,11 @@
             <zipfileset dir="." includes="README.txt,CHANGES.TXT,license.txt,build.xml,overview.html" prefix="${release.name}"/>
         </zip>
     </target -->
+    
+
+    <target name="license">
+        <concat>
+            <fileset dir="${basedir}" includes="license.txt"/>
+        </concat>
+    </target>
 </project>
