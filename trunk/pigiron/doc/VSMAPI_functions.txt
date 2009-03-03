@@ -37,7 +37,7 @@ AsynchronousNotificationEnableDM
 * CheckAuthentication
 DirectoryManagerLocalTagDefineDM
 DirectoryManagerLocalTagDeleteDM
-DirectoryManagerLocalTagQueryDM
+* DirectoryManagerLocalTagQueryDM
 DirectoryManagerLocalTagSetDM
 * DirectoryManagerSearchDM
 DirectoryManagerTaskCancelDM
@@ -79,7 +79,7 @@ ImageDiskUnshareDM
 ImageRecycle
 ImageReplaceDM
 ImageSCSICharacteristicsDefineDM
-ImageSCSICharacteristicsQueryDM
+* ImageSCSICharacteristicsQueryDM
 * ImageStatusQuery
 * ImageUnlockDM
 ImageVolumeAdd
