@@ -103,14 +103,14 @@ public class PersistenceManager {
     }
 
     /**
-     *  Description of the Method
+     *  Return all the registered Hosts
      *
-     * @return    Description of the Return Value
+     * @return    a Collection of Host names
      */ 
     public static Collection hostNames() {
         HashSet hostNameCollection = new HashSet();
         Iterator it = Cookies.getCookieNames().iterator();
-	String radix = PREFIX + "host.DisplayName.";
+        String radix = PREFIX + "host.DisplayName.";
         while (it.hasNext()) {
             String cookieName = it.next().toString();
             if (cookieName.startsWith(radix)) {
@@ -127,28 +127,69 @@ public class PersistenceManager {
      * @param  propertyName  name of persistent property
      * @return               The host property value
      */ 
-    public static String getHostProperty(String displayName, String propertyName) {
+    public static String getHostProperty(String displayName,
+             String propertyName) {
         return fetch("host." + displayName + "." + propertyName);
     }
- 
+
     /**
      *  Sets the host's persistent property
      *
      * @param  displayName   display name of host
      * @param  propertyName  name of persistent property
+     * @param  value         The new hostProperty value
      */ 
-    public static void setHostProperty(String displayName, String propertyName, String value) {
+    public static void setHostProperty(String displayName, String propertyName,
+             String value) {
         persist("host." + displayName + "." + propertyName, value);
     }
-    
+
     /**
      *  Remove the host's persistent property
      *
      * @param  displayName   display name of host
      * @param  propertyName  name of persistent property
      */ 
-    public static void removeHostProperty(String displayName, String propertyName) {
+    public static void removeHostProperty(String displayName,
+             String propertyName) {
         remove("host." + displayName + "." + propertyName);
+    }
+
+    /**
+     *  Add a Host and its properties to persistent storage.
+     *
+     * @param  displayName  Name of host as it appears in navigator tree
+     * @param  dnsName      dns-able name for host, consulted before ip address
+     * @param  ipAddr       ip address of host, only used if no dns name
+     * @param  portNumber   port number on which host serves SMAPI
+     * @param  uid          user id authorized to do SMAPI on host 
+     * @param  password     password for uid
+     * @param  useSSL       true == use SSL, false == do not use SSL
+     */ 
+    public static void saveHost(String displayName, String dnsName,
+             String ipAddr, String portNumber, String uid, String password, boolean useSSL) {
+        persist("host.DisplayName." + displayName, displayName);
+        setHostProperty(displayName, "DnsName", dnsName);
+        setHostProperty(displayName, "IpAddr", ipAddr);
+        setHostProperty(displayName, "PortNumber", portNumber);
+        setHostProperty(displayName, "Uid", uid);
+        setHostProperty(displayName, "Password", password);
+        setHostProperty(displayName, "UseSSL", useSSL ? "true" : "false");
+    }
+
+    /**
+     * Remove a Host and its properties from persistent storage.
+     *
+     * @param  displayName  Name of host as it appears in navigator tree
+     */ 
+    public static void deleteHost(String displayName) {
+        PersistenceManager.remove("host.DisplayName." + displayName);
+        PersistenceManager.removeHostProperty(displayName, "DnsName");
+        PersistenceManager.removeHostProperty(displayName, "IpAddr");
+        PersistenceManager.removeHostProperty(displayName, "PortNumber");
+        PersistenceManager.removeHostProperty(displayName, "Uid");
+        PersistenceManager.removeHostProperty(displayName, "Password");
+        PersistenceManager.removeHostProperty(displayName, "UseSSL");
     }
 }
 

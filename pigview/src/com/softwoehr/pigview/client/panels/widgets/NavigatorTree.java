@@ -108,13 +108,7 @@ public class NavigatorTree extends Tree {
      * @param  password     Description of the Parameter
      */ 
     public void saveHost(String displayName, String dnsName, String ipAddr, String portNumber, String uid, String password, boolean useSSL) {
-        PersistenceManager.persist("host.DisplayName." + displayName, displayName);
-        PersistenceManager.setHostProperty(displayName, "DnsName", dnsName);
-        PersistenceManager.setHostProperty(displayName, "IpAddr", ipAddr);
-        PersistenceManager.setHostProperty(displayName, "PortNumber", portNumber);
-        PersistenceManager.setHostProperty(displayName, "Uid", uid);
-        PersistenceManager.setHostProperty(displayName, "Password", password);
-        PersistenceManager.setHostProperty(displayName, "UseSSL", useSSL ? "true" : "false");
+        PersistenceManager.saveHost(displayName, dnsName, ipAddr, portNumber, uid, password, useSSL);
         rebuildTree();
         setSelectedItem(findHostInTree(displayName));
         ensureSelectedItemVisible();
@@ -126,13 +120,7 @@ public class NavigatorTree extends Tree {
      * @param  displayName  Display name of the host to delete, that's the key
      */ 
     public void deleteHost(String displayName) {
-        PersistenceManager.remove("host.DisplayName." + displayName);
-        PersistenceManager.removeHostProperty(displayName, "DnsName");
-        PersistenceManager.removeHostProperty(displayName, "IpAddr");
-        PersistenceManager.removeHostProperty(displayName, "PortNumber");
-        PersistenceManager.removeHostProperty(displayName, "Uid");
-        PersistenceManager.removeHostProperty(displayName, "Password");
-        PersistenceManager.removeHostProperty(displayName, "UseSSL");
+        PersistenceManager.deleteHost(displayName);
         rebuildTree();
         setSelectedItem(null);
         navigatorPanel.dropHostDetailsView();
