@@ -35,6 +35,7 @@ value imageactivate.targetid
 value imagecpudefine.targetid
 value imagecpudefine.cpuid
 value imagecpudefine.cputype
+value imagecpuquerydm.cpuaddress
 value imagecreatedm.imagenametocreate
 value imagecreatedm.prototypename
 value imagecreatedm.intialpassword
@@ -116,6 +117,9 @@ my.host my.port my.userid my.password my.target ImageActiveConfigurationQuery do
 
 : testing_ImageCPUQuery " ImageCPUQuery" announce
  my.host my.port my.userid my.password imagecpudefine.targetid ImageCPUQuery doandprint ;
+
+: testing_ImageCPUQueryDM " ImageCPUQueryDM" announce
+    my.host my.port my.userid my.password my.target imagecpuquerydm.cpuaddress ImageCPUQueryDM doandprint ; 
 
 : testing_ImageQueryActivateTime_1 " ImageQueryActivateTime" announce
  my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORMAT_INDICATOR_MMDDYY ImageQueryActivateTime doandprint ;
@@ -503,8 +507,6 @@ VMRMConfigurationUpdate \
 
 \ : testing_ImageCPUDeleteDM " ImageCPUDeleteDM" announce
     my.host my.port my.userid my.password my.target my.extraparm ImageCPUDeleteDM doandprint ; \
-\ : testing_ImageCPUQueryDM " ImageCPUQueryDM" announce
-    my.host my.port my.userid my.password my.target my.extraparm ImageCPUQueryDM doandprint ; \
 \ : testing_ImageCPUSetMaximumDM " ImageCPUSetMaximumDM" announce
     my.host my.port my.userid my.password my.target my.extraparm ImageCPUSetMaximumDM doandprint ; \
 
