@@ -2,6 +2,7 @@
 java.lang.String class new ( ) to authorizationlistquery.targetid
 " *" to authorizationlistquery.forid
 " *" to authorizationlistquery.functionid
+" END" to directorymanagerlocaltagquerydm.tagname
 " IPL" to directorymanagersearchdm.searchpattern
 " BBBB" to imageactivate.targetid
 my.target to imagecpudefine.targetid

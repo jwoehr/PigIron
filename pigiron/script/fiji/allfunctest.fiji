@@ -30,6 +30,7 @@ value authorizationlistadd.functionid
 value authorizationlistquery.targetid
 value authorizationlistquery.forid
 value authorizationlistquery.functionid
+value directorymanagerlocaltagquerydm.tagname
 value directorymanagersearchdm.searchpattern
 value imageactivate.targetid
 value imagecpudefine.targetid
@@ -377,6 +378,12 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     " *"
     AsynchronousNotificationQueryDM doandprint ;
 
+: testing_DirectoryManagerLocalTagQueryDM " DirectoryManagerLocalTagQueryDM" announce
+    my.host my.port my.userid my.password my.target directorymanagerlocaltagquerydm.tagname  DirectoryManagerLocalTagQueryDM doandprint ;
+
+: testing_ImageSCSICharacteristicsQueryDM " ImageSCSICharacteristicsQueryDM" announce
+    my.host my.port my.userid my.password my.target ImageSCSICharacteristicsQueryDM doandprint ;
+
 \ whole shebang as a sorta scripted dance \
 : test-all \ -- \
     testing_CheckAuthentication
@@ -386,6 +393,7 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_ImageActiveConfigurationQuery
 \    testing_ImageCPUDefine \ 
     testing_ImageCPUQuery
+    testing_ImageCPUQueryDM
 \    testing_ImageCPUDelete \
     testing_ImageQueryActivateTime_1
     testing_ImageQueryActivateTime_2
@@ -445,6 +453,8 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_AuthorizationListRemove \ remove entry \
     testing_AuthorizationListQuery2 \ See if it is gone \
     testing_AsynchronousNotificationQueryDM \ Basically specify anything and everything \
+    testing_DirectoryManagerLocalTagQueryDM
+    testing_ImageSCSICharacteristicsQueryDM
     ;
 
 \ ==== \
@@ -494,8 +504,7 @@ VMRMConfigurationUpdate \
     my.host my.port my.userid my.password my.target my.extraparm DirectoryManagerLocalTagDefineDM doandprint ; \
 \ : testing_DirectoryManagerLocalTagDeleteDM " DirectoryManagerLocalTagDeleteDM" announce
     my.host my.port my.userid my.password my.target my.extraparm DirectoryManagerLocalTagDeleteDM doandprint ; \
-\ : testing_DirectoryManagerLocalTagQueryDM " DirectoryManagerLocalTagQueryDM" announce
-    my.host my.port my.userid my.password my.target my.extraparm DirectoryManagerLocalTagQueryDM doandprint ; \
+
 \ : testing_DirectoryManagerLocalTagSetDM " DirectoryManagerLocalTagSetDM" announce
     my.host my.port my.userid my.password my.target my.extraparm DirectoryManagerLocalTagSetDM doandprint ; \
 
@@ -548,8 +557,7 @@ VMRMConfigurationUpdate \
     my.host my.port my.userid my.password my.target my.extraparm ImageReplaceDM doandprint ; \
 \ : testing_ImageSCSICharacteristicsDefineDM " ImageSCSICharacteristicsDefineDM" announce
     my.host my.port my.userid my.password my.target my.extraparm ImageSCSICharacteristicsDefineDM doandprint ; \
-\ : testing_ImageSCSICharacteristicsQueryDM " ImageSCSICharacteristicsQueryDM" announce
-    my.host my.port my.userid my.password my.target my.extraparm ImageSCSICharacteristicsQueryDM doandprint ; \
+
 
 \ : testing_ImageVolumeAdd " ImageVolumeAdd" announce
     my.host my.port my.userid my.password my.target my.extraparm ImageVolumeAdd doandprint ; \
