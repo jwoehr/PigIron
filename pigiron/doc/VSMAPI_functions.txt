@@ -48,7 +48,7 @@ ImageCPUDefineDM
 * ImageCPUDelete
 ImageCPUDeleteDM
 * ImageCPUQuery
-ImageCPUQueryDM
+* ImageCPUQueryDM
 ImageCPUSetMaximumDM
 * ImageCreateDM
 * ImageDeactivate
@@ -144,5 +144,5 @@ VMRMConfigurationUpdate
 * VMRMMeasurementQuery
 ---
 
-2008-11-10
+2009-03-03
 Fairmount, Colorado
