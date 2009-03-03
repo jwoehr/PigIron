@@ -21,22 +21,25 @@
     Each has its own Ant build.xml. This is overall build.xml file
     which juggles targets from the individual projects.
     </description>
-
-    <property location="${basedir}/../pigiron" name="pigiron.dir"></property>
-    <property location="${basedir}/../piglet" name="piglet.dir"></property>
-    <property location="${basedir}/../pigview" name="pigview.dir"></property>
-    <property location="${basedir}/../dist" name="dist.dir"></property>
-    <property location="${basedir}/../dist/doc" name="doc.dir"></property>
-    <property location="${doc.dir}/javadoc" name="javadoc.dir"></property>
-    <property location="${pigiron.dir}/src" name="pigiron.java.src.dir"></property>
-    <property location="${piglet.dir}/src/java" name="piglet.java.src.dir"></property>
-    <property location="${pigview.dir}/src" name="pigview.java.src.dir"></property>
-    <property location="${pigiron.dir}/dist" name="pigiron.dist.dir"></property>
-    <property location="${pigiron.dir}/piggen" name="pigiron.piggen.dir"></property>
-    <property location="${pigiron.dir}/script" name="pigiron.script.dir"></property>
-    <property location="${pigiron.dir}/src" name="pigiron.src.dir"></property>
-    <property location="${piglet.dir}/dist" name="piglet.dist.dir"></property>
+    <property location="${basedir}/.." name="topdir"/>
+    <property location="${topdir}/build" name="master.build.dir"/>
+    <property location="${topdir}/pigiron" name="pigiron.dir"/>
+    <property location="${topdir}/piglet" name="piglet.dir"/>
+    <property location="${topdir}/pigview" name="pigview.dir"/>
+    <property location="${topdir}/dist" name="dist.dir"/>
+    <property location="${topdir}/doc" name="doc.dir"/>
+    <property location="${doc.dir}/javadoc" name="javadoc.dir"/>
+    <property location="${pigiron.dir}/src" name="pigiron.java.src.dir"/>
+    <property location="${piglet.dir}/src/java" name="piglet.java.src.dir"/>
+    <property location="${pigview.dir}/src" name="pigview.java.src.dir"/>
+    <property location="${pigiron.dir}/dist" name="pigiron.dist.dir"/>
+    <property location="${pigiron.dir}/piggen" name="pigiron.piggen.dir"/>
+    <property location="${pigiron.dir}/script" name="pigiron.script.dir"/>
+    <property location="${pigiron.dir}/src" name="pigiron.src.dir"/>
+    <property location="${piglet.dir}/dist" name="piglet.dist.dir"/>
     <property file="${basedir}/release.properties"/>
+    <property value="PigIron-${pigiron.release.version}" name="release.name"/>
+    <property value="${release.name}-all.zip" name="all.zip.name"/>
 
     <target name="all" depends="build,javadocs,distrib" description="Build and package all components for deployment and distribution"/>
 
@@ -80,31 +83,29 @@
     <!-- Distribution -->
     <!-- ~~~~~~~~~~~~ -->
 
-    <target name="distrib" depends="-distrib-copy,-distrib-zip" description="Builds a distribution for all PigIron projects as one archive">
+    <target name="distrib" depends="zip-all" description="Builds a distribution for all PigIron projects as one archive">
         <echo message="Remember that distrib is not a fully implemented target yet."/>
     </target>
 
-    <target name="-distrib-copy">
-        <copy file="${pigiron.dist.dir}/pigiron.jar" todir="${dist.dir}"/>
-        <copy file="${piglet.dist.dir}/piglet.war" todir="${dist.dir}"/>
-    </target>
-
-    <target name="-distrib-zip">
-        <zip basedir="${dist.dir}" destfile="${dist.dir}/pigiron-all.zip" includes="doc/**,*.war,*.jar"/>
-    </target>
-
-   <!-- target depends="init-release" description="Zip all binaries and sources for PigIron" name="zip-all" -->
-   <!-- target description="Zip all binaries and sources for PigIron" name="zip-all">
-        <zip compress="true" destfile="${srczip.fullpathname}" basedir="${basedir}" excludes="*/**">
-            <zipfileset dir="${pigiron.dir}/piggen" prefix="${release.name}/piggen"/>
-            <zipfileset dir="script" prefix="${release.name}/script"/>
-            <zipfileset dir="src" prefix="${release.name}/src"/>
-            <zipfileset dir="nbproject" excludes="private/**" prefix="${release.name}/nbproject"/>
-            <zipfileset dir="." includes="README.txt,CHANGES.TXT,license.txt,build.xml,overview.html" prefix="${release.name}"/>
+    <target description="Zip all binaries and sources for PigIron" name="zip-all">
+        <mkdir dir="${dist.dir}"/>
+        <zip compress="true" destfile="${dist.dir}/${all.zip.name}" basedir="${basedir}" excludes="*/**">
+            <zipfileset dir="${pigiron.dist.dir}" prefix="${release.name}/dist" includes="pigiron.jar"/>
+            <zipfileset dir="${piglet.dist.dir}" prefix="${release.name}/dist" includes="piglet.war"/>
+            <zipfileset dir="${javadoc.dir}" prefix="${release.name}/doc/javadoc"/>
+            <zipfileset dir="${pigiron.dir}" prefix="${release.name}/pigiron" excludes="**/CVS/**" includes="CHANGES.TXT,README.txt,build.xml,doc/**,license.txt,overview.html,piggen/**,script/**,src/**"/>
+            <zipfileset dir="${pigiron.dir}/nbproject" prefix="${release.name}/pigiron/nbproject" excludes="private/**"/>
+            <zipfileset dir="${piglet.dir}" prefix="${release.name}/piglet" includes="CHANGES.TXT,README.txt,build.xml,doc/**,license.txt,overview.html,src/**,web/**"/>
+            <zipfileset dir="${piglet.dir}/nbproject" prefix="${release.name}/piglet/nbproject" excludes="private/**,"/>
+            <zipfileset dir="${pigview.dir}" prefix="${release.name}/pigview" excludes="**/CVS/**" includes="CHANGES.TXT,README.txt,build.xml,doc/**,license.txt,src/**,war/**"/>
+            <zipfileset dir="${master.build.dir}" prefix="${release.name}/build" includes="build.xml,license.txt,release.properties"/>
         </zip>
-    </target -->
-    
+    </target>
 
+    <!-- ~~~~~~~~~~~~~ -->
+    <!-- Miscellaneous -->
+    <!-- ~~~~~~~~~~~~~ -->
+    
     <target name="license">
         <concat>
             <fileset dir="${basedir}" includes="license.txt"/>
