@@ -40,6 +40,7 @@
     <property file="${basedir}/release.properties"/>
     <property value="PigIron-${pigiron.release.version}" name="release.name"/>
     <property value="${release.name}-all.zip" name="all.zip.name"/>
+    <property value="${dist.dir}/${all.zip.name}" name="all.zip.fullpathname"/>
 
     <target name="all" depends="build,javadocs,distrib" description="Build and package all components for deployment and distribution"/>
 
@@ -83,13 +84,11 @@
     <!-- Distribution -->
     <!-- ~~~~~~~~~~~~ -->
 
-    <target name="distrib" depends="zip-all" description="Builds a distribution for all PigIron projects as one archive">
-        <echo message="Remember that distrib is not a fully implemented target yet."/>
-    </target>
+    <target name="distrib" depends="zip-all,sumfile" description="Builds a distribution for all PigIron projects as one archive"/>
 
     <target description="Zip all binaries and sources for PigIron" name="zip-all">
         <mkdir dir="${dist.dir}"/>
-        <zip compress="true" destfile="${dist.dir}/${all.zip.name}" basedir="${basedir}" excludes="*/**">
+        <zip compress="true" destfile="${all.zip.fullpathname}" basedir="${basedir}" excludes="*/**">
             <zipfileset dir="${pigiron.dist.dir}" prefix="${release.name}/dist" includes="pigiron.jar"/>
             <zipfileset dir="${piglet.dist.dir}" prefix="${release.name}/dist" includes="piglet.war"/>
             <zipfileset dir="${javadoc.dir}" prefix="${release.name}/doc/javadoc"/>
@@ -101,7 +100,11 @@
             <zipfileset dir="${master.build.dir}" prefix="${release.name}/build" includes="build.xml,license.txt,release.properties"/>
         </zip>
     </target>
-
+    
+    <target depends="zip-all" description="generate md5sum files for the release archives" name="sumfile">
+        <checksum format="MD5SUM" file="${all.zip.fullpathname}" todir="${dist.dir}" fileext=".md5sum"/>
+    </target>
+    
     <!-- ~~~~~~~~~~~~~ -->
     <!-- Miscellaneous -->
     <!-- ~~~~~~~~~~~~~ -->
