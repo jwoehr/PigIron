@@ -37,7 +37,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 /**
  *  The Host Details Panel is the right panel of the navigator composite panel
  * on the nav tab. The top of this rightmost panel is the host properties and
- * the bottom is the explorer view. 
+ * the bottom is the explorer view.
  *
  * @author     jax
  * @created    January 30, 2009
@@ -55,10 +55,15 @@ public class HostDetailsPanel extends VerticalPanel {
     protected HostDetailsPanel() {
         super();
     }
- 
-    public HostDetailsPanel(String displayName, NavigatorTree navigatorTree,
-             NavigatorCompositePanel navigatorCompositePanel) {
 
+    /**
+     *Constructor for the HostDetailsPanel object
+     *
+     * @param  displayName              Description of the Parameter
+     * @param  navigatorTree            Description of the Parameter
+     * @param  navigatorCompositePanel  Description of the Parameter
+     */ 
+    public HostDetailsPanel(String displayName, NavigatorTree navigatorTree, NavigatorCompositePanel navigatorCompositePanel) {
         super();
         this.displayName = displayName;
         this.navigatorTree = navigatorTree;
@@ -78,19 +83,35 @@ public class HostDetailsPanel extends VerticalPanel {
      *  Layout the panel for the initial view.
      */ 
     public void initPanel() {
-        setSize("100%","100%");
+        setSize("100%", "100%");
         setHorizontalAlignment(ALIGN_LEFT);
         setVerticalAlignment(ALIGN_TOP);
         add(hostPropertiesPanel);
+	hostEmptyExplorerView("Foobar");
     }
 
-    public void hostApiLevelExplorerView(String displayName) {
-        if (hostExplorerPanel != null) {
-            remove(hostExplorerPanel);
+    /**
+     *  Description of the Method
+     *
+     * @param  hostExplorerPanel  Description of the Parameter
+     * @param  objects            Description of the Parameter
+     */ 
+    public void effectuateExplorerView(HostExplorerPanel hostExplorerPanel, Object [] objects) {
+        if (this.hostExplorerPanel != null) {
+            remove(this.hostExplorerPanel);
         }
-        hostExplorerPanel = new HostApiLevelExplorerPanel(displayName, navigatorTree, this);
-        add(hostExplorerPanel);
-        hostExplorerPanel.doIt(null);
+        this.hostExplorerPanel = hostExplorerPanel;
+        this.hostExplorerPanel.doIt(objects);
+	add(this.hostExplorerPanel);
+    }
+
+    /**
+     *  Description of the Method
+     *
+     * @param  displayName  Description of the Parameter
+     */ 
+    public void hostApiLevelExplorerView(String displayName) {
+        effectuateExplorerView(new HostApiLevelExplorerPanel(displayName, navigatorTree, this), null);
     }
 
     /**
@@ -99,12 +120,7 @@ public class HostDetailsPanel extends VerticalPanel {
      * @param  displayName  Description of the Parameter
      */ 
     public void hostCheckAuthenticationExplorerView(String displayName) {
-	if (hostExplorerPanel != null) {
-            remove(hostExplorerPanel);
-        }
-        hostExplorerPanel = new HostCheckAuthenticationExplorerPanel(displayName, navigatorTree, this);
-	add(hostExplorerPanel);
-        hostExplorerPanel.doIt(null);
+        effectuateExplorerView(new HostCheckAuthenticationExplorerPanel(displayName, navigatorTree, this), null);
     }
 
     /**
@@ -113,12 +129,16 @@ public class HostDetailsPanel extends VerticalPanel {
      * @param  displayName  Description of the Parameter
      */ 
     public void hostImageQueryExplorerView(String displayName) {
-	if (hostExplorerPanel != null) {
-            remove(hostExplorerPanel);
-        }
-        hostExplorerPanel = new HostImageQueryExplorerPanel(displayName, navigatorTree, this);
-	add(hostExplorerPanel);
-        hostExplorerPanel.doIt(null);
+        effectuateExplorerView(new HostImageQueryExplorerPanel(displayName, navigatorTree, this), null);
+    }
+    
+    /**
+     *  Description of the Method
+     *
+     * @param  displayName  Description of the Parameter
+     */ 
+    public void hostEmptyExplorerView(String displayName) {
+        effectuateExplorerView(new HostEmptyExplorerPanel(displayName, navigatorTree, this), null);
     }
 }
 
