@@ -17,9 +17,13 @@
     PigIron master build file
     =========================
     
-    PigIron was conceived in three parts,pigiron, piglet and pigview.
+    PigIron was conceived in three parts .. pigiron, piglet and pigview.
     Each has its own Ant build.xml. This is overall build.xml file
-    which juggles targets from the individual projects.
+    which continues to execute all build targets from the individual projects
+    as well doing some things differently at the top level. Thusly the top-level
+    dist dir contains complete output, while the individual component projects
+    still build as if they stood alone.
+    
     </description>
     <property location="${basedir}/.." name="topdir"/>
     <property location="${topdir}/build" name="master.build.dir"/>
@@ -67,7 +71,7 @@
 
     <target name="clean-distdirs" description="Cleans the overall project's build dirs">
         <delete dir="${dist.dir}"/>
-	<delete dir="${javadoc.dir}"/>
+        <delete dir="${javadoc.dir}"/>
     </target>
 
     <target name="javadocs" description="Generate composite javadocs for all PigIron projects">
@@ -85,7 +89,13 @@
     <!-- Distribution -->
     <!-- ~~~~~~~~~~~~ -->
 
-    <target name="distrib" depends="zip-all,sumfile" description="Builds a distribution for all PigIron projects as one archive"/>
+    <target name="distrib" depends="handy-jars,zip-all,sumfile" description="Builds a distribution for all PigIron projects as one archive"/>
+
+    <target name="handy-jars" description="Copy over built jar and war files to dist dir just to be handy if we want to use them quick after a build.">
+        <copy todir="${dist.dir}" file="${pigiron.dist.dir}/pigiron.jar"/>
+        <copy todir="${dist.dir}" file="${piglet.dist.dir}/piglet.war"/>
+    </target>
+	    
 
     <target description="Zip all binaries and sources for PigIron" name="zip-all">
         <mkdir dir="${dist.dir}"/>
@@ -101,7 +111,7 @@
             <zipfileset dir="${master.build.dir}" prefix="${release.name}/build" includes="build.xml,license.txt,release.properties"/>
         </zip>
     </target>
-    
+
     <target depends="zip-all" description="generate md5sum files for the release archives" name="sumfile">
         <checksum format="MD5SUM" file="${all.zip.fullpathname}" todir="${dist.dir}" fileext=".md5sum"/>
     </target>
@@ -109,7 +119,7 @@
     <!-- ~~~~~~~~~~~~~ -->
     <!-- Miscellaneous -->
     <!-- ~~~~~~~~~~~~~ -->
-    
+
     <target name="license">
         <concat>
             <fileset dir="${basedir}" includes="license.txt"/>
