@@ -89,7 +89,7 @@
 
     <target description="Zip all binaries and sources for PigIron" name="zip-all">
         <mkdir dir="${dist.dir}"/>
-        <zip compress="true" destfile="${all.zip.fullpathname}" basedir="${basedir}" excludes="*/**">
+        <zip compress="true" duplicate="fail" destfile="${all.zip.fullpathname}" basedir="${basedir}" excludes="*/**">
             <zipfileset dir="${pigiron.dist.dir}" prefix="${release.name}/dist" includes="pigiron.jar"/>
             <zipfileset dir="${piglet.dist.dir}" prefix="${release.name}/dist" includes="piglet.war"/>
             <zipfileset dir="${javadoc.dir}" prefix="${release.name}/doc/javadoc"/>
