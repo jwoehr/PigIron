@@ -34,6 +34,7 @@ package com.softwoehr.pigview.client.enhanced;
 import com.google.gwt.http.client.*;
 import com.google.gwt.user.client.Cookies;
 import java.util.Collection;
+// import java.util.GregorianCalendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -56,7 +57,8 @@ public class PersistenceManager {
      *  2030-01-01 is as close to forever as we need to go now.
      */ 
     public static final Date FOREVER = new Date(2018, 1, 1);
-
+    // public static final Date FOREVER = new GregorianCalendar(118, 1, 1).getTime();
+    
     /**
      * Constructor for the PersistenceManager object is not used.
      */ 
