@@ -33,8 +33,11 @@ package com.softwoehr.pigview.client.panels.widgets;
 
 // import com.google.gwt.user.client.ui.Button;
 // import com.google.gwt.user.client.ui.ClickListener;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+// import com.google.gwt.event.logical.shared.SelectionEvent;
+// import com.google.gwt.event.logical.shared.SelectionHandler;
+// import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Tree;
@@ -97,15 +100,15 @@ public class NavigatorTree extends Tree {
     }
 
     /**
-     *  Description of the Method
+     *  Save a host to both the tree and to the persistent storage.
      *
-     * @param  displayName  Description of the Parameter
-     * @param  dnsName      Description of the Parameter
-     * @param  ipAddr       Description of the Parameter
-     * @param  portNumber   Description of the Parameter
-     * @param  useSSL       Description of the Parameter
-     * @param  uid          Description of the Parameter
-     * @param  password     Description of the Parameter
+     * @param  displayName  Name of host as it appears in navigator tree
+     * @param  dnsName      dns-able name for host, consulted before ip address
+     * @param  ipAddr       ip address of host, only used if no dns name
+     * @param  portNumber   port number on which host serves SMAPI
+     * @param  uid          user id authorized to do SMAPI on host 
+     * @param  password     password for uid
+     * @param  useSSL       true == use SSL, false == do not use SSL
      */ 
     public void saveHost(String displayName, String dnsName, String ipAddr, String portNumber, String uid, String password, boolean useSSL) {
         PersistenceManager.saveHost(displayName, dnsName, ipAddr, portNumber, uid, password, useSSL);
@@ -164,7 +167,7 @@ public class NavigatorTree extends Tree {
                         parent.getChild(i).removeStyleName("gwt-TreeItem-selected");
                     }
                     t.setStyleName("gwt-TreeItem-selected"); */
-                    t.setSelected(true);
+                    // t.setSelected(true);
                     navigatorPanel.hostDetailsView(l.getText());
                 }
             } );
@@ -172,6 +175,13 @@ public class NavigatorTree extends Tree {
             root.addItem(t);
         }
         addItem(root);
+	/* addSelectionHandler(new SelectionHandler<TreeItem>() {
+	    public void onSelection(SelectionEvent event) {
+	    TreeItem tI = getSelectedItem();
+	    // navigatorPanel.hostDetailsView(tI.getText());
+	    // new InfoDialog().say(tI.getText());
+	    }
+	}); */
     }
 
     /**
