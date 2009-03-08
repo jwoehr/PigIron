@@ -60,6 +60,7 @@ public class NavigatorTree extends Tree {
     private final AddHostDialog addHostDialog = new AddHostDialog(this);
     private final NavigatorPanel navigatorPanel;
     private TreeItem root = null;
+    private NavigatorTreeManager navigatorTreeManager = null;
 
     /**
      *Constructor for the NavigatorTree object
@@ -68,8 +69,31 @@ public class NavigatorTree extends Tree {
      */ 
     public NavigatorTree(NavigatorPanel navigatorPanel) {
         super();
+        navigatorTreeManager = new NavigatorTreeManager(this);
         this.navigatorPanel = navigatorPanel;
         initItems();
+    }
+
+    /**
+     *Constructor for the NavigatorTree object
+     *
+     * @param  navigatorPanel        associated NavigatorPanel on which tree resides
+     * @param  navigatorTreeManager  associated manager
+     */ 
+    public NavigatorTree(NavigatorTreeManager navigatorTreeManager, NavigatorPanel navigatorPanel) {
+        super();
+        this.navigatorTreeManager = navigatorTreeManager;
+        this.navigatorPanel = navigatorPanel;
+        initItems();
+    }
+
+    /**
+     *  Gets the navigatorTreeManager attribute of the NavigatorTree object
+     *
+     * @return    The navigatorTreeManager value
+     */ 
+    public NavigatorTreeManager getNavigatorTreeManager() {
+        return navigatorTreeManager;
     }
 
     /**
@@ -95,8 +119,9 @@ public class NavigatorTree extends Tree {
      * @param  dialog  The filled-in AddHostDialog that has the info for new Host
      */ 
     public void addHost(AddHostDialog dialog) {
-        saveHost(dialog.getDisplayName(), dialog.getDnsName(), dialog.getIpAddr(), dialog.getPortNumber(), dialog.getUid(),
-         dialog.getPassword(), dialog.getUseSSL());
+        saveHost(dialog.getDisplayName(), dialog.getDnsName(),
+                 dialog.getIpAddr(), dialog.getPortNumber(), dialog.getUid(),
+        dialog.getPassword(), dialog.getUseSSL());
     }
 
     /**
@@ -106,12 +131,16 @@ public class NavigatorTree extends Tree {
      * @param  dnsName      dns-able name for host, consulted before ip address
      * @param  ipAddr       ip address of host, only used if no dns name
      * @param  portNumber   port number on which host serves SMAPI
-     * @param  uid          user id authorized to do SMAPI on host 
+     * @param  uid          user id authorized to do SMAPI on host
      * @param  password     password for uid
      * @param  useSSL       true == use SSL, false == do not use SSL
      */ 
-    public void saveHost(String displayName, String dnsName, String ipAddr, String portNumber, String uid, String password, boolean useSSL) {
-        PersistenceManager.saveHost(displayName, dnsName, ipAddr, portNumber, uid, password, useSSL);
+    public void saveHost(String displayName, String dnsName, String ipAddr,
+             String portNumber, String uid, String password, boolean useSSL) {
+
+        PersistenceManager.saveHost(displayName, dnsName, ipAddr, portNumber,
+                 uid, password, useSSL);
+
         rebuildTree();
         setSelectedItem(findHostInTree(displayName));
         ensureSelectedItemVisible();
@@ -162,11 +191,13 @@ public class NavigatorTree extends Tree {
             l.addClickHandler (new ClickHandler() {
                 public void onClick(ClickEvent event) {
                     TreeItem parent = t.getParentItem();
-                    /* int childCount = parent.getChildCount();
-                    for (int i = 0; i < childCount; i++) {
-                        parent.getChild(i).removeStyleName("gwt-TreeItem-selected");
-                    }
-                    t.setStyleName("gwt-TreeItem-selected"); */
+                    /*
+                     *  int childCount = parent.getChildCount();
+                     *  for (int i = 0; i < childCount; i++) {
+                     *  parent.getChild(i).removeStyleName("gwt-TreeItem-selected");
+                     *  }
+                     *  t.setStyleName("gwt-TreeItem-selected");
+                     */ 
                     // t.setSelected(true);
                     navigatorPanel.hostDetailsView(l.getText());
                 }
@@ -175,13 +206,15 @@ public class NavigatorTree extends Tree {
             root.addItem(t);
         }
         addItem(root);
-	/* addSelectionHandler(new SelectionHandler<TreeItem>() {
-	    public void onSelection(SelectionEvent event) {
-	    TreeItem tI = getSelectedItem();
-	    // navigatorPanel.hostDetailsView(tI.getText());
-	    // InfoDialog().sayInfo(tI.getText());
-	    }
-	}); */
+        /*
+         *  addSelectionHandler(new SelectionHandler<TreeItem>() {
+         *  public void onSelection(SelectionEvent event) {
+         *  TreeItem tI = getSelectedItem();
+         *  / navigatorPanel.hostDetailsView(tI.getText());
+         *  / InfoDialog().sayInfo(tI.getText());
+         *  }
+         *  });
+         */ 
     }
 
     /**
@@ -191,8 +224,8 @@ public class NavigatorTree extends Tree {
      */ 
     public void addOperations(TreeItem treeItem) {
         addAPILevelOperation(treeItem);
-	addCheckAuthenticationOperation(treeItem);
-	addImageQueryOperation(treeItem);
+        addCheckAuthenticationOperation(treeItem);
+        addImageQueryOperation(treeItem);
     }
 
     /**
@@ -207,15 +240,23 @@ public class NavigatorTree extends Tree {
         l.addClickHandler (new ClickHandler() {
             public void onClick(ClickEvent event) {
                 TreeItem parent = t.getParentItem();
-                /* int childCount = parent.getChildCount();
-                for (int i = 0; i < childCount; i++) {
-                    parent.getChild(i).removeStyleName("gwt-TreeItem-selected");
-                }
-                t.setStyleName("gwt-TreeItem-selected"); */
+                /*
+                 *  int childCount = parent.getChildCount();
+                 *  for (int i = 0; i < childCount; i++) {
+                 *  parent.getChild(i).removeStyleName("gwt-TreeItem-selected");
+                 *  }
+                 *  t.setStyleName("gwt-TreeItem-selected");
+                 */ 
                 t.setSelected(true);
-		/* Cheesy way of getting display name of host */
-		/* which its the key to the Cookie database   */
-		/* from the label of the tree parent (== host)*/ 
+                /*
+                 *  Cheesy way of getting display name of host
+                 */ 
+                /*
+                 *  which its the key to the Cookie database
+                 */ 
+                /*
+                 *  from the label of the tree parent (== host)
+                 */ 
                 navigatorPanel.hostApiLevelExplorerView(((Label) parent.getWidget()).getText());
             }
         } );
@@ -234,19 +275,21 @@ public class NavigatorTree extends Tree {
         l.addClickHandler (new ClickHandler() {
             public void onClick(ClickEvent event) {
                 TreeItem parent = t.getParentItem();
-                /* int childCount = parent.getChildCount();
-                for (int i = 0; i < childCount; i++) {
-                    parent.getChild(i).removeStyleName("gwt-TreeItem-selected");
-                }
-                t.setStyleName("gwt-TreeItem-selected"); */
+                /*
+                 *  int childCount = parent.getChildCount();
+                 *  for (int i = 0; i < childCount; i++) {
+                 *  parent.getChild(i).removeStyleName("gwt-TreeItem-selected");
+                 *  }
+                 *  t.setStyleName("gwt-TreeItem-selected");
+                 */ 
                 t.setSelected(true);
                 navigatorPanel.hostCheckAuthenticationExplorerView(((Label) parent.getWidget()).getText());
             }
         } );
         treeItem.addItem(t);
     }
-    
-   /**
+
+    /**
      *  Adds the ImageQuery Operation  to a node,
      *  normally to the Operations node of the NavigatorTree object.
      *
@@ -258,11 +301,13 @@ public class NavigatorTree extends Tree {
         l.addClickHandler (new ClickHandler() {
             public void onClick(ClickEvent event) {
                 TreeItem parent = t.getParentItem();
-                /* int childCount = parent.getChildCount();
-                for (int i = 0; i < childCount; i++) {
-                    parent.getChild(i).removeStyleName("gwt-TreeItem-selected");
-                }
-                t.setStyleName("gwt-TreeItem-selected"); */
+                /*
+                 *  int childCount = parent.getChildCount();
+                 *  for (int i = 0; i < childCount; i++) {
+                 *  parent.getChild(i).removeStyleName("gwt-TreeItem-selected");
+                 *  }
+                 *  t.setStyleName("gwt-TreeItem-selected");
+                 */ 
                 t.setSelected(true);
                 navigatorPanel.hostImageQueryExplorerView(((Label) parent.getWidget()).getText());
             }
