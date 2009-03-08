@@ -5,11 +5,18 @@
     if you want to distribute it.  This isn't needed for normal operation.
   </description>
     <property name="outdir" location="war" />
-
+    <property name="gwt.user.jar" location="/usr/local/work/jax/Java/gwt-linux-0.0.0/gwt-user.jar"/>
+    <property name="pigiron.project.topdir" location="${basedir}/.."/>
+    <property name="pigiron.dir"  location="${pigiron.project.topdir}/pigiron"/>
+    <property name="pigiron.jar"  location="${pigiron.dir}/dist/pigiron.jar"/>
+    <property name="pigiron.src"  location="${pigiron.dir}/src"/>
+    <echo message="PigIron source dir is ${pigiron.src}."/>
+    
   <!-- set classpath -->
     <path id="compilation.class.path">
         <pathelement path="${java.class.path}"/>
-        <pathelement location="/usr/local/work/jax/Java/gwt-linux-0.0.0/gwt-user.jar"/>
+        <pathelement location="${gwt.user.jar}"/>
+	<!-- pathelement location="${pigiron.jar}"/ -->
     <!-- Additional dependencies (such as junit) go here -->
     </path>
 
@@ -18,6 +25,7 @@
         <pathelement location="war/WEB-INF/classes"/>
         <pathelement path="${compilation.class.path}"/>
         <pathelement location="/usr/local/work/jax/Java/gwt-linux-0.0.0/gwt-dev-linux.jar"/>
+	<!-- pathelement location="${pigiron.jar}"/ -->
     <!-- Additional dependencies (such as junit) go here -->
     </path>
 
