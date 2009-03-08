@@ -109,12 +109,12 @@ public class PersistenceManager {
      *
      * @return    a Collection of Host names
      */ 
-    public static Collection hostNames() {
-        HashSet hostNameCollection = new HashSet();
-        Iterator it = Cookies.getCookieNames().iterator();
+    public static Collection<String> hostNames() {
+        HashSet<String> hostNameCollection = new HashSet<String>();
+        Iterator<String> it = Cookies.getCookieNames().iterator();
         String radix = PREFIX + "host.DisplayName.";
         while (it.hasNext()) {
-            String cookieName = it.next().toString();
+            String cookieName = it.next();
             if (cookieName.startsWith(radix)) {
                 hostNameCollection.add(Cookies.getCookie(cookieName));
             }
