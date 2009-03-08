@@ -34,6 +34,7 @@ package com.softwoehr.pigview.client.panels.widgets;
 import com.softwoehr.pigview.client.enhanced.EnhancedTreeItem;
 
 import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  *  Description of the Class
@@ -75,6 +76,24 @@ public class NavigatorTreeManager extends HashSet <EnhancedTreeItem> {
      */ 
     public NavigatorTree getNavigatorTree() {
         return navigatorTree;
+    }
+
+    /**
+     *  Gets an iterator over a hash set of all contained tree items
+     * that represent a host.
+     *
+     * @return    Iterator over collection of host tree items
+     */    
+    public Iterator<EnhancedTreeItem> getHostTreeItems() {
+	HashSet<EnhancedTreeItem> set = new HashSet<EnhancedTreeItem>();
+	Iterator<EnhancedTreeItem> it = iterator();
+	while(it.hasNext()) {
+	   EnhancedTreeItem e = it.next();
+	   if (e instanceof HostTreeItem) {
+	       set.add(e);
+	   }
+	}
+	return set.iterator();
     }
 }
 
