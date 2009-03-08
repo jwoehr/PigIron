@@ -182,11 +182,11 @@ public class NavigatorTree extends Tree {
      */ 
     public void rebuildTree() {
         clear();
-        Iterator hostNamesIterator = PersistenceManager.hostNames().iterator();
+        Iterator<String> hostNamesIterator = PersistenceManager.hostNames().iterator();
         root = new TreeItem(mainframeImage);
         root.addItem("Click the mainframe image to add a New host");
         while (hostNamesIterator.hasNext()) {
-            final Label l = new Label(hostNamesIterator.next().toString());
+            final Label l = new Label(hostNamesIterator.next());
             final TreeItem t = new TreeItem(l);
             l.addClickHandler (new ClickHandler() {
                 public void onClick(ClickEvent event) {
