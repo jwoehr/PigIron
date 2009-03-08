@@ -179,7 +179,7 @@ public class NavigatorTree extends Tree {
 	    public void onSelection(SelectionEvent event) {
 	    TreeItem tI = getSelectedItem();
 	    // navigatorPanel.hostDetailsView(tI.getText());
-	    // new InfoDialog().say(tI.getText());
+	    // InfoDialog().sayInfo(tI.getText());
 	    }
 	}); */
     }
