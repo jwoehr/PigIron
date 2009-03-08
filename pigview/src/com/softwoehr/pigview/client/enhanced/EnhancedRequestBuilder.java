@@ -33,6 +33,7 @@ package com.softwoehr.pigview.client.enhanced;
 
 import com.google.gwt.http.client.URL;
 import com.google.gwt.http.client.*;
+import com.softwoehr.pigview.client.panels.widgets.InfoDialog;
 
 /**
  *  An extension of the request builder in GWT which is insufficient.
@@ -89,10 +90,10 @@ public class EnhancedRequestBuilder {
         if (httpMethodString != null) {
             result = sendMethodString();
         } else {
-            if (httpMethod != null) {
+            if (httpMethod != null) { // Probably unnecessary as sendMethod() would throw on null.
                 result = sendMethod();
-            } else {
-                // Some error or exception
+            } else { // Should never reach here.
+                InfoDialog.sayInfo("Both httpMethodString and httpMethod are null in EnhancedRequestBuilder.send()");
             }
         }
         return result;

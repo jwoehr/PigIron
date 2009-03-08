@@ -90,5 +90,17 @@ public class InfoDialog extends DialogBox {
         center();
         show();
     }
+
+    /**
+     *  Quick show-the-message-now creating a new InfoDialog.
+     *
+     * @param  messageText  Message to display
+     * @return              the new InfoDialog
+     */ 
+    public static InfoDialog sayInfo(String messageText) {
+        InfoDialog id = new InfoDialog();
+        id.say(messageText);
+        return id;
+    }
 }
 
