@@ -32,6 +32,7 @@
 package com.softwoehr.pigview.client.panels.widgets;
 
 import com.softwoehr.pigview.client.enhanced.EnhancedTreeItem;
+import com.softwoehr.pigview.client.enhanced.PersistenceManager;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -65,8 +66,9 @@ public class NavigatorTreeManager extends HashSet <EnhancedTreeItem> {
      *
      * @param  navigatorTree  The new navigatorTree value
      */ 
-    public void setNavigatorTree(NavigatorTree navigatorTree) {
+    public NavigatorTreeManager setNavigatorTree(NavigatorTree navigatorTree) {
         this.navigatorTree = navigatorTree;
+        return this;
     }
 
     /**
@@ -83,17 +85,43 @@ public class NavigatorTreeManager extends HashSet <EnhancedTreeItem> {
      * that represent a host.
      *
      * @return    Iterator over collection of host tree items
-     */    
-    public Iterator<EnhancedTreeItem> getHostTreeItems() {
-	HashSet<EnhancedTreeItem> set = new HashSet<EnhancedTreeItem>();
-	Iterator<EnhancedTreeItem> it = iterator();
-	while(it.hasNext()) {
-	   EnhancedTreeItem e = it.next();
-	   if (e instanceof HostTreeItem) {
-	       set.add(e);
-	   }
-	}
-	return set.iterator();
+     */ 
+    public Iterator <EnhancedTreeItem> getHostTreeItems() {
+        HashSet <EnhancedTreeItem> set = new HashSet <EnhancedTreeItem>();
+        Iterator <EnhancedTreeItem> it = iterator();
+        while (it.hasNext()) {
+            EnhancedTreeItem e = it.next();
+            if (e instanceof HostTreeItem) {
+                set.add(e);
+            }
+        }
+        return set.iterator();
+    }
+ 
+    /**
+     * Rebuild self, command rebuild in subordinates.
+     *
+     * @return self
+     */ 
+    public NavigatorTreeManager rebuild() {
+        clear();
+        Iterator <String> hostNamesIterator = PersistenceManager.hostNames().iterator();
+        while (hostNamesIterator.hasNext()) {
+            HostTreeItem item = new HostTreeItem(this, hostNamesIterator.next());
+            addDefaultOperations(item).add(item);
+        }
+        navigatorTree.rebuildTree();
+        return this;
+    }
+    
+    /**
+     * Add default ops as subtree items to a host item.
+     *
+     * @return self
+     */ 
+    public NavigatorTreeManager addDefaultOperations(HostTreeItem item) {
+        // item.add(new OperationsTreeItem() ...
+        return this;
     }
 }
 
