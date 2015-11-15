@@ -297,7 +297,7 @@ public abstract class VSMCall {
      * @param connection the Connection object used to communicate to the VSMAPI Host
      * @see com.softwoehr.pigiron.access.Connection
      */
-    public void setConnection(Connection connection) {
+    public final void setConnection(Connection connection) {
         this.connection = connection;
     }
 
@@ -306,7 +306,7 @@ public abstract class VSMCall {
      * connected to by the instance of the function call.
      * @param hostname the name of the Host which will be connected to by the instance
      */
-    public void setHostname(String hostname) {
+    public final void setHostname(String hostname) {
         this.hostname = hostname;
     }
 
@@ -317,7 +317,7 @@ public abstract class VSMCall {
      * params to be sent to VSMAPI Host
      * @see #composeInputArray()
      */
-    public void setInParams(ParameterArray inParams) {
+    public final void setInParams(ParameterArray inParams) {
         this.inParams = inParams;
     }
 
@@ -327,7 +327,7 @@ public abstract class VSMCall {
      * @param outParams output parameter array which holds the
      * params to be read, or which have been read, from the VSMAPI Host
      */
-    public void setOutParams(ParameterArray outParams) {
+    public final void setOutParams(ParameterArray outParams) {
         this.outParams = outParams;
     }
 
@@ -335,7 +335,7 @@ public abstract class VSMCall {
      * Set password to be used to connect to the VSMAPI Host.
      * @param password password to be used to connect to the VSMAPI Host
      */
-    public void setPassword(String password) {
+    public final void setPassword(String password) {
         this.password = password;
     }
 
@@ -343,7 +343,7 @@ public abstract class VSMCall {
      * Set the number of the Host port to which the call instance will connect on.
      * @param port the number of the Host port to which the call instance will connect on
      */
-    public void setPort(int port) {
+    public final void setPort(int port) {
         this.port = port;
     }
 
@@ -353,7 +353,7 @@ public abstract class VSMCall {
      * @param target_identifier an input param representing the object of
      * the function for most VSMAPI fuction calls
      */
-    public void setTarget_identifier(String target_identifier) {
+    public final void setTarget_identifier(String target_identifier) {
         this.target_identifier = target_identifier;
     }
 
@@ -361,7 +361,7 @@ public abstract class VSMCall {
      * Set the userid making the function call.
      * @param userid the userid making the function call.
      */
-    public void setUserid(String userid) {
+    public final void setUserid(String userid) {
         this.userid = userid;
     }
 
