@@ -34,6 +34,8 @@ package com.softwoehr.pigiron.access;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Implements and encapsulates the VSMAPI <tt>string</tt> basic type.
@@ -47,12 +49,12 @@ public class VSMString implements VSMParm {
      *
      */
     /**
-     * Type in terms of one of the formal parameter type discussed in
-     * the VSMAPI documentation: <tt>int1</tt>, <tt>int4</tt>,
-     * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.
-     * (Pigiron also recognizes <tt>counted_struct</tt>
-     * as an extra type above and beyond the base types enumerated
-     * by the VSMAPI documentation.)
+     * Type in terms of one of the formal parameter type discussed in the VSMAPI
+     * documentation: <tt>int1</tt>, <tt>int4</tt>,
+     * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>. (Pigiron
+     * also recognizes <tt>counted_struct</tt>
+     * as an extra type above and beyond the base types enumerated by the VSMAPI
+     * documentation.)
      *
      * @see com.softwoehr.pigiron.access.VSMParm
      * @see com.softwoehr.pigiron.access.CountedStruct
@@ -69,6 +71,7 @@ public class VSMString implements VSMParm {
 
     /**
      * Create an instance of specified value.
+     *
      * @param value the value
      */
     public VSMString(String value) {
@@ -77,7 +80,8 @@ public class VSMString implements VSMParm {
     }
 
     /**
-     * Create an instance of specified value  and assign it a formal name.
+     * Create an instance of specified value and assign it a formal name.
+     *
      * @param value the value
      * @param formalName the formal name
      */
@@ -88,6 +92,7 @@ public class VSMString implements VSMParm {
 
     /**
      * Get the value.
+     *
      * @return the value
      */
     public String getValue() {
@@ -96,14 +101,16 @@ public class VSMString implements VSMParm {
 
     /**
      * Set the value.
+     *
      * @param value the value
      */
-    public void setValue(String value) {
+    public final void setValue(String value) {
         this.value = value;
     }
 
     /**
      * Get the length in bytes of the parameter.
+     *
      * @return the length in bytes of the parameter value.
      */
     public int paramLength() {
@@ -116,12 +123,13 @@ public class VSMString implements VSMParm {
 
     /**
      * Read in a VSMString from a stream.
+     *
      * @param in the input stream
      * @param length the max length of the read
      * @throws java.io.IOException on comm error
      */
     public void read(DataInputStream in, int length) throws IOException {
-	// /* Debug */ System.err.println("About to read a string of length " + length);
+        // /* Debug */ System.err.println("About to read a string of length " + length);
         byte[] bytes = new byte[length];
         in.readFully(bytes);
         setValue(new String(bytes));
@@ -129,11 +137,10 @@ public class VSMString implements VSMParm {
     }
 
     /**
-     * Write the String parameter to the output stream.
-     * Its length <tt>int4</tt> must already have been written by the
-     * enclosing <tt>ParameterArray</tt> having had a
-     * VSMInt4 entry with the length indexed one (1) prior
-     * to this VSMString.
+     * Write the String parameter to the output stream. Its length <tt>int4</tt>
+     * must already have been written by the enclosing <tt>ParameterArray</tt>
+     * having had a VSMInt4 entry with the length indexed one (1) prior to this
+     * VSMString.
      *
      * @param out the output stream
      * @throws java.io.IOException on comm error
@@ -145,8 +152,9 @@ public class VSMString implements VSMParm {
     }
 
     /**
-     * Get the formal name of the parameter conforming to
-     * the VSMAPI docs for a given call.
+     * Get the formal name of the parameter conforming to the VSMAPI docs for a
+     * given call.
+     *
      * @return the formal name of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
@@ -155,35 +163,44 @@ public class VSMString implements VSMParm {
     }
 
     /**
-     * Set the formal name of the parameter conforming to
-     * the VSMAPI docs for a given call.
+     * Set the formal name of the parameter conforming to the VSMAPI docs for a
+     * given call.
+     *
      * @param formalName the formal name of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
-    public void setFormalName(String formalName) {
+    public final void setFormalName(String formalName) {
         this.formalName = formalName;
     }
 
     /**
-     * Return a functional copy of the instance.
-     * Convenience function to type-encapsulate <tt>clone()</tt>.
+     * Return a functional copy of the instance. Convenience function to
+     * type-encapsulate <tt>clone()</tt>.
+     *
      * @return copy or null
      * @see #clone()
      */
     public VSMParm copyOf() {
         /* return new VSMInt8(value, formalName);*/
         VSMParm bozo = null;
-        bozo = VSMParm.class.cast(clone());
+        try {
+            bozo = VSMParm.class.cast(clone());
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(VSMString.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return bozo;
     }
 
     /**
      * Clone the instance.
+     *
      * @return clone of the instance
+     * @throws java.lang.CloneNotSupportedException
      * @see #copyOf()
      */
     @Override
-    public Object clone() {
+    public Object clone() throws CloneNotSupportedException {
+        super.clone();
         VSMString proto = new VSMString();
         proto.setFormalName(formalName);
         proto.setValue(getValue());
@@ -192,13 +209,14 @@ public class VSMString implements VSMParm {
 
     /**
      * String representation of the instance for debugging.
+     *
      * @return String representation of the instance for debugging
      */
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer(super.toString());
-        sb.append(" Formal Name == " + getFormalName() + " Formal Type == " + getFormalType());
-        sb.append(" Value == " + getValue());
+        StringBuilder sb = new StringBuilder(super.toString());
+        sb.append(" Formal Name == ").append(getFormalName()).append(" Formal Type == ").append(getFormalType());
+        sb.append(" Value == ").append(getValue());
         return sb.toString();
     }
 
@@ -208,8 +226,8 @@ public class VSMString implements VSMParm {
      * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.
      *
      * Pigiron recognizes <tt>counted_struct</tt>
-     * as an extra type above and beyond the base types enumerated
-     * by the VSMAPI documentation.
+     * as an extra type above and beyond the base types enumerated by the VSMAPI
+     * documentation.
      *
      * @return the fornal type in a string with the case set as in the docs
      */
@@ -219,11 +237,13 @@ public class VSMString implements VSMParm {
 
     /**
      * Prettyprint the instance for debugging or simple output display.
-     * @return Prettyprint of the instance for debugging or simple output display
+     *
+     * @return Prettyprint of the instance for debugging or simple output
+     * display
      */
     public String prettyPrint() {
-        StringBuffer sb = new StringBuffer();
-        sb.append(getFormalName() + "(" + getFormalType() + ") " + getValue());
+        StringBuilder sb = new StringBuilder();
+        sb.append(getFormalName()).append("(").append(getFormalType()).append(") ").append(getValue());
         return sb.toString();
     }
     /**

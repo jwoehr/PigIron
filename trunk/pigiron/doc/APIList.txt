@@ -1,7 +1,7 @@
-/* The functions listed below without annotation were                  */
-/* implemented up to z/VM 5.4 in the original PigIron project.         */
-/* Those marked 6.3 are awaiting implementation in the current pass.   */
-/* When a function is implemented, the 6.3 annotation will be removed. */ 
+g* The functions listed below without annotation were                */
+/* implemented up to z/VM 5.4 in the original PigIron project.       */
+/* Those marked 6.3 are awaiting implementation in the current pass. */
+/* When a function is implemented, the annotation will be updated.   */ 
 /* jjw 20151116 */
 Asynchronous_Notification_Disable_DM
 Asynchronous_Notification_Enable_DM
@@ -16,7 +16,7 @@ Directory_Manager_Local_Tag_Query_DM
 Directory_Manager_Local_Tag_Set_DM
 Directory_Manager_Search_DM
 Directory_Manager_Task_Cancel_DM
-6.3: Event_Stream_Add
+6.3: Event_Stream_Add 20151116
 6.3: Event_Subscribe
 6.3: Event_Unsubscribe
 Image_Activate
