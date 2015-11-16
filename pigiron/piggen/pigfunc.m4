@@ -146,7 +146,7 @@ push_divert(accessor_stream)dnl
     `/** Set the value of {@code ' x_name() `}.'
     ` * @param val The value to set {@code ' x_name() `}.'
     ` */'
-    x_set_accessor() void `set_'x_name()`('x_type() `val'`) {'
+    x_set_accessor() final void `set_'x_name()`('x_type() `val'`) {'
         x_name() = `val;'
     `}'
 
@@ -258,7 +258,7 @@ push_divert(`compose_in_stream')dnl
      * @see com.softwoehr.pigiron.access.ParameterArray
      */
     protected ParameterArray composeInputArray`(') {
-        VSMString tempString = null;
+        VSMString tempString;
         ParameterArray parameterArray = new ParameterArray`('`this'`)';
         tempString = new VSMString`('getFunctionName`('), getFunctionName`('));
         parameterArray.add`('new VSMInt4`('tempString.paramLength`('), "function_name_length"));
