@@ -3,13 +3,14 @@
 <!-- Edit mode for JEdit for m4 macro language -->
 <!-- Add to ~/.jedit/modes/catalog as follows:  -->
 <!-- <MODE NAME="m4" FILE="m4.xml" FILE_NAME_GLOB="*.m4" /> -->
+<!-- Jack J. Woehr jwoehr@softwoehr.com updated 20151116 -->
 <MODE>
 <PROPS>
 	<PROPERTY NAME="lineComment" VALUE="#" />
 	<PROPERTY NAME="wrap" VALUE="none" />
 	<PROPERTY NAME="noTabs" VALUE="true" />
-	</PROPS>
-	<RULES IGNORE_CASE="FALSE" HIGHLIGHT_DIGITS="TRUE">
+</PROPS>
+<RULES IGNORE_CASE="FALSE" HIGHLIGHT_DIGITS="TRUE">
 	<EOL_SPAN_REGEXP AT_WHITESPACE_END="FALSE" HASH_CHAR="d" TYPE="COMMENT1">dnl(?=(\s)|($))</EOL_SPAN_REGEXP>
 	<MARK_FOLLOWING TYPE="KEYWORD2">$</MARK_FOLLOWING>
 	<SEQ TYPE="KEYWORD1">`</SEQ>
@@ -59,5 +60,5 @@
         <SEQ_REGEXP TYPE="KEYWORD1" HASH_CHAR="t" AT_WORD_START="TRUE">translit(?=(($)|((\()|(\s))))</SEQ_REGEXP>
         <SEQ_REGEXP TYPE="KEYWORD1" HASH_CHAR="u" AT_WORD_START="TRUE">undefine(?=(($)|((\()|(\s))))</SEQ_REGEXP>
         <SEQ_REGEXP TYPE="KEYWORD1" HASH_CHAR="u" AT_WORD_START="TRUE">undivert(?=(($)|((\()|(\s))))</SEQ_REGEXP>
-	</RULES>
+</RULES>
 </MODE>
