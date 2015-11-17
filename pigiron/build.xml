@@ -89,7 +89,17 @@
             <arg value="${build.funcgen.dir}"/>
         </exec>
     </target>
-    <target depends="-pigiron-parmgen,-pigiron-funcgen"
+        <target depends="init" description="Autogenerate FIJI binding file for PigIron-provided paramstructs and functions that have m4 description files" name="-pigiron-fijigen">
+        <property value="${basedir}/${build.dir}/fijigen" name="build.fijigen.dir"/>
+        <mkdir dir="${build.fijigen.dir}"/>
+        <exec executable="/bin/sh" dir="${piggen.dir}">
+            <arg value="gen-fiji.sh"/>
+            <arg value="parmfiles"/>
+            <arg value="funcfiles"/>
+            <arg value="${build.fijigen.dir}"/>
+        </exec>
+    </target>
+    <target depends="-pigiron-parmgen,-pigiron-funcgen, -pigiron-fijigen"
             description="Autogenerates all PigIron-provided paramstructs and functions that PigGen description files"
             name="pigiron-autogen"
             />
