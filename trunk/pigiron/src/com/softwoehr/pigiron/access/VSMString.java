@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+ * Copyright (c) 2008, 2015 Jack J. Woehr jwoehr@softwoehr.com
  * PO Box 51, Golden, Colorado 80402-0051 USA
  * All rights reserved.
  *
@@ -34,8 +34,6 @@ package com.softwoehr.pigiron.access;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Implements and encapsulates the VSMAPI <tt>string</tt> basic type.
@@ -76,7 +74,7 @@ public class VSMString implements VSMParm {
      */
     public VSMString(String value) {
         this();
-        setValue(value);
+        this.value = value;
     }
 
     /**
@@ -87,7 +85,7 @@ public class VSMString implements VSMParm {
      */
     public VSMString(String value, String formalName) {
         this(value);
-        setFormalName(formalName);
+        this.formalName = formalName;
     }
 
     /**
@@ -174,28 +172,28 @@ public class VSMString implements VSMParm {
     }
 
     /**
-     * Return a functional copy of the instance. Convenience function to
-     * type-encapsulate <tt>clone()</tt>.
+     * Return a functional copy of the instance. 
      *
      * @return copy or null
-     * @see #clone()
      */
     public VSMParm copyOf() {
-        VSMParm bozo = VSMParm.class.cast(clone());
-        return bozo;
+        return new VSMString(getValue(), getFormalName());
     }
-
-    /**
-     * Clone the instance.
-     *
-     * @return clone of the instance
-     * @see #copyOf()
-     */
-    @Override
-    public Object clone() {
-        VSMString proto = new VSMString(getValue(), getFormalName());
-        return proto;
-    }
+//        VSMParm bozo = VSMParm.class.cast(clone());
+//        return bozo;
+//    }
+//
+//    /**
+//     * Clone the instance.
+//     *
+//     * @return clone of the instance
+//     * @see #copyOf()
+//     */
+//    @Override
+//    public Object clone() {
+//        VSMString proto = new VSMString(getValue(), getFormalName());
+//        return proto;
+//    }
 
     /**
      * String representation of the instance for debugging.

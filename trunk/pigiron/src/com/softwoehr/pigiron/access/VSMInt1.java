@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+ * Copyright (c) 2008, 2015 Jack J. Woehr jwoehr@softwoehr.com
  * PO Box 51, Golden, Colorado 80402-0051 USA
  * All rights reserved.
  *
@@ -56,17 +56,10 @@ public class VSMInt1 implements VSMParm, VSMInt {
     public static final String FORMAL_TYPE = "int1";
 
     /**
-     * Create an instance of undefined value.
-     */
-    public VSMInt1() {
-    }
-
-    /**
      * Create an instance of specified value.
      * @param value the value
      */
     public VSMInt1(int value) {
-        this();
         setValue(value);
     }
 
@@ -75,8 +68,7 @@ public class VSMInt1 implements VSMParm, VSMInt {
      * @param value the value
      */
     public VSMInt1(byte value) {
-        this();
-        setValue(value);
+       this.value=value;
     }
 
     /** 
@@ -86,7 +78,7 @@ public class VSMInt1 implements VSMParm, VSMInt {
      */
     public VSMInt1(int value, String formalName) {
         this(value);
-        setFormalName(formalName);
+        this.formalName=formalName;
     }
 
     /**
@@ -103,7 +95,7 @@ public class VSMInt1 implements VSMParm, VSMInt {
      * Set the value.
      * @param value the value
      */
-    public void setValue(byte value) {
+    public final void setValue(byte value) {
         this.value = value;
     }
 
@@ -111,7 +103,7 @@ public class VSMInt1 implements VSMParm, VSMInt {
      * Set the value.
      * @param value the value
      */
-    public void setValue(int value) {
+    public final void setValue(int value) {
         this.value = value;
     }
 
@@ -168,42 +160,37 @@ public class VSMInt1 implements VSMParm, VSMInt {
      * @param formalName the formal name of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
-    public void setFormalName(String formalName) {
+    public final void setFormalName(String formalName) {
         this.formalName = formalName;
     }
 
     /**
      * Return a functional copy of the instance.
-     * Convenience function to type-encapsulate <tt>clone()</tt>.
      * @return copy or null
-     * @see #clone()
      */
     public VSMParm copyOf() {
-        /* return new VSMInt1(value, formalName);*/
-        VSMParm bozo = null;
-        bozo = VSMParm.class.cast(clone());
-        return bozo;
+        return new VSMInt1(getValue(),getFormalName());
     }
 
-    /**
-     * Clone the instance.
-     * @return clone of the instance
-     * @see #copyOf()
-     */
-    @Override
-    public Object clone() {
-        VSMInt1 proto = new VSMInt1();
-        proto.setFormalName(formalName);
-        proto.setValue(getValue());
-        return proto;
-    }
+//    /**
+//     * Clone the instance.
+//     * @return clone of the instance
+//     * @see #copyOf()
+//     */
+//    @Override
+//    public Object clone() {
+//        VSMInt1 proto = new VSMInt1();
+//        proto.setFormalName(formalName);
+//        proto.setValue(getValue());
+//        return proto;
+//    }
 
     /**
      * The value as a <tt>long</tt>.
      * @return the value as a <tt>long</tt>
      */
     public long getLongValue() {
-        return new Long(getValue()).longValue();
+        return new Long(getValue());
     }
 
     /**

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+ * Copyright (c) 2008, 2015 Jack J. Woehr jwoehr@softwoehr.com
  * PO Box 51, Golden, Colorado 80402-0051 USA
  * All rights reserved.
  * 
@@ -44,20 +44,23 @@ import java.util.Iterator;
 public class VSMAsciiZArray extends VSMStruct implements VSMParm {
 
     /**
-     * Array of VSMAsciiZ that comes with no prepended count.
-     * It comes at the end of and output parameter list and exhausts the
-     * remaining read count.
+     * Array of VSMAsciiZ that comes with no prepended count. It comes at the
+     * end of and output parameter list and exhausts the remaining read count.
      *
      * @see com.softwoehr.pigiron.access.VSMAsciiZ
      */
-    public static final String FORMAL_TYPE = "asciiz_array";
+    static {
+        FORMAL_TYPE = "asciiz_array";
+    }
 
     /**
      * Create a VSMAsciiZArray that has as its one (1) member a model of the
      * parameter it is intended to read iteratively.
-     * @param model The VSMParm (often CountedStruct) which will be  read iteratively
+     *
+     * @param model The VSMParm (often CountedStruct) which will be read
+     * iteratively
      * @param formalName the formal name
-     * @return the new modelled VSMArray ready for a read.
+     * @return the new modeled VSMArray ready for a read.
      */
     static public VSMAsciiZArray modelArray(VSMAsciiZ model, String formalName) {
         VSMAsciiZArray result = new VSMAsciiZArray();
@@ -75,6 +78,7 @@ public class VSMAsciiZArray extends VSMStruct implements VSMParm {
 
     /**
      * Create an instance of specified value copied from a like instance.
+     *
      * @param value a like instance to be copied from
      */
     public VSMAsciiZArray(VSMAsciiZArray value) {
@@ -84,6 +88,7 @@ public class VSMAsciiZArray extends VSMStruct implements VSMParm {
     /**
      * Create an instance of specified value copied from a like instance, and
      * specify the formal name at the same time.
+     *
      * @param value a like instance to be copied from
      * @param formalName the formal name
      */
@@ -92,11 +97,11 @@ public class VSMAsciiZArray extends VSMStruct implements VSMParm {
     }
 
     /**
-     * The vector of the Array contains at runtime the model of
-     * ONE INSTANCE of the contained type. VMSArray re-iterates
-     * through this instance until the count is exhausted and
-     * creates a new vector of the items it reads one-at-a-time
-     * which it then instantiates in itself.
+     * The vector of the Array contains at runtime the model of ONE INSTANCE of
+     * the contained type. VMSArray re-iterates through this instance until the
+     * count is exhausted and creates a new vector of the items it reads
+     * one-at-a-time which it then instantiates in itself.
+     *
      * @param in the byte count remaining
      * @param length
      * @throws java.io.IOException
@@ -119,47 +124,53 @@ public class VSMAsciiZArray extends VSMStruct implements VSMParm {
             // /* Debug */ System.err.println(" VSMArray.read after read has target param length of   " + target.paramLength());
             // /* Debug */ System.err.flush();
             length -= target.paramLength();
-        // /* Debug */ System.err.println(" Array read length remaining: " + length);
-        // /* Debug */ System.err.flush();
+            // /* Debug */ System.err.println(" Array read length remaining: " + length);
+            // /* Debug */ System.err.flush();
         }
         setValue(v);
     }
 
     /**
      * Return a functional copy of the instance.
-     * Convenience function to type-encapsulate <tt>clone()</tt>.
+     *
      * @return copy or null
-     * @see #clone()
      */
     @Override
     public VSMParm copyOf() {
-        return VSMParm.class.cast(clone());
-    }
-
-    /**
-     * Clone the instance.
-     * @return clone of the instance
-     * @see #copyOf()
-     */
-    @Override
-    public Object clone() {
-        VSMAsciiZArray proto = new VSMAsciiZArray();
-        proto.setFormalName(getFormalName());
+        VSMAsciiZArray bozo = new VSMAsciiZArray();
+        bozo.setFormalName(getFormalName());
         Iterator<VSMParm> it = iterator();
         while (it.hasNext()) {
-            proto.add(it.next().copyOf());
+            bozo.add(it.next().copyOf());
         }
-        return proto;
+        return bozo;
     }
 
+//    /**
+//     * Clone the instance.
+//     *
+//     * @return clone of the instance
+//     * @see #copyOf()
+//     */
+//    @Override
+//    public Object clone() {
+//        VSMAsciiZArray proto = new VSMAsciiZArray();
+//        proto.setFormalName(getFormalName());
+//        Iterator<VSMParm> it = iterator();
+//        while (it.hasNext()) {
+//            proto.add(it.next().copyOf());
+//        }
+//        return proto;
+//    }
     /**
      * String representation of the instance for debugging.
+     *
      * @return String representation of the instance for debugging
      */
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer("VSMAsciiZArray " + super.toString());
-        sb.append(" Formal Name == " + getFormalName() + " Formal Type == " + getFormalType());
+        StringBuilder sb = new StringBuilder("VSMAsciiZArray " + super.toString());
+        sb.append(" Formal Name == ").append(getFormalName()).append(" Formal Type == ").append(getFormalType());
         /*sb.append(" Array members follow:\n");
         Iterator<VSMParm> i = iterator();
         while (i.hasNext()) {
@@ -174,8 +185,8 @@ public class VSMAsciiZArray extends VSMStruct implements VSMParm {
      * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.
      *
      * Pigiron recognizes <tt>counted_struct</tt>
-     * as an extra type above and beyond the base types enumerated
-     * by the VSMAPI documentation.
+     * as an extra type above and beyond the base types enumerated by the VSMAPI
+     * documentation.
      *
      * @return the fornal type in a string with the case set as in the docs
      */

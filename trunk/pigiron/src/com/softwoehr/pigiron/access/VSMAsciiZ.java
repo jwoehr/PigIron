@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+ * Copyright (c) 2008, 2015 Jack J. Woehr jwoehr@softwoehr.com
  * PO Box 51, Golden, Colorado 80402-0051 USA
  * All rights reserved.
  *
@@ -47,14 +47,16 @@ public class VSMAsciiZ implements VSMParm {
      *
      */
     /**
-     * The new type of String introduced in VSMAPI 5.4, a String
-     * which is null-terminated (ASCIIZ) so does not need a count.
-     * It is both an input and output parameter employed in calls
-     * such as Virtual_Network_LAN_Access_Query (5.4).
+     * The new type of String introduced in VSMAPI 5.4, a String which is
+     * null-terminated (ASCIIZ) so does not need a count. It is both an input
+     * and output parameter employed in calls such as
+     * Virtual_Network_LAN_Access_Query (5.4).
      *
      * @see com.softwoehr.pigiron.access.VSMParm
      * @see com.softwoehr.pigiron.access.CountedStruct
-     * @since <a href="http://publib.boulder.ibm.com/infocenter/zvm/v5r4/index.jsp">VSMAPI 5.4</a>
+     * @since
+     * <a href="http://publib.boulder.ibm.com/infocenter/zvm/v5r4/index.jsp">VSMAPI
+     * 5.4</a>
      */
     public static final String FORMAL_TYPE = "asciiz";
     private String value;
@@ -68,25 +70,28 @@ public class VSMAsciiZ implements VSMParm {
 
     /**
      * Create an instance of specified value.
+     *
      * @param value the value
      */
     public VSMAsciiZ(String value) {
         this();
-        setValue(value);
+        this.value = value;
     }
 
     /**
-     * Create an instance of specified value  and assign it a formal name.
+     * Create an instance of specified value and assign it a formal name.
+     *
      * @param value the value
      * @param formalName the formal name
      */
     public VSMAsciiZ(String value, String formalName) {
         this(value);
-        setFormalName(formalName);
+        this.formalName = formalName;
     }
 
     /**
      * Strips a string of any null terminators and anything following such.
+     *
      * @param string a string possibly terminated with a null
      * @return the string minus the null terminator (and minus any characters
      * accidentally supplied after the null terminator)
@@ -97,7 +102,7 @@ public class VSMAsciiZ implements VSMParm {
             if (string.indexOf('\0') > 0) {
                 string = string.substring(0, string.indexOf('\0'));
             }
-        // /* Debug */ System.out.println("String leaving stripTerminated is " + string);
+            // /* Debug */ System.out.println("String leaving stripTerminated is " + string);
         }
         return string;
     }
@@ -111,6 +116,7 @@ public class VSMAsciiZ implements VSMParm {
 
     /**
      * Get the value minus the z-terminator.
+     *
      * @return the value minus the z-terminator
      */
     public String getValue() {
@@ -119,19 +125,23 @@ public class VSMAsciiZ implements VSMParm {
 
     /**
      * Strip any accidentally-supplied null terminator from the input argument
-     * and any characters following that null terminator, append a null terminator,
-     * and set the value.
-     * @param value a string to be null-terminated by {@code setValue} and set as the value
+     * and any characters following that null terminator, append a null
+     * terminator, and set the value.
+     *
+     * @param value a string to be null-terminated by {@code setValue} and set
+     * as the value
      */
-    public void setValue(String value) {
+    public final void setValue(String value) {
         // /* Debug */ System.out.println("String entering setValue is " + value);
         this.value = terminate(stripTerminated(value));
-    // /* Debug */ System.out.println("String leaving setValue is " + value);
+        // /* Debug */ System.out.println("String leaving setValue is " + value);
     }
 
     /**
      * Get the length in bytes of the parameter (including the null terminator).
-     * @return the length in bytes of the parameter value (including the null terminator)
+     *
+     * @return the length in bytes of the parameter value (including the null
+     * terminator)
      */
     public int paramLength() {
         int result = 0;
@@ -143,12 +153,13 @@ public class VSMAsciiZ implements VSMParm {
 
     /**
      * Read in a VSMAsciiZ from a stream.
+     *
      * @param in the input stream
      * @param length the max length of the read
      * @throws java.io.IOException on comm error
      */
     public void read(DataInputStream in, int length) throws IOException {
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         char c;
         for (int i = 0; i < length; i++) {
             c = in.readChar();
@@ -158,11 +169,12 @@ public class VSMAsciiZ implements VSMParm {
             result.append(c);
         }
         setValue(result.toString());
-    // /* Debug */ System.err.println("Read a string: " + value);
+        // /* Debug */ System.err.println("Read a string: " + value);
     }
 
     /**
-     * Write the String parameter to the output stream including the null terminator.
+     * Write the String parameter to the output stream including the null
+     * terminator.
      *
      * @param out the output stream
      * @throws java.io.IOException on comm error
@@ -174,8 +186,9 @@ public class VSMAsciiZ implements VSMParm {
     }
 
     /**
-     * Get the formal name of the parameter conforming to
-     * the VSMAPI docs for a given call.
+     * Get the formal name of the parameter conforming to the VSMAPI docs for a
+     * given call.
+     *
      * @return the formal name of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
@@ -184,62 +197,61 @@ public class VSMAsciiZ implements VSMParm {
     }
 
     /**
-     * Set the formal name of the parameter conforming to
-     * the VSMAPI docs for a given call.
+     * Set the formal name of the parameter conforming to the VSMAPI docs for a
+     * given call.
+     *
      * @param formalName the formal name of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
-    public void setFormalName(String formalName) {
+    public final void setFormalName(String formalName) {
         this.formalName = formalName;
     }
 
     /**
      * Return a functional copy of the instance.
-     * Convenience function to type-encapsulate <tt>clone()</tt>.
+     *
      * @return copy or null
-     * @see #clone()
      */
     public VSMParm copyOf() {
-        VSMParm bozo = null;
-        bozo = VSMParm.class.cast(clone());
-        return bozo;
+        return new VSMAsciiZ(getFormalName(), getValue());
     }
 
-    /**
-     * Clone the instance.
-     * @return clone of the instance
-     * @see #copyOf()
-     */
-    @Override
-    public Object clone() {
-        VSMAsciiZ proto = new VSMAsciiZ();
-        proto.setFormalName(formalName);
-        proto.setValue(getValue());
-        return proto;
-    }
-
+//    /**
+//     * Clone the instance.
+//     *
+//     * @return clone of the instance
+//     * @see #copyOf()
+//     */
+//    @Override
+//    public Object clone() {
+//        VSMAsciiZ proto = new VSMAsciiZ();
+//        proto.setFormalName(formalName);
+//        proto.setValue(getValue());
+//        return proto;
+//    }
     /**
      * String representation of the instance for debugging.
+     *
      * @return String representation of the instance for debugging
      */
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer(super.toString());
-        sb.append(" Formal Name == " + getFormalName() + " Formal Type == " + getFormalType());
-        sb.append(" Value == " + getValue());
+        StringBuilder sb = new StringBuilder(super.toString());
+        sb.append(" Formal Name == ").append(getFormalName()).append(" Formal Type == ").append(getFormalType());
+        sb.append(" Value == ").append(getValue());
         return sb.toString();
     }
 
     /**
      * Get the formal type of the parmeter, one of the formal parameter types
      * discussed in the VSMAPI documentation: <tt>int1</tt>, <tt>int4</tt>,
-     * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt> ..
-     * and this new type we're calling AsciiZ that is in VSMAPI 5.4 but
-     * not at this writing fully documented.
+     * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt> .. and
+     * this new type we're calling AsciiZ that is in VSMAPI 5.4 but not at this
+     * writing fully documented.
      *
      * Pigiron recognizes <tt>counted_struct</tt>
-     * as an extra type above and beyond the base types enumerated
-     * by the VSMAPI documentation.
+     * as an extra type above and beyond the base types enumerated by the VSMAPI
+     * documentation.
      *
      * @return the fornal type in a string with the case set as in the docs
      */
@@ -249,11 +261,13 @@ public class VSMAsciiZ implements VSMParm {
 
     /**
      * Prettyprint the instance for debugging or simple output display.
-     * @return Prettyprint of the instance for debugging or simple output display
+     *
+     * @return Prettyprint of the instance for debugging or simple output
+     * display
      */
     public String prettyPrint() {
-        StringBuffer sb = new StringBuffer();
-        sb.append(getFormalName() + "(" + getFormalType() + ") " + getValue());
+        StringBuilder sb = new StringBuilder();
+        sb.append(getFormalName()).append("(").append(getFormalType()).append(") ").append(getValue());
         return sb.toString();
     }
 }
