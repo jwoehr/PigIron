@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+ * Copyright (c) 2008, 2015 Jack J. Woehr jwoehr@softwoehr.com
  * PO Box 51, Golden, Colorado 80402-0051 USA
  * All rights reserved.
  *
@@ -91,7 +91,7 @@ public class Main {
      * @see com.softwoehr.pigiron.functions.VirtualNetworkAdapterQuery
      */
     public static void main(String[] argv) throws IOException, VSMException {
-        String[] modifiedArgs = null;
+        String[] modifiedArgs;
         System.out.println("========= ImageActiveConfigurationQuery =========");
         ImageActiveConfigurationQuery.main(argv);
         System.out.println("========= ImageQueryActivateTime =========");
