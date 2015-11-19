@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+ * Copyright (c) 2008, 2015 Jack J. Woehr jwoehr@softwoehr.com
  * PO Box 51, Golden, Colorado 80402-0051 USA
  * All rights reserved.
  * 
@@ -38,7 +38,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 /**
- *  Implements and encapsulates the VSMAPI <tt>struct</tt> basic type.
+ * Implements and encapsulates the VSMAPI <tt>struct</tt> basic type.
  *
  * @author jax
  * @see com.softwoehr.pigiron.access.VSMParm
@@ -46,49 +46,51 @@ import java.util.Vector;
 public class VSMStruct extends Vector<VSMParm> implements VSMParm {
 
     /**
-     * Type in terms of one of the formal parameter type discussed in
-     * the VSMAPI documentation: <tt>int1</tt>, <tt>int4</tt>,
-     * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.
-     * (Pigiron also recognizes <tt>counted_struct</tt>
-     * as an extra type above and beyond the base types enumerated
-     * by the VSMAPI documentation.)
+     * Type in terms of one of the formal parameter type discussed in the VSMAPI
+     * documentation: <tt>int1</tt>, <tt>int4</tt>,
+     * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>. (Pigiron
+     * also recognizes <tt>counted_struct</tt>
+     * as an extra type above and beyond the base types enumerated by the VSMAPI
+     * documentation.)
+     *
      * @see com.softwoehr.pigiron.access.VSMParm
      * @see com.softwoehr.pigiron.access.CountedStruct
      */
-    public static final String FORMAL_TYPE = "struct";
+    public static String FORMAL_TYPE = "struct";
     /**
      * let the un-init'ed be null!
      */
     private String formalName;
 
     /**
-     * Create an instance of undefined value.
+     * Ctor with no values
      */
     public VSMStruct() {
-        super();
     }
 
     /**
      * Create an instance of specified value
+     *
      * @param value the value (another like instance to be copied from)
      */
     public VSMStruct(VSMStruct value) {
-        this();
         setValue(value);
     }
 
     /**
-     * Create an instance of specified value  and assign it a formal name.
+     * Create an instance of specified value and assign it a formal name.
+     *
      * @param value the value (another like instance to be copied from)
      * @param formalName the formal name
      */
     public VSMStruct(VSMStruct value, String formalName) {
         this(value);
-        setFormalName(formalName);
+        this.formalName = formalName;
     }
 
     /**
      * Get the value i.e., a Vector of struct members, i.e., <tt>this</tt>.
+     *
      * @return the value
      */
     public VSMStruct getValue() {
@@ -97,11 +99,12 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
 
     /**
      *
-     * Set instance to specified value.
-     * {@code null} is legal value which means "just clear me".
+     * Set instance to specified value. {@code null} is legal value which means
+     * "just clear me".
+     *
      * @param value the value
      */
-    public void setValue(VSMStruct value) {
+    public final void setValue(VSMStruct value) {
         clear();
         if (value != null) { // null is legal value
             addAll(value);   // means "just clear me"
@@ -109,8 +112,9 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     }
 
     /**
-     * Set the formal name of the parameter conforming to
-     * the VSMAPI docs for a given call.
+     * Set the formal name of the parameter conforming to the VSMAPI docs for a
+     * given call.
+     *
      * @param formalName the formal name of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
@@ -119,8 +123,9 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     }
 
     /**
-     * Get the formal name of the parameter conforming to
-     * the VSMAPI docs for a given call.
+     * Get the formal name of the parameter conforming to the VSMAPI docs for a
+     * given call.
+     *
      * @return the formal name of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
@@ -131,6 +136,7 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     /**
      * Get the length in bytes of the parameter arrived at by recursively
      * calling interface method <tt>paramLength()</tt> on members.
+     *
      * @return the length in bytes of the parameter value.
      */
     public int paramLength() {
@@ -140,17 +146,16 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
         while (i.hasNext()) {
             VSMParm parm = i.next();
             total += parm.paramLength();
-        // /* Debug */ System.err.println("((( In VSMSTruct.paramLength() " + parm + " added " + parm.paramLength() + " for total == " + total);
+            // /* Debug */ System.err.println("((( In VSMSTruct.paramLength() " + parm + " added " + parm.paramLength() + " for total == " + total);
         }
         return total;
     }
 
     /**
-     * Write the struct parameter to the output stream.
-     * Its length <tt>int4</tt> must already have been written by the
-     * enclosing <tt>ParameterArray</tt> having had a
-     * VSMInt4 entry with the length indexed one (1) prior
-     * to this VSMStruct.
+     * Write the struct parameter to the output stream. Its length <tt>int4</tt>
+     * must already have been written by the enclosing <tt>ParameterArray</tt>
+     * having had a VSMInt4 entry with the length indexed one (1) prior to this
+     * VSMStruct.
      *
      * @param out the output stream
      * @throws java.io.IOException on comm error
@@ -164,11 +169,11 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     }
 
     /**
-     * The vector of the struct contains at runtime the model of
-     * what it's going to need to read. VMSStruct iterates through
-     * its vector as a strategy and creates a new vector of the
-     * items it reads one-at-a-time. It then instantiates the new
-     * vector in itself.
+     * The vector of the struct contains at runtime the model of what it's going
+     * to need to read. VMSStruct iterates through its vector as a strategy and
+     * creates a new vector of the items it reads one-at-a-time. It then
+     * instantiates the new vector in itself.
+     *
      * @param in
      * @param length
      * @throws java.io.IOException
@@ -181,7 +186,8 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
             VSMParm model = i.next();
             VSMParm member = model.copyOf();
             if (model instanceof VSMStruct) {
-                VSMParm putativeLength = myNewContents.lastElement(); /* What did we last read? */
+                VSMParm putativeLength = myNewContents.lastElement();
+                /* What did we last read? */
                 if (putativeLength instanceof VSMInt4) {
                     member.read(in, (VSMInt4.class.cast(putativeLength)).getValue());
                 } else {
@@ -210,7 +216,7 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
                 member.read(in, -1);
             }
             myNewContents.add(member);
-	    length -= member.paramLength();
+            length -= member.paramLength();
         }
         // Convert 'this' into the new struct we have read in.
         setValue(myNewContents);
@@ -223,6 +229,7 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
 
         /**
          * Create instance with a message.
+         *
          * @param message the message
          */
         public VSMStructStringReadException(String message) {
@@ -236,7 +243,8 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     public class VSMStructStructReadException extends VSMException {
 
         /**
-         *  Create instance with a message.
+         * Create instance with a message.
+         *
          * @param message the message
          */
         public VSMStructStructReadException(String message) {
@@ -246,38 +254,37 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
 
     /**
      * Return a functional copy of the instance.
-     * Convenience function to type-encapsulate <tt>clone()</tt>.
+     *
      * @return copy or null
-     * @see #clone()
      */
     public VSMParm copyOf() {
-        return VSMParm.class.cast(clone());
+        return new VSMStruct(getValue(), getFormalName());
     }
 
-    /**
-     * Clone the instance.
-     * @return clone of the instance
-     * @see #copyOf()
-     */
-    @Override
-    public Object clone() {
-        VSMStruct proto = new VSMStruct();
-        proto.setFormalName(formalName);
-        Iterator<VSMParm> it = iterator();
-        while (it.hasNext()) {
-            proto.add(it.next().copyOf());
-        }
-        return proto;
-    }
-
+//    /**
+//     * Clone the instance.
+//     *
+//     * @return clone of the instance
+//     * @see #copyOf()
+//     */
+//    public Object clone() {
+//        VSMStruct proto = new VSMStruct();
+//        proto.setFormalName(formalName);
+//        Iterator<VSMParm> it = iterator();
+//        while (it.hasNext()) {
+//            proto.add(it.next().copyOf());
+//        }
+//        return proto;
+//    }
     /**
      * String representation of the instance for debugging.
+     *
      * @return String representation of the instance for debugging
      */
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer("VSMStruct " + super.toString());
-        sb.append(" Formal Name == " + getFormalName() + " Formal Type == " + getFormalType());
+        StringBuilder sb = new StringBuilder("VSMStruct " + super.toString());
+        sb.append(" Formal Name == ").append(getFormalName()).append(" Formal Type == ").append(getFormalType());
         /*sb.append(" Struct members follow:\n");
         Iterator<VSMParm> i = iterator();
         while (i.hasNext()) {
@@ -292,8 +299,8 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
      * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.
      *
      * Pigiron recognizes <tt>counted_struct</tt>
-     * as an extra type above and beyond the base types enumerated
-     * by the VSMAPI documentation.
+     * as an extra type above and beyond the base types enumerated by the VSMAPI
+     * documentation.
      *
      * @return the fornal type in a string with the case set as in the docs
      */
@@ -303,14 +310,16 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
 
     /**
      * Prettyprint the instance for debugging or simple output display.
-     * @return Prettyprint of the instance for debugging or simple output display
+     *
+     * @return Prettyprint of the instance for debugging or simple output
+     * display
      */
     public String prettyPrint() {
-        StringBuffer sb = new StringBuffer();
-        sb.append(getFormalName() + "(" + getFormalType() + "):\n");
+        StringBuilder sb = new StringBuilder();
+        sb.append(getFormalName()).append("(").append(getFormalType()).append("):\n");
         Iterator<VSMParm> it = iterator();
         while (it.hasNext()) {
-            sb.append("  " + it.next().prettyPrint() + "\n");
+            sb.append("  ").append(it.next().prettyPrint()).append("\n");
         }
         return sb.toString();
     }

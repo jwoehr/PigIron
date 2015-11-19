@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+ * Copyright (c) 2008, 2015 Jack J. Woehr jwoehr@softwoehr.com
  * PO Box 51, Golden, Colorado 80402-0051 USA
  * All rights reserved.
  *
@@ -35,43 +35,37 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
 /**
- * Interface implemented by all parameter types.
- * VSMAPI has a limited number of basic parameter
- * types embodied here in the classes which implement
- * VSMParm.
+ * Interface implemented by all parameter types. VSMAPI has a limited number of
+ * basic parameter types embodied here in the classes which implement VSMParm.
  *
  * The formal parameter types discussed in the VSMAPI documentation are:
  * <tt>int1</tt>, <tt>int4</tt>,
  * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, and <tt>array</tt>.
  *
  * Pigiron also recognizes <tt>counted_struct</tt>
- * as an extra type above and beyond the base types enumerated
- * by the VSMAPI documentation.
+ * as an extra type above and beyond the base types enumerated by the VSMAPI
+ * documentation.
+ *
  * @author jax
  */
 public interface VSMParm {
 
     /**
-     * Returns the data payload length in bytes
-     * contained in this parameter.
-     * @return the byte length of the data payload
-     * contained in this parameter.
+     * Returns the data payload length in bytes contained in this parameter.
+     *
+     * @return the byte length of the data payload contained in this parameter.
      */
     public int paramLength();
 
     /**
-     * VSMAPI parameters are named when they are
-     * used in the call documentation. We try
-     * to mimic those documentation formal names
-     * Here is the interface spec to retrieve the
-     * formal name, e.g., cpu_info_structure.
+     * VSMAPI parameters are named when they are used in the call documentation.
+     * We try to mimic those documentation formal names Here is the interface
+     * spec to retrieve the formal name, e.g., cpu_info_structure.
      *
-     * This name has no computational impact
-     * on the call and is a convenience for
-     * documentation and output display.
+     * This name has no computational impact on the call and is a convenience
+     * for documentation and output display.
      *
-     * @return the formal name of the parameter
-     * at usage time as documented.
+     * @return the formal name of the parameter at usage time as documented.
      */
     public String getFormalName();
 
@@ -81,8 +75,8 @@ public interface VSMParm {
      * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.
      *
      * Pigiron recognizes <tt>counted_struct</tt>
-     * as an extra type above and beyond the base types enumerated
-     * by the VSMAPI documentation.
+     * as an extra type above and beyond the base types enumerated by the VSMAPI
+     * documentation.
      *
      * @return the fornal type in a string with the case set as in the docs
      */
@@ -90,20 +84,22 @@ public interface VSMParm {
 
     /**
      * Return a functional copy of the instance.
-     * Convenience function to type-encapsulate <tt>clone()</tt>.
+     *
      * @return copy or null
      */
     public VSMParm copyOf();
 
     /**
      * Write a VSMParm implementor instance on a stream.
+     *
      * @param out the output stream
      * @throws java.io.IOException on comm error
      */
     public void write(DataOutputStream out) throws java.io.IOException;
 
     /**
-     * Read in a  VSMParm implementor instance from a stream.
+     * Read in a VSMParm implementor instance from a stream.
+     *
      * @param in the input stream
      * @param length length to write
      * @throws java.io.IOException on comm error
@@ -113,7 +109,9 @@ public interface VSMParm {
 
     /**
      * Prettyprint the instance for debugging or simple output display.
-     * @return Prettyprint of the instance for debugging or simple output display
+     *
+     * @return Prettyprint of the instance for debugging or simple output
+     * display
      */
     public String prettyPrint();
 }
