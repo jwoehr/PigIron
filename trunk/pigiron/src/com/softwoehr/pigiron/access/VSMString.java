@@ -181,13 +181,7 @@ public class VSMString implements VSMParm {
      * @see #clone()
      */
     public VSMParm copyOf() {
-        /* return new VSMInt8(value, formalName);*/
-        VSMParm bozo = null;
-        try {
-            bozo = VSMParm.class.cast(clone());
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(VSMString.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        VSMParm bozo = VSMParm.class.cast(clone());
         return bozo;
     }
 
@@ -195,15 +189,11 @@ public class VSMString implements VSMParm {
      * Clone the instance.
      *
      * @return clone of the instance
-     * @throws java.lang.CloneNotSupportedException
      * @see #copyOf()
      */
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        super.clone();
-        VSMString proto = new VSMString();
-        proto.setFormalName(formalName);
-        proto.setValue(getValue());
+    public Object clone() {
+        VSMString proto = new VSMString(getValue(), getFormalName());
         return proto;
     }
 
