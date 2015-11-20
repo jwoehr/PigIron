@@ -2,7 +2,7 @@ divert(-1)
 changecom(`\\\\')
 \\ pigarray.m4
 \\   Macros to autogenerate Java code for PigIron Array parameters
-\\   Copyright *C* 2015 Jack J. Woehr
+\\   Copyright *C* 2008, 2015 Jack J. Woehr
 \\   Part of the PigIron Project http://pigiron.sourceforge.net
 \\   jwoehr@softwoehr.com
 include(`pigsty.m4')

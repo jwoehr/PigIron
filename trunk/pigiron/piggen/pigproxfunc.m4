@@ -2,7 +2,7 @@ divert(-1)
 changecom(`\\\\')
 \\ pigproxfunc.m4
 \\   Macros to autogenerate Java code for PigIron JSONized proxy functions
-\\   Copyright *C* 2015 Jack J. Woehr
+\\   Copyright *C* 2008, 2015 Jack J. Woehr
 \\   Part of the PigIron Project http://pigiron.sourceforge.net
 \\   jwoehr@softwoehr.com
 include(`pigsty.m4')
