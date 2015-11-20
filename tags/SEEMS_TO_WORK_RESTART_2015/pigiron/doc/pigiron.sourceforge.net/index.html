@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "tidyp for OpenBSD (v1.04), see www.w3.org">
+  <meta http-equiv="content-type" content=
+  "text/html; charset=us-ascii">
+  <meta name="generator" content=
+  "HTML Tidy for OpenBSD (vers 1 September 2005), see www.w3.org">
+
+  <title>PigIron Open Source Java Class Libraries for
+  VSMAPI</title>
+  <meta content="Jack J. Woehr PO Box 51 Golden CO 80402-0051"
+  name="author">
+  <meta content=
+  "PigIron open source class library supporting IBM z/VM mainframe remote administration via VM SMAPI"
+  name="description">
+  <meta http-equiv="Last-Modified" content=
+  "Tue, 17 Nov 2015 02:19:55 UTC">
+</head>
+
+<body>
+  <h1><a name="Image_of_noble_porcine" id=
+  "Image_of_noble_porcine"></a><img title="Image of noble porcine"
+  alt="Image of noble porcine" src="images/pig_15.gif" style=
+  "width: 157px; height: 116px;" align="middle">PigIron Open Source
+  Java Class Libraries for VSMAPI</h1><tt>Copyright (c) 2015 Jack
+  J. Woehr jwoehr@softwoehr.com PO Box 51, Golden, Colorado
+  80402-0051 USA All rights reserved.</tt><br>
+
+  <h2>PigIron</h2>
+
+  <p>PigIron is an open source Java class library which implements
+  the client side of the IBM &reg; z/VM &reg; Virtual Machine
+  Operating System's Systems Management Application Programming
+  Interface (called VSMAPI in PigIron documentation). PigIron
+  supports all 99 <a href=
+  "http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm">
+  VSMAPI for z/VM V5R3</a> functions and the 15 additional <a href=
+  "http://publib.boulder.ibm.com/infocenter/zvm/v5r4/topic/com.ibm.zvm.v54.dmse6/hcsl8b30.htm">
+  VSMAPI for z/VM V5R4</a> functions. PigIron is <a href=
+  "about_piggen.html">extensible</a> by the expert z/VM host-side
+  VSMAPI Rexx coder without deep knowledge of Java.</p>
+
+  <h2>Additional Features</h2>
+
+  <ul>
+    <li><a href="about_piggen.html">PigGen</a> autogenerates VSMAPI
+    parameter type and function from <a href=
+    "http://www.gnu.org/software/m4/">m4</a>-based description
+    files</li>
+
+    <li>Scripting interface using <a href=
+    "http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>
+    on top of <a href="http://sourceforge.net/projects/oorexx">Open
+    ObjectRexx</a> to run the PigIron Java classes.</li>
+
+    <li>Scripting interface using <a href=
+    "http://fiji.sourceforge.net/">FIJI ForthIsh Java
+    Interpreter</a>.</li>
+
+    <li>
+      <a href="about_piglet.html">PigLet</a> the PigIron Servlet
+      provides VSMAPI functionality as JSON data streams for Web
+      applications.
+
+      <ul>
+        <li>The <a href=
+        "about_piglet.html#Builder_forms-based_web_application">PigLet
+        Builder</a> offers a Forms interface to executing calls to
+        VSMAPI functionality.<br></li>
+      </ul>
+    </li>
+
+    <li>A simple TCP subscriber to Directory Manager async
+    notifications as specified in the VSMAPI documentation for
+    <a href=
+    "http://publib.boulder.ibm.com/infocenter/zvm/v5r4/index.jsp?topic=/com.ibm.zvm.v54.dmse6/cslane.htm">
+    Asynchronous_Notification_Enable_DM</a></li>
+
+    <li><a href="about_pigview.html">PigView</a>, the PigIron
+    VSMAPI Operations Navigator, a Web 2.0 application which allows
+    the user to build complex operations which work via PigLet's
+    JSON interface. (<i>in progress</i>)</li>
+  </ul>
+
+  <h2>Current development status</h2>
+
+  <ul>
+    <li>Beta-level at release 0.9.5 with 0.9.6 coming soon
+
+      <ul>
+        <li><span style="font-style: italic;">Incomplete test case
+        coverage<br></span></li>
+      </ul>
+
+      <ul>
+        <li>To the extent that we have tested, PigIron is working
+        fine. We have tested running Java 5 and 6 on the following
+        platforms:
+
+          <ul>
+            <li>OpenBSD</li>
+
+            <li>OpenSolaris x86</li>
+
+            <li>Linux s390x</li>
+
+            <li>Windows<br></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <b>Currently (starting in November, 2015) working on updating
+      for <a href=
+      "http://publibz.boulder.ibm.com/epubs/pdf/hcsl8c24.pdf">z/VM
+      6.3 SMAPI</a>.</b>
+
+      <ul>
+        <li>Will be cleaning it up and extending test case
+        coverage.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>Download</h2>
+
+  <p><big><a href="http://sourceforge.net/projects/pigiron/">Please
+  visit and download PigIron on Source Forge</a>.</big></p>
+  <hr style="width: 100%; height: 2px;">
+  <i>Note: PigIron is not associated with the IBM
+  corporation.<br></i>
+  <hr style="width: 100%; height: 2px;">
+  <span style="font-style: italic;">Thanks to</span> <a style=
+  "font-style: italic;" href="http://www.designedtoat.com/">Free
+  Original Clipart at Designed to a T</a>&nbsp;<span style=
+  "font-style: italic;">for the</span> <a style=
+  "font-style: italic;" href="#Image_of_noble_porcine">pig
+  image</a><span style="font-style: italic;">!</span>
+  <hr>
+
+  <center>
+    <a href="http://sourceforge.net/projects/pigiron"><img src=
+    "http://sflogo.sourceforge.net/sflogo.php?group_id=235734&amp;type=13"
+    alt=
+    "Get PigIron at SourceForge.net. Fast, secure and Free Open Source software downloads"
+    border="0" width="120" height="30"></a>
+  </center>
+</body>
+</html>
