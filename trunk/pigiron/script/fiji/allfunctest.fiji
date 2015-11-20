@@ -20,7 +20,7 @@ value my.userid
 value my.password
 value my.target
 \ load these now, my.target is referenced in later load \
-' /home/jax/pigiron_private.fiji load
+' /home/jax/.config/pigiron/fiji/pigiron_private.fiji load
 
 \ Declare values that will be used as parameters in making VSMAPI functions \
 \ ------------------------------------------------------------------------- \
