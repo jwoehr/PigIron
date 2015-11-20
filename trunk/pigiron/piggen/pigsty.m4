@@ -1,6 +1,6 @@
 # pigsty.m4
 #   Macros commonly used to autogenerate Java code for PigIron
-#   Copyright *C* 1999, 2001, 2008 Jack J. Woehr
+#   Copyright *C* 2015 Jack J. Woehr
 #   Part of the PigIron Project http://pigiron.sourceforge.net
 #   jwoehr@softwoehr.com
 
