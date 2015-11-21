@@ -25,7 +25,7 @@ pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOExc
      * @throws IOException on comm error
      * @throws VSMException on internal Pigiron param marshalling error', `dnl
 
-        function_classname instance = null;
+        function_classname instance;
 
         if (argv.length != 5) {
             System.out.println("usage: args are:\ninetaddr port user pw target_image");
@@ -33,7 +33,7 @@ pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOExc
         }
 
         System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4]);
-        instance = new function_classname()(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4]);
+        instance = new function_classname()(argv[0], Integer.valueOf(argv[1]), argv[2], argv[3], argv[4]);
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");

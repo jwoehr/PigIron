@@ -317,7 +317,7 @@ pop_divert()dnl
 define(`pigfunc_compose_input_end',`dnl
 push_divert(`compose_in_stream')dnl
         VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
-        parameterArray.insertElementAt(outputLength, 0);
+        parameterArray.add(0,outputLength);
         setInParams(parameterArray);
         return parameterArray;
     }
