@@ -2,7 +2,6 @@ include(`pigfunc.m4')dnl \\ image_deactivate.m4
 function_namespace(`Image_Deactivate',`failing_array')dnl
 pigfunc_start()dnl
 pigfunc_import(`java.io.IOException')dnl
-pigfunc_import(`java.util.Iterator')dnl
 pigfunc_import(`com.softwoehr.pigiron.access.*')dnl
 pigfunc_import(`com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname')dnl
 pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',function_formal_name,`dnl
@@ -28,7 +27,7 @@ pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOExc
      * @throws IOException on comm error
      * @throws VSMException on internal Pigiron param marshalling error', `dnl
 
-        function_classname instance = null;
+        function_classname instance;
 
         if (argv.length != 6) {
             System.out.println("usage: args are:\ninetaddr port user pw target_image force_time");
@@ -36,7 +35,7 @@ pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOExc
         }
 
         System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5]);
-        instance = new function_classname()(argv[0], Integer.valueOf(argv[1]).intValue(), argv[2], argv[3], argv[4], argv[5]);
+        instance = new function_classname()(argv[0], Integer.valueOf(argv[1]), argv[2], argv[3], argv[4], argv[5]);
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
