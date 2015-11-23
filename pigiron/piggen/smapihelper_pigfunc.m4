@@ -90,16 +90,30 @@ push_divert(function_stream)dnl
 pop_divert()dnl
 ')
 
+\\ Recognize that a type ends in the string `Array' and treat
+\\ it as an Array type in output composition, use VSMArray.modelArray() .
+\\ Returns -1 if not a match.
+define(`is_type_named_array',`regexp(`$1',`Array$')')
+
 \\ pigfunc_compose_input_parm(type, value, formal_name)
 define(`pigfunc_compose_input_parm',`dnl
 push_divert(`compose_in_stream')dnl
 pushdef(`x_type', $1)dnl
 pushdef(`x_value', $2)dnl
 pushdef(`x_formal_name', $3)dnl
+ifelse(x_type(),`String',`dnl
+                String x_formal_name = argArray.nextMaybeQuotationTuplePopString`('`)';
+',`dnl
 ifelse(x_type(),`CountedString',`dnl
                 String x_formal_name = argArray.nextMaybeQuotationTuplePopString`('`)';
 ',`dnl
+ifelse(is_type_named_array(x_type()),`-1',`dnl
                 int x_formal_name = argArray.nextIntMaybeQuotationTuplePopString`('`)';
+',`dnl
+                Tuple x_formal_name()_tuple = argArray.nextTupleOrPop`('`)';                
+                x_type() x_formal_name() = x_type().class.cast`('x_formal_name()_tuple.getValue`('`)'`)';
+')dnl
+')dnl
 ')dnl
 pop_divert()dnl
 push_divert(function_stream)dnl
@@ -124,11 +138,6 @@ pop_divert()dnl
 
 \\ pigfunc_compose_output_start()
 define(`pigfunc_compose_output_start',`')
-
-\\ Recognize that a type ends in the string `Array' and treat
-\\ it as an Array type in output composition, use VSMArray.modelArray() .
-\\ Returns -1 if not a match.
-define(`is_type_named_array',`regexp(`$1',`Array$')')
 
 \\ pigfunc_compose_output_parm(type, value, formal_name)
 define(`pigfunc_compose_output_parm',`')

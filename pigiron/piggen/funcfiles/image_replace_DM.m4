@@ -15,6 +15,7 @@ pigfunc_attribute(`private', `', significant_parameter_classname, significant_pa
 pigfunc_ctors(`int', significant_parameter_formal_name`_length', member_name(significant_parameter_formal_name`_length'),
 significant_parameter_classname, significant_parameter_formal_name, significant_parameter_membername)dnl
 pigfunc_compose_input_start()dnl
+pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
 pigfunc_compose_input_parm(`VSMInt4', member_getter(significant_parameter_formal_name`_length')`()', significant_parameter_formal_name`_length')dnl
 pigfunc_compose_input_parm(significant_parameter_classname, significant_parameter_member_getter`()', significant_parameter_formal_name)dnl
 pigfunc_compose_input_end()dnl
