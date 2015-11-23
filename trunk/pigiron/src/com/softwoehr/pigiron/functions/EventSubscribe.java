@@ -40,19 +40,20 @@ import java.io.IOException;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * {@code Event_Stream_Add} VSMAPI 6.3 Function
+ * {@code Event_Subscribe} VSMAPI 6.3 Function
+ * 
  */
-public class EventStreamAdd extends VSMCall {
+public class EventSubscribe extends VSMCall {
 
     /**
      * The transmitted name of the function.
      */
-    public static final String FUNCTION_NAME = "Event_Stream_Add";
+    public static final String FUNCTION_NAME = "Event_Subscribe";
 
     /**
      *  Create an instance of the function call with important fields not instanced.
      */
-    public EventStreamAdd() {
+    public EventSubscribe() {
     }
 
     /**
@@ -62,35 +63,33 @@ public class EventStreamAdd extends VSMCall {
      * @param userid userid executing the function
      * @param password the password
      * @param target_identifier the target of the VSMAPI function
-     * @param event_info instances {@code eventInfo}
+     * @param match_key instances {@code matchKey}
      */
-    public EventStreamAdd(String hostname, int port, String userid, String password, String target_identifier, String event_info) {
+    public EventSubscribe(String hostname, int port, String userid, String password, String target_identifier, String match_key) {
         this();
         setHostname(hostname);
         setPort(port);
         setUserid(userid);
         setPassword(password);
         setTarget_identifier(target_identifier);
-        set_eventInfo(event_info);
+        set_matchKey(match_key);
     }
 
-    /** (string,1-maxlength,charNA)
-Data to be added to the event stream. Note that
-the first 4 bytes are an int4 event_type */
-    private String eventInfo = "";
+    /** (string,0-16M,charNA) Binary match key */
+    private String matchKey = "";
 
-    /** Set the value of {@code  eventInfo }.
-     * @param val The value to set {@code  eventInfo }.
+    /** Set the value of {@code  matchKey }.
+     * @param val The value to set {@code  matchKey }.
      */
-    public final void set_eventInfo(String val) {
-        eventInfo = val;
+    public final void set_matchKey(String val) {
+        matchKey = val;
     }
 
-    /** Get the value of {@code  eventInfo }.
-     * @return The value of {@code  eventInfo }.
+    /** Get the value of {@code  matchKey }.
+     * @return The value of {@code  matchKey }.
      */
-    public String get_eventInfo() {
-        return eventInfo;
+    public String get_matchKey() {
+        return matchKey;
     }
 
     /**
@@ -115,8 +114,8 @@ the first 4 bytes are an int4 event_type */
         tempString = new VSMString(getTarget_identifier(), "target_identifier");
         parameterArray.add(new VSMInt4(tempString.paramLength(), "target_identifier_length"));
         parameterArray.add(tempString);
-        tempString = new VSMString(get_eventInfo(), "event_info");
-        parameterArray.add(new VSMInt4(tempString.paramLength(), "event_info_length"));
+        tempString = new VSMString(get_matchKey(), "match_key");
+        parameterArray.add(new VSMInt4(tempString.paramLength(), "match_key_length"));
         parameterArray.add(tempString);
         VSMInt4 outputLength = new VSMInt4(new Long(parameterArray.totalParameterLength()).intValue(), "output_length");
         parameterArray.add(0,outputLength);
@@ -138,6 +137,7 @@ the first 4 bytes are an int4 event_type */
         parameterArray.add(new VSMInt4(-1, "request_id"));
         parameterArray.add(new VSMInt4(-1, "return_code"));
         parameterArray.add(new VSMInt4(-1, "reason_code"));
+        parameterArray.add(new VSMInt4(-1, "operation_id"));
         setOutParams(parameterArray);
         return parameterArray;
     }
@@ -152,7 +152,7 @@ the first 4 bytes are an int4 event_type */
     }
 
     /**
-     * You can execute the VSMAPI call from <tt>main()</tt>, try it
+     * You can execute the VSMAPI call from {@code main()}, try it
      * with no args to see the usage message.
      * @param argv array of commandline args
      * @throws IOException on comm error
@@ -160,15 +160,15 @@ the first 4 bytes are an int4 event_type */
      */
     public static void main(String[] argv) throws IOException, VSMException {
 
-        EventStreamAdd instance;
+        EventSubscribe instance;
 
         if (argv.length != 6) {
-            System.out.println("usage: args are:\ninetaddr port user pw target_identifier event_info");
+            System.out.println("usage: args are:\ninetaddr port user pw target_id match_key");
             System.exit(1);
         }
 
         System.out.println("Args are: " + argv[0] + " " + argv[1] + " " + argv[2] + " " + argv[3] + " " + argv[4] + " " + argv[5]);
-        instance = new EventStreamAdd(argv[0], Integer.valueOf(argv[1]), argv[2], argv[3], argv[4], argv[5]);
+ 	instance = new EventSubscribe(argv[0], Integer.valueOf(argv[1]), argv[2], argv[3], argv[4], argv[5]);
 
         ParameterArray pA = instance.doIt();
         System.out.println("Returns from call to " + instance.getFunctionName() + ":");
