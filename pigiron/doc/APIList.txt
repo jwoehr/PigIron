@@ -17,7 +17,7 @@ Directory_Manager_Local_Tag_Set_DM
 Directory_Manager_Search_DM
 Directory_Manager_Task_Cancel_DM
 6.3: Event_Stream_Add 20151116
-6.3: Event_Subscribe
+6.3: Event_Subscribe 20151123
 6.3: Event_Unsubscribe
 Image_Activate
 Image_Active_Configuration_Query
