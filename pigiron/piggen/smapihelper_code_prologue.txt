@@ -1,0 +1,38 @@
+package absperfos400.smapi;
+
+import absperfos400.command.Command;
+import absperfos400.command.CommandInterface;
+import absperfos400.util.ArgArray;
+import com.softwoehr.pigiron.access.ParameterArray;
+import com.softwoehr.pigiron.access.VSMException;
+import com.softwoehr.pigiron.functions.*;
+import java.io.IOException;
+import java.util.logging.Level;
+
+/**
+ * Support the CmdSmapi functionality as root class of the calls
+ *
+ * @author jax
+ */
+public class SmapiHelper {
+
+    private final Host host;
+    private final String funcName;
+    private final Command command;
+    private final ArgArray argArray;
+
+    public SmapiHelper(Host host, String funcName, Command command, ArgArray argArray) {
+        this.host = host;
+        this.funcName = funcName;
+        this.command = command;
+        this.argArray = argArray;
+    }
+
+    public ParameterArray doIt() throws VSMException, IOException {
+        ParameterArray resultParameterArray = null;
+        String hostname = host.getHostname();
+        int port = host.getPort();
+        String userid = host.getUserid();
+        String password = host.getPassword();
+        boolean use_ssl = host.isUse_ssl();
+        switch (funcName) {

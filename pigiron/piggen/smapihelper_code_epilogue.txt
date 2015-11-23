@@ -1,0 +1,16 @@
+            default:
+                command.getLogger().log(Level.SEVERE, "Unknown or unimplemented SMAPI function {0} in {1}", new Object[]{funcName, command.getNameAndDescription()});
+                command.setCommandResult(CommandInterface.COMMANDRESULT.FAILURE);
+        }
+        return resultParameterArray;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(super.toString());
+        sb.append(" host=").append(host)
+                .append(" funcName=").append(funcName).append(" command=").append(command).append(" argarray=").append(argArray);
+        return sb.toString();
+
+    }
+}
