@@ -3,9 +3,11 @@ package absperfos400.smapi;
 import absperfos400.command.Command;
 import absperfos400.command.CommandInterface;
 import absperfos400.util.ArgArray;
+import absperfos400.util.Tuple;
 import com.softwoehr.pigiron.access.ParameterArray;
 import com.softwoehr.pigiron.access.VSMException;
 import com.softwoehr.pigiron.functions.*;
+import com.softwoehr.pigiron.access.paramstructs.*;
 import java.io.IOException;
 import java.util.logging.Level;
 

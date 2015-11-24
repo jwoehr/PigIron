@@ -49,7 +49,6 @@ push_divert(`package_stream')dnl
 package regexp(x_package(),`\(.*\)\.functions',`\1\.webobj\.topview\.functions')`;'
 
 import `com.softwoehr.pigiron.webobj.topview.*';
-import `com.softwoehr.pigiron.webobj.topview.functions.FunctionProxy';
 
 pop_divert()dnl
 /**
@@ -137,7 +136,8 @@ optional_execute_param_comments(x_optional_params())
          `,' host.getPortNumber`()'
          `,' user.getUid`()'
          `,' user.getPassword`()'
-         `,' getTargetIdentifier`()'dnl
+         dnl
+ifelse(myClassName(), `CheckAuthentication',`',`, getTargetIdentifier`()'')dnl
 optional_execute_param_instantiations(x_optional_params)
 	`);'
         execute`(pigfunc,requestor,response)';

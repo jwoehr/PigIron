@@ -77,7 +77,9 @@ optional_ctor_param_instantiations(shift(shift(shift($@))))')dnl
 
 \\ required_param_instantiations(count)
 define(`required_param_instantiations',`dnl
-eval($1+7) roll `,' eval($1+6) roll Long>intparam `,' eval($1+5) roll `,' eval($1+4) roll `,' eval($1+3) roll `,'')
+ifelse(myClassName(),`CheckAuthentication',`dnl
+eval($1+6) roll `,' eval($1+5) roll Long>intparam `,' eval($1+4) roll `,' eval($1+3) roll `,'',`dnl
+eval($1+7) roll `,' eval($1+6) roll Long>intparam `,' eval($1+5) roll `,' eval($1+4) roll `,' eval($1+3) roll `,'')')
 
 \\ pigfunc_ctors(OPTIONAL type, name, instance, t, n, i ..)
 define(`pigfunc_ctors',`dnl
@@ -86,7 +88,9 @@ pushdef(`x_optional_params', `$@')dnl
 pushdef(`x_optional_param_count', eval($# / 3))
 \ Create an instance of the myClassName() function call with VSMAPI params instanced.\
 
-: myClassName() \ String/hostname int/port String/userid String/password String/target_identifier `'optional_ctor_param_args(x_optional_params) -- instance \
+: myClassName() \ String/hostname int/port String/userid String/password`'dnl
+ifelse(myClassName(),`CheckAuthentication',`',` String/target_identifier')`'dnl
+optional_ctor_param_args(x_optional_params) -- instance \
 com.softwoehr.pigiron.functions.myClassName() class new dnl
 `(' required_param_instantiations(x_optional_param_count) optional_ctor_param_instantiations(x_optional_params) `)'
 ;

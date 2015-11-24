@@ -67,9 +67,9 @@
 
     -->
 
- <!-- ======================= -->
- <!-- Pigiron Special Targets -->
- <!-- ======================= -->
+    <!-- ======================= -->
+    <!-- Pigiron Special Targets -->
+    <!-- ======================= -->
     <target name="build" depends="default" description="Alias for the default target of the pigiron build.xml"/>
     <target depends="init" description="Autogenerate all PigIron-provided paramstructs that have m4 description files" name="-pigiron-parmgen">
         <property value="${basedir}/${build.dir}/parmgen" name="build.parmgen.dir"/>
@@ -89,7 +89,7 @@
             <arg value="${build.funcgen.dir}"/>
         </exec>
     </target>
-        <target depends="init" description="Autogenerate FIJI binding file for PigIron-provided paramstructs and functions that have m4 description files" name="-pigiron-fijigen">
+    <target depends="init" description="Autogenerate FIJI binding file for PigIron-provided paramstructs and functions that have m4 description files" name="-pigiron-fijigen">
         <property value="${basedir}/${build.dir}/fijigen" name="build.fijigen.dir"/>
         <mkdir dir="${build.fijigen.dir}"/>
         <exec executable="/bin/sh" dir="${piggen.dir}">
@@ -99,10 +99,29 @@
             <arg value="${build.fijigen.dir}"/>
         </exec>
     </target>
+    <!--target depends="init" description="Autogenerate webobj proxy param files for PigIron-provided paramstructs that have m4 description files" name="-webobj-paramgen">
+        
+        <property value="${basedir}/${build.dir}/webobj-params" name="build.webobj.params.dir"/>
+        <mkdir dir="${build.webobj.params.dir}"/>
+        <exec executable="/bin/sh" dir="${piggen.dir}">
+            <arg value="gen-all-proxy.sh"/>
+            <arg value="parmfiles"/>
+            <arg value="${build.webobj.params.dir}"/>
+        </exec>       
+    </target-->
+    <target depends="init" description="Autogenerate webobj proxy function files for PigIron-provided functions that have m4 description files" name="-webobj-funcgen">
+        <property value="${basedir}/${build.dir}/webobj/funcs" name="build.webobj.funcs.dir"/>
+        <mkdir dir="${build.webobj.funcs.dir}"/>
+        <exec executable="/bin/sh" dir="${piggen.dir}">
+            <arg value="gen-all-proxy.sh"/>
+            <arg value="funcfiles"/>
+            <arg value="${build.webobj.funcs.dir}"/>
+        </exec>
+    </target>
     <target depends="-pigiron-parmgen,-pigiron-funcgen, -pigiron-fijigen"
             description="Autogenerates all PigIron-provided paramstructs and functions that PigGen description files"
             name="pigiron-autogen"
-            />
+    />
     <target description="Build a release" name="release">
         <ant antfile="nbproject/release.xml" target="all"/>
     </target>
