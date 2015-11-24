@@ -87,7 +87,8 @@ push_divert(ctor_stream)dnl
      */ 
     public Parameter [] getParameters() {
         return new Parameter [] {
-            new Parameter("target_identifier", "", "Target of operation")dnl
+ifelse(myClassName(),`CheckAuthentication',`',`dnl
+            new Parameter("target_identifier", "", "Target of operation")')dnl
 pop_divert()dnl
 ')
 

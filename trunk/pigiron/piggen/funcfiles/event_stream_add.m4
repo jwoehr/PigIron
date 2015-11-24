@@ -8,12 +8,7 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 /**
  * {@code function_formal_name} VSMAPI 6.3 Function
  */')dnl
-pigfunc_attribute(`private', `', `String', member_name(`event_info'),   `""', `', `(string,1-maxlength,charNA)
-Data to be added to the event stream. Note that
-the first 4 bytes are an int4 event_type,
-and that values 0-16777215 are reserved
-for IBM use.dnl
-')dnl
+pigfunc_attribute(`private', `', `String', member_name(`event_info'),   `""', `', `Data to be added to the event stream')dnl
 dnl
 pigfunc_ctors(`String', `event_info', member_name(`event_info'))dnl
 pigfunc_compose_input_start()dnl
