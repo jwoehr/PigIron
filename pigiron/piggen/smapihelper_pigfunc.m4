@@ -104,6 +104,9 @@ pushdef(`x_formal_name', $3)dnl
 ifelse(x_type(),`String',`dnl
                 String x_formal_name = argArray.nextMaybeQuotationTuplePopString`('`)';
 ',`dnl
+ifelse(x_type(),`VSMAsciiZ',`dnl
+                String x_formal_name = argArray.nextMaybeQuotationTuplePopString`('`)';
+',`dnl
 ifelse(x_type(),`CountedString',`dnl
                 String x_formal_name = argArray.nextMaybeQuotationTuplePopString`('`)';
 ',`dnl
@@ -112,6 +115,7 @@ ifelse(is_type_named_array(x_type()),`-1',`dnl
 ',`dnl
                 Tuple x_formal_name()_tuple = argArray.nextTupleOrPop`('`)';                
                 x_type() x_formal_name() = x_type().class.cast`('x_formal_name()_tuple.getValue`('`)'`)';
+')dnl
 ')dnl
 ')dnl
 ')dnl
