@@ -101,17 +101,21 @@ pushdef(`x_optional_params', `$@')dnl
      * @param hostname  VSMAPI Host DNS name
      * @param port port VSMAPI Host is listening on
      * @param userid userid executing the function
-     * @param password the password
-     * @param target_identifier the target of the VSMAPI function`'dnl
+     * @param password the password`'dnl
+ifelse(myClassName(),`CheckAuthentication',`',`
+     * @param target_identifier the target of the VSMAPI function')`'dnl
 optional_ctor_param_comments(x_optional_params())
      */
-    public myClassName()`('String hostname, int port, String userid, String password, String target_identifier`'optional_ctor_param_args(x_optional_params)`)' {
+    public myClassName()`('String hostname, int port, String userid, String password dnl
+ifelse(myClassName(),`CheckAuthentication',`',`, String target_identifier')`'optional_ctor_param_args(x_optional_params)`)' {
         this`(');
         setHostname`('hostname);
         setPort`('port);
         setUserid`('userid);
         setPassword`('password);
-        setTarget_identifier`('target_identifier);
+ifelse(myClassName(),`CheckAuthentication',`dnl
+        // does not take a target_identifier, see above',`dnl
+        setTarget_identifier`('target_identifier);')`'
 optional_ctor_param_instantiations(x_optional_params())    }
 
 popdef(`x_optional_params')dnl
