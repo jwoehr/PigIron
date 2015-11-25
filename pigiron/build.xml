@@ -109,7 +109,7 @@
             <arg value="${build.webobj.params.dir}"/>
         </exec>       
     </target-->
-    <target depends="init" description="Autogenerate webobj proxy function files for PigIron-provided functions that have m4 description files" name="-webobj-funcgen">
+    <target depends="init" description="Autogenerate webobj proxy files for PigIron-provided functions that have m4 description files" name="-webobj-funcgen">
         <property value="${basedir}/${build.dir}/webobj/funcs" name="build.webobj.funcs.dir"/>
         <mkdir dir="${build.webobj.funcs.dir}"/>
         <exec executable="/bin/sh" dir="${piggen.dir}">
@@ -118,7 +118,7 @@
             <arg value="${build.webobj.funcs.dir}"/>
         </exec>
     </target>
-    <target depends="init" description="Autogenerate webobj proxy function files for PigIron-provided functions that have m4 description files" name="-piglet-funcgen">
+    <target depends="init" description="Autogenerate Piglet function files for PigIron-provided functions that have m4 description files" name="-piglet-funcgen">
         <property value="${basedir}/${build.dir}/piglet/funcs" name="build.piglet.funcs.dir"/>
         <mkdir dir="${build.piglet.funcs.dir}"/>
         <exec executable="/bin/sh" dir="${piggen.dir}">
@@ -128,8 +128,12 @@
         </exec>
     </target>
     <target depends="-pigiron-parmgen,-pigiron-funcgen, -pigiron-fijigen"
-            description="Autogenerates all PigIron-provided paramstructs and functions that PigGen description files"
+            description="Autogenerates all PigIron-provided paramstructs and functions that have PigGen description files"
             name="pigiron-autogen"
+    />
+    <target depends="-piglet-funcgen, -webobj-funcgen"
+            description="Autogenerates all PigIron-provided webobj proxies and Piglet functions that have PigGen description files"
+            name="piglet-autogen"
     />
     <target description="Build a release" name="release">
         <ant antfile="nbproject/release.xml" target="all"/>

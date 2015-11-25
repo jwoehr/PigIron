@@ -7,7 +7,7 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 
 /**
  * {@code function_formal_name} VSMAPI 6.3 Function
- * @since `<"http://publibz.boulder.ibm.com/epubs/pdf/hcse2c10.pdf">VSMAPI 6.3</a>'
+ * @since `<a href="http://publibz.boulder.ibm.com/epubs/pdf/hcse2c10.pdf">VSMAPI 6.3</a>'
  */')dnl
 pigfunc_ctors()dnl
 pigfunc_compose_input_start()dnl
