@@ -35,64 +35,63 @@ import com.softwoehr.pigiron.webobj.topview.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
-import org.json.JSONException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Map;
 
 /**
  * Does the primary work of the Builder web application.
  *
- * @author     jax
- * @created    December 23, 2008
+ * @author jax
+ * @created December 23, 2008
  */
-
 public class Builder {
+
     /**
      * Constructor does nothing.
-     */ 
-    public Builder() { }
+     */
+    public Builder() {
+    }
 
     /**
-     * Performs the HTTP <code>GET</code> method for Builder, including
-     * closing the PrintWriter.
+     * Performs the HTTP <code>GET</code> method for Builder, including closing
+     * the PrintWriter.
      *
-     * @param  request            servlet request
-     * @param  response           servlet response
-     * @throws  ServletException  if a servlet-specific error occurs
-     * @throws  IOException       if an I/O error occurs
-     */ 
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     public void doGet(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
-	response.setContentType("text/html;charset=UTF-8");
-	PrintWriter out = response.getWriter();
-	out.println("<html><head><title>Build a VSMAPI Call</title></head><body><h1>Build a VSMAPI Call</h1>");
+            HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<html><head><title>Build a VSMAPI Call</title></head><body><h1>Build a VSMAPI Call</h1>");
         printForm(request, response, out);
-	out.println("</body></html>");
+        out.println("</body></html>");
         out.close();
     }
 
     /**
-     * Performs the HTTP <code>POST</code> method, including closing
-     * the PrintWriter.
+     * Performs the HTTP <code>POST</code> method, including closing the
+     * PrintWriter.
      *
-     * @param  request            servlet request
-     * @param  response           servlet response
-     * @throws  ServletException  if a servlet-specific error occurs
-     * @throws  IOException       if an I/O error occurs
-     */ 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String vsmcall_name = request.getParameter("piglet.buildcall.vsmcall");
         try {
             Class c = Class.forName("com.softwoehr.piglet.builder.functions." + vsmcall_name);
-            Method m = c.getMethod("doPost", new Class [] { HttpServletRequest .class , HttpServletResponse .class} );
-            m.invoke(c.newInstance(), new Object [] { request,response} );
+            Method m = c.getMethod("doPost", new Class[]{HttpServletRequest.class, HttpServletResponse.class});
+            m.invoke(c.newInstance(), new Object[]{request, response});
         } catch (java.lang.ClassNotFoundException ex) {
             Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null,
-                     ex);
+                    ex);
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.println("<html><head><title></title></head><body>");
@@ -101,7 +100,7 @@ public class Builder {
             out.close();
         } catch (java.lang.NoSuchMethodException ex) {
             Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null,
-                     ex);
+                    ex);
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.println("<html><head><title></title></head><body>");
@@ -110,7 +109,7 @@ public class Builder {
             out.close();
         } catch (java.lang.InstantiationException ex) {
             Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null,
-                     ex);
+                    ex);
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.println("<html><head><title></title></head><body>");
@@ -119,7 +118,7 @@ public class Builder {
             out.close();
         } catch (java.lang.IllegalAccessException ex) {
             Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null,
-                     ex);
+                    ex);
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.println("<html><head><title></title></head><body>");
@@ -128,7 +127,7 @@ public class Builder {
             out.close();
         } catch (java.lang.reflect.InvocationTargetException ex) {
             Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null,
-                     ex);
+                    ex);
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.println("<html><head><title></title></head><body>");
@@ -136,40 +135,41 @@ public class Builder {
             out.println("</body></html>");
             out.close();
         }
-    } 
- 
+    }
+
     /**
      * Dispatches the HTTP <code>PUT</code> method.
      *
-     * @param  request            servlet request
-     * @param  response           servlet response
-     * @throws  ServletException  if a servlet-specific error occurs
-     * @throws  IOException       if an I/O error occurs
-     */ 
-    public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<html><head><title></title></head><body>doPut() not implemented in Builder.java</body></html>"); 
+        out.println("<html><head><title></title></head><body>doPut() not implemented in Builder.java</body></html>");
         out.close();
     }
 
     /**
-     *  Compose the form for setting the default Host who is used for VSMAPI
+     * Compose the form for setting the default Host who is used for VSMAPI
      * calls unless overridden.
      *
-     * @param  request               The servlet request
-     * @param  response              The servlet response
-     * @throws  ServletException  if a servlet-specific error occurs
-     * @throws  IOException       if an I/O error occurs
-     */ 
+     * @param request The servlet request
+     * @param response The servlet response
+     * @param out output stream, effectively
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     public void printForm(HttpServletRequest request,
-             HttpServletResponse response, PrintWriter out) throws ServletException,  IOException {
-        String uid = null;
-        String password = null;
-        String name = null;
-        String dns_name = null;
-        String ip_address = null;
-        int port_number = - 1;
+            HttpServletResponse response, PrintWriter out) throws ServletException, IOException {
+        String uid;
+        String password;
+        String name;
+        String dns_name;
+        String ip_address;
+        int port_number;
         boolean ssl = false;
         User currentUser = BuilderUtil.getDefaultUser(request);
         Host currentHost = BuilderUtil.getDefaultHost(request);
@@ -182,11 +182,11 @@ public class Builder {
             port_number = currentHost == null ? - 1 : currentHost.getPortNumber();
             ssl = currentHost == null ? false : currentHost.getSSL();
         } catch (org.json.JSONException ex) {
-            Logger.getLogger(Builder .class.getName()).log(Level.SEVERE, null,
-                     ex);
+            Logger.getLogger(Builder.class.getName()).log(Level.SEVERE, null,
+                    ex);
         }
         out.println("<form method=\"post\" action=\"/piglet/BuilderServlet\">");
-	BuilderUtil.printBuilderUserHostHeader(request, response, out);
+        BuilderUtil.printBuilderUserHostHeader(request, response, out);
         out.println("<hr /><br>");
         out.println("<b>Select Function</b><br />");
         out.println("<SELECT NAME=\"piglet.buildcall.vsmcall\" size=\"20\">");
@@ -203,6 +203,9 @@ public class Builder {
         out.println("   <OPTION VALUE=\"DirectoryManagerLocalTagSetDM\">DirectoryManagerLocalTagSetDM</OPTION>");
         out.println("   <OPTION VALUE=\"DirectoryManagerSearchDM\">DirectoryManagerSearchDM</OPTION>");
         out.println("   <OPTION VALUE=\"DirectoryManagerTaskCancelDM\">DirectoryManagerTaskCancelDM</OPTION>");
+        out.println("   <OPTION VALUE=\"EventStreamAdd\">EventStreamAdd</OPTION>");
+        out.println("   <OPTION VALUE=\"EventSubscribe\">EventSubscribe</OPTION>");
+        out.println("   <OPTION VALUE=\"EventUnsubscribe\">EventUnsubscribe</OPTION>");
         out.println("   <OPTION VALUE=\"ImageActivate\">ImageActivate</OPTION>");
         out.println("   <OPTION VALUE=\"ImageActiveConfigurationQuery\">ImageActiveConfigurationQuery</OPTION>");
         out.println("   <OPTION VALUE=\"ImageCPUDefine\">ImageCPUDefine</OPTION>");
@@ -303,12 +306,11 @@ public class Builder {
         out.println("   <OPTION VALUE=\"VirtualNetworkVswitchCreate\">VirtualNetworkVswitchCreate</OPTION>");
         out.println("   <OPTION VALUE=\"VirtualNetworkVswitchDelete\">VirtualNetworkVswitchDelete</OPTION>");
         out.println("   <OPTION VALUE=\"VirtualNetworkVswitchQuery\">VirtualNetworkVswitchQuery</OPTION>");
-        out.println("   <OPTION VALUE=\"VirtualNetworkVswitchSet\">VirtualNetworkVswitchSet</OPTION>");	
+        out.println("   <OPTION VALUE=\"VirtualNetworkVswitchSet\">VirtualNetworkVswitchSet</OPTION>");
         out.println("</SELECT>");
         out.println("<input value=\"Next\" type=\"submit\">");
         out.println("<INPUT TYPE=HIDDEN NAME=\"piglet.buildcall.state\" value=\"select_vsmcall\">");
         out.println("</form>");
-	BuilderUtil.printTrailer(request, response, out);
+        BuilderUtil.printTrailer(request, response, out);
     }
 }
-

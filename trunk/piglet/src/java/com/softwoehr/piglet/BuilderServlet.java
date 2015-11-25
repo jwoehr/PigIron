@@ -31,36 +31,28 @@
  */
 package com.softwoehr.piglet;
 
-import com.softwoehr.pigiron.webobj.topview.*;
-import com.softwoehr.pigiron.webobj.Engine;
 import com.softwoehr.piglet.builder.Builder;
 import com.softwoehr.piglet.builder.DefaultHost;
 import com.softwoehr.piglet.builder.DefaultUser;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONException;
 
 /**
- * Main dispatcher for servlet requests to the Builder, a web application
- * based on the PigLet PigIron Servlet.
+ * Main dispatcher for servlet requests to the Builder, a web application based
+ * on the PigLet PigIron Servlet.
  *
- * @author     jax
- * @created    December 8, 2008
+ * @author jax
+ * @created December 8, 2008
  */
 public class BuilderServlet extends HttpServlet {
 
     /**
      * Constructor for the HttpServlet object does nothing.
-     */ 
+     */
     public BuilderServlet() {
         super();
     }
@@ -68,53 +60,49 @@ public class BuilderServlet extends HttpServlet {
     /**
      * Dispatches the HTTP <code>GET</code> method.
      *
-     * @param  request            servlet request
-     * @param  response           servlet response
-     * @throws  ServletException  if a servlet-specific error occurs
-     * @throws  IOException       if an I/O error occurs
-     */ 
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
     protected void doGet(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
+            HttpServletResponse response) throws ServletException, IOException {
         String myPathInfo = request.getPathInfo();
         if (myPathInfo != null) {
             if (myPathInfo.equals("/default_user")) {
                 new DefaultUser().doGet(request, response);
+            } else if (myPathInfo.equals("/default_host")) {
+                new DefaultHost().doGet(request, response);
+            } else if (myPathInfo.equals("/builder")) {
+                new Builder().doGet(request, response);
             } else {
-                if (myPathInfo.equals("/default_host")) {
-                    new DefaultHost().doGet(request, response);
-                } else {
-                    if (myPathInfo.equals("/builder")) {
-                        new Builder().doGet(request, response);
-                    } else {
-                        badRequest(request, response);
-                    }
-                }
+                badRequest(request, response);
             }
         } else {
-           new Builder().doGet(request, response);
+            new Builder().doGet(request, response);
         }
     }
 
     /**
      * Dispatches the HTTP <code>POST</code> method.
      *
-     * @param  request            servlet request
-     * @param  response           servlet response
-     * @throws  ServletException  if a servlet-specific error occurs
-     * @throws  IOException       if an I/O error occurs
-     */ 
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
     protected void doPost(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
+            HttpServletResponse response) throws ServletException, IOException {
         String myPathInfo = request.getPathInfo();
         if (myPathInfo != null) {
             if (myPathInfo.equals("/default_user")) {
                 new DefaultUser().doPost(request, response);
+            } else if (myPathInfo.equals("/default_host")) {
+                new DefaultHost().doPost(request, response);
             } else {
-                if (myPathInfo.equals("/default_host")) {
-                    new DefaultHost().doPost(request, response);
-                } else {
-                    badRequest(request, response);
-                }
+                badRequest(request, response);
             }
         } else {
             new Builder().doPost(request, response);
@@ -124,23 +112,22 @@ public class BuilderServlet extends HttpServlet {
     /**
      * Dispatches the HTTP <code>PUT</code> method.
      *
-     * @param  request            servlet request
-     * @param  response           servlet response
-     * @throws  ServletException  if a servlet-specific error occurs
-     * @throws  IOException       if an I/O error occurs
-     */ 
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
     protected void doPut(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
+            HttpServletResponse response) throws ServletException, IOException {
         String myPathInfo = request.getPathInfo();
         if (myPathInfo != null) {
             if (myPathInfo.equals("/default_user")) {
                 new DefaultUser().doPut(request, response);
+            } else if (myPathInfo.equals("/default_host")) {
+                new DefaultHost().doPut(request, response);
             } else {
-                if (myPathInfo.equals("/default_host")) {
-                    new DefaultHost().doPut(request, response);
-                } else {
-                    badRequest(request, response);
-                }
+                badRequest(request, response);
             }
         } else {
             new Builder().doPut(request, response);
@@ -150,13 +137,14 @@ public class BuilderServlet extends HttpServlet {
     /**
      * Dispatches the HTTP <code>DELETE</code> method.
      *
-     * @param  request            servlet request
-     * @param  response           servlet response
-     * @throws  ServletException  if a servlet-specific error occurs
-     * @throws  IOException       if an I/O error occurs
-     */ 
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
     protected void doDelete(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
+            HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         // response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -169,18 +157,20 @@ public class BuilderServlet extends HttpServlet {
     /**
      * Returns a short description of the servlet.
      *
-     * @return    a String containing servlet description
-     */ 
+     * @return a String containing servlet description
+     */
+    @Override
     public String getServletInfo() {
         return "Builder Servlet for PigIron: {\"uri\":\"http://pigiron.sourceforge.net\"}";
     }
- 
-    /** Return an error from Builder Servlet for bad requests */ 
+
+    /**
+     * Return an error from Builder Servlet for bad requests
+     */
     private void badRequest(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
-        response.sendError(response.SC_NOT_FOUND,
-                 "BuilderServlet does not understand the request " + request.getPathInfo());
+            HttpServletResponse response) throws ServletException, IOException {
+        response.sendError(HttpServletResponse.SC_NOT_FOUND,
+                "BuilderServlet does not understand the request " + request.getPathInfo());
 
     }
 }
-
