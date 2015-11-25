@@ -9,7 +9,7 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 /**
  * {@code function_formal_name} VSMAPI 6.3 Function
  * @see com.softwoehr.pigiron.access.paramstructs.significant_parameter_classname
- * @since `<a href="http://publib.boulder.ibm.com/infocenter/zvm/v5r4/`index'.jsp">VSMAPI 5.4</a>'
+ * @since `<"http://publibz.boulder.ibm.com/epubs/pdf/hcse2c10.pdf">VSMAPI 6.3</a>'
  */')dnl \\ significant_parameter_formal_name bound in namespace
 pigfunc_constant(`public', `int', `SOME_ASPECT_UNSPECIFIED', `0', `Unspecified')dnl
 pigfunc_constant(`public', `int', `SOME_ASPECT_YEA', `1', `Do not')dnl

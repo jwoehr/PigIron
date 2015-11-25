@@ -7,6 +7,7 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 
 /**
  * {@code function_formal_name} VSMAPI 6.3 Function
+ * @since `<"http://publibz.boulder.ibm.com/epubs/pdf/hcse2c10.pdf">VSMAPI 6.3</a>'
  */')dnl
 pigfunc_attribute(`private', `', `String', member_name(`event_info'),   `""', `', `Data to be added to the event stream')dnl
 dnl
