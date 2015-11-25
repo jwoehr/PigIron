@@ -34,7 +34,6 @@ package com.softwoehr.piglet.builder;
 import com.softwoehr.pigiron.webobj.topview.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -45,27 +44,28 @@ import java.util.Map;
 /**
  * Deals with setting and getting the default Host
  *
- * @author     jax
- * @created    December 23, 2008
+ * @author jax
+ * @created December 23, 2008
  */
-
 public class DefaultHost {
+
     /**
      * Constructor does nothing.
-     */ 
-    public DefaultHost() { }
+     */
+    public DefaultHost() {
+    }
 
     /**
      * Performs the HTTP <code>GET</code> method for Default Host, including
      * closing the PrintWriter. Gets the default Host into a form for setting
      * the default host.
      *
-     * @param  request            servlet request
-     * @param  response           servlet response
-     * @throws  ServletException  if a servlet-specific error occurs
-     * @throws  IOException       if an I/O error occurs
-     */ 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<html><head><title>Set Default Host</title></head><body><h1>Set Default Host</h1>");
@@ -79,13 +79,13 @@ public class DefaultHost {
      * form data and then gets it into a form for setting the default host from
      * form data. Closes writer.
      *
-     * @param  request            servlet request
-     * @param  response           servlet response
-     * @throws  ServletException  if a servlet-specific error occurs
-     * @throws  IOException       if an I/O error occurs
-     */ 
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     public void doPost(HttpServletRequest request,
-             HttpServletResponse response) throws ServletException,  IOException {
+            HttpServletResponse response) throws ServletException, IOException {
         String whatIDid = null;
         Host host = BuilderUtil.getDefaultHost(request);
         Map map = request.getParameterMap();
@@ -115,11 +115,15 @@ public class DefaultHost {
                 }
             } else {
                 whatIDid = "cleared";
-                if (! request.getParameter("submit").equals("Clear")) {
+                if (!request.getParameter("submit").equals("Clear")) {
                     Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Weird submit button press: " + request.getParameter("submit"));
                 }
                 try {
-                    host.setName(""); host.setDnsName(""); host.setIpAddress(""); host.setPortNumber(- 1); host.setSSL(false);
+                    host.setName("");
+                    host.setDnsName("");
+                    host.setIpAddress("");
+                    host.setPortNumber(- 1);
+                    host.setSSL(false);
                 } catch (org.json.JSONException ex) {
                     Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
                 }
@@ -134,8 +138,13 @@ public class DefaultHost {
             out.close();
         } else {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Received a post without a submit button press.");
-            try { host.setName(""); host.setDnsName(""); host.setIpAddress(""); host.setPortNumber(- 1); host.setSSL(false); }
-	    catch (org.json.JSONException ex) {
+            try {
+                host.setName("");
+                host.setDnsName("");
+                host.setIpAddress("");
+                host.setPortNumber(- 1);
+                host.setSSL(false);
+            } catch (org.json.JSONException ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             }
             BuilderUtil.setDefaultHost(request, host);
@@ -144,7 +153,7 @@ public class DefaultHost {
             printForm(request, response, out);
             out.println("<p><b>Received a post without a submit button press!? Logged error.</b></p>");
             out.println("</body></html>");
-            out.close(); 
+            out.close();
         }
     }
 
@@ -152,29 +161,29 @@ public class DefaultHost {
      * Performs the HTTP <code>PUT</code> method for Default Host, including
      * closing the PrintWriter. Currently is unimplemented.
      *
-     * @param  request            servlet request
-     * @param  response           servlet response
-     * @throws  ServletException  if a servlet-specific error occurs
-     * @throws  IOException       if an I/O error occurs
-     */ 
-    public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<html><head><title>doPut() not implemented in DefaultHost.java</title></head><body>doPut() not implemented in DefaultHost.java</body></html>"); 
+        out.println("<html><head><title>doPut() not implemented in DefaultHost.java</title></head><body>doPut() not implemented in DefaultHost.java</body></html>");
         out.close();
     }
 
     /**
-     *  Compose the form for setting the default Host who is used for VSMAPI
+     * Compose the form for setting the default Host who is used for VSMAPI
      * calls unless overridden. Does not close the output writer.
      *
-     * @param  request               The servlet request
-     * @param  response              The servlet response
-     * @throws  ServletException  if a servlet-specific error occurs
-     * @throws  IOException       if an I/O error occurs
-     */ 
-    public void printForm(HttpServletRequest request, HttpServletResponse response, PrintWriter out) throws ServletException, 
-         IOException {
+     * @param request The servlet request
+     * @param response The servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    public void printForm(HttpServletRequest request, HttpServletResponse response, PrintWriter out) throws ServletException,
+            IOException {
         String name = null;
         String dns_name = null;
         String ip_address = null;
@@ -189,7 +198,7 @@ public class DefaultHost {
             ssl = currentDefaultHost == null ? false : currentDefaultHost.getSSL();
         } catch (org.json.JSONException ex) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null,
-                     ex);
+                    ex);
         }
         out.println("<form method=\"post\" action=\"/piglet/BuilderServlet/default_host\">");
         out.println("<input type=\"text\"  name=\"name\" value = \"" + name + "\"/>");
@@ -207,4 +216,3 @@ public class DefaultHost {
         out.println("</form>");
     }
 }
-

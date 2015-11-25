@@ -31,7 +31,6 @@
  */
 package com.softwoehr.piglet;
 
-import com.softwoehr.piglet.PigIronServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
@@ -39,28 +38,27 @@ import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *  Just stuff left over from fooling around early in the project.
- * Makes a good "You are Lost" page.
+ * Just stuff left over from fooling around early in the project. Makes a good
+ * "You are Lost" page.
  *
- * @author     jax
- * @created    December 8, 2008
+ * @author jax
+ * @created December 8, 2008
  */
 public class ProofOfConcept {
+
     /**
-     *  Print out stuff from the Servlet request just for fun.
+     * Print out stuff from the Servlet request just for fun.
      *
-     * @param  request               D'oh
-     * @param  response              D'oh
-     * @exception  ServletException  D'oh
-     * @exception  IOException       D'oh
-     */ 
-    public static void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,  IOException {
+     * @param request D'oh
+     * @param response D'oh
+     * @exception ServletException D'oh
+     * @exception IOException D'oh
+     */
+    public static void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -81,7 +79,7 @@ public class ProofOfConcept {
             out.println("Relativized that is " + URI.create("/piglet/PigIronServlet").relativize(URI.create(request.getRequestURI())));
             out.println("Resolved that is " + new URI(request.getRequestURI()).resolve(new URI("/piglet/PigIronServlet")));
         } catch (URISyntaxException ex) {
-            Logger.getLogger(PigIronServlet .class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PigIronServlet.class.getName()).log(Level.SEVERE, null, ex);
 
         }
         // out.println("Printout of Request" + "<br />");
@@ -96,7 +94,7 @@ public class ProofOfConcept {
         // out.println(request.getMethod() + "<br />");
         // out.println(request.getPathInfo() + "<br />");
         // out.println(request.getPathTranslated() + "<br />");
-         out.println("Query string = " + request.getQueryString() + "<br />");
+        out.println("Query string = " + request.getQueryString() + "<br />");
         // out.println(request.getRemoteUser() + "<br />");
         // out.println(request.getRequestedSessionId() + "<br />");
         // out.println(request.getRequestURI() + "<br />");
@@ -122,4 +120,3 @@ public class ProofOfConcept {
         out.close();
     }
 }
-

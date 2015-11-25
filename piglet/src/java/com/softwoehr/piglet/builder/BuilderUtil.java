@@ -39,7 +39,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONException;
 
 /**
  * Static methods used by the Builder web application.
@@ -141,13 +140,13 @@ public class BuilderUtil {
         String dns_name = request.getParameter("dns_name");
         String ip_address = request.getParameter("ip_address");
         String string_port_number = request.getParameter("port_number");
-        int port_number = - 1;
+        int port_number;
         try {
-            port_number = string_port_number == null ? - 1 : Integer.valueOf(string_port_number).intValue();
+            port_number = string_port_number == null ? - 1 : Integer.valueOf(string_port_number);
         } catch (NumberFormatException ex) {
             port_number = - 1;
         }
-        boolean ssl = request.getParameter("ssl") == null ? false : true;
+        boolean ssl = request.getParameter("ssl") != null;
         host.setName(name);
         host.setDnsName(dns_name);
         host.setIpAddress(ip_address);
@@ -175,9 +174,9 @@ public class BuilderUtil {
         String dns_name = request.getParameter("dns_name");
         String ip_address = request.getParameter("ip_address");
         String string_port_number = request.getParameter("port_number");
-        int port_number = - 1;
+        int port_number;
         try {
-            port_number = string_port_number == null ? - 1 : Integer.valueOf(string_port_number).intValue();
+            port_number = string_port_number == null ? - 1 : Integer.valueOf(string_port_number);
         } catch (NumberFormatException ex) {
             port_number = - 1;
         }
