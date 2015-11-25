@@ -91,10 +91,14 @@ then
     cd $FUNCFILE_SRCDIR
     for i in *.m4
     do
-        echo >> ${OUTFILE}
-        echo '\\' $i '\\' >> ${OUTFILE}
-    	cat $i | sed 's/include(`/include(`fiji_/g' | \
-	$GM4 -I $SCRIPTDIR >> ${OUTFILE}
+      echo $i | grep "piggen_prototype_" >/dev/null 2>&1 # test if it's an example file
+      if [ $? -eq 1 ] # don't process the example files
+	  then
+	  echo >> ${OUTFILE}
+	  echo '\\' $i '\\' >> ${OUTFILE}
+	  cat $i | sed 's/include(`/include(`fiji_/g' | \
+	      $GM4 -I $SCRIPTDIR >> ${OUTFILE}
+      fi
     done
     if [ $? -ne 0 ]
     then
