@@ -18,7 +18,7 @@ Directory_Manager_Search_DM
 Directory_Manager_Task_Cancel_DM
 6.3: Event_Stream_Add 20151116
 6.3: Event_Subscribe 20151123
-6.3: Event_Unsubscribe
+6.3: Event_Unsubscribe 20151124
 Image_Activate
 Image_Active_Configuration_Query
 Image_CPU_Define
