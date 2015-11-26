@@ -14,7 +14,7 @@ dnl
 pigfunc_ctors(`String', `event_info', member_name(`event_info'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`event_info')(), `event_info')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`event_info')`()', `event_info')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_end()dnl
