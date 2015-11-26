@@ -23,9 +23,9 @@ pigfunc_ctors(`String', `configuration_file_name', member_name(`configuration_fi
 `String', `update_file', member_name(`update_file'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`configuration_file_name')(), `configuration_file_name')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`configuration_file_type')(), `configuration_file_type')dnl
-pigfunc_compose_input_parm(`CountedString', member_getter(`configuration_dir_name')(), `configuration_dir_name')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`configuration_file_name')`()', `configuration_file_name')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`configuration_file_type')`()', `configuration_file_type')dnl
+pigfunc_compose_input_parm(`CountedString', member_getter(`configuration_dir_name')`()', `configuration_dir_name')dnl
 pigfunc_compose_input_parm(`VSMInt1', member_getter(`syncheck_only')(), `syncheck_only')dnl
 pigfunc_compose_input_parm(`CountedString', member_getter(`update_file')(), `update_file')dnl
 pigfunc_compose_input_end()dnl
