@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2008, 2015 Jack J. Woehr jwoehr@softwoehr.com
- * PO Box 51, Golden, Colorado 80402-0051 USA
+ * Copyright (c) 2015, Jack J. Woehr
+ * jax@well.com jwoehr@softwoehr.com PO Box 51, Golden CO 80402-0051 USA
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -117,7 +117,7 @@ public class VSMArray extends VSMStruct implements VSMParm {
         // /* Debug */ System.err.println("VSMArray about to read is: " + this);
         // /* Debug */ System.err.flush();
         VSMArray v = new VSMArray();
-        VSMParm model = elementAt(0);
+        VSMParm model = get(0);
         // /* Debug */ System.err.println(" model Array parm is " + model);
         // /* Debug */ System.err.flush();
         while (length > 0) {

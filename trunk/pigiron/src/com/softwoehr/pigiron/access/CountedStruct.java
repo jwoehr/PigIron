@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
- * PO Box 51, Golden, Colorado 80402-0051 USA
+ * Copyright (c) 2015, Jack J. Woehr
+ * jax@well.com jwoehr@softwoehr.com PO Box 51, Golden CO 80402-0051 USA
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -36,25 +36,28 @@ import java.io.IOException;
 import java.util.Iterator;
 
 /**
- *  Implements and encapsulates an "extra" base type <tt>counted_struct</tt>
+ * Implements and encapsulates an "extra" base type <tt>counted_struct</tt>
  * which Pigiron recognizes alongside the VSMAPI documented base types.
  *
- * <p>Used to read in Array elements which consist of a
- * repeating count_of_struct_size + struct_itself pair, this class is actually
- * an "extra" base type <tt>counted_struct</tt>
+ * <p>
+ * Used to read in Array elements which consist of a repeating
+ * count_of_struct_size + struct_itself pair, this class is actually an "extra"
+ * base type <tt>counted_struct</tt>
  * which Pigiron recognizes alongside the VSMAPI documented base types:
  * <tt>int1</tt>, <tt>int4</tt>,
  * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.</p>
  *
- * <p>Pigiron differentiates between a <tt>VSMStruct</tt> consisting of:</p>
+ * <p>
+ * Pigiron differentiates between a <tt>VSMStruct</tt> consisting of:</p>
  * <ol>
  * <li>a <tt>VSMInt4</tt> count followed by a <tt>VSMStruct</tt></li>
  * <li>an arbitrary collection of type entries</li>
  * </ol>
- * <p> Type (1), a <tt>VSMInt4</tt> count followed by a <tt>VSMStruct</tt></li>
+ * <p>
+ * Type (1), a <tt>VSMInt4</tt> count followed by a <tt>VSMStruct</tt></li>
  * is the case represented by <tt>CountedStruct</tt>
  * </p>
-
+ *
  * @author jax
  * @see com.softwoehr.pigiron.access.VSMParm
  */
@@ -62,16 +65,20 @@ public class CountedStruct extends VSMStruct {
 
     /**
      * The formal type name. Pigiron recognizes <tt>counted_struct</tt>
-     * as an extra type above and beyond the base types enumerated
-     * by the VSMAPI documentation.
+     * as an extra type above and beyond the base types enumerated by the VSMAPI
+     * documentation.
      */
-    public static final String FORMAL_TYPE = "counted_struct";
+    static {
+        FORMAL_TYPE = "counted_struct";
+    }
 
     /**
-     * Create an instance assigning its value from another instance.
-     * and assigning the new instance a formal name.
+     * Create an instance assigning its value from another instance. and
+     * assigning the new instance a formal name.
+     *
      * @param value the instance to copy value from
-     * @param formalName the formal name giving significance to the instance as a parameter of a VSMAPI function
+     * @param formalName the formal name giving significance to the instance as
+     * a parameter of a VSMAPI function
      */
     public CountedStruct(CountedStruct value, String formalName) {
         super(value, formalName);
@@ -79,6 +86,7 @@ public class CountedStruct extends VSMStruct {
 
     /**
      * Create an instance assigning its value from another instance.
+     *
      * @param value the instance to copy value from
      */
     public CountedStruct(CountedStruct value) {
@@ -93,6 +101,7 @@ public class CountedStruct extends VSMStruct {
 
     /**
      * Return a correctly typed copy of the present instance.
+     *
      * @return correctly typed copy of the present instance
      */
     @Override
@@ -102,6 +111,7 @@ public class CountedStruct extends VSMStruct {
 
     /**
      * Return a deep copy of the present instances.
+     *
      * @return deep copy of the present instances
      */
     @Override
@@ -116,8 +126,8 @@ public class CountedStruct extends VSMStruct {
     }
 
     /**
-     * Get the formal type of the parameter conforming to
-     * the VSMAPI docs.
+     * Get the formal type of the parameter conforming to the VSMAPI docs.
+     *
      * @return the formal type of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
@@ -127,16 +137,16 @@ public class CountedStruct extends VSMStruct {
     }
 
     /**
-     * Assumes the CountedStruct is modelled correctly.
-     * Unlike some of the struct reads which read into copies
-     * of the model and then replace, CountedStruct reads
-     * into its model parms because itself it is always
-     * already a copy spawned from the VSMArray that
-     * contained the model.
+     * Assumes the CountedStruct is modelled correctly. Unlike some of the
+     * struct reads which read into copies of the model and then replace,
+     * CountedStruct reads into its model parms because itself it is always
+     * already a copy spawned from the VSMArray that contained the model.
+     *
      * @param in
      * @param length
      * @throws java.io.IOException
-     * @throws com.softwoehr.pigiron.access.VSMStruct.VSMStructStringReadException
+     * @throws
+     * com.softwoehr.pigiron.access.VSMStruct.VSMStructStringReadException
      * @throws com.softwoehr.pigiron.access.VSMException
      */
     @Override
@@ -146,41 +156,43 @@ public class CountedStruct extends VSMStruct {
             // /* Debug */ System.err.println(" **** " + this);
             // /* Debug */ System.err.println(" Counted struct size is " + size());
             if (size() == 2) { // Must be modelled before a read, ergo, then has two (2) elements: a count and a struct
-                VSMParm purportedCountParm = elementAt(0);
+                VSMParm purportedCountParm = get(0);
                 if (purportedCountParm instanceof VSMInt4) {
                     purportedCountParm.read(in, 4); // read the count
                     // /* Debug */ System.err.println("purportedCountParm value is " + VSMInt4.class.cast(purportedCountParm).getValue());
                     length -= 4;
                 } else {
-                    throw new CountedStructStructReadException("First element in counted struct named " + getFormalName() + " of type " + getFormalType() +
-                            " is not of type VMSInt4 so cannot be a count.");
+                    throw new CountedStructStructReadException("First element in counted struct named " + getFormalName() + " of type " + getFormalType()
+                            + " is not of type VMSInt4 so cannot be a count.");
                 }
                 int structLength = purportedCountParm.paramLength();
                 if (structLength > length) {
-                    throw new CountedStructStructReadException("CountedStruct named " + getFormalName() + " of type " + getFormalType() +
-                            "had a count greater than the remaining read length.");
+                    throw new CountedStructStructReadException("CountedStruct named " + getFormalName() + " of type " + getFormalType()
+                            + "had a count greater than the remaining read length.");
                 }
-                VSMStruct myStruct = VSMStruct.class.cast(elementAt(1)); // If it ain't  the right class it will throw here on its own!
+                VSMStruct myStruct = VSMStruct.class.cast(get(1)); // If it ain't  the right class it will throw here on its own!
                 // /* Debug */ System.err.println("class-cast item is " + myStruct);
                 myStruct.read(in, length); // read the struct
             } else {
-                throw new CountedStructStructReadException("CountedStruct named " + getFormalName() + " of type " + getFormalType() +
-                        "is missing a second (struct) element ergo appears unmodelled.");
+                throw new CountedStructStructReadException("CountedStruct named " + getFormalName() + " of type " + getFormalType()
+                        + "is missing a second (struct) element ergo appears unmodelled.");
             }
         }
     }
 
     /**
-     * This returns element 0 of the array which is always
-     * (if instanced) the count of the struct which follows it.
+     * This returns element 0 of the array which is always (if instanced) the
+     * count of the struct which follows it.
+     *
      * @return the count of the struct which follows
      */
     public int getCountInt() {
-        return VSMInt4.class.cast(elementAt(0)).getValue();
+        return VSMInt4.class.cast(get(0)).getValue();
     }
 
     /**
      * String representation of the instance for debugging.
+     *
      * @return String representation of the instance for debugging
      */
     @Override
@@ -189,13 +201,14 @@ public class CountedStruct extends VSMStruct {
     }
 
     /**
-     * Exception thrown when read errors occur internally in Pigiron's
-     * parameter marshalling.
+     * Exception thrown when read errors occur internally in Pigiron's parameter
+     * marshalling.
      */
     public class CountedStructStructReadException extends VSMException {
 
         /**
          * Instance assigned a message.
+         *
          * @param message the message
          */
         public CountedStructStructReadException(String message) {
