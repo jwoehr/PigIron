@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2008, 2015 Jack J. Woehr jwoehr@softwoehr.com
- * PO Box 51, Golden, Colorado 80402-0051 USA
+ * Copyright (c) 2015, Jack J. Woehr
+ * jax@well.com jwoehr@softwoehr.com PO Box 51, Golden CO 80402-0051 USA
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -34,8 +34,8 @@ package com.softwoehr.pigiron.access;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Vector;
 
 /**
  * Implements and encapsulates the VSMAPI <tt>struct</tt> basic type.
@@ -43,7 +43,7 @@ import java.util.Vector;
  * @author jax
  * @see com.softwoehr.pigiron.access.VSMParm
  */
-public class VSMStruct extends Vector<VSMParm> implements VSMParm {
+public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
 
     /**
      * Type in terms of one of the formal parameter type discussed in the VSMAPI
@@ -68,6 +68,8 @@ public class VSMStruct extends Vector<VSMParm> implements VSMParm {
     public VSMStruct() {
     }
 
+    public VSMParm lastElement () { return get(size()-1); }
+    
     /**
      * Create an instance of specified value
      *

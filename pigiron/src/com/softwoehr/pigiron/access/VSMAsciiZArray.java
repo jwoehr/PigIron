@@ -112,7 +112,7 @@ public class VSMAsciiZArray extends VSMStruct implements VSMParm {
         // /* Debug */ System.err.println("VSMArray about to read is: " + this);
         // /* Debug */ System.err.flush();
         VSMAsciiZArray v = new VSMAsciiZArray();
-        VSMParm model = elementAt(0);
+        VSMParm model = get(0);
         // /* Debug */ System.err.println(" model Array parm is " + model);
         // /* Debug */ System.err.flush();
         while (length > 0) {
