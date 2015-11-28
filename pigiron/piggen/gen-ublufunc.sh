@@ -64,6 +64,9 @@ then
     	echo "$TARGDIR" 'is not a fully qualified path (must start with ''/'').'
 	exit 2
     fi
+    # Erase every ublu file so all_pigiron.ublu include file doesn't include itself!
+    rm -rf ${TARGDIR}/*.ublu
+    # Go get the m4 specs
     cd $FUNCFILE_SRCDIR
     for i in *.m4
     do
@@ -82,6 +85,16 @@ then
     	echo "Error generating from funcfiles:" $?
 	exit 4
     fi
+    # Generate all_pigiron.ublu include file
+    cd ${TARGDIR}
+    UBLU_FILES=`ls *.ublu`
+    echo '# include all pigiron support' >all_pigiron.ublu
+    echo "include pigiron_host.ublu" >all_pigiron.ublu
+    for i in $UBLU_FILES
+    do
+      echo "include $i" >>all_pigiron.ublu
+    done
+    echo "# end" >>all_pigiron.ublu
 else
     echo "usage: $0 funcfile_srcdir targdir"
     echo " --  autogenerates in targdir/ublu_pigfunc Ublu support for"

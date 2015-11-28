@@ -39,29 +39,13 @@ package com.softwoehr.pigiron.access.paramstructs;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * DirectoryEntryStructure implements the {@code directory_entry_structure} from {@code Query_All_DM}
+ * DirectoryEntryDataStructureCounted wrappers the {@code DirectoryEntryDataStructure} from {@code Query_All_DM}
+ * as a PigIron CountedStruct pseudotype.
  * @see com.softwoehr.pigiron.functions.QueryAllDM
+ * @see com.softwoehr.pigiron.access.paramstructs.DirectoryEntryDataStructure
  */
-public class DirectoryEntryStructure extends VSMStruct {
+public class DirectoryEntryDataStructureCounted extends CountedStruct {
 
-    /** USER */
-    public static final int DIRECTORY_ENTRY_TYPE_USER = 0;
-    /** PROFILE */
-    public static final int DIRECTORY_ENTRY_TYPE_PROFILE = 1;
-    /** USER_DEFINED_VIA_POOL */
-    public static final int DIRECTORY_ENTRY_TYPE_USER_DEFINED_VIA_POOL = 2;
-    /** POOL */
-    public static final int DIRECTORY_ENTRY_TYPE_POOL = 3;
-    /** DIRECTORY */
-    public static final int DIRECTORY_ENTRY_TYPE_DIRECTORY = 4;
-    /** GLOBAL */
-    public static final int DIRECTORY_ENTRY_TYPE_GLOBAL = 5;
-    /** IDENTITY */
-    public static final int DIRECTORY_ENTRY_TYPE_IDENTITY = 6;
-    /** SUBCON */
-    public static final int DIRECTORY_ENTRY_TYPE_SUBCON = 7;
-    /** OTHER */
-    public static final int DIRECTORY_ENTRY_TYPE_OTHER = 8;
     /**
      * Create an instance with a value derived by copying from a like instance
      * and instance its formal name at the same time.
@@ -70,9 +54,9 @@ public class DirectoryEntryStructure extends VSMStruct {
      * parameters".
      * @param value a like instance to copy from
      * @param formalName the formal name
-     * @see com.softwoehr.pigiron.access.VSMStruct
+     * @see com.softwoehr.pigiron.access.CountedStruct
      */
-    public DirectoryEntryStructure(VSMStruct value, String formalName) {
+    public DirectoryEntryDataStructureCounted(CountedStruct value, String formalName) {
         this(value);
         setFormalName(formalName);
     }
@@ -82,7 +66,7 @@ public class DirectoryEntryStructure extends VSMStruct {
      * null is legal value, means "just clear me".
      * @param value a like instance to copy from
      */
-    public DirectoryEntryStructure(VSMStruct value) {
+    public DirectoryEntryDataStructureCounted(CountedStruct value) {
         super(value);
         if (value == null) {
             modelFormalParameters();
@@ -94,7 +78,7 @@ public class DirectoryEntryStructure extends VSMStruct {
      * and the parameters modelled for reading.
      * @param formal_name the formal name of the instance
      */
-    public DirectoryEntryStructure(String formal_name) {
+    public DirectoryEntryDataStructureCounted(String formal_name) {
     	   super();
 	   setFormalName(formal_name);
 	   modelFormalParameters();
@@ -103,7 +87,7 @@ public class DirectoryEntryStructure extends VSMStruct {
     /**
      * Create a read-modelled instance.
      */
-    public DirectoryEntryStructure() {
+    public DirectoryEntryDataStructureCounted() {
         super();
         modelFormalParameters();
     }
@@ -114,11 +98,10 @@ public class DirectoryEntryStructure extends VSMStruct {
      * This makes it easy to set up a VSMAPI input instance
      * of this structure.
      */
-    public DirectoryEntryStructure(VSMInt4 directory_entry_type, VSMString directory_entry_id, String formalName) {
+    public DirectoryEntryDataStructureCounted(VSMInt4 directory_entry_data_structure_length, DirectoryEntryDataStructure directory_entry_data_structure, String formalName) {
         super();
-        add(directory_entry_type);
-        add(new VSMInt4(directory_entry_id.paramLength(), "directory_entry_id_length"));
-        add(directory_entry_id);
+        add(directory_entry_data_structure_length);
+        add(directory_entry_data_structure);
         setFormalName(formalName);
     }
 
@@ -127,9 +110,8 @@ public class DirectoryEntryStructure extends VSMStruct {
      */
     public final void modelFormalParameters() {
         clear();
-        add(new VSMInt4(0, "directory_entry_type"));
-        add(new VSMInt4(-1, "directory_entry_id_length"));
-        add(new VSMString("", "directory_entry_id"));
+        add(new VSMInt4(-1, "directory_entry_data_structure_length"));
+        add(new DirectoryEntryDataStructure("directory_entry_data_structure"));
     }
 }
 

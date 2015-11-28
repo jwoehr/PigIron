@@ -39,20 +39,20 @@ package com.softwoehr.pigiron.access.paramstructs;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * DirectoryEntryArray implements the {@code directory_entry_array} from {@code Query_All_DM}
+ * DirectoryEntryDataArray implements the {@code directory_entry_data_array} from {@code Query_All_DM}
  * @see com.softwoehr.pigiron.functions.QueryAllDM
- * @see com.softwoehr.pigiron.access.paramstructs.DirectoryEntryStructureCounted
+ * @see com.softwoehr.pigiron.access.paramstructs.DirectoryEntryDataStructureCounted
  */
-public class DirectoryEntryArray extends VSMArray {
+public class DirectoryEntryDataArray extends VSMArray {
 
     /**
      * Create a modelled-for-read instance with a specified formal name.
      * @param formalName the formal name
      * @return the modelled instance.
      */
-    public static DirectoryEntryArray modelArray(String formalName) {
-        DirectoryEntryArray result = new DirectoryEntryArray();
-        result.add(new DirectoryEntryStructureCounted(null, "directory_entry_structure_counted"));
+    public static DirectoryEntryDataArray modelArray(String formalName) {
+        DirectoryEntryDataArray result = new DirectoryEntryDataArray();
+        result.add(new DirectoryEntryDataStructureCounted(null, "directory_entry_data_structure_counted"));
         result.setFormalName(formalName);
         return result;
     }
@@ -63,7 +63,7 @@ public class DirectoryEntryArray extends VSMArray {
      * @param value a like instance to copy from
      * @param formalName the formal name
      */
-    public DirectoryEntryArray(VSMArray value, String formalName) {
+    public DirectoryEntryDataArray(VSMArray value, String formalName) {
         super(value, formalName);
     }
 
@@ -74,10 +74,10 @@ public class DirectoryEntryArray extends VSMArray {
      * @param value a CountedStruct to absorb
      * @param formalName the formal name
      */
-    public DirectoryEntryArray(CountedStruct value, String formalName) throws VSMArrayCountedStructCTORException {
+    public DirectoryEntryDataArray(CountedStruct value, String formalName) throws VSMArrayCountedStructCTORException {
         super();
-        if (!value.getClass().getSimpleName().equals("DirectoryEntryStructureCounted")) {
-            throw new VSMArrayCountedStructCTORException(value + " is not an instance of DirectoryEntryStructureCounted");
+        if (!value.getClass().getSimpleName().equals("DirectoryEntryDataStructureCounted")) {
+            throw new VSMArrayCountedStructCTORException(value + " is not an instance of DirectoryEntryDataStructureCounted");
         }
         setValue(value);
         setFormalName(formalName);
@@ -87,7 +87,7 @@ public class DirectoryEntryArray extends VSMArray {
      * Create an instance by copying the value from a like instance.
      * @param value a like instance to copy from
      */
-    public DirectoryEntryArray(VSMArray value) {
+    public DirectoryEntryDataArray(VSMArray value) {
         super(value);
     }
 
@@ -96,7 +96,7 @@ public class DirectoryEntryArray extends VSMArray {
      * is instanced.
      * @param formalName the formal name
      */
-    public DirectoryEntryArray(String formalName) {
+    public DirectoryEntryDataArray(String formalName) {
         super();
         setFormalName(formalName);
     }
@@ -104,7 +104,7 @@ public class DirectoryEntryArray extends VSMArray {
     /**
      * Create an instance of undefined value.
      */
-    public DirectoryEntryArray() {
+    public DirectoryEntryDataArray() {
     }
     /** Tests whether the Array can assimilate its proper
      * CountedStruct type and still not assimilate other CountedStruct types.
@@ -115,12 +115,12 @@ public class DirectoryEntryArray extends VSMArray {
      * @throws VSMArrayCountedStructCTORException
      */
     public static void main(String argv[]) throws ClassNotFoundException, InstantiationException, IllegalAccessException, VSMArrayCountedStructCTORException {
-        CountedStruct cS = (CountedStruct) Class.forName("com.softwoehr.pigiron.access.paramstructs.DirectoryEntryStructureCounted").newInstance();
-        DirectoryEntryArray aC = new DirectoryEntryArray(cS, FORMAL_TYPE);
-        System.out.println("Here is the DirectoryEntryArray instance having assimilated an DirectoryEntryStructureCounted instance: " + aC.prettyPrint());
+        CountedStruct cS = (CountedStruct) Class.forName("com.softwoehr.pigiron.access.paramstructs.DirectoryEntryDataStructureCounted").newInstance();
+        DirectoryEntryDataArray aC = new DirectoryEntryDataArray(cS, FORMAL_TYPE);
+        System.out.println("Here is the DirectoryEntryDataArray instance having assimilated an DirectoryEntryDataStructureCounted instance: " + aC.prettyPrint());
         cS = new PageRangeStructureCounted();
-        aC = new DirectoryEntryArray(cS, FORMAL_TYPE);
-        System.out.println("You should never see this message due to a VSMArrayCountedStructCTORException thrown before: Here is the DirectoryEntryArray instance having assimilated an PageRangeStructureCounted instance: " + aC.prettyPrint());
+        aC = new DirectoryEntryDataArray(cS, FORMAL_TYPE);
+        System.out.println("You should never see this message due to a VSMArrayCountedStructCTORException thrown before: Here is the DirectoryEntryDataArray instance having assimilated an PageRangeStructureCounted instance: " + aC.prettyPrint());
     }
 }
 
