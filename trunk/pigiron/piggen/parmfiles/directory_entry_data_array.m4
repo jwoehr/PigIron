@@ -1,8 +1,8 @@
 dnl \\ Query_All_DM has two different sorts of structures it returns
 dnl \\ based on the FORMAT=YES/NO optional parameter (default=NO).
-dnl \\ This Array is the head of both FORMATs.
-include(`pigarray.m4')dnl \\ directory_entry_array.m4
-param_namespace(`directory_entry',`Query_All_DM')dnl
+dnl \\ This structure is the tail of the FORMAT=NO style
+include(`pigarray.m4')dnl \\ directory_entry_data_array.m4
+param_namespace(`directory_entry_data',`Query_All_DM')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
 pigparm_class(array_classname, `VSMArray',`com.softwoehr.pigiron.access.paramstructs',`dnl

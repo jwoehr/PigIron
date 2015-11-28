@@ -1,3 +1,6 @@
+dnl \\ Query_All_DM has two different sorts of structures it returns
+dnl \\ based on the FORMAT=YES/NO optional parameter (default=NO).
+dnl \\ This structure is in the head of both FORMATs.
 include(`pigstruct.m4')dnl \\ directory_entry_structure.m4
 param_namespace(`directory_entry', `Query_All_DM')dnl
 pigparm_start()dnl
