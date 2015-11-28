@@ -120,7 +120,7 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
      * @param formalName the formal name of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
-    public void setFormalName(String formalName) {
+    public final void setFormalName(String formalName) {
         this.formalName = formalName;
     }
 
