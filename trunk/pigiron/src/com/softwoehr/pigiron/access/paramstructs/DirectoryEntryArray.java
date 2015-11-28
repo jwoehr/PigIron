@@ -39,20 +39,20 @@ package com.softwoehr.pigiron.access.paramstructs;
 import com.softwoehr.pigiron.access.*;
 
 /**
- * ConnectedAdapterArray implements the {@code connected_adapter_array} from {@code Virtual_Network_LAN_Query}
- * @see com.softwoehr.pigiron.functions.VirtualNetworkLANQuery
- * @see com.softwoehr.pigiron.access.paramstructs.ConnectedAdapterStructureCounted
+ * DirectoryEntryArray implements the {@code directory_entry_array} from {@code Query_All_DM}
+ * @see com.softwoehr.pigiron.functions.QueryAllDM
+ * @see com.softwoehr.pigiron.access.paramstructs.DirectoryEntryStructureCounted
  */
-public class ConnectedAdapterArray extends VSMArray {
+public class DirectoryEntryArray extends VSMArray {
 
     /**
      * Create a modelled-for-read instance with a specified formal name.
      * @param formalName the formal name
      * @return the modelled instance.
      */
-    public static ConnectedAdapterArray modelArray(String formalName) {
-        ConnectedAdapterArray result = new ConnectedAdapterArray();
-        result.add(new ConnectedAdapterStructureCounted(null, "connected_adapter_structure_counted"));
+    public static DirectoryEntryArray modelArray(String formalName) {
+        DirectoryEntryArray result = new DirectoryEntryArray();
+        result.add(new DirectoryEntryStructureCounted(null, "directory_entry_structure_counted"));
         result.setFormalName(formalName);
         return result;
     }
@@ -63,7 +63,7 @@ public class ConnectedAdapterArray extends VSMArray {
      * @param value a like instance to copy from
      * @param formalName the formal name
      */
-    public ConnectedAdapterArray(VSMArray value, String formalName) {
+    public DirectoryEntryArray(VSMArray value, String formalName) {
         super(value, formalName);
     }
 
@@ -74,10 +74,10 @@ public class ConnectedAdapterArray extends VSMArray {
      * @param value a CountedStruct to absorb
      * @param formalName the formal name
      */
-    public ConnectedAdapterArray(CountedStruct value, String formalName) throws VSMArrayCountedStructCTORException {
+    public DirectoryEntryArray(CountedStruct value, String formalName) throws VSMArrayCountedStructCTORException {
         super();
-        if (!value.getClass().getSimpleName().equals("ConnectedAdapterStructureCounted")) {
-            throw new VSMArrayCountedStructCTORException(value + " is not an instance of ConnectedAdapterStructureCounted");
+        if (!value.getClass().getSimpleName().equals("DirectoryEntryStructureCounted")) {
+            throw new VSMArrayCountedStructCTORException(value + " is not an instance of DirectoryEntryStructureCounted");
         }
         setValue(value);
         setFormalName(formalName);
@@ -87,7 +87,7 @@ public class ConnectedAdapterArray extends VSMArray {
      * Create an instance by copying the value from a like instance.
      * @param value a like instance to copy from
      */
-    public ConnectedAdapterArray(VSMArray value) {
+    public DirectoryEntryArray(VSMArray value) {
         super(value);
     }
 
@@ -96,7 +96,7 @@ public class ConnectedAdapterArray extends VSMArray {
      * is instanced.
      * @param formalName the formal name
      */
-    public ConnectedAdapterArray(String formalName) {
+    public DirectoryEntryArray(String formalName) {
         super();
         setFormalName(formalName);
     }
@@ -104,7 +104,7 @@ public class ConnectedAdapterArray extends VSMArray {
     /**
      * Create an instance of undefined value.
      */
-    public ConnectedAdapterArray() {
+    public DirectoryEntryArray() {
     }
     /** Tests whether the Array can assimilate its proper
      * CountedStruct type and still not assimilate other CountedStruct types.
@@ -115,12 +115,12 @@ public class ConnectedAdapterArray extends VSMArray {
      * @throws VSMArrayCountedStructCTORException
      */
     public static void main(String argv[]) throws ClassNotFoundException, InstantiationException, IllegalAccessException, VSMArrayCountedStructCTORException {
-        CountedStruct cS = (CountedStruct) Class.forName("com.softwoehr.pigiron.access.paramstructs.ConnectedAdapterStructureCounted").newInstance();
-        ConnectedAdapterArray aC = new ConnectedAdapterArray(cS, FORMAL_TYPE);
-        System.out.println("Here is the ConnectedAdapterArray instance having assimilated an ConnectedAdapterStructureCounted instance: " + aC.prettyPrint());
+        CountedStruct cS = (CountedStruct) Class.forName("com.softwoehr.pigiron.access.paramstructs.DirectoryEntryStructureCounted").newInstance();
+        DirectoryEntryArray aC = new DirectoryEntryArray(cS, FORMAL_TYPE);
+        System.out.println("Here is the DirectoryEntryArray instance having assimilated an DirectoryEntryStructureCounted instance: " + aC.prettyPrint());
         cS = new PageRangeStructureCounted();
-        aC = new ConnectedAdapterArray(cS, FORMAL_TYPE);
-        System.out.println("You should never see this message due to a VSMArrayCountedStructCTORException thrown before: Here is the ConnectedAdapterArray instance having assimilated an PageRangeStructureCounted instance: " + aC.prettyPrint());
+        aC = new DirectoryEntryArray(cS, FORMAL_TYPE);
+        System.out.println("You should never see this message due to a VSMArrayCountedStructCTORException thrown before: Here is the DirectoryEntryArray instance having assimilated an PageRangeStructureCounted instance: " + aC.prettyPrint());
     }
 }
 
