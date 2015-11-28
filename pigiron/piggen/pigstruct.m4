@@ -183,7 +183,7 @@ push_divert(model_stream)dnl
     /**
      * Create a read-modelled instance.
      */
-    public void modelFormalParameters() {
+    public final void modelFormalParameters() {
         clear();
 pop_divert()dnl
 ')
