@@ -159,6 +159,7 @@ public class VSMAsciiZ implements VSMParm {
      * @throws java.io.IOException on comm error
      */
     public void read(DataInputStream in, int length) throws IOException {
+        // if (in.available() >= length) {
         StringBuilder result = new StringBuilder();
         char c;
         for (int i = 0; i < length; i++) {
@@ -170,6 +171,7 @@ public class VSMAsciiZ implements VSMParm {
         }
         setValue(result.toString());
         // /* Debug */ System.err.println("Read a string: " + value);
+        // }
     }
 
     /**

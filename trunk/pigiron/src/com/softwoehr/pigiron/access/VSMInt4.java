@@ -117,7 +117,10 @@ public class VSMInt4 implements VSMParm, VSMInt {
      * @throws java.io.IOException on comm error
      */
     public void read(DataInputStream in, int length) throws IOException {
+        // /* Debug */ System.err.println("VSMInt4 read: in.available() == " + in.available());
+        // if (in.available() >= paramLength()) {
         setValue(in.readInt());
+        // }
         // /* Debug */ System.err.println("Read an int4: " + value);
     }
 

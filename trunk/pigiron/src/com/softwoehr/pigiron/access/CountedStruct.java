@@ -152,9 +152,10 @@ public class CountedStruct extends VSMStruct {
     @Override
     public void read(DataInputStream in, int length) throws IOException, VSMStructStringReadException, VSMException {
         if (length >= ParameterArray.SIZEOF_INT4) {
-             /* Debug */ System.err.println(" **** About to read in  CountedStruct.read() ");
-             /* Debug */ System.err.println(" **** " + this);
-             /* Debug */ System.err.println(" Counted struct size is " + size());
+            /* Debug */ System.err.println(" **** About to read in  CountedStruct.read() ");
+
+            // /* Debug */ System.err.println(" **** " + this.prettyPrint());
+            /* Debug */ System.err.println(" Counted struct size is " + size());
             if (size() == 2) { // Must be modelled before a read, ergo, then has two (2) elements: a count and a struct
                 VSMParm purportedCountParm = get(0);
                 if (purportedCountParm instanceof VSMInt4) {
@@ -171,10 +172,10 @@ public class CountedStruct extends VSMStruct {
                             + "had a count greater than the remaining read length.");
                 }
                 VSMStruct myStruct = VSMStruct.class.cast(get(1)); // If it ain't  the right class it will throw here on its own!
-                /* Debug */ System.err.println("class-cast item is " + myStruct);
+                /* Debug */ System.err.println("class-cast item is " + myStruct.prettyPrint());
                 myStruct.read(in, length); // read the struct
                 /* Debug */
-                System.err.println("Done reading in " + myStruct);
+                System.err.println("Done reading in " + myStruct.prettyPrint());
             } else {
                 throw new CountedStructStructReadException("CountedStruct named " + getFormalName() + " of type " + getFormalType()
                         + "is missing a second (struct) element ergo appears unmodelled.");

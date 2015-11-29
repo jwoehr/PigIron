@@ -201,6 +201,7 @@ public class ParameterArray extends ArrayList<VSMParm> {
         ListIterator<VSMParm> currentListIterator = listIterator();
         ParameterArray replacement = new ParameterArray();
         VSMParm previous;
+        // while (currentListIterator.hasNext() && in.available() > 0) {
         while (currentListIterator.hasNext()) {
             VSMParm copyOfCurrentParm = currentListIterator.next().copyOf();
             // /* Debug */ System.err.println(" next list item in ParameterArray.readAll is:\n  " + copyOfCurrentParm);
@@ -247,14 +248,11 @@ public class ParameterArray extends ArrayList<VSMParm> {
             } else {
                 throw new ParameterArrayReadAllException(" Unknown parameter type.");
             }
-
-            // System.err.flush();
-            // System.err.println("how many times? " + howmanytimes++);
             /* Check that we don't read past end when we get error documents */
  /* "- 2 * SIZEOF_INT4" because output_length doesn't count the */
  /* immediate reply and the output_length itself */
             // if (output_length != -1 & output_length <= replacement.totalParameterLength() - 2 * SIZEOF_INT4) {
-            if (output_length != - 1 & output_length <= 0) {
+            if (output_length != -1 && output_length <= 0) {
                 break;
             }
             // /* Debug */ System.err.println(" ---");
@@ -312,11 +310,6 @@ public class ParameterArray extends ArrayList<VSMParm> {
             result = VsmapiRC.prettyPrint(rc_int4.getValue(), reason_int4.getValue(), getFunction()) + "\n";
         }
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return prettyPrintAll();
     }
 
     /**

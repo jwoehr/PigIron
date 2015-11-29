@@ -120,6 +120,7 @@ public class VSMArray extends VSMStruct implements VSMParm {
         VSMParm model = get(0);
         // /* Debug */ System.err.println(" model Array parm is " + model);
         // /* Debug */ System.err.flush();
+        // while (length > 0 && in.available() >= length) {
         while (length > 0) {
             VSMParm target = model.copyOf();
             // /* Debug */ System.err.println(" VSMArray.read about to read " + target);
