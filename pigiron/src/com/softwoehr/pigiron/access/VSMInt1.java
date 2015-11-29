@@ -36,9 +36,10 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 // import java.util.logging.Level;
 // import java.util.logging.Logger;
+
 /**
  * Implements and encapsulates the VSMAPI <tt>int1</tt> basic type.
- * 
+ *
  * @author jax
  * @see com.softwoehr.pigiron.access.VSMParm
  */
@@ -47,16 +48,17 @@ public class VSMInt1 implements VSMParm, VSMInt {
     private int value;
     private String formalName;
     /**
-     * Type in terms of one of the formal parameter type discussed in
-     * the VSMAPI documentation: int1, int4, int8, string, struct, array.
-     * (Pigiron also recognizes <tt>counted_struct</tt>
-     * as an extra type above and beyond the base types enumerated
-     * by the VSMAPI documentation.)
+     * Type in terms of one of the formal parameter type discussed in the VSMAPI
+     * documentation: int1, int4, int8, string, struct, array. (Pigiron also
+     * recognizes <tt>counted_struct</tt>
+     * as an extra type above and beyond the base types enumerated by the VSMAPI
+     * documentation.)
      */
     public static final String FORMAL_TYPE = "int1";
 
     /**
      * Create an instance of specified value.
+     *
      * @param value the value
      */
     public VSMInt1(int value) {
@@ -65,24 +67,27 @@ public class VSMInt1 implements VSMParm, VSMInt {
 
     /**
      * Create an instance of specified value.
+     *
      * @param value the value
      */
     public VSMInt1(byte value) {
-       this.value=value;
+        this.value = value;
     }
 
-    /** 
+    /**
      * Create an instance of specified value and assign it a formal name
+     *
      * @param value the value
      * @param formalName the formal name
      */
     public VSMInt1(int value, String formalName) {
         this(value);
-        this.formalName=formalName;
+        this.formalName = formalName;
     }
 
     /**
      * Create an instance of specified value and assign it a formal name
+     *
      * @param value the value
      * @param formalName the formal name
      */
@@ -93,6 +98,7 @@ public class VSMInt1 implements VSMParm, VSMInt {
 
     /**
      * Set the value.
+     *
      * @param value the value
      */
     public final void setValue(byte value) {
@@ -101,6 +107,7 @@ public class VSMInt1 implements VSMParm, VSMInt {
 
     /**
      * Set the value.
+     *
      * @param value the value
      */
     public final void setValue(int value) {
@@ -109,6 +116,7 @@ public class VSMInt1 implements VSMParm, VSMInt {
 
     /**
      * Get the value.
+     *
      * @return the value
      */
     public int getValue() {
@@ -117,6 +125,7 @@ public class VSMInt1 implements VSMParm, VSMInt {
 
     /**
      * Get the length in bytes of the parameter.
+     *
      * @return the length in bytes of the parameter value.
      */
     public int paramLength() {
@@ -125,17 +134,21 @@ public class VSMInt1 implements VSMParm, VSMInt {
 
     /**
      * Read in a VSMInt1 from a stream.
+     *
      * @param in the input stream
      * @param length the byte length to read
      * @throws java.io.IOException on comm error
      */
     public void read(DataInputStream in, int length) throws IOException {
+        // if (in.available() >= paramLength()) {
         setValue(in.readByte());
+        // }
         // /* Debug */ System.err.println("Read an int1: " + value);
     }
 
     /**
      * Write a VSMInt1 on a stream.
+     *
      * @param out the output stream
      * @throws java.io.IOException on comm error
      */
@@ -145,8 +158,9 @@ public class VSMInt1 implements VSMParm, VSMInt {
     }
 
     /**
-     * Get the formal name of the parameter conforming to
-     * the VSMAPI docs for a given call.
+     * Get the formal name of the parameter conforming to the VSMAPI docs for a
+     * given call.
+     *
      * @return the formal name of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
@@ -155,8 +169,9 @@ public class VSMInt1 implements VSMParm, VSMInt {
     }
 
     /**
-     * Set the formal name of the parameter conforming to
-     * the VSMAPI docs for a given call.
+     * Set the formal name of the parameter conforming to the VSMAPI docs for a
+     * given call.
+     *
      * @param formalName the formal name of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
@@ -166,10 +181,11 @@ public class VSMInt1 implements VSMParm, VSMInt {
 
     /**
      * Return a functional copy of the instance.
+     *
      * @return copy or null
      */
     public VSMParm copyOf() {
-        return new VSMInt1(getValue(),getFormalName());
+        return new VSMInt1(getValue(), getFormalName());
     }
 
 //    /**
@@ -184,9 +200,9 @@ public class VSMInt1 implements VSMParm, VSMInt {
 //        proto.setValue(getValue());
 //        return proto;
 //    }
-
     /**
      * The value as a <tt>long</tt>.
+     *
      * @return the value as a <tt>long</tt>
      */
     public long getLongValue() {
@@ -195,6 +211,7 @@ public class VSMInt1 implements VSMParm, VSMInt {
 
     /**
      * String representation of the instance for debugging.
+     *
      * @return String representation of the instance for debugging
      */
     @Override
@@ -206,8 +223,8 @@ public class VSMInt1 implements VSMParm, VSMInt {
     }
 
     /**
-     * Get the formal type of the parameter conforming to
-     * the VSMAPI docs.
+     * Get the formal type of the parameter conforming to the VSMAPI docs.
+     *
      * @return the formal type of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
@@ -217,7 +234,9 @@ public class VSMInt1 implements VSMParm, VSMInt {
 
     /**
      * Prettyprint the instance for debugging or simple output display.
-     * @return Prettyprint of the instance for debugging or simple output display
+     *
+     * @return Prettyprint of the instance for debugging or simple output
+     * display
      */
     public String prettyPrint() {
         StringBuffer sb = new StringBuffer();
@@ -226,6 +245,7 @@ public class VSMInt1 implements VSMParm, VSMInt {
     }
     /**
      * Used during debugging to test clone()/copyOf implementation.
+     *
      * @param toCopy instance to copy
      * @return the copy of <tt>toCopy</tt>
      */
@@ -242,6 +262,7 @@ public class VSMInt1 implements VSMParm, VSMInt {
     }*/
     /**
      * Run a test on the copying of VSMInt1.
+     *
      * @param argv ignored
      */
     /*public static void main(String[] argv) {

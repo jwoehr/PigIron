@@ -110,7 +110,9 @@ public class VSMInt8 implements VSMParm, VSMInt {
      * @throws java.io.IOException on comm error
      */
     public void read(DataInputStream in, int length) throws IOException {
+        // if (in.available() >= paramLength()) {
         setValue(in.readLong());
+        // }
     }
 
     /**

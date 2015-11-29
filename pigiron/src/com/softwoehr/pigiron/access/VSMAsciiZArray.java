@@ -108,6 +108,7 @@ public class VSMAsciiZArray extends VSMStruct implements VSMParm {
      */
     @Override
     public void read(DataInputStream in, int length) throws IOException, VSMException {
+        // if (in.available() >= length) {
         // /* Debug */ System.err.println(" VSMArray.read has read length of  " + length);
         // /* Debug */ System.err.println("VSMArray about to read is: " + this);
         // /* Debug */ System.err.flush();
@@ -128,6 +129,7 @@ public class VSMAsciiZArray extends VSMStruct implements VSMParm {
             // /* Debug */ System.err.flush();
         }
         setValue(v);
+        // }
     }
 
     /**

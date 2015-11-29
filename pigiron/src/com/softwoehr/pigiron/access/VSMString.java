@@ -127,11 +127,13 @@ public class VSMString implements VSMParm {
      * @throws java.io.IOException on comm error
      */
     public void read(DataInputStream in, int length) throws IOException {
+        // if (in.available() >= length) {
         // /* Debug */ System.err.println("About to read a string of length " + length);
         byte[] bytes = new byte[length];
         in.readFully(bytes);
         setValue(new String(bytes));
         // /* Debug */ System.err.println("Read a string: " + value);
+        // }
     }
 
     /**
@@ -172,7 +174,7 @@ public class VSMString implements VSMParm {
     }
 
     /**
-     * Return a functional copy of the instance. 
+     * Return a functional copy of the instance.
      *
      * @return copy or null
      */

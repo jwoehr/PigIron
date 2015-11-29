@@ -68,8 +68,10 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
     public VSMStruct() {
     }
 
-    public VSMParm lastElement () { return get(size()-1); }
-    
+    public VSMParm lastElement() {
+        return get(size() - 1);
+    }
+
     /**
      * Create an instance of specified value
      *
@@ -184,7 +186,8 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
     public void read(DataInputStream in, int length) throws IOException, VSMStructStringReadException, VSMException {
         VSMStruct myNewContents = new VSMStruct(null);
         Iterator<VSMParm> i = iterator(); // Walk through our output model
-        while (i.hasNext() & length > 0) {
+        // while (i.hasNext() && length > 0 && in.available() >= length) {
+        while (i.hasNext() && length > 0) {
             VSMParm model = i.next();
             VSMParm member = model.copyOf();
             if (model instanceof VSMStruct) {
