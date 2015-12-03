@@ -214,8 +214,8 @@ public class VSMInt8 implements VSMParm, VSMInt {
      * display
      */
     public String prettyPrint() {
-        StringBuffer sb = new StringBuffer();
-        sb.append(getFormalName() + "(" + getFormalType() + ") " + getValue());
+        StringBuilder sb = new StringBuilder();
+        sb.append(getFormalName()).append("(").append(getFormalType()).append(") ").append(getValue());
         return sb.toString();
     }
     /**

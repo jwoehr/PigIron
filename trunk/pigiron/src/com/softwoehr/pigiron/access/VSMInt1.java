@@ -216,9 +216,9 @@ public class VSMInt1 implements VSMParm, VSMInt {
      */
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer(super.toString());
-        sb.append(" Formal Name == " + getFormalName() + " Formal Type == " + getFormalType());
-        sb.append(" Value == " + value);
+        StringBuilder sb = new StringBuilder(super.toString());
+        sb.append(" Formal Name == ").append(getFormalName()).append(" Formal Type == ").append(getFormalType());
+        sb.append(" Value == ").append(value);
         return sb.toString();
     }
 
@@ -239,8 +239,8 @@ public class VSMInt1 implements VSMParm, VSMInt {
      * display
      */
     public String prettyPrint() {
-        StringBuffer sb = new StringBuffer();
-        sb.append(getFormalName() + "(" + getFormalType() + ") " + getValue());
+        StringBuilder sb = new StringBuilder();
+        sb.append(getFormalName()).append("(").append(getFormalType()).append(") ").append(getValue());
         return sb.toString();
     }
     /**
