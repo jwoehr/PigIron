@@ -185,7 +185,8 @@ public class ParameterArray extends ArrayList<VSMParm> {
 
     /**
      * Read in the overall message that is modeled by the compose() method of
-     * query/call classes.
+     * query/call classes by stepping through the model and copying and
+     * instancing the model elements as needed.
      *
      * @param in
      * @throws java.io.IOException
@@ -196,72 +197,105 @@ public class ParameterArray extends ArrayList<VSMParm> {
      * V5R3.0 Systems Management Application Programming SC24-6122-03</a>
      */
     public void readAll(DataInputStream in) throws IOException, VSMException {
-        /* Write all the params */
-        int output_length = - 1;        // -1 means we haven't instanced it yet.
+        /* Walk through the model created by the VSMCall */
         ListIterator<VSMParm> currentListIterator = listIterator();
+        // Create the instance that will provide the new value this parameter array.
         ParameterArray replacement = new ParameterArray();
-        VSMParm previous;
-        // while (currentListIterator.hasNext() && in.available() > 0) {
-        while (currentListIterator.hasNext()) {
+        // Get the first two components of any SMAPI reply
+        VSMInt4 request_id = VSMInt4.class.cast(currentListIterator.next().copyOf());
+        request_id.read(in, -1);
+        replacement.add(request_id);
+        VSMInt4 output_length = VSMInt4.class.cast(currentListIterator.next().copyOf());
+        output_length.read(in, -1);
+        replacement.add(output_length);
+        int length_left = output_length.getValue();
+        while (currentListIterator.hasNext() && length_left > 0) {
             VSMParm copyOfCurrentParm = currentListIterator.next().copyOf();
-            // /* Debug */ System.err.println(" next list item in ParameterArray.readAll is:\n  " + copyOfCurrentParm);
-            if (copyOfCurrentParm instanceof VSMInt) {
-                // /* Debug */ System.err.println(" reading a VSMInt ");
-                copyOfCurrentParm.read(in, - 1);
-                if (replacement.isEmpty()) {                    // If this is the first thing we read
-                    replacement.add(copyOfCurrentParm);                    // ... it's the request_id_immediate
-                    // ... and of course don't decrement output length
-                    // ... since we haven't readoutput length yet.
-                } else if (replacement.size() == 1) {                        // If this is the second thing we read
-                    // ... then this should be the remaining output length param.
-                    output_length = VSMInt4.class.cast(copyOfCurrentParm).getValue();
-                    replacement.add(copyOfCurrentParm);                        // There's output_length!
-                } else {                        // We're beyond the first two int4's and now into the output body
-                    replacement.add(copyOfCurrentParm);
-                    output_length -= copyOfCurrentParm.paramLength();
-                }
-
-                // /* Debug */ System.err.println(" Value of read VSMInt " + copyOfCurrentParm.getFormalName() + " == " + VSMInt.class.cast(copyOfCurrentParm).getLongValue());
-            } else if (copyOfCurrentParm instanceof VSMString | copyOfCurrentParm instanceof VSMArray | copyOfCurrentParm instanceof VSMStruct) {
-                if (!replacement.isEmpty()) {
-                    previous = replacement.get(replacement.size() - 1);
-                    // /* Debug */ System.err.println("previous param is " + previous);
-                    if (previous instanceof VSMInt4) {
-                        int countLength = VSMInt4.class.cast(previous).getValue();
-                        // /* Debug */ System.err.println(" Getting ready to read " + copyOfCurrentParm + " with read length " + countLength);
-                        // /* Debug */ System.err.flush();
-                        copyOfCurrentParm.read(in, countLength);
-                        output_length -= copyOfCurrentParm.paramLength();
-                        replacement.add(copyOfCurrentParm);
-                    } else {
-                        // The previous parm isn't the required count for the copyOfCurrentParm counted parmtype
-                        throw new ParameterArrayReadAllException(" Previous parm was not a count for the current counted parmtype. " + copyOfCurrentParm);
-                    }
-                } else {
-                    // There's no count for the counted parmtype
-                    throw new ParameterArrayReadAllException(" There is no count for the current counted parmtype. " + copyOfCurrentParm);
-                }
-            } else if (copyOfCurrentParm instanceof VSMAsciiZ | copyOfCurrentParm instanceof VSMAsciiZArray) {
-                copyOfCurrentParm.read(in, output_length);
-                output_length -= copyOfCurrentParm.paramLength();
-                replacement.add(copyOfCurrentParm);
-            } else {
-                throw new ParameterArrayReadAllException(" Unknown parameter type.");
-            }
-            /* Check that we don't read past end when we get error documents */
- /* "- 2 * SIZEOF_INT4" because output_length doesn't count the */
- /* immediate reply and the output_length itself */
-            // if (output_length != -1 & output_length <= replacement.totalParameterLength() - 2 * SIZEOF_INT4) {
-            if (output_length != -1 && output_length <= 0) {
-                break;
-            }
-            // /* Debug */ System.err.println(" ---");
-            // /* Debug */ System.err.println("  output_length being decremented in ParameterArray.readAll() is now " + output_length);
-            // /* Debug */ System.err.println(" ---");
+            copyOfCurrentParm.read(in, length_left);
+            replacement.add(copyOfCurrentParm);
+            length_left -= copyOfCurrentParm.paramLength();
         }
         setValue(replacement);
     }
 
+    /**
+     * // * Read in the overall message that is modeled by the compose() method
+     * of // * query/call classes. // * // * @param in // * @throws
+     * java.io.IOException // * @throws VSMException // * @see #writeAll //
+     *
+     *
+     * @see //
+     *
+     * <a href="http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm" target="top">z/VM
+     * // * V5R3.0 Systems Management Application Programming SC24-6122-03</a>
+     * //
+     */
+    //    public void readAll(DataInputStream in) throws IOException, VSMException {
+    //        /* Write all the params */
+    //        int output_length = - 1;        // -1 means we haven't instanced it yet.
+    //        ListIterator<VSMParm> currentListIterator = listIterator();
+    //        ParameterArray replacement = new ParameterArray();
+    //        VSMParm previous;
+    //        // while (currentListIterator.hasNext() && in.available() > 0) {
+    //        while (currentListIterator.hasNext()) {
+    //            VSMParm copyOfCurrentParm = currentListIterator.next().copyOf();
+    //            // /* Debug */ System.err.println(" next list item in ParameterArray.readAll is:\n  " + copyOfCurrentParm);
+    //            if (copyOfCurrentParm instanceof VSMInt) {
+    //                // /* Debug */ System.err.println(" reading a VSMInt ");
+    //                copyOfCurrentParm.read(in, - 1);
+    //                if (replacement.isEmpty()) {                    // If this is the first thing we read
+    //                    replacement.add(copyOfCurrentParm);                    // ... it's the request_id_immediate
+    //                    // ... and of course don't decrement output length
+    //                    // ... since we haven't readoutput length yet.
+    //                } else if (replacement.size() == 1) {                        // If this is the second thing we read
+    //                    // ... then this should be the remaining output length param.
+    //                    output_length = VSMInt4.class.cast(copyOfCurrentParm).getValue();
+    //                    replacement.add(copyOfCurrentParm);                        // There's output_length!
+    //                } else {                        // We're beyond the first two int4's and now into the output body
+    //                    replacement.add(copyOfCurrentParm);
+    //                    output_length -= copyOfCurrentParm.paramLength();
+    //                }
+    //
+    //                // /* Debug */ System.err.println(" Value of read VSMInt " + copyOfCurrentParm.getFormalName() + " == " + VSMInt.class.cast(copyOfCurrentParm).getLongValue());
+    //            } else if (copyOfCurrentParm instanceof VSMString | copyOfCurrentParm instanceof VSMArray | copyOfCurrentParm instanceof VSMStruct) {
+    //                if (!replacement.isEmpty()) {
+    //                    previous = replacement.get(replacement.size() - 1);
+    //                    // /* Debug */ System.err.println("previous param is " + previous);
+    //                    if (previous instanceof VSMInt4) {
+    //                        int countLength = VSMInt4.class.cast(previous).getValue();
+    //                        // /* Debug */ System.err.println(" Getting ready to read " + copyOfCurrentParm + " with read length " + countLength);
+    //                        // /* Debug */ System.err.flush();
+    //                        copyOfCurrentParm.read(in, countLength);
+    //                        output_length -= copyOfCurrentParm.paramLength();
+    //                        replacement.add(copyOfCurrentParm);
+    //                    } else {
+    //                        // The previous parm isn't the required count for the copyOfCurrentParm counted parmtype
+    //                        throw new ParameterArrayReadAllException(" Previous parm was not a count for the current counted parmtype. " + copyOfCurrentParm);
+    //                    }
+    //                } else {
+    //                    // There's no count for the counted parmtype
+    //                    throw new ParameterArrayReadAllException(" There is no count for the current counted parmtype. " + copyOfCurrentParm);
+    //                }
+    //            } else if (copyOfCurrentParm instanceof VSMAsciiZ | copyOfCurrentParm instanceof VSMAsciiZArray) {
+    //                copyOfCurrentParm.read(in, output_length);
+    //                output_length -= copyOfCurrentParm.paramLength();
+    //                replacement.add(copyOfCurrentParm);
+    //            } else {
+    //                throw new ParameterArrayReadAllException(" Unknown parameter type.");
+    //            }
+    //            /* Check that we don't read past end when we get error documents */
+    // /* "- 2 * SIZEOF_INT4" because output_length doesn't count the */
+    // /* immediate reply and the output_length itself */
+    //            // if (output_length != -1 & output_length <= replacement.totalParameterLength() - 2 * SIZEOF_INT4) {
+    //            if (output_length != -1 && output_length <= 0) {
+    //                break;
+    //            }
+    //            // /* Debug */ System.err.println(" ---");
+    //            // /* Debug */ System.err.println("  output_length being decremented in ParameterArray.readAll() is now " + output_length);
+    //            // /* Debug */ System.err.println(" ---");
+    //        }
+    //        setValue(replacement);
+    //    }
     /**
      * Gen an interpretive string of params and fuc ret and reason codes.
      *

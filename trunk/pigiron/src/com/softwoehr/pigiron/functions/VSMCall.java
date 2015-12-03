@@ -42,7 +42,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 
 /**
  * Abstract base class of all the class embodiments of VSMAPI fuction calls.
