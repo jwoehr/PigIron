@@ -190,7 +190,9 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
         while (i.hasNext() && length > 0) {
             VSMParm model = i.next();
             VSMParm member = model.copyOf();
-            if (model instanceof VSMStruct) {
+            if (model instanceof CountedStruct) {
+                member.read(in, length);
+            } else if (model instanceof VSMStruct) {
                 VSMParm putativeLength = myNewContents.lastElement();
                 /* What did we last read? */
                 if (putativeLength instanceof VSMInt4) {
