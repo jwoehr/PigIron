@@ -83,7 +83,7 @@ public interface VSMParm {
     public String getFormalType();
 
     /**
-     * Return a functional copy of the instance.
+     * Return a deep copy of the instance.
      *
      * @return copy or null
      */

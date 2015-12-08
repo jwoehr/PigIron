@@ -180,7 +180,7 @@ public class VSMInt1 implements VSMParm, VSMInt {
     }
 
     /**
-     * Return a functional copy of the instance.
+     * Return a deep copy of the instance.
      *
      * @return copy or null
      */
@@ -188,18 +188,6 @@ public class VSMInt1 implements VSMParm, VSMInt {
         return new VSMInt1(getValue(), getFormalName());
     }
 
-//    /**
-//     * Clone the instance.
-//     * @return clone of the instance
-//     * @see #copyOf()
-//     */
-//    @Override
-//    public Object clone() {
-//        VSMInt1 proto = new VSMInt1();
-//        proto.setFormalName(formalName);
-//        proto.setValue(getValue());
-//        return proto;
-//    }
     /**
      * The value as a <tt>long</tt>.
      *
@@ -243,23 +231,7 @@ public class VSMInt1 implements VSMParm, VSMInt {
         sb.append(getFormalName()).append("(").append(getFormalType()).append(") ").append(getValue());
         return sb.toString();
     }
-    /**
-     * Used during debugging to test clone()/copyOf implementation.
-     *
-     * @param toCopy instance to copy
-     * @return the copy of <tt>toCopy</tt>
-     */
-    /*public static boolean testCopyOf(VSMInt1 toCopy) {
-    boolean result = false;
-    VSMInt1 theCopy = VSMInt1.class.cast(toCopy.copyOf());
-    System.out.println("theCopy: " + theCopy);
-    System.out.println("theCopy: " + theCopy.prettyPrint());
-    System.out.println("toCopy: " + toCopy);
-    System.out.println("toCopy: " + toCopy.prettyPrint());
-    System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
-    System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
-    return result;
-    }*/
+
     /**
      * Run a test on the copying of VSMInt1.
      *

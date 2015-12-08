@@ -137,11 +137,9 @@ public class VSMArray extends VSMStruct implements VSMParm {
     }
 
     /**
-     * Return a functional copy of the instance. Convenience function to
-     * type-encapsulate <tt>clone()</tt>.
+     * Return a deep copy of the instance.
      *
      * @return copy or null
-     * @see #clone()
      */
     @Override
     public VSMParm copyOf() {
@@ -154,22 +152,6 @@ public class VSMArray extends VSMStruct implements VSMParm {
         return bozo;
     }
 
-//    /**
-//     * Clone the instance.
-//     *
-//     * @return clone of the instance
-//     * @see #copyOf()
-//     */
-//    @Override
-//    public Object clone() {
-//        VSMArray proto = new VSMArray();
-//        proto.setFormalName(getFormalName());
-//        Iterator<VSMParm> it = iterator();
-//        while (it.hasNext()) {
-//            proto.add(it.next().copyOf());
-//        }
-//        return proto;
-//    }
     /**
      * String representation of the instance for debugging.
      *
@@ -218,30 +200,7 @@ public class VSMArray extends VSMStruct implements VSMParm {
             super(message);
         }
     }
-    /**
-     *
-     * @param toCopy
-     * @return
-     */
-    /*public static boolean testCopyOf(VSMArray toCopy) {
-    boolean result = false;
-    VSMArray theCopy = VSMArray.class.cast(toCopy.copyOf());
-    System.out.println("theCopy: " + theCopy);
-    System.out.println("theCopy: " + theCopy.prettyPrint());
-    System.out.println("toCopy: " + toCopy);
-    System.out.println("toCopy: " + toCopy.prettyPrint());
-    System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
-    System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
-    System.out.println("Changing stuff now in toCopy");
-    DeviceInfoStructCounted.class.cast(toCopy.lastElement()).setValue(new DeviceInfoStructCounted());
-    System.out.println("theCopy: " + theCopy);
-    System.out.println("theCopy: " + theCopy.prettyPrint());
-    System.out.println("toCopy: " + toCopy);
-    System.out.println("toCopy: " + toCopy.prettyPrint());
-    System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
-    System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
-    return result;
-    }*/
+
     /**
      *
      * @param argv

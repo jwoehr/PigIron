@@ -210,7 +210,7 @@ public class VSMAsciiZ implements VSMParm {
     }
 
     /**
-     * Return a functional copy of the instance.
+     * Return a deep copy of the instance.
      *
      * @return copy or null
      */
@@ -218,19 +218,6 @@ public class VSMAsciiZ implements VSMParm {
         return new VSMAsciiZ(getValue(), getFormalName());
     }
 
-//    /**
-//     * Clone the instance.
-//     *
-//     * @return clone of the instance
-//     * @see #copyOf()
-//     */
-//    @Override
-//    public Object clone() {
-//        VSMAsciiZ proto = new VSMAsciiZ();
-//        proto.setFormalName(formalName);
-//        proto.setValue(getValue());
-//        return proto;
-//    }
     /**
      * String representation of the instance for debugging.
      *

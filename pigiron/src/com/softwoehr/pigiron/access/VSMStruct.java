@@ -268,7 +268,7 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
     }
 
     /**
-     * Return a clone of the instance.
+     * Return a deep copy of the instance.
      *
      * @return copy or null
      */
@@ -282,29 +282,6 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
         return proto;
     }
 
-//    /**
-//     * Return a functional copy of the instance.
-//     *
-//     * @return copy or null
-//     */
-//    public VSMParm copyOf() {
-//        return new VSMStruct(getValue(), getFormalName());
-//    }
-//    /**
-//     * Clone the instance.
-//     *
-//     * @return clone of the instance
-//     * @see #copyOf()
-//     */
-//    public Object clone() {
-//        VSMStruct proto = new VSMStruct();
-//        proto.setFormalName(formalName);
-//        Iterator<VSMParm> it = iterator();
-//        while (it.hasNext()) {
-//            proto.add(it.next().copyOf());
-//        }
-//        return proto;
-//    }
     /**
      * String representation of the instance for debugging.
      *
@@ -352,22 +329,7 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
         }
         return sb.toString();
     }
-    /**
-     *
-     * @param toCopy
-     * @return
-     */
-    /*public static boolean testCopyOf(VSMStruct toCopy) {
-    boolean result = false;
-    VSMStruct theCopy = VSMStruct.class.cast(toCopy.copyOf());
-    System.out.println("theCopy: " + theCopy);
-    System.out.println("theCopy: " + theCopy.prettyPrint());
-    System.out.println("toCopy: " + toCopy);
-    System.out.println("toCopy: " + toCopy.prettyPrint());
-    System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
-    System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
-    return result;
-    }*/
+
     /**
      *
      * @param argv
