@@ -209,8 +209,9 @@ public class ParameterArray extends ArrayList<VSMParm> {
         output_length.read(in, -1);
         replacement.add(output_length);
         int length_left = output_length.getValue();
+        VSMParm copyOfCurrentParm;
         while (currentListIterator.hasNext() && length_left > 0) {
-            VSMParm copyOfCurrentParm = currentListIterator.next().copyOf();
+            copyOfCurrentParm = currentListIterator.next().copyOf();
             copyOfCurrentParm.read(in, length_left);
             replacement.add(copyOfCurrentParm);
             length_left -= copyOfCurrentParm.paramLength();

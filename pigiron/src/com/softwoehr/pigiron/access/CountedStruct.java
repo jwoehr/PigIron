@@ -106,16 +106,6 @@ public class CountedStruct extends VSMStruct {
      */
     @Override
     public VSMParm copyOf() {
-        return VSMParm.class.cast(clone());
-    }
-
-    /**
-     * Return a deep copy of the present instances.
-     *
-     * @return deep copy of the present instances
-     */
-    @Override
-    public Object clone() {
         CountedStruct proto = new CountedStruct();
         proto.setFormalName(getFormalName());
         Iterator<VSMParm> it = iterator();
@@ -125,6 +115,21 @@ public class CountedStruct extends VSMStruct {
         return proto;
     }
 
+//    /**
+//     * Return a deep copy of the present instances.
+//     *
+//     * @return deep copy of the present instances
+//     */
+//    @Override
+//    public Object clone() {
+//        CountedStruct proto = new CountedStruct();
+//        proto.setFormalName(getFormalName());
+//        Iterator<VSMParm> it = iterator();
+//        while (it.hasNext()) {
+//            proto.add(it.next().copyOf());
+//        }
+//        return proto;
+//    }
     /**
      * Get the formal type of the parameter conforming to the VSMAPI docs.
      *
@@ -152,37 +157,83 @@ public class CountedStruct extends VSMStruct {
     @Override
     public void read(DataInputStream in, int length) throws IOException, VSMStructStringReadException, VSMException {
         if (length >= ParameterArray.SIZEOF_INT4) {
-            /* Debug */ System.err.println(" **** About to read in  CountedStruct.read() ");
-
-            // /* Debug */ System.err.println(" **** " + this.prettyPrint());
-            /* Debug */ System.err.println(" Counted struct size is " + size());
             if (size() == 2) { // Must be modelled before a read, ergo, then has two (2) elements: a count and a struct
                 VSMParm purportedCountParm = get(0);
                 if (purportedCountParm instanceof VSMInt4) {
                     purportedCountParm.read(in, 4); // read the count
                     // /* Debug */ System.err.println("purportedCountParm value is " + VSMInt4.class.cast(purportedCountParm).getValue());
-                    length -= 4;
+                    length -= ParameterArray.SIZEOF_INT4;
                 } else {
                     throw new CountedStructStructReadException("First element in counted struct named " + getFormalName() + " of type " + getFormalType()
                             + " is not of type VMSInt4 so cannot be a count.");
                 }
-                int structLength = purportedCountParm.paramLength();
+                int structLength = VSMInt4.class.cast(purportedCountParm).getValue();
                 if (structLength > length) {
                     throw new CountedStructStructReadException("CountedStruct named " + getFormalName() + " of type " + getFormalType()
-                            + "had a count greater than the remaining read length.");
+                            + " had a purported length greater than the remaining read length.");
                 }
                 VSMStruct myStruct = VSMStruct.class.cast(get(1)); // If it ain't  the right class it will throw here on its own!
                 /* Debug */ System.err.println("class-cast item is " + myStruct.prettyPrint());
-                myStruct.read(in, length); // read the struct
+                myStruct.read(in, structLength); // read the struct
                 /* Debug */
                 System.err.println("Done reading in " + myStruct.prettyPrint());
             } else {
                 throw new CountedStructStructReadException("CountedStruct named " + getFormalName() + " of type " + getFormalType()
                         + "is missing a second (struct) element ergo appears unmodelled.");
             }
+        } else {
+            throw new CountedStructStructReadException("CountedStruct named " + getFormalName() + " of type " + getFormalType()
+                    + "can't be read because remaining length is less than that of its count word.");
         }
     }
 
+//    /**
+//     * Assumes the CountedStruct is modelled correctly. Unlike some of the
+//     * struct reads which read into copies of the model and then replace,
+//     * CountedStruct reads into its model parms because itself it is always
+//     * already a copy spawned from the VSMArray that contained the model.
+//     *
+//     * @param in
+//     * @param length
+//     * @throws java.io.IOException
+//     * @throws
+//     * com.softwoehr.pigiron.access.VSMStruct.VSMStructStringReadException
+//     * @throws com.softwoehr.pigiron.access.VSMException
+//     */
+//    @Override
+//    public void read(DataInputStream in, int length) throws IOException, VSMStructStringReadException, VSMException {
+//        if (length >= ParameterArray.SIZEOF_INT4) {
+//            /* Debug */ System.err.println(" **** About to read in  CountedStruct.read() ");
+//
+//
+//            // /* Debug */ System.err.println(" **** " + this.prettyPrint());
+//            /* Debug */ System.err.println(" Counted struct size is " + size());
+//            if (size() == 2) { // Must be modelled before a read, ergo, then has two (2) elements: a count and a struct
+//                VSMParm purportedCountParm = get(0);
+//                if (purportedCountParm instanceof VSMInt4) {
+//                    purportedCountParm.read(in, 4); // read the count
+//                    // /* Debug */ System.err.println("purportedCountParm value is " + VSMInt4.class.cast(purportedCountParm).getValue());
+//                    length -= 4;
+//                } else {
+//                    throw new CountedStructStructReadException("First element in counted struct named " + getFormalName() + " of type " + getFormalType()
+//                            + " is not of type VMSInt4 so cannot be a count.");
+//                }
+//                int structLength = purportedCountParm.paramLength();
+//                if (structLength > length) {
+//                    throw new CountedStructStructReadException("CountedStruct named " + getFormalName() + " of type " + getFormalType()
+//                            + "had a count greater than the remaining read length.");
+//                }
+//                VSMStruct myStruct = VSMStruct.class.cast(get(1)); // If it ain't  the right class it will throw here on its own!
+//                /* Debug */ System.err.println("class-cast item is " + myStruct.prettyPrint());
+//                myStruct.read(in, length); // read the struct
+//                /* Debug */
+//                System.err.println("Done reading in " + myStruct.prettyPrint());
+//            } else {
+//                throw new CountedStructStructReadException("CountedStruct named " + getFormalName() + " of type " + getFormalType()
+//                        + "is missing a second (struct) element ergo appears unmodelled.");
+//            }
+//        }
+//    }
     /**
      * This returns element 0 of the array which is always (if instanced) the
      * count of the struct which follows it.
@@ -218,6 +269,7 @@ public class CountedStruct extends VSMStruct {
             super(message);
         }
     }
+
     /**
      *
      * @param toCopy
@@ -237,6 +289,7 @@ public class CountedStruct extends VSMStruct {
     /**
      *
      * @param argv
+     * @return The counted structure count including the count int itself.
      */
     /*public static void main(String[] argv) {
     CountedStruct toCopy = new CountedStruct(null, "test_struct");
@@ -247,4 +300,9 @@ public class CountedStruct extends VSMStruct {
     System.out.println("Testing CountedStruct.testCopyOf()");
     testCopyOf(toCopy);
     }*/
+//    @Override
+//    public int paramLength() {
+//        return super.paramLength() // length of the structs contained
+//                + ParameterArray.SIZEOF_INT4; // remember to add the count!
+//    }
 }

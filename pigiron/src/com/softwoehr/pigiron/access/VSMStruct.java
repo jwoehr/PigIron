@@ -68,6 +68,10 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
     public VSMStruct() {
     }
 
+    /**
+     *
+     * @return
+     */
     public VSMParm lastElement() {
         return get(size() - 1);
     }
@@ -103,15 +107,19 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
 
     /**
      *
-     * Set instance to specified value. {@code null} is legal value which means
-     * "just clear me".
+     * Set instance to specified value.
+     *
+     * Should only be used when appropriating the value(s) from a temporary
+     * instance used for this purpose since it does not deep copy.
+     *
+     * {@code null} is legal value which means "just clear me".
      *
      * @param value the value
      */
     public final void setValue(VSMStruct value) {
         clear();
-        if (value != null) { // null is legal value
-            addAll(value);   // means "just clear me"
+        if (value != null) { // but null is legal value means "just clear me"
+            addAll(value);  // is this right? or should we do deep copy?
         }
     }
 
@@ -187,7 +195,7 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
         VSMStruct myNewContents = new VSMStruct(null);
         Iterator<VSMParm> i = iterator(); // Walk through our output model
         // while (i.hasNext() && length > 0 && in.available() >= length) {
-        while (i.hasNext() && length > 0) {
+        while (i.hasNext() && length > 0) { // we should check at each read instead
             VSMParm model = i.next();
             VSMParm member = model.copyOf();
             if (model instanceof CountedStruct) {
@@ -260,14 +268,28 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
     }
 
     /**
-     * Return a functional copy of the instance.
+     * Return a clone of the instance.
      *
      * @return copy or null
      */
     public VSMParm copyOf() {
-        return new VSMStruct(getValue(), getFormalName());
+        VSMStruct proto = new VSMStruct();
+        proto.setFormalName(getFormalName());
+        Iterator<VSMParm> it = iterator();
+        while (it.hasNext()) {
+            proto.add(it.next().copyOf());
+        }
+        return proto;
     }
 
+//    /**
+//     * Return a functional copy of the instance.
+//     *
+//     * @return copy or null
+//     */
+//    public VSMParm copyOf() {
+//        return new VSMStruct(getValue(), getFormalName());
+//    }
 //    /**
 //     * Clone the instance.
 //     *

@@ -215,7 +215,7 @@ public class VSMAsciiZ implements VSMParm {
      * @return copy or null
      */
     public VSMParm copyOf() {
-        return new VSMAsciiZ(getFormalName(), getValue());
+        return new VSMAsciiZ(getValue(), getFormalName());
     }
 
 //    /**
