@@ -174,28 +174,13 @@ public class VSMString implements VSMParm {
     }
 
     /**
-     * Return a functional copy of the instance.
+     * Return a deep copy of the instance.
      *
      * @return copy or null
      */
     public VSMParm copyOf() {
         return new VSMString(getValue(), getFormalName());
     }
-//        VSMParm bozo = VSMParm.class.cast(clone());
-//        return bozo;
-//    }
-//
-//    /**
-//     * Clone the instance.
-//     *
-//     * @return clone of the instance
-//     * @see #copyOf()
-//     */
-//    @Override
-//    public Object clone() {
-//        VSMString proto = new VSMString(getValue(), getFormalName());
-//        return proto;
-//    }
 
     /**
      * String representation of the instance for debugging.
@@ -236,22 +221,7 @@ public class VSMString implements VSMParm {
         sb.append(getFormalName()).append("(").append(getFormalType()).append(") ").append(getValue());
         return sb.toString();
     }
-    /**
-     *
-     * @param toCopy
-     * @return
-     */
-    /*public static boolean testCopyOf(VSMString toCopy) {
-    boolean result = false;
-    VSMString theCopy = VSMString.class.cast(toCopy.copyOf());
-    System.out.println("theCopy: " + theCopy);
-    System.out.println("theCopy: " + theCopy.prettyPrint());
-    System.out.println("toCopy: " + toCopy);
-    System.out.println("toCopy: " + toCopy.prettyPrint());
-    System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
-    System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
-    return result;
-    }*/
+
     /**
      *
      * @param argv

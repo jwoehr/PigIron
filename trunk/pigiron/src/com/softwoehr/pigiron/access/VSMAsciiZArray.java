@@ -133,7 +133,7 @@ public class VSMAsciiZArray extends VSMStruct implements VSMParm {
     }
 
     /**
-     * Return a functional copy of the instance.
+     * Return a deep copy of the instance.
      *
      * @return copy or null
      */
@@ -148,22 +148,6 @@ public class VSMAsciiZArray extends VSMStruct implements VSMParm {
         return bozo;
     }
 
-//    /**
-//     * Clone the instance.
-//     *
-//     * @return clone of the instance
-//     * @see #copyOf()
-//     */
-//    @Override
-//    public Object clone() {
-//        VSMAsciiZArray proto = new VSMAsciiZArray();
-//        proto.setFormalName(getFormalName());
-//        Iterator<VSMParm> it = iterator();
-//        while (it.hasNext()) {
-//            proto.add(it.next().copyOf());
-//        }
-//        return proto;
-//    }
     /**
      * String representation of the instance for debugging.
      *
@@ -182,7 +166,7 @@ public class VSMAsciiZArray extends VSMStruct implements VSMParm {
     }
 
     /**
-     * Get the formal type of the parmeter, one of the formal parameter types
+     * Get the formal type of the parameter, one of the formal parameter types
      * discussed in the VSMAPI documentation: <tt>int1</tt>, <tt>int4</tt>,
      * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.
      *
@@ -196,30 +180,7 @@ public class VSMAsciiZArray extends VSMStruct implements VSMParm {
     public String getFormalType() {
         return FORMAL_TYPE;
     }
-    /**
-     *
-     * @param toCopy
-     * @return
-     */
-    /*public static boolean testCopyOf(VSMArray toCopy) {
-    boolean result = false;
-    VSMArray theCopy = VSMArray.class.cast(toCopy.copyOf());
-    System.out.println("theCopy: " + theCopy);
-    System.out.println("theCopy: " + theCopy.prettyPrint());
-    System.out.println("toCopy: " + toCopy);
-    System.out.println("toCopy: " + toCopy.prettyPrint());
-    System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
-    System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
-    System.out.println("Changing stuff now in toCopy");
-    DeviceInfoStructCounted.class.cast(toCopy.lastElement()).setValue(new DeviceInfoStructCounted());
-    System.out.println("theCopy: " + theCopy);
-    System.out.println("theCopy: " + theCopy.prettyPrint());
-    System.out.println("toCopy: " + toCopy);
-    System.out.println("toCopy: " + toCopy.prettyPrint());
-    System.out.println("theCopy == toCopy: " + (theCopy == toCopy));
-    System.out.println("theCopy.equals(toCopy): " + (theCopy.equals(toCopy)));
-    return result;
-    }*/
+
     /**
      *
      * @param argv
