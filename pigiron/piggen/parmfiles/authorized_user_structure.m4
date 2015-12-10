@@ -11,7 +11,6 @@ pigparm_class(structure_classname, `VSMStruct',`com.softwoehr.pigiron.access.par
 pigparm_ctors()dnl
 pigparm_model_start()dnl
 pigparm_model_parm(`CountedString', `""', `grant_userid')dnl
-pigparm_model_parm(`VSMInt4', `-1', `vlan_array_length')dnl
 pigparm_model_parm(`VlanArray', `null', `vlan_array')dnl
 pigparm_model_end()dnl
 pigparm_endclass()dnl

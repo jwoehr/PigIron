@@ -2,7 +2,7 @@ include(`pigarray.m4')dnl \\ authorized_user_array.m4
 param_namespace(`authorized_user',`Virtual_Network_Vswitch_Query')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
-pigparm_class(array_classname, `VSMArray',`com.softwoehr.pigiron.access.paramstructs',`dnl
+pigparm_class(array_classname, `CountedArray',`com.softwoehr.pigiron.access.paramstructs',`dnl
 
 /**
  * array_classname implements the {@code array_formal_name} from {@code associated_function}
