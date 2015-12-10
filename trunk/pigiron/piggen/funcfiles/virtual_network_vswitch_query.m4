@@ -17,7 +17,6 @@ pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_id
 pigfunc_compose_input_parm(`CountedString', member_getter(`switch_name')(), `switch_name')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
-pigfunc_compose_output_parm(`VSMInt4', `-1', `vswitch_array_length')dnl
 pigfunc_compose_output_parm(`VswitchArray', `null', `vswitch_array')dnl
 pigfunc_compose_output_end()dnl
 pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException`,' VSMException', `dnl

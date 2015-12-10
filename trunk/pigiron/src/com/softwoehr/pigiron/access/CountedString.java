@@ -77,7 +77,7 @@ public class CountedString implements VSMParm {
     public CountedString(String value) {
         this();
         this.value = value;
-        this.lengthCount = value.length();
+        this.lengthCount = value == null ? 0 : value.length();
     }
 
     /**
