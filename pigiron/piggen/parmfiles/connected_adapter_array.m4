@@ -1,4 +1,4 @@
- include(`pigarray.m4')dnl \\ connected_adapter_array.m4
+include(`pigarray.m4')dnl \\ connected_adapter_array.m4
 param_namespace(`connected_adapter',`Virtual_Network_LAN_Query')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl

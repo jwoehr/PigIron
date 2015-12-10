@@ -129,11 +129,11 @@ ifelse(mySuperClass(),`VSMAsciiZArray',`',`
      */
     public myClass()`('CountedStruct value, String formalName) throws VSMArrayCountedStructCTORException {
         super();
-        if (!value.getClass`()'.getSimpleName`()'.equals`('"counted_structure_classname()")) {
-            throw new VSMArrayCountedStructCTORException`('value + " is not an instance of counted_structure_classname");
+        if (!value.getClass`()'.equals`('counted_structure_classname().class`)'`)' {
+            throw new VSMArrayCountedStructCTORException`('value + " is not an instance of counted_structure_classname"`)';
         }
-        setValue(value);
-        setFormalName(formalName);
+        setValue`('value`)';
+        setFormalName`('formalName`)';
     }
 ')dnl
 
