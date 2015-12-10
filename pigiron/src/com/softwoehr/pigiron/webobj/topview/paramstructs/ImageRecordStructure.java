@@ -32,11 +32,9 @@
 package com.softwoehr.pigiron.webobj.topview.paramstructs;
 
 import com.softwoehr.pigiron.access.VSMParm;
-import com.softwoehr.pigiron.access.VSMString;
+import com.softwoehr.pigiron.access.CountedString;
 import com.softwoehr.pigiron.webobj.topview.*;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 // Too bleeding edge in terms of JDK
 // import javax.annotation.Generated;
@@ -59,7 +57,7 @@ public class ImageRecordStructure extends ParamProxy {
     public VSMParm from(Argument arg) throws JSONException {
 	String formal_name = arg.getFormalName();
         com.softwoehr.pigiron.access.paramstructs.ImageRecordStructure parm
-	= new com.softwoehr.pigiron.access.paramstructs.ImageRecordStructure(new VSMString(arg.getStringValue()), arg.getFormalName());
+	= new com.softwoehr.pigiron.access.paramstructs.ImageRecordStructure(new CountedString(arg.getStringValue()), formal_name);
         return parm;
     }
 }

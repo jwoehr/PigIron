@@ -282,12 +282,7 @@ push_divert(`compose_in_stream')dnl
 pushdef(`x_type', $1)dnl
 pushdef(`x_value', $2)dnl
 pushdef(`x_formal_name', $3)dnl
-ifelse(x_type(),`CountedString',`dnl
-        tempString = new VSMString`('x_value, "x_formal_name()");
-        parameterArray.add`('new VSMInt4`('tempString.paramLength`('), "x_formal_name()_length"));
-        parameterArray.add`('tempString);',`dnl
         parameterArray.add`('new x_type()`('x_value(), "x_formal_name()"`)'`)';dnl
-')
 popdef(`x_formal_name')dnl
 popdef(`x_value')dnl
 popdef(`x_type')dnl
@@ -302,13 +297,8 @@ pushdef(`x_value', $2)dnl
 pushdef(`x_formal_name', $3)dnl
 pushdef(`optional_formal_name',`optional_'x_formal_name)dnl
 pigfunc_attribute(`public', `', `boolean', `optional_'x_formal_name, `true', `', `true means optional param will be used in VSMAPI function input')dnl
-        if (`is_'optional_formal_name`(')) { // Only add if optional param is designated in use by `set_'optional_formal_name`'()
-ifelse(x_type(),`CountedString',`dnl
-            tempString = new VSMString`('x_value, "x_formal_name()");
-            parameterArray.add`('new VSMInt4`('tempString.paramLength`('), "x_formal_name()_length"));
-            parameterArray.add`('tempString);',`dnl
-            parameterArray.add`('new x_type()`('x_value(), "x_formal_name()"`)';)
-')
+        if `('`is_'optional_formal_name`('`)'`)' { // Only add if optional param is designated in use by `set_'optional_formal_name`'`('`)'
+            parameterArray.add`('new x_type()`('x_value(), "x_formal_name()"`)'`)';
         }
 popdef(`optional_formal_name')dnl
 popdef(`x_formal_name')dnl
@@ -361,11 +351,8 @@ pushdef(`x_type', $1)dnl
 pushdef(`x_value', $2)dnl
 pushdef(`x_formal_name', $3)dnl
 ifelse(is_type_named_array(x_type),-1,`dnl
-ifelse(x_type(),`CountedString',`dnl
-        parameterArray.add`('new VSMInt4`('`-1', "x_formal_name()`_length'"`)'`)';
-        parameterArray.add`('new VSMString`('x_value(), "x_formal_name()"));',`dnl
-        parameterArray.add`('new x_type()(x_value(), "x_formal_name()"));')',`dnl
-        parameterArray.add`('x_type()`.modelArray'`('"x_formal_name()"));dnl
+        parameterArray.add`('new x_type()`('x_value(), "x_formal_name()"`)'`)';',`dnl
+        parameterArray.add`('x_type()`.modelArray'`('"x_formal_name()"`)'`)';dnl
 ')
 popdef(`x_formal_name')dnl
 popdef(`x_value')dnl

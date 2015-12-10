@@ -197,20 +197,14 @@ pushdef(`x_type', $1)dnl
 pushdef(`x_value', $2)dnl
 pushdef(`x_formal_name', $3)dnl
 push_divert(major_ctor_proto_stream)dnl
-ifelse(x_type,`CountedString',`VSMString',x_type) x_formal_name`, 'dnl
+x_type x_formal_name`, 'dnl
 pop_divert()dnl
 push_divert(major_ctor_body_stream)dnl
-ifelse(x_type,`CountedString',`dnl
-        add`('new VSMInt4`('x_formal_name()`.paramLength()', "x_formal_name()`_length'"`)'`)';
-')dnl
         add`('x_formal_name`);'
 pop_divert()dnl
 ifelse(is_type_named_array(x_type),-1,`dnl
-ifelse(x_type(),`CountedString',`dnl
-        add`('new VSMInt4`('`-1', "x_formal_name()`_length'"`)'`)';
-        add`('new VSMString`('x_value(), "x_formal_name()"));',`dnl
-        add`('new x_type()`('ifelse(x_value(),`',`',x_value()`, ')"x_formal_name()"));')',`dnl
-        add`('x_type()`.modelArray'`('"x_formal_name()"));
+        add`('new x_type()`('ifelse(x_value(),`',`',x_value()`, ')"x_formal_name()"`)'`)';',`dnl
+        add`('x_type()`.modelArray'`('"x_formal_name()"`)'`)';
 ')
 popdef(`x_formal_name')dnl
 popdef(`x_value')dnl

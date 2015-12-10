@@ -5,6 +5,12 @@
  * decomposition and parameter marshalling
  * along with TCP/IP socket communications
  * conforming to the VSMAPI protocol.
+ * 
+ * The VSMAPI protocol ostensibly defines four datatypes, but the truth is the
+ * datatypes are variegated and legion. There are arrays that are counted. There
+ * are arrays that are uncounted, with their member structs separated by null bytes
+ * and their length determined by exhaustion of the transmission unit. Etc. If
+ * the PigIron implementation seems bizarre, the underlying protocol is even so.
  *
  * Subpackages provide the definitions
  * of aggregate structures.
