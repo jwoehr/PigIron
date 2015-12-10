@@ -27,9 +27,7 @@ pigfunc_compose_output_parm(`VSMInt1', `0', `memory_unit')dnl
 pigfunc_compose_output_parm(`VSMInt1', `0', `share_type')dnl
 pigfunc_compose_output_parm(`CountedString', `""', `share_value')dnl
 pigfunc_compose_output_parm(`VSMInt4', `-1', `number_CPUs')dnl
-pigfunc_compose_output_parm(`VSMInt4', `-1', significant_parameter_formal_name`_length')dnl
 pigfunc_compose_output_parm(`significant_parameter_classname', `null', `significant_parameter_formal_name')dnl
-pigfunc_compose_output_parm(`VSMInt4', `-1', `device_info_array_length')dnl
 pigfunc_compose_output_parm(`DeviceInfoArray', `null', `device_info_array')dnl
 pigfunc_compose_output_end()dnl
 pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException`,' VSMException', `dnl
