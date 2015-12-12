@@ -43,8 +43,9 @@ pigparm_model_parm(`VSMInt8', `-1', `mac_id')dnl
 pigparm_model_parm(`VSMInt1', `0', `gvrp_request_attribute')dnl
 pigparm_model_parm(`VSMInt1', `0', `gvrp_enabled_attribute')dnl
 pigparm_model_parm(`VSMInt1', `0', `switch_status')dnl
-pigparm_model_parm(`VSMInt4', `-1', `real_device_array_length')dnl
 pigparm_model_parm(javaize(`real_device_array'), `null', `real_device_array')dnl
+pigparm_model_parm(javaize(`authorized_user_array'), `null', `authorized_user_array')dnl
+pigparm_model_parm(javaize(`connected_adapter_array'), `null', `connected_adapter_array')dnl
 pigparm_model_end()dnl
 pigparm_endclass()dnl
 pigparm_end()dnl
