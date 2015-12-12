@@ -20,7 +20,6 @@ pigfunc_compose_input_parm(`CountedString', member_getter(`for_id')`()', `for_id
 pigfunc_compose_input_parm(`CountedString', member_getter(`function_id')`()', `function_id')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
-pigfunc_compose_output_parm(`VSMInt4', `-1', significant_parameter_formal_name`_length')dnl
 pigfunc_compose_output_parm(significant_parameter_classname, `null', significant_parameter_formal_name)dnl 
 pigfunc_compose_output_end()dnl
 pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException`,' VSMException', `dnl
