@@ -2,7 +2,7 @@ include(`pigarray.m4')dnl \\ cpu_info_array2.m4
 param_namespace(`cpu_info2',`Image_CPU_Query')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
-pigparm_class(array_classname, `VSMArray',`com.softwoehr.pigiron.access.paramstructs',`dnl
+pigparm_class(array_classname, `CountedArray',`com.softwoehr.pigiron.access.paramstructs',`dnl
 
 /**
  * array_classname implements the {@code array_formal_name} from {@code associated_function}

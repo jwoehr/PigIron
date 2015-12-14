@@ -41,11 +41,15 @@ then
     TARGDIR=$2
     for i in $SRCDIR/*.m4
     do
+      echo $i | grep "piggen_prototype_" >/dev/null 2>&1 # test if it's an example file
+      if [ $? -eq 1 ] # don't process the example files
+      then
 	BASENAME=`basename $i .m4`
 	# echo "Basename is $BASENAME"
 	TARGNAME=`echo javaize'('$BASENAME')' | $GM4 javaname.m4 -`.java
 	# echo "Targname is $TARGNAME"
         ./pigproxgen.sh $i ${TARGDIR}/${TARGNAME}
+      fi
     done
 else
     echo "usage: $0 srcdir targdir"
