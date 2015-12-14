@@ -11,9 +11,11 @@
 # Please read the file license.txt which is the license under which the
 # PigIron open source project is coded, released and distributed.
 #
-# piggen.sh
+# pigproxgen.sh
 # Run the autogen assuming description file include()'s the autogenator m4
-# e.g., pigstruct.m4 pigarray.m4 or pigfunc.m4
+# e.g., pigstruct.m4 pigarray.m4 or pigfunc.m4 but substitute the proxy function
+# autogenerator include files so that instead of generating the PigIron functions
+# we generate the proxy functions used for JSON web objects.
 
 USAGE="usage: $0 description_file [output_file_name]"
 DESCFILE=$1

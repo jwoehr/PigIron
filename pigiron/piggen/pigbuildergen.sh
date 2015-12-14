@@ -13,7 +13,8 @@
 #
 # pigbuildergen.sh
 # Run the autogen for proxy functions for the PigLet Builder assuming description file
-# include()'s the autogenator m4 # e.g., pigstruct.m4 pigarray.m4 or pigfunc.m4
+# include()'s the autogenator m4 # e.g., pigstruct.m4 pigarray.m4 or pigfunc.m4 for which
+# we substitute includes of the pigbuilder*.m4 include files.
 
 USAGE="usage: $0 description_file [output_file_name]"
 DESCFILE=$1

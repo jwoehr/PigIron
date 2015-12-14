@@ -17,7 +17,8 @@
 #
 # gen-all.sh
 # Run the autogen assuming description file include()'s the autogenator m4
-# e.g., pigstruct.m4 pigarray.m4 or pigfunc.m4
+# e.g., pigstruct.m4 pigarray.m4 or pigfunc.m4 to create the PigIron SMAPI
+# functions Java source code.
 
 # Find Gnu m4 
 GM4="m4"
@@ -41,11 +42,15 @@ then
     TARGDIR=$2
     for i in $SRCDIR/*.m4
     do
+      echo $i | grep "piggen_prototype_" >/dev/null 2>&1 # test if it's an example file
+      if [ $? -eq 1 ] # don't process the example files
+      then
 	BASENAME=`basename $i .m4`
 	# echo "Basename is $BASENAME"
 	TARGNAME=`echo javaize'('$BASENAME')' | $GM4 javaname.m4 -`.java
 	# echo "Targname is $TARGNAME"
         ./piggen.sh $i ${TARGDIR}/${TARGNAME}
+      fi
     done
 else
     echo "usage: $0 srcdir targdir"
