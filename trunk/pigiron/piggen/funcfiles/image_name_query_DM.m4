@@ -15,7 +15,6 @@ pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
-pigfunc_compose_output_parm(`VSMInt4', `-1', significant_parameter_formal_name`_length')dnl
 pigfunc_compose_output_parm(significant_parameter_classname, `null', significant_parameter_formal_name)dnl
 pigfunc_compose_output_end()dnl
 pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException`,' VSMException', `dnl

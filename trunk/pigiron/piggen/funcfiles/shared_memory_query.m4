@@ -18,8 +18,7 @@ pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_id
 pigfunc_compose_input_parm(`CountedString', member_getter(`memory_segment_name')`()', `memory_segment_name')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
-pigfunc_compose_output_parm(`VSMInt4', `-1', `memory_segment_array_length')dnl
-pigfunc_compose_output_parm(`MemorySegmentArray', `null', `memory_segment_array')dnl
+pigfunc_compose_output_parm(significant_parameter_classname, `null', significant_parameter_formal_name)dnl
 pigfunc_compose_output_end()dnl
 pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException`,' VSMException', `dnl
      * You can execute the VSMAPI call from <tt>main()</tt>, try it
