@@ -27,7 +27,6 @@ pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_id
 pigfunc_compose_input_parm(`CountedString', member_getter(`prototype_name')`()', `prototype_name')dnl
 pigfunc_compose_input_parm(`CountedString', member_getter(`initial_password')`()', `initial_password')dnl
 pigfunc_compose_input_parm(`CountedString', member_getter(`initial_account_number')`()', `initial_account_number')dnl
-pigfunc_compose_input_parm(`VSMInt4', member_getter(significant_parameter_formal_name`_length')`()', significant_parameter_formal_name`_length')dnl
 pigfunc_compose_input_parm(significant_parameter_classname, significant_parameter_member_getter`()', significant_parameter_formal_name)dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl

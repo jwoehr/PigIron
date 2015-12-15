@@ -1,5 +1,5 @@
 include(`pigfunc.m4')dnl \\ piggen_prototype_function_63.m4
-function_namespace(`Piggen_Prototype_Function', `some_kinda_array')dnl
+function_namespace(`Piggen_Prototype_Function', `some_kinda_counted_array')dnl
 pigfunc_start()dnl \\ function_namespace(`function_formal_name', `significant_parameter_formal_name')
 pigfunc_import(`java.io.IOException')dnl
 pigfunc_import(`com.softwoehr.pigiron.access.*')dnl \\ function_classname and function_formal_name bound in namespace
@@ -31,7 +31,6 @@ pigfunc_compose_input_parm(significant_parameter_classname, significant_paramete
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_parm(`VSMInt4', `-1', `operation_id')dnl
-pigfunc_compose_output_parm(`VSMInt4', `-1', significant_parameter_formal_name`_length')dnl
 pigfunc_compose_output_parm(significant_parameter_classname, `null', significant_parameter_formal_name)dnl
 pigfunc_compose_output_end()dnl
 pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException`,' VSMException', `dnl

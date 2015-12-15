@@ -17,7 +17,6 @@ pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_parm(`VSMInt4', `-1', `recycled')dnl
 pigfunc_compose_output_parm(`VSMInt4', `-1', `not_recycled')dnl
-pigfunc_compose_output_parm(`VSMInt4', `-1', `failing_array_length')dnl
 pigfunc_compose_output_parm(`FailingArray', `null', `failing_array')dnl
 pigfunc_compose_output_end()dnl
 pigfunc_function(`public', `static', `void', `', `main', `String[] argv', `IOException`,' VSMException', `dnl

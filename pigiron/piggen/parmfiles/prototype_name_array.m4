@@ -2,7 +2,7 @@ include(`pigarray.m4')dnl \\ prototype_name_array.m4.m4
 param_namespace(`prototype_name',`Prototype_Name_Query_DM')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
-pigparm_class(array_classname, `VSMArray',`com.softwoehr.pigiron.access.paramstructs',`dnl
+pigparm_class(array_classname, `CountedArray',`com.softwoehr.pigiron.access.paramstructs',`dnl
 
 /**
  * array_classname implements the {@code array_formal_name} from {@code associated_function}
