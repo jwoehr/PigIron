@@ -1,7 +1,8 @@
-g* The functions listed below without annotation were                */
+/* The functions listed below without annotation were                */
 /* implemented up to z/VM 5.4 in the original PigIron project.       */
 /* Those marked 6.3 are awaiting implementation in the current pass. */
-/* When a function is implemented, the annotation will be updated.   */ 
+/* When a function is implemented, the annotation will be updated.   */
+/* A function fairly well tested is followed by 1 or more '*'s       */
 /* jjw 20151116 */
 Asynchronous_Notification_Disable_DM
 Asynchronous_Notification_Enable_DM
@@ -9,7 +10,7 @@ Asynchronous_Notification_Query_DM
 Authorization_List_Add
 Authorization_List_Query
 Authorization_List_Remove
-Check_Authentication
+Check_Authentication ***
 Directory_Manager_Local_Tag_Define_DM
 Directory_Manager_Local_Tag_Delete_DM
 Directory_Manager_Local_Tag_Query_DM
@@ -19,17 +20,17 @@ Directory_Manager_Task_Cancel_DM
 6.3: Event_Stream_Add 20151116
 6.3: Event_Subscribe 20151123
 6.3: Event_Unsubscribe 20151124
-Image_Activate
-Image_Active_Configuration_Query
+Image_Activate **
+Image_Active_Configuration_Query **
 Image_CPU_Define
 Image_CPU_Define_DM
 Image_CPU_Delete
 Image_CPU_Delete_DM
-Image_CPU_Query
+Image_CPU_Query *
 Image_CPU_Query_DM
 Image_CPU_Set_Maximum_DM
 Image_Create_DM
-Image_Deactivate
+Image_Deactivate **
 6.3: Image_Definition_Async_Updates
 6.3: Image_Definition_Create_DM
 6.3: Image_Definition_Delete_DM
@@ -152,7 +153,7 @@ Virtual_Network_Adapter_Delete
 Virtual_Network_Adapter_Delete_DM
 Virtual_Network_Adapter_Disconnect
 Virtual_Network_Adapter_Disconnect_DM
-Virtual_Network_Adapter_Query
+Virtual_Network_Adapter_Query **
 Virtual_Network_LAN_Access
 Virtual_Network_LAN_Access_Query
 Virtual_Network_LAN_Create
@@ -164,7 +165,7 @@ Virtual_Network_Vswitch_Create
 6.3: Virtual_Network_Vswitch_Create_Extended
 Virtual_Network_Vswitch_Delete
 6.3: Virtual_Network_Vswitch_Delete_Extended
-Virtual_Network_Vswitch_Query
+Virtual_Network_Vswitch_Query **
 6.3: Virtual_Network_Vswitch_Query_Extended
 6.3: Virtual_Network_Vswitch_Query_Stats
 Virtual_Network_Vswitch_Set
