@@ -15,7 +15,7 @@ Directory_Manager_Local_Tag_Define_DM
 Directory_Manager_Local_Tag_Delete_DM
 Directory_Manager_Local_Tag_Query_DM
 Directory_Manager_Local_Tag_Set_DM
-Directory_Manager_Search_DM
+Directory_Manager_Search_DM **
 Directory_Manager_Task_Cancel_DM
 6.3: Event_Stream_Add 20151116
 6.3: Event_Subscribe 20151123
@@ -27,7 +27,7 @@ Image_CPU_Define_DM
 Image_CPU_Delete
 Image_CPU_Delete_DM
 Image_CPU_Query *
-Image_CPU_Query_DM
+Image_CPU_Query_DM *
 Image_CPU_Set_Maximum_DM
 Image_Create_DM
 Image_Deactivate **
