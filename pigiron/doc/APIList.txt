@@ -8,7 +8,7 @@ Asynchronous_Notification_Disable_DM
 Asynchronous_Notification_Enable_DM
 Asynchronous_Notification_Query_DM
 Authorization_List_Add
-Authorization_List_Query
+Authorization_List_Query *
 Authorization_List_Remove
 Check_Authentication ***
 Directory_Manager_Local_Tag_Define_DM
@@ -60,13 +60,13 @@ Image_Lock_DM
 6.3: Image_MDISK_Link_Query
 Image_Name_Query_DM
 Image_Password_Set_DM
-Image_Query_Activate_Time
-Image_Query_DM
+Image_Query_Activate_Time *****
+Image_Query_DM **
 Image_Recycle
 Image_Replace_DM
 Image_SCSI_Characteristics_Define_DM
 Image_SCSI_Characteristics_Query_DM
-Image_Status_Query
+Image_Status_Query ***
 Image_Unlock_DM
 Image_Volume_Add
 Image_Volume_Delete
@@ -101,9 +101,9 @@ Prototype_Query_DM
 Prototype_Replace_DM
 6.3: Query_ABEND_Dump
 6.3: Query_All_DM
-Query_API_Functional_Level
+Query_API_Functional_Level ***
 Query_Asynchronous_Operation_DM
-Query_Directory_Manager_Level_DM
+Query_Directory_Manager_Level_DM ***
 6.3: Response_Recovery
 Shared_Memory_Access_Add_DM
 Shared_Memory_Access_Query_DM
