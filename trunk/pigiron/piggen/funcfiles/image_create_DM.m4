@@ -20,7 +20,6 @@ pigfunc_ctors(
 `String', `prototype_name', member_name(`prototype_name'),
 `String', `initial_password', member_name(`initial_password'),
 `String', `initial_account_number', member_name(`initial_account_number'),
-`int', significant_parameter_formal_name`_length', member_name(significant_parameter_formal_name`_length'),
 significant_parameter_classname, significant_parameter_formal_name, significant_parameter_membername)dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
