@@ -110,11 +110,15 @@ ifelse(x_type(),`VSMAsciiZ',`dnl
 ifelse(x_type(),`CountedString',`dnl
                 String x_formal_name = argArray.nextMaybeQuotationTuplePopString`('`)';
 ',`dnl
+ifelse(x_type(),`CountedStringZ',`dnl
+                String x_formal_name = argArray.nextMaybeQuotationTuplePopString`('`)';
+',`dnl
 ifelse(is_type_named_array(x_type()),`-1',`dnl
                 int x_formal_name = argArray.nextIntMaybeQuotationTuplePopString`('`)';
 ',`dnl
                 Tuple x_formal_name()_tuple = argArray.nextTupleOrPop`('`)';                
                 x_type() x_formal_name() = x_type().class.cast`('x_formal_name()_tuple.getValue`('`)'`)';
+')dnl
 ')dnl
 ')dnl
 ')dnl

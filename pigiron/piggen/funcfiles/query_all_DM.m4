@@ -15,7 +15,7 @@ pigfunc_attribute(`private', `', `String', member_name(`query_keyword_parameter_
 pigfunc_ctors(`String', `query_keyword_parameter_list', member_name(`query_keyword_parameter_list'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`VSMAsciiZ',member_getter(`query_keyword_parameter_list')`()',`query_keyword_parameter_list')dnl
+pigfunc_compose_input_parm(`CountedStringZ',member_getter(`query_keyword_parameter_list')`()',`query_keyword_parameter_list')dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
 pigfunc_compose_output_parm(`VSMInt4', `-1', `operation_id')dnl

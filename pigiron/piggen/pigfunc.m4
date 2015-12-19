@@ -282,7 +282,7 @@ push_divert(`compose_in_stream')dnl
 pushdef(`x_type', $1)dnl
 pushdef(`x_value', $2)dnl
 pushdef(`x_formal_name', $3)dnl
-        parameterArray.add`('new x_type()`('x_value(), "x_formal_name()"`)'`)';dnl
+        parameterArray.add`('new x_type()`('x_value(), "x_formal_name()"`)'`)';
 popdef(`x_formal_name')dnl
 popdef(`x_value')dnl
 popdef(`x_type')dnl
