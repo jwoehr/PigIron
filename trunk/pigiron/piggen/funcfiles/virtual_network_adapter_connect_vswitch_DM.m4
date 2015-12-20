@@ -11,7 +11,7 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
 pigfunc_attribute(`private', `', `String', member_name(`image_device_number'), `""', `', `The virtual device address of the new adapter')dnl
 pigfunc_attribute(`private', `', `String', member_name(`switch_name'), `""', `', `The name of the virtual switch segment to connect to the virtual image')dnl
 pigfunc_ctors(`String', `image_device_number', member_name(`image_device_number'),
-`String', `switch_name_length', member_name(`switch_name'))dnl
+`String', `switch_name', member_name(`switch_name'))dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
 pigfunc_compose_input_parm(`CountedString', member_getter(`image_device_number')`()', `image_device_number')dnl

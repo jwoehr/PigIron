@@ -12,11 +12,9 @@ pigfunc_class(function_classname,`VSMCall',`com.softwoehr.pigiron.functions',fun
  */')dnl \\ significant_parameter_formal_name bound in namespace
 pigfunc_attribute(`private', `', `int', member_name(significant_parameter_formal_name`_length'), `0', `', `Length of' significant_parameter_formal_name)dnl
 pigfunc_attribute(`private', `', significant_parameter_classname, significant_parameter_membername, `null', `', `An array instanced in the ctor.')dnl
-pigfunc_ctors(`int', significant_parameter_formal_name`_length', member_name(significant_parameter_formal_name`_length'),
-significant_parameter_classname, significant_parameter_formal_name, significant_parameter_membername)dnl
+pigfunc_ctors(significant_parameter_classname, significant_parameter_formal_name, significant_parameter_membername)dnl
 pigfunc_compose_input_start()dnl
 pigfunc_compose_input_parm(`CountedString', `getTarget_identifier()', `target_identifier')dnl
-pigfunc_compose_input_parm(`VSMInt4', member_getter(significant_parameter_formal_name`_length')`()', significant_parameter_formal_name`_length')dnl
 pigfunc_compose_input_parm(significant_parameter_classname, significant_parameter_member_getter`()', significant_parameter_formal_name)dnl
 pigfunc_compose_input_end()dnl
 pigfunc_compose_output_start()dnl
