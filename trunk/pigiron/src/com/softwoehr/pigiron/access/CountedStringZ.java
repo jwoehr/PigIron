@@ -67,6 +67,7 @@ public class CountedStringZ implements VSMParm {
      * Create an instance of undefined value.
      */
     public CountedStringZ() {
+        lengthCount = 0;
     }
 
     /**
@@ -137,12 +138,7 @@ public class CountedStringZ implements VSMParm {
      * @return the length in bytes of the parameter value.
      */
     public int paramLength() {
-        int result = 0;
-        if (value != null) {
-            result = value.length() + ParameterArray.SIZEOF_INT4;
-            /* add the length the count word */
-        }
-        return result;
+        return ParameterArray.SIZEOF_INT4 + lengthCount;
     }
 
     /**
@@ -172,10 +168,12 @@ public class CountedStringZ implements VSMParm {
      */
     public void write(DataOutputStream out)
             throws java.io.IOException {
-        /* debug */ System.err.println("length of CountedStringZ is " + getLengthCount());
-        /* debug */ System.err.println("value of CountedStringZ is " + getValue());
+        // /* debug */ System.err.println("length of CountedStringZ is " + getLengthCount());
+        // /* debug */ System.err.println("value of CountedStringZ is " + getValue());
         out.writeInt(getLengthCount());
-        out.write(value.getBytes());
+        if (value != null) {
+            out.write(value.getBytes());
+        }
     }
 
     /**
