@@ -14,7 +14,6 @@ dnl
 pigfunc_attribute(`private', `', `String',  member_name(`prototype_name'), `""', `', `The prototype to use for creating the image.')dnl
 pigfunc_attribute(`private', `', `String',  member_name(`initial_password'), `""', `', `The logon password to be assigned initially to the virtual image being created')dnl
 pigfunc_attribute(`private', `', `String',  member_name(`initial_account_number'), `""', `', `The account number to be assigned initially to the virtual image being created')dnl
-pigfunc_attribute(`private', `', `int', member_name(significant_parameter_formal_name`_length'), `0', `', `Length of' significant_parameter_formal_name)dnl
 pigfunc_attribute(`private', `', significant_parameter_classname, significant_parameter_membername, `null', `', `An array instanced in the ctor.')dnl
 pigfunc_ctors(
 `String', `prototype_name', member_name(`prototype_name'),
