@@ -199,6 +199,8 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
             VSMParm model = i.next();
             VSMParm member = model.copyOf();
             member.read(in, length);
+            // /* Debug */ System.err.print("in VSMStruct.read() ... ");
+            // /* Debug */ member.prettyPrint();
             myNewContents.add(member);
             length -= member.paramLength();
         }
@@ -206,62 +208,6 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
         setValue(myNewContents);
     }
 
-//    /**
-//     * The vector of the struct contains at runtime the model of what it's going
-//     * to need to read. VMSStruct iterates through its vector as a strategy and
-//     * creates a new vector of the items it reads one-at-a-time. It then
-//     * instantiates the new vector in itself.
-//     *
-//     * @param in
-//     * @param length
-//     * @throws java.io.IOException
-//     * @throws VSMStructStringReadException
-//     */
-//    public void read(DataInputStream in, int length) throws IOException, VSMStructStringReadException, VSMException {
-//        VSMStruct myNewContents = new VSMStruct(null);
-//        Iterator<VSMParm> i = iterator(); // Walk through our output model
-//        // while (i.hasNext() && length > 0 && in.available() >= length) {
-//        while (i.hasNext() && length > 0) { // we should check at each read instead
-//            VSMParm model = i.next();
-//            VSMParm member = model.copyOf();
-//            if (model instanceof CountedStruct) {
-//                member.read(in, length);
-//            } else if (model instanceof VSMStruct) {
-//                VSMParm putativeLength = myNewContents.lastElement();
-//                /* What did we last read? */
-//                if (putativeLength instanceof VSMInt4) {
-//                    member.read(in, (VSMInt4.class.cast(putativeLength)).getValue());
-//                } else {
-//                    throw new VSMStructStructReadException("Couldn't read struct because previous parameter read was not a count of type int4.");
-//                }
-//            } else if (model instanceof VSMArray) {
-//                VSMParm putativeLength = myNewContents.lastElement();
-//                if (putativeLength instanceof VSMInt4) {
-//                    // /* Debug */ System.err.println("putativeLength " + VSMInt4.class.cast(putativeLength).getValue());
-//                    member.read(in, (VSMInt4.class.cast(putativeLength)).getValue());
-//                } else {
-//                    throw new VSMStructStructReadException("Couldn't read struct because previous parameter read was not a count of type int4.");
-//                }
-//            } else if (model instanceof VSMString) {
-//                VSMParm putativeStringLength = myNewContents.lastElement();
-//                // /* Debug */ System.err.println(" putativeStringLength == " + putativeStringLength);
-//                // /* Debug */ System.err.flush();
-//                if (putativeStringLength instanceof VSMInt4) {
-//                    member.read(in, (VSMInt4.class.cast(putativeStringLength)).getValue());
-//                } else {
-//                    // /* Debug */ System.err.println(" About to throw VSMStructStringReadException -- myNewContents is: " + myNewContents);
-//                    // /* Debug */ System.err.flush();
-//                    throw new VSMStructStringReadException("Couldn't read string because previous parameter read was not a count of type int4.");
-//                }
-//            } else { // It's some kind of VSMInt
-//                member.read(in, -1);
-//            }
-//            myNewContents.add(member);
-//            length -= member.paramLength();
-//        }
-//        // Convert 'this' into the new struct we have read in.
-//        setValue(myNewContents);
-//    }
     /**
      * A class to express internal Pigiron errors in VSMString read marshalling.
      */

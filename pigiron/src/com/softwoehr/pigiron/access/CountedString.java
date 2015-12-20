@@ -153,6 +153,7 @@ public class CountedString implements VSMParm {
             throw new VSMException("Remaining length shorter than size of CountedString count word");
         }
         setLengthCount(in.readInt());
+        // /* Debug */ System.err.println("length count read in CountedString is " + getLengthCount());
         byte[] bytes = new byte[getLengthCount()];
         in.readFully(bytes);
         setValue(new String(bytes));

@@ -75,7 +75,8 @@ public class VSMAsciiZ implements VSMParm {
      */
     public VSMAsciiZ(String value) {
         this();
-        this.value = value;
+        // this.value = value; // this maybe a mistake and the following correct
+        setValue(value);
     }
 
     /**
@@ -133,7 +134,7 @@ public class VSMAsciiZ implements VSMParm {
      */
     public final void setValue(String value) {
         // /* Debug */ System.out.println("String entering setValue is " + value);
-        this.value = terminate(stripTerminated(value));
+        this.value = value == null ? value : terminate(stripTerminated(value));
         // /* Debug */ System.out.println("String leaving setValue is " + value);
     }
 
@@ -164,10 +165,10 @@ public class VSMAsciiZ implements VSMParm {
         char c;
         for (int i = 0; i < length; i++) {
             c = in.readChar();
+            result.append(c);
             if (c == '\0') {
                 break;
             }
-            result.append(c);
         }
         setValue(result.toString());
         // /* Debug */ System.err.println("Read a string: " + value);
@@ -227,7 +228,7 @@ public class VSMAsciiZ implements VSMParm {
     public String toString() {
         StringBuilder sb = new StringBuilder(super.toString());
         sb.append(" Formal Name == ").append(getFormalName()).append(" Formal Type == ").append(getFormalType());
-        sb.append(" Value == ").append(getValue());
+        sb.append(" Value == ").append(stripTerminated(getValue()));
         return sb.toString();
     }
 
@@ -256,7 +257,7 @@ public class VSMAsciiZ implements VSMParm {
      */
     public String prettyPrint() {
         StringBuilder sb = new StringBuilder();
-        sb.append(getFormalName()).append("(").append(getFormalType()).append(") ").append(getValue());
+        sb.append(getFormalName()).append("(").append(getFormalType()).append(") ").append(stripTerminated(getValue()));
         return sb.toString();
     }
 }
