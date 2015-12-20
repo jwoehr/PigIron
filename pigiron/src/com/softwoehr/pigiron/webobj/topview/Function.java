@@ -31,14 +31,10 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
-import java.util.Iterator;
 import java.util.Vector;
-
 import com.softwoehr.pigiron.webobj.WebObject;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONArray;
 
 /**
  * A class to represent PigIron VSMAPI Function execution

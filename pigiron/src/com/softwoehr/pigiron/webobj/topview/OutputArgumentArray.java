@@ -37,8 +37,6 @@ import java.util.logging.Logger;
 
 import com.softwoehr.pigiron.access.ParameterArray;
 import com.softwoehr.pigiron.access.VSMParm;
-import com.softwoehr.pigiron.access.VSMInt;
-import com.softwoehr.pigiron.access.VSMString;
 
 import org.json.JSONException;
 import org.json.JSONArray;
