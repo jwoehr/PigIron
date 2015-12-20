@@ -74,7 +74,6 @@ public class Requestor extends WebObject {
      * Create a default (empty) Requestor
      *
      * @exception  JSONException        on JSON err
-     * @throws  org.json.JSONException  on JSON err
      */ 
     public Requestor() throws JSONException {
         super();
@@ -87,7 +86,6 @@ public class Requestor extends WebObject {
      *
      * @param  aRequestor               a requestor object or something like it
      * @exception  JSONException        on JSON err
-     * @throws  org.json.JSONException  on JSON err
      */ 
     public Requestor(Requestor aRequestor) throws JSONException {
         super(aRequestor);

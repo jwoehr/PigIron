@@ -33,7 +33,6 @@ package com.softwoehr.pigiron.webobj.topview;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.softwoehr.pigiron.access.ParameterArray;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -83,11 +82,11 @@ public class ArgumentArray extends JSONArray {
      */ 
     public Argument argumentNamed(String argumentFormalName) {
         Argument result = null;
-        Argument temp = null;
+        Argument temp;
         for (int i = 0; i < length(); i++) {
             try {
                 temp = new Argument(optJSONObject(i).toString());
-                if (temp != null && temp.getFormalName().equals(argumentFormalName)) {
+                if (temp.getFormalName().equals(argumentFormalName)) {
                     result = temp;
                     break;
                 }

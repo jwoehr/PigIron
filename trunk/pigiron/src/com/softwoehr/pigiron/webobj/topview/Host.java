@@ -40,95 +40,95 @@ import org.json.JSONObject;
 /**
  * A class to represent the JSON view of a VSMAPI Host.
  *
- * @author     jax
+ * @author jax
  */
 public class Host extends WebObject {
 
     /**
-     *  A Vector of the JSON keys (names) that are valid for
-     * a given WebObject extender
-     */ 
-    private Vector <String> names = setNames(new String []{"name" ,"dns_name" ,"ip_address" ,"port_number", "ssl"}); 
-    
+     * A Vector of the JSON keys (names) that are valid for a given WebObject
+     * extender
+     */
+    private Vector<String> names = setNames(new String[]{"name", "dns_name", "ip_address", "port_number", "ssl"});
+
     /**
-     *  Get the array of JSON keys (names) that are valid for
-     * a given WebObject extender
+     * Get the array of JSON keys (names) that are valid for a given WebObject
+     * extender
      *
-     * @return    The names
-     */ 
-    public String []getNames() {
-        return names.toArray(new String [names.size()]);
+     * @return The names
+     */
+    public String[] getNames() {
+        return names.toArray(new String[names.size()]);
     }
 
     /**
-     * Identifies whether a JSON key is one of the names a given
-     * WebObject extender uses.
+     * Identifies whether a JSON key is one of the names a given WebObject
+     * extender uses.
      *
-     * @param  name  the JSON key
+     * @param name the JSON key
      * @return true if the key is one the class uses
-     */ 
-     public  boolean isName(String name) {
-	 return isName(name, names);
-     }
+     */
+    public boolean isName(String name) {
+        return isName(name, names);
+    }
 
     /**
      * Base ctor
      *
-     * @exception  JSONException  Description of the Exception
-     * @throws  JSONException
-     */ 
+     * @exception JSONException Description of the Exception
+     * @throws JSONException
+     */
     public Host() throws JSONException {
-        this("","","", - 1, false);
+        this("", "", "", - 1, false);
     }
 
     /**
      * Instance with hostName name and URI
      *
-     * @param  name
-     * @param  dns_name
-     * @param  ip_address
-     * @param  port_number
-     * @exception  JSONException  Description of the Exception
-     * @throws  JSONException
-     */ 
+     * @param name
+     * @param dns_name
+     * @param ip_address
+     * @param port_number
+     * @param ssl
+     * @exception JSONException Description of the Exception
+     */
     public Host(String name, String dns_name, String ip_address, int port_number, boolean ssl) throws JSONException {
         super();
         setName(name);
         setDnsName(dns_name);
         setIpAddress(ip_address);
         setPortNumber(port_number);
-	setSSL(ssl);
+        setSSL(ssl);
     }
 
     /**
-     *Constructor for the Host from a string of JSON representation
+     * Constructor for the Host from a string of JSON representation
      *
-     * @param  jsonRepresentation  argument described in JSON
-     * @exception  JSONException   on JSON err
-     * @throws  JSONException      on JSON err
-     */ 
+     * @param jsonRepresentation argument described in JSON
+     * @exception JSONException on JSON err
+     * @throws JSONException on JSON err
+     */
     public Host(String jsonRepresentation) throws JSONException {
         super(jsonRepresentation);
     }
-    
+
     /**
-     *Constructor for the Host from a like JSONObject using only
-     * the members constrained
+     * Constructor for the Host from a like JSONObject using only the members
+     * constrained
      *
-     * @param  aHost             a like Host as a JSONObject
-     * @exception  JSONException  on JSON err
-     */ 
+     * @param aHost a like Host as a JSONObject
+     * @exception JSONException on JSON err
+     */
     public Host(JSONObject aHost) throws JSONException {
-	super(aHost, new String [] {"name" ,"dns_name" ,"ip_address" ,"port_number", "ssl"});
+        super(aHost, new String[]{"name", "dns_name", "ip_address", "port_number", "ssl"});
     }
 
     /**
-     *Constructor for the Host from a like WebObject using only
-     * the members constrained
+     * Constructor for the Host from a like WebObject using only the members
+     * constrained
      *
-     * @param  anHost             a like Host
-     * @exception  JSONException  on JSON err
-     */ 
+     * @param anHost a like Host
+     * @exception JSONException on JSON err
+     */
     public Host(WebObject anHost) throws JSONException {
         super(anHost);
     }
@@ -136,33 +136,32 @@ public class Host extends WebObject {
     /**
      * get Name
      *
-     * @return                          name
-     * @exception  JSONException        Description of the Exception
-     * @throws  org.json.JSONException  on JSON err
-     */ 
+     * @return name
+     * @exception JSONException Description of the Exception
+     * @throws org.json.JSONException on JSON err
+     */
     public String getName() throws JSONException {
         return getString("name");
     }
 
     /**
-     * Host name as represented to a Web application.
-     * May or may not be related to DNS name .. that latter
-     * sort of thing will be found deeper, follow the URI trail.
+     * Host name as represented to a Web application. May or may not be related
+     * to DNS name .. that latter sort of thing will be found deeper, follow the
+     * URI trail.
      *
-     * @param  name            the name of the name
-     * @throws  JSONException  on JSON err
-     */ 
-    public void setName(String name) throws JSONException {
+     * @param name the name of the name
+     * @throws JSONException on JSON err
+     */
+    public final void setName(String name) throws JSONException {
         put("name", name);
     }
 
     /**
      * get DnsName
      *
-     * @return                          Dns Name
-     * @exception  JSONException        Description of the Exception
-     * @throws  org.json.JSONException  on JSON err
-     */ 
+     * @return Dns Name
+     * @exception JSONException Description of the Exception
+     */
     public String getDnsName() throws JSONException {
         return getString("dns_name");
     }
@@ -170,20 +169,19 @@ public class Host extends WebObject {
     /**
      * get Dns Name
      *
-     * @param  dns_name
-     * @throws  JSONException  on JSON err
-     */ 
-    public void setDnsName(String dns_name) throws JSONException {
+     * @param dns_name
+     * @throws JSONException on JSON err
+     */
+    public final void setDnsName(String dns_name) throws JSONException {
         put("dns_name", dns_name);
     }
 
     /**
      * get IpAddr
      *
-     * @return                          Ip Addr
-     * @exception  JSONException        Description of the Exception
-     * @throws  org.json.JSONException  on JSON err
-     */ 
+     * @return Ip Addr
+     * @exception JSONException Description of the Exception
+     */
     public String getIpAddress() throws JSONException {
         return getString("ip_address");
     }
@@ -191,42 +189,39 @@ public class Host extends WebObject {
     /**
      * set Ip Addr
      *
-     * @param  ip_address
-     * @throws  JSONException  on JSON err
-     */ 
-    public void setIpAddress(String ip_address) throws JSONException {
+     * @param ip_address
+     * @throws JSONException on JSON err
+     */
+    public final void setIpAddress(String ip_address) throws JSONException {
         put("ip_address", ip_address);
     }
 
     /**
      * get PortNumber
      *
-     * @return                          port Number
-     * @exception  JSONException        Description of the Exception
-     * @throws  org.json.JSONException  on JSON err
-     */ 
+     * @return port Number
+     * @exception JSONException Description of the Exception
+     */
     public int getPortNumber() throws JSONException {
         return getInt("port_number");
     }
 
-
     /**
      * set Port Number
      *
-     * @param  port_number      The new port_number value
-     * @throws  JSONException  on JSON err
-     */ 
-    public void setPortNumber(int port_number) throws JSONException {
+     * @param port_number The new port_number value
+     * @throws JSONException on JSON err
+     */
+    public final void setPortNumber(int port_number) throws JSONException {
         put("port_number", port_number);
     }
 
     /**
      * get SSL or no
      *
-     * @return                          true if use SSL, false otherwise
-     * @exception  JSONException        Description of the Exception
-     * @throws  org.json.JSONException  on JSON err
-     */ 
+     * @return true if use SSL, false otherwise
+     * @exception JSONException Description of the Exception
+     */
     public boolean getSSL() throws JSONException {
         return getBoolean("ssl");
     }
@@ -234,11 +229,10 @@ public class Host extends WebObject {
     /**
      * set SSL or no
      *
-     * @param  ssl     true if use SSL, false otherwis
-     * @throws  JSONException  on JSON err
-     */ 
-    public void setSSL(boolean ssl) throws JSONException {
+     * @param ssl true if use SSL, false otherwis
+     * @throws JSONException on JSON err
+     */
+    public final void setSSL(boolean ssl) throws JSONException {
         put("ssl", ssl);
     }
 }
-

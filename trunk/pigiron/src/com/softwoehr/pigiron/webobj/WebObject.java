@@ -31,6 +31,7 @@
  */
 package com.softwoehr.pigiron.webobj;
 
+import java.util.Arrays;
 import java.util.Vector;
 import java.util.Iterator;
 import org.json.JSONException;
@@ -96,6 +97,7 @@ public abstract class WebObject extends JSONObject {
      *Construct a  WebObject from a JSONObject constrained copy ctor
      *
      * @param  jsonObject                   The object to copy key/vals from
+     * @param names
      * @exception  org.json.JSONException  on JSON error
      */ 
     protected WebObject(JSONObject jsonObject, String [] names) throws org.json.JSONException {
@@ -112,9 +114,7 @@ public abstract class WebObject extends JSONObject {
      */ 
     public static Vector <String> setNames(String [] someNames) {
         Vector <String> names = new Vector <String>(someNames.length);
-        for (int i = 0; i < someNames.length; i++) {
-            names.add(someNames[i]);
-        }
+        names.addAll(Arrays.asList(someNames));
         return names;
     }
 
@@ -135,13 +135,14 @@ public abstract class WebObject extends JSONObject {
      * @return HTML content suitable for inclusion in an extant HTML body
      * section, with <b>no</b> leading nor trailing {@code &lt;br&nbsp;/&gt;}
      * though there can be internal {@code &lt;br&nbsp;/&gt;}'s. .
+     * @throws org.json.JSONException
      */
     public String toHTML() throws JSONException {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         Iterator it = keys();
         while (it.hasNext()) {
             String key = it.next().toString();
-            sb.append("<b>" + key + ":</b> " + get(key).toString());
+            sb.append("<b>").append(key).append(":</b> ").append(get(key).toString());
         } 
         return sb.toString();
     }

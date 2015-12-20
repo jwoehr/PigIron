@@ -40,53 +40,53 @@ import org.json.JSONObject;
 /**
  * A class to represent the most simple view of a VSMAPI User.
  *
- * @author     jax
+ * @author jax
  */
 public class User extends WebObject {
 
     /**
-     *  A Vector of the JSON keys (names) that are valid for
-     * a given WebObject extender
-     */ 
-    private static Vector <String> names = setNames(new String []{"uid" ,"password"});
-    
-     /**
-     *  Get the array of JSON keys (names) that are valid for
-     * a given WebObject extender
-     *
-     * @return    The names
-     */ 
-    public String []getNames() {
-        return names.toArray(new String [names.size()]);
-    }
-    
+     * A Vector of the JSON keys (names) that are valid for a given WebObject
+     * extender
+     */
+    private static Vector<String> names = setNames(new String[]{"uid", "password"});
+
     /**
-     * Identifies whether a JSON key is one of the names a given
-     * WebObject extender uses.
+     * Get the array of JSON keys (names) that are valid for a given WebObject
+     * extender
      *
-     * @param  name  the JSON key
+     * @return The names
+     */
+    public String[] getNames() {
+        return names.toArray(new String[names.size()]);
+    }
+
+    /**
+     * Identifies whether a JSON key is one of the names a given WebObject
+     * extender uses.
+     *
+     * @param name the JSON key
      * @return true if the key is one the class uses
-     */ 
-     public  boolean isName(String name) {
-	 return isName(name, names);
-     }
+     */
+    public boolean isName(String name) {
+        return isName(name, names);
+    }
 
     /**
      * Base ctor
      *
-     * @throws  JSONException  on JSON err
-     */ 
+     * @throws JSONException on JSON err
+     */
     public User() throws JSONException {
-        this("","");
+        this("", "");
     }
 
     /**
      * Instance with userid and password
      *
-     * @param  uid
-     * @param  password
-     * @throws  JSONException  on JSON err
-     */ 
+     * @param uid
+     * @param password
+     * @throws JSONException on JSON err
+     */
     public User(String uid, String password) throws JSONException {
         super();
         setUid(uid);
@@ -94,33 +94,32 @@ public class User extends WebObject {
     }
 
     /**
-     *Constructor for the User from a string of JSON representation
+     * Constructor for the User from a string of JSON representation
      *
-     * @param  jsonRepresentation  argument described in JSON
-     * @exception  JSONException   on JSON err
-     * @throws  JSONException      on JSON err
-     */ 
+     * @param jsonRepresentation argument described in JSON
+     * @exception JSONException on JSON err
+     */
     public User(String jsonRepresentation) throws JSONException {
         super(jsonRepresentation);
     }
 
     /**
-     *Constructor for the User from a JSONObject using only
-     * the members named in User.names
+     * Constructor for the User from a JSONObject using only the members named
+     * in User.names
      *
-     * @param  anUser         a like User
-     * @exception  JSONException  on JSON err
-     */ 
+     * @param anUser a like User
+     * @exception JSONException on JSON err
+     */
     public User(JSONObject anUser) throws JSONException {
-        super(anUser, new String []{"uid" ,"password"} );
+        super(anUser, new String[]{"uid", "password"});
     }
 
     /**
      * Get password to use for the Host.
      *
-     * @return                 the password to use for the Host
-     * @throws  JSONException  on JSON err
-     */ 
+     * @return the password to use for the Host
+     * @throws JSONException on JSON err
+     */
     public String getPassword() throws JSONException {
         return getString("password");
     }
@@ -128,19 +127,19 @@ public class User extends WebObject {
     /**
      * Set password to use for the Host
      *
-     * @param  password        to use for the Host
-     * @throws  JSONException  on JSON err
-     */ 
-    public void setPassword(String password) throws JSONException {
+     * @param password to use for the Host
+     * @throws JSONException on JSON err
+     */
+    public final void setPassword(String password) throws JSONException {
         put("password", password);
     }
 
     /**
      * Userid as represented to the Host.
      *
-     * @return                 user id
-     * @throws  JSONException  on JSON err
-     */ 
+     * @return user id
+     * @throws JSONException on JSON err
+     */
     public String getUid() throws JSONException {
         return getString("uid");
     }
@@ -148,11 +147,10 @@ public class User extends WebObject {
     /**
      * Userid as represented to the Host.
      *
-     * @param  uid             user id
-     * @throws  JSONException  on JSON err
-     */ 
-    public void setUid(String uid) throws JSONException {
+     * @param uid user id
+     * @throws JSONException on JSON err
+     */
+    public final void setUid(String uid) throws JSONException {
         put("uid", uid);
     }
 }
-
