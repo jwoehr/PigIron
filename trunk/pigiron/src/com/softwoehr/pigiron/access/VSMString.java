@@ -78,6 +78,15 @@ public class VSMString implements VSMParm {
     }
 
     /**
+     * Copy ctor
+     *
+     * @param vSMString
+     */
+    public VSMString(VSMString vSMString) {
+        this(vSMString.getValue(), vSMString.getFormalName());
+    }
+
+    /**
      * Create an instance of specified value and assign it a formal name.
      *
      * @param value the value
