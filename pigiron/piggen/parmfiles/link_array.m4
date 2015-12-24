@@ -1,4 +1,4 @@
-include(`pigarray.m4')dnl \\ image_record_array.m4
+include(`pigarray.m4')dnl \\ link_array.m4
 param_namespace(`link',`Image_MDISK_Link_Query')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
