@@ -1,3 +1,6 @@
+** This file is historical only. See APIList.txt for current status.
+** jwoehr 2015-12-26
+
 List of VSMAPI Functions Noting Test Coverage
 -----------------
 

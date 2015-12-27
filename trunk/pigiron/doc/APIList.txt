@@ -1,9 +1,15 @@
 /* The functions listed below without annotation were                */
 /* implemented up to z/VM 5.4 in the original PigIron project.       */
 /* Those marked 6.3 are awaiting implementation in the current pass. */
+/* Some API's added in 6.0/6.1/6.2 may have been omitted. We are     */
+/* getting around to them!                                           */
 /* When a function is implemented, the annotation will be updated.   */
 /* A function fairly well tested is followed by 1 or more '*'s       */
-/* jjw 20151116 */
+/* The testing is nowadays implemented in a yet-unpublished          */
+/* open source language which will be published in 2016. For history */
+/* of testing via ObjectRexx and FIJI (http://fiji.sourceforge.net)  */
+/* see the historical file VSMAPI_functions.txt                      */
+/* jwoehr 20151226 */
 Asynchronous_Notification_Disable_DM
 Asynchronous_Notification_Enable_DM
 Asynchronous_Notification_Query_DM

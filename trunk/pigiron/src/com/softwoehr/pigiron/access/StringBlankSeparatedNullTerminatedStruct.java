@@ -36,6 +36,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -158,11 +159,9 @@ public class StringBlankSeparatedNullTerminatedStruct extends ArrayList<VSMStrin
         while (i.hasNext()) {
             VSMParm parm = i.next();
             total += parm.paramLength();
-            if (i.hasNext()) {
-                total++; // for the blank separator
-            }
+            total++; // for the blank separator between strings
+            // then finally for the null
         }
-        total++; // for the null
         return total;
     }
 
@@ -187,29 +186,29 @@ public class StringBlankSeparatedNullTerminatedStruct extends ArrayList<VSMStrin
 
     public byte[] readInUntilNullOrLength(DataInputStream in, int length) throws IOException {
         ArrayList<Byte> bytes = new ArrayList<Byte>();
-        /* debug */ System.err.println("readInUntilNullOrLength in.available() == " + in.available());
-        while (length > 0 && in.available() > 0) {
+        // /* debug */ System.err.println("readInUntilNullOrLength in.available() == " + in.available());
+        while (length-- > 0 && in.available() > 0) {
             Byte b = in.readByte();
-            if (b == 0) {
+            bytes.add(b); // add even the null
+            if (b == 0) { // quit on null
                 break;
             }
-            bytes.add(b);
         }
         byte[] result = new byte[bytes.size()];
         for (int i = 0; i < bytes.size(); i++) {
             result[i] = bytes.get(i);
         }
-        /* debug */ System.err.println("readInUntilNullOrLength :: " + result);
+        // /* debug */ System.err.println("readInUntilNullOrLength :: " + Arrays.toString(result));
         return result;
     }
 
-    public String readStringUntilBlankOrLength(DataInputStream in, int length) throws IOException {
+    public String readStringUntilBlankNullOrExhaustedOrLength(DataInputStream in, int length) throws IOException {
         ArrayList<Byte> bytes = new ArrayList<Byte>();
         byte b;
-        /* debug */ System.err.println("readStringUntilBlankOrLength in.available() == " + in.available());
+        // /* debug */ System.err.println("readStringUntilBlankNullOrExhaustedOrLength in.available() == " + in.available());
         while (length-- > 0 && in.available() > 0) {
             b = in.readByte();
-            if (b == 0x20) {
+            if (b == 0x20 || b == 0) {
                 break;
             }
             bytes.add(b);
@@ -218,7 +217,7 @@ public class StringBlankSeparatedNullTerminatedStruct extends ArrayList<VSMStrin
         for (int i = 0; i < bytes.size(); i++) {
             result[i] = bytes.get(i);
         }
-        /* debug */ System.err.println("readStringUntilBlankOrLength :: " + bytes.toString());
+        // /* debug */ System.err.println("readStringUntilBlankNullOrExhaustedOrLength :: " + bytes.toString());
         return new String(result);
     }
 
@@ -241,7 +240,7 @@ public class StringBlankSeparatedNullTerminatedStruct extends ArrayList<VSMStrin
         while (i.hasNext() && length > 0 && bis.available() > 0) {
             VSMString model = i.next();
             nextVSMString = new VSMString(model);
-            nextVSMString.setValue(readStringUntilBlankOrLength(dis, length));
+            nextVSMString.setValue(readStringUntilBlankNullOrExhaustedOrLength(dis, length));
             length -= nextVSMString.paramLength();
             if (i.hasNext()) { // if this wasn't the last member
                 length--; // then we have to account for the blank separator
@@ -309,18 +308,4 @@ public class StringBlankSeparatedNullTerminatedStruct extends ArrayList<VSMStrin
         }
         return sb.toString();
     }
-
-    /**
-     *
-     * @param argv
-     */
-    /*public static void main(String[] argv) {
-    VSMStruct toCopy = new VSMStruct(null, "test_struct");
-    VSMString tempString = new VSMString("I am very silly ", "target_identifier");
-    toCopy.add(new VSMInt4(tempString.paramLength(), "target_identifier_length"));
-    toCopy.add(tempString);
-    toCopy.add(new VSMInt1(42, "life_the_universe_and_everything"));
-    System.out.println("Testing VSMStruct.testCopyOf()");
-    testCopyOf(toCopy);
-    }*/
 }
