@@ -12,7 +12,7 @@
 /* jwoehr 20151226 */
 Asynchronous_Notification_Disable_DM
 Asynchronous_Notification_Enable_DM
-Asynchronous_Notification_Query_DM
+Asynchronous_Notification_Query_DM *
 Authorization_List_Add
 Authorization_List_Query *
 Authorization_List_Remove
