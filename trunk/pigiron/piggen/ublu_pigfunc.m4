@@ -43,7 +43,7 @@ pushdef(`x_package', $3)dnl
 pushdef(`x_function_name', $4)dnl
 pushdef(`x_comment', $5)dnl
 changecom(`/*')dnl
-# myClassName().ublu
+# OUTPUT_FILENAME()
 # perform SMAPI  x_function_name
 # arguments to function:
 # host is tuple variable with the instanced host object

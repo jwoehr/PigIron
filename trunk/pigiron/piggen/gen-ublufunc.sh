@@ -77,7 +77,7 @@ then
 	  OUTFILE=${TARGDIR}/${OUTPUT_FILENAME}
           echo "$0 Processing ${i} to ${OUTFILE}"
 	  cat $i | sed 's/include(`/include(`ublu_/g' | \
-	      $GM4 -I $SCRIPTDIR > ${OUTFILE}
+	      $GM4 -D OUTPUT_FILENAME=${OUTPUT_FILENAME} -I $SCRIPTDIR > ${OUTFILE}
       fi
     done
     if [ $? -ne 0 ]
