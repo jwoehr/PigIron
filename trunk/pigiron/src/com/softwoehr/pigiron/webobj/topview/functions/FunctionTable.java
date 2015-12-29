@@ -128,6 +128,7 @@ public class FunctionTable {
         functions.put("SharedMemoryDelete", SharedMemoryDelete.class);
         functions.put("SharedMemoryQuery", SharedMemoryQuery.class);
         functions.put("SharedMemoryReplace", SharedMemoryReplace.class);
+        functions.put("SMAPIStatusCapture", SMAPIStatusCapture.class);
         functions.put("StaticImageChangesActivateDM", StaticImageChangesActivateDM.class);
         functions.put("StaticImageChangesDeactivateDM", StaticImageChangesDeactivateDM.class);
         functions.put("StaticImageChangesImmediateDM", StaticImageChangesImmediateDM.class);
