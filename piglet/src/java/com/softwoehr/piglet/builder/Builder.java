@@ -277,6 +277,7 @@ public class Builder {
         out.println("   <OPTION VALUE=\"SharedMemoryDelete\">SharedMemoryDelete</OPTION>");
         out.println("   <OPTION VALUE=\"SharedMemoryQuery\">SharedMemoryQuery</OPTION>");
         out.println("   <OPTION VALUE=\"SharedMemoryReplace\">SharedMemoryReplace</OPTION>");
+        out.println("   <OPTION VALUE=\"SMAPIStatusCapture\">SMAPIStatusCapture</OPTION>");
         out.println("   <OPTION VALUE=\"StaticImageChangesActivateDM\">StaticImageChangesActivateDM</OPTION>");
         out.println("   <OPTION VALUE=\"StaticImageChangesDeactivateDM\">StaticImageChangesDeactivateDM</OPTION>");
         out.println("   <OPTION VALUE=\"StaticImageChangesImmediateDM\">StaticImageChangesImmediateDM</OPTION>");
