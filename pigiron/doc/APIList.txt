@@ -63,7 +63,7 @@ Image_IPL_Query_DM
 Image_IPL_Set_DM
 Image_Lock_DM
 6.3: Image_Lock_Query_DM
-6.3: Image_MDISK_Link_Query 20151227 **
+6.3: Image_MDISK_Link_Query 20151223 **
 Image_Name_Query_DM
 Image_Password_Set_DM
 Image_Query_Activate_Time *****
