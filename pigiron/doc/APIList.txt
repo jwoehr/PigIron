@@ -118,7 +118,7 @@ Shared_Memory_Create
 Shared_Memory_Delete
 Shared_Memory_Query
 Shared_Memory_Replace
-6.3: SMAPI_Status_Capture
+6.3: SMAPI_Status_Capture 20151228 **
 6.3: SSI_Query
 Static_Image_Changes_Activate_DM
 Static_Image_Changes_Deactivate_DM
