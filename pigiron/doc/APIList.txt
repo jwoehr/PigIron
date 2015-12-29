@@ -63,7 +63,7 @@ Image_IPL_Query_DM
 Image_IPL_Set_DM
 Image_Lock_DM
 6.3: Image_Lock_Query_DM
-6.3: Image_MDISK_Link_Query
+6.3: Image_MDISK_Link_Query 20151227 **
 Image_Name_Query_DM
 Image_Password_Set_DM
 Image_Query_Activate_Time *****
@@ -106,7 +106,7 @@ Prototype_Name_Query_DM
 Prototype_Query_DM
 Prototype_Replace_DM
 6.3: Query_ABEND_Dump
-6.3: Query_All_DM
+6.3: Query_All_DM 20151220 not quite right
 Query_API_Functional_Level ***
 Query_Asynchronous_Operation_DM
 Query_Directory_Manager_Level_DM ***
