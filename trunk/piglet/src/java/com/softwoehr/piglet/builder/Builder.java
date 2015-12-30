@@ -203,6 +203,7 @@ public class Builder {
         out.println("   <OPTION VALUE=\"DirectoryManagerLocalTagSetDM\">DirectoryManagerLocalTagSetDM</OPTION>");
         out.println("   <OPTION VALUE=\"DirectoryManagerSearchDM\">DirectoryManagerSearchDM</OPTION>");
         out.println("   <OPTION VALUE=\"DirectoryManagerTaskCancelDM\">DirectoryManagerTaskCancelDM</OPTION>");
+        out.println("   <OPTION VALUE=\"EchoParameters\">EchoParameters</OPTION>");
         out.println("   <OPTION VALUE=\"EventStreamAdd\">EventStreamAdd</OPTION>");
         out.println("   <OPTION VALUE=\"EventSubscribe\">EventSubscribe</OPTION>");
         out.println("   <OPTION VALUE=\"EventUnsubscribe\">EventUnsubscribe</OPTION>");
