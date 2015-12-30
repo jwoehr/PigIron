@@ -57,6 +57,7 @@ public class FunctionTable {
         functions.put("DirectoryManagerLocalTagSetDM", DirectoryManagerLocalTagSetDM.class);
         functions.put("DirectoryManagerSearchDM", DirectoryManagerSearchDM.class);
         functions.put("DirectoryManagerTaskCancelDM", DirectoryManagerTaskCancelDM.class);
+        functions.put("EchoParameters", EchoParameters.class);
         functions.put("ImageActivate", ImageActivate.class);
         functions.put("ImageActiveConfigurationQuery", ImageActiveConfigurationQuery.class);
         functions.put("ImageCPUDefine", ImageCPUDefine.class);
