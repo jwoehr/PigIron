@@ -31,8 +31,6 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
-import java.util.Vector;
-
 import com.softwoehr.pigiron.access.CountedStruct;
 import com.softwoehr.pigiron.access.VSMArray;
 import com.softwoehr.pigiron.access.VSMAsciiZ;
@@ -65,7 +63,7 @@ public class Argument extends WebObject {
      * A Vector of the JSON keys (names) that are valid for a given WebObject
      * extender
      */
-    private static Vector<String> names = setNames(new String[]{"formal_name", "value"});
+    private static NameList names = setNames(new String[]{"formal_name", "value"});
 
     /**
      * Get the array of JSON keys (names) that are valid for a given WebObject
@@ -273,7 +271,7 @@ public class Argument extends WebObject {
      * @param value the value
      * @throws JSONException on JSON err
      */
-    public void setValue(String value) throws JSONException {
+    public final void setValue(String value) throws JSONException {
         if (value == null) {
             put("value", JSONObject.NULL);
         } else {
@@ -287,7 +285,7 @@ public class Argument extends WebObject {
      * @param value the value
      * @throws JSONException on JSON err
      */
-    public void setValue(long value) throws JSONException {
+    public final void setValue(long value) throws JSONException {
         put("value", value);
     }
 

@@ -31,8 +31,6 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
-import java.util.Vector;
-
 import com.softwoehr.pigiron.webobj.WebObject;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,7 +51,7 @@ public class Response extends WebObject {
      * A Vector of the JSON keys (names) that are valid for a given WebObject
      * extender
      */
-    private static Vector<String> names
+    private static NameList names
             = setNames(new String[]{"result", "messageText", "requestor"});
 
     /**
@@ -153,6 +151,11 @@ public class Response extends WebObject {
     public Response(String result, String messageText,
             Requestor requestor) throws JSONException {
         super();
+        setImportantValues(result, messageText, requestor);
+    }
+    
+    private void setImportantValues(String result, String messageText,
+            Requestor requestor) throws JSONException {
         put("result", result);
         put("messageText", messageText);
         put("requestor", requestor);
@@ -263,7 +266,7 @@ public class Response extends WebObject {
      * @param requestor The new requestor value
      * @throws JSONException on JSON err
      */
-    public void setRequestor(Requestor requestor) throws JSONException {
+    public final void setRequestor(Requestor requestor) throws JSONException {
         put("requestor", requestor);
     }
 
@@ -283,7 +286,9 @@ public class Response extends WebObject {
      *
      * @return HTML content suitable for inclusion in an extant HTML body
      * section, including a trailing {@code &lt;br&gt;}.
+     * @throws org.json.JSONException
      */
+    @Override
     public String toHTML() throws JSONException {
         StringBuilder sb = new StringBuilder();
         sb.append("<b>Result:</b> ").append(get("result")).append("<br />\n");

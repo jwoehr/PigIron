@@ -109,7 +109,7 @@ public abstract class FunctionProxy {
      * @param  response                    the response to be returned
      * @exception  org.json.JSONException  on JSON err
      */ 
-    public void assimilate(Requestor requestor, Response response) throws org.json.JSONException {
+    public final void assimilate(Requestor requestor, Response response) throws org.json.JSONException {
         this.requestor = requestor;
         this.response = response;
         if (requestor != null) {

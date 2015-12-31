@@ -31,8 +31,6 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
-import java.util.Vector;
-
 import com.softwoehr.pigiron.webobj.WebObject;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +46,7 @@ public class User extends WebObject {
      * A Vector of the JSON keys (names) that are valid for a given WebObject
      * extender
      */
-    private static Vector<String> names = setNames(new String[]{"uid", "password"});
+    private static NameList names = setNames(new String[]{"uid", "password"});
 
     /**
      * Get the array of JSON keys (names) that are valid for a given WebObject
