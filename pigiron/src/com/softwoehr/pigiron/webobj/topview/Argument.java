@@ -382,7 +382,6 @@ public class Argument extends WebObject {
      * @throws JSONException on JSON err
      */
     public static Argument from(CountedStringZ countedStringZ) throws JSONException {
-
         Argument result = new Argument(countedStringZ.getFormalName(), countedStringZ.getValue());
         return result;
     }
