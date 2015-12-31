@@ -31,8 +31,9 @@
  */
 package com.softwoehr.pigiron.webobj;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Vector;
+import java.util.Collection;
 import java.util.Iterator;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,79 +42,79 @@ import org.json.JSONObject;
  * A class to represent those elements of PigIron VSMAPI Function execution
  * which can be represented as JSONObject.
  *
- * @author     jax
- * @created    November 23, 2008
+ * @author jax
+ * @created November 23, 2008
  */
 public abstract class WebObject extends JSONObject {
 
     /**
      * Construct an (empty) WebObject
-     */ 
+     */
     public WebObject() {
         super();
     }
 
     /**
-     *Construct a  WebObject passing a JSON string to the superclass
+     * Construct a WebObject passing a JSON string to the superclass
      *
-     * @param  jsonText                    Description of the Parameter
-     * @exception  org.json.JSONException  Description of the Exception
-     */ 
+     * @param jsonText Description of the Parameter
+     * @exception org.json.JSONException Description of the Exception
+     */
     protected WebObject(String jsonText) throws org.json.JSONException {
         super(jsonText);
     }
 
     /**
-     *Construct a  WebObject from a WebObject unconstrained copy ctor
+     * Construct a WebObject from a WebObject unconstrained copy ctor
      *
-     * @param  webObject                   The object to copy key/vals from
-     * @exception  org.json.JSONException  on JSON error
-     */ 
+     * @param webObject The object to copy key/vals from
+     * @exception org.json.JSONException on JSON error
+     */
     protected WebObject(WebObject webObject) throws org.json.JSONException {
         super(webObject);
     }
- 
+
     /**
-     *Construct a  WebObject from a WebObject using JSON's constrained copy ctor
+     * Construct a WebObject from a WebObject using JSON's constrained copy ctor
      *
-     * @param  webObject                   The object to copy key/vals from
-     * @exception  org.json.JSONException  on JSON error
-     */ 
-    protected WebObject(WebObject webObject, String [] names) throws org.json.JSONException {
-        super(webObject,names);
+     * @param webObject The object to copy key/vals from
+     * @param names
+     * @exception org.json.JSONException on JSON error
+     */
+    protected WebObject(WebObject webObject, String[] names) throws org.json.JSONException {
+        super(webObject, names);
     }
 
     /**
-     *Construct a  WebObject from a JSONObject unconstrained copy ctor
+     * Construct a WebObject from a JSONObject unconstrained copy ctor
      *
-     * @param  jsonObject                   The object to copy key/vals from
-     * @exception  org.json.JSONException  on JSON error
-     */ 
+     * @param jsonObject The object to copy key/vals from
+     * @exception org.json.JSONException on JSON error
+     */
     protected WebObject(JSONObject jsonObject) throws org.json.JSONException {
         super(jsonObject);
     }
- 
+
     /**
-     *Construct a  WebObject from a JSONObject constrained copy ctor
+     * Construct a WebObject from a JSONObject constrained copy ctor
      *
-     * @param  jsonObject                   The object to copy key/vals from
+     * @param jsonObject The object to copy key/vals from
      * @param names
-     * @exception  org.json.JSONException  on JSON error
-     */ 
-    protected WebObject(JSONObject jsonObject, String [] names) throws org.json.JSONException {
-        super(jsonObject,names);
+     * @exception org.json.JSONException on JSON error
+     */
+    protected WebObject(JSONObject jsonObject, String[] names) throws org.json.JSONException {
+        super(jsonObject, names);
     }
- 
- 
+
     /**
-     *  Sets Vector of the JSON keys (names) that are valid for
-     * a given WebObject extender.
+     * Sets Vector of the JSON keys (names) that are valid for a given WebObject
+     * extender.
      *
-     * @param  someNames The array of JSON keys (names) that are valid for
-     * a given WebObject extender
-     */ 
-    public static Vector <String> setNames(String [] someNames) {
-        Vector <String> names = new Vector <String>(someNames.length);
+     * @param someNames The array of JSON keys (names) that are valid for a
+     * given WebObject extender
+     */
+    public static NameList setNames(String[] someNames) {
+        NameList names = new NameList(someNames.length);
         names.addAll(Arrays.asList(someNames));
         return names;
     }
@@ -121,17 +122,18 @@ public abstract class WebObject extends JSONObject {
     /**
      * Identifies whether a JSON key is one of the names given
      *
-     * @param  name  the JSON key
-     * @param names  the vector of names that 'name' must be a member of
-     * @return       true if the key is a member
-     */ 
-    public static boolean isName(String name, Vector <String> names) {
+     * @param name the JSON key
+     * @param names the vector of names that 'name' must be a member of
+     * @return true if the key is a member
+     */
+    public static boolean isName(String name, NameList names) {
         return names.indexOf(name) != - 1;
     }
 
     /**
-     * Returns the contents of the object as HTML with no enclosing markup.
-     * The caller provides enclosing markup, if any.
+     * Returns the contents of the object as HTML with no enclosing markup. The
+     * caller provides enclosing markup, if any.
+     *
      * @return HTML content suitable for inclusion in an extant HTML body
      * section, with <b>no</b> leading nor trailing {@code &lt;br&nbsp;/&gt;}
      * though there can be internal {@code &lt;br&nbsp;/&gt;}'s. .
@@ -143,8 +145,21 @@ public abstract class WebObject extends JSONObject {
         while (it.hasNext()) {
             String key = it.next().toString();
             sb.append("<b>").append(key).append(":</b> ").append(get(key).toString());
-        } 
+        }
         return sb.toString();
     }
-}
 
+    public static class NameList extends ArrayList<String> {
+
+        public NameList(int initialCapacity) {
+            super(initialCapacity);
+        }
+
+        public NameList() {
+        }
+
+        public NameList(Collection<? extends String> c) {
+            super(c);
+        }
+    }
+}

@@ -30,7 +30,7 @@
  *  THE POSSIBILITY OF SUCH DAMAGE.
  */
 package com.softwoehr.pigiron.webobj.topview;
-import java.util.Vector;
+
 import com.softwoehr.pigiron.webobj.WebObject;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,150 +38,149 @@ import org.json.JSONObject;
 /**
  * A class representing a complete request to PigIron
  *
- * @author     jax
- * @created    November 30, 2008
+ * @author jax
+ * @created November 30, 2008
  */
 public class Requestor extends WebObject {
 
     /**
-     *  A Vector of the JSON keys (names) that are valid for
-     * a given WebObject extender
-     */ 
-    private static Vector <String> names = setNames(new String []{"user" ,"host" ,"function"}); 
-    
+     * A Vector of the JSON keys (names) that are valid for a given WebObject
+     * extender
+     */
+    private static NameList names = setNames(new String[]{"user", "host", "function"});
+
     /**
-     *  Get the array of JSON keys (names) that are valid for
-     * a given WebObject extender
+     * Get the array of JSON keys (names) that are valid for a given WebObject
+     * extender
      *
-     * @return    The names
-     */ 
-    public String []getNames() {
-        return names.toArray(new String [names.size()]);
+     * @return The names
+     */
+    public String[] getNames() {
+        return names.toArray(new String[names.size()]);
     }
 
     /**
-     * Identifies whether a JSON key is one of the names a given
-     * WebObject extender uses.
+     * Identifies whether a JSON key is one of the names a given WebObject
+     * extender uses.
      *
-     * @param  name  the JSON key
+     * @param name the JSON key
      * @return true if the key is one the class uses
-     */ 
-     public  boolean isName(String name) {
-	 return isName(name, names);
-     }
+     */
+    public boolean isName(String name) {
+        return isName(name, names);
+    }
 
     /**
      * Create a default (empty) Requestor
      *
-     * @exception  JSONException        on JSON err
-     */ 
+     * @exception JSONException on JSON err
+     */
     public Requestor() throws JSONException {
         super();
         initDefaults();
     }
 
     /**
-     * Constructor for the Requestor from a JSONObject using only
-     * the members named in Requestor.names
+     * Constructor for the Requestor from a JSONObject using only the members
+     * named in Requestor.names
      *
-     * @param  aRequestor               a requestor object or something like it
-     * @exception  JSONException        on JSON err
-     */ 
+     * @param aRequestor a requestor object or something like it
+     * @exception JSONException on JSON err
+     */
     public Requestor(Requestor aRequestor) throws JSONException {
         super(aRequestor);
     }
 
     /**
-     * Constructor for the Requestor from a JSONObject using only
-     * the members named in Requestor.names
+     * Constructor for the Requestor from a JSONObject using only the members
+     * named in Requestor.names
      *
-     * @param  aRequestor               a requestor object or something like it
-     * @throws  org.json.JSONException  on JSON err
-     */ 
+     * @param aRequestor a requestor object or something like it
+     * @throws org.json.JSONException on JSON err
+     */
     public Requestor(JSONObject aRequestor) throws JSONException {
-        super(aRequestor, new String []{"user" ,"host" ,"function"});
+        super(aRequestor, new String[]{"user", "host", "function"});
     }
 
     /**
-     *Constructor for the Requestor from a string of JSON representation
+     * Constructor for the Requestor from a string of JSON representation
      *
-     * @param  jsonRepresentation  requestor described in JSON
-     * @exception  JSONException   on JSON err
-     */ 
+     * @param jsonRepresentation requestor described in JSON
+     * @exception JSONException on JSON err
+     */
     public Requestor(String jsonRepresentation) throws JSONException {
         super(jsonRepresentation);
     }
 
     /**
-     *  Gets the user attribute of the Requestor object
+     * Gets the user attribute of the Requestor object
      *
-     * @return                    The user value
-     * @exception  JSONException  on JSON err
-     */ 
+     * @return The user value
+     * @exception JSONException on JSON err
+     */
     public User getUser() throws JSONException {
         return new User(getJSONObject("user"));
     }
 
     /**
-     *  Sets the user attribute of the Requestor object
+     * Sets the user attribute of the Requestor object
      *
-     * @param  user               The new user value
-     * @exception  JSONException  on JSON err
-     */ 
+     * @param user The new user value
+     * @exception JSONException on JSON err
+     */
     public void setUser(User user) throws JSONException {
         put("user", user);
     }
 
     /**
-     *  Gets the host attribute of the Requestor object
+     * Gets the host attribute of the Requestor object
      *
-     * @return                    The host value
-     * @exception  JSONException  on JSON err
-     */ 
+     * @return The host value
+     * @exception JSONException on JSON err
+     */
     public Host getHost() throws JSONException {
         return new Host(getJSONObject("host"));
     }
 
     /**
-     *  Sets the host attribute of the Requestor object
+     * Sets the host attribute of the Requestor object
      *
-     * @param  host               The new host value
-     * @exception  JSONException  on JSON err
-     */ 
+     * @param host The new host value
+     * @exception JSONException on JSON err
+     */
     public void setHost(Host host) throws JSONException {
         put("host", host);
     }
 
     /**
-     *  Gets the function attribute of the Requestor object
+     * Gets the function attribute of the Requestor object
      *
-     * @return                    The function value
-     * @exception  JSONException  on JSON err
-     */ 
+     * @return The function value
+     * @exception JSONException on JSON err
+     */
     public Function getFunction() throws JSONException {
         Function result = new Function(getJSONObject("function"));
-	return result;
+        return result;
     }
 
     /**
-     *  Sets the function attribute of the Requestor object
+     * Sets the function attribute of the Requestor object
      *
-     * @param  function           The new function value
-     * @exception  JSONException  on JSON err
-     */ 
+     * @param function The new function value
+     * @exception JSONException on JSON err
+     */
     public void setFunction(Function function) throws JSONException {
         put("function", function);
     }
 
     /**
-     *  init defaults
+     * init defaults
      *
-     * @exception  JSONException  on JSON err
-     */ 
+     * @exception JSONException on JSON err
+     */
     private void initDefaults() throws JSONException {
         put("user", new User());
         put("host", new Host());
         put("function", new Function());
     }
 }
-

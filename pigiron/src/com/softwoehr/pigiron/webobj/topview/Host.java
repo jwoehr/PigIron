@@ -31,8 +31,6 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
-import java.util.Vector;
-
 import com.softwoehr.pigiron.webobj.WebObject;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +46,7 @@ public class Host extends WebObject {
      * A Vector of the JSON keys (names) that are valid for a given WebObject
      * extender
      */
-    private Vector<String> names = setNames(new String[]{"name", "dns_name", "ip_address", "port_number", "ssl"});
+    private NameList names = setNames(new String[]{"name", "dns_name", "ip_address", "port_number", "ssl"});
 
     /**
      * Get the array of JSON keys (names) that are valid for a given WebObject
@@ -75,7 +73,6 @@ public class Host extends WebObject {
      * Base ctor
      *
      * @exception JSONException Description of the Exception
-     * @throws JSONException
      */
     public Host() throws JSONException {
         this("", "", "", - 1, false);
@@ -105,7 +102,6 @@ public class Host extends WebObject {
      *
      * @param jsonRepresentation argument described in JSON
      * @exception JSONException on JSON err
-     * @throws JSONException on JSON err
      */
     public Host(String jsonRepresentation) throws JSONException {
         super(jsonRepresentation);
@@ -138,7 +134,6 @@ public class Host extends WebObject {
      *
      * @return name
      * @exception JSONException Description of the Exception
-     * @throws org.json.JSONException on JSON err
      */
     public String getName() throws JSONException {
         return getString("name");
