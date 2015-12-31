@@ -36,7 +36,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -279,7 +278,7 @@ public class StringBlankSeparatedNullTerminatedStruct extends ArrayList<VSMStrin
     }
 
     /**
-     * Get the formal type of the parmeter, one of the formal parameter types
+     * Get the formal type of the parameter, one of the formal parameter types
      * discussed in the VSMAPI documentation: <tt>int1</tt>, <tt>int4</tt>,
      * <tt>int8</tt>, <tt>string</tt>, <tt>struct</tt>, <tt>array</tt>.
      *

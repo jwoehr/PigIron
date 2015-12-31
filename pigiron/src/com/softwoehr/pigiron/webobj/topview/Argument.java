@@ -31,6 +31,9 @@
  */
 package com.softwoehr.pigiron.webobj.topview;
 
+import com.softwoehr.pigiron.access.CountedArray;
+import com.softwoehr.pigiron.access.CountedString;
+import com.softwoehr.pigiron.access.CountedStringZ;
 import com.softwoehr.pigiron.access.CountedStruct;
 import com.softwoehr.pigiron.access.VSMArray;
 import com.softwoehr.pigiron.access.VSMAsciiZ;
@@ -295,7 +298,7 @@ public class Argument extends WebObject {
      * @param jsonObj the value
      * @throws JSONException on JSON err
      */
-    public void setValue(JSONObject jsonObj) throws JSONException {
+    public final void setValue(JSONObject jsonObj) throws JSONException {
         if (jsonObj == null) {
             put("value", JSONObject.NULL);
         } else {
@@ -348,6 +351,18 @@ public class Argument extends WebObject {
     }
 
     /**
+     * Assimilate a VSMString as an Argument
+     *
+     * @param countedString A CountedString instance to be used as an Argument
+     * @return An Argument created from the type
+     * @throws JSONException on JSON err
+     */
+    public static Argument from(CountedString countedString) throws JSONException {
+        Argument result = new Argument(countedString.getFormalName(), countedString.getValue());
+        return result;
+    }
+
+    /**
      * Assimilate a VSMAsciiZ as an Argument
      *
      * @param vsmAsciiZ A VSMAsciiZ instance to be used as an Argument
@@ -355,8 +370,20 @@ public class Argument extends WebObject {
      * @throws JSONException on JSON err
      */
     public static Argument from(VSMAsciiZ vsmAsciiZ) throws JSONException {
-
         Argument result = new Argument(vsmAsciiZ.getFormalName(), vsmAsciiZ.getValue());
+        return result;
+    }
+
+    /**
+     * Assimilate a VSMAsciiZ as an Argument
+     *
+     * @param countedStringZ A CountedStringZ instance to be used as an Argument
+     * @return An Argument created from the type
+     * @throws JSONException on JSON err
+     */
+    public static Argument from(CountedStringZ countedStringZ) throws JSONException {
+
+        Argument result = new Argument(countedStringZ.getFormalName(), countedStringZ.getValue());
         return result;
     }
 
@@ -387,7 +414,7 @@ public class Argument extends WebObject {
      * @throws JSONException on JSON err
      */
     public static Argument from(CountedStruct countStruct) throws JSONException {
-        Argument result = null;
+        Argument result;
         JSONArray ja = new JSONArray();
         Iterator<VSMParm> it = countStruct.iterator();
         while (it.hasNext()) {
@@ -440,6 +467,27 @@ public class Argument extends WebObject {
     }
 
     /**
+     * Assimilate a CountedArray as an Argument
+     *
+     * @param countedArray A CountedArray instance to be used as an argument to
+     * a PigIron VSMAPI function
+     * @return An Argument created from the type
+     * @throws JSONException on JSON err
+     */
+    public static Argument from(CountedArray countedArray) throws JSONException {
+        Argument result;
+        JSONArray ja = new JSONArray();
+        Iterator<VSMParm> it = countedArray.iterator();
+        int i = 0;
+        while (it.hasNext()) {
+            Argument a = Argument.from(it.next());
+            ja.put(a);
+        }
+        result = new Argument(countedArray.getFormalName(), ja);
+        return result;
+    }
+
+    /**
      * Assimilate a VSMParm as an Argument
      *
      * @param vsmParm A VSMParm instance to be used as an argument to a PigIron
@@ -449,7 +497,9 @@ public class Argument extends WebObject {
      */
     public static Argument from(VSMParm vsmParm) throws JSONException {
         Argument result = null;
-        if (vsmParm instanceof VSMAsciiZArray) {            // /* Debug */ System.err.println("VSMAsciiZArray in Argument from(VSMParm vsmParm)");
+        if (vsmParm instanceof CountedArray) {                // /* Debug */ System.err.println("VSMArray in Argument from(VSMParm vsmParm)");
+            result = from(CountedArray.class.cast(vsmParm));
+        } else if (vsmParm instanceof VSMAsciiZArray) {            // /* Debug */ System.err.println("VSMAsciiZArray in Argument from(VSMParm vsmParm)");
             result = from(VSMAsciiZArray.class.cast(vsmParm));
         } else if (vsmParm instanceof VSMArray) {                // /* Debug */ System.err.println("VSMArray in Argument from(VSMParm vsmParm)");
             result = from(VSMArray.class.cast(vsmParm));
@@ -457,8 +507,12 @@ public class Argument extends WebObject {
             result = from(CountedStruct.class.cast(vsmParm));
         } else if (vsmParm instanceof VSMStruct) {                        // /* Debug */ System.err.println("VSMStruct in Argument from(VSMParm vsmParm)");
             result = from(VSMStruct.class.cast(vsmParm));
+        } else if (vsmParm instanceof CountedStringZ) {
+            result = from(CountedStringZ.class.cast(vsmParm));
         } else if (vsmParm instanceof VSMAsciiZ) {                            // /* Debug */ System.err.println("VSMAsciiZ in Argument from(VSMParm vsmParm)");
             result = from(VSMAsciiZ.class.cast(vsmParm));
+        } else if (vsmParm instanceof CountedString) {
+            result = from(CountedString.class.cast(vsmParm));
         } else if (vsmParm instanceof VSMString) {                                // /* Debug */ System.err.println("VSMString in Argument from(VSMParm vsmParm)");
             result = from(VSMString.class.cast(vsmParm));
         } else if (vsmParm instanceof VSMInt) {                                    // /* Debug */ System.err.println("VSMInt in Argument from(VSMParm vsmParm)");
