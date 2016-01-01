@@ -238,6 +238,7 @@ public class Builder {
         out.println("   <OPTION VALUE=\"ImageIPLQueryDM\">ImageIPLQueryDM</OPTION>");
         out.println("   <OPTION VALUE=\"ImageIPLSetDM\">ImageIPLSetDM</OPTION>");
         out.println("   <OPTION VALUE=\"ImageLockDM\">ImageLockDM</OPTION>");
+        out.println("   <OPTION VALUE=\"ImageMDISKLinkQuery\">ImageMDISKLinkQuery</OPTION>");
         out.println("   <OPTION VALUE=\"ImageNameQueryDM\">ImageNameQueryDM</OPTION>");
         out.println("   <OPTION VALUE=\"ImagePasswordSetDM\">ImagePasswordSetDM</OPTION>");
         out.println("   <OPTION VALUE=\"ImageQueryActivateTime\">ImageQueryActivateTime</OPTION>");
@@ -268,6 +269,7 @@ public class Builder {
         out.println("   <OPTION VALUE=\"PrototypeNameQueryDM\">PrototypeNameQueryDM</OPTION>");
         out.println("   <OPTION VALUE=\"PrototypeQueryDM\">PrototypeQueryDM</OPTION>");
         out.println("   <OPTION VALUE=\"PrototypeReplaceDM\">PrototypeReplaceDM</OPTION>");
+        out.println("   <OPTION VALUE=\"QueryAllDM\">QueryAllDM</OPTION>");
         out.println("   <OPTION VALUE=\"QueryAPIFunctionalLevel\">QueryAPIFunctionalLevel</OPTION>");
         out.println("   <OPTION VALUE=\"QueryAsynchronousOperationDM\">QueryAsynchronousOperationDM</OPTION>");
         out.println("   <OPTION VALUE=\"QueryDirectoryManagerLevelDM\">QueryDirectoryManagerLevelDM</OPTION>");
