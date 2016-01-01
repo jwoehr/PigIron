@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+ *  Copyright (c) 2008, 2015 Jack J. Woehr jwoehr@softwoehr.com
  *  PO Box 51, Golden, Colorado 80402-0051 USA
  *  All rights reserved.
  *
@@ -31,144 +31,152 @@
  */
 package com.softwoehr.pigiron.webobj.topview.functions;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 
 /**
- * FunctionTable is static representation of mapping between strings found in the function_name field
- * of the Function JSON object in the Requestor and the proxy functions we use to bind a JSON
- * request to a PigIron VSMAPI call.
+ * FunctionTable is static representation of mapping between strings found in
+ * the function_name field of the Function JSON object in the Requestor and the
+ * proxy FUNCTIONS we use to bind a JSON request to a PigIron VSMAPI call.
  *
  */
 public class FunctionTable {
-     static public final Hashtable<String, Class<? extends FunctionProxy>> functions;
+
+    static public final HashMap<String, Class<? extends FunctionProxy>> FUNCTIONS;
 
     static {
-	functions = new Hashtable<String, Class<? extends FunctionProxy>>(200);
-        functions.put("AsynchronousNotificationDisableDM", AsynchronousNotificationDisableDM.class);
-        functions.put("AsynchronousNotificationEnableDM", AsynchronousNotificationEnableDM.class);
-        functions.put("AsynchronousNotificationQueryDM", AsynchronousNotificationQueryDM.class);
-        functions.put("AuthorizationListAdd", AuthorizationListAdd.class);
-        functions.put("AuthorizationListQuery", AuthorizationListQuery.class);
-        functions.put("AuthorizationListRemove", AuthorizationListRemove.class);
-        functions.put("CheckAuthentication", CheckAuthentication.class);
-        functions.put("DirectoryManagerLocalTagDefineDM", DirectoryManagerLocalTagDefineDM.class);
-        functions.put("DirectoryManagerLocalTagDeleteDM", DirectoryManagerLocalTagDeleteDM.class);
-        functions.put("DirectoryManagerLocalTagQueryDM", DirectoryManagerLocalTagQueryDM.class);
-        functions.put("DirectoryManagerLocalTagSetDM", DirectoryManagerLocalTagSetDM.class);
-        functions.put("DirectoryManagerSearchDM", DirectoryManagerSearchDM.class);
-        functions.put("DirectoryManagerTaskCancelDM", DirectoryManagerTaskCancelDM.class);
-        functions.put("EchoParameters", EchoParameters.class);
-        functions.put("ImageActivate", ImageActivate.class);
-        functions.put("ImageActiveConfigurationQuery", ImageActiveConfigurationQuery.class);
-        functions.put("ImageCPUDefine", ImageCPUDefine.class);
-        functions.put("ImageCPUDefineDM", ImageCPUDefineDM.class);
-        functions.put("ImageCPUDelete", ImageCPUDelete.class);
-        functions.put("ImageCPUDeleteDM", ImageCPUDeleteDM.class);
-        functions.put("ImageCPUQuery", ImageCPUQuery.class);
-        functions.put("ImageCPUQueryDM", ImageCPUQueryDM.class);
-        functions.put("ImageCPUSetMaximumDM", ImageCPUSetMaximumDM.class);
-        functions.put("ImageCreateDM", ImageCreateDM.class);
-        functions.put("ImageDeactivate", ImageDeactivate.class);
-        functions.put("ImageDeleteDM", ImageDeleteDM.class);
-        functions.put("ImageDeviceDedicate", ImageDeviceDedicate.class);
-        functions.put("ImageDeviceDedicateDM", ImageDeviceDedicateDM.class);
-        functions.put("ImageDeviceReset", ImageDeviceReset.class);
-        functions.put("ImageDeviceUndedicate", ImageDeviceUndedicate.class);
-        functions.put("ImageDeviceUndedicateDM", ImageDeviceUndedicateDM.class);
-        functions.put("ImageDiskCopy", ImageDiskCopy.class);
-        functions.put("ImageDiskCopyDM", ImageDiskCopyDM.class);
-        functions.put("ImageDiskCreate", ImageDiskCreate.class);
-        functions.put("ImageDiskCreateDM", ImageDiskCreateDM.class);
-        functions.put("ImageDiskDelete", ImageDiskDelete.class);
-        functions.put("ImageDiskDeleteDM", ImageDiskDeleteDM.class);
-        functions.put("ImageDiskShare", ImageDiskShare.class);
-        functions.put("ImageDiskShareDM", ImageDiskShareDM.class);
-        functions.put("ImageDiskUnshare", ImageDiskUnshare.class);
-        functions.put("ImageDiskUnshareDM", ImageDiskUnshareDM.class);
-        functions.put("ImageIPLDeleteDM", ImageIPLDeleteDM.class);
-        functions.put("ImageIPLQueryDM", ImageIPLQueryDM.class);
-        functions.put("ImageIPLSetDM", ImageIPLSetDM.class);
-        functions.put("ImageLockDM", ImageLockDM.class);
-        functions.put("ImageNameQueryDM", ImageNameQueryDM.class);
-        functions.put("ImagePasswordSetDM", ImagePasswordSetDM.class);
-        functions.put("ImageQueryActivateTime", ImageQueryActivateTime.class);
-        functions.put("ImageQueryDM", ImageQueryDM.class);
-        functions.put("ImageRecycle", ImageRecycle.class);
-        functions.put("ImageReplaceDM", ImageReplaceDM.class);
-        functions.put("ImageSCSICharacteristicsDefineDM", ImageSCSICharacteristicsDefineDM.class);
-        functions.put("ImageSCSICharacteristicsQueryDM", ImageSCSICharacteristicsQueryDM.class);
-        functions.put("ImageStatusQuery", ImageStatusQuery.class);
-        functions.put("ImageUnlockDM", ImageUnlockDM.class);
-        functions.put("ImageVolumeAdd", ImageVolumeAdd.class);
-        functions.put("ImageVolumeDelete", ImageVolumeDelete.class);
-        functions.put("ImageVolumeSpaceDefineDM", ImageVolumeSpaceDefineDM.class);
-        functions.put("ImageVolumeSpaceQueryDM", ImageVolumeSpaceQueryDM.class);
-        functions.put("ImageVolumeSpaceRemoveDM", ImageVolumeSpaceRemoveDM.class);
-        functions.put("NameListAdd", NameListAdd.class);
-        functions.put("NameListDestroy", NameListDestroy.class);
-        functions.put("NameListQuery", NameListQuery.class);
-        functions.put("NameListRemove", NameListRemove.class);
-        functions.put("ProfileCreateDM", ProfileCreateDM.class);
-        functions.put("ProfileDeleteDM", ProfileDeleteDM.class);
-        functions.put("ProfileLockDM", ProfileLockDM.class);
-        functions.put("ProfileQueryDM", ProfileQueryDM.class);
-        functions.put("ProfileReplaceDM", ProfileReplaceDM.class);
-        functions.put("ProfileUnlockDM", ProfileUnlockDM.class);
-        functions.put("PrototypeCreateDM", PrototypeCreateDM.class);
-        functions.put("PrototypeDeleteDM", PrototypeDeleteDM.class);
-        functions.put("PrototypeNameQueryDM", PrototypeNameQueryDM.class);
-        functions.put("PrototypeQueryDM", PrototypeQueryDM.class);
-        functions.put("PrototypeReplaceDM", PrototypeReplaceDM.class);
-        functions.put("QueryAPIFunctionalLevel", QueryAPIFunctionalLevel.class);
-        functions.put("QueryAsynchronousOperationDM", QueryAsynchronousOperationDM.class);
-        functions.put("QueryDirectoryManagerLevelDM", QueryDirectoryManagerLevelDM.class);
-        functions.put("SharedMemoryAccessAddDM", SharedMemoryAccessAddDM.class);
-        functions.put("SharedMemoryAccessQueryDM", SharedMemoryAccessQueryDM.class);
-        functions.put("SharedMemoryAccessRemoveDM", SharedMemoryAccessRemoveDM.class);
-        functions.put("SharedMemoryCreate", SharedMemoryCreate.class);
-        functions.put("SharedMemoryDelete", SharedMemoryDelete.class);
-        functions.put("SharedMemoryQuery", SharedMemoryQuery.class);
-        functions.put("SharedMemoryReplace", SharedMemoryReplace.class);
-        functions.put("SMAPIStatusCapture", SMAPIStatusCapture.class);
-        functions.put("StaticImageChangesActivateDM", StaticImageChangesActivateDM.class);
-        functions.put("StaticImageChangesDeactivateDM", StaticImageChangesDeactivateDM.class);
-        functions.put("StaticImageChangesImmediateDM", StaticImageChangesImmediateDM.class);
-        functions.put("VirtualChannelConnectionCreate", VirtualChannelConnectionCreate.class);
-        functions.put("VirtualChannelConnectionCreateDM", VirtualChannelConnectionCreateDM.class);
-        functions.put("VirtualChannelConnectionDelete", VirtualChannelConnectionDelete.class);
-        functions.put("VirtualChannelConnectionDeleteDM", VirtualChannelConnectionDeleteDM.class);
-        functions.put("VirtualNetworkAdapterConnectLAN", VirtualNetworkAdapterConnectLAN.class);
-        functions.put("VirtualNetworkAdapterConnectLANDM", VirtualNetworkAdapterConnectLANDM.class);
-        functions.put("VirtualNetworkAdapterConnectVswitch", VirtualNetworkAdapterConnectVswitch.class);
-        functions.put("VirtualNetworkAdapterConnectVswitchDM", VirtualNetworkAdapterConnectVswitchDM.class);
-        functions.put("VirtualNetworkAdapterCreate", VirtualNetworkAdapterCreate.class);
-        functions.put("VirtualNetworkAdapterCreateDM", VirtualNetworkAdapterCreateDM.class);
-        functions.put("VirtualNetworkAdapterDelete", VirtualNetworkAdapterDelete.class);
-        functions.put("VirtualNetworkAdapterDeleteDM", VirtualNetworkAdapterDeleteDM.class);
-        functions.put("VirtualNetworkAdapterDisconnect", VirtualNetworkAdapterDisconnect.class);
-        functions.put("VirtualNetworkAdapterDisconnectDM", VirtualNetworkAdapterDisconnectDM.class);
-        functions.put("VirtualNetworkAdapterQuery", VirtualNetworkAdapterQuery.class);
-        functions.put("VirtualNetworkLANAccess", VirtualNetworkLANAccess.class);
-        functions.put("VirtualNetworkLANAccessQuery", VirtualNetworkLANAccessQuery.class);
-        functions.put("VirtualNetworkLANCreate", VirtualNetworkLANCreate.class);
-        functions.put("VirtualNetworkLANDelete", VirtualNetworkLANDelete.class);
-        functions.put("VirtualNetworkLANQuery", VirtualNetworkLANQuery.class);
-        functions.put("VirtualNetworkVswitchCreate", VirtualNetworkVswitchCreate.class);
-        functions.put("VirtualNetworkVswitchDelete", VirtualNetworkVswitchDelete.class);
-        functions.put("VirtualNetworkVswitchQuery", VirtualNetworkVswitchQuery.class);
-        functions.put("VirtualNetworkVswitchSet", VirtualNetworkVswitchSet.class);
-        functions.put("VMRMConfigurationQuery", VMRMConfigurationQuery.class);
-        functions.put("VMRMConfigurationUpdate", VMRMConfigurationUpdate.class);
-        functions.put("VMRMMeasurementQuery", VMRMMeasurementQuery.class);
+        FUNCTIONS = new HashMap<String, Class<? extends FunctionProxy>>(200);
+        FUNCTIONS.put("AsynchronousNotificationDisableDM", AsynchronousNotificationDisableDM.class);
+        FUNCTIONS.put("AsynchronousNotificationEnableDM", AsynchronousNotificationEnableDM.class);
+        FUNCTIONS.put("AsynchronousNotificationQueryDM", AsynchronousNotificationQueryDM.class);
+        FUNCTIONS.put("AuthorizationListAdd", AuthorizationListAdd.class);
+        FUNCTIONS.put("AuthorizationListQuery", AuthorizationListQuery.class);
+        FUNCTIONS.put("AuthorizationListRemove", AuthorizationListRemove.class);
+        FUNCTIONS.put("CheckAuthentication", CheckAuthentication.class);
+        FUNCTIONS.put("DirectoryManagerLocalTagDefineDM", DirectoryManagerLocalTagDefineDM.class);
+        FUNCTIONS.put("DirectoryManagerLocalTagDeleteDM", DirectoryManagerLocalTagDeleteDM.class);
+        FUNCTIONS.put("DirectoryManagerLocalTagQueryDM", DirectoryManagerLocalTagQueryDM.class);
+        FUNCTIONS.put("DirectoryManagerLocalTagSetDM", DirectoryManagerLocalTagSetDM.class);
+        FUNCTIONS.put("DirectoryManagerSearchDM", DirectoryManagerSearchDM.class);
+        FUNCTIONS.put("DirectoryManagerTaskCancelDM", DirectoryManagerTaskCancelDM.class);
+        FUNCTIONS.put("EchoParameters", EchoParameters.class);
+        FUNCTIONS.put("EventStream_Add", EventStreamAdd.class);
+        FUNCTIONS.put("EventSubscribe", EventSubscribe.class);
+        FUNCTIONS.put("EventUnsubscribe", EventUnsubscribe.class);
+        FUNCTIONS.put("ImageActivate", ImageActivate.class);
+        FUNCTIONS.put("ImageActiveConfigurationQuery", ImageActiveConfigurationQuery.class);
+        FUNCTIONS.put("ImageCPUDefine", ImageCPUDefine.class);
+        FUNCTIONS.put("ImageCPUDefineDM", ImageCPUDefineDM.class);
+        FUNCTIONS.put("ImageCPUDelete", ImageCPUDelete.class);
+        FUNCTIONS.put("ImageCPUDeleteDM", ImageCPUDeleteDM.class);
+        FUNCTIONS.put("ImageCPUQuery", ImageCPUQuery.class);
+        FUNCTIONS.put("ImageCPUQueryDM", ImageCPUQueryDM.class);
+        FUNCTIONS.put("ImageCPUSetMaximumDM", ImageCPUSetMaximumDM.class);
+        FUNCTIONS.put("ImageCreateDM", ImageCreateDM.class);
+        FUNCTIONS.put("ImageDeactivate", ImageDeactivate.class);
+        FUNCTIONS.put("ImageDeleteDM", ImageDeleteDM.class);
+        FUNCTIONS.put("ImageDeviceDedicate", ImageDeviceDedicate.class);
+        FUNCTIONS.put("ImageDeviceDedicateDM", ImageDeviceDedicateDM.class);
+        FUNCTIONS.put("ImageDeviceReset", ImageDeviceReset.class);
+        FUNCTIONS.put("ImageDeviceUndedicate", ImageDeviceUndedicate.class);
+        FUNCTIONS.put("ImageDeviceUndedicateDM", ImageDeviceUndedicateDM.class);
+        FUNCTIONS.put("ImageDiskCopy", ImageDiskCopy.class);
+        FUNCTIONS.put("ImageDiskCopyDM", ImageDiskCopyDM.class);
+        FUNCTIONS.put("ImageDiskCreate", ImageDiskCreate.class);
+        FUNCTIONS.put("ImageDiskCreateDM", ImageDiskCreateDM.class);
+        FUNCTIONS.put("ImageDiskDelete", ImageDiskDelete.class);
+        FUNCTIONS.put("ImageDiskDeleteDM", ImageDiskDeleteDM.class);
+        FUNCTIONS.put("ImageDiskShare", ImageDiskShare.class);
+        FUNCTIONS.put("ImageDiskShareDM", ImageDiskShareDM.class);
+        FUNCTIONS.put("ImageDiskUnshare", ImageDiskUnshare.class);
+        FUNCTIONS.put("ImageDiskUnshareDM", ImageDiskUnshareDM.class);
+        FUNCTIONS.put("ImageIPLDeleteDM", ImageIPLDeleteDM.class);
+        FUNCTIONS.put("ImageIPLQueryDM", ImageIPLQueryDM.class);
+        FUNCTIONS.put("ImageIPLSetDM", ImageIPLSetDM.class);
+        FUNCTIONS.put("ImageLockDM", ImageLockDM.class);
+        FUNCTIONS.put("ImageMDISKLinkQuery", ImageMDISKLinkQuery.class);
+        FUNCTIONS.put("ImageNameQueryDM", ImageNameQueryDM.class);
+        FUNCTIONS.put("ImagePasswordSetDM", ImagePasswordSetDM.class);
+        FUNCTIONS.put("ImageQueryActivateTime", ImageQueryActivateTime.class);
+        FUNCTIONS.put("ImageQueryDM", ImageQueryDM.class);
+        FUNCTIONS.put("ImageRecycle", ImageRecycle.class);
+        FUNCTIONS.put("ImageReplaceDM", ImageReplaceDM.class);
+        FUNCTIONS.put("ImageSCSICharacteristicsDefineDM", ImageSCSICharacteristicsDefineDM.class);
+        FUNCTIONS.put("ImageSCSICharacteristicsQueryDM", ImageSCSICharacteristicsQueryDM.class);
+        FUNCTIONS.put("ImageStatusQuery", ImageStatusQuery.class);
+        FUNCTIONS.put("ImageUnlockDM", ImageUnlockDM.class);
+        FUNCTIONS.put("ImageVolumeAdd", ImageVolumeAdd.class);
+        FUNCTIONS.put("ImageVolumeDelete", ImageVolumeDelete.class);
+        FUNCTIONS.put("ImageVolumeSpaceDefineDM", ImageVolumeSpaceDefineDM.class);
+        FUNCTIONS.put("ImageVolumeSpaceQueryDM", ImageVolumeSpaceQueryDM.class);
+        FUNCTIONS.put("ImageVolumeSpaceRemoveDM", ImageVolumeSpaceRemoveDM.class);
+        FUNCTIONS.put("NameListAdd", NameListAdd.class);
+        FUNCTIONS.put("NameListDestroy", NameListDestroy.class);
+        FUNCTIONS.put("NameListQuery", NameListQuery.class);
+        FUNCTIONS.put("NameListRemove", NameListRemove.class);
+        FUNCTIONS.put("ProfileCreateDM", ProfileCreateDM.class);
+        FUNCTIONS.put("ProfileDeleteDM", ProfileDeleteDM.class);
+        FUNCTIONS.put("ProfileLockDM", ProfileLockDM.class);
+        FUNCTIONS.put("ProfileQueryDM", ProfileQueryDM.class);
+        FUNCTIONS.put("ProfileReplaceDM", ProfileReplaceDM.class);
+        FUNCTIONS.put("ProfileUnlockDM", ProfileUnlockDM.class);
+        FUNCTIONS.put("PrototypeCreateDM", PrototypeCreateDM.class);
+        FUNCTIONS.put("PrototypeDeleteDM", PrototypeDeleteDM.class);
+        FUNCTIONS.put("PrototypeNameQueryDM", PrototypeNameQueryDM.class);
+        FUNCTIONS.put("PrototypeQueryDM", PrototypeQueryDM.class);
+        FUNCTIONS.put("PrototypeReplaceDM", PrototypeReplaceDM.class);
+        FUNCTIONS.put("QueryAllDM", QueryAllDM.class);
+        FUNCTIONS.put("QueryAPIFunctionalLevel", QueryAPIFunctionalLevel.class);
+        FUNCTIONS.put("QueryAsynchronousOperationDM", QueryAsynchronousOperationDM.class);
+        FUNCTIONS.put("QueryDirectoryManagerLevelDM", QueryDirectoryManagerLevelDM.class);
+        FUNCTIONS.put("SharedMemoryAccessAddDM", SharedMemoryAccessAddDM.class);
+        FUNCTIONS.put("SharedMemoryAccessQueryDM", SharedMemoryAccessQueryDM.class);
+        FUNCTIONS.put("SharedMemoryAccessRemoveDM", SharedMemoryAccessRemoveDM.class);
+        FUNCTIONS.put("SharedMemoryCreate", SharedMemoryCreate.class);
+        FUNCTIONS.put("SharedMemoryDelete", SharedMemoryDelete.class);
+        FUNCTIONS.put("SharedMemoryQuery", SharedMemoryQuery.class);
+        FUNCTIONS.put("SharedMemoryReplace", SharedMemoryReplace.class);
+        FUNCTIONS.put("SMAPIStatusCapture", SMAPIStatusCapture.class);
+        FUNCTIONS.put("StaticImageChangesActivateDM", StaticImageChangesActivateDM.class);
+        FUNCTIONS.put("StaticImageChangesDeactivateDM", StaticImageChangesDeactivateDM.class);
+        FUNCTIONS.put("StaticImageChangesImmediateDM", StaticImageChangesImmediateDM.class);
+        FUNCTIONS.put("VirtualChannelConnectionCreate", VirtualChannelConnectionCreate.class);
+        FUNCTIONS.put("VirtualChannelConnectionCreateDM", VirtualChannelConnectionCreateDM.class);
+        FUNCTIONS.put("VirtualChannelConnectionDelete", VirtualChannelConnectionDelete.class);
+        FUNCTIONS.put("VirtualChannelConnectionDeleteDM", VirtualChannelConnectionDeleteDM.class);
+        FUNCTIONS.put("VirtualNetworkAdapterConnectLAN", VirtualNetworkAdapterConnectLAN.class);
+        FUNCTIONS.put("VirtualNetworkAdapterConnectLANDM", VirtualNetworkAdapterConnectLANDM.class);
+        FUNCTIONS.put("VirtualNetworkAdapterConnectVswitch", VirtualNetworkAdapterConnectVswitch.class);
+        FUNCTIONS.put("VirtualNetworkAdapterConnectVswitchDM", VirtualNetworkAdapterConnectVswitchDM.class);
+        FUNCTIONS.put("VirtualNetworkAdapterCreate", VirtualNetworkAdapterCreate.class);
+        FUNCTIONS.put("VirtualNetworkAdapterCreateDM", VirtualNetworkAdapterCreateDM.class);
+        FUNCTIONS.put("VirtualNetworkAdapterDelete", VirtualNetworkAdapterDelete.class);
+        FUNCTIONS.put("VirtualNetworkAdapterDeleteDM", VirtualNetworkAdapterDeleteDM.class);
+        FUNCTIONS.put("VirtualNetworkAdapterDisconnect", VirtualNetworkAdapterDisconnect.class);
+        FUNCTIONS.put("VirtualNetworkAdapterDisconnectDM", VirtualNetworkAdapterDisconnectDM.class);
+        FUNCTIONS.put("VirtualNetworkAdapterQuery", VirtualNetworkAdapterQuery.class);
+        FUNCTIONS.put("VirtualNetworkLANAccess", VirtualNetworkLANAccess.class);
+        FUNCTIONS.put("VirtualNetworkLANAccessQuery", VirtualNetworkLANAccessQuery.class);
+        FUNCTIONS.put("VirtualNetworkLANCreate", VirtualNetworkLANCreate.class);
+        FUNCTIONS.put("VirtualNetworkLANDelete", VirtualNetworkLANDelete.class);
+        FUNCTIONS.put("VirtualNetworkLANQuery", VirtualNetworkLANQuery.class);
+        FUNCTIONS.put("VirtualNetworkVswitchCreate", VirtualNetworkVswitchCreate.class);
+        FUNCTIONS.put("VirtualNetworkVswitchDelete", VirtualNetworkVswitchDelete.class);
+        FUNCTIONS.put("VirtualNetworkVswitchQuery", VirtualNetworkVswitchQuery.class);
+        FUNCTIONS.put("VirtualNetworkVswitchSet", VirtualNetworkVswitchSet.class);
+        FUNCTIONS.put("VMRMConfigurationQuery", VMRMConfigurationQuery.class);
+        FUNCTIONS.put("VMRMConfigurationUpdate", VMRMConfigurationUpdate.class);
+        FUNCTIONS.put("VMRMMeasurementQuery", VMRMMeasurementQuery.class);
     }
-    
+
     /**
-     * Get by JSON string name the FunctionProxy class object suitable for newInstance() by Engine
-     * 
-     * @param key the name of the function in PigIron as received by the Engine in a JSON string.
+     * Get by JSON string name the FunctionProxy class object suitable for
+     * newInstance() by Engine
+     *
+     * @param key the name of the function in PigIron as received by the Engine
+     * in a JSON string.
      * @return class object or null
      */
     public static Class<? extends FunctionProxy> get(String key) {
-	return functions.get(key);
+        return FUNCTIONS.get(key);
     }
 }
