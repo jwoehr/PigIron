@@ -1,6 +1,6 @@
 dnl \\ Query_All_DM has two different sorts of structures it returns
-dnl \\ based on the FORMAT=YES/NO optional parameter (default=NO).
-dnl \\ This structure is in the head of both FORMATs.
+dnl \\ based on the FORMAT=YES/NO optional parameter (default=YES).
+dnl \\ This structure is in the FORMAT=YES version
 include(`pigstruct.m4')dnl \\ directory_entry_structure.m4
 param_namespace(`directory_entry', `Query_All_DM')dnl
 pigparm_start()dnl
@@ -24,6 +24,7 @@ pigparm_ctors()dnl
 pigparm_model_start()dnl
 pigparm_model_parm(`VSMInt4', `0', `directory_entry_type')dnl
 pigparm_model_parm(`CountedString', `""', `directory_entry_id')dnl
+pigparm_model_parm(`CountedString', `""', `directory_entry_data')dnl
 pigparm_model_end()dnl
 pigparm_endclass()dnl
 pigparm_end()dnl

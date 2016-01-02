@@ -58,7 +58,7 @@ public class CountedStringZ implements VSMParm {
      * @see com.softwoehr.pigiron.access.VSMParm
      * @see com.softwoehr.pigiron.access.CountedStruct
      */
-    public static final String FORMAL_TYPE = "string";
+    public static final String FORMAL_TYPE = "counted_z_string";
     private String value;
     private String formalName;
     private Integer lengthCount;
@@ -79,10 +79,8 @@ public class CountedStringZ implements VSMParm {
     public CountedStringZ(String value) {
         this();
         this.value = value;
-        if (value != null && !value.endsWith("\0")) {
-            value = value.concat("\0");
-        }
-        this.lengthCount = value == null ? 0 : value.length();
+        this.lengthCount = this.value == null ? 0 : value.length() + 1;
+        // plus one for the null written
     }
 
     /**
@@ -155,7 +153,8 @@ public class CountedStringZ implements VSMParm {
         setLengthCount(in.readInt());
         byte[] bytes = new byte[getLengthCount()];
         in.readFully(bytes);
-        setValue(new String(bytes));
+        setValue(new String(bytes, 0, bytes.length - 1));
+        // discard the null
     }
 
     /**
@@ -173,6 +172,7 @@ public class CountedStringZ implements VSMParm {
         out.writeInt(getLengthCount());
         if (value != null) {
             out.write(value.getBytes());
+            out.write(0); // send the null terminator that we don't store
         }
     }
 
