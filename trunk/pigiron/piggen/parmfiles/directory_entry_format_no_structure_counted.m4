@@ -1,8 +1,8 @@
 dnl \\ Query_All_DM has two different sorts of structures it returns
-dnl \\ based on the FORMAT=YES/NO optional parameter (default=NO).
-dnl \\ This structure is the tail of the FORMAT=NO style
-include(`pigstruct.m4')dnl \\  directory_entry_data_structure_counted.m4
-param_namespace(`directory_entry_data',`Query_All_DM')dnl
+dnl \\ based on the FORMAT=YES/NO optional parameter (default=YES).
+dnl \\ This structure is for FORMAT=NO
+include(`pigstruct.m4')dnl \\  directory_entry_format_no_structure_counted.m4
+param_namespace(`directory_entry_format_no',`Query_All_DM')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
 pigparm_class(counted_structure_classname, `CountedStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl
@@ -12,6 +12,7 @@ pigparm_class(counted_structure_classname, `CountedStruct',`com.softwoehr.pigiro
  * as a PigIron CountedStruct pseudotype. Query_All_DM has two different sorts of structures it returns
  * based on the FORMAT=YES/NO optional parameter (default=YES).
  * This structure is for FORMAT=NO.
+ * The corresponding array for FORMAT=YES is DirectoryEntryStructureCounted 
  * @see com.softwoehr.pigiron.functions.associated_function_javaname
  * @see com.softwoehr.pigiron.access.paramstructs.structure_classname
  */')dnl
