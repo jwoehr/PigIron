@@ -1,18 +1,19 @@
 dnl \\ Query_All_DM has two different sorts of structures it returns
 dnl \\ based on the FORMAT=YES/NO optional parameter (default=YES).
-dnl \\ This structure is in the FORMAT=YES version
-include(`pigstruct.m4')dnl \\ directory_entry_structure.m4
-param_namespace(`directory_entry', `Query_All_DM')dnl
+dnl \\ This structure is in the FORMAT=NO version
+include(`pigstruct.m4')dnl \\ directory_entry_format_no_structure.m4
+param_namespace(`directory_entry_format_no', `Query_All_DM')dnl
 pigparm_start()dnl
 pigparm_import(`com.softwoehr.pigiron.access.*')dnl
 pigparm_class(structure_classname, `VSMStruct',`com.softwoehr.pigiron.access.paramstructs',`dnl
 
 /**
  * structure_classname implements the {@code structure_formal_name} from {@code associated_function}
- * Query_All_DM has two different sorts of structures it returns
- * This structure is in the FORMAT=YES version
- * The corresponding structure for FORMAT=NO is DirectoryEntryFormatNoStructure
  * @see com.softwoehr.pigiron.functions.associated_function_javaname
+ * Query_All_DM has two different sorts of structures it returns
+ * based on the FORMAT=YES/NO optional parameter (default=YES).
+ * This structure is for FORMAT=NO.
+ * The corresponding array for FORMAT=YES is DirectoryEntryStructure
  */')dnl
 pigparm_constant(`public', `int', `DIRECTORY_ENTRY_TYPE_USER', `0', `USER')dnl
 pigparm_constant(`public', `int', `DIRECTORY_ENTRY_TYPE_PROFILE', `1', `PROFILE')dnl
@@ -27,7 +28,7 @@ pigparm_ctors()dnl
 pigparm_model_start()dnl
 pigparm_model_parm(`VSMInt4', `0', `directory_entry_type')dnl
 pigparm_model_parm(`CountedString', `""', `directory_entry_id')dnl
-pigparm_model_parm(`CountedString', `""', `directory_entry_data')dnl
+pigparm_model_parm(`DirectoryEntryDataArray', `null', `directory_entry_data_array')dnl
 pigparm_model_end()dnl
 pigparm_endclass()dnl
 pigparm_end()dnl

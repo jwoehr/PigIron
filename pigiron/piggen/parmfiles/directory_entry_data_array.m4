@@ -9,6 +9,9 @@ pigparm_class(array_classname, `CountedArray',`com.softwoehr.pigiron.access.para
 
 /**
  * array_classname implements the {@code array_formal_name} from {@code associated_function}
+ * Query_All_DM has two different sorts of structures it returns
+ * based on the FORMAT=YES/NO optional parameter (default=NO).
+ * This structure is the tail of the FORMAT=NO style
  * @see com.softwoehr.pigiron.functions.associated_function_javaname
  * @see com.softwoehr.pigiron.access.paramstructs.counted_structure_classname
  */')dnl
