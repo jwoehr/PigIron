@@ -167,6 +167,10 @@ define(`pigfunc_compose_input_end',`')
 \\ pigfunc_compose_output_start()
 define(`pigfunc_compose_output_start',`')
 
+\\ pigfunc_compose_output_snippet(`code snippet')
+\\ Insert a code snippet in the composeOutputArray member
+define(`pigfunc_compose_output_snippet',`')
+
 \\ Recognize that a type ends in the string `Array' and treat
 \\ it as an Array type in output composition, use VSMArray.modelArray() .
 \\ Returns -1 if not a match.

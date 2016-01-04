@@ -147,6 +147,9 @@ pop_divert()dnl
 \\ pigfunc_compose_output_start()
 define(`pigfunc_compose_output_start',`')
 
+\\ pigfunc_compose_output_snippet(`code snippet')
+define(`pigfunc_compose_output_snippet',`')
+
 \\ pigfunc_compose_output_parm(type, value, formal_name)
 define(`pigfunc_compose_output_parm',`')
 
