@@ -20,7 +20,8 @@ define(`accessor_stream',      `100')dnl        \\ Stream on which we define acc
 define(`ctor_stream',          `110')dnl        \\ Stream on which we define ctor
 define(`function_stream',      `120')dnl        \\ Stream on which we define functions
 define(`compose_in_stream',    `130')dnl        \\ Stream on which we define composeInput
-define(`compose_out_stream',   `135')dnl        \\ Stream on which we define composeInput
+define(`compose_out_stream',   `135')dnl        \\ Stream on which we define composeOutput
+dnl define(`exception_class_stream', `137')dnl      \\ Stream on which we define exception subclasses
 define(`get_function_name_stream', `139')dnl    \\ Stream on which we define getFunctionName()
 define(`class_footer_stream',  `140')dnl        \\ Stream on which we define class footer
 define(`file_footer_stream',   `150')dnl        \\ Stream on which we define file footer
@@ -339,6 +340,14 @@ push_divert(`compose_out_stream')dnl
 pop_divert()dnl
 ')
 
+\\ pigfunc_compose_output_snippet(`code snippet')
+\\ Insert a code snippet in the composeOutputArray member
+define(`pigfunc_compose_output_snippet',`dnl
+push_divert(`compose_out_stream')dnl
+$1
+pop_divert()dnl
+')
+
 \\ Recognize that a type ends in the string `Array' and treat
 \\ it as an Array type in output composition, use VSMArray.modelArray() .
 \\ Returns -1 if not a match.
@@ -370,6 +379,19 @@ push_divert(`compose_out_stream')dnl
 pop_divert()dnl
 ')
 
+dnl \\ pigfunc_exception_class(`ExClassName')
+dnl define(`pigfunc_exception_class',`dnl
+dnl push_divert(exception_class_stream)dnl
+dnl pushdef(`ex_class_name',$1)dnl
+dnl     public static class ex_class_name extends java.lang.Exception {
+dnl     public ex_class_name`()' { super`()'; }  
+dnl     public ex_class_name`('String message`)' { super`('message`)'; }
+dnl     public ex_class_name`('String message, Throwable t`)' { super`('message, t`)'; }
+dnl     }
+dnl 
+dnl pop_divert()dnl
+dnl ')
+
 \\ End definitions
 define(`pigfunc_end',`dnl
 push_divert(normal_stream)dnl
@@ -384,6 +406,7 @@ undivert(accessor_stream)dnl
 undivert(compose_in_stream)dnl
 undivert(compose_out_stream)dnl
 undivert(get_function_name_stream)dnl
+dnl undivert(exception_class_stream)dnl
 undivert(function_stream)dnl
 undivert(class_footer_stream)dnl
 undivert(file_footer_stream)dnl

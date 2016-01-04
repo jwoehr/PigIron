@@ -17,7 +17,7 @@ pigparm_class(array_classname, `CountedArray',`com.softwoehr.pigiron.access.para
  */')dnl
 pigparm_ctors()dnl
 pigparm_model_start()dnl
-pigparm_model_parm(`counted_structure_classname', `null', `counted_structure_formal_name')dnl
+pigparm_model_parm(`structure_classname', `new CountedString`('""`)'', `structure_formal_name')dnl
 pigparm_model_end()dnl
 pigparm_endclass()dnl
 pigparm_end()dnl
