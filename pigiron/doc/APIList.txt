@@ -32,8 +32,8 @@ Image_CPU_Define
 Image_CPU_Define_DM
 Image_CPU_Delete
 Image_CPU_Delete_DM
-Image_CPU_Query *
-Image_CPU_Query_DM *
+Image_CPU_Query **
+Image_CPU_Query_DM **
 Image_CPU_Set_Maximum_DM
 Image_Create_DM
 Image_Deactivate **
