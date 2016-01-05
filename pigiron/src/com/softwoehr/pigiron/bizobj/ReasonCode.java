@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+ * Copyright (c) 2008, 2015 Jack J. Woehr jwoehr@softwoehr.com
  * PO Box 51, Golden, Colorado 80402-0051 USA
  * All rights reserved.
  *
@@ -31,14 +31,14 @@
  */
 package com.softwoehr.pigiron.bizobj;
 
+import com.softwoehr.pigiron.bizobj.VsmapiRC.ReasonCodeOverloadArray;
 import com.softwoehr.pigiron.functions.VSMCall;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Vector;
 
 /**
- * Object interpreting a VSMAPI Reason Code associated with a particular
- * Return Code.
+ * Object interpreting a VSMAPI Reason Code associated with a particular Return
+ * Code.
  *
  * @author jax
  */
@@ -47,37 +47,38 @@ public class ReasonCode {
     private final String message;
     private final String name;
     private final int value;
- 
-    private final Hashtable <Class, ReasonCodeOverload> reasonCodeOverloads = new Hashtable<Class, ReasonCodeOverload>();
+
+    private final HashMap<Class, ReasonCodeOverload> reasonCodeOverloads = new HashMap<Class, ReasonCodeOverload>();
 
     /**
      * Instance providing message name and value
+     *
      * @param message interpretive message
      * @param name VSMAPI name of the reason code
      * @param value numeric value of the reason code
-     */ 
+     */
     public ReasonCode(String message, String name, int value) {
         this.message = message;
         this.name = name;
         this.value = value;
     }
- 
+
     /**
-     * Instance providing message, name, and value, and a Vector of
-     * overloads. The base message, name and value pair is whichever
-     * of the overloads one wants. Then at runtime first the overload
-     * list is searched to see if it matches a function before defaulting
-     * to the base.
+     * Instance providing message, name, and value, and a Vector of overloads.
+     * The base message, name and value pair is whichever of the overloads one
+     * wants. Then at runtime first the overload list is searched to see if it
+     * matches a function before defaulting to the base.
+     *
      * @param message interpretive message
      * @param name VSMAPI name of the reason code
      * @param value numeric value of the reason code
      * @param reasonCodeOverloads a Vector of message/name/value/function
-     *        unities to use as overloads on per-function basis  
-     */ 
-    public ReasonCode(String message, String name, int value, Vector <ReasonCodeOverload> reasonCodeOverloads) {
-        this(message,name,value);
-        Iterator <ReasonCodeOverload> it = reasonCodeOverloads.iterator();
-        ReasonCodeOverload rco = null;
+     * unities to use as overloads on per-function basis
+     */
+    public ReasonCode(String message, String name, int value, ReasonCodeOverloadArray reasonCodeOverloads) {
+        this(message, name, value);
+        Iterator<ReasonCodeOverload> it = reasonCodeOverloads.iterator();
+        ReasonCodeOverload rco;
         while (it.hasNext()) {
             rco = it.next();
             this.reasonCodeOverloads.put(rco.function, rco);
@@ -86,15 +87,17 @@ public class ReasonCode {
 
     /**
      * Return interpretive message of the reason code
+     *
+     * @param function
      * @return interpretive message
-     */ 
+     */
     public String getMessage(VSMCall function) {
         String result = this.message;
-	if (function != null) {
-	    if (reasonCodeOverloads != null) {
-		if (reasonCodeOverloads.containsKey(function.getClass())) {
-		    result = reasonCodeOverloads.get(function.getClass()).message;
-		}
+        if (function != null) {
+            if (reasonCodeOverloads != null) {
+                if (reasonCodeOverloads.containsKey(function.getClass())) {
+                    result = reasonCodeOverloads.get(function.getClass()).message;
+                }
             }
         }
         return result;
@@ -102,17 +105,18 @@ public class ReasonCode {
 
     /**
      * Return VSMAPI name of the reason code for a given function.
+     *
      * @param function the calling function in order to disambiguate any
      * overloaded return/reason pairs - {@code null} means return the default.
      * @return VSMAPI name of the reason code
-     */ 
+     */
     public String getName(VSMCall function) {
         String result = this.name;
-	if (function != null) {
-	    if (reasonCodeOverloads != null) {
-		if (reasonCodeOverloads.containsKey(function.getClass())) {
-		    result = reasonCodeOverloads.get(function.getClass()).name;
-		}
+        if (function != null) {
+            if (reasonCodeOverloads != null) {
+                if (reasonCodeOverloads.containsKey(function.getClass())) {
+                    result = reasonCodeOverloads.get(function.getClass()).name;
+                }
             }
         }
         return result;
@@ -120,19 +124,20 @@ public class ReasonCode {
 
     /**
      * Return numeric value of the reason code
+     *
      * @param function the calling function in order to disambiguate any
      * overloaded return/reason pairs - {@code null} means return the default.
      * @return numeric value of the reason code
-     */ 
+     */
     public int getValue(VSMCall function) {
         int result = this.value;
-	if (function != null) {
-	    if (reasonCodeOverloads != null) {
-		if (reasonCodeOverloads.containsKey(function.getClass())) {
-		    result = reasonCodeOverloads.get(function.getClass()).value;
-		}
+        if (function != null) {
+            if (reasonCodeOverloads != null) {
+                if (reasonCodeOverloads.containsKey(function.getClass())) {
+                    result = reasonCodeOverloads.get(function.getClass()).value;
+                }
             }
-        } 
+        }
         return result;
     }
 }
