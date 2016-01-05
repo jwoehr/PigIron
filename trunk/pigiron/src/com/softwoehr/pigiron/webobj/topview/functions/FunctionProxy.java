@@ -132,7 +132,7 @@ public abstract class FunctionProxy {
         String host_specifier = null;
         if (host != null) {
             host_specifier = host.getDnsName();
-            if (host_specifier.equals(null) | host_specifier.equals("")) {
+            if (host_specifier == null || host_specifier.equals("")) {
                 host_specifier = host.getIpAddress();
             }
         }
