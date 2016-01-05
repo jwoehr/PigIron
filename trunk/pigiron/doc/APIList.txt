@@ -106,7 +106,7 @@ Prototype_Name_Query_DM
 Prototype_Query_DM
 Prototype_Replace_DM
 6.3: Query_ABEND_Dump
-6.3: Query_All_DM 20151220 not quite right
+6.3: Query_All_DM 20151220 ***
 Query_API_Functional_Level ***
 Query_Asynchronous_Operation_DM
 Query_Directory_Manager_Level_DM ***
