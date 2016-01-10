@@ -41,14 +41,14 @@
 
 PARSE ARG args
 PARSE SOURCE my.platform my.invocation my.command
-if args~words < 5 then signal usage
+if args~words < 4 then signal usage
 it=.CheckAuthentication~new(args)
 it~construct_instance()
 it~do_it
 exit
 
 usage:
-say "Usage:" my.command "arg0 arg1 .. .. arg4"
+say "Usage:" my.command "arg0 arg1 .. arg3"
 exit 1
 
 

@@ -69,7 +69,7 @@
     * etc., then convert to spaces or whatever is desired.
     */
    ::METHOD translate_argument
-        USE ARG index translate_to to_translate
+        USE ARG index, translate_to, to_translate
         self~argument_array[index]=TRANSLATE(self~argument_array[index], translate_to, to_translate)
 
    /* Allow strings to be passed in with substitute chars
