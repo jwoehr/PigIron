@@ -49,7 +49,7 @@
         "ST", my.pigfunc~argument_array[11], "ST", my.pigfunc~argument_array[12], "I", my.pigfunc~argument_array[13], "I", my.pigfunc~argument_array[14], "I", my.pigfunc~argument_array[15],,
         "I", my.pigfunc~argument_array[16], "I", my.pigfunc~argument_array[17], "ST", my.pigfunc~argument_array[18],"ST", my.pigfunc~argument_array[19], "ST", my.pigfunc~argument_array[20],,
         "ST", my.pigfunc~argument_array[21], "ST", my.pigfunc~argument_array[22],"ST", my.pigfunc~argument_array[23], "ST", my.pigfunc~argument_array[24], "ST", my.pigfunc~argument_array[25],,
-        "ST", my.pigfunc~argument_array[26], "ST", my.pigfunc~argument_array[27], "I", my.pigfunc~argument_array[28], "ST", my.pigfunc~argument_array[29],)
+        "ST", my.pigfunc~argument_array[26], "ST", my.pigfunc~argument_array[27], "I", my.pigfunc~argument_array[28], "ST", my.pigfunc~argument_array[29])
 
     ::METHOD do_it
         EXPOSE my.pigfunc
