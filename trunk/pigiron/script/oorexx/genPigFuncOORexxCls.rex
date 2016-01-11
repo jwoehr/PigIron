@@ -83,7 +83,7 @@ exit 0
 	do j over aTypeArray
 		output = output || self~emit_funcarg(j~getname, anIndex)
 		if anIndex < aTypeArray~size then do
-			if anIndex // 2 == 0 then output = output || ",," || x2c(0a) || "    "
+			if anIndex // 2 == 0 then output = output || ",," || x2c(0a) || "      "
 			else output = output || ", "
 		end
 		anIndex += 1
