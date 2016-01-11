@@ -31,9 +31,9 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-parse arg classname
+parse arg classname prefix
 say .Fragments~header
-say "::CLASS" classname "PUBLIC"
+say "::CLASS" prefix || classname "PUBLIC"
 say ""
 say "   ::METHOD my.pigfunc ATTRIBUTE"
 say ""
@@ -61,7 +61,6 @@ exit 0
 	::METHOD funcDec CLASS
 	use arg classname
 	return "::CLASS" classname "PUBLIC"
-	
 		
 ::CLASS CtorGen PRIVATE
 	::METHOD strictArgList ATTRIBUTE
@@ -74,7 +73,7 @@ exit 0
 
 	::METHOD emit_funcarg CLASS
 	use arg aType, anIndex
-	return '"' || self~typeToStrict(aType) ||'",' "my.pigfunc~argarray[" || anIndex || "]"
+	return '"' || self~typeToStrict(aType) ||'",' "my.pigfunc~argument_array[" || anIndex || "]"
 	
 	::METHOD typeArrayToFuncArgs CLASS
 	use arg aTypeArray
