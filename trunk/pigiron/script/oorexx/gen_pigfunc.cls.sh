@@ -1,4 +1,4 @@
-# emit the dictionary loading part of pigfunc.cls
+# autogenerate pigfunc.cls
 #
 
 function usage {
