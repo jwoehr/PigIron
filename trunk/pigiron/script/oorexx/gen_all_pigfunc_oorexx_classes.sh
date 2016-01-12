@@ -38,29 +38,42 @@ echo " ... generates oorexx classes representing PigIron functions registered in
 echo " ... classes are generated in dest_dir if present, otherwise, current directory"
 echo " ... pigiron_root is the directory above src/com/softwoehr ... etc"
 echo " ... prefix, if supplied, is an optional prefix to the class names."
+echo " ... The pigiron jar and BSFooRexx classes must be in CLASSPATH."
+echo " ... ObjectRexx must be in the executable search path."
 }
+
+if [ "$1" == "-h" ] || [ "$1" == "--help" ]
+then
+	usage
+	exit 0
+fi
 
 pigroot=$1
 dest_dir=$2
 pigprefix=$3
+
 if [ "$pigroot" == "" ]
 then
 	usage
 	exit 1
 fi
+
 if [ "$dest_dir" != "" ]
 then
 	dest_dir="${dest_dir}/"
 fi
+
 curdir=`pwd`
 cd ${pigroot}/src/com/softwoehr/pigiron/functions
+
 for i in *.java
 do
 	classname=`basename $i .java`
-	if [ "$classname" != "package-info" ]
+	if [ "$classname" != "package-info" ] && [ "$classname" != "VSMCall" ]
 	then
 		rexx ${curdir}/genPigFuncOORexxCls.rex $classname $pigprefix > ${dest_dir}${pigprefix}${classname}".cls"
 	fi
 done
+
 exit 0
 # end of file
