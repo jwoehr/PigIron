@@ -1,4 +1,4 @@
-Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+Copyright (c) 2008, 2016 Jack J. Woehr jwoehr@softwoehr.com
 PO Box 51, Golden, Colorado 80402-0051 USA
 All rights reserved.
 
@@ -19,10 +19,11 @@ Planned Development:
         * communication with VSMAPI host (DONE)
 	* support SSL (DONE)
     2. Implement VSMAPI Functions in terms of the access class library. (DONE)
-        * Support z/VM R5.3
-        * Support z/VM R5.4
-        * Support user-defined custom functions
-    3. Create UI and/or GUI and/or Web app widgets based on VSMAPI Functions (IN PROGRESS)
+        * Support z/VM R5.3 (DONE)
+        * Support z/VM R5.4 (DONE)
+	* Support z/VM R6.3 (in progress)
+        * Support user-defined custom functions (DONE but not easy)
+    3. Create UI and/or GUI and/or Web app widgets based on VSMAPI Functions (Partial, stalled)
     4. Create GUI and/or Web management app based on GUI VSMAPI Function widgets (TODO)
 
 == END ==
