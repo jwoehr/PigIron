@@ -1,4 +1,4 @@
-Copyright (c) 2009, Jack J. Woehr jwoehr@softwoehr.com
+Copyright (c) 2009, 2016 Jack J. Woehr jwoehr@softwoehr.com
 PO Box 51, Golden, Colorado 80402-0051 USA
 All rights reserved.
 
@@ -18,6 +18,9 @@ to be found in the same directory as this CHANGES.TXT file.
 
 CHANGES
 -------
+2016-02-22 -- Intermediate developer release as project is restarted and much
+has been improved and fixed.
+
 2009-??-?? 0.9.6 -- Cleanup and Testing
     * Builder now can clear a Default Host or Default User.
 
