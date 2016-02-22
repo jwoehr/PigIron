@@ -1,10 +1,11 @@
-Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+Copyright (c) 2008, 2016 Jack J. Woehr jwoehr@softwoehr.com
 PO Box 51, Golden, Colorado 80402-0051 USA
 All rights reserved.
 
-This is the PigIron project. PigIron is a library of Java class wrappers for the
+This is the PigIron project. http://pigiron.sourceforge.net
+PigIron is a library of Java class wrappers for the
 IBM z/VM Virtual Machine Operating System Systems Management Application
-Programming Interface (sometimes called VSMAPI). http://pigiron.sourceforge.net
+Programming Interface (sometimes called VSMAPI). 
 
 Additionally, in the course of testing PigIron we have effectively created an
 Open ObjectRexx bridge to VSMAPI functionality via PigIron + ObjectRexx + BSF4Rexx.
@@ -32,7 +33,7 @@ archive(s) is:
               + piggen                           ... autogenerates Java for VSMAPI parms and funcs
               + javadoc/                         ... the Javadocs for PigIron
               + nbproject/                       ... build scripts and properties NetBeans style
-              + script/                          ... scripts primarily in Open ObjectRexx to test PigIron
+              + script/                          ... scripts Open ObjectRexx to test PigIron
               + src/                             ... the Java source code
 
 You can start at the root of all documentation by opening doc/index.html in
@@ -43,8 +44,11 @@ NOTE ON SECURITY (LACK THEREOF):
       to the VSMCall.doIt() function to use SSL. Otherwise, PigIron sends your password in
       CLEAR TEXT, in which case we recommend you use ONLY on a secure LAN behind a firewall.
 
-PigIron currently supports z/VM r5.4 SMAPI.
+PigIron currently supports SMAPI up to parts of z/VM V6R3 SMAPI.
+
+PigIron is a work in progress. This PigIron intermediate release is to help developers
+experiment with it. The documentation is NOT up to date.
 
 Fairmount, Colorado
-2008-11-10
+2016-02-21
 
