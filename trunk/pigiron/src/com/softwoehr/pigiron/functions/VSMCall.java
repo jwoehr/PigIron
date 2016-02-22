@@ -61,7 +61,12 @@ import java.nio.ByteBuffer;
 public abstract class VSMCall {
 
     /**
-     *
+     * PigIron Version String
+     */
+    public static final String PIGIRON_RELEASE_VERSION = "0.9.7";
+
+    /**
+     * ctor/0
      */
     public VSMCall() {
     }
@@ -448,5 +453,14 @@ public abstract class VSMCall {
      */
     protected void writeInput(DataOutputStream out) throws IOException {
         inParams.writeAll(out);
+    }
+
+    /**
+     * Version string
+     *
+     * @return PigIron version string
+     */
+    public static final String version() {
+        return PIGIRON_RELEASE_VERSION;
     }
 }
