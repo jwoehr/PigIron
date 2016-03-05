@@ -1,7 +1,9 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
 <html>
 <head>
+  <meta name="generator" content=
+  "tidyp for OpenBSD (v1.04), see www.w3.org">
   <meta name="generator" content=
   "HTML Tidy for OpenBSD (vers 1 September 2005), see www.w3.org">
   <!--
@@ -36,7 +38,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-  <title>PigIron Open Source Java Class Library for VSMAPI</title>
+  <title>PigIron Open Source Java Class Library for SMAPI</title>
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii">
   <meta http-equiv="Last-Modified" content=
@@ -49,9 +51,9 @@ THE POSSIBILITY OF SUCH DAMAGE.
   alt="Image of noble porcine" src=
   "pigiron.sourceforge.net/images/pig_15.gif" style=
   "width: 157px; height: 116px;" align="middle">PigIron Open Source
-  Java Class Library for VSMAPI</h1>
+  Java Class Library for SMAPI</h1>
 
-  <p><tt>Copyright (c) 2008, 2009 Jack J. Woehr <a href=
+  <p><tt>Copyright (c) 2008, 2016 Jack J. Woehr <a href=
   "mailto:jwoehr@softwoehr.com">jwoehr@softwoehr.com</a> PO Box 51,
   Golden, Colorado 80402-0051 USA All rights reserved.</tt></p>This
   is code and user documentation. If you want navigation, here are
@@ -61,12 +63,12 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
   <ul>
     <li><a href="http://pigiron.sourceforge.net/">Home Page of the
-    PigIron Open Source Java Class Library for VSMAPI</a></li>
+    PigIron Open Source Java Class Library for SMAPI</a></li>
 
     <li>
       <a href="http://sourceforge.net/projects/pigiron">Project
       Page of the PigIron Open Source Java Class Library for
-      VSMAPI</a>
+      SMAPI</a>
 
       <ul>
         <li><a href=
@@ -88,21 +90,17 @@ THE POSSIBILITY OF SUCH DAMAGE.
     </li>
 
     <li>
-      <a name="IBM_VSMAPI_Documentation" id=
-      "IBM_VSMAPI_Documentation"></a><a href=
-      "http://www.ibm.com">IBM</a> VSMAPI Documentation
-      <span style="font-style: italic;">(Note: The PigIron
-      Project</span> <i>is not associated</i> <span style=
-      "font-style: italic;">with the IBM Corporation.)</span>
+      <a name="IBM_SMAPI_Documentation" id=
+      "IBM_SMAPI_Documentation"></a><a href=
+      "http://www.ibm.com">IBM</a> SMAPI Documentation <span style=
+      "font-style: italic;">(Note: The PigIron Project</span> <i>is
+      not associated</i> <span style="font-style: italic;">with the
+      IBM Corporation.)</span>
 
       <ul>
         <li><a href=
-        "http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm">
-        z/VM V5R3</a></li>
-
-        <li><a href=
-        "http://publib.boulder.ibm.com/infocenter/zvm/v5r4/topic/com.ibm.zvm.v54.dmse6/hcsl8b30.htm">
-        z/VM V5R4</a></li>
+        "http://publibz.boulder.ibm.com/epubs/pdf/hcsl8c24.pdf">z/VM
+        V6R3</a></li>
       </ul>
     </li>
 
@@ -135,6 +133,16 @@ THE POSSIBILITY OF SUCH DAMAGE.
             <li><a href=
             "http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>
             is the bridge to Java from Open ObjectRexx<br></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="https://github.com/jwoehr/ublu">Ublu Midrange
+          and Mainframe Life Cycle Extension Language</a>
+
+          <ul>
+            <li>Ublu is an interpretive language which uses PigIron
+            to execute z/VM SMAPI operations.<br></li>
           </ul>
         </li>
       </ul>
@@ -247,11 +255,11 @@ THE POSSIBILITY OF SUCH DAMAGE.
       <ul>
         <li>
           <a href="./piggen.html">PigGen Autogenerator</a> writes
-          Java code for VSMAPI Functions and Parameters.
+          Java code for SMAPI Functions and Parameters.
 
           <ul>
             <li>Enables you to extend your local PigIron
-            installation to support custom-coded VSMAPI functions
+            installation to support custom-coded SMAPI functions
             without knowing Java.</li>
           </ul>
         </li>
@@ -281,8 +289,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
             document describing the intent of the project.<br></li>
 
             <li><a href=
-            "VSMAPI_functions.txt">VSMAPI_functions.txt</a> is a
-            list of all the PigIron VSMAPI function classes with
+            "VSMAPI_functions.txt">SMAPI_functions.txt</a> is a
+            list of all the PigIron SMAPI function classes with
             asterisk <span style="font-family: monospace;">*</span>
             next to each one that has been tested.</li>
           </ul>
@@ -298,9 +306,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
   "http://www.vm.ibm.com">z/VM &reg; Virtual Machine Operating
   System</a>'s <a href=
   "http://publib.boulder.ibm.com/infocenter/zvm/v5r3/topic/com.ibm.zvm.v53.dmse6/hcsl8b20.htm">
-  Systems Management Application Programming Interface</a> (which
-  we call for short <span style=
-  "font-weight: bold;">VSMAPI</span>).<br></p>
+  Systems Management Application Programming Interface</a>
+  (<span style="font-weight: bold;">SMAPI</span>).<br></p>
 
   <p>The classes and programming model are intended:</p>
 
@@ -309,12 +316,12 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
     <li>to be easy to use and program</li>
 
-    <li>to support both VSMAPI Functions and end-user custom
+    <li>to support both SMAPI Functions and end-user custom
     functions
 
       <ul>
         <li>with of course support on the host side which allows
-        insertion of custom functions in the VSMAPI server</li>
+        insertion of custom functions in the SMAPI server</li>
       </ul>
     </li>
 
@@ -333,11 +340,11 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
   <p><i>Note: PigIron is not associated with the IBM corporation,
   which owns most or all of the trademarks mentioned in PigIron
-  documentation.<br></i><span style="font-style: italic;">Note: The
-  present document assumes understanding of <a href=
-  "#IBM_VSMAPI_Documentation">VSMAPI</a> and exerts itself</span>
-  not <span style="font-style: italic;">to explain
-  VSMAPI.<br></span></p>
+  documentation.<br></i> <span style="font-style: italic;">Note:
+  The present document assumes understanding of <a href=
+  "#IBM_SMAPI_Documentation">SMAPI</a> and exerts itself</span> not
+  <span style="font-style: italic;">to explain
+  SMAPI.<br></span></p>
 
   <h3><a name="NOTE_ON_SECURITY" id="NOTE_ON_SECURITY">NOTE ON
   SECURITY (AND LACK THEREOF)</a></h3>
@@ -364,7 +371,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   will never call <span style=
   "font-family: monospace;">VSMCall.doIt(boolean ssl)</span> but
   instead the override of that function in the PigIron class
-  mapping to the VSMAPI function you're using, i.e., <span style=
+  mapping to the SMAPI function you're using, i.e., <span style=
   "font-family: monospace;">CheckAuthentication.doIt(boolean
   ssl)</span> .&nbsp;<br></p>
 
@@ -494,59 +501,47 @@ THE POSSIBILITY OF SUCH DAMAGE.
   "Specification">Specification</a></h2>PigIron is an open source
   Java class library which implements the client side of the IBM
   z/VM Virtual Machine Operating System Systems Management
-  Application Programming Interface (sometimes called VSMAPI). It
-  includes Java implementations of<br>
+  Application Programming Interface (SMAPI). It includes Java
+  implementations of<br>
 
   <ul>
-    <li>all 99 VSMAPI 5.3 functions</li>
+    <li>all 99 SMAPI 5.3 functions</li>
 
-    <li>all 15 additional VSMAPI 5.4 functions</li>
+    <li>all 15 additional SMAPI 5.4 functions</li>
+
+    <li>a number of SMAPI 6.3 functions (we're currently adding
+    them as time permits)<br></li>
 
     <li>a simple TCP subscriber to Directory Manager async
-    notifications as described in the VSMAPI documentation for
+    notifications as described in the SMAPI documentation for
     <a href=
     "http://publib.boulder.ibm.com/infocenter/zvm/v5r4/index.jsp?topic=/com.ibm.zvm.v54.dmse6/cslane.htm">
     Asynchronous_Notification_Enable_DM</a>.</li>
   </ul>
 
   <p><a href="#IBM_VSMAPI_Documentation">More information about
-  VSMAPI</a></p>
+  SMAPI</a></p>
 
   <h3><a name="Current_Level_of_Support" id=
   "Current_Level_of_Support">Level of Support</a></h3>
 
   <ul>
     <li>PigIron currently supports the z/VM V5R3 / V5R4 level of
-    VSMAPI which uses TCP sockets as its communication mechanism.
+    SMAPI with some z/VM 6.3 functions.</li>
 
-      <ul>
-        <li>V5R4 is an almost perfect superset of V5R3
+    <li>SMAPI uses TCP sockets as its communication mechanism.
 
-          <ul>
-            <li>Added functions in V5R4</li>
-
-            <li>Added return codes and reason codes in V5R4</li>
-          </ul>
-        </li>
-      </ul>
-
-      <div style="margin-left: 4em;">
-        <ul>
-          <li>One set of return codes and reason codes code present
-          in 5.3 has enhanced technical error messages in V5R4 but
-          it its harmless to the V5R3 user.<br></li>
-        </ul>
-      </div>
+      <div style="margin-left: 4em;"></div>
     </li>
 
     <li>PigIron does <span style=
     "text-decoration: underline;">not</span> support the older z/VM
-    V5R2 and earlier levels of VSMAPI which used RPC instead of TCP
+    V5R2 and earlier levels of SMAPI which used RPC instead of TCP
     sockets as its communication mechanism.</li>
   </ul>
 
   <h4><a name="Java_level" id="Java_level"></a>Java
-  level</h4>PigIron currently supports Java 5 and above. There is
+  level</h4>PigIron currently supports Java 6 and above. There is
   currently no plan to support earlier Java versions.
 
   <h4><a name="Testing_Coverage" id="Testing_Coverage"></a>Testing
@@ -573,7 +568,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
       <ul>
         <li>The test set is currently complete in terms of matching
-        test scripts to VSMAPI functions
+        test scripts to SMAPI functions
 
           <ul>
             <li>The earlier testing coverage is found by:
@@ -585,7 +580,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
                 <li>Checking the simple summary in <big><a style=
                 "font-family: monospace;" href=
-                "VSMAPI_functions.txt">doc/VSMAPI_functions.txt</a></big></li>
+                "VSMAPI_functions.txt">doc/SMAPI_functions.txt</a></big></li>
               </ul>
             </li>
 
@@ -652,11 +647,11 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
         <li>parameter marshalling</li>
 
-        <li>communication with VSMAPI host</li>
+        <li>communication with SMAPI host</li>
       </ul>
     </li>
 
-    <li>Implement VSMAPI Functions in terms of the access class
+    <li>Implement SMAPI Functions in terms of the access class
     library. (DONE)
 
       <ol>
@@ -669,8 +664,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
         EXAMPLES)
 
           <ul>
-            <li>Provide Rexx examples of custom VSMAPI extensions
-            on the VSMAPI host itself (TODO)</li>
+            <li>Provide Rexx examples of custom SMAPI extensions on
+            the SMAPI host itself (TODO)</li>
 
             <li>PigGen autogenerator allows user to extend PigIron
             to support such custom extensions without knowing Java
@@ -719,7 +714,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
   <h2><a name="Theory_of_PigIron" id="Theory_of_PigIron"></a>Theory
   of PigIron</h2>PigIron implements a recursive descent parser to
-  parse VSMAPI output parameter streams which can be composed of
+  parse SMAPI output parameter streams which can be composed of
   variably sized arrays of variably sized parameters (including
   arrays). Each parameter knows how to parse itself, including
   invoking self-parsing on any component parameters where the
@@ -734,7 +729,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
     <li>
       <span style=
       "font-family: monospace;">com.softwoehr.pigiron.access</span>
-      is definitions of the four basic VSMAPI parameter types.
+      is definitions of the four basic SMAPI parameter types.
 
       <ul style="font-family: monospace;">
         <li>int</li>
@@ -757,7 +752,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
           </ul>
         </li>
 
-        <li>Additionally to the four (4) VSMAPI native types, there
+        <li>Additionally to the four (4) SMAPI native types, there
         is the type <span style="font-family: monospace;">counted
         struct</span> added to PigIron for convenience.</li>
 
@@ -766,7 +761,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
         which is autogenerator sytax for a paired instances of
         count-and-string in the generated Java code.</li>
 
-        <li>VSMAPI 5.4 introduces new type wrinkles which are
+        <li>SMAPI 5.4 introduces new type wrinkles which are
         supported in PigIron
 
           <ul>
@@ -812,7 +807,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
       <span style=
       "font-family: monospace;">com.softwoehr.pigiron.access.paramstructs</span>
       are the classes representing specific structure and array
-      types denoted in the documentation for VSMAPI functions.
+      types denoted in the documentation for SMAPI functions.
 
       <ul>
         <li>Types you define for your custom functions will reside
@@ -846,9 +841,9 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </ul>
 
       <ul>
-        <li>VSMAPI return codes are interpreted by the singleton
+        <li>SMAPI return codes are interpreted by the singleton
         <span style=
-        "font-family: monospace;">com.softwoehr.pigiron.bizobj.VsmapiRC</span>
+        "font-family: monospace;">com.softwoehr.pigiron.bizobj.SMAPIRC</span>
         .</li>
       </ul>
     </li>
@@ -856,7 +851,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
     <li>
       <span style=
       "font-family: monospace;">com.softwoehr.pigiron.functions</span>
-      is where VSMAPI native functions supported by PigIron are
+      is where SMAPI native functions supported by PigIron are
       found.
 
       <ul>
@@ -884,7 +879,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
     constants relevant to their parameters.</li>
   </ul>
 
-  <p>PigIron's class library represention of VSMAPI functions in
+  <p>PigIron's class library represention of SMAPI functions in
   <span style=
   "font-family: monospace;">com.softwoehr.pigiron.functions</span>
   manages communications and parameter marshalling and
@@ -977,28 +972,28 @@ THE POSSIBILITY OF SUCH DAMAGE.
   </ul>
 
   <h2><a name="Using_PigIron" id="Using_PigIron"></a>Using
-  PigIron</h2>PigIron maps VSMAPI functions to classes.<br>
+  PigIron</h2>PigIron maps SMAPI functions to classes.<br>
   <br>
-  To call a VSMAPI function:<br>
+  To call a SMAPI function:<br>
 
   <ol>
-    <li>You will need an instance of the appropriate PigIron VSMAPI
+    <li>You will need an instance of the appropriate PigIron SMAPI
     function class found in <span style="font-family: monospace;">
       com.softwoehr.pigiron.functions</span> .
 
       <ul>
         <li>E.g., <span style=
         "font-family: monospace;">com.softwoehr.pigiron.functions.CheckAuthentication</span>
-        which maps to the VSMAPI function <span style=
+        which maps to the SMAPI function <span style=
         "font-family: monospace;">Check_Authentication.</span></li>
       </ul>
     </li>
 
     <li>Use the class's major constructor which takes all the
-    arguments the VSMAPI function needs
+    arguments the SMAPI function needs
 
       <ul>
-        <li>Where the arguments are of the simple VSMAPI types like
+        <li>Where the arguments are of the simple SMAPI types like
         VSMInt4 and VSMString, construct appropriate
         instances.</li>
 
@@ -1010,7 +1005,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
       <div style="margin-left: 2em;">
         <ul>
-          <li>The most complicated cases involve those VSMAPI
+          <li>The most complicated cases involve those SMAPI
           functions which take Arrays of Structs or Arrays of
           simple types.
 
@@ -1032,14 +1027,14 @@ THE POSSIBILITY OF SUCH DAMAGE.
     </li>
 
     <li>Call the <span style="font-family: monospace;">doIt(boolean
-    ssl)</span> method of the PigIron VSMAPI function class.
+    ssl)</span> method of the PigIron SMAPI function class.
 
       <ul>
         <li>
           <span style="font-family: monospace;">doIt(boolean
           ssl)</span> returns the type <span style=
           "font-family: monospace;">com.softwoehr.pigiron.access.ParameterArray</span>
-          which you examine for the results of the VSMAPI function
+          which you examine for the results of the SMAPI function
           call.
 
           <ul>
@@ -1070,7 +1065,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
     "font-family: monospace;">/**</span><br style=
     "font-family: monospace;">
     <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;
-    * You can execute the VSMAPI call from {@code main()}, try
+    * You can execute the SMAPI call from {@code main()}, try
     it</span><br style="font-family: monospace;">
     <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;
     * with no args to see the usage message.</span><br style=
@@ -1208,33 +1203,33 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
   <ol>
     <li>The first layer consists of the hand-coded definitions of
-    simple VSMAPI data types and PigIron collections to manipulate
+    simple SMAPI data types and PigIron collections to manipulate
     same algorithmically.</li>
 
     <li>The second layer consists of the autogenerated classes
-    embodying VSMAPI parameter types and VSMAPI functions.<br></li>
+    embodying SMAPI parameter types and SMAPI functions.<br></li>
 
     <li>The third layer consists of the hand-coded JSON web
     objects.</li>
 
     <li>The fourth layer consists autogenerated JSON web object
-    proxies embodying PigIron mappings of VSMAPI parameter types
-    and VSMAPI functions.</li>
+    proxies embodying PigIron mappings of SMAPI parameter types and
+    SMAPI functions.</li>
 
     <li>The fifth layer consists of the Engine which can interpret
-    the JSON web object proxies and run the VSMAPI calls they
+    the JSON web object proxies and run the SMAPI calls they
     signify.</li>
   </ol>Incidental to this categorization is the
   AsynchronousSubscriber TCP/IP callback monitor.<br>
   <br>
   The first and second layers of PigIron code can be called by Java
-  programs to directly access VSMAPI without regard to the web
+  programs to directly access SMAPI without regard to the web
   objects of layers three and four. The layering of PigIron
   described above is ascending towards <a href=
   "pigiron.sourceforge.net/about_piglet.html">PigLet the PigIron
   Servlet</a> which is in the same source tree with PigIron but is
   in a different project with its own build files, etc.<br>
   <hr style="width: 100%; height: 2px;">
-  <i>Fairmount, Colorado, January, 2009</i>
+  <i>Fairmount, Colorado, March, 2016</i>
 </body>
 </html>
