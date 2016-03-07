@@ -2,7 +2,7 @@ divert(-1)
 changecom(`\\\\')
 \\ smapihelper_pigfunc.m4
 \\   Macros to autogenerate Java code for Ublu SmapiHelper class in to access PigIron functions
-\\   Copyright *C* 2008, 2015 Jack J. Woehr
+\\   Copyright *C* 2008, 2016 Jack J. Woehr
 \\   Part of the PigIron Project http://pigiron.sourceforge.net
 \\   jwoehr@softwoehr.com
 include(`pigsty.m4')
