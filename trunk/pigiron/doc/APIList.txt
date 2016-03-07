@@ -110,7 +110,7 @@ Prototype_Replace_DM
 Query_API_Functional_Level ***
 Query_Asynchronous_Operation_DM
 Query_Directory_Manager_Level_DM ***
-6.3: Response_Recovery
+6.3: Response_Recovery 20160306
 Shared_Memory_Access_Add_DM
 Shared_Memory_Access_Query_DM
 Shared_Memory_Access_Remove_DM
