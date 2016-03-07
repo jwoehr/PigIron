@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2008, Jack J. Woehr jwoehr@softwoehr.com
+ *  Copyright (c) 2008, 2016 Jack J. Woehr jwoehr@softwoehr.com
  *  PO Box 51, Golden, Colorado 80402-0051 USA
  *  All rights reserved.
  *
@@ -273,6 +273,7 @@ public class Builder {
         out.println("   <OPTION VALUE=\"QueryAPIFunctionalLevel\">QueryAPIFunctionalLevel</OPTION>");
         out.println("   <OPTION VALUE=\"QueryAsynchronousOperationDM\">QueryAsynchronousOperationDM</OPTION>");
         out.println("   <OPTION VALUE=\"QueryDirectoryManagerLevelDM\">QueryDirectoryManagerLevelDM</OPTION>");
+        out.println("   <OPTION VALUE=\"ResponseRecovery\">ResponseRecovery</OPTION>");
         out.println("   <OPTION VALUE=\"SharedMemoryAccessAddDM\">SharedMemoryAccessAddDM</OPTION>");
         out.println("   <OPTION VALUE=\"SharedMemoryAccessQueryDM\">SharedMemoryAccessQueryDM</OPTION>");
         out.println("   <OPTION VALUE=\"SharedMemoryAccessRemoveDM\">SharedMemoryAccessRemoveDM</OPTION>");
