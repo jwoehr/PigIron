@@ -7,7 +7,7 @@
   <meta name="generator" content=
   "HTML Tidy for OpenBSD (vers 1 September 2005), see www.w3.org">
   <!--
-Copyright (c) 2008, 2009 Jack J. Woehr jwoehr@softwoehr.com
+Copyright (c) 2008, 2009, 2016 Jack J. Woehr jwoehr@softwoehr.com
 PO Box 51, Golden, Colorado 80402-0051 USA
 All rights reserved.
 
@@ -38,7 +38,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-  <title>PigIron Open Source Java Class Library for SMAPI</title>
+  <title>PigIron Open Source Java Class Library for IBM &reg; z/VM &reg;
+  SMAPI</title>
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii">
   <meta http-equiv="Last-Modified" content=
@@ -51,7 +52,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
   alt="Image of noble porcine" src=
   "pigiron.sourceforge.net/images/pig_15.gif" style=
   "width: 157px; height: 116px;" align="middle">PigIron Open Source
-  Java Class Library for SMAPI</h1>
+  Java Class Library for IBM &reg; z/VM &reg; SMAPI</h1>
 
   <p><tt>Copyright (c) 2008, 2016 Jack J. Woehr <a href=
   "mailto:jwoehr@softwoehr.com">jwoehr@softwoehr.com</a> PO Box 51,
@@ -63,12 +64,13 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
   <ul>
     <li><a href="http://pigiron.sourceforge.net/">Home Page of the
-    PigIron Open Source Java Class Library for SMAPI</a></li>
+    PigIron Open Source Java Class Library for IBM z/VM
+    SMAPI</a></li>
 
     <li>
       <a href="http://sourceforge.net/projects/pigiron">Project
-      Page of the PigIron Open Source Java Class Library for
-      SMAPI</a>
+      Page of the PigIron Open Source Java Class Library for IBM
+      z/VM SMAPI</a>
 
       <ul>
         <li><a href=
@@ -337,10 +339,19 @@ THE POSSIBILITY OF SUCH DAMAGE.
       </ul>
     </li>
 
-    <li>to support scripting via <a href=
-    "http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>
-    on top of <a href="http://sourceforge.net/projects/oorexx">Open
-    ObjectRexx</a> to run the PigIron Java classes.</li>
+    <li>to support scripting via high level languages such as
+
+      <ul>
+        <li><a href="https://github.com/jwoehr/ublu">Ublu</a>
+        Midrange and Mainframe Life Cycle Extension Language</li>
+
+        <li><a href=
+        "http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>
+        on top of <a href=
+        "http://sourceforge.net/projects/oorexx">Open
+        ObjectRexx</a><br></li>
+      </ul>
+    </li>
 
     <li>to support the development of higher-level libraries such
     as packaging PigIron functionality in GUI widgets and Web
@@ -551,8 +562,9 @@ THE POSSIBILITY OF SUCH DAMAGE.
   </ul>
 
   <h4><a name="Java_level" id="Java_level"></a>Java
-  level</h4>PigIron currently supports Java 6 and above. There is
-  currently no plan to support earlier Java versions.
+  level</h4>PigIron currently supports Java 6 and above. It is
+  compiled with Java 7, you will have to recompile for early
+  JVMs.<br>
 
   <h4><a name="Testing_Coverage" id="Testing_Coverage"></a>Testing
   Coverage<br></h4>
@@ -695,9 +707,18 @@ THE POSSIBILITY OF SUCH DAMAGE.
     "http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>
     (DONE)</li>
 
-    <li>Testing via <a href="http://fiji.sourceforge.net/">FIJI
-    ForthIsh Java Interpreter</a> (PARTIAL TESTING
-    COVERAGE)<br></li>
+    <li><a href="https://github.com/jwoehr/ublu">Ublu</a> support
+    (DONE)<br></li>
+
+    <li>Testing via
+
+      <ul>
+        <li><a href="http://fiji.sourceforge.net/">FIJI ForthIsh
+        Java Interpreter</a> (PARTIAL TESTING COVERAGE)</li>
+
+        <li><a href="ub">Ublu</a> (PARTIAL TESTING COVERAGE)</li>
+      </ul>
+    </li>
 
     <li>Create JSO Web objects representing PigIron SMAPI functions
     (DONE)</li>
@@ -795,6 +816,9 @@ THE POSSIBILITY OF SUCH DAMAGE.
             </li>
           </ul>
         </li>
+
+        <li>SMAPI 6.3 introduce3 further wrinkles that require
+        reimplementation of some of the base classes<br></li>
       </ul>
     </li>
 
@@ -1154,12 +1178,15 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
   <h3><a name="Project_Setup" id="Project_Setup"></a>Project
   Setup</h3>PigIron was created as a <a href=
-  "http://netbeans.org">NetBeans</a> project (NetBeans 6.1) but is
-  no longer being maintained as one ... <span style=
-  "font-style: italic;">see my blog entry</span> <a href=
-  "http://dobbscodetalk.com/index.php?option=com_content&amp;task=view&amp;id=831&amp;Itemid=29">
-  What Price Simplicity?</a> <span style="font-style: italic;">for
-  more insight</span>.<br>
+  "http://netbeans.org">NetBeans</a> project (NetBeans 6.1) but for
+  while was not maintained as one ... <span style=
+  "font-style: italic;">see my 2008 blog entry</span> <a href=
+  "http://www.drdobbs.com/jvm/ide-rather-not-trial-separation-from-ne/228700225">
+  IDE Rather Not : Trial Separation from NetBeans</a> <span style=
+  "font-style: italic;">for more insight</span>.&nbsp; Now I'm back
+  with NetBeans 8.1, though actually most of the editing is done in
+  <a href="http://www.jedit.org/">JEdit</a> and CVS is done by hand
+  as the CVS plugin to NetBeans seems to be terminally broken.<br>
   <br>
   The <a href="http://ant.apache.org">Ant</a> files used to build
   the project can be executed from the command line.<br>
