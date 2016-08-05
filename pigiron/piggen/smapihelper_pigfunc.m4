@@ -140,7 +140,7 @@ define(`pigfunc_compose_optional_input_parm',`')
 define(`pigfunc_compose_input_end',`dnl
 push_divert(function_stream)dnl
 `)'
-                         .doIt`('use_ssl`)';
+                        .doIt`('use_ssl`)';
 pop_divert()dnl
 ')
 
