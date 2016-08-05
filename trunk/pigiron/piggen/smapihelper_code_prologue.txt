@@ -23,6 +23,14 @@ public class SmapiHelper {
     private final Command command;
     private final ArgArray argArray;
 
+    /**
+     * Instance a SmapiHelper on a host with the full info for the fuction call.
+     *
+     * @param host target host
+     * @param funcName SMAPI function
+     * @param command the Ublu command that is instancing this helper
+     * @param argArray the Ublu interpreter argument array for call arg parsing
+     */
     public SmapiHelper(Host host, String funcName, Command command, ArgArray argArray) {
         this.host = host;
         this.funcName = funcName;
@@ -30,6 +38,13 @@ public class SmapiHelper {
         this.argArray = argArray;
     }
 
+    /**
+     * Perform the function and return the return parameters
+     *
+     * @return the array of return parameters
+     * @throws VSMException if there is a problem with SMAPI
+     * @throws IOException if there is a communications problem
+     */
     public ParameterArray doIt() throws VSMException, IOException {
         ParameterArray resultParameterArray = null;
         String hostname = host.getHostname();
