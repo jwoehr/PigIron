@@ -186,7 +186,6 @@ public abstract class VSMCall {
      * parameter reading/writing
      */
     public ParameterArray doIt() throws IOException, VSMException {
-        /* This will hold return from VSMAPI call */
         composeInputArray();
         composeOutputArray();
         connect();
