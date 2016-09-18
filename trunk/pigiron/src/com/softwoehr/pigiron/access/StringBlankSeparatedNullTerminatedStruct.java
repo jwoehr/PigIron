@@ -83,6 +83,9 @@ public class StringBlankSeparatedNullTerminatedStruct extends ArrayList<VSMStrin
      */
     public StringBlankSeparatedNullTerminatedStruct(StringBlankSeparatedNullTerminatedStruct value) {
         setValue(value);
+        if (value != null) {
+            this.formalName = value.getFormalName();
+        }
     }
 
     /**

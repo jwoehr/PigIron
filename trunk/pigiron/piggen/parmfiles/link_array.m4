@@ -10,7 +10,7 @@ pigparm_class(array_classname, `VSMArray',`com.softwoehr.pigiron.access.paramstr
  */')dnl
 pigparm_ctors()dnl
 pigparm_model_start()dnl
-pigparm_model_parm(structure_classname, `', `LinkStructure')dnl
+pigparm_model_parm(structure_classname, `', `structure_formal_name')dnl
 pigparm_model_end()dnl
 pigparm_endclass()dnl
 pigparm_end()dnl
