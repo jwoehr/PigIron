@@ -156,17 +156,17 @@
     <target depends="init" description="Autogenerate ObjectRexx function bindings / class files / test drivers for PigIron-provided functions" name="oorexx-funcgen">
         <property value="${basedir}/${build.dir}/oorexx/functest" name="build.oorexx.functest.dir"/>
         <mkdir dir="${build.oorexx.functest.dir}"/>
-        <exec executable="/bin/sh" dir="${script.dir}/oorexx">
+        <exec executable="/bin/ksh" dir="${script.dir}/oorexx">
             <arg value="gen_pigfunc.cls.sh"/>
             <arg value="${basedir}"/>
             <arg value="${build.oorexx.functest.dir}"/>
         </exec>
-        <exec executable="/bin/sh" dir="${script.dir}/oorexx">
+        <exec executable="/bin/ksh" dir="${script.dir}/oorexx">
             <arg value="gen_all_pigfunc_oorexx_classes.sh"/>
             <arg value="${basedir}"/>
             <arg value="${build.oorexx.functest.dir}"/>
         </exec>
-        <exec executable="/bin/sh" dir="${script.dir}/oorexx">
+        <exec executable="/bin/ksh" dir="${script.dir}/oorexx">
             <arg value="gen_all_pigfunc_oorexx_scripts.sh"/>
             <arg value="${basedir}"/>
             <arg value="${build.oorexx.functest.dir}"/>
