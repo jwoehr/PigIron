@@ -155,7 +155,7 @@ public class CountedStruct extends VSMStruct {
                 int structLength = VSMInt4.class.cast(purportedCountParm).getValue();
                 if (structLength > length) {
                     throw new CountedStructStructReadException("CountedStruct named " + getFormalName() + " of type " + getFormalType()
-                            + " had a purported length greater than the remaining read length.");
+                            + " had a purported length " + structLength + " greater than the remaining read length " + length + ".");
                 }
                 VSMStruct myStruct = VSMStruct.class.cast(get(1)); // If it ain't  the right class it will throw here on its own!
                 // /* Debug */ System.err.println("class-cast item is " + myStruct.prettyPrint());
