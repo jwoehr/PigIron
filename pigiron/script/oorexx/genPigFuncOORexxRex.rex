@@ -57,7 +57,7 @@ say 'usage:'
 say 'say "Usage:" my.command' pfrg~ctorArgString
 say 'exit 1'
 say
-say "::REQUIRES '" || target_classname || "'.cls"
+say "::REQUIRES '" || target_classname || ".cls'"
 say '/* end of file */'
 exit 0
 
