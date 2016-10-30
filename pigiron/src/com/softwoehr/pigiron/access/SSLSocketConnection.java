@@ -36,12 +36,8 @@ import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
 import java.net.UnknownHostException;
 import javax.net.ssl.SSLSocketFactory;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.net.ssl.SSLContext;
 
 /**
  * Represents the IP SSL Socket connection to the SMAPI Host.
@@ -67,6 +63,7 @@ public class SSLSocketConnection extends SocketConnection {
      * @throws UnknownHostException if the hostname can't be found
      * @throws IOException if there is an I/O error in connecting
      */
+    @Override
     public void connect() throws UnknownHostException, IOException {
         setSocket(SSLSocketFactory.getDefault().createSocket(hostname, port));
         setOutputStream(new DataOutputStream(new BufferedOutputStream(socket.getOutputStream())));

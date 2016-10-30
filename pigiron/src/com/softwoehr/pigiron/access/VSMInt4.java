@@ -105,6 +105,7 @@ public class VSMInt4 implements VSMParm, VSMInt {
      *
      * @return the length in bytes of the parameter value.
      */
+    @Override
     public int paramLength() {
         return ParameterArray.SIZEOF_INT4;
     }
@@ -116,6 +117,7 @@ public class VSMInt4 implements VSMParm, VSMInt {
      * @param length the byte length to read
      * @throws java.io.IOException on comm error
      */
+    @Override
     public void read(DataInputStream in, int length) throws IOException {
         // /* Debug */ System.err.println("VSMInt4 read: in.available() == " + in.available());
         // if (in.available() >= paramLength()) {
@@ -130,6 +132,7 @@ public class VSMInt4 implements VSMParm, VSMInt {
      * @param out the output stream
      * @throws java.io.IOException on comm error
      */
+    @Override
     public void write(DataOutputStream out)
             throws java.io.IOException {
         out.writeInt(value);
@@ -142,6 +145,7 @@ public class VSMInt4 implements VSMParm, VSMInt {
      * @return the formal name of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
+    @Override
     public String getFormalName() {
         return formalName;
     }
@@ -162,6 +166,7 @@ public class VSMInt4 implements VSMParm, VSMInt {
      *
      * @return copy or null
      */
+    @Override
     public VSMParm copyOf() {
         return new VSMInt4(getValue(), getFormalName());
     }
@@ -171,6 +176,7 @@ public class VSMInt4 implements VSMParm, VSMInt {
      *
      * @return the value as a <tt>long</tt>
      */
+    @Override
     public long getLongValue() {
         return new Long(getValue());
     }
@@ -194,6 +200,7 @@ public class VSMInt4 implements VSMParm, VSMInt {
      * @return the formal type of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
+    @Override
     public String getFormalType() {
         return FORMAL_TYPE;
     }
@@ -204,6 +211,7 @@ public class VSMInt4 implements VSMParm, VSMInt {
      * @return Prettyprint of the instance for debugging or simple output
      * display
      */
+    @Override
     public String prettyPrint() {
         StringBuilder sb = new StringBuilder();
         sb.append(getFormalName()).append("(").append(getFormalType()).append(") ").append(getValue());
