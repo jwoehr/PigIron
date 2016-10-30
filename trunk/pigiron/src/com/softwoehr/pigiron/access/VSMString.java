@@ -120,6 +120,7 @@ public class VSMString implements VSMParm {
      *
      * @return the length in bytes of the parameter value.
      */
+    @Override
     public int paramLength() {
         int result = 0;
         if (value != null) {
@@ -135,6 +136,7 @@ public class VSMString implements VSMParm {
      * @param length the max length of the read
      * @throws java.io.IOException on comm error
      */
+    @Override
     public void read(DataInputStream in, int length) throws IOException {
         // if (in.available() >= length) {
         // /* Debug */ System.err.println("About to read a string of length " + length);
@@ -155,6 +157,7 @@ public class VSMString implements VSMParm {
      * @throws java.io.IOException on comm error
      * @see com.softwoehr.pigiron.access.ParameterArray
      */
+    @Override
     public void write(DataOutputStream out)
             throws java.io.IOException {
         out.write(value.getBytes());
@@ -167,6 +170,7 @@ public class VSMString implements VSMParm {
      * @return the formal name of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
+    @Override
     public String getFormalName() {
         return formalName;
     }
@@ -187,6 +191,7 @@ public class VSMString implements VSMParm {
      *
      * @return copy or null
      */
+    @Override
     public VSMParm copyOf() {
         return new VSMString(getValue(), getFormalName());
     }
@@ -215,6 +220,7 @@ public class VSMString implements VSMParm {
      *
      * @return the fornal type in a string with the case set as in the docs
      */
+    @Override
     public String getFormalType() {
         return FORMAL_TYPE;
     }
@@ -225,6 +231,7 @@ public class VSMString implements VSMParm {
      * @return Prettyprint of the instance for debugging or simple output
      * display
      */
+    @Override
     public String prettyPrint() {
         StringBuilder sb = new StringBuilder();
         sb.append(getFormalName()).append("(").append(getFormalType()).append(") ").append(getValue());

@@ -144,6 +144,7 @@ public class StringBlankSeparatedNullTerminatedStruct extends ArrayList<VSMStrin
      * @return the formal name of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
+    @Override
     public String getFormalName() {
         return formalName;
     }
@@ -154,6 +155,7 @@ public class StringBlankSeparatedNullTerminatedStruct extends ArrayList<VSMStrin
      *
      * @return the length in bytes of the parameter value.
      */
+    @Override
     public int paramLength() {
         int total = 0;
         Iterator<VSMString> i = iterator();
@@ -175,6 +177,7 @@ public class StringBlankSeparatedNullTerminatedStruct extends ArrayList<VSMStrin
      * @throws java.io.IOException on comm error
      * @see com.softwoehr.pigiron.access.ParameterArray
      */
+    @Override
     public void write(DataOutputStream out) throws IOException {
         Iterator<VSMString> i = iterator();
         while (i.hasNext()) {
@@ -233,6 +236,7 @@ public class StringBlankSeparatedNullTerminatedStruct extends ArrayList<VSMStrin
      * @param length
      * @throws java.io.IOException
      */
+    @Override
     public void read(DataInputStream in, int length) throws IOException {
         StringBlankSeparatedNullTerminatedStruct myNewContents = new StringBlankSeparatedNullTerminatedStruct(null);
         ByteArrayInputStream bis = new ByteArrayInputStream(readInUntilNullOrLength(in, length));
@@ -258,6 +262,7 @@ public class StringBlankSeparatedNullTerminatedStruct extends ArrayList<VSMStrin
      *
      * @return copy or null
      */
+    @Override
     public VSMParm copyOf() {
         StringBlankSeparatedNullTerminatedStruct proto = new StringBlankSeparatedNullTerminatedStruct(this);
         return proto;
@@ -291,6 +296,7 @@ public class StringBlankSeparatedNullTerminatedStruct extends ArrayList<VSMStrin
      *
      * @return the fornal type in a string with the case set as in the docs
      */
+    @Override
     public String getFormalType() {
         return FORMAL_TYPE;
     }
@@ -301,6 +307,7 @@ public class StringBlankSeparatedNullTerminatedStruct extends ArrayList<VSMStrin
      * @return Prettyprint of the instance for debugging or simple output
      * display
      */
+    @Override
     public String prettyPrint() {
         StringBuilder sb = new StringBuilder();
         sb.append(getFormalName()).append("(").append(getFormalType()).append("):\n");

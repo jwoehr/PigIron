@@ -98,6 +98,7 @@ public class VSMInt8 implements VSMParm, VSMInt {
      *
      * @return the length in bytes of the parameter value.
      */
+    @Override
     public int paramLength() {
         return ParameterArray.SIZEOF_INT8;
     }
@@ -109,6 +110,7 @@ public class VSMInt8 implements VSMParm, VSMInt {
      * @param length the max length of the read
      * @throws java.io.IOException on comm error
      */
+    @Override
     public void read(DataInputStream in, int length) throws IOException {
         // if (in.available() >= paramLength()) {
         setValue(in.readLong());
@@ -121,6 +123,7 @@ public class VSMInt8 implements VSMParm, VSMInt {
      * @param out output stream
      * @throws java.io.IOException on comm error
      */
+    @Override
     public void write(DataOutputStream out)
             throws java.io.IOException {
         out.writeLong(value);
@@ -131,6 +134,7 @@ public class VSMInt8 implements VSMParm, VSMInt {
      *
      * @return the value as a <tt>long</tt>
      */
+    @Override
     public long getLongValue() {
         return getValue();
     }
@@ -142,6 +146,7 @@ public class VSMInt8 implements VSMParm, VSMInt {
      * @return the formal name of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
+    @Override
     public String getFormalName() {
         return formalName;
     }
@@ -162,6 +167,7 @@ public class VSMInt8 implements VSMParm, VSMInt {
      *
      * @return copy or null
      */
+    @Override
     public VSMParm copyOf() {
         return new VSMInt8(value, formalName);
     }
@@ -185,6 +191,7 @@ public class VSMInt8 implements VSMParm, VSMInt {
      * @return the formal type of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
+    @Override
     public String getFormalType() {
         return FORMAL_TYPE;
     }
@@ -195,6 +202,7 @@ public class VSMInt8 implements VSMParm, VSMInt {
      * @return Prettyprint of the instance for debugging or simple output
      * display
      */
+    @Override
     public String prettyPrint() {
         StringBuilder sb = new StringBuilder();
         sb.append(getFormalName()).append("(").append(getFormalType()).append(") ").append(getValue());

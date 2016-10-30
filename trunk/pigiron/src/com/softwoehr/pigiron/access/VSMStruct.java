@@ -141,6 +141,7 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
      * @return the formal name of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
+    @Override
     public String getFormalName() {
         return formalName;
     }
@@ -151,6 +152,7 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
      *
      * @return the length in bytes of the parameter value.
      */
+    @Override
     public int paramLength() {
         int total = 0;
         Iterator<VSMParm> i = iterator();
@@ -173,6 +175,7 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
      * @throws java.io.IOException on comm error
      * @see com.softwoehr.pigiron.access.ParameterArray
      */
+    @Override
     public void write(DataOutputStream out) throws IOException {
         Iterator<VSMParm> i = iterator();
         while (i.hasNext()) {
@@ -191,6 +194,7 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
      * @throws java.io.IOException
      * @throws VSMStructStringReadException
      */
+    @Override
     public void read(DataInputStream in, int length) throws IOException, VSMStructStringReadException, VSMException {
         VSMStruct myNewContents = new VSMStruct(null);
         Iterator<VSMParm> i = iterator(); // Walk through our output model
@@ -243,6 +247,7 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
      *
      * @return copy or null
      */
+    @Override
     public VSMParm copyOf() {
         VSMStruct proto = new VSMStruct();
         proto.setFormalName(getFormalName());
@@ -281,6 +286,7 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
      *
      * @return the fornal type in a string with the case set as in the docs
      */
+    @Override
     public String getFormalType() {
         return FORMAL_TYPE;
     }
@@ -291,6 +297,7 @@ public class VSMStruct extends ArrayList<VSMParm> implements VSMParm {
      * @return Prettyprint of the instance for debugging or simple output
      * display
      */
+    @Override
     public String prettyPrint() {
         StringBuilder sb = new StringBuilder();
         sb.append(getFormalName()).append("(").append(getFormalType()).append("):\n");

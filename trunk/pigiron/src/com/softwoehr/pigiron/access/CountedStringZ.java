@@ -147,6 +147,7 @@ public class CountedStringZ implements VSMParm {
      * @param length the max length of the read
      * @throws java.io.IOException on comm error
      */
+    @Override
     public void read(DataInputStream in, int length) throws IOException, VSMException {
         if (length < ParameterArray.SIZEOF_INT4) {
             throw new VSMException("Remaining length shorter than size of CountedString count word");
@@ -235,6 +236,7 @@ public class CountedStringZ implements VSMParm {
      *
      * @return the fornal type in a string with the case set as in the docs
      */
+    @Override
     public String getFormalType() {
         return FORMAL_TYPE;
     }

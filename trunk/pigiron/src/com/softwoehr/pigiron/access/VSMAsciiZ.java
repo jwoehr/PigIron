@@ -183,6 +183,7 @@ public class VSMAsciiZ implements VSMParm {
      * @throws java.io.IOException on comm error
      * @see com.softwoehr.pigiron.access.ParameterArray
      */
+    @Override
     public void write(DataOutputStream out)
             throws java.io.IOException {
         out.write(value.getBytes());
@@ -195,6 +196,7 @@ public class VSMAsciiZ implements VSMParm {
      * @return the formal name of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
+    @Override
     public String getFormalName() {
         return formalName;
     }
@@ -215,6 +217,7 @@ public class VSMAsciiZ implements VSMParm {
      *
      * @return copy or null
      */
+    @Override
     public VSMParm copyOf() {
         return new VSMAsciiZ(getValue(), getFormalName());
     }
@@ -245,6 +248,7 @@ public class VSMAsciiZ implements VSMParm {
      *
      * @return the fornal type in a string with the case set as in the docs
      */
+    @Override
     public String getFormalType() {
         return FORMAL_TYPE;
     }
@@ -255,6 +259,7 @@ public class VSMAsciiZ implements VSMParm {
      * @return Prettyprint of the instance for debugging or simple output
      * display
      */
+    @Override
     public String prettyPrint() {
         StringBuilder sb = new StringBuilder();
         sb.append(getFormalName()).append("(").append(getFormalType()).append(") ").append(stripTerminated(getValue()));

@@ -43,6 +43,7 @@ import java.util.logging.Logger;
 
 /**
  * Represents the IP Socket connection to the SMAPI Host.
+ *
  * @see com.softwoehr.pigiron.functions.VSMCall
  * @author jax
  */
@@ -55,8 +56,9 @@ public class SocketConnection implements Connection {
     protected int port;
 
     /**
-     * Create a <tt>Connection</tt> ready to <tt>connect</tt> to
-     * a hostname and port.
+     * Create a <tt>Connection</tt> ready to <tt>connect</tt> to a hostname and
+     * port.
+     *
      * @param hostname the DNS name or dotted IP address of the Host
      * @param port the port to which SMAPI is listening on the Host
      */
@@ -67,22 +69,28 @@ public class SocketConnection implements Connection {
 
     /**
      * Get the input stream to the socket.
+     *
      * @return the input stream to the socket
      */
+    @Override
     public DataInputStream getInputStream() {
         return inputStream;
     }
 
     /**
      * Get the output stream from the socket.
+     *
      * @return the output stream from the socket
      */
+    @Override
     public DataOutputStream getOutputStream() {
         return outputStream;
     }
 
     /**
-     * Instance the input stream. This is done automatically in <tt>connect()</tt>.
+     * Instance the input stream. This is done automatically in
+     * <tt>connect()</tt>.
+     *
      * @param inputStream the input stream to assign to this Connection
      * @see #connect
      */
@@ -91,7 +99,9 @@ public class SocketConnection implements Connection {
     }
 
     /**
-     * Instance the output stream. This is done automatically in <tt>connect()</tt>.
+     * Instance the output stream. This is done automatically in
+     * <tt>connect()</tt>.
+     *
      * @param outputStream the output stream to assign to this Connection
      * @see #connect
      */
@@ -100,51 +110,64 @@ public class SocketConnection implements Connection {
     }
 
     /**
-     * Get the name or dotted IP address of the Host to which this Connection pertains.
+     * Get the name or dotted IP address of the Host to which this Connection
+     * pertains.
+     *
      * @return the name of the Host to which this Connection pertains
      */
+    @Override
     public String getHostname() {
         return hostname;
     }
 
     /**
-     * Set the name or dotted IP address of the Host to which this Connection pertains.
-     * This should only be done before calling <tt>connect()</tt>.
-     * @param hostname the name or dotted IP address of the Host to which this Connection pertains
+     * Set the name or dotted IP address of the Host to which this Connection
+     * pertains. This should only be done before calling <tt>connect()</tt>.
+     *
+     * @param hostname the name or dotted IP address of the Host to which this
+     * Connection pertains
      * @see #connect
      */
+    @Override
     public void setHostname(String hostname) {
         this.hostname = hostname;
     }
 
     /**
      * Get the number of the Host port to which this Connection pertains.
+     *
      * @return the number of the Host port to which this Connection pertains
      */
+    @Override
     public int getPort() {
         return port;
     }
 
     /**
-     * Set the number of the Host port to which this Connection pertains.
-     * This should only be done before calling <tt>connect()</tt>.
+     * Set the number of the Host port to which this Connection pertains. This
+     * should only be done before calling <tt>connect()</tt>.
+     *
      * @param port the number of the Host port to which this Connection pertains
      * @see #connect
      */
+    @Override
     public void setPort(int port) {
         this.port = port;
     }
 
     /**
      * Get the socket to which this Connection pertains.
+     *
      * @return the socket to which this Connection pertains
      */
+    @Override
     public Socket getSocket() {
         return socket;
     }
 
     /**
      * Set the socket to which this Connection pertains.
+     *
      * @param socket the socket to which this Connection pertains
      */
     protected void setSocket(Socket socket) {
@@ -152,11 +175,13 @@ public class SocketConnection implements Connection {
     }
 
     /**
-     * Establish the connection to the Host VSMAPI without using SSL.
-     * Instance the input and output streams.
+     * Establish the connection to the Host VSMAPI without using SSL. Instance
+     * the input and output streams.
+     *
      * @throws UnknownHostException if the hostname can't be found
      * @throws IOException if there is an I/O error in connecting
      */
+    @Override
     public void connect() throws UnknownHostException, IOException {
         setSocket(new Socket(hostname, port));
         setOutputStream(new DataOutputStream(new BufferedOutputStream(socket.getOutputStream())));
@@ -166,6 +191,7 @@ public class SocketConnection implements Connection {
     /**
      * Disestablish the connection to the Host VSMAPI.
      */
+    @Override
     public void disconnect() {
         try {
             getOutputStream().close();
@@ -186,8 +212,10 @@ public class SocketConnection implements Connection {
 
     /**
      * True if currently connected.
+     *
      * @return true if currently connected, false otherwise.
      */
+    @Override
     public boolean isConnected() {
         return getSocket().isConnected();
     }

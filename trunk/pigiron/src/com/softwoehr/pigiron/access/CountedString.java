@@ -132,6 +132,7 @@ public class CountedString implements VSMParm {
      *
      * @return the length in bytes of the parameter value.
      */
+    @Override
     public int paramLength() {
         int result = 0;
         if (value != null) {
@@ -148,6 +149,7 @@ public class CountedString implements VSMParm {
      * @param length the max length of the read
      * @throws java.io.IOException on comm error
      */
+    @Override
     public void read(DataInputStream in, int length) throws IOException, VSMException {
         if (length < ParameterArray.SIZEOF_INT4) {
             throw new VSMException("Remaining length shorter than size of CountedString count word");
@@ -167,6 +169,7 @@ public class CountedString implements VSMParm {
      * @throws java.io.IOException on comm error
      * @see com.softwoehr.pigiron.access.ParameterArray
      */
+    @Override
     public void write(DataOutputStream out)
             throws java.io.IOException {
         out.writeInt(getLengthCount());
@@ -180,6 +183,7 @@ public class CountedString implements VSMParm {
      * @return the formal name of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
+    @Override
     public String getFormalName() {
         return formalName;
     }
@@ -200,6 +204,7 @@ public class CountedString implements VSMParm {
      *
      * @return copy or null
      */
+    @Override
     public VSMParm copyOf() {
         return new CountedString(getValue(), getFormalName());
     }
@@ -228,6 +233,7 @@ public class CountedString implements VSMParm {
      *
      * @return the fornal type in a string with the case set as in the docs
      */
+    @Override
     public String getFormalType() {
         return FORMAL_TYPE;
     }
@@ -238,6 +244,7 @@ public class CountedString implements VSMParm {
      * @return Prettyprint of the instance for debugging or simple output
      * display
      */
+    @Override
     public String prettyPrint() {
         StringBuilder sb = new StringBuilder();
         sb.append(getFormalName()).append("(").append(getFormalType()).append(") count:").append(getLengthCount()).append(" value: ").append(getValue());
