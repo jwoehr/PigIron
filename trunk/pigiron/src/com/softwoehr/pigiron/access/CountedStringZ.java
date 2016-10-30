@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, 2015 Jack J. Woehr jwoehr@softwoehr.com
+ * Copyright (c) 2008, 2016 Jack J. Woehr jwoehr@softwoehr.com
  * PO Box 51, Golden, Colorado 80402-0051 USA
  * All rights reserved.
  *
@@ -135,6 +135,7 @@ public class CountedStringZ implements VSMParm {
      *
      * @return the length in bytes of the parameter value.
      */
+    @Override
     public int paramLength() {
         return ParameterArray.SIZEOF_INT4 + lengthCount;
     }
@@ -165,6 +166,7 @@ public class CountedStringZ implements VSMParm {
      * @throws java.io.IOException on comm error
      * @see com.softwoehr.pigiron.access.ParameterArray
      */
+    @Override
     public void write(DataOutputStream out)
             throws java.io.IOException {
         // /* debug */ System.err.println("length of CountedStringZ is " + getLengthCount());
@@ -183,6 +185,7 @@ public class CountedStringZ implements VSMParm {
      * @return the formal name of the parameter
      * @see com.softwoehr.pigiron.access.VSMParm
      */
+    @Override
     public String getFormalName() {
         return formalName;
     }
@@ -203,6 +206,7 @@ public class CountedStringZ implements VSMParm {
      *
      * @return copy or null
      */
+    @Override
     public VSMParm copyOf() {
         return new CountedStringZ(getValue(), getFormalName());
     }
@@ -241,6 +245,7 @@ public class CountedStringZ implements VSMParm {
      * @return Prettyprint of the instance for debugging or simple output
      * display
      */
+    @Override
     public String prettyPrint() {
         StringBuilder sb = new StringBuilder();
         sb.append(getFormalName()).append("(").append(getFormalType()).append(") count:").append(getLengthCount()).append(" value: ").append(getValue());
