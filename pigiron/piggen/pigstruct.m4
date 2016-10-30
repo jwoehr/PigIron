@@ -17,9 +17,10 @@ define(`class_header_stream', `95')dnl        \\ Stream on which we define class
 define(`constant_stream',     `97')dnl        \\ Stream on which we define static finals
 define(`attribute_stream',    `98')dnl        \\ Stream on which we define attributes
 define(`accessor_stream',    `100')dnl        \\ Stream on which we define accessors
-define(`ctor_stream',        `110')dnl	      \\ Stream on which we define the ctors
+define(`ctor_stream',        `110')dnl	      \\ Stream on which we define the minor ctors
+define(`major_ctor_javadoc_stream', 112)dnl   \\ Stream on which we compose the major ctor javadoc
 define(`major_ctor_proto_stream', `114')dnl   \\ Stream on which we define the top of the major ctor
-define(`major_ctor_body_stream',  `116')dnl   \\ Stream on which we define the top of the major ctor
+define(`major_ctor_body_stream',  `116')dnl   \\ Stream on which we define the bottom of the major ctor
 define(`function_stream',    `120')dnl        \\ Stream on which we define functions
 define(`model_stream',       `130')dnl	      \\ Stream on which we define modelFormalParameters
 define(`class_footer_stream',`140')dnl        \\ Stream on which we define class footer
@@ -109,15 +110,23 @@ popdef(`x_qualified_name')dnl
 pop_divert()dnl
 ')
 
+define(`pigparm_close_major_ctor_javadoc',`dnl
+push_divert(major_ctor_javadoc_stream)dnl
+     * @param formalName the formal name of the data type for display/debug
+     */
+pop_divert()dnl
+')
+
 \\ pigparm_start_major_ctor()
 define(`pigparm_start_major_ctor',`dnl
-push_divert(major_ctor_proto_stream)dnl
+push_divert(major_ctor_javadoc_stream)dnl
     /**
      * Create an instance with all attributes instantiated
      * and instance its formal name at the same time.
      * This makes it easy to set up a VSMAPI input instance
      * of this structure.
-     */
+pop_divert()dnl     
+push_divert(major_ctor_proto_stream)dnl     
     public myClass()`('dnl
 pop_divert()dnl
 ')
@@ -196,6 +205,9 @@ push_divert(model_stream)dnl
 pushdef(`x_type', $1)dnl
 pushdef(`x_value', $2)dnl
 pushdef(`x_formal_name', $3)dnl
+push_divert(major_ctor_javadoc_stream)dnl
+     * @param x_formal_name() the x_type() argument to the ctor
+pop_divert()dnl
 push_divert(major_ctor_proto_stream)dnl
 x_type x_formal_name`, 'dnl
 pop_divert()dnl
@@ -214,8 +226,9 @@ pop_divert()dnl
 
 \\ pigparm_model_end()
 \\ Ends the model array for reading while also
-\\ endting the major ctor
+\\ ending the major ctor
 define(`pigparm_model_end',`dnl
+pigparm_close_major_ctor_javadoc()dnl
 push_divert(major_ctor_proto_stream)dnl
 String `formalName'`)' {
         super`();'
@@ -299,6 +312,7 @@ undivert(constant_stream)dnl
 undivert(attribute_stream)dnl
 undivert(accessor_stream)dnl
 undivert(ctor_stream)dnl
+undivert(major_ctor_javadoc_stream)dnl
 undivert(major_ctor_proto_stream)dnl
 undivert(major_ctor_body_stream)dnl
 undivert(function_stream)dnl
