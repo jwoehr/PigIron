@@ -76,7 +76,7 @@ allfunctest.defaults.fiji load
 
 : testing_CheckAuthentication \ -- \
   " CheckAuthentication" announce
-   my.host my.port my.userid my.password my.target CheckAuthentication doandprint
+   my.host my.port my.userid my.password CheckAuthentication doandprint
 ;
 
 : testing_QueryAPIFunctionalLevel \ -- \
