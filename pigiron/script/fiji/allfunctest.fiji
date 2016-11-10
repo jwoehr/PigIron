@@ -19,8 +19,6 @@ value my.port
 value my.userid
 value my.password
 value my.target
-\ load these now, my.target is referenced in later load \
-' /home/jax/.config/pigiron/fiji/pigiron_private.fiji load
 
 \ Declare values that will be used as parameters in making VSMAPI functions \
 \ ------------------------------------------------------------------------- \
@@ -64,6 +62,8 @@ value virtualnetworkvswitchquery.switchname
 
 \ Now load the defaults file containing assignments to these values \
 allfunctest.defaults.fiji load
+\ load these now to override defaults \
+' /home/jax/.config/pigiron/fiji/pigiron_private.fiji load
 
 \ utils \
 : announce \ functorName -- \ " Testing" . . cr ;
@@ -244,8 +244,7 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     dup " USER CCCC FARQUHAR 32M 512M G" add_prototype_record
     dup " ACCOUNT W00F" add_prototype_record
     dup " IPL CMS MACHINE ESA CONSOLE 001F 3215" add_prototype_record
-    new_PrototypeRecordArray dup rot add ( rot java.lang.Object () , ) drop
-    dup paramLength ( ) longValue ( ) swap
+    new_PrototypeRecordArray dup rot add ( rot java.lang.Object () , ) drop    
     PrototypeCreateDM doandprint ;
 
 : testing_PrototypeNameQueryDM
@@ -389,7 +388,6 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_CheckAuthentication
     testing_QueryAPIFunctionalLevel
     testing_ImageActivate
-    testing_ImageDeactivate
     testing_ImageActiveConfigurationQuery
 \    testing_ImageCPUDefine \ 
     testing_ImageCPUQuery
@@ -405,7 +403,7 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_ImageStatusQuery_1
     testing_ImageStatusQuery_2
     testing_ImageIPLQueryDM
-    testing_ImageNameQueryDM
+    testing_ImageNameQueryDM    
     testing_NameListQuery
     testing_ProfileQueryDM
     testing_QueryDirectoryManagerLevelDM
@@ -427,6 +425,7 @@ my.host my.port my.userid my.password my.target ImageQueryActivateTime.DATE_FORM
     testing_ImageVolumeSpaceQueryDM_7
     testing_ImageVolumeSpaceQueryDM_8
     testing_ImageVolumeSpaceQueryDM_9
+    testing_ImageDeactivate
     testing_PrototypeCreateDM
     testing_PrototypeNameQueryDM
     testing_PrototypeQueryDM_1
